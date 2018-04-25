@@ -20,7 +20,7 @@ var clic1 = false;
 var clic2 = false;
 var clic3 = false;
 var clic4 = false;
-var dado = -1;
+var dado = -1, dadoAnterior;
 var gameTime = 0;
 var gameSpeeds = [
     {name: "Normal", mult: 1},
@@ -313,6 +313,9 @@ function agregarNumerosCasilla() {
 function dadoRandomico() {
     dado = Math.floor(Math.random() * 6 + 1);
     vistaDado = dado;
+    if (dado == dadoAnterior) {
+        dadoRandomico();
+    }
 }
 
 function ocultarBoton(boton) {
@@ -468,7 +471,6 @@ function mostrarDesafio(jugadorAct) {
             }
         }
     }
-    respuestaCorrecta = true;
 }
 
 function drawGame() {
@@ -491,13 +493,16 @@ function drawGame() {
 
     if (!jugadorActual.processMovement(gameTime) && gameSpeeds[currentSpeed].mult != 0) {
         if (clic1 || clic2 || clic3 || clic4) {
-            clic1 = false;
-            clic2 = false;
+
             if (jugadorActual.casilla <= 33) {
-                dadoRandomico();
-                moverDado(dado);
-                mostrarDesafio(jugadorActual);
+                if (!respuestaCorrecta) {
+                    dadoRandomico();
+                    moverDado(dado);
+                    mostrarDesafio(jugadorActual);
+                }
+                dadoAnterior = dado;
                 if (respuestaCorrecta) {
+                    respuestaCorrecta = false;
                     if (jugadorActual.canMoveUp()) {
                         jugadorActual.moveUp(gameTime);
                     }
@@ -512,6 +517,10 @@ function drawGame() {
                     }
                 }
             }
+            clic1 = false;
+            clic2 = false;
+            clic3 = false;
+            clic4 = false;
         }
     }
 
@@ -600,9 +609,14 @@ function memoryFlipTile(tile, val) {
                 memory_tile_ids = [];
                 // Check to see if the whole board is cleared
                 if (tiles_flipped == memory_array.length) {
-                    alert("Board cleared... generating new board");
+                    // alert("Board cleared... generating new board");
+                    mostrarMensaje();
                     document.getElementById('memory_board').innerHTML = "";
                     newBoard();
+                    document.getElementById("memory_board").setAttribute("hidden","");
+                    document.getElementById("tipoJuego").setAttribute("hidden","");
+                    respuestaCorrecta = true;
+                    clic1 = true;
                 }
             } else {
                 function flip2Back() {
@@ -652,4 +666,12 @@ function moverDado(cara) {
             element.checked = "true";
             break;
     }
+}
+
+function mostrarMensaje() {
+    var x = document.getElementById("snackbar");
+    x.className = "show";
+    setTimeout(function () {
+        x.className = x.className.replace("show", "");
+    }, 2000);
 }
