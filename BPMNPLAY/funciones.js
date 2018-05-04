@@ -228,7 +228,14 @@ function toIndex(x, y) {
     return ((y * columnas) + x);
 }
 
+
 window.onload = function () {
+
+
+        obtenerPreguntas();
+
+
+
     seleccionarColor();
     ctx = document.getElementById('game').getContext("2d");
     agregarJugador(3);
@@ -451,6 +458,7 @@ function mostrarDesafio(jugadorAct) {
                         document.getElementById("memory_board").removeAttribute("hidden");
                         document.getElementById("unir").setAttribute("hidden", "");
                         document.getElementById("opcionMultiple").setAttribute("hidden", "");
+
                         break;
                     case 1:
                         document.getElementById("tipoJuego").innerHTML = "Unir";
@@ -460,11 +468,13 @@ function mostrarDesafio(jugadorAct) {
                         document.getElementById("opcionMultiple").setAttribute("hidden", "");
                         break;
                     case 2:
+                        cargarPreguntas();
                         document.getElementById("tipoJuego").innerHTML = "Opción Múltiple";
                         document.getElementById("desafios").removeAttribute("hidden");
                         document.getElementById("opcionMultiple").removeAttribute("hidden");
                         document.getElementById("unir").setAttribute("hidden", "");
                         document.getElementById("memory_board").setAttribute("hidden", "");
+
                         break;
                     default:
                 }
@@ -590,6 +600,7 @@ function newBoard() {
         output += '<div id="tile_' + i + '" onclick="memoryFlipTile(this,\'' + memory_array[i] + '\')"></div>';
     }
     document.getElementById('memory_board').innerHTML = output;
+
 }
 
 function memoryFlipTile(tile, val) {

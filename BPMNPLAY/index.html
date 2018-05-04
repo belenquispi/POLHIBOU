@@ -5,7 +5,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="estilos.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-firestore.js"></script>
+
+
     <script type="text/javascript" src="funciones.js"></script>
+    <script type="text/javascript" src="firebase.js"></script>
 </head>
 <body>
 <div id="tableroPuntuacion" class="container-fluid">
@@ -90,7 +95,7 @@
                 <div id="opcionMultiple" class="row" hidden>
                     <div class="row">
                         <div class="col-md-9">
-                            <h4><p>Señale la alternativa verdadera sobre BAM (Activity Monitoring)Señale la alternativa
+                            <h4 ><p id="enunciado">Señale la alternativa verdadera sobre BAM (Activity Monitoring)Señale la alternativa
                                 verdadera sobre BAM (Activity Monitoring)Señale l (Activity Monitoring)Señale l</p></h4>
                         </div>
                         <div class="col-md-3">
@@ -99,22 +104,22 @@
                     </div>
                     <div class="row" style="margin-top: 20px">
                         <div class="col-md-10">
-                            <button class="btn btn-success btn-block">Respuesta 1</button>
+                            <button id="res1" class="btn btn-success btn-block">Respuesta 1</button>
                         </div>
                     </div>
                     <div class="row" style="margin-top: 20px">
                         <div class="col-md-10">
-                            <button class="btn btn-success btn-block">Respuesta 2</button>
+                            <button id="res2" class="btn btn-success btn-block">Respuesta 2</button>
                         </div>
                     </div>
                     <div class="row" style="margin-top: 20px">
                         <div class="col-md-10">
-                            <button class="btn btn-success btn-block">Respuesta 3</button>
+                            <button id="res3" class="btn btn-success btn-block">Respuesta 3</button>
                         </div>
                     </div>
                     <div class="row" style="margin-top: 20px">
                         <div class="col-md-10">
-                            <button class="btn btn-success btn-block">Respuesta 4</button>
+                            <button id="res4" class="btn btn-success btn-block">Respuesta 4</button>
                         </div>
                     </div>
 
