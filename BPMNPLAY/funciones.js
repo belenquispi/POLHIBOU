@@ -621,13 +621,12 @@ function memoryFlipTile(tile, val) {
                 // Check to see if the whole board is cleared
                 if (tiles_flipped == memory_array.length) {
                     // alert("Board cleared... generating new board");
-                    mostrarMensaje();
+                    desafioCorrecto();
                     document.getElementById('memory_board').innerHTML = "";
                     newBoard();
-                    document.getElementById("memory_board").setAttribute("hidden","");
-                    document.getElementById("tipoJuego").setAttribute("hidden","");
-                    respuestaCorrecta = true;
-                    clic1 = true;
+
+
+
                 }
             } else {
                 function flip2Back() {
@@ -647,6 +646,38 @@ function memoryFlipTile(tile, val) {
             }
         }
     }
+}
+
+function validarRespuesta(boton)
+{
+    if(boton.id == resCorrecta )
+    {
+        desafioCorrecto();
+
+    }
+    else
+    {
+        desafioIncorrecto()
+    }
+}
+
+
+function desafioIncorrecto()
+{
+    mostrarMensaje("snackbarIn");
+    respuestaCorrecta = false;
+    document.getElementById("desafios").setAttribute("hidden","");
+}
+
+
+
+
+function desafioCorrecto()
+{
+    mostrarMensaje("snackbar");
+    respuestaCorrecta = true;
+    clic1 = true;
+    document.getElementById("desafios").setAttribute("hidden","");
 }
 
 function moverDado(cara) {
@@ -679,8 +710,8 @@ function moverDado(cara) {
     }
 }
 
-function mostrarMensaje() {
-    var x = document.getElementById("snackbar");
+function mostrarMensaje(texto) {
+    var x = document.getElementById(texto);
     x.className = "show";
     setTimeout(function () {
         x.className = x.className.replace("show", "");

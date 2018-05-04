@@ -1,6 +1,7 @@
 
 var preguntas = [];
 var preguntaRandomica ;
+var resCorrecta;
 // Initialize Firebase
 var config = {
     apiKey: "AIzaSyARHMJb3ta8XMRb0lFRjUSgSP6RCZiayVo",
@@ -86,6 +87,8 @@ function cargarPreguntas()
         document.getElementById("res2").innerHTML = preguntas[preguntaRandomica].res2;
         document.getElementById("res3").innerHTML = preguntas[preguntaRandomica].res3;
         document.getElementById("res4").innerHTML = preguntas[preguntaRandomica].res4;
+        resCorrecta = preguntas[preguntaRandomica].resCorrecta;
+
         preguntas[preguntaRandomica].usada = "verdadera";
         console.log(preguntas[preguntaRandomica].usada);
     }
