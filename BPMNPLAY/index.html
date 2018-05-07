@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script type="text/javascript" src="funciones.js"></script>
+</head>
+<body>
+<div id="tableroPuntuacion" class="container-fluid">
+    <div class="row">
+        <div class="col-md-5">
+            <canvas id="game" width="640" height="640"></canvas>
+        </div>
+        <div class="col-md-2">
+            <input type="radio" style="visibility: hidden" id="radio-uno" name="select-face"/>
+            <input type="radio" style="visibility: hidden" id="radio-dos" name="select-face"/>
+            <input type="radio" style="visibility: hidden" id="radio-tres" name="select-face"/>
+            <input type="radio" style="visibility: hidden" id="radio-top" name="select-face"/>
+            <input type="radio" style="visibility: hidden" id="radio-bottom" name="select-face"/>
+            <input type="radio" style="visibility: hidden" id="radio-back" name="select-face"/>
+            <div class="separator"></div>
+            <div class="space3d" id="space3d">
+                <div class="_3dbox" id="_3dbox">
+                    <div class="_3dface _3dface--uno"></div>
+                    <div class="_3dface _3dface--top"></div>
+                    <div class="_3dface _3dface--bottom"></div>
+                    <div class="_3dface _3dface--dos"></div>
+                    <div class="_3dface _3dface--tres"></div>
+                    <div class="_3dface _3dface--back"></div>
+                </div>
+            </div>
+            <div class="separator"></div>
+            <div id="snackbar">Puedes moverte</div>
+        </div>
+        <div class="col-md-5">
+            <div class="row">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Jugador</th>
+                        <th>Casilla</th>
+                        <th>Primer lugar</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <button id="boton1">Jugador 1</button>
+                        </td>
+                        <td><label id="jugador1">1</label></td>
+                        <td><img id="corona1" src="corona.png" alt="corona" height="50" width="50"
+                                 style="visibility: hidden"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button id="boton2">Jugador 2</button>
+                        </td>
+                        <td><label id="jugador2">1</label></td>
+                        <td><img id="corona2" src="corona.png" alt="corona" height="50" width="50"
+                                 style="visibility: hidden"></td>
+                    </tr>
+                    <tr id="tablajug3" , style
+                            ="visibility:hidden;">
+                        <td>
+                            <button id="boton3">Jugador 3</button>
+                        </td>
+                        <td><label id="jugador3">1</label></td>
+                        <td><img id="corona3" src="corona.png" alt="corona" height="50" width="50"
+                                 style="visibility: hidden"></td>
+                    </tr>
+                    <tr id="tablajug4" , style="visibility:hidden;">
+                        <td>
+                            <button id="boton4">Jugador 4</button>
+                        </td>
+                        <td><label id="jugador4">1</label></td>
+                        <td><img id="corona4" src="corona.png" alt="corona" height="50" width="50"
+                                 style="visibility: hidden"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="desafios" class="container-fluid" hidden>
+                <div class="row">
+                    <div class="row">
+                        <h1><span id="tipoJuego" class="label label-default">Tipo de Juego</span></h1>
+                    </div>
+                </div>
+                <div id="opcionMultiple" class="row" hidden>
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h4><p>Señale la alternativa verdadera sobre BAM (Activity Monitoring)Señale la alternativa
+                                verdadera sobre BAM (Activity Monitoring)Señale l (Activity Monitoring)Señale l</p></h4>
+                        </div>
+                        <div class="col-md-3">
+                            <img src="corona.png" class="img-rounded" alt="Cinque Terre">
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 20px">
+                        <div class="col-md-10">
+                            <button class="btn btn-success btn-block">Respuesta 1</button>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 20px">
+                        <div class="col-md-10">
+                            <button class="btn btn-success btn-block">Respuesta 2</button>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 20px">
+                        <div class="col-md-10">
+                            <button class="btn btn-success btn-block">Respuesta 3</button>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 20px">
+                        <div class="col-md-10">
+                            <button class="btn btn-success btn-block">Respuesta 4</button>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="unir" class="row" hidden>
+                    <div class="row" style="margin-top: 20px">
+                        <div class="col-md-6" >
+                            <button id = "imagen1" onclick="obtenerId(this);"> <img src="corona.png"  class="img-thumbnail" style="border:2px solid black">
+                            </button>
+                        </div>
+                        <div class="col-md-6">
+                            <button id = "respuesta1" class="btn" onclick="obtenerId(this);">Respuesta 1</button>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:  20px">
+                        <div class="col-md-6">
+                            <button id = "imagen2" onclick="obtenerId(this);"> <img  src="corona.png" class="img-thumbnail" style="border:2px solid black">
+                            </button>
+                        </div>
+                        <div class="col-md-6">
+                            <button id = "respuesta2" class="btn" onclick="obtenerId(this);">Respuesta 1 </button>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 20px">
+                        <div class="col-md-6">
+                            <button id = "imagen3" onclick="obtenerId(this);">  <img src="corona.png"  class="img-thumbnail" style="border:2px solid black">
+                        </div>
+                        <div class="col-md-6">
+                            <button id = "respuesta3" class="btn" onclick="obtenerId(this);">Respuesta 1</button>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 20px">
+                        <div class="col-md-6">
+                            <button id = "imagen4" onclick="obtenerId(this);"> <img src="corona.png"  class="img-thumbnail" style="border:2px solid black">
+                        </div>
+                        <div class="col-md-6">
+                            <button id = "respuesta4" class="btn" onclick="obtenerId(this);">Respuesta 1</button>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="memory_board" hidden></div>
+                <script> newBoard();</script>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

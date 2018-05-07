@@ -1,0 +1,175 @@
+body {
+    color: #333;
+    padding: 20px;
+    text-align: center;
+    font-family: Arial;
+}
+.separator {
+    margin-top: 40px;
+}
+
+/* 3D Cube */
+.space3d {
+    perspective: 700px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    display: inline-block;
+}
+._3dbox {
+    display: inline-block;
+    transition: all 0.85s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-align: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transform: rotateX(-15deg) rotateY(15deg);
+}
+._3dface {
+    overflow: hidden;
+    position: absolute;
+    border: 1px solid #888;
+    background: #fff;
+    box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.1), 0 0 25px rgba(0, 0, 0, 0.3);
+    color: #333;
+    line-height: 50px;
+    opacity: 0.8;
+}
+._3dface--uno {
+    width: 50px;
+    height: 50px;
+    transform: translate3d(0, 0, 25px);
+}
+._3dface--top {
+    width: 50px;
+    height: 50px;
+    transform: rotateX(90deg) translate3d(0, 0, 25px);
+}
+._3dface--bottom {
+    width: 50px;
+    height: 50px;
+    transform: rotateX(-90deg) translate3d(0, 0, 25px);
+}
+._3dface--dos {
+    width: 50px;
+    height: 50px;
+    left: 50%;
+    margin-left: -15px;
+    transform: rotateY(-90deg) translate3d(0, 0, 25px);
+}
+._3dface--tres {
+    width: 50px;
+    height: 50px;
+    left: 50%;
+    margin-left: -15px;
+    transform: rotateY(90deg) translate3d(0, 0, 25px);
+}
+._3dface--back {
+    width: 50px;
+    height: 50px;
+    transform: rotateY(180deg) translate3d(0, 0, 25px);
+}
+#radio-dos:checked ~ .space3d ._3dbox {
+    transform: rotateY(90deg);
+}
+#radio-tres:checked ~ .space3d ._3dbox {
+    transform: rotateY(-90deg);
+}
+#radio-bottom:checked ~ .space3d ._3dbox {
+    transform: rotateX(90deg);
+}
+#radio-top:checked ~ .space3d ._3dbox {
+    transform: rotateX(-90deg);
+}
+#radio-back:checked ~ .space3d ._3dbox {
+    transform: rotateY(180deg);
+}
+._3dface--uno {
+    background: url(dado1.png);
+    background-size: 100%;
+}
+._3dface--dos {
+    background: url(dado2.png);
+    background-size: auto 100%;
+}
+._3dface--tres {
+    background: url(dado3.png);
+    background-size: auto 100%;
+}
+._3dface--top {
+    background: url(dado4.png);
+    background-size: auto 100%;
+}
+._3dface--bottom {
+    background: url(dado5.png);
+    background-size: auto 100%;
+}
+._3dface--back {
+    background: url(dado6.png);
+    background-size: auto 100%;
+}
+
+div#memory_board {
+    background: #CCC;
+    border: #999 1px solid;
+    width: 450px;
+    height: 250px;
+    padding: 24px;
+    margin: 0px auto;
+}
+
+div#memory_board > div {
+    background: url(corona.png) no-repeat;
+    border: #000 1px solid;
+    width: 80px;
+    height: 80px;
+    float: left;
+    margin: 10px;
+    padding: 20px;
+    font-size: 40px;
+    cursor: pointer;
+    text-align: center;
+}
+
+#snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #A9F5F2;
+    color: #000000;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 300px;
+    font-size: 17px;
+}
+
+#snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 1.5s;
+    animation: fadein 0.5s, fadeout 0.5s 1.5s;
+}
+
+/*@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 300px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 300px; opacity: 1;}
+}
+
+/*@-webkit-keyframes fadeout {
+    from {bottom: 300px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}*/
