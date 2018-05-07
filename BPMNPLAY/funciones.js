@@ -1,4 +1,5 @@
 var ctx = null;
+var contexto = null;
 var gameMap = [
     13, 14, 15, 16, 17, 18, 19, 20,
     12, 0, 0, 0, 0, 0, 0, 21,
@@ -42,6 +43,10 @@ var color3 = new Image();
 var patterColor1, patterColor2, patterColor3;
 var mueve = 0;
 var respuestaCorrecta = false;
+var respuestaCorrectaUnir = ['imagen1','respuesta4','imagen2','respuesta3','imagen3','respuesta1','imagen4','respuesta2'];
+var imagenUnir = ['imagen1','imagen2','imagen3','imagen4'];
+var textoUnir = ['respuesta1','respuesta2','respuesta3','respuesta4'];
+var respuestaUnir = [];
 var memory_array = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D'];
 var memory_values = [];
 var memory_tile_ids = [];
@@ -624,9 +629,6 @@ function memoryFlipTile(tile, val) {
                     desafioCorrecto();
                     document.getElementById('memory_board').innerHTML = "";
                     newBoard();
-
-
-
                 }
             } else {
                 function flip2Back() {
@@ -717,3 +719,65 @@ function mostrarMensaje(texto) {
         x.className = x.className.replace("show", "");
     }, 2000);
 }
+
+function obtenerId(e) {
+    var id = e.id;
+    switch (true){
+
+        case respuestaUnir.length < 2:
+            console.log("verde")
+            document.getElementById(id).style.border = "thick solid green";
+            break;
+        case respuestaUnir.length < 4:
+            document.getElementById(id).style.border = "thick solid red";
+            break;
+        case respuestaUnir.length < 6:
+            document.getElementById(id).style.border = "thick solid black";
+            break;
+        case respuestaUnir.length < 8:
+            document.getElementById(id).style.border = "thick solid yellow";
+            break;
+
+    }
+
+    console.log("id: "+ id)
+    respuestaUnir.push(id);
+    console.log("respuestas" + respuestaUnir);
+
+    console.log("rrr" + imagenUnir.indexOf(id));
+
+    if(imagenUnir.indexOf(id) >= 0) {
+        for(var i = 0; i<imagenUnir.length; i++){
+                document.getElementById(imagenUnir[i]).setAttribute("disabled","");
+        }
+
+        for(var j = 0 ; j < textoUnir.length; j++){
+            if(respuestaUnir.indexOf(textoUnir[j])>0)
+            {
+                document.getElementById(textoUnir[j]).setAttribute("disabled","");
+            }else {
+                document.getElementById(textoUnir[j]).removeAttribute("disabled");
+
+            }
+        }
+
+    } else if (textoUnir.indexOf(id) >=0){
+        for(var i = 0; i<textoUnir.length; i++) {
+            document.getElementById(textoUnir[i]).setAttribute("disabled", "");
+        }
+
+        for(var j = 0 ; j < imagenUnir.length; j++){
+            if(respuestaUnir.indexOf(imagenUnir[j])>=0)
+                {
+                    document.getElementById(imagenUnir[j]).setAttribute("disabled","");
+                }else {
+                    document.getElementById(imagenUnir[j]).removeAttribute("disabled");
+                }
+            }
+
+    }
+
+
+    console.log(respuestaUnir);
+}
+
