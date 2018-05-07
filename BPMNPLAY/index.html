@@ -119,8 +119,15 @@
                     </div>
 
                 </div>
-                <div id="unir" class="row" hidden>
+                <div id="unir" class="row" hidden onmouseover="verificarCompletoUnir()">
                     <div class="row" style="margin-top: 20px">
+                        <div class="col-md-6" >
+                            <button id = "reiniciarUnir" class="btn btn-info" onclick="reiniciarUnir();" >Reiniciar </button>
+                        </div>
+                        <div class="col-md-6">
+                            <button id = "enviarUnir" class="btn btn-success" disabled = "disabled" onclick="verificarRespuestaUnir()" >Enviar Respuesta</button>
+                        </div>
+                    </div>
                         <div class="col-md-6" >
                             <button id = "imagen1" onclick="obtenerId(this);"> <img src="corona.png"  class="img-thumbnail" style="border:2px solid black">
                             </button>
@@ -140,7 +147,7 @@
                     </div>
                     <div class="row" style="margin-top: 20px">
                         <div class="col-md-6">
-                            <button id = "imagen3" onclick="obtenerId(this);">  <img src="corona.png"  class="img-thumbnail" style="border:2px solid black">
+                            <button id = "imagen3" onclick="obtenerId(this);">  <img src="corona.png"  class="img-thumbnail" style="border:2px solid black" > </button>
                         </div>
                         <div class="col-md-6">
                             <button id = "respuesta3" class="btn" onclick="obtenerId(this);">Respuesta 1</button>
@@ -148,7 +155,7 @@
                     </div>
                     <div class="row" style="margin-top: 20px">
                         <div class="col-md-6">
-                            <button id = "imagen4" onclick="obtenerId(this);"> <img src="corona.png"  class="img-thumbnail" style="border:2px solid black">
+                            <button id = "imagen4" onclick="obtenerId(this);"> <img src="corona.png"  class="img-thumbnail" style="border:2px solid black"> </button>
                         </div>
                         <div class="col-md-6">
                             <button id = "respuesta4" class="btn" onclick="obtenerId(this);">Respuesta 1</button>
@@ -161,7 +168,5 @@
             </div>
         </div>
     </div>
-</div>
-</div>
 </body>
 </html>
