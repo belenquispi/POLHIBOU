@@ -3,30 +3,19 @@ var preguntas = [];
 var preguntaRandomica ;
 var resCorrecta;
 // Initialize Firebase
-var config = {
-    apiKey: "AIzaSyARHMJb3ta8XMRb0lFRjUSgSP6RCZiayVo",
-    authDomain: "bpmnplaydb.firebaseapp.com",
-    databaseURL: "https://bpmnplaydb.firebaseio.com",
-    projectId: "bpmnplaydb",
-    storageBucket: "bpmnplaydb.appspot.com",
-    messagingSenderId: "559035240947",
-    timestampsInSnapshots: true
-}
-
-
-firebase.initializeApp(config);
 
 var db = firebase.firestore();
 
 var settings = {
     timestampsInSnapshots: true};
+
 db.settings(settings);
 
 
 function obtenerPreguntas()
 {
     console.log("preguntassssss")
-    var docRef = db.collection("preguntas");
+   // var docRef = db.collection("preguntas");
 
 
     db.collection("preguntas").get().then(function(querySnapshot) {
@@ -37,40 +26,41 @@ function obtenerPreguntas()
         });
 
     });
-
-
 }
 
-db.collection("preguntas").doc("2").set({
-    enunciado: "Enunciado 2",
-    res1: "Respuesta A2",
-    res2: "Respuesta B2",
-    res3: "Respuesta C2",
-    res4: "Respuesta D2",
-    resCorrecta : "res1",
-    idMateria : "BPMN"
-})
-    .then(function() {
-        console.log("Document successfully written!");
+function guardarPregunta() {
+    var enunciado = document.getElementById('enunciado').value
+    var res1 = document.getElementById('res1').value
+    var res2 = document.getElementById('res2').value
+    var res3 = document.getElementById('res3').value
+    var res4 = document.getElementById('res4').value
+    var resCorrecta = document.getElementById('resCorrecta').value
+    var idMateria = "BPMN"
+
+    console.log(enunciado + res1 + res2 + res3 + res4 + resCorrecta + idMateria)
+
+    db.collection("preguntas").doc().set({
+        enunciado: enunciado,
+        res1: res1,
+        res2: res2,
+        res3: res3,
+        res4: res4,
+        resCorrecta: resCorrecta,
+        idMateria: idMateria
     })
-    .catch(function(error) {
-        console.error("Error writing document: ", error);
-    });
+        .then(function () {
+            alert("guardado")
+            console.log("Document successfully written!");
+        })
+        .catch(function (error) {
+            alert("No guardado")
+            console.error("Error writing document: ", error);
+        });
+}
 
  function indiceRandomico()
 {
     preguntaRandomica = Math.floor(Math.random()* preguntas.length)
-   /* if(preguntas[preguntaRandomica].usada == "falsa")
-    {
-        console.log("11111 " + preguntaRandomica);
-        return preguntaRandomica;
-    }
-    else
-    {
-        indiceRandomico();
-    }*/
-
-
 }
 
 
