@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+
+    <title>Title</title>
+</head>
+<body>
+
+
+<div class="container">
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-md-2">Enunciado:</label>
+            <div class="col-md-6">
+                <input type="text" class="form-control" id="enunciado" placeholder="Ingrese el enunciado de la pregunta" name="enunciado">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Respuesta 1:</label>
+            <div class="col-md-6">
+                <input type="text" class="form-control" id="res1" placeholder="Ingrese la respuesta 1" name="res1">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Respuesta 2:</label>
+            <div class="col-md-6">
+                <input type="text" class="form-control" id="res2" placeholder="Ingrese la respuesta 2" name="res2">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Respuesta 3:</label>
+            <div class="col-md-6">
+                <input type="text" class="form-control" id="res3" placeholder="Ingrese la respuesta 3" name="res3">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Respuesta 4:</label>
+            <div class="col-md-6">
+                <input type="text" class="form-control" id="res4" placeholder="Ingrese la respuesta 4" name="res4">
+            </div>
+        </div>
+        <div class="form-group">
+            <label  class="control-label col-md-2">Respuesta correcta:</label>
+            <div class="col-md-6">
+                <select id="resCorrecta" name="respuestaCorrecta" class="form-control" >
+                    <option value="res1">Respuesta 1</option>
+                    <option value="res2">Respuesta 2</option>
+                    <option value="res3">Respuesta 3</option>
+                    <option value="res4">Respuesta 4</option>
+                </select>
+            </div>
+        </div>
+
+    </form>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button onclick="guardarPregunta()" class="btn btn-default">Guardar</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-firestore.js"></script>
+<script>
+
+var config = {
+apiKey: "AIzaSyARHMJb3ta8XMRb0lFRjUSgSP6RCZiayVo",
+authDomain: "bpmnplaydb.firebaseapp.com",
+databaseURL: "https://bpmnplaydb.firebaseio.com",
+projectId: "bpmnplaydb",
+storageBucket: "bpmnplaydb.appspot.com",
+messagingSenderId: "559035240947", timestampsInSnapshots: true
+};
+
+firebase.initializeApp(config);
+</script>
+<script type="text/javascript" src="firebase.js"></script>
+
+</body>
+</html>
