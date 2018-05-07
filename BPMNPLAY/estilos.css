@@ -132,7 +132,7 @@ div#memory_board > div {
     text-align: center;
 }
 
-#snackbar {
+#snackbar, #snackbarIn {
     visibility: hidden;
     min-width: 250px;
     margin-left: -125px;
@@ -148,11 +148,19 @@ div#memory_board > div {
     font-size: 17px;
 }
 
-#snackbar.show {
+#snackbarIn {
+    background-color: #f53f95;
+
+}
+
+
+#snackbar.show, #snackbarIn.show {
     visibility: visible;
     -webkit-animation: fadein 0.5s, fadeout 0.5s 1.5s;
     animation: fadein 0.5s, fadeout 0.5s 1.5s;
 }
+
+
 
 /*@-webkit-keyframes fadein {
     from {bottom: 0; opacity: 0;}
