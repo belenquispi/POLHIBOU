@@ -4,6 +4,17 @@ var preguntaRandomica ;
 var resCorrecta;
 // Initialize Firebase
 
+var config = {
+    apiKey: "AIzaSyARHMJb3ta8XMRb0lFRjUSgSP6RCZiayVo",
+    authDomain: "bpmnplaydb.firebaseapp.com",
+    databaseURL: "https://bpmnplaydb.firebaseio.com",
+    projectId: "bpmnplaydb",
+    storageBucket: "bpmnplaydb.appspot.com",
+    messagingSenderId: "559035240947", timestampsInSnapshots: true
+};
+
+firebase.initializeApp(config);
+
 var db = firebase.firestore();
 
 var settings = {
@@ -16,8 +27,6 @@ function obtenerPreguntas()
 {
     console.log("preguntassssss")
    // var docRef = db.collection("preguntas");
-
-
     db.collection("preguntas").get().then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
             // doc.data() is never undefined for query doc snapshots

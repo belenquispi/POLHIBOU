@@ -5,11 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="estilos.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-firestore.js"></script>
 
-    <script type="text/javascript" src="funciones.js"></script>
-    <script type="text/javascript" src="firebase.js"></script>
 </head>
 <body>
 <div id="tableroPuntuacion" class="container-fluid">
@@ -146,6 +142,7 @@
                     <div class="row" style="margin-top: 20px">
                         <div class="col-md-6">
                             <button id = "imagen3" onclick="obtenerId(this);">  <img src="corona.png"  class="img-thumbnail" style="border:2px solid black">
+                            </button>
                         </div>
                         <div class="col-md-6">
                             <button id = "respuesta3" class="btn" onclick="obtenerId(this);">Respuesta 1</button>
@@ -154,6 +151,7 @@
                     <div class="row" style="margin-top: 20px">
                         <div class="col-md-6">
                             <button id = "imagen4" onclick="obtenerId(this);"> <img src="corona.png"  class="img-thumbnail" style="border:2px solid black">
+                            </button>
                         </div>
                         <div class="col-md-6">
                             <button id = "respuesta4" class="btn" onclick="obtenerId(this);">Respuesta 1</button>
@@ -167,6 +165,12 @@
         </div>
     </div>
 </div>
-</div>
+
+<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-firestore.js"></script>
+
+<script type="text/javascript" src="funciones.js"></script>
+<script type="text/javascript" src="firebase.js"></script>
+
 </body>
 </html>
