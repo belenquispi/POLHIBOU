@@ -120,7 +120,15 @@
                     </div>
 
                 </div>
-                <div id="unir" class="row" hidden>
+                <div id="unir" class="row" hidden onmouseover="verificarCompletoUnir()" >
+                    <div class="row" style="margin-top: 20px">
+                        <div class="col-md-6" >
+                            <button id = "reiniciarUnir" class="btn btn-info" onclick="reiniciarUnir();" >Reiniciar </button>
+                        </div>
+                        <div class="col-md-6">
+                            <button id = "enviarUnir" class="btn btn-success" disabled = "disabled" onclick="verificarRespuestaUnir()" >Enviar Respuesta</button>
+                        </div>
+                    </div>
                     <div class="row" style="margin-top: 20px">
                         <div class="col-md-6" >
                             <button id = "imagen1" onclick="obtenerId(this);"> <img src="corona.png"  class="img-thumbnail" style="border:2px solid black">
@@ -160,7 +168,7 @@
 
                 </div>
                 <div id="memory_board" hidden></div>
-                <script> newBoard();</script>
+
             </div>
         </div>
     </div>
@@ -171,6 +179,7 @@
 
 <script type="text/javascript" src="funciones.js"></script>
 <script type="text/javascript" src="firebase.js"></script>
+<script> newBoard();</script>
 
 </body>
 </html>

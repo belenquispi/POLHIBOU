@@ -739,12 +739,7 @@ function obtenerId(e) {
             break;
 
     }
-
-    console.log("id: "+ id)
     respuestaUnir.push(id);
-    console.log("respuestas" + respuestaUnir);
-
-    console.log("rrr" + imagenUnir.indexOf(id));
 
     if(imagenUnir.indexOf(id) >= 0) {
         for(var i = 0; i<imagenUnir.length; i++){
@@ -776,8 +771,50 @@ function obtenerId(e) {
             }
 
     }
+}
 
+function reiniciarUnir() {
+    for (var i =0; i < respuestaUnir.length; i++){
+        document.getElementById(respuestaUnir[i]).style.border = "gray";
+        document.getElementById(respuestaUnir[i]).removeAttribute("disabled");
+    }
+    for(var i = respuestaUnir.length; i > 0 ; i--) {
+        respuestaUnir.pop();
+    }
+}
 
-    console.log(respuestaUnir);
+function verificarCompletoUnir() {
+    if(respuestaUnir.length != 8)
+    {
+        document.getElementById("enviarUnir").setAttribute("disabled","");
+    }
+    else {
+        document.getElementById("enviarUnir").removeAttribute("disabled");
+    }
+}
+function verificarRespuestaUnir() {
+    var contadorRespuestas = 0;
+    for(var j = 0; j < respuestaUnir.length-1; j++){
+        for (var k = 0; k < respuestaCorrectaUnir.length-1; k++)
+        {
+            if(respuestaUnir[j] == respuestaCorrectaUnir[k] && respuestaUnir[j+1] == respuestaCorrectaUnir[k+1])
+            {
+                contadorRespuestas++;
+                j++;
+                k = respuestaUnir.length
+            }
+
+        }
+    }
+    if(contadorRespuestas == 4)
+    {
+        reiniciarUnir();
+        desafioCorrecto();
+    }
+    else {
+        reiniciarUnir();
+        desafioIncorrecto();
+    }
+
 }
 
