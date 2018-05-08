@@ -1,8 +1,9 @@
 var preguntas = [];
 var preguntaRandomica;
 var resCorrecta;
-var downloadURL;
-var file;
+var downloadURL = null;
+var file = null;
+
 // Initialize Firebase
 
 var config = {
@@ -25,12 +26,6 @@ var settings = {
 
 db.settings(settings);
 
-var botonArchivo = document.getElementById("botonArchivo")
-
-botonArchivo.addEventListener('change', function (e) {
-    file = e.target.files[0];
-}
-)
 
 
 function obtenerPreguntas() {
@@ -47,8 +42,9 @@ function obtenerPreguntas() {
 }
 
 function guardarPregunta() {
+    if (file != null) {
     cargarImagen();
-
+    }
     var enunciado = document.getElementById('enunciado').value
     var res1 = document.getElementById('res1').value
     var res2 = document.getElementById('res2').value
@@ -94,7 +90,11 @@ function cargarPreguntas() {
     if (preguntas[preguntaRandomica].usada == "falsa") {
         console.log("11111 " + preguntaRandomica);
         document.getElementById("enunciado").innerHTML = preguntas[preguntaRandomica].enunciado;
-        document.getElementById("imagenEnunciado").src = preguntas[preguntaRandomica].urlEnunciado;
+        if(preguntas[preguntaRandomica].urlEnunciado != null)
+        {
+            console.log("sin datos")
+            document.getElementById("imagenEnunciado").src = preguntas[preguntaRandomica].urlEnunciado;
+        }
         document.getElementById("res1").innerHTML = preguntas[preguntaRandomica].res1;
         document.getElementById("res2").innerHTML = preguntas[preguntaRandomica].res2;
         document.getElementById("res3").innerHTML = preguntas[preguntaRandomica].res3;
@@ -110,6 +110,7 @@ function cargarPreguntas() {
 
 function cargarImagen() {
     console.log("hola1")
+    console.log(file);
         var storageRef = firebase.storage().ref('imagenes/' + file.name)
 
         var task = storageRef.put(file);
