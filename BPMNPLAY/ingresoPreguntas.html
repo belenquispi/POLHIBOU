@@ -20,6 +20,25 @@
             </div>
         </div>
         <div class="form-group">
+            <label class="control-label col-md-2">Cargar imagen (opcional):</label>
+            <div class="col-md-6">
+                <input type="file" class="form-control" id="botonArchivo" value="upload" accept="image/*" onchange="loadFile(event)">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Imagen:</label>
+            <div class="col-md-6">
+                <img id="output" width="50" height="50"/>
+                <script>
+                    var loadFile = function(event) {
+                        var output = document.getElementById('output');
+                        output.src = URL.createObjectURL(event.target.files[0]);
+                    };
+                </script>
+            </div>
+        </div>
+
+        <div class="form-group">
             <label class="control-label col-md-2">Respuesta 1:</label>
             <div class="col-md-6">
                 <input type="text" class="form-control" id="res1" placeholder="Ingrese la respuesta 1" name="res1">
@@ -66,7 +85,7 @@
 <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
 <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-firestore.js"></script>
-
+<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-storage.js"></script>
 <script type="text/javascript" src="firebase.js"></script>
 
 </body>

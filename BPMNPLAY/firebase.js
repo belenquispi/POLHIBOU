@@ -1,7 +1,8 @@
-
 var preguntas = [];
-var preguntaRandomica ;
+var preguntaRandomica;
 var resCorrecta;
+var downloadURL;
+var file;
 // Initialize Firebase
 
 var config = {
@@ -17,27 +18,37 @@ firebase.initializeApp(config);
 
 var db = firebase.firestore();
 
+
 var settings = {
-    timestampsInSnapshots: true};
+    timestampsInSnapshots: true
+};
 
 db.settings(settings);
 
+var botonArchivo = document.getElementById("botonArchivo")
 
-function obtenerPreguntas()
-{
+botonArchivo.addEventListener('change', function (e) {
+    file = e.target.files[0];
+}
+)
+
+
+function obtenerPreguntas() {
     console.log("preguntassssss")
-   // var docRef = db.collection("preguntas");
-    db.collection("preguntas").get().then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
+    // var docRef = db.collection("preguntas");
+    db.collection("preguntas").get().then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
             // doc.data() is never undefined for query doc snapshots
             preguntas.push(doc.data());
-            preguntas[preguntas.length-1].usada="falsa";
+            preguntas[preguntas.length - 1].usada = "falsa";
         });
 
     });
 }
 
 function guardarPregunta() {
+    cargarImagen();
+
     var enunciado = document.getElementById('enunciado').value
     var res1 = document.getElementById('res1').value
     var res2 = document.getElementById('res2').value
@@ -46,10 +57,12 @@ function guardarPregunta() {
     var resCorrecta = document.getElementById('resCorrecta').value
     var idMateria = "BPMN"
 
+
     console.log(enunciado + res1 + res2 + res3 + res4 + resCorrecta + idMateria)
 
-    db.collection("preguntas").doc().set({
+    setTimeout(function(){  db.collection("preguntas").doc().set({
         enunciado: enunciado,
+        urlEnunciado: downloadURL,
         res1: res1,
         res2: res2,
         res3: res3,
@@ -64,39 +77,57 @@ function guardarPregunta() {
         .catch(function (error) {
             alert("No guardado")
             console.error("Error writing document: ", error);
-        });
+        }); }, 3000);
+
+
 }
 
- function indiceRandomico()
-{
-    preguntaRandomica = Math.floor(Math.random()* preguntas.length)
+function indiceRandomico() {
+    preguntaRandomica = Math.floor(Math.random() * preguntas.length)
 }
 
 
-function cargarPreguntas()
-{
+function cargarPreguntas() {
     indiceRandomico();
     console.log("correcto")
     console.log(preguntaRandomica);
-    if(preguntas[preguntaRandomica].usada == "falsa")
-    {
+    if (preguntas[preguntaRandomica].usada == "falsa") {
         console.log("11111 " + preguntaRandomica);
         document.getElementById("enunciado").innerHTML = preguntas[preguntaRandomica].enunciado;
+        document.getElementById("imagenEnunciado").src = preguntas[preguntaRandomica].urlEnunciado;
         document.getElementById("res1").innerHTML = preguntas[preguntaRandomica].res1;
         document.getElementById("res2").innerHTML = preguntas[preguntaRandomica].res2;
         document.getElementById("res3").innerHTML = preguntas[preguntaRandomica].res3;
         document.getElementById("res4").innerHTML = preguntas[preguntaRandomica].res4;
         resCorrecta = preguntas[preguntaRandomica].resCorrecta;
-
         preguntas[preguntaRandomica].usada = "verdadera";
         console.log(preguntas[preguntaRandomica].usada);
     }
-    else
-    {
+    else {
         cargarPreguntas();
     }
+}
 
+function cargarImagen() {
+    console.log("hola1")
+        var storageRef = firebase.storage().ref('imagenes/' + file.name)
 
+        var task = storageRef.put(file);
+        console.log("hola2")
+        task.on('state_changed',
+            function progress(snapshot) {
+                var porcentaje = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                console.log(porcentaje);
+            },
+            function error(err) {
+                console.log(err);
+            },
+
+            function () {
+                downloadURL = task.snapshot.downloadURL;
+                console.log("url" + downloadURL);
+            }
+        );
 
 }
 
