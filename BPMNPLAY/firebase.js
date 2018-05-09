@@ -2,7 +2,16 @@ var preguntas = [];
 var preguntaRandomica;
 var resCorrecta;
 var downloadURL = null;
+var downloadURLRes1 = null;
+var downloadURLRes2 = null;
+var downloadURLRes3 = null;
+var downloadURLRes4 = null;
+var imagenes = [];
 var file = null;
+var file1 = null;
+var file2 = null;
+var file3 = null;
+var file4 = null;
 
 // Initialize Firebase
 
@@ -42,9 +51,10 @@ function obtenerPreguntas() {
 }
 
 function guardarPregunta() {
-    if (file != null) {
-    cargarImagen();
-    }
+   for(var i=0; i<imagenes.length;i++)
+   {
+        cargarImagen(imagenes[i]);
+   }
     var enunciado = document.getElementById('enunciado').value
     var res1 = document.getElementById('res1').value
     var res2 = document.getElementById('res2').value
@@ -60,9 +70,13 @@ function guardarPregunta() {
         enunciado: enunciado,
         urlEnunciado: downloadURL,
         res1: res1,
+        urlRes1: downloadURLRes1,
         res2: res2,
+        urlRes2: downloadURLRes2,
         res3: res3,
+        urlRes3: downloadURLRes3,
         res4: res4,
+        urlRes4: downloadURLRes4,
         resCorrecta: resCorrecta,
         idMateria: idMateria
     })
@@ -75,7 +89,7 @@ function guardarPregunta() {
             console.error("Error writing document: ", error);
         }); }, 3000);
 
-
+    agregarObligatorio();
 }
 
 function indiceRandomico() {
@@ -95,10 +109,23 @@ function cargarPreguntas() {
             console.log("sin datos")
             document.getElementById("imagenEnunciado").src = preguntas[preguntaRandomica].urlEnunciado;
         }
-        document.getElementById("res1").innerHTML = preguntas[preguntaRandomica].res1;
-        document.getElementById("res2").innerHTML = preguntas[preguntaRandomica].res2;
-        document.getElementById("res3").innerHTML = preguntas[preguntaRandomica].res3;
-        document.getElementById("res4").innerHTML = preguntas[preguntaRandomica].res4;
+        if(preguntas[preguntaRandomica].urlRes1 != null)
+        {
+            document.getElementById("divRespuestasImagenes").removeAttribute("hidden")
+            document.getElementById("divRespuestasTexto").setAttribute("hidden","")
+            document.getElementById("imagenRes1").src = preguntas[preguntaRandomica].urlRes1;
+            document.getElementById("imagenRes2").src = preguntas[preguntaRandomica].urlRes2;
+            document.getElementById("imagenRes3").src = preguntas[preguntaRandomica].urlRes3;
+            document.getElementById("imagenRes4").src = preguntas[preguntaRandomica].urlRes4;
+        }
+        else {
+            document.getElementById("divRespuestasTexto").removeAttribute("hidden")
+            document.getElementById("divRespuestasImagenes").setAttribute("hidden","")
+            document.getElementById("res1").innerHTML = preguntas[preguntaRandomica].res1;
+            document.getElementById("res2").innerHTML = preguntas[preguntaRandomica].res2;
+            document.getElementById("res3").innerHTML = preguntas[preguntaRandomica].res3;
+            document.getElementById("res4").innerHTML = preguntas[preguntaRandomica].res4;
+        }
         resCorrecta = preguntas[preguntaRandomica].resCorrecta;
         preguntas[preguntaRandomica].usada = "verdadera";
         console.log(preguntas[preguntaRandomica].usada);
@@ -108,12 +135,31 @@ function cargarPreguntas() {
     }
 }
 
-function cargarImagen() {
+function cargarImagen(nombreFile) {
     console.log("hola1")
-    console.log(file);
-        var storageRef = firebase.storage().ref('imagenes/' + file.name)
+    console.log(nombreFile);
+    var files = null;
+    switch (nombreFile) {
+        case "file":
+            files = file;
+            break;
+        case "file1":
+            files = file1;
+            break;
+        case "file2":
+            files = file2;
+            break;
+        case "file3":
+            files = file3;
+            break;
+        case "file4":
+            files = file4;
+            break;
+    }
 
-        var task = storageRef.put(file);
+        var storageRef = firebase.storage().ref('imagenes/' + files.name)
+
+        var task = storageRef.put(files);
         console.log("hola2")
         task.on('state_changed',
             function progress(snapshot) {
@@ -125,11 +171,32 @@ function cargarImagen() {
             },
 
             function () {
-                downloadURL = task.snapshot.downloadURL;
-                console.log("url" + downloadURL);
+                switch (nombreFile) {
+                    case "file":
+                        downloadURL = task.snapshot.downloadURL;
+                        console.log("url" + downloadURL);
+                        break;
+                    case "file1":
+                        downloadURLRes1 = task.snapshot.downloadURL;
+                        console.log("url1 " + downloadURLRes1);
+                        break;
+                    case "file2":
+                        downloadURLRes2 = task.snapshot.downloadURL;
+                        console.log("url2 " + downloadURLRes2);
+                        break;
+                    case "file3":
+                        downloadURLRes3 = task.snapshot.downloadURL;
+                        console.log("url3 " + downloadURLRes3);
+                        break;
+                    case "file4":
+                        downloadURLRes4 = task.snapshot.downloadURL;
+                        console.log("url 4" + downloadURLRes4);
+                        break;
+
+                }
+
             }
         );
-
 }
 
 
