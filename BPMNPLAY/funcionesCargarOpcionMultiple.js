@@ -86,7 +86,25 @@ function agregarObligatorio()
 
 */
 
-function desbloquearGuardar()
+function verificarBotonGuardar()
 {
+    console.log("hola" + document.getElementById("enunciado").value)
+    if(document.getElementById("enunciado").value != ""
+        &&
+        ((document.getElementById("res1").value != ""
+            && document.getElementById("res2").value != ""
+            && document.getElementById("res3").value != ""
+            && document.getElementById("res4").value != "")
+            ||(document.getElementById("outputRes1").value != null
+                && document.getElementById("outputRes2").value != null
+                && document.getElementById("outputRes3").value != null
+                && document.getElementById("outputRes4").value != null)))
+    {
+        document.getElementById("botonGuardar").removeAttribute("disabled")
+    }
+    else
+    {
+        document.getElementById("botonGuardar").setAttribute("disabled","")
+    }
 
 }

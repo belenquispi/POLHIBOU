@@ -9,7 +9,7 @@
 
 
 <div class="container">
-    <form class="form-horizontal">
+    <form class="form-horizontal"  onmouseover="verificarBotonGuardar()">
         <div class="form-group">
             <label class="control-label col-md-2">Enunciado:</label>
             <div class="col-md-6">
@@ -121,13 +121,13 @@
             </div>
         </div>
         </div>
-        <div id ="divBotonGuardar" class="form-group" hidden>
-            <div class="col-sm-offset-2 col-sm-10">
-                <button onclick="guardarPregunta()" class="btn btn-default">Guardar</button>
-            </div>
-        </div>
-    </form>
 
+    </form>
+    <div id ="divBotonGuardar" class="form-group" hidden >
+        <div class="col-sm-offset-2 col-sm-10">
+            <button id="botonGuardar" onclick="guardarPregunta()" class="btn btn-default" disabled>Guardar</button>
+        </div>
+    </div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
