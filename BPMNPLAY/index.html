@@ -82,40 +82,69 @@
                     </tbody>
                 </table>
             </div>
-            <div id="desafios" class="container-fluid" hidden>
-                <div class="row">
-                    <div class="row">
-                        <h1><span id="tipoJuego" class="label label-default">Tipo de Juego</span></h1>
-                    </div>
+            <div id="desafios" class="container-fluid col-md-12" hidden>
+                <div class="row ">
+                        <h1><span id="tipoJuego" class="label label-default ">Tipo de Juego</span></h1>
                 </div>
                 <div id="opcionMultiple" class="row" hidden>
                     <div class="row">
-                        <div class="col-md-9">
-                            <h4 ><p id="enunciado">Señale la alternativa verdadera sobre BAM (Activity Monitoring)Señale la alternativa
-                                verdadera sobre BAM (Activity Monitoring)Señale l (Activity Monitoring)Señale l</p></h4>
+                        <div class="col-md-7">
+                            <h4 ><p id="enunciado"></p></h4>
                         </div>
                         <div class="col-md-3">
-                            <img src="corona.png" class="img-rounded" alt="Cinque Terre">
+                            <img id="imagenEnunciado" src="vacio.png" class="img-rounded"  height="50" width="50">
                         </div>
                     </div>
+                    <div id="divRespuestasTexto" hidden>
                     <div class="row" style="margin-top: 20px">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             <button id="res1" class="btn btn-success btn-block" onclick="validarRespuesta(this)">Respuesta 1</button>
                         </div>
                     </div>
                     <div class="row" style="margin-top: 20px">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             <button id="res2" class="btn btn-success btn-block" onclick="validarRespuesta(this)">Respuesta 2</button>
                         </div>
                     </div>
                     <div class="row" style="margin-top: 20px">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             <button id="res3" class="btn btn-success btn-block" onclick="validarRespuesta(this)">Respuesta 3</button>
                         </div>
                     </div>
                     <div class="row" style="margin-top: 20px">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             <button id="res4" class="btn btn-success btn-block" onclick="validarRespuesta(this)">Respuesta 4</button>
+                        </div>
+                    </div>
+                    </div>
+
+                    <div id="divRespuestasImagenes" hidden>
+                        <div class="row" style="margin-top: 20px">
+                            <div class="col-md-12">
+                                <button id="res1" class="btn btn-success btn-block" onclick="validarRespuesta(this)">
+                                    <img id="imagenRes1" src="vacio.png"  class="img-thumbnail" style="border:2px solid black" height="50" width="50"></button>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 20px">
+                            <div class="col-md-12">
+                                <button id="res2" class="btn btn-success btn-block" onclick="validarRespuesta(this)">
+                                    <img id="imagenRes2" src="vacio.png"  class="img-thumbnail" style="border:2px solid black" height="50" width="50">
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 20px">
+                            <div class="col-md-12">
+                                <button id="res3" class="btn btn-success btn-block" onclick="validarRespuesta(this)">
+                                    <img id="imagenRes3" src="vacio.png"  class="img-thumbnail" style="border:2px solid black" height="50" width="50">
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 20px">
+                            <div class="col-md-12">
+                                <button id="res4" class="btn btn-success btn-block" onclick="validarRespuesta(this)">
+                                    <img id="imagenRes4" src="vacio.png"  class="img-thumbnail" style="border:2px solid black" height="50" width="50">
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -160,7 +189,7 @@
 
                 </div>
                 <div id="memory_board" hidden></div>
-                <script> newBoard();</script>
+
             </div>
         </div>
     </div>
@@ -169,8 +198,9 @@
 <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-firestore.js"></script>
 
-<script type="text/javascript" src="funciones.js"></script>
+<script type="text/javascript" src="funcionesTablero.js"></script>
 <script type="text/javascript" src="firebase.js"></script>
+<script> newBoard();</script>
 
 </body>
 </html>

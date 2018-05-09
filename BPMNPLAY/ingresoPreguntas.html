@@ -3,9 +3,6 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-
-
     <title>Title</title>
 </head>
 <body>
@@ -16,37 +13,106 @@
         <div class="form-group">
             <label class="control-label col-md-2">Enunciado:</label>
             <div class="col-md-6">
-                <input type="text" class="form-control" id="enunciado" placeholder="Ingrese el enunciado de la pregunta" name="enunciado">
+                <input type="text" class="form-control" id="enunciado" placeholder="Ingrese el enunciado de la pregunta"
+                       name="enunciado" required>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-md-2">Respuesta 1:</label>
+            <label class="control-label col-md-2">Cargar imagen (opcional):</label>
             <div class="col-md-6">
-                <input type="text" class="form-control" id="res1" placeholder="Ingrese la respuesta 1" name="res1">
+                <input type="file" class="form-control" id="botonArchivoEnunciado" value="uploadEnunciado"
+                       accept="image/*" onchange="loadFile(event, 'outputEnunciado')">
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-md-2">Respuesta 2:</label>
+            <label class="control-label col-md-2">Imagen:</label>
             <div class="col-md-6">
-                <input type="text" class="form-control" id="res2" placeholder="Ingrese la respuesta 2" name="res2">
+                <img id="outputEnunciado" width="50" height="50"/>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-md-2">Respuesta 3:</label>
-            <div class="col-md-6">
-                <input type="text" class="form-control" id="res3" placeholder="Ingrese la respuesta 3" name="res3">
+                <label class="control-label col-md-2">Escoja el tipo de respuesta:</label>
+                <div class="col-md-6">
+                    <input type="radio" name="opcionTipoRespuesta" value="soloTexto" onclick="mostrarRespuestas(1)">Solo texto<br>
+                     <input type="radio" name="opcionTipoRespuesta" value="soloImagenes" onclick="mostrarRespuestas(2)">Solo imagenes
+                </div>
+        </div>
+        <div id="divRespuestasTexto" hidden>
+            <div class="form-group">
+                <label class="control-label col-md-2">Respuesta 1:</label>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="res1" placeholder="Ingrese la respuesta 1" name="res1">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Respuesta 2:</label>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="res2" placeholder="Ingrese la respuesta 2" name="res2">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Respuesta 3:</label>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="res3" placeholder="Ingrese la respuesta 3" name="res3">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Respuesta 4:</label>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="res4" placeholder="Ingrese la respuesta 4" name="res4">
+                </div>
             </div>
         </div>
-        <div class="form-group">
-            <label class="control-label col-md-2">Respuesta 4:</label>
-            <div class="col-md-6">
-                <input type="text" class="form-control" id="res4" placeholder="Ingrese la respuesta 4" name="res4">
+        <div id="divRespuestasImagenes" hidden>
+            <div class="form-group">
+                <label class="control-label col-md-2">Respuesta 1:</label>
+                <div class="col-md-6">
+                    <input type="file" class="form-control" id="botonArchivoRes1" value="uploadRes1" accept="image/*"
+                           onchange="loadFile(event, 'outputRes1')">
+                </div>
+                <div class="col-md-4">
+                    <img id="outputRes1" width="50" height="50"/>
+                </div>
             </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Respuesta 2:</label>
+                <div class="col-md-6">
+                    <input type="file" class="form-control" id="botonArchivoRes2" value="uploadRes2" accept="image/*"
+                           onchange="loadFile(event, 'outputRes2')">
+                </div>
+                <div class="col-md-4">
+                    <img id="outputRes2" width="50" height="50"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Respuesta 3:</label>
+                <div class="col-md-6">
+                    <input type="file" class="form-control" id="botonArchivoRes3" value="uploadRes3" accept="image/*"
+                           onchange="loadFile(event, 'outputRes3')">
+                </div>
+                <div class="col-md-4">
+                    <img id="outputRes3" width="50" height="50"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Respuesta 4:</label>
+                <div class="col-md-6">
+                    <input type="file" class="form-control" id="botonArchivoRes4" value="uploadRes4" accept="image/*"
+                           onchange="loadFile(event, 'outputRes4')">
+                </div>
+                <div class="col-md-4">
+                    <img id="outputRes4" width="50" height="50"/>
+                </div>
+            </div>
+
         </div>
+        <div id="divRespuestas" hidden>
         <div class="form-group">
-            <label  class="control-label col-md-2">Respuesta correcta:</label>
+            <label class="control-label col-md-2">Respuesta correcta:</label>
             <div class="col-md-6">
-                <select id="resCorrecta" name="respuestaCorrecta" class="form-control" >
+                <select id="resCorrecta" name="respuestaCorrecta" class="form-control">
                     <option value="res1">Respuesta 1</option>
                     <option value="res2">Respuesta 2</option>
                     <option value="res3">Respuesta 3</option>
@@ -54,20 +120,24 @@
                 </select>
             </div>
         </div>
-
-    </form>
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <button onclick="guardarPregunta()" class="btn btn-default">Guardar</button>
         </div>
-    </div>
+        <div id ="divBotonGuardar" class="form-group" hidden>
+            <div class="col-sm-offset-2 col-sm-10">
+                <button onclick="guardarPregunta()" class="btn btn-default">Guardar</button>
+            </div>
+        </div>
+    </form>
+
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
 <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-firestore.js"></script>
-
+<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-storage.js"></script>
 <script type="text/javascript" src="firebase.js"></script>
+<script type="text/javascript" src="funcionesCargarOpcionMultiple.js"></script>
+
+
 
 </body>
 </html>
