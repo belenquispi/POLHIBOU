@@ -49,14 +49,14 @@ function mostrarRespuestas(valor) {
     {
         document.getElementById("divRespuestasTexto").removeAttribute("hidden")
         document.getElementById("divRespuestasImagenes").setAttribute("hidden","")
-        quitarObligatorio("divRespuestasImagenes")
+
     }
     if (valor == 2)
     {
 
         document.getElementById("divRespuestasImagenes").removeAttribute("hidden")
         document.getElementById("divRespuestasTexto").setAttribute("hidden","")
-        quitarObligatorio("divRespuestasTexto")
+
     }
     document.getElementById("divRespuestas").removeAttribute("hidden")
     document.getElementById("divBotonGuardar").removeAttribute("hidden")
@@ -71,6 +71,7 @@ function quitarObligatorio(tipoRespuesta)
         }
 }
 
+/*
 function agregarObligatorio()
 {
     var elms = document.getElementById("divRespuestasImagenes")
@@ -81,4 +82,11 @@ function agregarObligatorio()
     for (var i = 0; i < elms2.length; i++) {
         document.getElementById(elms2[i]).setAttribute("required","")
     }
+}
+
+*/
+
+function desbloquearGuardar()
+{
+
 }

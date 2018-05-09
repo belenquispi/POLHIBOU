@@ -89,7 +89,7 @@ function guardarPregunta() {
             console.error("Error writing document: ", error);
         }); }, 3000);
 
-    agregarObligatorio();
+
 }
 
 function indiceRandomico() {
