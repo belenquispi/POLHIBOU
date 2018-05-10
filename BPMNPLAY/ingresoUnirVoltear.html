@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>UnirVoltear</title>
+</head>
+<body>
+<div class="container">
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-md-1">Imagen 1:</label>
+            <div class="col-md-4">
+                <input type="file" class="form-control" id="botonImagenUnir1" value="uploadImagenUnir1" accept="image/*"
+                       onchange="loadFile(event, 'imagenUnir1')">
+            </div>
+            <div class="col-md-1">
+                <img id="imagenUnir1" width="50" height="50"/>
+            </div>
+            <label class="control-label col-md-2">Texto 1:</label>
+            <div class="col-md-2">
+                <input type="text" class="form-control" id="textoUnir1" placeholder="Ingrese la respuesta 1" name="textoUnir1">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-1">Imagen 2:</label>
+            <div class="col-md-4">
+                <input type="file" class="form-control" id="botonImagenUnir2" value="uploadImagenUnir2" accept="image/*"
+                       onchange="loadFile(event, 'imagenUnir2')">
+            </div>
+            <div class="col-md-1">
+                <img id="imagenUnir2" width="50" height="50"/>
+            </div>
+            <label class="control-label col-md-2">Texto 2:</label>
+            <div class="col-md-2">
+                <input type="text" class="form-control" id="textoUnir2" placeholder="Ingrese la respuesta 2" name="textoUnir2">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-1">Imagen 3:</label>
+            <div class="col-md-4">
+                <input type="file" class="form-control" id="botonImagenUnir3" value="uploadImagenUnir3" accept="image/*"
+                       onchange="loadFile(event, 'imagenUnir3')">
+            </div>
+            <div class="col-md-1">
+                <img id="imagenUnir3" width="50" height="50"/>
+            </div>
+            <label class="control-label col-md-2">Texto 3:</label>
+            <div class="col-md-2">
+                <input type="text" class="form-control" id="textoUnir3" placeholder="Ingrese la respuesta 3" name="textoUnir3">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-1">Imagen 4:</label>
+            <div class="col-md-4">
+                <input type="file" class="form-control" id="botonImagenUnir4" value="uploadImagenUnir4" accept="image/*"
+                       onchange="loadFile(event, 'imagenUnir4')">
+            </div>
+            <div class="col-md-1">
+                <img id="imagenUnir4" width="50" height="50"/>
+            </div>
+            <label class="control-label col-md-2">Texto 4:</label>
+            <div class="col-md-2">
+                <input type="text" class="form-control" id="textoUnir4" placeholder="Ingrese la respuesta 4" name="textoUnir4">
+            </div>
+        </div>
+
+    </form>
+    <div id ="divBotonGuardar" class="form-group" >
+        <div class="col-sm-offset-2 col-sm-10">
+            <button id="botonGuardarUnirVoltear" onclick="guardarPreguntaUnirVoltear()" class="btn btn-default">Guardar</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-storage.js"></script>
+<script type="text/javascript" src="firebase.js"></script>
+<script type="text/javascript" src="funcionesUnirVoltear.js"></script>
+
+</body>
+</html>
