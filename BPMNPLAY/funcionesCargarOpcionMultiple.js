@@ -49,6 +49,7 @@ function mostrarRespuestas(valor) {
     {
         document.getElementById("divRespuestasTexto").removeAttribute("hidden")
         document.getElementById("divRespuestasImagenes").setAttribute("hidden","")
+        document.getElementById("soloImagenes").setAttribute("hidden","")
 
     }
     if (valor == 2)
@@ -56,6 +57,7 @@ function mostrarRespuestas(valor) {
 
         document.getElementById("divRespuestasImagenes").removeAttribute("hidden")
         document.getElementById("divRespuestasTexto").setAttribute("hidden","")
+        document.getElementById("soloTexto").setAttribute("hidden","")
 
     }
     document.getElementById("divRespuestas").removeAttribute("hidden")

@@ -98,6 +98,21 @@ function indiceRandomico() {
 
 
 function cargarPreguntas() {
+    var contadorVerdaderas = 0;
+    for(var t=0; t < preguntas.length; t++)
+    {
+        if(preguntas[t].usada == "verdadera") {contadorVerdaderas++};
+       }
+    if(contadorVerdaderas == preguntas.length)
+           {
+
+                for(var t=0; t < preguntas.length; t++)
+                {
+                    console.log("llenase" + contadorVerdaderas);
+                preguntas[t].usada = "falsa";
+           }
+       }
+       
     indiceRandomico();
     console.log("correcto")
     console.log(preguntaRandomica);
