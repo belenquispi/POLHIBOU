@@ -64,7 +64,7 @@ function mostrarRespuestas(valor) {
     document.getElementById("divBotonGuardar").removeAttribute("hidden")
 
 }
-
+/*
 function quitarObligatorio(tipoRespuesta)
 {
     var elms = document.getElementById(tipoRespuesta)
@@ -73,7 +73,7 @@ function quitarObligatorio(tipoRespuesta)
         }
 }
 
-/*
+
 function agregarObligatorio()
 {
     var elms = document.getElementById("divRespuestasImagenes")
@@ -97,10 +97,10 @@ function verificarBotonGuardar()
             && document.getElementById("res2").value != ""
             && document.getElementById("res3").value != ""
             && document.getElementById("res4").value != "")
-            ||(document.getElementById("outputRes1").value != null
-                && document.getElementById("outputRes2").value != null
-                && document.getElementById("outputRes3").value != null
-                && document.getElementById("outputRes4").value != null)))
+            ||(document.getElementById("botonArchivoRes1").value != ""
+                && document.getElementById("botonArchivoRes2").value != ""
+                && document.getElementById("botonArchivoRes3").value != ""
+                && document.getElementById("botonArchivoRes4").value != "")))
     {
         document.getElementById("botonGuardar").removeAttribute("disabled")
     }

@@ -112,7 +112,7 @@ function cargarPreguntas() {
                 preguntas[t].usada = "falsa";
            }
        }
-       
+
     indiceRandomico();
     console.log("correcto")
     console.log(preguntaRandomica);
