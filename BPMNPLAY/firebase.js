@@ -13,6 +13,7 @@ var file1 = null;
 var file2 = null;
 var file3 = null;
 var file4 = null;
+var contadorURL = 0;
 
 // Initialize Firebase
 
@@ -50,47 +51,47 @@ function obtenerPreguntas() {
     });
 }
 
+
+
 function guardarPreguntaOpcionMultiple() {
     for (var i = 0; i < imagenes.length; i++) {
-        cargarImagen(imagenes[i]);
+        cargarImagen(imagenes[i], function () {
+
+            if(contadorURL == imagenes.length)
+            {
+                var enunciado = document.getElementById('enunciado').value
+                var res1 = document.getElementById('res1').value
+                var res2 = document.getElementById('res2').value
+                var res3 = document.getElementById('res3').value
+                var res4 = document.getElementById('res4').value
+                var resCorrecta = document.getElementById('resCorrecta').value
+                var idMateria = "BPMN"
+
+                    db.collection("preguntas").doc().set({
+                        enunciado: enunciado,
+                        urlEnunciado: downloadURL,
+                        res1: res1,
+                        urlRes1: downloadURLRes1,
+                        res2: res2,
+                        urlRes2: downloadURLRes2,
+                        res3: res3,
+                        urlRes3: downloadURLRes3,
+                        res4: res4,
+                        urlRes4: downloadURLRes4,
+                        resCorrecta: resCorrecta,
+                        idMateria: idMateria
+                    })
+                        .then(function () {
+                            alert("guardado")
+                            console.log("Document successfully written!");
+                        })
+                        .catch(function (error) {
+                            alert("No guardado")
+                            console.error("Error writing document: ", error);
+                        });
+            }
+        });
     }
-    var enunciado = document.getElementById('enunciado').value
-    var res1 = document.getElementById('res1').value
-    var res2 = document.getElementById('res2').value
-    var res3 = document.getElementById('res3').value
-    var res4 = document.getElementById('res4').value
-    var resCorrecta = document.getElementById('resCorrecta').value
-    var idMateria = "BPMN"
-
-
-    console.log(enunciado + res1 + res2 + res3 + res4 + resCorrecta + idMateria)
-
-    setTimeout(function () {
-        db.collection("preguntas").doc().set({
-            enunciado: enunciado,
-            urlEnunciado: downloadURL,
-            res1: res1,
-            urlRes1: downloadURLRes1,
-            res2: res2,
-            urlRes2: downloadURLRes2,
-            res3: res3,
-            urlRes3: downloadURLRes3,
-            res4: res4,
-            urlRes4: downloadURLRes4,
-            resCorrecta: resCorrecta,
-            idMateria: idMateria
-        })
-            .then(function () {
-                alert("guardado")
-                console.log("Document successfully written!");
-            })
-            .catch(function (error) {
-                alert("No guardado")
-                console.error("Error writing document: ", error);
-            });
-    }, 3000);
-
-
 }
 
 function guardarPreguntaUnirVoltear() {
@@ -176,7 +177,7 @@ function cargarPreguntas() {
     }
 }
 
-function cargarImagen(nombreFile) {
+function cargarImagen(nombreFile, callback) {
     console.log("hola1")
     console.log(nombreFile);
     var files = null;
@@ -216,22 +217,32 @@ function cargarImagen(nombreFile) {
                 case "file":
                     downloadURL = task.snapshot.downloadURL;
                     console.log("url" + downloadURL);
+                    contadorURL++;
+                    callback();
                     break;
                 case "file1":
                     downloadURLRes1 = task.snapshot.downloadURL;
                     console.log("url1 " + downloadURLRes1);
+                    contadorURL++;
+                    callback();
                     break;
                 case "file2":
                     downloadURLRes2 = task.snapshot.downloadURL;
                     console.log("url2 " + downloadURLRes2);
+                    contadorURL++;
+                    callback();
                     break;
                 case "file3":
                     downloadURLRes3 = task.snapshot.downloadURL;
                     console.log("url3 " + downloadURLRes3);
+                    contadorURL++;
+                    callback();
                     break;
                 case "file4":
                     downloadURLRes4 = task.snapshot.downloadURL;
                     console.log("url 4" + downloadURLRes4);
+                    contadorURL++;
+                    callback();
                     break;
 
             }
