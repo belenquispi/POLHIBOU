@@ -1,214 +1,40 @@
-<!DOCTYPE html>
-<!--suppress ALL -->
+<!doctype html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" href="estilos.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
+    <title>Socket.IO chat</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font: 13px Helvetica, Arial; }
+        form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+        form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+        form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+        #messages { list-style-type: none; margin: 0; padding: 0; }
+        #messages li { padding: 5px 10px; }
+        #messages li:nth-child(odd) { background: #eee; }
+    </style>
 </head>
 <body>
-<div id="tableroPuntuacion" class="container-fluid">
-    <div class="row">
-        <div class="col-md-5">
-            <canvas id="game" width="640" height="640"></canvas>
-        </div>
-        <div class="col-md-2">
-            <input type="radio" style="visibility: hidden" id="radio-uno" name="select-face"/>
-            <input type="radio" style="visibility: hidden" id="radio-dos" name="select-face"/>
-            <input type="radio" style="visibility: hidden" id="radio-tres" name="select-face"/>
-            <input type="radio" style="visibility: hidden" id="radio-top" name="select-face"/>
-            <input type="radio" style="visibility: hidden" id="radio-bottom" name="select-face"/>
-            <input type="radio" style="visibility: hidden" id="radio-back" name="select-face"/>
-            <div class="separator"></div>
-            <div class="space3d" id="space3d">
-                <div class="_3dbox" id="_3dbox">
-                    <div class="_3dface _3dface--uno"></div>
-                    <div class="_3dface _3dface--top"></div>
-                    <div class="_3dface _3dface--bottom"></div>
-                    <div class="_3dface _3dface--dos"></div>
-                    <div class="_3dface _3dface--tres"></div>
-                    <div class="_3dface _3dface--back"></div>
-                </div>
-            </div>
-            <div class="separator"></div>
-            <div id="snackbar">Puedes moverte</div>
-            <div id="snackbarIn">No puedes moverte</div>
-        </div>
-        <div class="col-md-5">
-            <div class="row">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Jugador</th>
-                        <th>Casilla</th>
-                        <th>Primer lugar</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>
-                            <button id="boton1">Jugador 1</button>
-                        </td>
-                        <td><label id="jugador1">1</label></td>
-                        <td><img id="corona1" src="corona.png" alt="corona" height="50" width="50"
-                                 style="visibility: hidden"></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <button id="boton2">Jugador 2</button>
-                        </td>
-                        <td><label id="jugador2">1</label></td>
-                        <td><img id="corona2" src="corona.png" alt="corona" height="50" width="50"
-                                 style="visibility: hidden"></td>
-                    </tr>
-                    <tr id="tablajug3" , style
-                            ="visibility:hidden;">
-                        <td>
-                            <button id="boton3">Jugador 3</button>
-                        </td>
-                        <td><label id="jugador3">1</label></td>
-                        <td><img id="corona3" src="corona.png" alt="corona" height="50" width="50"
-                                 style="visibility: hidden"></td>
-                    </tr>
-                    <tr id="tablajug4" , style="visibility:hidden;">
-                        <td>
-                            <button id="boton4">Jugador 4</button>
-                        </td>
-                        <td><label id="jugador4">1</label></td>
-                        <td><img id="corona4" src="corona.png" alt="corona" height="50" width="50"
-                                 style="visibility: hidden"></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div id="desafios" class="container-fluid col-md-12" hidden>
-                <div class="row ">
-                        <h1><span id="tipoJuego" class="label label-default ">Tipo de Juego</span></h1>
-                </div>
-                <div id="opcionMultiple" class="row" hidden>
-                    <div class="row">
-                        <div class="col-md-7">
-                            <h4 ><p id="enunciado"></p></h4>
-                        </div>
-                        <div class="col-md-3">
-                            <img id="imagenEnunciado" src="vacio.png" class="img-rounded"  height="50" width="50">
-                        </div>
-                    </div>
-                    <div id="divRespuestasTexto" hidden>
-                    <div class="row" style="margin-top: 20px">
-                        <div class="col-md-12">
-                            <button id="res1" class="btn btn-success btn-block" onclick="validarRespuesta(this)">Respuesta 1</button>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top: 20px">
-                        <div class="col-md-12">
-                            <button id="res2" class="btn btn-success btn-block" onclick="validarRespuesta(this)">Respuesta 2</button>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top: 20px">
-                        <div class="col-md-12">
-                            <button id="res3" class="btn btn-success btn-block" onclick="validarRespuesta(this)">Respuesta 3</button>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top: 20px">
-                        <div class="col-md-12">
-                            <button id="res4" class="btn btn-success btn-block" onclick="validarRespuesta(this)">Respuesta 4</button>
-                        </div>
-                    </div>
-                    </div>
+<ul id="messages"></ul>
+<form action="">
+    <input id="m" autocomplete="off" /><button>Send</button>
+</form>
+<script src="/socket.io/socket.io.js"></script>
 
-                    <div id="divRespuestasImagenes" hidden>
-                        <div class="row" style="margin-top: 20px">
-                            <div class="col-md-12">
-                                <button id="res1" class="btn btn-success btn-block" onclick="validarRespuesta(this)">
-                                    <img id="imagenRes1" src="vacio.png"  class="img-thumbnail" style="border:2px solid black" height="50" width="50"></button>
-                            </div>
-                        </div>
-                        <div class="row" style="margin-top: 20px">
-                            <div class="col-md-12">
-                                <button id="res2" class="btn btn-success btn-block" onclick="validarRespuesta(this)">
-                                    <img id="imagenRes2" src="vacio.png"  class="img-thumbnail" style="border:2px solid black" height="50" width="50">
-                                </button>
-                            </div>
-                        </div>
-                        <div class="row" style="margin-top: 20px">
-                            <div class="col-md-12">
-                                <button id="res3" class="btn btn-success btn-block" onclick="validarRespuesta(this)">
-                                    <img id="imagenRes3" src="vacio.png"  class="img-thumbnail" style="border:2px solid black" height="50" width="50">
-                                </button>
-                            </div>
-                        </div>
-                        <div class="row" style="margin-top: 20px">
-                            <div class="col-md-12">
-                                <button id="res4" class="btn btn-success btn-block" onclick="validarRespuesta(this)">
-                                    <img id="imagenRes4" src="vacio.png"  class="img-thumbnail" style="border:2px solid black" height="50" width="50">
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div id="unir" class="row" hidden onmouseover="verificarCompletoUnir()" >
-                    <div class="row" style="margin-top: 20px">
-                        <div class="col-md-6" >
-                            <button id = "reiniciarUnir" class="btn btn-info" onclick="reiniciarUnir();" >Reiniciar </button>
-                        </div>
-                        <div class="col-md-6">
-                            <button id = "enviarUnir" class="btn btn-success" disabled = "disabled" onclick="verificarRespuestaUnir()" >Enviar Respuesta</button>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top: 20px">
-                        <div class="col-md-6" >
-                            <button id = "imagen1" onclick="obtenerId(this);"> <img src="corona.png"  class="img-thumbnail" style="border:2px solid black">
-                            </button>
-                        </div>
-                        <div class="col-md-6">
-                            <button id = "respuesta1" class="btn" onclick="obtenerId(this);">Respuesta 1</button>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top:  20px">
-                        <div class="col-md-6">
-                            <button id = "imagen2" onclick="obtenerId(this);"> <img  src="corona.png" class="img-thumbnail" style="border:2px solid black">
-                            </button>
-                        </div>
-                        <div class="col-md-6">
-                            <button id = "respuesta2" class="btn" onclick="obtenerId(this);">Respuesta 1 </button>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top: 20px">
-                        <div class="col-md-6">
-                            <button id = "imagen3" onclick="obtenerId(this);">  <img src="corona.png"  class="img-thumbnail" style="border:2px solid black">
-                            </button>
-                        </div>
-                        <div class="col-md-6">
-                            <button id = "respuesta3" class="btn" onclick="obtenerId(this);">Respuesta 1</button>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top: 20px">
-                        <div class="col-md-6">
-                            <button id = "imagen4" onclick="obtenerId(this);"> <img src="corona.png"  class="img-thumbnail" style="border:2px solid black">
-                            </button>
-                        </div>
-                        <div class="col-md-6">
-                            <button id = "respuesta4" class="btn" onclick="obtenerId(this);" disabled>Respuesta 1</button>
-                        </div>
-                    </div>
-
-                </div>
-                <div id="memory_board" hidden></div>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-firestore.js"></script>
-
-<script type="text/javascript" src="funcionesTablero.js"></script>
-<script type="text/javascript" src="firebase.js"></script>
-<script> newBoard();</script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+    $(function () {
+        var socket = io();
+        $('form').submit(function(){
+            socket.emit('chat message', $('#m').val());
+            $('#m').val('');
+            return false;
+        });
+        socket.on('chat message', function(msg){
+            $('#messages').append($('<li>').text(msg));
+        });
+    });
+</script>
 
 </body>
 </html>
