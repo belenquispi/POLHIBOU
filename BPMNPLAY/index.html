@@ -31,6 +31,23 @@
                     <div class="_3dface _3dface--back"></div>
                 </div>
             </div>
+            <input type="radio" style="visibility: hidden" id="radio-uno-2" name="select-face-2"/>
+            <input type="radio" style="visibility: hidden" id="radio-dos-2" name="select-face-2"/>
+            <input type="radio" style="visibility: hidden" id="radio-tres-2" name="select-face-2"/>
+            <input type="radio" style="visibility: hidden" id="radio-top-2" name="select-face-2"/>
+            <input type="radio" style="visibility: hidden" id="radio-bottom-2" name="select-face-2"/>
+            <input type="radio" style="visibility: hidden" id="radio-back-2" name="select-face-2"/>
+            <div class="separator"></div>
+            <div class="space3d-2" id="space3d-2">
+                <div class="_3dbox-2" id="_3dbox-2">
+                    <div class="_3dface-2 _3dface--uno-2"></div>
+                    <div class="_3dface-2 _3dface--top-2"></div>
+                    <div class="_3dface-2 _3dface--bottom-2"></div>
+                    <div class="_3dface-2 _3dface--dos-2"></div>
+                    <div class="_3dface-2 _3dface--tres-2"></div>
+                    <div class="_3dface-2 _3dface--back-2"></div>
+                </div>
+            </div>
             <div class="separator"></div>
             <div id="snackbar">Puedes moverte</div>
             <div id="snackbarIn">No puedes moverte</div>
@@ -160,38 +177,42 @@
                     </div>
                     <div class="row" style="margin-top: 20px">
                         <div class="col-md-6" >
-                            <button id = "imagen1" onclick="obtenerId(this);"> <img src="corona.png"  class="img-thumbnail" style="border:2px solid black">
+                            <button id = "botonImagenAUnir1" onclick="obtenerId(this);">
+                                <img id="imagenAUnir1" src="vacio.png"  class="img-thumbnail" style="border:2px solid black" height="50" width="50">
                             </button>
                         </div>
                         <div class="col-md-6">
-                            <button id = "respuesta1" class="btn" onclick="obtenerId(this);">Respuesta 1</button>
+                            <button id = "textoAUnir1" class="btn" disabled onclick="obtenerId(this);">Texto 1</button>
                         </div>
                     </div>
                     <div class="row" style="margin-top:  20px">
                         <div class="col-md-6">
-                            <button id = "imagen2" onclick="obtenerId(this);"> <img  src="corona.png" class="img-thumbnail" style="border:2px solid black">
+                            <button id = "botonImagenAUnir2" onclick="obtenerId(this);">
+                                <img id="imagenAUnir2" src="vacio.png"  class="img-thumbnail" style="border:2px solid black" height="50" width="50">
                             </button>
                         </div>
                         <div class="col-md-6">
-                            <button id = "respuesta2" class="btn" onclick="obtenerId(this);">Respuesta 1 </button>
+                            <button id = "textoAUnir2" class="btn" disabled onclick="obtenerId(this);">Texto 2 </button>
                         </div>
                     </div>
                     <div class="row" style="margin-top: 20px">
                         <div class="col-md-6">
-                            <button id = "imagen3" onclick="obtenerId(this);">  <img src="corona.png"  class="img-thumbnail" style="border:2px solid black">
+                            <button id = "botonImagenAUnir3" onclick="obtenerId(this);">
+                                <img id="imagenAUnir3" src="vacio.png"  class="img-thumbnail" style="border:2px solid black" height="50" width="50">
                             </button>
                         </div>
                         <div class="col-md-6">
-                            <button id = "respuesta3" class="btn" onclick="obtenerId(this);">Respuesta 1</button>
+                            <button id = "textoAUnir3" class="btn" disabled onclick="obtenerId(this);">Texto 3</button>
                         </div>
                     </div>
                     <div class="row" style="margin-top: 20px">
                         <div class="col-md-6">
-                            <button id = "imagen4" onclick="obtenerId(this);"> <img src="corona.png"  class="img-thumbnail" style="border:2px solid black">
+                            <button id = "botonImagenAUnir4" onclick="obtenerId(this);">
+                                <img id="imagenAUnir4" src="vacio.png"  class="img-thumbnail" style="border:2px solid black" height="50" width="50">
                             </button>
                         </div>
                         <div class="col-md-6">
-                            <button id = "respuesta4" class="btn" onclick="obtenerId(this);" disabled>Respuesta 1</button>
+                            <button id = "textoAUnir4" class="btn" disabled onclick="obtenerId(this);">Texto 4</button>
                         </div>
                     </div>
 

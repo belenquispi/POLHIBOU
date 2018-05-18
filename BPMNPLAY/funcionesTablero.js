@@ -1,5 +1,4 @@
 var ctx = null;
-var contexto = null;
 var gameMap = [
     13, 14, 15, 16, 17, 18, 19, 20,
     12, 0, 0, 0, 0, 0, 0, 21,
@@ -13,7 +12,6 @@ var gameMap = [
 ];
 var colorMap = [];
 var colorJugador = ["#01DF3A", "#FE2E2E", "#0431B4", "#61380B", "#8904B1"];
-var vistaDado = 0;
 var anchoCasilla = 80, altoCasilla = 80;
 var columnas = 8, filas = 8;
 var currentSecond = 0, frameCount = 0, framesLastSecond = 0, lastFrameTime = 0;
@@ -21,7 +19,7 @@ var clic1 = false;
 var clic2 = false;
 var clic3 = false;
 var clic4 = false;
-var dado = -1, dadoAnterior;
+var numCasillasMoverse = 0, dado1 = -1, dado2 = -1, dadoAnterior1, dadoAnterior2;
 var gameTime = 0;
 var gameSpeeds = [
     {name: "Normal", mult: 1},
@@ -43,11 +41,11 @@ var color3 = new Image();
 var patterColor1, patterColor2, patterColor3;
 var mueve = 0;
 var respuestaCorrecta = false;
-var respuestaCorrectaUnir = ['imagen1','respuesta4','imagen2','respuesta3','imagen3','respuesta1','imagen4','respuesta2'];
-var imagenUnir = ['imagen1','imagen2','imagen3','imagen4'];
-var textoUnir = ['respuesta1','respuesta2','respuesta3','respuesta4'];
+var respuestaCorrectaUnir = [];
+var imagenUnir = ['botonImagenAUnir1','botonImagenAUnir2','botonImagenAUnir3','botonImagenAUnir4'];
+var textoUnir = ['textoAUnir1','textoAUnir2','textoAUnir3','textoAUnir4'];
 var respuestaUnir = [];
-var memory_array = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D'];
+var memory_array = [];
 var memory_values = [];
 var memory_tile_ids = [];
 var tiles_flipped = 0;
@@ -79,13 +77,13 @@ Character.prototype.processMovement = function (t) {
 
     if (this.casilla == 33) {
         ocultarBoton(jugadorActual.boton);
-        dado = 0;
+        numCasillasMoverse = 0;
     }
 
     if ((t - this.timeMoved) >= this.delayMove) {
         this.placeAt(this.tileTo[0], this.tileTo[1]);
 
-        if (dado > 1) {
+        if (numCasillasMoverse > 1) {
             if (this.canMoveDirection(this.direction)) {
                 this.moveDirection(this.direction, t);
             }
@@ -93,7 +91,7 @@ Character.prototype.processMovement = function (t) {
                 this.nuevaDireccion();
                 this.moveDirection(this.direction, t);
             }
-            dado = dado - 1;
+            numCasillasMoverse = numCasillasMoverse - 1;
             mueve -= 2;
         }
         else {
@@ -233,17 +231,13 @@ function toIndex(x, y) {
     return ((y * columnas) + x);
 }
 
-
 window.onload = function () {
-
-
-        obtenerPreguntas();
-
-
-
+    obtenerPreguntasOpcionMultiple();
+    obtenerPreguntasUnir();
     seleccionarColor();
+    console.log("tttt"+memory_array.length);
     ctx = document.getElementById('game').getContext("2d");
-    agregarJugador(3);
+    agregarJugador(4);
     requestAnimationFrame(drawGame);
     ctx.font = "bold 10pt sans-serif";
     color1.src = "0.png";
@@ -323,9 +317,9 @@ function agregarNumerosCasilla() {
 }
 
 function dadoRandomico() {
-    dado = Math.floor(Math.random() * 6 + 1);
-    vistaDado = dado;
-    if (dado == dadoAnterior) {
+    dado1 = Math.floor(Math.random() * 6 + 1);
+    dado2 = Math.floor(Math.random() * 6 + 1);
+    if (dado1 == dadoAnterior1 || dado2 == dadoAnterior2) {
         dadoRandomico();
     }
 }
@@ -453,11 +447,12 @@ function mostrarDesafio(jugadorAct) {
     var colorCa;
     for (var x = 0; x < filas; ++x) {
         for (var y = 0; y < columnas; ++y) {
-            if ((gameMap[((x * columnas) + y)]) == (jugadorAct.casilla + dado)) {
+            if ((gameMap[((x * columnas) + y)]) == (jugadorAct.casilla + numCasillasMoverse)) {
                 colorCa = colorMap[((x * columnas) + y)];
 
                 switch (colorCa) {
                     case 0:
+                        newBoard();
                         document.getElementById("tipoJuego").innerHTML = "Voltear";
                         document.getElementById("desafios").removeAttribute("hidden");
                         document.getElementById("memory_board").removeAttribute("hidden");
@@ -466,6 +461,7 @@ function mostrarDesafio(jugadorAct) {
 
                         break;
                     case 1:
+                        mostrarUnir();
                         document.getElementById("tipoJuego").innerHTML = "Unir";
                         document.getElementById("desafios").removeAttribute("hidden");
                         document.getElementById("unir").removeAttribute("hidden");
@@ -473,7 +469,7 @@ function mostrarDesafio(jugadorAct) {
                         document.getElementById("opcionMultiple").setAttribute("hidden", "");
                         break;
                     case 2:
-                        cargarPreguntas();
+                        cargarPreguntasOpcionMultiple();
                         document.getElementById("tipoJuego").innerHTML = "Opción Múltiple";
                         document.getElementById("desafios").removeAttribute("hidden");
                         document.getElementById("opcionMultiple").removeAttribute("hidden");
@@ -512,10 +508,14 @@ function drawGame() {
             if (jugadorActual.casilla <= 33) {
                 if (!respuestaCorrecta) {
                     dadoRandomico();
-                    moverDado(dado);
+                    moverDado(dado1);
+
+                    numCasillasMoverse = dado1 + dado2;
+                    moverDado2();
                     mostrarDesafio(jugadorActual);
                 }
-                dadoAnterior = dado;
+                dadoAnterior1 = dado1;
+                dadoAnterior2 = dado2;
                 if (respuestaCorrecta) {
                     respuestaCorrecta = false;
                     if (jugadorActual.canMoveUp()) {
@@ -589,6 +589,7 @@ function drawGame() {
 
 Array.prototype.memory_tile_shuffle = function () {
     var i = this.length, j, temp;
+    console.log("eee"+i);
     while (--i > 0) {
         j = Math.floor(Math.random() * (i + 1));
         temp = this[j];
@@ -602,16 +603,20 @@ function newBoard() {
     var output = '';
     memory_array.memory_tile_shuffle();
     for (var i = 0; i < memory_array.length; i++) {
-        output += '<div id="tile_' + i + '" onclick="memoryFlipTile(this,\'' + memory_array[i] + '\')"></div>';
+        console.log("eee");
+        output += '<img id="tile_' + i + '" alt="" onclick="memoryFlipTile(this,\'' + memory_array[i] + '\')">';
     }
     document.getElementById('memory_board').innerHTML = output;
 
 }
 
 function memoryFlipTile(tile, val) {
-    if (tile.innerHTML == "" && memory_values.length < 2) {
-        tile.style.background = '#FFF';
-        tile.innerHTML = val;
+    console.log("url: "+tile.src)
+    if (tile.alt == "" && memory_values.length < 2) {
+        console.log("url: "+tile.src)
+       //tile.style.background = '#FFF';
+        tile.src = val;
+        tile.alt = val;
         if (memory_values.length == 0) {
             memory_values.push(val);
             memory_tile_ids.push(tile.id);
@@ -623,6 +628,7 @@ function memoryFlipTile(tile, val) {
                 // Clear both arrays
                 memory_values = [];
                 memory_tile_ids = [];
+                mostrarMensajeParEncontrado(memory_array[0]);
                 // Check to see if the whole board is cleared
                 if (tiles_flipped == memory_array.length) {
                     // alert("Board cleared... generating new board");
@@ -635,10 +641,14 @@ function memoryFlipTile(tile, val) {
                     // Flip the 2 tiles back over
                     var tile_1 = document.getElementById(memory_tile_ids[0]);
                     var tile_2 = document.getElementById(memory_tile_ids[1]);
-                    tile_1.style.background = 'url(corona.png) no-repeat';
-                    tile_1.innerHTML = "";
-                    tile_2.style.background = 'url(corona.png) no-repeat';
-                    tile_2.innerHTML = "";
+                  // tile_1.style.background = 'url(corona.png) no-repeat';
+                    tile_1.src = "corona.png";
+                    tile_1.alt = "";
+                    tile_1.removeAttribute("src");
+                   //tile_2.style.background = 'url(corona.png) no-repeat';
+                    tile_2.src = "corona.png";
+                    tile_2.alt = "";
+                    tile_2.removeAttribute("src");
                     // Clear both arrays
                     memory_values = [];
                     memory_tile_ids = [];
@@ -650,8 +660,12 @@ function memoryFlipTile(tile, val) {
     }
 }
 
-function validarRespuesta(boton)
-{
+function mostrarMensajeParEncontrado(urlImagenEmparejada) {
+
+    if()
+}
+
+function validarRespuesta(boton) {
     if(boton.id == resCorrecta )
     {
         desafioCorrecto();
@@ -663,51 +677,100 @@ function validarRespuesta(boton)
     }
 }
 
-
-function desafioIncorrecto()
-{
+function desafioIncorrecto() {
     mostrarMensaje("snackbarIn");
     respuestaCorrecta = false;
     document.getElementById("desafios").setAttribute("hidden","");
 }
 
-
-
-
-function desafioCorrecto()
-{
+function desafioCorrecto() {
     mostrarMensaje("snackbar");
     respuestaCorrecta = true;
     clic1 = true;
     document.getElementById("desafios").setAttribute("hidden","");
 }
 
-function moverDado(cara) {
+function moverDado(cara1) {
     var element;
-    switch (cara) {
+    switch (dado1) {
         case 1:
+            console.log("cara 1 " + cara1)
             element = document.getElementById("radio-uno");
             element.checked = "true";
             break;
         case 2:
+            console.log("cara 1 " + cara1)
+
             element = document.getElementById("radio-dos");
             element.checked = "true";
             break;
         case 3:
+            console.log("cara 1 " + cara1)
+
             element = document.getElementById("radio-tres");
             element.checked = "true";
             break;
         case 4:
+            console.log("cara 1 " + cara1)
+
             element = document.getElementById("radio-top");
             element.checked = "true";
             break;
         case 5:
+            console.log("cara 1 " + cara1)
+
             element = document.getElementById("radio-bottom");
             element.checked = "true";
             break;
         case 6:
+            console.log("cara 1 " + cara1)
+
             element = document.getElementById("radio-back");
             element.checked = "true";
+            break;
+    }
+
+}
+
+function moverDado2() {
+    var element2;
+    var cara2 = dado2;
+    switch (dado2) {
+        case 1:
+            console.log("cara 2 " + cara2)
+
+            element2 = document.getElementById("radio-uno-2");
+            element2.checked = "true";
+            break;
+        case 2:
+            console.log("cara 2 " + cara2)
+
+            element2 = document.getElementById("radio-dos-2");
+            element2.checked = "true";
+            break;
+        case 3:
+            console.log("cara 2 " + cara2)
+
+            element2 = document.getElementById("radio-tres-2");
+            element2.checked = "true";
+            break;
+        case 4:
+            console.log("cara 2 " + cara2)
+
+            element2 = document.getElementById("radio-top-2");
+            element2.checked = "true";
+            break;
+        case 5:
+            console.log("cara 2 " + cara2)
+
+            element2 = document.getElementById("radio-bottom-2");
+            element2.checked = "true";
+            break;
+        case 6:
+            console.log("cara 2 " + cara2)
+
+            element2 = document.getElementById("radio-back-2");
+            element2.checked = "true";
             break;
     }
 }
@@ -725,7 +788,6 @@ function obtenerId(e) {
     switch (true){
 
         case respuestaUnir.length < 2:
-            console.log("verde")
             document.getElementById(id).style.border = "thick solid green";
             break;
         case respuestaUnir.length < 4:
@@ -739,28 +801,19 @@ function obtenerId(e) {
             break;
 
     }
-
-    console.log("id: "+ id)
     respuestaUnir.push(id);
-    console.log("respuestas" + respuestaUnir);
-
-    console.log("rrr" + imagenUnir.indexOf(id));
-
     if(imagenUnir.indexOf(id) >= 0) {
         for(var i = 0; i<imagenUnir.length; i++){
                 document.getElementById(imagenUnir[i]).setAttribute("disabled","");
         }
-
         for(var j = 0 ; j < textoUnir.length; j++){
             if(respuestaUnir.indexOf(textoUnir[j])>0)
             {
                 document.getElementById(textoUnir[j]).setAttribute("disabled","");
             }else {
                 document.getElementById(textoUnir[j]).removeAttribute("disabled");
-
             }
         }
-
     } else if (textoUnir.indexOf(id) >=0){
         for(var i = 0; i<textoUnir.length; i++) {
             document.getElementById(textoUnir[i]).setAttribute("disabled", "");
@@ -774,18 +827,15 @@ function obtenerId(e) {
                     document.getElementById(imagenUnir[j]).removeAttribute("disabled");
                 }
             }
-
     }
-
-
-    console.log(respuestaUnir);
 }
-
 
 function reiniciarUnir() {
     for (var i =0; i < respuestaUnir.length; i++){
         document.getElementById(respuestaUnir[i]).style.border = "gray";
-        document.getElementById(respuestaUnir[i]).removeAttribute("disabled");
+        if(imagenUnir.indexOf(respuestaUnir[i])>=0) {
+            document.getElementById(respuestaUnir[i]).removeAttribute("disabled");
+        }
     }
     for(var i = respuestaUnir.length; i > 0 ; i--) {
         respuestaUnir.pop();
@@ -801,12 +851,15 @@ function verificarCompletoUnir() {
         document.getElementById("enviarUnir").removeAttribute("disabled");
     }
 }
+
 function verificarRespuestaUnir() {
     var contadorRespuestas = 0;
     for(var j = 0; j < respuestaUnir.length-1; j++){
         for (var k = 0; k < respuestaCorrectaUnir.length-1; k++)
         {
-            if(respuestaUnir[j] == respuestaCorrectaUnir[k] && respuestaUnir[j+1] == respuestaCorrectaUnir[k+1])
+            var idBoton1 = respuestaUnir[j];
+            var idBoton2 = respuestaUnir[j+1];
+            if(document.getElementById(idBoton1).getAttribute("nombre") == respuestaCorrectaUnir[k] && document.getElementById(idBoton2).textContent == respuestaCorrectaUnir[k+1])
             {
                 contadorRespuestas++;
                 j++;
@@ -817,13 +870,12 @@ function verificarRespuestaUnir() {
     }
     if(contadorRespuestas == 4)
     {
-        reiniciarUnir();
         desafioCorrecto();
     }
     else {
-        reiniciarUnir();
         desafioIncorrecto();
     }
+    reiniciarUnir();
 
 }
 

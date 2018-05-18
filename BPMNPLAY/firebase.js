@@ -1,4 +1,6 @@
-var preguntas = [];
+var preguntasOpcionMultiple = [];
+var preguntasUnirVoltear = [];
+var vectorTextoUnir = [];
 var preguntaRandomica;
 var resCorrecta;
 var downloadURL = null;
@@ -30,32 +32,90 @@ firebase.initializeApp(config);
 
 var db = firebase.firestore();
 
-
 var settings = {
     timestampsInSnapshots: true
 };
 
 db.settings(settings);
 
-
-function obtenerPreguntas() {
+function obtenerPreguntasOpcionMultiple() {
     console.log("preguntassssss")
     // var docRef = db.collection("preguntas");
     db.collection("preguntas").get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
             // doc.data() is never undefined for query doc snapshots
-            preguntas.push(doc.data());
-            preguntas[preguntas.length - 1].usada = "falsa";
+            preguntasOpcionMultiple.push(doc.data());
+            preguntasOpcionMultiple[preguntasOpcionMultiple.length - 1].usada = "falsa";
         });
 
     });
 }
 
+function obtenerPreguntasUnir() {
+    db.collection("preguntasUnirVoltear").get().then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+            preguntasUnirVoltear.push(doc.data());
+            memory_array.push(doc.data().urlImagenUnirVoltear);
+            memory_array.push(doc.data().urlImagenUnirVoltear);
+            console.log(memory_array.length);
+            preguntasUnirVoltear[preguntasUnirVoltear.length - 1].usada = "falsa";
+        });
+    });
+}
 
+function mostrarUnir() {
+    vectorTextoUnir = [];
+    for (var j = 0; j < 4; j++) {
+        cargarUnirVoltear();
+    }
+    desordenarTextoUnir();
+    for (var a = 0; a < vectorTextoUnir.length; a++) {
+        document.getElementById("botonImagenAUnir"+(a+1)).setAttribute("nombre",respuestaCorrectaUnir[a*2]);
+        document.getElementById("imagenAUnir"+(a+1)).src = respuestaCorrectaUnir[a*2];
+        document.getElementById("textoAUnir"+(a+1)).innerHTML = vectorTextoUnir[a];
+
+    }
+}
+
+
+function cargarUnirVoltear() {
+    var contadorVerdaderas = 0;
+    for (var t = 0; t < preguntasUnirVoltear.length; t++) {
+        if (preguntasUnirVoltear[t].usada == "verdadera") {
+            contadorVerdaderas++;
+        }
+    }
+    if (contadorVerdaderas == preguntasUnirVoltear.length) {
+
+        for (var t = 0; t < preguntasUnirVoltear.length; t++) {
+            preguntasUnirVoltear[t].usada = "falsa";
+        }
+    }
+    indiceRandomico(preguntasUnirVoltear);
+    if (preguntasUnirVoltear[preguntaRandomica].usada == "falsa") {
+            respuestaCorrectaUnir.push(preguntasUnirVoltear[preguntaRandomica].urlImagenUnirVoltear);
+            respuestaCorrectaUnir.push(preguntasUnirVoltear[preguntaRandomica].textoUnirVoltear);
+            preguntasUnirVoltear[preguntaRandomica].usada = "verdadera";
+            vectorTextoUnir.push(preguntasUnirVoltear[preguntaRandomica].textoUnirVoltear);
+    }
+    else {
+        cargarUnirVoltear();
+    }
+}
+
+function desordenarTextoUnir() {
+    var j, x, i;
+    for (i = vectorTextoUnir.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = vectorTextoUnir[i];
+        vectorTextoUnir[i] = vectorTextoUnir[j];
+        vectorTextoUnir[j] = x;
+    }
+}
 
 function guardarPreguntaOpcionMultiple() {
     for (var i = 0; i < imagenes.length; i++) {
-        cargarImagen(imagenes[i], function () {
+        subirImagenOpcionMultiple(imagenes[i], function () {
 
             if(contadorURL == imagenes.length)
             {
@@ -98,14 +158,12 @@ function guardarPreguntaUnirVoltear() {
 
         for (var i = 0; i < imagenesUnirVoltear.length; i++) {
 
-            cargarImagenUnir(imagenesUnirVoltear[i], function (a) {
-                console.log("a= "+a);
-                var textoUnirVoltear = document.getElementById('textoUnir'+(a+1)).value;
+            subirImagenUnir(imagenesUnirVoltear[i], function (a) {
+                var textoUnir = document.getElementById('textoUnir'+(a+1)).value;
                 var idMateria = "BPMN";
-                console.log(textoUnirVoltear + idMateria)
                 db.collection("preguntasUnirVoltear").doc().set({
                     urlImagenUnirVoltear: downloadURL,
-                    textoUnirVoltear: textoUnirVoltear,
+                    textoUnirVoltear: textoUnir,
                     idMateria: idMateria
                 })
                     .then(function () {
@@ -120,66 +178,60 @@ function guardarPreguntaUnirVoltear() {
         }
 }
 
-
-function indiceRandomico() {
-    preguntaRandomica = Math.floor(Math.random() * preguntas.length)
+function indiceRandomico(listaPreguntas) {
+    preguntaRandomica = Math.floor(Math.random() * listaPreguntas.length)
 }
 
-
-function cargarPreguntas() {
+function cargarPreguntasOpcionMultiple() {
     var contadorVerdaderas = 0;
-    for (var t = 0; t < preguntas.length; t++) {
-        if (preguntas[t].usada == "verdadera") {
+    for (var t = 0; t < preguntasOpcionMultiple.length; t++) {
+        if (preguntasOpcionMultiple[t].usada == "verdadera") {
             contadorVerdaderas++
         }
         ;
     }
-    if (contadorVerdaderas == preguntas.length) {
+    if (contadorVerdaderas == preguntasOpcionMultiple.length) {
 
-        for (var t = 0; t < preguntas.length; t++) {
-            console.log("llenase" + contadorVerdaderas);
-            preguntas[t].usada = "falsa";
+        for (var t = 0; t < preguntasOpcionMultiple.length; t++) {
+            preguntasOpcionMultiple[t].usada = "falsa";
         }
     }
 
-    indiceRandomico();
-    console.log("correcto")
-    console.log(preguntaRandomica);
-    if (preguntas[preguntaRandomica].usada == "falsa") {
-        console.log("11111 " + preguntaRandomica);
-        document.getElementById("enunciado").innerHTML = preguntas[preguntaRandomica].enunciado;
-        if (preguntas[preguntaRandomica].urlEnunciado != null) {
-            console.log("sin datos")
-            document.getElementById("imagenEnunciado").src = preguntas[preguntaRandomica].urlEnunciado;
+    indiceRandomico(preguntasOpcionMultiple);
+    if (preguntasOpcionMultiple[preguntaRandomica].usada == "falsa") {
+        document.getElementById("enunciado").innerHTML = preguntasOpcionMultiple[preguntaRandomica].enunciado;
+        if (preguntasOpcionMultiple[preguntaRandomica].urlEnunciado != null) {
+            document.getElementById("imagenEnunciado").src = preguntasOpcionMultiple[preguntaRandomica].urlEnunciado;
+        } else
+        {
+           document.getElementById("imagenEnunciado").src = "vacio.png";
+
         }
-        if (preguntas[preguntaRandomica].urlRes1 != null) {
+        if (preguntasOpcionMultiple[preguntaRandomica].urlRes1 != null) {
             document.getElementById("divRespuestasImagenes").removeAttribute("hidden")
             document.getElementById("divRespuestasTexto").setAttribute("hidden", "")
-            document.getElementById("imagenRes1").src = preguntas[preguntaRandomica].urlRes1;
-            document.getElementById("imagenRes2").src = preguntas[preguntaRandomica].urlRes2;
-            document.getElementById("imagenRes3").src = preguntas[preguntaRandomica].urlRes3;
-            document.getElementById("imagenRes4").src = preguntas[preguntaRandomica].urlRes4;
+            document.getElementById("imagenRes1").src = preguntasOpcionMultiple[preguntaRandomica].urlRes1;
+            document.getElementById("imagenRes2").src = preguntasOpcionMultiple[preguntaRandomica].urlRes2;
+            document.getElementById("imagenRes3").src = preguntasOpcionMultiple[preguntaRandomica].urlRes3;
+            document.getElementById("imagenRes4").src = preguntasOpcionMultiple[preguntaRandomica].urlRes4;
         }
         else {
             document.getElementById("divRespuestasTexto").removeAttribute("hidden")
             document.getElementById("divRespuestasImagenes").setAttribute("hidden", "")
-            document.getElementById("res1").innerHTML = preguntas[preguntaRandomica].res1;
-            document.getElementById("res2").innerHTML = preguntas[preguntaRandomica].res2;
-            document.getElementById("res3").innerHTML = preguntas[preguntaRandomica].res3;
-            document.getElementById("res4").innerHTML = preguntas[preguntaRandomica].res4;
+            document.getElementById("res1").innerHTML = preguntasOpcionMultiple[preguntaRandomica].res1;
+            document.getElementById("res2").innerHTML = preguntasOpcionMultiple[preguntaRandomica].res2;
+            document.getElementById("res3").innerHTML = preguntasOpcionMultiple[preguntaRandomica].res3;
+            document.getElementById("res4").innerHTML = preguntasOpcionMultiple[preguntaRandomica].res4;
         }
-        resCorrecta = preguntas[preguntaRandomica].resCorrecta;
-        preguntas[preguntaRandomica].usada = "verdadera";
-        console.log(preguntas[preguntaRandomica].usada);
+        resCorrecta = preguntasOpcionMultiple[preguntaRandomica].resCorrecta;
+        preguntasOpcionMultiple[preguntaRandomica].usada = "verdadera";
     }
     else {
-        cargarPreguntas();
+        cargarPreguntasOpcionMultiple();
     }
 }
 
-function cargarImagen(nombreFile, callback) {
-    console.log("hola1")
-    console.log(nombreFile);
+function subirImagenOpcionMultiple(nombreFile, callback) {
     var files = null;
     switch (nombreFile) {
         case "file":
@@ -199,14 +251,12 @@ function cargarImagen(nombreFile, callback) {
             break;
     }
 
-    var storageRef = firebase.storage().ref('imagenes/' + files.name)
+    var storageRef = firebase.storage().ref('imagenes/' + files.name+generarNombre()+generarNombre())
 
     var task = storageRef.put(files);
-    console.log("hola2")
     task.on('state_changed',
         function progress(snapshot) {
             var porcentaje = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-            console.log(porcentaje);
         },
         function error(err) {
             console.log(err);
@@ -216,31 +266,26 @@ function cargarImagen(nombreFile, callback) {
             switch (nombreFile) {
                 case "file":
                     downloadURL = task.snapshot.downloadURL;
-                    console.log("url" + downloadURL);
                     contadorURL++;
                     callback();
                     break;
                 case "file1":
                     downloadURLRes1 = task.snapshot.downloadURL;
-                    console.log("url1 " + downloadURLRes1);
                     contadorURL++;
                     callback();
                     break;
                 case "file2":
                     downloadURLRes2 = task.snapshot.downloadURL;
-                    console.log("url2 " + downloadURLRes2);
                     contadorURL++;
                     callback();
                     break;
                 case "file3":
                     downloadURLRes3 = task.snapshot.downloadURL;
-                    console.log("url3 " + downloadURLRes3);
                     contadorURL++;
                     callback();
                     break;
                 case "file4":
                     downloadURLRes4 = task.snapshot.downloadURL;
-                    console.log("url 4" + downloadURLRes4);
                     contadorURL++;
                     callback();
                     break;
@@ -251,11 +296,9 @@ function cargarImagen(nombreFile, callback) {
     );
 }
 
-function cargarImagenUnir(file, callback,a) {
-
-    var storageRef = firebase.storage().ref('imagenes/' + file.name)
+function subirImagenUnir(file, callback, a) {
+    var storageRef = firebase.storage().ref('imagenes/' + file.name+generarNombre()+generarNombre())
     var task = storageRef.put(file);
-    console.log(file.name)
     task.on('state_changed',
         function progress(snapshot) {
             var porcentaje = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
@@ -264,15 +307,16 @@ function cargarImagenUnir(file, callback,a) {
         function error(err) {
             console.log(err);
         },
-
         function () {
-
             downloadURL = task.snapshot.downloadURL;
-            console.log("url" + downloadURL);
             callback(a);
         }
     );
-
 }
 
+function generarNombre() {
+            return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+    }
 
