@@ -20,16 +20,16 @@ socket.on('message', function(data) {
     console.log(data);
 });
 
+var jugadores = [];
 
 window.onload = function () {
+    socket.emit('new player');
     ctx = document.getElementById('game').getContext("2d");
     requestAnimationFrame(drawGame);
     ctx.font = "bold 10pt sans-serif";
     console.log("adios")
-
-
-
 };
+
 
 socket.on('parametrosJuego', function(data) {
     filas = data.filas;
@@ -38,9 +38,16 @@ socket.on('parametrosJuego', function(data) {
     altoCasilla = data.altoCas;
     gameMap = data.gameM;
     colorMap = data.colorM;
-
-    console.log("hola")
 })
+
+socket.on('jugadores', function(data) {
+    jugadores = data;
+
+    for(var i = 0; i< jugadores.length; i++) {
+        console.log("rrrr:  " + jugadores[i].idSocket);
+    }
+})
+
 
 function agregarNumerosCasilla() {
     for (var y = 0; y < filas; ++y) {
@@ -109,6 +116,7 @@ function drawGame() {
     }
 
     agregarNumerosCasilla();
+    dibujarJugador();
 
     ctx.fillStyle = "#ff0000";
     ctx.fillText("FPS: " + framesLastSecond, 10, 20);
@@ -118,4 +126,25 @@ function drawGame() {
     requestAnimationFrame(drawGame);
 }
 
+function dibujarJugador() {
+    for (var i = 0; i < jugadores.length; i++) {
+        ctx.fillStyle = jugadores[i].colorP;
+
+        switch (i) {
+            case 0:
+                ctx.fillRect(jugadores[i].position[0], jugadores[i].position[1], jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[1] / 2);
+                break;
+            case 1:
+                ctx.fillRect(jugadores[i].position[0] + jugadores[i].dimensions[1] / 2, jugadores[i].position[1], jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[1] / 2);
+                break;
+            case 2:
+                ctx.fillRect(jugadores[i].position[0], jugadores[i].position[1] + jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[1] / 2);
+                break;
+            case 3:
+                ctx.fillRect(jugadores[i].position[0] + jugadores[i].dimensions[0] / 2, jugadores[i].position[1] + jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[1] / 2);
+                break;
+            default:
+        }
+    }
+}
 
