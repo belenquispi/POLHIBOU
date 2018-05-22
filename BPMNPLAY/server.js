@@ -99,15 +99,25 @@ io.on('connection', function(socket) {
         if(jugadores.length < 3) {
             jugadores.push(new Character(jugadores.length, 180, 580, socket.id));
         }
-        socket.emit('jugadores', jugadores);
+      //  socket.emit('jugadores', jugadores);
+
     });
     socket.on('disconnect', function() {
         // remove disconnected player
        console.log("El usuario: "+socket.id + " se ha desconectado. ")
+        console.log("Los jugadores: "+jugadores)
+        var posicion = jugadores.map(function (e) { return e.idSocket;  }).indexOf(socket.id);
+        console.log("Eliminats: "+posicion)
+       jugadores.splice(posicion,1);
+        console.log("Los nuevos Jugadores: "+jugadores)
     });
 
 });
 
 setInterval(function() {
+    io.sockets.emit('jugadores', jugadores);
+}, 1000 / 60);
+
+/*setInterval(function() {
   //  io.sockets.emit('message', 'hi!');
-}, 1000)
+}, 1000)*/

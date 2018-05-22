@@ -2,33 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3299685f-4aef-430c-bbbf-10e9746e67af" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/BPMNPLAY/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/.idea/BPMNPLAY.iml" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/.idea/BPMNPLAY.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BPMNPLAY/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/corona.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/coronaBronce.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/coronaOro.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/coronaPlata.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/dado1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/dado2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/dado3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/dado4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/dado5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/dado6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/estilos.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/firebase.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/funcionesCargarOpcionMultiple.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/funcionesTablero.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/funcionesUnirVoltear.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/ingresoPreguntas.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/ingresoUnirVoltear.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/vacio.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BPMNPLAY/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BPMNPLAY/static/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/static/game.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -51,11 +27,29 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BPMNPLAY/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
             <state>
               <caret column="13" selection-start-column="13" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="server.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/BPMNPLAY/server.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="112" column="7" lean-forward="true" selection-start-line="112" selection-start-column="7" selection-end-line="112" selection-end-column="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="game.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/game.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="43" column="21" selection-start-line="43" selection-start-column="21" selection-end-line="43" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -84,6 +78,8 @@
         <option value="$PROJECT_DIR$/BPMNPLAY/views/estilos.css" />
         <option value="$PROJECT_DIR$/BPMNPLAY/funcionesTablero.js" />
         <option value="$PROJECT_DIR$/BPMNPLAY/.gitignore" />
+        <option value="$PROJECT_DIR$/BPMNPLAY/static/game.js" />
+        <option value="$PROJECT_DIR$/BPMNPLAY/server.js" />
       </list>
     </option>
   </component>
@@ -102,8 +98,8 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="10" />
-    <option name="y" value="20" />
+    <option name="x" value="-3" />
+    <option name="y" value="10" />
     <option name="width" value="1346" />
     <option name="height" value="688" />
   </component>
@@ -112,6 +108,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -124,11 +121,16 @@
               <item name="BPMNPLAY" type="462c0819:PsiDirectoryNode" />
               <item name="BPMNPLAY" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="BPMNPLAY" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BPMNPLAY" type="462c0819:PsiDirectoryNode" />
+              <item name="BPMNPLAY" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -177,24 +179,25 @@
       <workItem from="1521488024898" duration="4748000" />
       <workItem from="1521494878012" duration="469000" />
       <workItem from="1526658546200" duration="3542000" />
+      <workItem from="1527000982284" duration="805000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9938000" />
+    <option name="totallyTimeSpent" value="10743000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17291667" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1727672" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.32899022" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -213,136 +216,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/funcionesTablero.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10285">
-          <caret line="605" column="27" selection-start-line="605" selection-start-column="27" selection-end-line="605" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="14" lean-forward="true" selection-start-line="12" selection-start-column="7" selection-end-line="14" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/ingresoUnirVoltear.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/funcionesUnirVoltear.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/firebase.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5066">
-          <caret line="298" column="45" selection-start-line="298" selection-start-column="45" selection-end-line="298" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/estilos.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2414">
-          <caret line="142" column="16" selection-start-line="142" selection-start-column="16" selection-end-line="142" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/funcionesTablero.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10285">
-          <caret line="605" column="96" lean-forward="true" selection-start-line="605" selection-start-column="96" selection-end-line="605" selection-end-column="96" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3774">
-          <caret line="222" column="6" selection-start-line="222" selection-start-column="6" selection-end-line="222" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/ingresoUnirVoltear.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/funcionesUnirVoltear.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/firebase.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4335">
-          <caret line="255" column="67" selection-start-line="255" selection-start-column="67" selection-end-line="255" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/estilos.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2448">
-          <caret line="144" column="17" selection-start-line="144" selection-start-column="17" selection-end-line="144" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/funcionesTablero.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3587">
-          <caret line="211" lean-forward="true" selection-start-line="211" selection-end-line="211" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/ingresoUnirVoltear.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/funcionesUnirVoltear.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/firebase.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4335">
-          <caret line="255" column="67" selection-start-line="255" selection-start-column="67" selection-end-line="255" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/tablero.html" />
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/estilos.css" />
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/tablero.html" />
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/estilos.css" />
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/tablero.html" />
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/estilos.css" />
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/firebase.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="826">
-          <caret line="298" column="45" selection-start-line="298" selection-start-column="45" selection-end-line="298" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/funcionesUnirVoltear.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/ingresoUnirVoltear.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/tablero.html" />
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/estilos.css" />
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/tablero.html" />
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/estilos.css" />
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/tablero.html" />
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/estilos.css" />
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/funcionesTablero.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
-          <caret line="315" column="5" lean-forward="true" selection-start-line="315" selection-start-column="5" selection-end-line="315" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/estilos.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1591">
-          <caret line="142" column="16" selection-start-line="142" selection-start-column="16" selection-end-line="142" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/BPMNPLAY/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -354,6 +227,77 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="13" selection-start-column="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/funcionesTablero.js" />
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="14" lean-forward="true" selection-start-line="12" selection-start-column="7" selection-end-line="14" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/firebase.js" />
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/estilos.css" />
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/funcionesTablero.js" />
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3774">
+          <caret line="222" column="6" selection-start-line="222" selection-start-column="6" selection-end-line="222" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/firebase.js" />
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/estilos.css" />
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3587">
+          <caret line="211" lean-forward="true" selection-start-line="211" selection-end-line="211" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/firebase.js" />
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/tablero.html" />
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/estilos.css" />
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/tablero.html" />
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/estilos.css" />
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/tablero.html" />
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/estilos.css" />
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/firebase.js" />
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/tablero.html" />
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/estilos.css" />
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/tablero.html" />
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/estilos.css" />
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/tablero.html" />
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/estilos.css" />
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/funcionesTablero.js" />
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/estilos.css" />
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="3" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="13" selection-start-column="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/game.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="43" column="21" selection-start-line="43" selection-start-column="21" selection-end-line="43" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="112" column="7" lean-forward="true" selection-start-line="112" selection-start-column="7" selection-end-line="112" selection-end-column="7" />
         </state>
       </provider>
     </entry>

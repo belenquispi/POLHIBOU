@@ -42,7 +42,6 @@ socket.on('parametrosJuego', function(data) {
 
 socket.on('jugadores', function(data) {
     jugadores = data;
-
     for(var i = 0; i< jugadores.length; i++) {
         console.log("rrrr:  " + jugadores[i].idSocket);
     }
