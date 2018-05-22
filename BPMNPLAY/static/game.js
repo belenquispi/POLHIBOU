@@ -5,7 +5,6 @@ var color3 = new Image();
 var filas, columnas, anchoCasilla, altoCasilla;
 var gameMap = [];
 var colorMap = [];
-
 var patterColor1, patterColor2, patterColor3;
 var currentSecond = 0, frameCount = 0, framesLastSecond = 0, lastFrameTime = 0;
 var gameTime = 0;
@@ -14,22 +13,26 @@ var gameSpeeds = [
     {name: "Paused", mult: 0}
 ];
 var currentSpeed = 0;
-
 var socket = io();
+
 socket.on('message', function(data) {
     console.log(data);
 });
 
 var jugadores = [];
+var partidas = ["partida1", "partida2", "partida3"];
+
+function generarRandonPartida (){
+    return Math.floor(Math.random()*3);
+}
 
 window.onload = function () {
-    socket.emit('new player');
+    socket.emit('new player', partidas[generarRandonPartida()]);
     ctx = document.getElementById('game').getContext("2d");
     requestAnimationFrame(drawGame);
     ctx.font = "bold 10pt sans-serif";
     console.log("adios")
 };
-
 
 socket.on('parametrosJuego', function(data) {
     filas = data.filas;
@@ -40,13 +43,9 @@ socket.on('parametrosJuego', function(data) {
     colorMap = data.colorM;
 })
 
-socket.on('jugadores', function(data) {
+socket.on('partida', function(data) {
     jugadores = data;
-    for(var i = 0; i< jugadores.length; i++) {
-        console.log("rrrr:  " + jugadores[i].idSocket);
-    }
 })
-
 
 function agregarNumerosCasilla() {
     for (var y = 0; y < filas; ++y) {
@@ -127,6 +126,7 @@ function drawGame() {
 
 function dibujarJugador() {
     for (var i = 0; i < jugadores.length; i++) {
+        console.log(jugadores.length)
         ctx.fillStyle = jugadores[i].colorP;
 
         switch (i) {

@@ -20,14 +20,20 @@ var colorMap = [];
 var anchoCasilla = 80, altoCasilla = 80;
 var columnas = 8, filas = 8;
 seleccionarColor();
-var parametrosJuego = {gameM: gameMap,
-    anchoCas : anchoCasilla,
-    altoCas : altoCasilla,
+var parametrosJuego = {
+    gameM: gameMap,
+    anchoCas: anchoCasilla,
+    altoCas: altoCasilla,
     colum: columnas,
     filas: filas,
-    colorM : colorMap}
+    colorM: colorMap
+}
 
-var jugadores = [];
+function partida(nombrePartida){
+    this.nombrePartida = nombrePartida,
+        this.jugadores = []
+}
+var partidas = [];
 function Character(c, x, y, z) {
     this.tileFrom = [2, 7];
     this.tileTo = [2, 7];
@@ -42,6 +48,7 @@ function Character(c, x, y, z) {
     this.puesto = 0;
     this.idSocket = z;
 }
+
 var directions = {
     up: 0,
     right: 1,
@@ -84,39 +91,61 @@ function seleccionarColor() {
 app.set('port', 5000);
 app.use('/static', express.static(__dirname + '/static'));
 // Routing
-app.get('/', function(request, response) {
+app.get('/', function (request, response) {
     response.sendFile(path.join(__dirname, 'index.html'));
 });
 // Starts the server.
-server.listen(5000, function() {
+server.listen(5000, function () {
     console.log('Starting server on port 5000');
 });
 
 // Add the WebSocket handlers
-io.on('connection', function(socket) {
+io.on('connection', function (socket) {
     io.sockets.emit('parametrosJuego', parametrosJuego);
-    socket.on('new player', function() {
-        if(jugadores.length < 3) {
-            jugadores.push(new Character(jugadores.length, 180, 580, socket.id));
+    socket.on('new player', function (room) {
+        socket.join(room);
+        console.log(room);
+        if (partidas.length == 0) {
+            partidas.push(new partida(room));
+            partidas[partidas.length-1].jugadores.push(new Character(0, 180, 580, socket.id));
         }
-      //  socket.emit('jugadores', jugadores);
+        else { var idPartida = partidas.map(function (e) { return e.nombrePartida}).indexOf(room);
+
+            if(idPartida >= 0)
+            {
+                partidas[idPartida].jugadores.push(new Character(partidas[idPartida].jugadores.length, 180, 580, socket.id));
+            }
+            else {
+                partidas.push(new partida(room));
+                partidas[partidas.length-1].jugadores.push(new Character(0, 180, 580, socket.id));
+            }
+        }
+        //  socket.emit('jugadores', jugadores);
 
     });
-    socket.on('disconnect', function() {
+    socket.on('disconnect', function () {
         // remove disconnected player
-       console.log("El usuario: "+socket.id + " se ha desconectado. ")
-        console.log("Los jugadores: "+jugadores)
-        var posicion = jugadores.map(function (e) { return e.idSocket;  }).indexOf(socket.id);
-        console.log("Eliminats: "+posicion)
-       jugadores.splice(posicion,1);
-        console.log("Los nuevos Jugadores: "+jugadores)
+       /* var posicion = jugadores.map(function (e) {
+            return e.idSocket;
+        }).indexOf(socket.id);
+        console.log("Eliminats: " + posicion)
+        jugadores.splice(posicion, 1);
+        console.log("Los nuevos Jugadores: " + jugadores)*/
     });
 
 });
 
-setInterval(function() {
-    io.sockets.emit('jugadores', jugadores);
-}, 1000 / 60);
+setInterval(function () {
+    console.log(partidas.length);
+    for(var i = 0 ; i < partidas.length; i++)
+    {
+        console.log(partidas[i].nombrePartida)
+        console.log(partidas[i].jugadores)
+        io.sockets.in(partidas[i].nombrePartida).emit('partida', partidas[i].jugadores);
+    }
+
+
+}, 1000);
 
 /*setInterval(function() {
   //  io.sockets.emit('message', 'hi!');
