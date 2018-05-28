@@ -27,7 +27,7 @@ var parametrosJuego = {
     colum: columnas,
     filas: filas,
     colorM: colorMap
-}
+};
 
 function partida(nombrePartida){
     this.nombrePartida = nombrePartida,
@@ -139,8 +139,8 @@ setInterval(function () {
     console.log(partidas.length);
     for(var i = 0 ; i < partidas.length; i++)
     {
-        console.log(partidas[i].nombrePartida)
-        console.log(partidas[i].jugadores)
+        console.log(partidas[i].nombrePartida);
+        console.log(partidas[i].jugadores);
         io.sockets.in(partidas[i].nombrePartida).emit('partida', partidas[i].jugadores);
     }
 

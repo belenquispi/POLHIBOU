@@ -1,23 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-<he
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/BPMNPLAY/static/estilos.css">
     <title>Title</title>
-    <style>
-        canvas {
-            border: 5px solid black;
-        }
-
-
-    </style>
-    <script src="/socket.io/socket.io.js"></script>
+     <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
-<div class="col-md-2">
+<div class="col-md-5">
     <canvas id="game" width="480" height="480"></canvas>
 </div>
 
+<div class="col-md-2">
+    <input type="radio" style="visibility: hidden" id="radio-uno" name="select-face"/>
+    <input type="radio" style="visibility: hidden" id="radio-dos" name="select-face"/>
+    <input type="radio" style="visibility: hidden" id="radio-tres" name="select-face"/>
+    <input type="radio" style="visibility: hidden" id="radio-top" name="select-face"/>
+    <input type="radio" style="visibility: hidden" id="radio-bottom" name="select-face"/>
+    <input type="radio" style="visibility: hidden" id="radio-back" name="select-face"/>
+    <div class="separator"></div>
+    <div class="space3d" id="space3d">
+        <div class="_3dbox" id="_3dbox">
+            <div class="_3dface _3dface--uno"></div>
+            <div class="_3dface _3dface--top"></div>
+            <div class="_3dface _3dface--bottom"></div>
+            <div class="_3dface _3dface--dos"></div>
+            <div class="_3dface _3dface--tres"></div>
+            <div class="_3dface _3dface--back"></div>
+        </div>
+    </div>
+    <div class="separator"></div>
+    <div id="snackbar">Puedes moverte</div>
+    <div id="snackbarIn">No puedes moverte</div>
+</div>
+<div class="col-md-4">
+    <div class="row">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Jugador</th>
+                <th>Casilla</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <button id="boton1">Jugador 1</button>
+                </td>
+                <td><label id="jugador1">1</label></td>
+            </tr>
+            <tr>
+                <td>
+                    <button id="boton2">Jugador 2</button>
+                </td>
+                <td><label id="jugador2">1</label></td>
+            </tr>
+            <tr id="tablajug3" , style
+                    ="visibility:hidden;">
+                <td>
+                    <button id="boton3">Jugador 3</button>
+                </td>
+                <td><label id="jugador3">1</label></td>
+            </tr>
+            <tr id="tablajug4" , style="visibility:hidden;">
+                <td>
+                    <button id="boton4">Jugador 4</button>
+                </td>
+                <td><label id="jugador4">1</label></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
 </body>
 <script src="/static/game.js"></script>
 

@@ -45,11 +45,11 @@ socket.on('parametrosJuego', function(data) {
     altoCasilla = data.altoCas;
     gameMap = data.gameM;
     colorMap = data.colorM;
-})
+});
 
 socket.on('partida', function(data) {
     jugadores = data;
-})
+});
 
 function agregarNumerosCasilla() {
     for (var y = 0; y < filas; ++y) {
@@ -130,7 +130,7 @@ function drawGame() {
 
 function dibujarJugador() {
     for (var i = 0; i < jugadores.length; i++) {
-        console.log(jugadores.length)
+        console.log(jugadores.length);
         ctx.fillStyle = jugadores[i].colorP;
         per1.src = 'static/tre.png';
         per2.src = 'static/cora.png';
