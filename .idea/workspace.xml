@@ -2,9 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3299685f-4aef-430c-bbbf-10e9746e67af" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BPMNPLAY/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BPMNPLAY/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BPMNPLAY/static/estilos.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/BPMNPLAY/static/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/static/game.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BPMNPLAY/static/src/corona.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BPMNPLAY/static/src/coronaBronce.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BPMNPLAY/static/src/coronaOro.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BPMNPLAY/static/src/coronaPlata.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BPMNPLAY/static/src/dado1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BPMNPLAY/static/src/dado2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BPMNPLAY/static/src/dado3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BPMNPLAY/static/src/dado4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BPMNPLAY/static/src/dado5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BPMNPLAY/static/src/dado6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BPMNPLAY/static/src/vacio.png" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -21,8 +34,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BPMNPLAY/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="22" lean-forward="true" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+            <state relative-caret-position="160">
+              <caret line="50" column="67" selection-start-line="50" selection-start-column="67" selection-end-line="50" selection-end-column="67" />
               <folding>
                 <element signature="n#style#0;n#input#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#input#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -30,6 +43,15 @@
                 <element signature="n#style#0;n#input#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#input#4;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#input#5;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#6;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#7;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#8;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#9;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#10;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#11;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#tr#1;n#tbody#0;n#table#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#tr#2;n#tbody#0;n#table#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#tr#3;n#tbody#0;n#table#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -38,8 +60,8 @@
       <file leaf-file-name="estilos.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/css/estilos.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="8" column="1" lean-forward="true" selection-start-line="8" selection-start-column="1" selection-end-line="9" selection-end-column="12" />
+            <state relative-caret-position="136">
+              <caret line="8" selection-start-line="8" selection-end-line="9" />
             </state>
           </provider>
         </entry>
@@ -53,20 +75,29 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="server.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/BPMNPLAY/server.js">
+      <file leaf-file-name="game.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="98" column="48" lean-forward="true" selection-start-line="98" selection-start-column="48" selection-end-line="98" selection-end-column="48" />
+            <state relative-caret-position="435">
+              <caret line="192" column="37" selection-start-line="192" selection-start-column="29" selection-end-line="192" selection-end-column="37" />
+              <folding>
+                <element signature="n#!!block;n#dadoRandomico#0" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="game.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/game.js">
+      <file leaf-file-name="server.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/BPMNPLAY/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2261">
-              <caret line="142" selection-start-line="142" selection-end-line="142" />
+            <state relative-caret-position="-85">
+              <caret line="134" column="48" lean-forward="true" selection-start-line="134" selection-start-column="48" selection-end-line="134" selection-end-column="48" />
+              <folding>
+                <element signature="e#236#493#0" />
+                <element signature="e#626#763#0" />
+                <element signature="e#1263#1316#0" />
+                <element signature="n#!!block;n#seleccionarColor#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -85,6 +116,12 @@
       <find>var colo</find>
       <find>new</find>
       <find>80</find>
+      <find>mes</find>
+      <find>soc</find>
+      <find>cons</find>
+      <find>emi</find>
+      <find>sock</find>
+      <find>jugadore</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -98,12 +135,13 @@
         <option value="$PROJECT_DIR$/BPMNPLAY/funcionesTablero.js" />
         <option value="$PROJECT_DIR$/BPMNPLAY/.gitignore" />
         <option value="$USER_HOME$/Downloads/Sala-Chat-master/client/main.js" />
-        <option value="$PROJECT_DIR$/BPMNPLAY/server.js" />
-        <option value="$PROJECT_DIR$/BPMNPLAY/static/game.js" />
-        <option value="$PROJECT_DIR$/BPMNPLAY/estilos.css" />
         <option value="$PROJECT_DIR$/BPMNPLAY/css/estilos.css" />
+        <option value="$PROJECT_DIR$/BPMNPLAY/static/estilos.css" />
+        <option value="$PROJECT_DIR$/BPMNPLAY/estilos.css" />
         <option value="$PROJECT_DIR$/BPMNPLAY/static/css/estilos.css" />
         <option value="$PROJECT_DIR$/BPMNPLAY/index.html" />
+        <option value="$PROJECT_DIR$/BPMNPLAY/static/game.js" />
+        <option value="$PROJECT_DIR$/BPMNPLAY/server.js" />
       </list>
     </option>
   </component>
@@ -136,7 +174,7 @@
   <component name="PropertiesComponent">
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/Nueva carpeta" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
   </component>
@@ -152,7 +190,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Node.js.server.js">
+  <component name="RunManager" selected="JavaScript Debug.index.html">
     <configuration name="index.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/BPMNPLAY/BPMNPLAY/index.html" />
     <configuration name="tablero.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/BPMNPLAY/BPMNPLAY/views/tablero.html" />
     <configuration name="server.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" nameIsGenerated="true" path-to-js-file="server.js" working-dir="$PROJECT_DIR$/BPMNPLAY" />
@@ -163,8 +201,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Node.js.server.js" />
         <item itemvalue="JavaScript Debug.index.html" />
+        <item itemvalue="Node.js.server.js" />
         <item itemvalue="JavaScript Debug.tablero.html" />
       </list>
     </recent_temporary>
@@ -185,12 +223,13 @@
       <workItem from="1526658546200" duration="3542000" />
       <workItem from="1527000982284" duration="8750000" />
       <workItem from="1527174911046" duration="7730000" />
-      <workItem from="1527520838881" duration="2248000" />
+      <workItem from="1527520838881" duration="4850000" />
+      <workItem from="1527525721040" duration="4746000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28666000" />
+    <option name="totallyTimeSpent" value="36014000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -200,11 +239,10 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32899022" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.23778501" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.23529412" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3990228" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -213,6 +251,7 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -224,6 +263,67 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/BPMNPLAY/index.html">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="833">
+          <caret line="49" column="33" lean-forward="true" selection-start-line="49" selection-start-column="33" selection-end-line="49" selection-end-column="33" />
+          <folding>
+            <element signature="n#style#0;n#input#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#4;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#5;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#6;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#7;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#8;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#9;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#10;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#11;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#tr#1;n#tbody#0;n#table#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#tr#2;n#tbody#0;n#table#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#tr#3;n#tbody#0;n#table#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/css/estilos.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" selection-start-line="8" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="13" selection-start-column="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1394">
+          <caret line="82" column="2" selection-start-line="82" selection-start-column="2" selection-end-line="82" selection-end-column="2" />
+          <folding>
+            <element signature="e#236#493#0" />
+            <element signature="e#626#763#0" />
+            <element signature="e#1263#1316#0" />
+            <element signature="n#!!block;n#seleccionarColor#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/game.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="37" lean-forward="true" selection-start-line="21" selection-start-column="37" selection-end-line="21" selection-end-column="37" />
+          <folding>
+            <element signature="n#!!block;n#dadoRandomico#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/index.html">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="7" column="16" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
           <folding>
@@ -233,6 +333,15 @@
             <element signature="n#style#0;n#input#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#input#4;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#input#5;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#6;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#7;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#8;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#9;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#10;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#11;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#tr#1;n#tbody#0;n#table#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#tr#2;n#tbody#0;n#table#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#tr#3;n#tbody#0;n#table#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -356,20 +465,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/game.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2261">
-          <caret line="142" selection-start-line="142" selection-end-line="142" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/estilos.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1857">
-          <caret line="145" column="18" lean-forward="true" selection-start-line="144" selection-start-column="23" selection-end-line="145" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/css/estilos.css" />
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/estilos.css" />
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/estilos.css" />
     <entry file="file://$PROJECT_DIR$/BPMNPLAY/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -377,24 +475,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/css/estilos.css">
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/css/estilos.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="152" column="30" selection-start-line="152" selection-start-column="30" selection-end-line="152" selection-end-column="30" />
+        <state relative-caret-position="136">
+          <caret line="8" selection-start-line="8" selection-end-line="9" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/css/estilos.css">
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/game.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="8" column="1" lean-forward="true" selection-start-line="8" selection-start-column="1" selection-end-line="9" selection-end-column="12" />
+        <state relative-caret-position="435">
+          <caret line="192" column="37" selection-start-line="192" selection-start-column="29" selection-end-line="192" selection-end-column="37" />
+          <folding>
+            <element signature="n#!!block;n#dadoRandomico#0" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/BPMNPLAY/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="22" lean-forward="true" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+        <state relative-caret-position="160">
+          <caret line="50" column="67" selection-start-line="50" selection-start-column="67" selection-end-line="50" selection-end-column="67" />
           <folding>
             <element signature="n#style#0;n#input#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#input#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -402,14 +503,29 @@
             <element signature="n#style#0;n#input#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#input#4;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#input#5;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#6;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#7;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#8;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#9;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#10;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#11;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#tr#1;n#tbody#0;n#table#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#tr#2;n#tbody#0;n#table#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#tr#3;n#tbody#0;n#table#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/BPMNPLAY/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="98" column="48" lean-forward="true" selection-start-line="98" selection-start-column="48" selection-end-line="98" selection-end-column="48" />
+        <state relative-caret-position="-85">
+          <caret line="134" column="48" lean-forward="true" selection-start-line="134" selection-start-column="48" selection-end-line="134" selection-end-column="48" />
+          <folding>
+            <element signature="e#236#493#0" />
+            <element signature="e#626#763#0" />
+            <element signature="e#1263#1316#0" />
+            <element signature="n#!!block;n#seleccionarColor#0" />
+          </folding>
         </state>
       </provider>
     </entry>

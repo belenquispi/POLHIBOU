@@ -28,10 +28,15 @@ var parametrosJuego = {
     filas: filas,
     colorM: colorMap
 };
+var partidasTurno[];
 
 function partida(nombrePartida){
     this.nombrePartida = nombrePartida,
         this.jugadores = []
+}
+function partidaTurno(nombrePartida){
+    this.nombrePartida = nombrePartida,
+        this.idSocketJugadores = []
 }
 var partidas = [];
 function Character(c, x, y, z) {
@@ -89,7 +94,8 @@ function seleccionarColor() {
 }
 
 app.set('port', 5000);
-app.use('/static', express.static(__dirname + '/static'));
+app.use('/static', express.static(__dirname + '/static' +
+    ''));
 // Routing
 app.get('/', function (request, response) {
     response.sendFile(path.join(__dirname, 'index.html'));
@@ -107,17 +113,23 @@ io.on('connection', function (socket) {
         console.log(room);
         if (partidas.length == 0) {
             partidas.push(new partida(room));
+            partidasTurno.push(new partidaTurno(room));
             partidas[partidas.length-1].jugadores.push(new Character(0, ((anchoCasilla*2)+(anchoCasilla/4)), (altoCasilla*(filas-1)+(altoCasilla/4)), socket.id));
+            partidasTurno[partidasTurno.length-1].idSocketJugadores.push(socket.id);
+
         }
         else { var idPartida = partidas.map(function (e) { return e.nombrePartida}).indexOf(room);
 
             if(idPartida >= 0)
             {
                 partidas[idPartida].jugadores.push(new Character(partidas[idPartida].jugadores.length, ((anchoCasilla*2)+(anchoCasilla/4)), (altoCasilla*(filas-1)+(altoCasilla/4)), socket.id));
+                partidasTurno[partidasTurno.length-1].idSocketJugadores.push(socket.id);
             }
             else {
                 partidas.push(new partida(room));
+                partidasTurno.push(new partidaTurno(room));
                 partidas[partidas.length-1].jugadores.push(new Character(0, ((anchoCasilla*2)+(anchoCasilla/4)), (altoCasilla*(filas-1)+(altoCasilla/4)), socket.id));
+                partidasTurno[partidasTurno.length-1].idSocketJugadores.push(socket.id);
             }
         }
         //  socket.emit('jugadores', jugadores);
@@ -133,6 +145,10 @@ io.on('connection', function (socket) {
         console.log("Los nuevos Jugadores: " + jugadores)*/
     });
 
+    socket.on('nuevo array', function (data) {
+        jugadores = data;
+    })
+
 });
 
 setInterval(function () {
@@ -146,7 +162,3 @@ setInterval(function () {
 
 
 }, 1000);
-
-/*setInterval(function() {
-  //  io.sockets.emit('message', 'hi!');
-}, 1000)*/

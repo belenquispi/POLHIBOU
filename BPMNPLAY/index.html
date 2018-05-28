@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/BPMNPLAY/static/estilos.css">
+    <link rel="stylesheet" type="text/css" href="static/css/estilos.css">
     <title>Title</title>
      <script src="/socket.io/socket.io.js"></script>
 </head>
@@ -30,7 +30,26 @@
             <div class="_3dface _3dface--back"></div>
         </div>
     </div>
+    <input type="radio" style="visibility: hidden" id="radio-uno-2" name="select-face-2"/>
+    <input type="radio" style="visibility: hidden" id="radio-dos-2" name="select-face-2"/>
+    <input type="radio" style="visibility: hidden" id="radio-tres-2" name="select-face-2"/>
+    <input type="radio" style="visibility: hidden" id="radio-top-2" name="select-face-2"/>
+    <input type="radio" style="visibility: hidden" id="radio-bottom-2" name="select-face-2"/>
+    <input type="radio" style="visibility: hidden" id="radio-back-2" name="select-face-2"/>
     <div class="separator"></div>
+    <div class="space3d-2" id="space3d-2">
+        <div class="_3dbox-2" id="_3dbox-2">
+            <div class="_3dface-2 _3dface--uno-2"></div>
+            <div class="_3dface-2 _3dface--top-2"></div>
+            <div class="_3dface-2 _3dface--bottom-2"></div>
+            <div class="_3dface-2 _3dface--dos-2"></div>
+            <div class="_3dface-2 _3dface--tres-2"></div>
+            <div class="_3dface-2 _3dface--back-2"></div>
+        </div>
+    </div>
+    <div class="separator"></div>
+    <div><button id="botonLanzar" disabled onclick="lanzarDado(this)"> Lanzar Dado</button>
+    </div>
     <div id="snackbar">Puedes moverte</div>
     <div id="snackbarIn">No puedes moverte</div>
 </div>
@@ -45,28 +64,19 @@
             </thead>
             <tbody>
             <tr>
-                <td>
-                    <button id="boton1">Jugador 1</button>
-                </td>
+                <td><label id="nombreEquipo1">Equipo 1</label></td>
                 <td><label id="jugador1">1</label></td>
             </tr>
-            <tr>
-                <td>
-                    <button id="boton2">Jugador 2</button>
-                </td>
+            <tr id="tablajug2" , style="visibility:hidden;">
+                <td><label id="nombreEquipo2">Equipo 2</label></td>
                 <td><label id="jugador2">1</label></td>
             </tr>
-            <tr id="tablajug3" , style
-                    ="visibility:hidden;">
-                <td>
-                    <button id="boton3">Jugador 3</button>
-                </td>
+            <tr id="tablajug3" , style="visibility:hidden;">
+                <td><label id="nombreEquipo3">Equipo 3</label></td>
                 <td><label id="jugador3">1</label></td>
             </tr>
             <tr id="tablajug4" , style="visibility:hidden;">
-                <td>
-                    <button id="boton4">Jugador 4</button>
-                </td>
+                <td><label id="nombreEquipo4">Equipo 4</label></td>
                 <td><label id="jugador4">1</label></td>
             </tr>
             </tbody>

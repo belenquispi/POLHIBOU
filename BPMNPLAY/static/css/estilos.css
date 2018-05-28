@@ -12,14 +12,14 @@ canvas {
 }
 
 /* 3D Cube */
-.space3d {
+.space3d, .space3d-2  {
     perspective: 700px;
     width: 30px;
     height: 30px;
     text-align: center;
     display: inline-block;
 }
-._3dbox {
+._3dbox, ._3dbox-2 {
     display: inline-block;
     transition: all 0.85s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     text-align: center;
@@ -29,7 +29,7 @@ canvas {
     transform-style: preserve-3d;
     transform: rotateX(-15deg) rotateY(15deg);
 }
-._3dface {
+._3dface, ._3dface-2 {
     overflow: hidden;
     position: absolute;
     border: 1px solid #888;
@@ -39,36 +39,36 @@ canvas {
     line-height: 50px;
     opacity: 0.8;
 }
-._3dface--uno {
+._3dface--uno, ._3dface--uno-2 {
     width: 50px;
     height: 50px;
     transform: translate3d(0, 0, 25px);
 }
-._3dface--top {
+._3dface--top, ._3dface--top-2 {
     width: 50px;
     height: 50px;
     transform: rotateX(90deg) translate3d(0, 0, 25px);
 }
-._3dface--bottom {
+._3dface--bottom, ._3dface--bottom-2 {
     width: 50px;
     height: 50px;
     transform: rotateX(-90deg) translate3d(0, 0, 25px);
 }
-._3dface--dos {
+._3dface--dos, ._3dface--dos-2  {
     width: 50px;
     height: 50px;
     left: 50%;
     margin-left: -15px;
     transform: rotateY(-90deg) translate3d(0, 0, 25px);
 }
-._3dface--tres {
+._3dface--tres, ._3dface--tres-2 {
     width: 50px;
     height: 50px;
     left: 50%;
     margin-left: -15px;
     transform: rotateY(90deg) translate3d(0, 0, 25px);
 }
-._3dface--back {
+._3dface--back, ._3dface--back-2 {
     width: 50px;
     height: 50px;
     transform: rotateY(180deg) translate3d(0, 0, 25px);
@@ -88,28 +88,43 @@ canvas {
 #radio-back:checked ~ .space3d ._3dbox {
     transform: rotateY(180deg);
 }
-._3dface--uno {
-    background: url(/BPMNPLAY/static/src/dado1.png);
+#radio-dos-2:checked ~ .space3d-2 ._3dbox-2 {
+    transform: rotateY(90deg);
+}
+#radio-tres-2:checked ~ .space3d-2 ._3dbox-2 {
+    transform: rotateY(-90deg);
+}
+#radio-bottom-2:checked ~ .space3d-2 ._3dbox-2 {
+    transform: rotateX(90deg);
+}
+#radio-top-2:checked ~ .space3d-2 ._3dbox-2 {
+    transform: rotateX(-90deg);
+}
+#radio-back-2:checked ~ .space3d-2 ._3dbox-2 {
+    transform: rotateY(180deg);
+}
+._3dface--uno, ._3dface--uno-2 {
+    background: url(dado1.png);
     background-size: 100%;
 }
-._3dface--dos {
-    background: url(/BPMNPLAY/static/src/dado2.png);
+._3dface--dos, ._3dface--dos-2 {
+    background: url(dado2.png);
     background-size: auto 100%;
 }
-._3dface--tres {
-    background: url(/BPMNPLAY/static/src/dado3.png);
+._3dface--tres, ._3dface--tres-2 {
+    background: url(dado3.png);
     background-size: auto 100%;
 }
-._3dface--top {
-    background: url(/BPMNPLAY/static/src/dado4.png);
+._3dface--top, ._3dface--top-2 {
+    background: url(dado4.png);
     background-size: auto 100%;
 }
-._3dface--bottom {
-    background: url(/BPMNPLAY/static/src/dado5.png);
+._3dface--bottom, ._3dface--bottom-2 {
+    background: url(dado5.png);
     background-size: auto 100%;
 }
-._3dface--back {
-    background: url(/BPMNPLAY/static/src/dado6.png);
+._3dface--back, ._3dface--back-2 {
+    background: url(dado6.png);
     background-size: auto 100%;
 }
 
@@ -118,19 +133,17 @@ div#memory_board {
     border: #999 1px solid;
     width: 450px;
     height: 250px;
-    padding: 24px;
-    margin: 0 auto;
+    padding: 20px;
+    margin: 0px auto;
 }
 
-div#memory_board > div {
-    background: url(/BPMNPLAY/static/src/corona.png) no-repeat;
+div#memory_board > img {
+    background: url(corona.png) no-repeat;
     border: #000 1px solid;
-    width: 80px;
-    height: 80px;
+    width: 50px;
+    height: 50px;
     float: left;
-    margin: 10px;
-    padding: 20px;
-    font-size: 40px;
+    margin: 8px;
     cursor: pointer;
     text-align: center;
 }
@@ -153,6 +166,7 @@ div#memory_board > div {
 
 #snackbarIn {
     background-color: #f53f95;
+
 }
 
 
