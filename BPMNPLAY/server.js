@@ -17,7 +17,7 @@ var gameMap = [
     2, 1, "Inicio", 0, 0, 33, 32, 31
 ];
 var colorMap = [];
-var anchoCasilla = 80, altoCasilla = 80;
+var anchoCasilla = 60, altoCasilla = 60;
 var columnas = 8, filas = 8;
 seleccionarColor();
 var parametrosJuego = {
@@ -38,7 +38,7 @@ function Character(c, x, y, z) {
     this.tileFrom = [2, 7];
     this.tileTo = [2, 7];
     this.timeMoved = 0;
-    this.dimensions = [40, 40];
+    this.dimensions = [30, 30];
     this.position = [x, y];
     this.delayMove = 100;
     this.direction = directions.up;
@@ -107,17 +107,17 @@ io.on('connection', function (socket) {
         console.log(room);
         if (partidas.length == 0) {
             partidas.push(new partida(room));
-            partidas[partidas.length-1].jugadores.push(new Character(0, 180, 580, socket.id));
+            partidas[partidas.length-1].jugadores.push(new Character(0, ((anchoCasilla*2)+(anchoCasilla/4)), (altoCasilla*(filas-1)+(altoCasilla/4)), socket.id));
         }
         else { var idPartida = partidas.map(function (e) { return e.nombrePartida}).indexOf(room);
 
             if(idPartida >= 0)
             {
-                partidas[idPartida].jugadores.push(new Character(partidas[idPartida].jugadores.length, 180, 580, socket.id));
+                partidas[idPartida].jugadores.push(new Character(partidas[idPartida].jugadores.length, ((anchoCasilla*2)+(anchoCasilla/4)), (altoCasilla*(filas-1)+(altoCasilla/4)), socket.id));
             }
             else {
                 partidas.push(new partida(room));
-                partidas[partidas.length-1].jugadores.push(new Character(0, 180, 580, socket.id));
+                partidas[partidas.length-1].jugadores.push(new Character(0, ((anchoCasilla*2)+(anchoCasilla/4)), (altoCasilla*(filas-1)+(altoCasilla/4)), socket.id));
             }
         }
         //  socket.emit('jugadores', jugadores);

@@ -2,6 +2,10 @@ var ctx = null;
 var color1 = new Image();
 var color2 = new Image();
 var color3 = new Image();
+var per1 = new Image();
+var per2 = new Image();
+var per3 = new Image();
+var per4 = new Image();
 var filas, columnas, anchoCasilla, altoCasilla;
 var gameMap = [];
 var colorMap = [];
@@ -56,7 +60,7 @@ function agregarNumerosCasilla() {
                     break;
                 default:
                     ctx.fillStyle = "#000000";
-                    ctx.fillText(gameMap[((y * columnas) + x)], x * anchoCasilla + anchoCasilla / 2, y * altoCasilla + anchoCasilla / 2, anchoCasilla / 2, altoCasilla / 2);
+                    ctx.fillText(gameMap[((y * columnas) + x)], x * anchoCasilla + anchoCasilla / 2, y * altoCasilla +(anchoCasilla/4) , anchoCasilla );
             }
         }
     }
@@ -128,18 +132,30 @@ function dibujarJugador() {
     for (var i = 0; i < jugadores.length; i++) {
         console.log(jugadores.length)
         ctx.fillStyle = jugadores[i].colorP;
+        per1.src = 'static/tre.png';
+        per2.src = 'static/cora.png';
+        per3.src = 'static/mal.png';
+        per4.src = 'static/pintura.png';
+        var patterper1 = ctx.createPattern(per1, "repeat");
+        var patterper2 = ctx.createPattern(per2, "repeat");
+        var patterper3 = ctx.createPattern(per3, "repeat");
+        var patterper4 = ctx.createPattern(per4, "repeat");
 
         switch (i) {
             case 0:
-                ctx.fillRect(jugadores[i].position[0], jugadores[i].position[1], jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[1] / 2);
+                ctx.fillStyle = patterper1;
+                ctx.fillRect(jugadores[i].position[0], jugadores[i].position[1], (jugadores[i].dimensions[0] / 2)+1, (jugadores[i].dimensions[1] / 2))+1;
                 break;
             case 1:
+                ctx.fillStyle = patterper2;
                 ctx.fillRect(jugadores[i].position[0] + jugadores[i].dimensions[1] / 2, jugadores[i].position[1], jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[1] / 2);
                 break;
             case 2:
+                ctx.fillStyle = patterper3;
                 ctx.fillRect(jugadores[i].position[0], jugadores[i].position[1] + jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[1] / 2);
                 break;
             case 3:
+                ctx.fillStyle = patterper4;
                 ctx.fillRect(jugadores[i].position[0] + jugadores[i].dimensions[0] / 2, jugadores[i].position[1] + jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[1] / 2);
                 break;
             default:
