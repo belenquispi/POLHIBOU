@@ -58,13 +58,15 @@ socket.on('parametrosJuego', function (data) {
 });
 socket.on('partida', function (data) {
     jugadores = data.jugadores;
-    numCasillasMoverse = data.numCasillasMoverseP;
 
-    for (var i = 0; i <jugadores; i++)
+
+    for (var i = 0; i <jugadores.length; i++)
     {
         if(jugadores[i].idSocket == idSocketActual)
         {
             jugadorActual = jugadores[i];
+            numCasillasMoverse = jugadorActual.numCasillasMoverseP
+            console.log("num: " + numCasillasMoverse)
         }
     }
 
@@ -115,7 +117,8 @@ function drawGame() {
         desbloquearBoton();
     }
 
-    if(numCasillasMoverse > 1){
+
+    if(numCasillasMoverse > 1 && idSocketActual == jugadores[0].idSocket){
         console.log(numCasillasMoverse);
         socket.emit('moverJugador', roomActual, numCasillasMoverse, currentFrameTime);
     }

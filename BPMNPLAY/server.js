@@ -168,7 +168,8 @@ io.on('connection', function (socket) {
                 partidas[i].dadoP2 = dado2;
                 partidas[i].dadoAnteriorP1 = dadoAnterior1;
                 partidas[i].dadoAnteriorP2 = dadoAnterior2;
-                partidas[i].numCasillasMoverseP = numCasillasMoverse;
+                partidas[i].jugadores[partidas[i].jugadores.map(function (e) {return e.idSocket}).indexOf(socket.id)].numCasillasMoverseP = numCasillasMoverse;
+                console.log(partidas[i])
                 io.sockets.in(room).emit('dados', dado1, dado2, dadoAnterior1, dadoAnterior2);
             }
         }
@@ -181,7 +182,7 @@ io.on('connection', function (socket) {
                 partidas[i].numCasillasMoverseP = numCasillasMoverse;
                 for (var j=0; j< partidas[i].jugadores.length; j++){
                     if(partidas[i].jugadores[j].idSocket == socket.id){
-                        if (!partidas[i].jugadores[j].processMovement(gameTime, room)) {
+                        if (!partidas[i].jugadores[j].processMovement(gameTime, room, socket.id)) {
                             if (partidas[i].jugadores[j].casilla <= 33) {
 
                                 if (partidas[i].jugadores[j].canMoveUp()) {
@@ -227,20 +228,25 @@ Character.prototype.placeAt = function (x, y) {
     this.position = [((anchoCasilla * x) + ((anchoCasilla - this.dimensions[0]) / 2)), ((altoCasilla * y) + ((altoCasilla - this.dimensions[1]) / 2))];
 };
 
-Character.prototype.processMovement = function (t, roomActual) {
+Character.prototype.processMovement = function (t, roomActual, idSocket) {
     var indicePartidaActual = partidas.map(function (e) { return e.nombrePartida;}).indexOf(roomActual)
+    var indiceJugadorActual = partidas[indicePartidaActual].jugadores.map(function (e) { return e.idSocket;}).indexOf(idSocket)
+
+    console.log("indicePActual: " + indiceJugadorActual);
+
+
     if (this.tileFrom[0] == this.tileTo[0] && this.tileFrom[1] == this.tileTo[1]) {
         return false;
     }
 
     if (this.casilla == 33) {
-        partidas[indicePartidaActual].numCasillasMoverseP = 0;
+        partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = 0;
     }
 
     if ((t - this.timeMoved) >= this.delayMove) {
         this.placeAt(this.tileTo[0], this.tileTo[1]);
 
-        if ( partidas[indicePartidaActual].numCasillasMoverseP > 1) {
+        if ( partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP > 1) {
             if (this.canMoveDirection(this.direction)) {
                 this.moveDirection(this.direction, t);
             }
@@ -248,10 +254,10 @@ Character.prototype.processMovement = function (t, roomActual) {
                 this.nuevaDireccion();
                 this.moveDirection(this.direction, t);
             }
-            partidas[indicePartidaActual].numCasillasMoverseP =  partidas[indicePartidaActual].numCasillasMoverseP - 1;
+            partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP =  partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP - 1;
         }
         else {
-
+            partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = 0
         }
     }
     else {
