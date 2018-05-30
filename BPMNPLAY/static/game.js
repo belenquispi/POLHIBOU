@@ -12,31 +12,40 @@ var colorMap = [];
 var patterColor1, patterColor2, patterColor3;
 var currentSecond = 0, frameCount = 0, framesLastSecond = 0, lastFrameTime = 0;
 var gameTime = 0;
-var gameSpeeds = [
-    {name: "Normal", mult: 1},
-    {name: "Paused", mult: 0}
-];
 var currentSpeed = 0;
 var socket = io();
 var jugadores = [];
+var turnoJugadores = [];
 var partidas = ["partida1", "partida2", "partida3"];
 var respuestaCorrecta = false;
 var turnoFinalizado = true;
 var idSocketActual;
+var roomActual;
 var dado1 = -1, dado2 = -1, dadoAnterior1, dadoAnterior2;
 
+var numCasillasMoverse = 0;
+
 function generarRandonPartida() {
-    return Math.floor(Math.random() * 3);
+    return Math.floor(Math.random() * 1);
+}
+function partidaTurno(nombrePartida) {
+    this.nombrePartida = nombrePartida,
+        this.idSocketJugadores = []
+}
+function dados (nombrePartida) {
+    this.nombrePartida = nombrePartida;
+    this.dado1 = dado1;
+    this.dado2 = dado2;
 }
 
 window.onload = function () {
-    socket.emit('new player', partidas[generarRandonPartida()]);
+    roomActual = partidas[generarRandonPartida()]
+    socket.emit('new player',roomActual);
     ctx = document.getElementById('game').getContext("2d");
     requestAnimationFrame(drawGame);
     ctx.font = "bold 10pt sans-serif";
     console.log("adios")
 };
-
 socket.on('parametrosJuego', function (data) {
     filas = data.filas;
     columnas = data.colum;
@@ -47,11 +56,31 @@ socket.on('parametrosJuego', function (data) {
     idSocketActual = socket.io.engine.id;
     console.log(idSocketActual )
 });
-
 socket.on('partida', function (data) {
-    jugadores = data;
-});
+    jugadores = data.jugadores;
+    numCasillasMoverse = data.numCasillasMoverseP;
 
+    for (var i = 0; i <jugadores; i++)
+    {
+        if(jugadores[i].idSocket == idSocketActual)
+        {
+            jugadorActual = jugadores[i];
+        }
+    }
+
+});
+socket.on('turnoPartida', function (data) {
+    turnoJugadores = data;
+    console.log("hola jugadores: " + turnoJugadores);
+});
+socket.on('dados', function (dadoN1, dadoN2, dadoAnteriorN1, dadoAnteriorN2) {
+    dado1 = dadoN1;
+    dado2 = dadoN2;
+    dadoAnterior1 = dadoAnteriorN1;
+    dadoAnterior2 = dadoAnteriorN2;
+    moverDado();
+    moverDado2();
+});
 function agregarNumerosCasilla() {
     for (var y = 0; y < filas; ++y) {
         for (var x = 0; x < columnas; ++x) {
@@ -73,8 +102,6 @@ function drawGame() {
     }
     var currentFrameTime = Date.now();
     var timeElapsed = currentFrameTime - lastFrameTime;
-    gameTime += Math.floor(timeElapsed * gameSpeeds[currentSpeed].mult);
-
     var sec = Math.floor(Date.now() / 1000);
     if (sec != currentSecond) {
         currentSecond = sec;
@@ -84,42 +111,15 @@ function drawGame() {
     else {
         frameCount++;
     }
-    if (turnoFinalizado && (jugadores.length > 0)){
+    if(turnoJugadores.length > 0 && (turnoJugadores[0] == idSocketActual)){
         desbloquearBoton();
-
     }
 
-  /*  if (!jugadorActual.processMovement(gameTime) && gameSpeeds[currentSpeed].mult != 0) {
-        if (jugadorActual.casilla <= 33) {
-            if (!respuestaCorrecta) {
-                dadoRandomico();
-                moverDado(dado1);
-
-                numCasillasMoverse = dado1 + dado2;
-                moverDado2();
-                mostrarDesafio(jugadorActual);
-            }
-            dadoAnterior1 = dado1;
-            dadoAnterior2 = dado2;
-            if (respuestaCorrecta) {
-                respuestaCorrecta = false;
-                if (jugadorActual.canMoveUp()) {
-                    jugadorActual.moveUp(gameTime);
-                }
-                else if (jugadorActual.canMoveDown()) {
-                    jugadorActual.moveDown(gameTime);
-                }
-                else if (jugadorActual.canMoveLeft()) {
-                    jugadorActual.moveLeft(gameTime);
-                }
-                else if (jugadorActual.canMoveRight()) {
-                    jugadorActual.moveRight(gameTime);
-                }
-            }
-        }
+    if(numCasillasMoverse > 1){
+        console.log(numCasillasMoverse);
+        socket.emit('moverJugador', roomActual, numCasillasMoverse, currentFrameTime);
     }
 
-*/
     for (var y = 0; y < filas; ++y) {
         for (var x = 0; x < columnas; ++x) {
             color1.src = 'static/0.png';
@@ -198,28 +198,33 @@ function dibujarJugador() {
 }
 
 function desbloquearBoton() {
+    console.log("Id boton: " + document.getElementById("botonLanzar").id);
     if(document.getElementById("botonLanzar")){
-        document.getElementById("botonLanzar").id = jugadores[0].idSocket;
-        if(jugadores[0].idSocket == idSocketActual){
-            document.getElementById(idSocketActual).removeAttribute("disabled");
-        }
+        document.getElementById("botonLanzar").removeAttribute("disabled");
     }
 }
-
 
 function bloquearBoton(idBoton) {
     if(document.getElementById(idBoton)){
         console.log("Bloqueando el boton: "+idBoton);
-        document.getElementById(idBoton).setAttribute("disadled","");
+        document.getElementById(idBoton).setAttribute("disabled","");
     }
 }
 
 function lanzarDado(boton) {
     bloquearBoton(boton.id);
-    var i = jugadores.shift();
-    jugadores.push(i);
-    socket.emit('nuevo array', jugadores);
-    console.log("El jugador uno" +jugadores[0]);
+    var i = turnoJugadores.shift();
+    turnoJugadores.push(i);
+    var nuevoArray = new partidaTurno(roomActual);
+    nuevoArray.idSocketJugadores = turnoJugadores;
+    socket.emit('nuevo array', nuevoArray);
+    dadoRandomico();
+    moverDado();
+    moverDado2();
+    dadoAnterior1 = dado1;
+    dadoAnterior2 = dado2;
+    numCasillasMoverse = dado1 + dado2;
+    socket.emit('dados', dado1, dado2, roomActual,dadoAnterior1, dadoAnterior2, numCasillasMoverse);
 
 }
 
@@ -230,4 +235,89 @@ function dadoRandomico() {
         dadoRandomico();
     }
 }
+
+function moverDado() {
+    var element;
+    switch (dado1) {
+        case 1:
+            console.log("dado1 1 " + dado1)
+            element = document.getElementById("radio-uno");
+            element.checked = "true";
+            break;
+        case 2:
+            console.log("dado1 1 " + dado1)
+
+            element = document.getElementById("radio-dos");
+            element.checked = "true";
+            break;
+        case 3:
+            console.log("dado1 1 " + dado1)
+
+            element = document.getElementById("radio-tres");
+            element.checked = "true";
+            break;
+        case 4:
+            console.log("dado1 1 " + dado1)
+
+            element = document.getElementById("radio-top");
+            element.checked = "true";
+            break;
+        case 5:
+            console.log("dado1 1 " + dado1)
+
+            element = document.getElementById("radio-bottom");
+            element.checked = "true";
+            break;
+        case 6:
+            console.log("dado1 1 " + dado1)
+
+            element = document.getElementById("radio-back");
+            element.checked = "true";
+            break;
+    }
+
+}
+
+function moverDado2() {
+    var element2;
+    switch (dado2) {
+        case 1:
+            console.log("dado2 2 " + dado2)
+
+            element2 = document.getElementById("radio-uno-2");
+            element2.checked = "true";
+            break;
+        case 2:
+            console.log("dado2 2 " + dado2)
+
+            element2 = document.getElementById("radio-dos-2");
+            element2.checked = "true";
+            break;
+        case 3:
+            console.log("dado2 2 " + dado2)
+
+            element2 = document.getElementById("radio-tres-2");
+            element2.checked = "true";
+            break;
+        case 4:
+            console.log("dado2 2 " + dado2)
+
+            element2 = document.getElementById("radio-top-2");
+            element2.checked = "true";
+            break;
+        case 5:
+            console.log("dado2 2 " + dado2)
+
+            element2 = document.getElementById("radio-bottom-2");
+            element2.checked = "true";
+            break;
+        case 6:
+            console.log("dado2 2 " + dado2)
+
+            element2 = document.getElementById("radio-back-2");
+            element2.checked = "true";
+            break;
+    }
+}
+
 

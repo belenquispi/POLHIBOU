@@ -28,17 +28,21 @@ var parametrosJuego = {
     filas: filas,
     colorM: colorMap
 };
-var partidasTurno[];
 
-function partida(nombrePartida){
+
+function partida(nombrePartida) {
     this.nombrePartida = nombrePartida,
         this.jugadores = []
 }
-function partidaTurno(nombrePartida){
+
+function partidaTurno(nombrePartida) {
     this.nombrePartida = nombrePartida,
         this.idSocketJugadores = []
 }
+
 var partidas = [];
+var turnoJugadores = [];
+
 function Character(c, x, y, z) {
     this.tileFrom = [2, 7];
     this.tileTo = [2, 7];
@@ -113,52 +117,269 @@ io.on('connection', function (socket) {
         console.log(room);
         if (partidas.length == 0) {
             partidas.push(new partida(room));
-            partidasTurno.push(new partidaTurno(room));
-            partidas[partidas.length-1].jugadores.push(new Character(0, ((anchoCasilla*2)+(anchoCasilla/4)), (altoCasilla*(filas-1)+(altoCasilla/4)), socket.id));
-            partidasTurno[partidasTurno.length-1].idSocketJugadores.push(socket.id);
+            turnoJugadores.push(new partidaTurno(room));
+            partidas[partidas.length - 1].jugadores.push(new Character(0, ((anchoCasilla * 2) + (anchoCasilla / 4)), (altoCasilla * (filas - 1) + (altoCasilla / 4)), socket.id));
+            turnoJugadores[turnoJugadores.length - 1].idSocketJugadores.push(socket.id);
 
         }
-        else { var idPartida = partidas.map(function (e) { return e.nombrePartida}).indexOf(room);
+        else {
+            var idPartida = partidas.map(function (e) {
+                return e.nombrePartida
+            }).indexOf(room);
 
-            if(idPartida >= 0)
-            {
-                partidas[idPartida].jugadores.push(new Character(partidas[idPartida].jugadores.length, ((anchoCasilla*2)+(anchoCasilla/4)), (altoCasilla*(filas-1)+(altoCasilla/4)), socket.id));
-                partidasTurno[partidasTurno.length-1].idSocketJugadores.push(socket.id);
+            if (idPartida >= 0) {
+                partidas[idPartida].jugadores.push(new Character(partidas[idPartida].jugadores.length, ((anchoCasilla * 2) + (anchoCasilla / 4)), (altoCasilla * (filas - 1) + (altoCasilla / 4)), socket.id));
+                turnoJugadores[idPartida].idSocketJugadores.push(socket.id);
             }
             else {
                 partidas.push(new partida(room));
-                partidasTurno.push(new partidaTurno(room));
-                partidas[partidas.length-1].jugadores.push(new Character(0, ((anchoCasilla*2)+(anchoCasilla/4)), (altoCasilla*(filas-1)+(altoCasilla/4)), socket.id));
-                partidasTurno[partidasTurno.length-1].idSocketJugadores.push(socket.id);
+                turnoJugadores.push(new partidaTurno(room));
+                partidas[partidas.length - 1].jugadores.push(new Character(0, ((anchoCasilla * 2) + (anchoCasilla / 4)), (altoCasilla * (filas - 1) + (altoCasilla / 4)), socket.id));
+                turnoJugadores[turnoJugadores.length - 1].idSocketJugadores.push(socket.id);
             }
         }
-        //  socket.emit('jugadores', jugadores);
+        actualizarOrdenPartidas();
 
     });
     socket.on('disconnect', function () {
         // remove disconnected player
-       /* var posicion = jugadores.map(function (e) {
-            return e.idSocket;
-        }).indexOf(socket.id);
-        console.log("Eliminats: " + posicion)
-        jugadores.splice(posicion, 1);
-        console.log("Los nuevos Jugadores: " + jugadores)*/
+        /* var posicion = jugadores.map(function (e) {
+             return e.idSocket;
+         }).indexOf(socket.id);
+         console.log("Eliminats: " + posicion)
+         jugadores.splice(posicion, 1);
+         console.log("Los nuevos Jugadores: " + jugadores)*/
     });
 
     socket.on('nuevo array', function (data) {
-        jugadores = data;
-    })
+        for(var i = 0; i < turnoJugadores.length; i++)
+        {
+            if (turnoJugadores[i].nombrePartida == data.nombrePartida){
+                turnoJugadores[i] = data;
+            }
+        }
+        actualizarOrdenPartidas();
+    });
+    socket.on('dados', function (dado1, dado2, room, dadoAnterior1, dadoAnterior2, numCasillasMoverse) {
+        for(var i = 0; i < partidas.length; i++)
+        {
+            if (partidas[i].nombrePartida == room){
+                partidas[i].dadoP1 = dado1;
+                partidas[i].dadoP2 = dado2;
+                partidas[i].dadoAnteriorP1 = dadoAnterior1;
+                partidas[i].dadoAnteriorP2 = dadoAnterior2;
+                partidas[i].numCasillasMoverseP = numCasillasMoverse;
+                io.sockets.in(room).emit('dados', dado1, dado2, dadoAnterior1, dadoAnterior2);
+            }
+        }
+    });
 
+    socket.on('moverJugador', function (room, numCasillasMoverse, gameTime) {
+        for(var i = 0; i < partidas.length; i++)
+        {
+            if (partidas[i].nombrePartida == room){
+                partidas[i].numCasillasMoverseP = numCasillasMoverse;
+                for (var j=0; j< partidas[i].jugadores.length; j++){
+                    if(partidas[i].jugadores[j].idSocket == socket.id){
+                        if (!partidas[i].jugadores[j].processMovement(gameTime, room)) {
+                            if (partidas[i].jugadores[j].casilla <= 33) {
+
+                                if (partidas[i].jugadores[j].canMoveUp()) {
+                                    partidas[i].jugadores[j].moveUp(gameTime);
+                                }
+                                else if (partidas[i].jugadores[j].canMoveDown()) {
+                                    partidas[i].jugadores[j].moveDown(gameTime);
+                                }
+                                else if (partidas[i].jugadores[j].canMoveLeft()) {
+                                    partidas[i].jugadores[j].moveLeft(gameTime);
+                                }
+                                else if (partidas[i].jugadores[j].canMoveRight()) {
+                                    partidas[i].jugadores[j].moveRight(gameTime);
+                                }
+                            }
+                        }
+
+                    }
+                }
+              //io.sockets.in(room).emit('dados', dado1, dado2, dadoAnterior1, dadoAnterior2);
+            }
+        }
+    })
 });
 
+ function actualizarOrdenPartidas() {
+    for (var i = 0; i < turnoJugadores.length; i++) {
+        console.log("turnoJugadores: "+turnoJugadores.length);
+        io.sockets.in(turnoJugadores[i].nombrePartida).emit('turnoPartida', turnoJugadores[i].idSocketJugadores);
+    }
+};
+
 setInterval(function () {
-    console.log(partidas.length);
-    for(var i = 0 ; i < partidas.length; i++)
-    {
-        console.log(partidas[i].nombrePartida);
-        console.log(partidas[i].jugadores);
-        io.sockets.in(partidas[i].nombrePartida).emit('partida', partidas[i].jugadores);
+    for (var i = 0; i < partidas.length; i++) {
+        io.sockets.in(partidas[i].nombrePartida).emit('partida', partidas[i]);
+    }
+}, 1000/60);
+
+
+Character.prototype.placeAt = function (x, y) {
+    this.tileFrom = [x, y];
+    this.tileTo = [x, y];
+    this.position = [((anchoCasilla * x) + ((anchoCasilla - this.dimensions[0]) / 2)), ((altoCasilla * y) + ((altoCasilla - this.dimensions[1]) / 2))];
+};
+
+Character.prototype.processMovement = function (t, roomActual) {
+    var indicePartidaActual = partidas.map(function (e) { return e.nombrePartida;}).indexOf(roomActual)
+    if (this.tileFrom[0] == this.tileTo[0] && this.tileFrom[1] == this.tileTo[1]) {
+        return false;
+    }
+
+    if (this.casilla == 33) {
+        partidas[indicePartidaActual].numCasillasMoverseP = 0;
+    }
+
+    if ((t - this.timeMoved) >= this.delayMove) {
+        this.placeAt(this.tileTo[0], this.tileTo[1]);
+
+        if ( partidas[indicePartidaActual].numCasillasMoverseP > 1) {
+            if (this.canMoveDirection(this.direction)) {
+                this.moveDirection(this.direction, t);
+            }
+            else {
+                this.nuevaDireccion();
+                this.moveDirection(this.direction, t);
+            }
+            partidas[indicePartidaActual].numCasillasMoverseP =  partidas[indicePartidaActual].numCasillasMoverseP - 1;
+        }
+        else {
+
+        }
+    }
+    else {
+        this.position[0] = (this.tileFrom[0] * anchoCasilla) + ((anchoCasilla - this.dimensions[0]) / 2);
+        this.position[1] = (this.tileFrom[1] * altoCasilla) + ((altoCasilla - this.dimensions[1]) / 2);
+
+        if (this.tileTo[0] != this.tileFrom[0]) {
+            var diff = (anchoCasilla / this.delayMove) * (t - this.timeMoved);
+            this.position[0] += (this.tileTo[0] < this.tileFrom[0] ? 0 - diff : diff);
+        }
+        if (this.tileTo[1] != this.tileFrom[1]) {
+            var diff = (altoCasilla / this.delayMove) * (t - this.timeMoved);
+            this.position[1] += (this.tileTo[1] < this.tileFrom[1] ? 0 - diff : diff);
+        }
+
+        this.position[0] = Math.round(this.position[0]);
+        this.position[1] = Math.round(this.position[1]);
+    }
+    return true;
+};
+
+Character.prototype.canMoveTo = function (x, y) {
+    if (x < 0 || x >= columnas || y < 0 || y >= filas) {
+        return false;
+    }
+    else if ([gameMap[toIndex(x, y)]] == 0) {
+        return false;
+    }
+    else if ([gameMap[((y * columnas) + x)]] < this.casilla) {
+        return false;
+    }
+    return true;
+};
+
+Character.prototype.canMoveUp = function () {
+    return this.canMoveTo(this.tileFrom[0], this.tileFrom[1] - 1);
+};
+
+Character.prototype.canMoveDown = function () {
+    return this.canMoveTo(this.tileFrom[0], this.tileFrom[1] + 1);
+};
+
+Character.prototype.canMoveLeft = function () {
+    return this.canMoveTo(this.tileFrom[0] - 1, this.tileFrom[1]);
+};
+
+Character.prototype.canMoveRight = function () {
+    return this.canMoveTo(this.tileFrom[0] + 1, this.tileFrom[1]);
+};
+
+Character.prototype.canMoveDirection = function (d) {
+    switch (d) {
+        case directions.up:
+            return this.canMoveUp();
+        case directions.down:
+            return this.canMoveDown();
+        case directions.left:
+            return this.canMoveLeft();
+        default:
+            return this.canMoveRight();
+    }
+};
+
+Character.prototype.nuevaDireccion = function () {
+
+    if (this.canMoveRight()) {
+        this.direction = directions.right
+    }
+    else {
+        if (this.canMoveLeft()) {
+            this.direction = directions.left
+        }
+        else {
+            if (this.canMoveDown()) {
+                this.direction = directions.down
+            }
+            else {
+                if (this.canMoveUp()) {
+                    this.direction = directions.up
+                }
+            }
+        }
     }
 
 
-}, 1000);
+};
+
+Character.prototype.moveLeft = function (t) {
+    this.tileTo[0] -= 1;
+    this.timeMoved = t;
+    this.direction = 3;
+    this.casilla += 1;
+};
+
+Character.prototype.moveRight = function (t) {
+    this.tileTo[0] += 1;
+    this.timeMoved = t;
+    this.direction = 1;
+    this.casilla += 1;
+};
+
+Character.prototype.moveUp = function (t) {
+    this.tileTo[1] -= 1;
+    this.timeMoved = t;
+    this.direction = 0;
+    this.casilla += 1;
+};
+
+Character.prototype.moveDown = function (t) {
+    this.tileTo[1] += 1;
+    this.timeMoved = t;
+    this.direction = 2;
+    this.casilla += 1;
+};
+
+Character.prototype.moveDirection = function (d, t) {
+    switch (d) {
+        case directions.up:
+            return this.moveUp(t);
+        case directions.down:
+            return this.moveDown(t);
+        case directions.left:
+            return this.moveLeft(t);
+        default:
+            return this.moveRight(t);
+    }
+};
+
+function toIndex(x, y) {
+    return ((y * columnas) + x);
+}
