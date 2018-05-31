@@ -37,6 +37,7 @@ function dados (nombrePartida) {
     this.dado1 = dado1;
     this.dado2 = dado2;
 }
+var contador = 0;
 
 window.onload = function () {
     roomActual = partidas[generarRandonPartida()]
@@ -58,15 +59,14 @@ socket.on('parametrosJuego', function (data) {
 });
 socket.on('partida', function (data) {
     jugadores = data.jugadores;
-
-
     for (var i = 0; i <jugadores.length; i++)
     {
+        console.log(jugadores[i].numCasillasMoverseP +"    yyy");
         if(jugadores[i].idSocket == idSocketActual)
         {
             jugadorActual = jugadores[i];
-            numCasillasMoverse = jugadorActual.numCasillasMoverseP
-            console.log("num: " + numCasillasMoverse)
+            numCasillasMoverse = jugadores[i].numCasillasMoverseP
+            console.log("num: "+ numCasillasMoverse)
         }
     }
 
@@ -117,10 +117,22 @@ function drawGame() {
         desbloquearBoton();
     }
 
-
-    if(numCasillasMoverse > 1 && idSocketActual == jugadores[0].idSocket){
+    console.log(turnoJugadores[0]);
+    if(numCasillasMoverse > 0 && (turnoJugadores[0] == idSocketActual) && contador == 0){
         console.log(numCasillasMoverse);
         socket.emit('moverJugador', roomActual, numCasillasMoverse, currentFrameTime);
+    }
+    else {
+        contador++;
+    }
+
+    if(numCasillasMoverse == 0 && contador ==1)
+    {
+        var i = turnoJugadores.shift();
+        turnoJugadores.push(i);
+        var nuevoArray = new partidaTurno(roomActual);
+        nuevoArray.idSocketJugadores = turnoJugadores;
+   //     socket.emit('nuevo array', nuevoArray);
     }
 
     for (var y = 0; y < filas; ++y) {
@@ -216,17 +228,19 @@ function bloquearBoton(idBoton) {
 
 function lanzarDado(boton) {
     bloquearBoton(boton.id);
-    var i = turnoJugadores.shift();
+    contador = 0;
+    /* var i = turnoJugadores.shift();
     turnoJugadores.push(i);
     var nuevoArray = new partidaTurno(roomActual);
     nuevoArray.idSocketJugadores = turnoJugadores;
-    socket.emit('nuevo array', nuevoArray);
+    socket.emit('nuevo array', nuevoArray);*/
     dadoRandomico();
     moverDado();
     moverDado2();
     dadoAnterior1 = dado1;
     dadoAnterior2 = dado2;
     numCasillasMoverse = dado1 + dado2;
+    console.log(numCasillasMoverse);
     socket.emit('dados', dado1, dado2, roomActual,dadoAnterior1, dadoAnterior2, numCasillasMoverse);
 
 }

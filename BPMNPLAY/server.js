@@ -120,26 +120,29 @@ io.on('connection', function (socket) {
             turnoJugadores.push(new partidaTurno(room));
             partidas[partidas.length - 1].jugadores.push(new Character(0, ((anchoCasilla * 2) + (anchoCasilla / 4)), (altoCasilla * (filas - 1) + (altoCasilla / 4)), socket.id));
             turnoJugadores[turnoJugadores.length - 1].idSocketJugadores.push(socket.id);
-
+            console.log("primero")
         }
         else {
-            var idPartida = partidas.map(function (e) {
-                return e.nombrePartida
-            }).indexOf(room);
+            var idPartida = partidas.map(function (e) { return e.nombrePartida }).indexOf(room);
+            var idTurnoPartida = turnoJugadores.map(function (e) { return e.nombrePartida }).indexOf(room);
 
             if (idPartida >= 0) {
                 partidas[idPartida].jugadores.push(new Character(partidas[idPartida].jugadores.length, ((anchoCasilla * 2) + (anchoCasilla / 4)), (altoCasilla * (filas - 1) + (altoCasilla / 4)), socket.id));
-                turnoJugadores[idPartida].idSocketJugadores.push(socket.id);
+                turnoJugadores[idTurnoPartida].idSocketJugadores.push(socket.id);
+                console.log("cuando hay")
+
             }
             else {
                 partidas.push(new partida(room));
                 turnoJugadores.push(new partidaTurno(room));
                 partidas[partidas.length - 1].jugadores.push(new Character(0, ((anchoCasilla * 2) + (anchoCasilla / 4)), (altoCasilla * (filas - 1) + (altoCasilla / 4)), socket.id));
                 turnoJugadores[turnoJugadores.length - 1].idSocketJugadores.push(socket.id);
+                console.log("nuevo")
+
             }
         }
+        console.log("num Ju:  " +turnoJugadores.length+"  "+turnoJugadores);
         actualizarOrdenPartidas();
-
     });
     socket.on('disconnect', function () {
         // remove disconnected player
@@ -169,7 +172,7 @@ io.on('connection', function (socket) {
                 partidas[i].dadoAnteriorP1 = dadoAnterior1;
                 partidas[i].dadoAnteriorP2 = dadoAnterior2;
                 partidas[i].jugadores[partidas[i].jugadores.map(function (e) {return e.idSocket}).indexOf(socket.id)].numCasillasMoverseP = numCasillasMoverse;
-                console.log(partidas[i])
+                console.log(partidas[i].jugadores[partidas[i].jugadores.map(function (e) {return e.idSocket}).indexOf(socket.id)].numCasillasMoverseP)
                 io.sockets.in(room).emit('dados', dado1, dado2, dadoAnterior1, dadoAnterior2);
             }
         }
@@ -179,7 +182,7 @@ io.on('connection', function (socket) {
         for(var i = 0; i < partidas.length; i++)
         {
             if (partidas[i].nombrePartida == room){
-                partidas[i].numCasillasMoverseP = numCasillasMoverse;
+                partidas[i].jugadores[partidas[i].jugadores.map(function (e) {return e.idSocket}).indexOf(socket.id)].numCasillasMoverseP = numCasillasMoverse;
                 for (var j=0; j< partidas[i].jugadores.length; j++){
                     if(partidas[i].jugadores[j].idSocket == socket.id){
                         if (!partidas[i].jugadores[j].processMovement(gameTime, room, socket.id)) {
@@ -210,7 +213,7 @@ io.on('connection', function (socket) {
 
  function actualizarOrdenPartidas() {
     for (var i = 0; i < turnoJugadores.length; i++) {
-        console.log("turnoJugadores: "+turnoJugadores.length);
+        console.log("num22 Ju:  " +turnoJugadores.length+"  "+turnoJugadores);
         io.sockets.in(turnoJugadores[i].nombrePartida).emit('turnoPartida', turnoJugadores[i].idSocketJugadores);
     }
 };
@@ -231,9 +234,6 @@ Character.prototype.placeAt = function (x, y) {
 Character.prototype.processMovement = function (t, roomActual, idSocket) {
     var indicePartidaActual = partidas.map(function (e) { return e.nombrePartida;}).indexOf(roomActual)
     var indiceJugadorActual = partidas[indicePartidaActual].jugadores.map(function (e) { return e.idSocket;}).indexOf(idSocket)
-
-    console.log("indicePActual: " + indiceJugadorActual);
-
 
     if (this.tileFrom[0] == this.tileTo[0] && this.tileFrom[1] == this.tileTo[1]) {
         return false;
