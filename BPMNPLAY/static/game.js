@@ -82,6 +82,15 @@ socket.on('dados', function (dadoN1, dadoN2, dadoAnteriorN1, dadoAnteriorN2) {
     moverDado();
     moverDado2();
 });
+
+socket.on('bloquearBoton', function () {
+    if(socket.id == idSocketActual)
+    {
+        if(document.getElementById("botonLanzar")){
+            document.getElementById("botonLanzar").setAttribute("hidden","");
+        }}
+})
+
 function agregarNumerosCasilla() {
     for (var y = 0; y < filas; ++y) {
         for (var x = 0; x < columnas; ++x) {
@@ -114,11 +123,11 @@ function drawGame() {
 
     if(numCasillasMoverse > 0 && (turnoJugadores[0] == idSocketActual)){
         console.log(numCasillasMoverse);
-        socket.emit('moverJugador', roomActual, numCasillasMoverse, currentFrameTime);
+        socket.emit('moverJugador', roomActual, currentFrameTime);
     }else
     {
         bloquearBoton();
-        if(numCasillasMoverse == 0 && turnoJugadores.length > 0 && (turnoJugadores[0] == idSocketActual) && (jugadores[jugadores.map(function (value) { return value.idSocket }).indexOf((idSocketActual))].boton == 0)){
+        if( jugadores.length > 0 && numCasillasMoverse == 0 && turnoJugadores.length > 0 && (turnoJugadores[0] == idSocketActual) && (jugadores[jugadores.map(function (value) { return value.idSocket }).indexOf(idSocketActual)].boton == 0)){
             desbloquearBoton();
             numCasillasMoverse == -1;
             jugadores[jugadores.map(function (value) { return value.idSocket }).indexOf((idSocketActual))].boton == 1;
@@ -212,7 +221,6 @@ function desbloquearBoton() {
 
 function bloquearBoton() {
     if(document.getElementById("botonLanzar")){
-        //console.log("Bloqueando el boton: "+idBoton);
         document.getElementById("botonLanzar").setAttribute("disabled","");
     }
 }
