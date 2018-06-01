@@ -49,11 +49,11 @@ function Character(c, x, y, z) {
     this.timeMoved = 0;
     this.dimensions = [30, 30];
     this.position = [x, y];
-    this.delayMove = 100;
+    this.delayMove = 150;
     this.direction = directions.up;
     this.casilla = 0;
     this.colorP = colorJugador[c];
-    this.boton = "";
+    this.boton = 0;
     this.puesto = 0;
     this.idSocket = z;
 }
@@ -119,6 +119,7 @@ io.on('connection', function (socket) {
             partidas.push(new partida(room));
             turnoJugadores.push(new partidaTurno(room));
             partidas[partidas.length - 1].jugadores.push(new Character(0, ((anchoCasilla * 2) + (anchoCasilla / 4)), (altoCasilla * (filas - 1) + (altoCasilla / 4)), socket.id));
+            partidas[partidas.length-1].jugadores[partidas[partidas.length-1].jugadores.length-1].numCasillasMoverseP = 0;
             turnoJugadores[turnoJugadores.length - 1].idSocketJugadores.push(socket.id);
             console.log("primero")
         }
@@ -128,6 +129,8 @@ io.on('connection', function (socket) {
 
             if (idPartida >= 0) {
                 partidas[idPartida].jugadores.push(new Character(partidas[idPartida].jugadores.length, ((anchoCasilla * 2) + (anchoCasilla / 4)), (altoCasilla * (filas - 1) + (altoCasilla / 4)), socket.id));
+                partidas[idPartida].jugadores[partidas[idPartida].jugadores.length-1].numCasillasMoverseP = 0;
+
                 turnoJugadores[idTurnoPartida].idSocketJugadores.push(socket.id);
                 console.log("cuando hay")
 
@@ -136,12 +139,13 @@ io.on('connection', function (socket) {
                 partidas.push(new partida(room));
                 turnoJugadores.push(new partidaTurno(room));
                 partidas[partidas.length - 1].jugadores.push(new Character(0, ((anchoCasilla * 2) + (anchoCasilla / 4)), (altoCasilla * (filas - 1) + (altoCasilla / 4)), socket.id));
+                partidas[partidas.length-1].jugadores[partidas[partidas.length-1].jugadores.length-1].numCasillasMoverseP = 0;
                 turnoJugadores[turnoJugadores.length - 1].idSocketJugadores.push(socket.id);
                 console.log("nuevo")
 
             }
         }
-        console.log("num Ju:  " +turnoJugadores.length+"  "+turnoJugadores);
+        console.log("num Ju:  " +turnoJugadores[0].idSocketJugadores.length+"  "+turnoJugadores);
         actualizarOrdenPartidas();
     });
     socket.on('disconnect', function () {
@@ -154,11 +158,11 @@ io.on('connection', function (socket) {
          console.log("Los nuevos Jugadores: " + jugadores)*/
     });
 
-    socket.on('nuevo array', function (data) {
+    socket.on('nuevo array', function (data, room) {
         for(var i = 0; i < turnoJugadores.length; i++)
         {
-            if (turnoJugadores[i].nombrePartida == data.nombrePartida){
-                turnoJugadores[i] = data;
+            if (turnoJugadores[i].nombrePartida == room){
+                turnoJugadores[i].idSocket = data;
             }
         }
         actualizarOrdenPartidas();
@@ -171,8 +175,8 @@ io.on('connection', function (socket) {
                 partidas[i].dadoP2 = dado2;
                 partidas[i].dadoAnteriorP1 = dadoAnterior1;
                 partidas[i].dadoAnteriorP2 = dadoAnterior2;
+                console.log("Indefinido" + numCasillasMoverse);
                 partidas[i].jugadores[partidas[i].jugadores.map(function (e) {return e.idSocket}).indexOf(socket.id)].numCasillasMoverseP = numCasillasMoverse;
-                console.log(partidas[i].jugadores[partidas[i].jugadores.map(function (e) {return e.idSocket}).indexOf(socket.id)].numCasillasMoverseP)
                 io.sockets.in(room).emit('dados', dado1, dado2, dadoAnterior1, dadoAnterior2);
             }
         }
@@ -182,11 +186,11 @@ io.on('connection', function (socket) {
         for(var i = 0; i < partidas.length; i++)
         {
             if (partidas[i].nombrePartida == room){
-                partidas[i].jugadores[partidas[i].jugadores.map(function (e) {return e.idSocket}).indexOf(socket.id)].numCasillasMoverseP = numCasillasMoverse;
+               // partidas[i].jugadores[partidas[i].jugadores.map(function (e) {return e.idSocket}).indexOf(socket.id)].numCasillasMoverseP = numCasillasMoverse;
                 for (var j=0; j< partidas[i].jugadores.length; j++){
                     if(partidas[i].jugadores[j].idSocket == socket.id){
                         if (!partidas[i].jugadores[j].processMovement(gameTime, room, socket.id)) {
-                            if (partidas[i].jugadores[j].casilla <= 33) {
+                            if (partidas[i].jugadores[j].casilla < 33) {
 
                                 if (partidas[i].jugadores[j].canMoveUp()) {
                                     partidas[i].jugadores[j].moveUp(gameTime);
@@ -200,6 +204,12 @@ io.on('connection', function (socket) {
                                 else if (partidas[i].jugadores[j].canMoveRight()) {
                                     partidas[i].jugadores[j].moveRight(gameTime);
                                 }
+                            }
+                            else
+                            {
+                                for (var i = 0; i < partidas.length; i++) {
+                                    io.sockets.in(partidas[i].nombrePartida).emit('partida', partidas[i]); }
+
                             }
                         }
 
@@ -220,8 +230,7 @@ io.on('connection', function (socket) {
 
 setInterval(function () {
     for (var i = 0; i < partidas.length; i++) {
-        io.sockets.in(partidas[i].nombrePartida).emit('partida', partidas[i]);
-    }
+        io.sockets.in(partidas[i].nombrePartida).emit('partida', partidas[i]); }
 }, 1000/60);
 
 
@@ -240,13 +249,14 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
     }
 
     if (this.casilla == 33) {
-        partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = 0;
+        partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = 1;
     }
 
     if ((t - this.timeMoved) >= this.delayMove) {
         this.placeAt(this.tileTo[0], this.tileTo[1]);
 
         if ( partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP > 1) {
+            console.log("Soy mayor que 1  "+ partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP )
             if (this.canMoveDirection(this.direction)) {
                 this.moveDirection(this.direction, t);
             }
@@ -255,9 +265,20 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
                 this.moveDirection(this.direction, t);
             }
             partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP =  partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP - 1;
+            console.log("Restar 1: "+ partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP )
+            for (var i = 0; i < partidas.length; i++) {
+                io.sockets.in(partidas[i].nombrePartida).emit('partida', partidas[i]); }
         }
         else {
-            partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = 0
+            console.log("Ya no puedo moverme: "+ partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP )
+            partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = 0;
+            var indicePartidaActualJu = turnoJugadores.map(function (e) { return e.nombrePartida  }).indexOf(roomActual)
+            var i = turnoJugadores[indicePartidaActualJu].idSocketJugadores.shift();
+            turnoJugadores[indicePartidaActualJu].idSocketJugadores.push(i);
+            actualizarOrdenPartidas();
+            partidas[indicePartidaActual].jugadores[partidas[indicePartidaActual].jugadores.map(function (value) { return value.idSocket }).indexOf(turnoJugadores[indicePartidaActualJu].idSocketJugadores[0])].boton = 0;
+
+
         }
     }
     else {
@@ -266,6 +287,7 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
 
         if (this.tileTo[0] != this.tileFrom[0]) {
             var diff = (anchoCasilla / this.delayMove) * (t - this.timeMoved);
+            console.log("diff: "+ diff)
             this.position[0] += (this.tileTo[0] < this.tileFrom[0] ? 0 - diff : diff);
         }
         if (this.tileTo[1] != this.tileFrom[1]) {
