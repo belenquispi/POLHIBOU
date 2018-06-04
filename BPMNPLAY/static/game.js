@@ -2,6 +2,10 @@ var ctx = null;
 var color1 = new Image();
 var color2 = new Image();
 var color3 = new Image();
+var casillaInicio = new Image();
+var casillaFin = new Image();
+var casillaIncierto = new Image();
+var color3 = new Image();
 var per1 = new Image();
 var per2 = new Image();
 var per3 = new Image();
@@ -9,7 +13,7 @@ var per4 = new Image();
 var filas, columnas, anchoCasilla, altoCasilla;
 var gameMap = [];
 var colorMap = [];
-var patterColor1, patterColor2, patterColor3;
+var patterColor1, patterColor2, patterColor3, patterInicio, patterIncierto, patterFin;
 var currentSecond = 0, frameCount = 0, framesLastSecond = 0, lastFrameTime = 0;
 var gameTime = 0;
 var currentSpeed = 0;
@@ -22,26 +26,21 @@ var turnoFinalizado = true;
 var idSocketActual;
 var roomActual;
 var dado1 = -1, dado2 = -1, dadoAnterior1 = 1, dadoAnterior2 = 1;
-
 var numCasillasMoverse = 0;
 
 function generarRandonPartida() {
     return Math.floor(Math.random() * 1);
 }
-function partidaTurno(nombrePartida) {
-    this.nombrePartida = nombrePartida,
-        this.idSocketJugadores = []
-}
-function dados (nombrePartida) {
+
+function dados(nombrePartida) {
     this.nombrePartida = nombrePartida;
     this.dado1 = dado1;
     this.dado2 = dado2;
 }
-var moverse = false;
 
 window.onload = function () {
     roomActual = partidas[generarRandonPartida()]
-    socket.emit('new player',roomActual);
+    socket.emit('new player', roomActual);
     ctx = document.getElementById('game').getContext("2d");
     requestAnimationFrame(drawGame);
     ctx.font = "bold 10pt sans-serif";
@@ -55,15 +54,13 @@ socket.on('parametrosJuego', function (data) {
     gameMap = data.gameM;
     colorMap = data.colorM;
     idSocketActual = socket.io.engine.id;
-    console.log("Mi socket: "+idSocketActual )
+    console.log("Mi socket: " + idSocketActual)
 });
 socket.on('partida', function (data) {
     jugadores = data.jugadores;
-    for (var i = 0; i <jugadores.length; i++)
-    {
+    for (var i = 0; i < jugadores.length; i++) {
 
-        if(jugadores[i].idSocket == idSocketActual)
-        {
+        if (jugadores[i].idSocket == idSocketActual) {
             jugadorActual = jugadores[i];
             numCasillasMoverse = jugadores[i].numCasillasMoverseP
         }
@@ -82,14 +79,13 @@ socket.on('dados', function (dadoN1, dadoN2, dadoAnteriorN1, dadoAnteriorN2) {
     moverDado();
     moverDado2();
 });
-
 socket.on('bloquearBoton', function () {
-    if(socket.id == idSocketActual)
-    {
-        if(document.getElementById("botonLanzar")){
-            document.getElementById("botonLanzar").setAttribute("hidden","");
-        }}
-})
+    if (socket.id == idSocketActual) {
+        if (document.getElementById("botonLanzar")) {
+            document.getElementById("botonLanzar").setAttribute("hidden", "");
+        }
+    }
+});
 
 function agregarNumerosCasilla() {
     for (var y = 0; y < filas; ++y) {
@@ -121,16 +117,19 @@ function drawGame() {
         frameCount++;
     }
 
-    if(numCasillasMoverse > 0 && (turnoJugadores[0] == idSocketActual)){
-        console.log(numCasillasMoverse);
+    if (numCasillasMoverse > 0 && (turnoJugadores[0] == idSocketActual)) {
         socket.emit('moverJugador', roomActual, currentFrameTime);
-    }else
-    {
+    } else {
+        1
         bloquearBoton();
-        if( jugadores.length > 0 && numCasillasMoverse == 0 && turnoJugadores.length > 0 && (turnoJugadores[0] == idSocketActual) && (jugadores[jugadores.map(function (value) { return value.idSocket }).indexOf(idSocketActual)].boton == 0)){
+        if (jugadores.length > 0 && numCasillasMoverse == 0 && turnoJugadores.length > 0 && (turnoJugadores[0] == idSocketActual) && (jugadores[jugadores.map(function (value) {
+            return value.idSocket
+        }).indexOf(idSocketActual)].boton == 0)) {
             desbloquearBoton();
             numCasillasMoverse == -1;
-            jugadores[jugadores.map(function (value) { return value.idSocket }).indexOf((idSocketActual))].boton == 1;
+            jugadores[jugadores.map(function (value) {
+                return value.idSocket
+            }).indexOf((idSocketActual))].boton == 1;
         }
 
     }
@@ -140,14 +139,31 @@ function drawGame() {
             color1.src = 'static/0.png';
             color2.src = 'static/1.png';
             color3.src = 'static/2.png';
+            casillaInicio.src = 'static/inicio.jpg';
+            casillaIncierto.src = 'static/incierto.png';
+            casillaFin.src = 'static/fin.jpg';
             patterColor1 = ctx.createPattern(color1, "repeat");
             patterColor2 = ctx.createPattern(color2, "repeat");
             patterColor3 = ctx.createPattern(color3, "repeat");
+            patterInicio = ctx.createPattern(casillaInicio, "repeat");
+            patterIncierto = ctx.createPattern(casillaIncierto, "repeat");
+            patterFin = ctx.createPattern(casillaFin, "repeat");
 
             switch (gameMap[((y * columnas) + x)]) {
                 case 0:
                     ctx.fillStyle = "#6A0888";
                     break;
+                case 99:
+                    ctx.fillStyle = patterInicio;
+                    break;
+                case 7: case 13: case 20: case  26:
+                    ctx.fillStyle = patterIncierto;
+                    break;
+                case 33:
+                    ctx.fillStyle = patterFin;
+                    break;
+
+
                 default:
                     switch (colorMap[((y * columnas) + x)]) {
                         case 0:
@@ -169,12 +185,11 @@ function drawGame() {
 
     agregarNumerosCasilla();
     dibujarJugador();
-
+    habilitarTablaJugador();
+    mostrarJugadorActual();
     ctx.fillStyle = "#ff0000";
     ctx.fillText("FPS: " + framesLastSecond, 10, 20);
-
     lastFrameTime = currentFrameTime;
-
     requestAnimationFrame(drawGame);
 }
 
@@ -213,32 +228,26 @@ function dibujarJugador() {
 }
 
 function desbloquearBoton() {
-  //  console.log("Id boton: " + document.getElementById("botonLanzar").id);
-    if(document.getElementById("botonLanzar")){
+    if (document.getElementById("botonLanzar")) {
         document.getElementById("botonLanzar").removeAttribute("disabled");
     }
 }
 
 function bloquearBoton() {
-    if(document.getElementById("botonLanzar")){
-        document.getElementById("botonLanzar").setAttribute("disabled","");
+    if (document.getElementById("botonLanzar")) {
+        document.getElementById("botonLanzar").setAttribute("disabled", "");
     }
 }
 
 function lanzarDado() {
     bloquearBoton();
-    /* var i = turnoJugadores.shift();
-    turnoJugadores.push(i);
-    var nuevoArray = new partidaTurno(roomActual);
-    nuevoArray.idSocketJugadores = turnoJugadores;
-    socket.emit('nuevo array', nuevoArray);*/
     dadoRandomico();
     moverDado();
     moverDado2();
     dadoAnterior1 = dado1;
     dadoAnterior2 = dado2;
     numCasillasMoverse = dado1 + dado2;
-    socket.emit('dados', dado1, dado2, roomActual,dadoAnterior1, dadoAnterior2, numCasillasMoverse);
+    socket.emit('dados', dado1, dado2, roomActual, dadoAnterior1, dadoAnterior2, numCasillasMoverse);
 
 }
 
@@ -311,4 +320,24 @@ function moverDado2() {
     }
 }
 
+function habilitarTablaJugador() {
+    if (jugadores.length < 5) {
+        for (var i = 1; i < jugadores.length; i++) {
+            document.getElementById("tablajug" + (i + 1)).style.visibility = 'visible';
+        }
+    }
+}
 
+function mostrarJugadorActual() {
+    for (var i = 0; i < jugadores.length; i++) {
+        document.getElementById("tablajug" + (i + 1)).style.backgroundColor = "#ffffff";
+    }
+    var indiceJugadorActual = jugadores.map(function (value) {
+        return value.idSocket
+    }).indexOf(turnoJugadores[0]);
+    if (indiceJugadorActual >= 0) {
+        if (document.getElementById("tablajug" + (indiceJugadorActual + 1))) {
+            document.getElementById("tablajug" + (indiceJugadorActual + 1)).style.backgroundColor = "#A9BCF5";
+        }
+    }
+}
