@@ -66,7 +66,6 @@ var colorJugador = ["#01DF3A", "#FE2E2E", "#0431B4", "#61380B", "#8904B1"];
 
 function seleccionarColor() {
     var indice = 0;
-    var colorAnterior = -1;
     for (var y = 0; y < filas; ++y) {
         for (var x = 0; x < columnas; ++x) {
             switch (gameMap[((y * columnas) + x)]) {
@@ -76,10 +75,11 @@ function seleccionarColor() {
                     break;
                 default:
                     var colorA = Math.floor(Math.random() * 3);
+                    var colorAnterior = -1;
                     while(colorA == colorAnterior) {
                         colorA = Math.floor(Math.random() * 3);
-                        colorAnterior = colorA;
                     }
+                    colorAnterior = colorA;
                         switch (colorA) {
                             case 0:
                                 colorMap[indice] = 0;
