@@ -7,18 +7,18 @@ var app = express();
 var server = http.Server(app);
 var io = socketIO(server);
 var gameMap = [
-    13, 14, 15, 16, 17, 18, 19, 20,
-    12, 0, 0, 0, 0, 0, 0, 21,
-    11, 10, 9, 0, 0, 24, 23, 22,
-    0, 0, 8, 0, 0, 25, 0, 0,
-    0, 0, 7, 0, 0, 26, 0, 0,
-    4, 5, 6, 0, 0, 27, 28, 29,
-    3, 0, 0, 0, 0, 0, 0, 30,
-    2, 1, 99, 0, 0, 33, 32, 31
+    13, 14, 15, 16, 17, 18, 19, 20, 21,
+    12, 0, 0, 0, 0, 0, 0, 0, 22,
+    11, 10, 9, 0, 'B', 0, 25, 24, 23,
+    0, 0, 8, 0, 'P', 0, 26, 0, 0,
+    0, 0, 7, 0, 'M', 0, 27, 0, 0,
+    4, 5, 6, 0, 'N', 0, 28, 29, 30,
+    3, 0, 0, 0, '>', 0, 0, 0, 31,
+    2, 1, 'I', 0, 0, 0, 34, 33, 32
 ];
 var colorMap = [];
 var anchoCasilla = 60, altoCasilla = 60;
-var columnas = 8, filas = 8;
+var columnas = 9, filas = 8;
 var parametrosJuego = {
     gameM: gameMap,
     anchoCas: anchoCasilla,
@@ -192,7 +192,7 @@ io.on('connection', function (socket) {
                 for (var j = 0; j < partidas[i].jugadores.length; j++) {
                     if (partidas[i].jugadores[j].idSocket == socket.id) {
                         if (!partidas[i].jugadores[j].processMovement(gameTime, room, socket.id)) {
-                            if (partidas[i].jugadores[j].casilla < 33) {
+                            if (partidas[i].jugadores[j].casilla < 34) {
 
                                 if (partidas[i].jugadores[j].canMoveUp()) {
                                     partidas[i].jugadores[j].moveUp(gameTime);
@@ -259,7 +259,7 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
         return false;
     }
 
-    if (this.casilla == 33) {
+    if (this.casilla == 34) {
         partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = 1;
     }
 

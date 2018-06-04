@@ -4,10 +4,7 @@
     <list default="true" id="3299685f-4aef-430c-bbbf-10e9746e67af" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/BPMNPLAY/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BPMNPLAY/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/static/Mystery_Box-01.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/static/bigstock-Wise-Owl-Sitting-On-The-Books-68231416.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/BPMNPLAY/static/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/static/game.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/static/infantiles_2805622_01.jpg" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -24,27 +21,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BPMNPLAY/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="89" column="7" lean-forward="true" selection-start-line="89" selection-start-column="7" selection-end-line="89" selection-end-column="7" />
-              <folding>
-                <element signature="n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#style#0;n#input#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#4;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#5;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#6;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#7;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#8;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#9;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#10;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#11;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#style#0;n#tr#1;n#tbody#0;n#table#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#tr#2;n#tbody#0;n#table#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#tr#3;n#tbody#0;n#table#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="187">
+              <caret line="11" column="31" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -52,74 +30,27 @@
       <file leaf-file-name="estilos.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/css/estilos.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="172" column="21" lean-forward="true" selection-start-line="172" selection-start-column="21" selection-end-line="172" selection-end-column="21" />
+            <state relative-caret-position="250">
+              <caret line="171" lean-forward="true" selection-start-line="171" selection-end-line="171" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="game.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="game.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="149">
-              <caret line="158" column="51" lean-forward="true" selection-start-line="158" selection-start-column="51" selection-end-line="158" selection-end-column="51" />
-              <folding>
-                <element signature="n#!!block;n#generarRandonPartida#0" />
-                <element signature="n#!!block;n#dados#0" />
-                <element signature="e#1117#1373#0" />
-                <element signature="e#1420#1683#0" />
-                <element signature="e#1723#1998#0" />
-                <element signature="e#2207#2357#0" />
-                <element signature="e#2400#2586#0" />
-                <element signature="n#!!block;n#agregarNumerosCasilla#0" />
-                <element signature="e#2660#3115#0" />
-                <element signature="n#!!block;n#dibujarJugador#0" />
-                <element signature="n#!!block;n#desbloquearBoton#0" />
-                <element signature="n#!!block;n#bloquearBoton#0" />
-                <element signature="n#!!block;n#lanzarDado#0" />
-                <element signature="n#!!block;n#dadoRandomico#0" />
-                <element signature="n#!!block;n#moverDado#0" />
-                <element signature="n#!!block;n#moverDado2#0" />
-                <element signature="n#!!block;n#habilitarTablaJugador#0" />
-                <element signature="n#!!block;n#f#0" />
-              </folding>
+            <state relative-caret-position="189">
+              <caret line="200" column="26" selection-end-line="414" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="server.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="server.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BPMNPLAY/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="70" column="21" selection-start-line="70" selection-start-column="21" selection-end-line="70" selection-end-column="21" />
+            <state relative-caret-position="51">
+              <caret line="3" column="7" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="7" />
               <folding>
-                <element signature="e#236#493#0" />
-                <element signature="e#626#763#0" />
-                <element signature="e#2675#2737#0" />
-                <element signature="e#2794#2846#0" />
-                <element signature="e#2918#9123#0" />
-                <element signature="e#3111#3760#0" />
-                <element signature="e#5461#5773#0" />
-                <element signature="e#5828#6068#0" />
-                <element signature="e#6174#6946#0" />
-                <element signature="e#7006#9120#0" />
-                <element signature="e#8420#9023#0" />
-                <element signature="n#!!block;n#actualizarOrdenPartidas#0" />
-                <element signature="e#9446#9578#0" />
-                <element signature="e#9637#9846#0" />
-                <element signature="e#9922#13101#0" />
-                <element signature="e#12514#12784#0" />
-                <element signature="e#12831#12901#0" />
-                <element signature="e#12950#13020#0" />
-                <element signature="e#13069#13139#0" />
-                <element signature="e#13189#13259#0" />
-                <element signature="e#13314#13600#0" />
-                <element signature="e#13652#14111#0" />
-                <element signature="e#14158#14257#0" />
-                <element signature="e#14305#14404#0" />
-                <element signature="e#14449#14548#0" />
-                <element signature="e#14595#14694#0" />
-                <element signature="e#14749#15027#0" />
                 <element signature="n#!!block;n#toIndex#0" />
               </folding>
             </state>
@@ -137,9 +68,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>dra</find>
-      <find>dados</find>
-      <find>hol</find>
       <find>turnoJugadores</find>
       <find>consol</find>
       <find>con</find>
@@ -154,10 +82,8 @@
       <find>timeMoved</find>
       <find>moveL</find>
       <find>movedire</find>
-      <find>33</find>
       <find>lastFrameTime</find>
       <find>34</find>
-      <find>32</find>
       <find>lanza</find>
       <find>des</find>
       <find>conso</find>
@@ -167,6 +93,11 @@
       <find>turnoJ</find>
       <find>set</find>
       <find>mostr</find>
+      <find>FIN</find>
+      <find>33</find>
+      <find>32</find>
+      <find>AGRE</find>
+      <find>pat</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -185,8 +116,8 @@
         <option value="$PROJECT_DIR$/BPMNPLAY/estilos.css" />
         <option value="$PROJECT_DIR$/BPMNPLAY/static/css/estilos.css" />
         <option value="$PROJECT_DIR$/BPMNPLAY/index.html" />
-        <option value="$PROJECT_DIR$/BPMNPLAY/static/game.js" />
         <option value="$PROJECT_DIR$/BPMNPLAY/server.js" />
+        <option value="$PROJECT_DIR$/BPMNPLAY/static/game.js" />
       </list>
     </option>
   </component>
@@ -276,11 +207,12 @@
       <workItem from="1527730682500" duration="14281000" />
       <workItem from="1527866074677" duration="4995000" />
       <workItem from="1527871857331" duration="4100000" />
+      <workItem from="1528126767477" duration="6663000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="88695000" />
+    <option name="totallyTimeSpent" value="95358000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -289,30 +221,20 @@
       <window_info content_ui="combo" id="Project" order="0" weight="0.1727672" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.21824104" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" weight="0.32899022" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32838285" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.18078175" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.29153094" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3990228" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info content_ui="combo" id="Project" order="0" weight="0.1727672" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32838285" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.21780604" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3990228" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" weight="0.32899022" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.29153094" />
-      <window_info id="Favorites" order="2" side_tool="true" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -327,33 +249,6 @@
         <state relative-caret-position="1513">
           <caret line="134" column="48" lean-forward="true" selection-start-line="134" selection-start-column="48" selection-end-line="134" selection-end-column="48" />
           <folding>
-            <element signature="e#236#493#0" />
-            <element signature="e#626#763#0" />
-            <element signature="e#2675#2737#0" />
-            <element signature="e#2794#2846#0" />
-            <element signature="e#2918#9123#0" />
-            <element signature="e#3111#3760#0" />
-            <element signature="e#5461#5773#0" />
-            <element signature="e#5828#6068#0" />
-            <element signature="e#6174#6946#0" />
-            <element signature="e#7006#9120#0" />
-            <element signature="e#8420#9023#0" />
-            <element signature="n#!!block;n#actualizarOrdenPartidas#0" />
-            <element signature="e#9446#9578#0" />
-            <element signature="e#9637#9846#0" />
-            <element signature="e#9922#13101#0" />
-            <element signature="e#12514#12784#0" />
-            <element signature="e#12831#12901#0" />
-            <element signature="e#12950#13020#0" />
-            <element signature="e#13069#13139#0" />
-            <element signature="e#13189#13259#0" />
-            <element signature="e#13314#13600#0" />
-            <element signature="e#13652#14111#0" />
-            <element signature="e#14158#14257#0" />
-            <element signature="e#14305#14404#0" />
-            <element signature="e#14449#14548#0" />
-            <element signature="e#14595#14694#0" />
-            <element signature="e#14749#15027#0" />
             <element signature="n#!!block;n#toIndex#0" />
           </folding>
         </state>
@@ -363,25 +258,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="833">
           <caret line="49" column="33" lean-forward="true" selection-start-line="49" selection-start-column="33" selection-end-line="49" selection-end-column="33" />
-          <folding>
-            <element signature="n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#style#0;n#input#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#4;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#5;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#6;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#7;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#8;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#9;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#10;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#11;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#style#0;n#tr#1;n#tbody#0;n#table#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#tr#2;n#tbody#0;n#table#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#tr#3;n#tbody#0;n#table#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -398,33 +274,6 @@
         <state relative-caret-position="1394">
           <caret line="82" column="2" selection-start-line="82" selection-start-column="2" selection-end-line="82" selection-end-column="2" />
           <folding>
-            <element signature="e#236#493#0" />
-            <element signature="e#626#763#0" />
-            <element signature="e#2675#2737#0" />
-            <element signature="e#2794#2846#0" />
-            <element signature="e#2918#9123#0" />
-            <element signature="e#3111#3760#0" />
-            <element signature="e#5461#5773#0" />
-            <element signature="e#5828#6068#0" />
-            <element signature="e#6174#6946#0" />
-            <element signature="e#7006#9120#0" />
-            <element signature="e#8420#9023#0" />
-            <element signature="n#!!block;n#actualizarOrdenPartidas#0" />
-            <element signature="e#9446#9578#0" />
-            <element signature="e#9637#9846#0" />
-            <element signature="e#9922#13101#0" />
-            <element signature="e#12514#12784#0" />
-            <element signature="e#12831#12901#0" />
-            <element signature="e#12950#13020#0" />
-            <element signature="e#13069#13139#0" />
-            <element signature="e#13189#13259#0" />
-            <element signature="e#13314#13600#0" />
-            <element signature="e#13652#14111#0" />
-            <element signature="e#14158#14257#0" />
-            <element signature="e#14305#14404#0" />
-            <element signature="e#14449#14548#0" />
-            <element signature="e#14595#14694#0" />
-            <element signature="e#14749#15027#0" />
             <element signature="n#!!block;n#toIndex#0" />
           </folding>
         </state>
@@ -441,25 +290,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="7" column="16" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
-          <folding>
-            <element signature="n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#style#0;n#input#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#4;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#5;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#6;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#7;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#8;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#9;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#10;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#11;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#style#0;n#tr#1;n#tbody#0;n#table#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#tr#2;n#tbody#0;n#table#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#tr#3;n#tbody#0;n#table#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -586,107 +416,35 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/css/estilos.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="172" column="21" lean-forward="true" selection-start-line="172" selection-start-column="21" selection-end-line="172" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Desktop/Nueva carpeta/funcionesTablero.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="78">
-          <caret line="441" column="92" selection-start-line="441" selection-start-column="64" selection-end-line="441" selection-end-column="92" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/Desktop/Nueva carpeta/funcionesTablero.js" />
     <entry file="file://$PROJECT_DIR$/BPMNPLAY/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="89" column="7" lean-forward="true" selection-start-line="89" selection-start-column="7" selection-end-line="89" selection-end-column="7" />
+        <state relative-caret-position="187">
+          <caret line="11" column="31" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/css/estilos.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="171" lean-forward="true" selection-start-line="171" selection-end-line="171" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="7" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="7" />
           <folding>
-            <element signature="n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#style#0;n#input#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#4;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#5;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#6;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#7;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#8;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#9;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#10;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#11;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#style#0;n#tr#1;n#tbody#0;n#table#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#tr#2;n#tbody#0;n#table#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#tr#3;n#tbody#0;n#table#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#!!block;n#toIndex#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/game.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
-          <caret line="158" column="51" lean-forward="true" selection-start-line="158" selection-start-column="51" selection-end-line="158" selection-end-column="51" />
-          <folding>
-            <element signature="n#!!block;n#generarRandonPartida#0" />
-            <element signature="n#!!block;n#dados#0" />
-            <element signature="e#1117#1373#0" />
-            <element signature="e#1420#1683#0" />
-            <element signature="e#1723#1998#0" />
-            <element signature="e#2207#2357#0" />
-            <element signature="e#2400#2586#0" />
-            <element signature="n#!!block;n#agregarNumerosCasilla#0" />
-            <element signature="e#2660#3115#0" />
-            <element signature="n#!!block;n#dibujarJugador#0" />
-            <element signature="n#!!block;n#desbloquearBoton#0" />
-            <element signature="n#!!block;n#bloquearBoton#0" />
-            <element signature="n#!!block;n#lanzarDado#0" />
-            <element signature="n#!!block;n#dadoRandomico#0" />
-            <element signature="n#!!block;n#moverDado#0" />
-            <element signature="n#!!block;n#moverDado2#0" />
-            <element signature="n#!!block;n#habilitarTablaJugador#0" />
-            <element signature="n#!!block;n#f#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="70" column="21" selection-start-line="70" selection-start-column="21" selection-end-line="70" selection-end-column="21" />
-          <folding>
-            <element signature="e#236#493#0" />
-            <element signature="e#626#763#0" />
-            <element signature="e#2675#2737#0" />
-            <element signature="e#2794#2846#0" />
-            <element signature="e#2918#9123#0" />
-            <element signature="e#3111#3760#0" />
-            <element signature="e#5461#5773#0" />
-            <element signature="e#5828#6068#0" />
-            <element signature="e#6174#6946#0" />
-            <element signature="e#7006#9120#0" />
-            <element signature="e#8420#9023#0" />
-            <element signature="n#!!block;n#actualizarOrdenPartidas#0" />
-            <element signature="e#9446#9578#0" />
-            <element signature="e#9637#9846#0" />
-            <element signature="e#9922#13101#0" />
-            <element signature="e#12514#12784#0" />
-            <element signature="e#12831#12901#0" />
-            <element signature="e#12950#13020#0" />
-            <element signature="e#13069#13139#0" />
-            <element signature="e#13189#13259#0" />
-            <element signature="e#13314#13600#0" />
-            <element signature="e#13652#14111#0" />
-            <element signature="e#14158#14257#0" />
-            <element signature="e#14305#14404#0" />
-            <element signature="e#14449#14548#0" />
-            <element signature="e#14595#14694#0" />
-            <element signature="e#14749#15027#0" />
-            <element signature="n#!!block;n#toIndex#0" />
-          </folding>
+        <state relative-caret-position="189">
+          <caret line="200" column="26" selection-end-line="414" />
         </state>
       </provider>
     </entry>

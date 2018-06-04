@@ -5,7 +5,11 @@ var color3 = new Image();
 var casillaInicio = new Image();
 var casillaFin = new Image();
 var casillaIncierto = new Image();
-var color3 = new Image();
+var casillaB = new Image();
+var casillaP = new Image();
+var casillaM = new Image();
+var casillaN = new Image();
+var casillaPlay = new Image();
 var per1 = new Image();
 var per2 = new Image();
 var per3 = new Image();
@@ -13,7 +17,8 @@ var per4 = new Image();
 var filas, columnas, anchoCasilla, altoCasilla;
 var gameMap = [];
 var colorMap = [];
-var patterColor1, patterColor2, patterColor3, patterInicio, patterIncierto, patterFin;
+var patterColor1, patterColor2, patterColor3, patterInicio, patterIncierto, patterFin, patterB, patterP, patterM,
+    patterN, patterPlay;
 var currentSecond = 0, frameCount = 0, framesLastSecond = 0, lastFrameTime = 0;
 var gameTime = 0;
 var currentSpeed = 0;
@@ -92,6 +97,17 @@ function agregarNumerosCasilla() {
         for (var x = 0; x < columnas; ++x) {
             switch (gameMap[((y * columnas) + x)]) {
                 case 0:
+                case 'I':
+                case 34:
+                case 7:
+                case 13:
+                case 21:
+                case 27:
+                case 'B':
+                case 'P':
+                case 'M':
+                case 'N':
+                case '>':
                     //ctx.fillStyle = "#685b48";
                     break;
                 default:
@@ -120,7 +136,6 @@ function drawGame() {
     if (numCasillasMoverse > 0 && (turnoJugadores[0] == idSocketActual)) {
         socket.emit('moverJugador', roomActual, currentFrameTime);
     } else {
-        1
         bloquearBoton();
         if (jugadores.length > 0 && numCasillasMoverse == 0 && turnoJugadores.length > 0 && (turnoJugadores[0] == idSocketActual) && (jugadores[jugadores.map(function (value) {
             return value.idSocket
@@ -131,7 +146,7 @@ function drawGame() {
                 return value.idSocket
             }).indexOf((idSocketActual))].boton == 1;
         }
-
+        mostrarJugadorActual();
     }
 
     for (var y = 0; y < filas; ++y) {
@@ -142,27 +157,54 @@ function drawGame() {
             casillaInicio.src = 'static/inicio.jpg';
             casillaIncierto.src = 'static/incierto.png';
             casillaFin.src = 'static/fin.jpg';
+            casillaB.src = 'static/b.png';
+            casillaP.src = 'static/p.png';
+            casillaM.src = 'static/m.png';
+            casillaN.src = 'static/n.png';
+            casillaPlay.src = 'static/play.png';
             patterColor1 = ctx.createPattern(color1, "repeat");
             patterColor2 = ctx.createPattern(color2, "repeat");
             patterColor3 = ctx.createPattern(color3, "repeat");
             patterInicio = ctx.createPattern(casillaInicio, "repeat");
             patterIncierto = ctx.createPattern(casillaIncierto, "repeat");
             patterFin = ctx.createPattern(casillaFin, "repeat");
+            patterB = ctx.createPattern(casillaB, "repeat");
+            patterP = ctx.createPattern(casillaP, "repeat");
+            patterM = ctx.createPattern(casillaM, "repeat");
+            patterN = ctx.createPattern(casillaN, "repeat");
+            patterPlay = ctx.createPattern(casillaPlay, "repeat");
 
             switch (gameMap[((y * columnas) + x)]) {
                 case 0:
                     ctx.fillStyle = "#6A0888";
                     break;
-                case 99:
+                case 'I':
                     ctx.fillStyle = patterInicio;
                     break;
-                case 7: case 13: case 20: case  26:
+                case 7:
+                case 13:
+                case 21:
+                case  27:
                     ctx.fillStyle = patterIncierto;
                     break;
-                case 33:
+                case 34:
                     ctx.fillStyle = patterFin;
                     break;
-
+                case 'B':
+                    ctx.fillStyle = patterB;
+                    break;
+                case 'P':
+                    ctx.fillStyle = patterP;
+                    break;
+                case 'M':
+                    ctx.fillStyle = patterM;
+                    break;
+                case 'N':
+                    ctx.fillStyle = patterN;
+                    break;
+                case '>':
+                    ctx.fillStyle = patterPlay;
+                    break;
 
                 default:
                     switch (colorMap[((y * columnas) + x)]) {
@@ -186,7 +228,7 @@ function drawGame() {
     agregarNumerosCasilla();
     dibujarJugador();
     habilitarTablaJugador();
-    mostrarJugadorActual();
+
     ctx.fillStyle = "#ff0000";
     ctx.fillText("FPS: " + framesLastSecond, 10, 20);
     lastFrameTime = currentFrameTime;
@@ -330,14 +372,43 @@ function habilitarTablaJugador() {
 
 function mostrarJugadorActual() {
     for (var i = 0; i < jugadores.length; i++) {
-        document.getElementById("tablajug" + (i + 1)).style.backgroundColor = "#ffffff";
+        // document.getElementById("tablajug" + (i + 1)).style.backgroundColor = "#A9BCF5";
+        document.getElementById("tablajug" + (i + 1)).style.border = "thick grey";
     }
     var indiceJugadorActual = jugadores.map(function (value) {
         return value.idSocket
     }).indexOf(turnoJugadores[0]);
     if (indiceJugadorActual >= 0) {
         if (document.getElementById("tablajug" + (indiceJugadorActual + 1))) {
-            document.getElementById("tablajug" + (indiceJugadorActual + 1)).style.backgroundColor = "#A9BCF5";
+            document.getElementById("tablajug" + (indiceJugadorActual + 1)).style.border = "thick solid #A9BCF5";
+            switch ((indiceJugadorActual + 1)) {
+                case 1:
+                    document.getElementById("imagenJugador1").src = "static/buho1.gif";
+                    document.getElementById("imagenJugador2").src = "static/buhoInicial2.gif";
+                    document.getElementById("imagenJugador3").src = "static/buhoInicial3.gif";
+                    document.getElementById("imagenJugador4").src = "static/buhoInicial4.gif";
+                    break;
+                case 2:
+                    document.getElementById("imagenJugador1").src = "static/buhoInicial1.gif";
+                    document.getElementById("imagenJugador2").src = "static/buho2.gif";
+                    document.getElementById("imagenJugador3").src = "static/buhoInicial3.gif";
+                    document.getElementById("imagenJugador4").src = "static/buhoInicial4.gif";
+                    break;
+                case 3:
+                    ocument.getElementById("imagenJugador1").src = "static/buhoInicial1.gif";
+                    document.getElementById("imagenJugador2").src = "static/buho2.gif";
+                    document.getElementById("imagenJugador3").src = "static/buhoInicial3.gif";
+                    document.getElementById("imagenJugador4").src = "static/buhoInicial4.gif";
+                    break;
+                case 4:
+                    ocument.getElementById("imagenJugador1").src = "static/buhoInicial1.gif";
+                    document.getElementById("imagenJugador2").src = "static/buho2.gif";
+                    document.getElementById("imagenJugador3").src = "static/buhoInicial3.gif";
+                    document.getElementById("imagenJugador4").src = "static/buhoInicial4.gif";
+                    break;
+            }
+
         }
+
     }
 }
