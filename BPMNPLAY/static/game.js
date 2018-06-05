@@ -46,6 +46,18 @@ function dados(nombrePartida) {
 window.onload = function () {
     roomActual = partidas[generarRandonPartida()]
     socket.emit('new player', roomActual);
+    color1.src = 'static/0.png';
+    color2.src = 'static/1.png';
+    color3.src = 'static/2.png';
+    casillaInicio.src = 'static/inicio.jpg';
+    casillaIncierto.src = 'static/incierto.png';
+    casillaFin.src = 'static/fin.jpg';
+    casillaB.src = 'static/b.png';
+    casillaP.src = 'static/p.png';
+    casillaM.src = 'static/m.png';
+    casillaN.src = 'static/n.png';
+    casillaPlay.src = 'static/play.png';
+    console.log("carge las imagenes")
     ctx = document.getElementById('game').getContext("2d");
     requestAnimationFrame(drawGame);
     ctx.font = "bold 10pt sans-serif";
@@ -84,8 +96,9 @@ socket.on('dados', function (dadoN1, dadoN2, dadoAnteriorN1, dadoAnteriorN2) {
     moverDado();
     moverDado2();
 });
-socket.on('bloquearBoton', function () {
-    if (socket.id == idSocketActual) {
+socket.on('bloquearBoton', function (idSocket) {
+    console.log("rrr: " +idSocket+"  "+idSocketActual);
+    if (idSocket == idSocketActual) {
         if (document.getElementById("botonLanzar")) {
             document.getElementById("botonLanzar").setAttribute("hidden", "");
         }
@@ -123,7 +136,7 @@ function drawGame() {
         return;
     }
     var currentFrameTime = Date.now();
-    var sec = Math.floor(Date.now() / 1000);
+    var sec = Math.floor(Date.now() / 500);
     if (sec != currentSecond) {
         currentSecond = sec;
         framesLastSecond = frameCount;
@@ -151,17 +164,7 @@ function drawGame() {
 
     for (var y = 0; y < filas; ++y) {
         for (var x = 0; x < columnas; ++x) {
-            color1.src = 'static/0.png';
-            color2.src = 'static/1.png';
-            color3.src = 'static/2.png';
-            casillaInicio.src = 'static/inicio.jpg';
-            casillaIncierto.src = 'static/incierto.png';
-            casillaFin.src = 'static/fin.jpg';
-            casillaB.src = 'static/b.png';
-            casillaP.src = 'static/p.png';
-            casillaM.src = 'static/m.png';
-            casillaN.src = 'static/n.png';
-            casillaPlay.src = 'static/play.png';
+
             patterColor1 = ctx.createPattern(color1, "repeat");
             patterColor2 = ctx.createPattern(color2, "repeat");
             patterColor3 = ctx.createPattern(color3, "repeat");
@@ -395,16 +398,16 @@ function mostrarJugadorActual() {
                     document.getElementById("imagenJugador4").src = "static/buhoInicial4.gif";
                     break;
                 case 3:
-                    ocument.getElementById("imagenJugador1").src = "static/buhoInicial1.gif";
-                    document.getElementById("imagenJugador2").src = "static/buho2.gif";
-                    document.getElementById("imagenJugador3").src = "static/buhoInicial3.gif";
+                   document.getElementById("imagenJugador1").src = "static/buhoInicial1.gif";
+                    document.getElementById("imagenJugador2").src = "static/buhoInicial2.gif";
+                    document.getElementById("imagenJugador3").src = "static/buho3.gif";
                     document.getElementById("imagenJugador4").src = "static/buhoInicial4.gif";
                     break;
                 case 4:
-                    ocument.getElementById("imagenJugador1").src = "static/buhoInicial1.gif";
-                    document.getElementById("imagenJugador2").src = "static/buho2.gif";
+                    document.getElementById("imagenJugador1").src = "static/buhoInicial1.gif";
+                    document.getElementById("imagenJugador2").src = "static/buhoInicial2.gif";
                     document.getElementById("imagenJugador3").src = "static/buhoInicial3.gif";
-                    document.getElementById("imagenJugador4").src = "static/buhoInicial4.gif";
+                    document.getElementById("imagenJugador4").src = "static/buho4.gif";
                     break;
             }
 

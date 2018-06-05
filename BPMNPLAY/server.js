@@ -47,7 +47,7 @@ function Character(c, x, y, z) {
     this.timeMoved = 0;
     this.dimensions = [30, 30];
     this.position = [x, y];
-    this.delayMove = 150;
+    this.delayMove = 100;
     this.direction = directions.up;
     this.casilla = 0;
     this.colorP = colorJugador[c];
@@ -148,7 +148,6 @@ io.on('connection', function (socket) {
                 turnoJugadores[turnoJugadores.length - 1].idSocketJugadores.push(socket.id);
             }
         }
-        console.log("num Ju:  " + turnoJugadores[0].idSocketJugadores.length + "  " + turnoJugadores);
         actualizarOrdenPartidas();
     });
     socket.on('disconnect', function () {
@@ -175,9 +174,6 @@ io.on('connection', function (socket) {
                 partidas[i].dadoP2 = dado2;
                 partidas[i].dadoAnteriorP1 = dadoAnterior1;
                 partidas[i].dadoAnteriorP2 = dadoAnterior2;
-                console.log("Indefinido" + partidas[i].jugadores[partidas[i].jugadores.map(function (e) {
-                    return e.idSocket
-                }).indexOf(socket.id)].numCasillasMoverseP);
                 partidas[i].jugadores[partidas[i].jugadores.map(function (e) {
                     return e.idSocket
                 }).indexOf(socket.id)].numCasillasMoverseP = numCasillasMoverse;
@@ -187,13 +183,17 @@ io.on('connection', function (socket) {
     });
     socket.on('moverJugador', function (room, gameTime) {
         for (var i = 0; i < partidas.length; i++) {
+            console.log("cantidas de partidas "+partidas.length);
             if (partidas[i].nombrePartida == room) {
-                console.log("JugadorIndefinido" + partidas[i].nombrePartida + "   " + partidas[i].jugadores[0]);
+                for(var k = 0; k <partidas[i].jugadores.length; k++)
+                {
+                    console.log("JugadorIndefinido: " + partidas[i].nombrePartida + "   " + k+ " "+ partidas[i].jugadores[k]);
+
+                }
                 for (var j = 0; j < partidas[i].jugadores.length; j++) {
                     if (partidas[i].jugadores[j].idSocket == socket.id) {
                         if (!partidas[i].jugadores[j].processMovement(gameTime, room, socket.id)) {
                             if (partidas[i].jugadores[j].casilla < 34) {
-
                                 if (partidas[i].jugadores[j].canMoveUp()) {
                                     partidas[i].jugadores[j].moveUp(gameTime);
                                 }
@@ -210,9 +210,9 @@ io.on('connection', function (socket) {
                             else {
                                 var indicePartidaActualJu = turnoJugadores.map(function (e) {
                                     return e.nombrePartida
-                                }).indexOf(room);
+                                }).indexOf(roomActual);
+                                console.log("44443434")
                                 turnoJugadores[indicePartidaActualJu].idSocketJugadores.shift();
-                                socket.emit('bloquearBoton');
                                 actualizarOrdenPartidas();
                                 for (var i = 0; i < partidas.length; i++) {
                                     io.sockets.in(partidas[i].nombrePartida).emit('partida', partidas[i]);
@@ -230,7 +230,7 @@ io.on('connection', function (socket) {
 
 function actualizarOrdenPartidas() {
     for (var i = 0; i < turnoJugadores.length; i++) {
-        console.log("num22 Ju:  " + turnoJugadores.length + "  " + turnoJugadores);
+        console.log("num22 Ju:  " + turnoJugadores.length + "  " + turnoJugadores[0].idSocketJugadores);
         io.sockets.in(turnoJugadores[i].nombrePartida).emit('turnoPartida', turnoJugadores[i].idSocketJugadores);
     }
 };
@@ -260,10 +260,14 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
     }
 
     if (this.casilla == 34) {
-        partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = 1;
+        console.log("estoy en la casilla 33")
+        partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = 1 ;
+
+        io.sockets.in(roomActual).emit('bloquearBoton', idSocket);
     }
 
     if ((t - this.timeMoved) >= this.delayMove) {
+        console.log("puedo moverme")
         this.placeAt(this.tileTo[0], this.tileTo[1]);
 
         if (partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP > 1) {
@@ -275,13 +279,11 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
                 this.moveDirection(this.direction, t);
             }
             partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP - 1;
-            console.log("Restar 1: " + partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP)
             for (var i = 0; i < partidas.length; i++) {
                 io.sockets.in(partidas[i].nombrePartida).emit('partida', partidas[i]);
             }
         }
         else {
-            console.log("Ya no puedo moverme: " + partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP)
             partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = 0;
             var indicePartidaActualJu = turnoJugadores.map(function (e) {
                 return e.nombrePartida
@@ -300,7 +302,6 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
 
         if (this.tileTo[0] != this.tileFrom[0]) {
             var diff = (anchoCasilla / this.delayMove) * (t - this.timeMoved);
-            console.log("diff: " + diff)
             this.position[0] += (this.tileTo[0] < this.tileFrom[0] ? 0 - diff : diff);
         }
         if (this.tileTo[1] != this.tileFrom[1]) {
