@@ -32,6 +32,10 @@ var idSocketActual;
 var roomActual;
 var dado1 = -1, dado2 = -1, dadoAnterior1 = 1, dadoAnterior2 = 1;
 var numCasillasMoverse = 0;
+var memory_array = [];
+var memory_values = [];
+var memory_tile_ids = [];
+var tiles_flipped = 0;
 
 function generarRandonPartida() {
     return Math.floor(Math.random() * 1);
@@ -88,21 +92,28 @@ socket.on('turnoPartida', function (data) {
     turnoJugadores = data;
     console.log("hola jugadores: " + turnoJugadores);
 });
-socket.on('dados', function (dadoN1, dadoN2, dadoAnteriorN1, dadoAnteriorN2) {
+socket.on('dados', function (dadoN1, dadoN2, dadoAnteriorN1, dadoAnteriorN2, numDesafioMostrarse) {
     dado1 = dadoN1;
     dado2 = dadoN2;
     dadoAnterior1 = dadoAnteriorN1;
     dadoAnterior2 = dadoAnteriorN2;
     moverDado();
     moverDado2();
+    mostrarDesafio(numDesafioMostrarse);
+
 });
-socket.on('bloquearBoton', function (idSocket) {
-    console.log("rrr: " +idSocket+"  "+idSocketActual);
+socket.on('ocultarBoton', function (idSocket) {
+    console.log("rrr: " + idSocket + "  " + idSocketActual);
     if (idSocket == idSocketActual) {
         if (document.getElementById("botonLanzar")) {
-            document.getElementById("botonLanzar").setAttribute("hidden", "");
+            document.getElementById("botonLanzar").hide();
         }
     }
+});
+
+socket.on('emparejar', function (array) {
+    memory_array = array;
+    newBoard();
 });
 
 function agregarNumerosCasilla() {
@@ -293,7 +304,7 @@ function lanzarDado() {
     dadoAnterior2 = dado2;
     numCasillasMoverse = dado1 + dado2;
     socket.emit('dados', dado1, dado2, roomActual, dadoAnterior1, dadoAnterior2, numCasillasMoverse);
-
+    mostrarDesafio();
 }
 
 function dadoRandomico() {
@@ -375,13 +386,13 @@ function habilitarTablaJugador() {
 
 function mostrarJugadorActual() {
     for (var i = 0; i < jugadores.length; i++) {
-        // document.getElementById("tablajug" + (i + 1)).style.backgroundColor = "#A9BCF5";
         document.getElementById("tablajug" + (i + 1)).style.border = "thick grey";
     }
+
     var indiceJugadorActual = jugadores.map(function (value) {
         return value.idSocket
     }).indexOf(turnoJugadores[0]);
-    if (indiceJugadorActual >= 0) {
+    if (indiceJugadorActual >= 0 && turnoJugadores.length > 0) {
         if (document.getElementById("tablajug" + (indiceJugadorActual + 1))) {
             document.getElementById("tablajug" + (indiceJugadorActual + 1)).style.border = "thick solid #A9BCF5";
             switch ((indiceJugadorActual + 1)) {
@@ -398,7 +409,7 @@ function mostrarJugadorActual() {
                     document.getElementById("imagenJugador4").src = "static/buhoInicial4.gif";
                     break;
                 case 3:
-                   document.getElementById("imagenJugador1").src = "static/buhoInicial1.gif";
+                    document.getElementById("imagenJugador1").src = "static/buhoInicial1.gif";
                     document.getElementById("imagenJugador2").src = "static/buhoInicial2.gif";
                     document.getElementById("imagenJugador3").src = "static/buho3.gif";
                     document.getElementById("imagenJugador4").src = "static/buhoInicial4.gif";
@@ -414,4 +425,53 @@ function mostrarJugadorActual() {
         }
 
     }
+    else {
+        document.getElementById("imagenJugador1").src = "static/buhoInicial1.gif";
+        document.getElementById("imagenJugador2").src = "static/buhoInicial2.gif";
+        document.getElementById("imagenJugador3").src = "static/buhoInicial3.gif";
+        document.getElementById("imagenJugador4").src = "static/buhoInicial4.gif";
+    }
+}
+
+function mostrarDesafio(colorCa) {
+    switch (colorCa) {
+        case 0:
+            //newBoard();
+            document.getElementById("tipoJuego").innerHTML = "Voltear";
+            document.getElementById("desafios").removeAttribute("hidden");
+            document.getElementById("memory_board").removeAttribute("hidden");
+            document.getElementById("unir").setAttribute("hidden", "");
+            document.getElementById("opcionMultiple").setAttribute("hidden", "");
+
+            break;
+        case 1:
+           // mostrarUnir();
+            document.getElementById("tipoJuego").innerHTML = "Unir";
+            document.getElementById("desafios").removeAttribute("hidden");
+            document.getElementById("unir").removeAttribute("hidden");
+            document.getElementById("memory_board").setAttribute("hidden", "");
+            document.getElementById("opcionMultiple").setAttribute("hidden", "");
+            break;
+        case 2:
+           // cargarPreguntasOpcionMultiple();
+            document.getElementById("tipoJuego").innerHTML = "Opción Múltiple";
+            document.getElementById("desafios").removeAttribute("hidden");
+            document.getElementById("opcionMultiple").removeAttribute("hidden");
+            document.getElementById("unir").setAttribute("hidden", "");
+            document.getElementById("memory_board").setAttribute("hidden", "");
+
+            break;
+        default:
+    }
+}
+
+function newBoard() {
+    tiles_flipped = 0;
+    var output = '';
+    for (var i = 0; i < memory_array.length; i++) {
+        console.log("eee");
+        output += '<img id="tile_' + i + '" alt="" onclick="memoryFlipTile(this,\'' + memory_array[i] + '\')">';
+    }
+    document.getElementById('memory_board').innerHTML = output;
+
 }

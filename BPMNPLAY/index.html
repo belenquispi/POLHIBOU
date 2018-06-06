@@ -48,46 +48,178 @@
         </div>
     </div>
     <div class="separator"></div>
-    <div><button id="botonLanzar" disabled onclick="lanzarDado()"> Lanzar Dado</button>
+    <div><button class="btn btn-info" id="botonLanzar" disabled onclick="lanzarDado()"> Lanzar Dado</button>
     </div>
     <div id="snackbar">Puedes moverte</div>
     <div id="snackbarIn">No puedes moverte</div>
 </div>
 <div class="col-md-4">
     <div class="row">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Jugador</th>
-                <th>Nombre</th>
-                <th>Casilla</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr id="tablajug1">
-                <td><img id="imagenJugador1" src="static/buhoInicial1.gif"></td>
-                <td><label id="nombreEquipo1">Equipo 1</label></td>
-                <td><label id="jugador1">1</label></td>
-            </tr>
-            <tr id="tablajug2"  style="visibility: hidden">
-                <td><img id="imagenJugador2" src="static/buhoInicial2.gif"></td>
-                <td><label id="nombreEquipo2">Equipo 2</label></td>
-                <td><label id="jugador2">1</label></td>
-            </tr>
-            <tr id="tablajug3"  style="visibility:hidden">
-                <td><img id="imagenJugador3" src="static/buhoInicial3.gif"></td>
-                <td><label id="nombreEquipo3">Equipo 3</label></td>
-                <td><label id="jugador3">1</label></td>
-            </tr>
-            <tr id="tablajug4"  style="visibility:hidden">
-                <td><img id="imagenJugador4" src="static/buhoInicial4.gif"></td>
-                <td><label id="nombreEquipo4">Equipo 4</label></td>
-                <td><label id="jugador4">1</label></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+      <div class="col-md-6">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Jugador</th>
+                    <th>Nombre</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr id="tablajug1">
+                    <td><img id="imagenJugador1" src="static/buhoInicial1.gif"></td>
+                    <td><label id="nombreEquipo1">Equipo 1</label></td>
+                </tr>
+                <tr id="tablajug3"  style="visibility:hidden">
+                    <td><img id="imagenJugador3" src="static/buhoInicial3.gif"></td>
+                    <td><label id="nombreEquipo3">Equipo 3</label></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Jugador</th>
+                    <th>Nombre</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr id="tablajug2"  style="visibility: hidden">
+                    <td><img id="imagenJugador2" src="static/buhoInicial2.gif"></td>
+                    <td><label id="nombreEquipo2">Equipo 2</label></td>
+                </tr>
 
+                <tr id="tablajug4"  style="visibility:hidden">
+                    <td><img id="imagenJugador4" src="static/buhoInicial4.gif"></td>
+                    <td><label id="nombreEquipo4">Equipo 4</label></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <div class="row">
+        <div id="desafios" class="container-fluid col-md-12" hidden>
+            <div class="row ">
+                <h1><span id="tipoJuego" class="label label-default ">Tipo de Juego</span></h1>
+            </div>
+            <div id="opcionMultiple" class="row" hidden>
+                <div class="row">
+                    <div class="col-md-7">
+                        <h4 ><p id="enunciado"></p></h4>
+                    </div>
+                    <div class="col-md-3">
+                        <img id="imagenEnunciado" src="vacio.png" class="img-rounded"  height="50" width="50">
+                    </div>
+                </div>
+                <div id="divRespuestasTexto" hidden>
+                    <div class="row" style="margin-top: 20px">
+                        <div class="col-md-12">
+                            <button id="res1" class="btn btn-success btn-block" onclick="validarRespuesta(this)">Respuesta 1</button>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 20px">
+                        <div class="col-md-12">
+                            <button id="res2" class="btn btn-success btn-block" onclick="validarRespuesta(this)">Respuesta 2</button>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 20px">
+                        <div class="col-md-12">
+                            <button id="res3" class="btn btn-success btn-block" onclick="validarRespuesta(this)">Respuesta 3</button>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 20px">
+                        <div class="col-md-12">
+                            <button id="res4" class="btn btn-success btn-block" onclick="validarRespuesta(this)">Respuesta 4</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="divRespuestasImagenes" hidden>
+                    <div class="row" style="margin-top: 20px">
+                        <div class="col-md-12">
+                            <button id="res1" class="btn btn-success btn-block" onclick="validarRespuesta(this)">
+                                <img id="imagenRes1" src="vacio.png"  class="img-thumbnail" style="border:2px solid black" height="50" width="50"></button>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 20px">
+                        <div class="col-md-12">
+                            <button id="res2" class="btn btn-success btn-block" onclick="validarRespuesta(this)">
+                                <img id="imagenRes2" src="vacio.png"  class="img-thumbnail" style="border:2px solid black" height="50" width="50">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 20px">
+                        <div class="col-md-12">
+                            <button id="res3" class="btn btn-success btn-block" onclick="validarRespuesta(this)">
+                                <img id="imagenRes3" src="vacio.png"  class="img-thumbnail" style="border:2px solid black" height="50" width="50">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 20px">
+                        <div class="col-md-12">
+                            <button id="res4" class="btn btn-success btn-block" onclick="validarRespuesta(this)">
+                                <img id="imagenRes4" src="vacio.png"  class="img-thumbnail" style="border:2px solid black" height="50" width="50">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div id="unir" class="row" hidden onmouseover="verificarCompletoUnir()" >
+                <div class="row" style="margin-top: 20px">
+                    <div class="col-md-6" >
+                        <button id = "reiniciarUnir" class="btn btn-info" onclick="reiniciarUnir();" >Reiniciar </button>
+                    </div>
+                    <div class="col-md-6">
+                        <button id = "enviarUnir" class="btn btn-success" disabled = "disabled" onclick="verificarRespuestaUnir()" >Enviar Respuesta</button>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 20px">
+                    <div class="col-md-6" >
+                        <button id = "botonImagenAUnir1" onclick="obtenerId(this);">
+                            <img id="imagenAUnir1" src="vacio.png"  class="img-thumbnail" style="border:2px solid black" height="50" width="50">
+                        </button>
+                    </div>
+                    <div class="col-md-6">
+                        <button id = "textoAUnir1" class="btn" disabled onclick="obtenerId(this);">Texto 1</button>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:  20px">
+                    <div class="col-md-6">
+                        <button id = "botonImagenAUnir2" onclick="obtenerId(this);">
+                            <img id="imagenAUnir2" src="vacio.png"  class="img-thumbnail" style="border:2px solid black" height="50" width="50">
+                        </button>
+                    </div>
+                    <div class="col-md-6">
+                        <button id = "textoAUnir2" class="btn" disabled onclick="obtenerId(this);">Texto 2 </button>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 20px">
+                    <div class="col-md-6">
+                        <button id = "botonImagenAUnir3" onclick="obtenerId(this);">
+                            <img id="imagenAUnir3" src="vacio.png"  class="img-thumbnail" style="border:2px solid black" height="50" width="50">
+                        </button>
+                    </div>
+                    <div class="col-md-6">
+                        <button id = "textoAUnir3" class="btn" disabled onclick="obtenerId(this);">Texto 3</button>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 20px">
+                    <div class="col-md-6">
+                        <button id = "botonImagenAUnir4" onclick="obtenerId(this);">
+                            <img id="imagenAUnir4" src="vacio.png"  class="img-thumbnail" style="border:2px solid black" height="50" width="50">
+                        </button>
+                    </div>
+                    <div class="col-md-6">
+                        <button id = "textoAUnir4" class="btn" disabled onclick="obtenerId(this);">Texto 4</button>
+                    </div>
+                </div>
+
+            </div>
+            <div id="memory_board" hidden></div>
+
+        </div>
+    </div>
 </div>
 </body>
 <script src="/static/game.js"></script>
