@@ -63,6 +63,12 @@ var directions = {
     left: 3
 };
 var colorJugador = ["#01DF3A", "#FE2E2E", "#0431B4", "#61380B", "#8904B1"];
+var firebase = require("./firebase");
+var preguntasOpcionMultiple = [];
+
+preguntasOpcionMultiple = firebase.obtenerPreguntasOpcionMultiple();
+var preguntasUnirVoltear = firebase.obtenerPreguntasUnir().preguntasUnirVoltear;
+var memory_array = firebase.obtenerPreguntasUnir().memory_array;
 
 function seleccionarColor() {
     var indice = 0;
@@ -101,19 +107,21 @@ function seleccionarColor() {
 }
 
 app.set('port', 5000);
-app.use('/static', express.static(__dirname + '/static' +
-    ''));
+app.use('/static', express.static(__dirname + '/static' + ''));
 // Routing
 app.get('/', function (request, response) {
-    response.sendFile(path.join(__dirname, 'index.html'));
-});
+    response.sendFile(path.join(__dirname, 'index.html'));});
 // Starts the server.
 server.listen(5000, function () {
+
     console.log('Starting server on port 5000');
+
 });
 
 // Add the WebSocket handlers
 io.on('connection', function (socket) {
+
+
     io.sockets.emit('parametrosJuego', parametrosJuego);
     socket.on('new player', function (room) {
         socket.join(room);
@@ -185,7 +193,6 @@ io.on('connection', function (socket) {
                 io.sockets.in(room).emit('dados', dado1, dado2, dadoAnterior1, dadoAnterior2, numDesafioMostrarse);
             if (numDesafioMostrarse == 0){
                 io.sockets.in(room).emit('emparejar', newBoard());
-
             } }
         }
     });
@@ -233,6 +240,11 @@ function actualizarOrdenPartidas() {
 };
 
 setInterval(function () {
+
+    console.log( preguntasUnirVoltear.length)
+    console.log( preguntasOpcionMultiple.length)
+    console.log( memory_array.length)
+
     for (var i = 0; i < partidas.length; i++) {
         io.sockets.in(partidas[i].nombrePartida).emit('partida', partidas[i]);
     }

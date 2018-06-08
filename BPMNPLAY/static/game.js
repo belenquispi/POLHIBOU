@@ -475,3 +475,52 @@ function newBoard() {
     document.getElementById('memory_board').innerHTML = output;
 
 }
+function memoryFlipTile(tile, val) {
+    console.log("url: "+tile.src)
+    if (tile.alt == "" && memory_values.length < 2) {
+        console.log("url: "+tile.src)
+        //tile.style.background = '#FFF';
+        tile.src = val;
+        tile.alt = val;
+        if (memory_values.length == 0) {
+            memory_values.push(val);
+            memory_tile_ids.push(tile.id);
+        } else if (memory_values.length == 1) {
+            memory_values.push(val);
+            memory_tile_ids.push(tile.id);
+            if (memory_values[0] == memory_values[1]) {
+                tiles_flipped += 2;
+                // Clear both arrays
+                memory_values = [];
+                memory_tile_ids = [];
+                mostrarMensajeParEncontrado(memory_array[0]);
+                // Check to see if the whole board is cleared
+                if (tiles_flipped == memory_array.length) {
+                    // alert("Board cleared... generating new board");
+                    desafioCorrecto();
+                    document.getElementById('memory_board').innerHTML = "";
+                    newBoard();
+                }
+            } else {
+                function flip2Back() {
+                    // Flip the 2 tiles back over
+                    var tile_1 = document.getElementById(memory_tile_ids[0]);
+                    var tile_2 = document.getElementById(memory_tile_ids[1]);
+                    // tile_1.style.background = 'url(corona.png) no-repeat';
+                    tile_1.src = "corona.png";
+                    tile_1.alt = "";
+                    tile_1.removeAttribute("src");
+                    //tile_2.style.background = 'url(corona.png) no-repeat';
+                    tile_2.src = "corona.png";
+                    tile_2.alt = "";
+                    tile_2.removeAttribute("src");
+                    // Clear both arrays
+                    memory_values = [];
+                    memory_tile_ids = [];
+                }
+
+                setTimeout(flip2Back, 700);
+            }
+        }
+    }
+}
