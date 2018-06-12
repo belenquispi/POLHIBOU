@@ -64,9 +64,7 @@ var directions = {
 };
 var colorJugador = ["#01DF3A", "#FE2E2E", "#0431B4", "#61380B", "#8904B1"];
 var firebase = require("./firebase");
-var preguntasOpcionMultiple = [];
-
-preguntasOpcionMultiple = firebase.obtenerPreguntasOpcionMultiple();
+var preguntasOpcionMultiple = firebase.obtenerPreguntasOpcionMultiple('BPMN');
 var preguntasUnirVoltear = firebase.obtenerPreguntasUnir().preguntasUnirVoltear;
 var memory_array = firebase.obtenerPreguntasUnir().memory_array;
 
@@ -110,18 +108,23 @@ app.set('port', 5000);
 app.use('/static', express.static(__dirname + '/static' + ''));
 // Routing
 app.get('/', function (request, response) {
-    response.sendFile(path.join(__dirname, 'index.html'));});
+    var idPartida = request.param('codigoPartida');
+    response.sendFile(path.join(__dirname, 'index.html'));
+    console.log(idPartida)
+});
+
+app.get('/profesor', function (request, response) {
+    response.sendFile(path.join(__dirname, 'ingresoPreguntas.html'));});
+app.get('/creacionPartida', function (request, response) {
+    response.sendFile(path.join(__dirname, 'creacionPartida.html'));});
+
 // Starts the server.
 server.listen(5000, function () {
-
     console.log('Starting server on port 5000');
-
 });
 
 // Add the WebSocket handlers
 io.on('connection', function (socket) {
-
-
     io.sockets.emit('parametrosJuego', parametrosJuego);
     socket.on('new player', function (room) {
         socket.join(room);
@@ -241,7 +244,7 @@ function actualizarOrdenPartidas() {
 
 setInterval(function () {
 
-    console.log( preguntasUnirVoltear.length)
+  //console.log( preguntasUnirVoltear.length)
     console.log( preguntasOpcionMultiple.length)
     console.log( memory_array.length)
 
@@ -476,6 +479,5 @@ Array.prototype.memory_tile_shuffle = function () {
 
 function newBoard() {
     tiles_flipped = 0;
-    var output = '';
     return memory_array.memory_tile_shuffle();
 }

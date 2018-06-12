@@ -48,6 +48,7 @@ function dados(nombrePartida) {
 }
 
 window.onload = function () {
+    console.log(idPartida);
     roomActual = partidas[generarRandonPartida()]
     socket.emit('new player', roomActual);
     color1.src = 'static/0.png';
@@ -112,6 +113,7 @@ socket.on('ocultarBoton', function (idSocket) {
 });
 
 socket.on('emparejar', function (array) {
+    console.log(array.length);
     memory_array = array;
     newBoard();
 });
