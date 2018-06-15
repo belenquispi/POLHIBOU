@@ -29,7 +29,7 @@ var partidas = ["partida1", "partida2", "partida3"];
 var respuestaCorrecta = false;
 var turnoFinalizado = true;
 var idSocketActual;
-var roomActual;
+var roomActual, rol, nombreEquipo;
 var dado1 = -1, dado2 = -1, dadoAnterior1 = 1, dadoAnterior2 = 1;
 var numCasillasMoverse = 0;
 var memory_array = [];
@@ -47,10 +47,22 @@ function dados(nombrePartida) {
     this.dado2 = dado2;
 }
 
+function obtenerDatosQuienSeConecto()
+{
+    var parameters = location.search.substring(1).split("&");
+    var temp = parameters[0].split("=");
+    roomActual = temp[1];
+    temp = parameters[1].split("=");
+    rol = temp[1];
+    temp = parameters[2].split("=");
+    nombreEquipo = temp[1];
+    console.log("eeee   "+roomActual, rol, nombreEquipo);
+}
+
 window.onload = function () {
-    console.log(idPartida);
-    roomActual = partidas[generarRandonPartida()]
-    socket.emit('new player', roomActual);
+    obtenerDatosQuienSeConecto();
+   // roomActual = partidas[generarRandonPartida()]
+    socket.emit('new player', roomActual, rol, nombreEquipo);
     color1.src = 'static/0.png';
     color2.src = 'static/1.png';
     color3.src = 'static/2.png';

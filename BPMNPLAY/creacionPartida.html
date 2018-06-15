@@ -3,30 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <title>Creacion de partidas</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
 <body>
 
-<form action="/">
-    <label class="control-label col-md-2">Materia:</label>
-    <div class="col-md-6">
-        <select id="idMateria" class="form-control">
-            <option value="BPMN">BPMN</option>
-            <option value="res2">Respuesta 2</option>
-            <option value="res3">Respuesta 3</option>
-            <option value="res4">Respuesta 4</option>
-        </select>
-    </div>
+<div class="col-md-2"></div>
+<div class="col-md-8">
 
-    <input type="hidden" id="codigoPartida" name="codigoPartida" value="" >
-    <label id="codigoPartidaL" name="codigoPartidaL" ></label>
-    <button type="button" onclick="generarPartida()"> Generar código partida</button>
-    <input class="btn btn-success" type="submit" value="Unirse a partida">
+    <form action="/" method="get">
+        <div class="form-group">
+            <label class="control-label col-md-4">Materia:</label>
+            <div class="col-md-8">
+                <select id="idMateria" class="form-control">
+                    <option value="BPMN">BPMN</option>
+                    <option value="res2">Respuesta 2</option>
+                    <option value="res3">Respuesta 3</option>
+                    <option value="res4">Respuesta 4</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-4">Número de equipos:</label>
+            <input class="col-md-8" type="number" id="numeroEquipo" min="1" max="4" onchange="generarDatosEquipo(this)">
+        </div>
+        <div class="form-group">
+
+            <input type="hidden" id="codigoPartida" name="codigoPartida" value="">
+            <input type="hidden" id="rol" name="rol" value="profesor">
+        </div>
+        <div class="form-group">
+
+            <input type="text" id="nombreEquipo" name="nombreEquipo" value="equipo1">
+            <label id="codigoPartidaL"></label>
+        </div>
+        <div class="form-group">
+            <button type="button" onclick="generarPartida()"> Generar código partida</button>
+        </div>
+        <div class="form-group">
+            <input class="btn btn-success" type="submit" value="Unirse a partida">
+        </div>
 
 
-</form>
+    </form>
 
-
-
+</div>
+<div class="col-md-2"></div>
 <script src="static/creacionPartida.js"></script>
 </body>
 </html>

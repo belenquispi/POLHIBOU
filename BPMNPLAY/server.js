@@ -108,9 +108,7 @@ app.set('port', 5000);
 app.use('/static', express.static(__dirname + '/static' + ''));
 // Routing
 app.get('/', function (request, response) {
-    var idPartida = request.param('codigoPartida');
     response.sendFile(path.join(__dirname, 'index.html'));
-    console.log(idPartida)
 });
 
 app.get('/profesor', function (request, response) {
@@ -126,7 +124,7 @@ server.listen(5000, function () {
 // Add the WebSocket handlers
 io.on('connection', function (socket) {
     io.sockets.emit('parametrosJuego', parametrosJuego);
-    socket.on('new player', function (room) {
+    socket.on('new player', function (room, rol, nombreEquipo) {
         socket.join(room);
         if (partidas.length == 0) {
             partidas.push(new partida(room));
