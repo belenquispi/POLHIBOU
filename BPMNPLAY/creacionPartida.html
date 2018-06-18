@@ -6,15 +6,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-
-<div class="col-md-1"></div>
-<div class="col-md-10" >
+<div class="container">
+<div class="col" >
     <form action="/" method="get" >
-        <div id = "centro">
+        <div id = "centro" >
         <div class="form-group col-md-12">
-            <label class="control-label col-md-3">Materia:</label>
+            <label class="col-md-3">Materia:</label>
             <div class="col-md-4">
                 <select id="idMateria" class="form-control">
+                    <option value="ninguna">Seleccione una materia</option>
                     <option value="BPMN">BPMN</option>
                     <option value="res2">Respuesta 2</option>
                     <option value="res3">Respuesta 3</option>
@@ -27,60 +27,38 @@
             <div class="col-md-4">
             <input class="form-control" type="number" id="numeroEquipo" value="0" min="1" max="4" onchange="generarDatosEquipo(this)">
             </div>
-        </div>
-        <div class="form-group">
-            <input type="hidden" id="codigoPartida" name="codigoPartida" value="">
+        <input type="hidden" id="codigoPartida" name="codigoPartida" value="nuevo">
             <input type="hidden" id="rol" name="rol" value="profesor">
-        </div>
-        <div class="form-group">
-            <!-- Modal<label id="codigoPartidaL"></label>  -->
+            <input type="hidden" name="nombreEquipo" value="">
         </div>
         </div>
-        <div class="form-group">
-            <button type="button" class="btn" onclick="generarPartida()"> Generar código partida</button>
-        </div>
-        <div class="form-group">
-            <input class="btn btn-success" type="submit" value="Unirse a partida">
-        </div>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick="generarPartida()">
+            Generar código partida
+        </button>
 
-
-    </form>
-
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick="generarPartida()">
-        Generar código partida
-    </button>
-
-    <!-- Modal -->
-
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Código Generado</h5>
-                </div>
-                <div class="modal-body">
-                    <label id="codigoPartidaL"></label>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Código Generado</h5>
+                    </div>
+                    <div class="modal-body">
+                        <label id="codigoPartidaL" style="text-align:center;font-family:inherit;font-size:75px;font-style: normal;"></label>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+                        <button type="submit" class="btn btn-primary" onclick="unirsePartida()">Unirse a partida</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
-
-
-
-
-
-
-
+    </form>
 
 
 </div>
-<div class="col-md-1"></div>
+</div>
 <script src="static/creacionPartida.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
