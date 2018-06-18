@@ -52,7 +52,7 @@ function Character(c, x, y, z) {
     this.delayMove = 100;
     this.direction = directions.up;
     this.casilla = 0;
-    this.colorP = colorJugador[c];
+    this.iconoEquipo = c;
     this.boton = 0;
     this.puesto = 0;
     this.idSocket = "";
@@ -172,20 +172,16 @@ io.on('connection', function (socket) {
     });
     socket.on('nuevaPartida', function (room, rol, nombreIconoEquipos) {
         socket.join(room);
-        if (partidas.length == 0) {
-            partidas.push(new partida(room));
-            turnoJugadores.push(new partidaTurno(room));
+        if(rol == "profesor") {
+            /*if (partidas.length == 0) {
+                partidas.push(new partida(room));
+                turnoJugadores.push(new partidaTurno(room));
 
-            for (var i = 0; i < nombreIconoEquipos.length; i++) {
-                partidas[partidas.length - 1].jugadores.push(new Character(0, ((anchoCasilla * 2) + (anchoCasilla / 4)), (altoCasilla * (filas - 1) + (altoCasilla / 4)), nombreIconoEquipos[i]));
-                partidas[partidas.length - 1].jugadores[partidas[partidas.length - 1].jugadores.length - 1].numCasillasMoverseP = 0;
-                partidas[partidas.length - 1].jugadores[partidas[partidas.length - 1].jugadores.length - 1].boton = 0;
-                turnoJugadores[turnoJugadores.length - 1].idSocketJugadores.push(new turnoCharacter(nombreIconoEquipos[i]));
+                for (var i = 0; i < nombreIconoEquipos.length; i++) {
+                    insertarDatosJugador(partidas.length-1, turnoJugadores.length-1,nombreIconoEquipos[i].iconoEquipo,nombreIconoEquipos[i].nombreEquipo )
+                }
             }
-
-            console.log("nuevaaaa");
-        }
-        else {
+            else {*/
             var idPartida = partidas.map(function (e) {
                 return e.nombrePartida
             }).indexOf(room);
@@ -194,23 +190,34 @@ io.on('connection', function (socket) {
             }).indexOf(room);
 
             if (idPartida >= 0) {
+                console.log("de nuevo");
                 if (partidas[idPartida].jugadores.length < 4) {
                     for (var i = 0; i < nombreIconoEquipos.length; i++) {
-                        partidas[partidas.length - 1].jugadores.push(new Character(0, ((anchoCasilla * 2) + (anchoCasilla / 4)), (altoCasilla * (filas - 1) + (altoCasilla / 4)), nombreIconoEquipos[i]));
-                        partidas[partidas.length - 1].jugadores[partidas[partidas.length - 1].jugadores.length - 1].numCasillasMoverseP = 0;
-                        partidas[partidas.length - 1].jugadores[partidas[partidas.length - 1].jugadores.length - 1].boton = 0;
-                        turnoJugadores[turnoJugadores.length - 1].idSocketJugadores.push(new turnoCharacter(nombreIconoEquipos[i]));
+                        insertarDatosJugador(idPartida, nombreIconoEquipos[i].iconoEquipo, nombreIconoEquipos[i].nombreEquipo)
                     }
+                    console.log(partidas[idPartida].jugadores.length);
                 }
             }
             else {
                 partidas.push(new partida(room));
                 turnoJugadores.push(new partidaTurno(room));
+                console.log("nuevooooo2");
                 for (var i = 0; i < nombreIconoEquipos.length; i++) {
-                    partidas[partidas.length - 1].jugadores.push(new Character(0, ((anchoCasilla * 2) + (anchoCasilla / 4)), (altoCasilla * (filas - 1) + (altoCasilla / 4)), nombreIconoEquipos[i]));
-                    partidas[partidas.length - 1].jugadores[partidas[partidas.length - 1].jugadores.length - 1].numCasillasMoverseP = 0;
-                    partidas[partidas.length - 1].jugadores[partidas[partidas.length - 1].jugadores.length - 1].boton = 0;
-                    turnoJugadores[turnoJugadores.length - 1].idSocketJugadores.push(new turnoCharacter(nombreIconoEquipos[i]));
+                    insertarDatosJugador(partidas.length - 1, nombreIconoEquipos[i].iconoEquipo, nombreIconoEquipos[i].nombreEquipo)
+                }
+            }
+            //  }
+        }
+        else
+        {
+            if(rol == "jugador")
+            {
+
+            }
+            else {
+                if(rol == "espectador")
+                {
+                    
                 }
             }
         }
@@ -291,17 +298,11 @@ io.on('connection', function (socket) {
 
 function actualizarOrdenPartidas() {
     for (var i = 0; i < turnoJugadores.length; i++) {
-        console.log("num22 Ju:  " + turnoJugadores.length + "  " + turnoJugadores[0].idSocketJugadores);
         io.sockets.in(turnoJugadores[i].nombrePartida).emit('turnoPartida', turnoJugadores[i].idSocketJugadores);
     }
 };
 
 setInterval(function () {
-
-    //console.log( preguntasUnirVoltear.length)
-    console.log(preguntasOpcionMultiple.length)
-    console.log(memory_array.length)
-
     for (var i = 0; i < partidas.length; i++) {
         io.sockets.in(partidas[i].nombrePartida).emit('partida', partidas[i]);
     }
@@ -506,6 +507,13 @@ Character.prototype.moveDirection = function (d, t) {
 function toIndex(x, y) {
     return ((y * columnas) + x);
 }
+
+function insertarDatosJugador(indicePartida, iconoEquipo, nombreEquipo ) {
+    partidas[indicePartida].jugadores.push(new Character(iconoEquipo, ((anchoCasilla * 2) + (anchoCasilla / 4)), (altoCasilla * (filas - 1) + (altoCasilla / 4)),nombreEquipo));
+    partidas[indicePartida].jugadores[partidas[indicePartida].jugadores.length - 1].numCasillasMoverseP = 0;
+    partidas[indicePartida].jugadores[partidas[indicePartida].jugadores.length - 1].boton = 0;
+}
+
 
 function mostrarDesafio(jugadorAct, numCasillasMoverse) {
     var colorCa = -1;

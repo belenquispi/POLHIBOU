@@ -1,4 +1,5 @@
 var partida = [];
+var socket = io();
 function generarPartida() {
     if( document.getElementById('codigoPartida').value == 'nuevo') {
         var idMateria = document.getElementById('idMateria').value;
@@ -25,7 +26,7 @@ function generarDatosEquipo(numero) {
     if (document.getElementById("form-group4")) {
         eliminarAnteriores(4);
     }
-
+    partida = [];
     for (var i = 0; i < document.getElementById(id).value; i++) {
         partida[i]=0;
         var divGrupo = document.createElement("DIV");
@@ -99,12 +100,13 @@ function bloquearIconoJugador(num) {
 }
 
 function unirsePartida() {
+    var nombreIconoEquipos = [];
     for(var i=0; i < partida.length; i++){
         var datoEquipo = {
             nombreEquipo : document.getElementById("nombreEquipo" + (i + 1)).value,
             iconoEquipo : partida[i]
         }
-        nombreIconoEquipos[i]= datoEquipo;
+        nombreIconoEquipos.push(datoEquipo);
         console.log("kkkkkkkkkkk: "+i+"  "+datoEquipo)
     }
     socket.emit('nuevaPartida',document.getElementById('codigoPartida').value, document.getElementById('rol').value, nombreIconoEquipos);
