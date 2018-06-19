@@ -80,6 +80,12 @@ window.onload = function () {
     ctx.font = "bold 10pt sans-serif";
     console.log("adios")
 };
+socket.on('nombreRol', function (nombre) {
+
+    document.getElementById("sesion").innerHTML = nombre;
+
+});
+
 socket.on('parametrosJuego', function (data) {
     filas = data.filas;
     columnas = data.colum;
@@ -204,7 +210,8 @@ function drawGame() {
 
             switch (gameMap[((y * columnas) + x)]) {
                 case 0:
-                    ctx.fillStyle = "#6A0888";
+                    //ctx.fillStyle = "#6A0888";
+                    ctx.fillStyle = "#0B610B";
                     break;
                 case 'I':
                     ctx.fillStyle = patterInicio;
@@ -266,8 +273,8 @@ function drawGame() {
 function dibujarJugador() {
     for (var i = 0; i < jugadores.length; i++) {
         ctx.fillStyle = jugadores[i].colorP;
-        per1.src = 'static/tre.png';
-        per2.src = 'static/cora.png';
+        per1.src = 'static/pieza2.gif';
+        per2.src = 'static/star.png';
         per3.src = 'static/mal.png';
         per4.src = 'static/pintura.png';
         var patterper1 = ctx.createPattern(per1, "repeat");
@@ -300,12 +307,16 @@ function dibujarJugador() {
 function desbloquearBoton() {
     if (document.getElementById("botonLanzar")) {
         document.getElementById("botonLanzar").removeAttribute("disabled");
+        document.getElementById("botonLanzar").style.backgroundColor = "#0174DF";
+        document.getElementById("botonLanzar").style.borderColor = "#0174DF";
     }
 }
 
 function bloquearBoton() {
     if (document.getElementById("botonLanzar")) {
         document.getElementById("botonLanzar").setAttribute("disabled", "");
+        document.getElementById("botonLanzar").style.backgroundColor = "white";
+        document.getElementById("botonLanzar").style.borderColor = "white";
     }
 }
 

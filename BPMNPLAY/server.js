@@ -58,10 +58,6 @@ function Character(c, x, y, z) {
     this.idSocket = "";
 }
 
-function turnoCharacter(nombreEquipoN) {
-    this.nombreEquipo = nombreEquipoN;
-    this.idSocket = "";
-}
 
 var directions = {
     up: 0,
@@ -117,6 +113,9 @@ app.use('/static', express.static(__dirname + '/static' + ''));
 app.get('/', function (request, response) {
     response.sendFile(path.join(__dirname, 'index.html'));
 });
+app.get('/tablero', function (request, response) {
+    response.sendFile(path.join(__dirname, 'tablero.html'));
+});
 
 app.get('/profesor', function (request, response) {
     response.sendFile(path.join(__dirname, 'ingresoPreguntas.html'));
@@ -134,8 +133,48 @@ server.listen(5000, function () {
 io.on('connection', function (socket) {
     io.sockets.emit('parametrosJuego', parametrosJuego);
     socket.on('new player', function (room, rol, nombreEquipo) {
-        socket.join(room);
-        if (partidas.length == 0) {
+
+        var idPartida = partidas.map(function (e) {
+            return e.nombrePartida
+        }).indexOf(room);
+
+        if(idPartida>=0)
+        {
+            if(rol=="espectador")
+            {
+                socket.join(room);
+                socket.emit("nombreRol","Espectador");
+            }else{
+                if(rol =="profesor"){
+                    socket.join(room);
+                    socket.emit("nombreRol","Profesor");
+                }
+                else{
+                    if(rol=="jugador"){
+
+                       var  idJugador = partidas[idPartida].jugadores.map(function (e) { return e.nombreEquipo
+
+                        }).indexOf(nombreEquipo);
+
+                       if(idJugador >=0 ) {
+                           socket.join(room);
+                           socket.emit("nombreRol",nombreEquipo);
+                           partidas[idPartida].jugadores[idJugador].idSocket = socket.id;
+                           turnoJugadores[idPartida].idSocketJugadores.push(socket.id);
+                       }
+                       else {
+                           console.log("El nombre de equipo ingresado no es válido" + nombreEquipo);
+                       }
+                    }
+                }
+            }
+
+        }else
+        {
+            console.log("El código de partida ingresada no es válido" + room);
+        }
+
+       /* if (partidas.length == 0) {
             partidas.push(new partida(room));
             turnoJugadores.push(new partidaTurno(room));
             partidas[partidas.length - 1].jugadores.push(new Character(0, ((anchoCasilla * 2) + (anchoCasilla / 4)), (altoCasilla * (filas - 1) + (altoCasilla / 4)), socket.id));
@@ -167,12 +206,11 @@ io.on('connection', function (socket) {
                 partidas[partidas.length - 1].jugadores[partidas[partidas.length - 1].jugadores.length - 1].boton = 0;
                 turnoJugadores[turnoJugadores.length - 1].idSocketJugadores.push(socket.id);
             }
-        }
+        }*/
         actualizarOrdenPartidas();
     });
     socket.on('nuevaPartida', function (room, rol, nombreIconoEquipos) {
         socket.join(room);
-        if(rol == "profesor") {
             /*if (partidas.length == 0) {
                 partidas.push(new partida(room));
                 turnoJugadores.push(new partidaTurno(room));
@@ -183,9 +221,6 @@ io.on('connection', function (socket) {
             }
             else {*/
             var idPartida = partidas.map(function (e) {
-                return e.nombrePartida
-            }).indexOf(room);
-            var idTurnoPartida = turnoJugadores.map(function (e) {
                 return e.nombrePartida
             }).indexOf(room);
 
@@ -207,21 +242,6 @@ io.on('connection', function (socket) {
                 }
             }
             //  }
-        }
-        else
-        {
-            if(rol == "jugador")
-            {
-
-            }
-            else {
-                if(rol == "espectador")
-                {
-                    
-                }
-            }
-        }
-        actualizarOrdenPartidas();
     });
     socket.on('disconnect', function () {
         // remove disconnected player
