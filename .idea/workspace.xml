@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3299685f-4aef-430c-bbbf-10e9746e67af" name="Default" comment="" />
+    <list default="true" id="3299685f-4aef-430c-bbbf-10e9746e67af" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/BPMNPLAY/partidaIndividual.html" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/partidaIndividual.html" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -41,7 +43,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="creacionPartida.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="creacionPartida.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BPMNPLAY/creacionPartida.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-143">
@@ -53,17 +55,17 @@
       <file leaf-file-name="creacionPartida.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/creacionPartida.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
+            <state relative-caret-position="493">
               <caret line="29" column="17" selection-start-line="29" selection-start-column="17" selection-end-line="29" selection-end-column="17" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="partidaIndividual.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/partidaIndividual.html">
+      <file leaf-file-name="partidaIndividual.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/BPMNPLAY/partidaIndividual.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="7" lean-forward="true" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
+            <state relative-caret-position="493">
+              <caret line="29" column="51" selection-start-line="29" selection-start-column="51" selection-end-line="29" selection-end-column="51" />
             </state>
           </provider>
         </entry>
@@ -150,8 +152,8 @@
         <option value="$PROJECT_DIR$/BPMNPLAY/server.js" />
         <option value="$PROJECT_DIR$/BPMNPLAY/tablero.html" />
         <option value="$PROJECT_DIR$/BPMNPLAY/static/game.js" />
-        <option value="$PROJECT_DIR$/BPMNPLAY/partidaIndividual.html" />
         <option value="$PROJECT_DIR$/BPMNPLAY/static/partidaIndividual.html" />
+        <option value="$PROJECT_DIR$/BPMNPLAY/partidaIndividual.html" />
       </list>
     </option>
   </component>
@@ -209,26 +211,26 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Node.js.server.js">
+  <component name="RunManager" selected="JavaScript Debug.partidaIndividual.html">
     <configuration name="creacionPartida.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/BPMNPLAY/BPMNPLAY/creacionPartida.html" />
-    <configuration name="index.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/BPMNPLAY/BPMNPLAY/index.html" />
+    <configuration name="partidaIndividual.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/BPMNPLAY/BPMNPLAY/partidaIndividual.html" />
     <configuration name="unirsePartida.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/BPMNPLAY/BPMNPLAY/unirsePartida.html" />
     <configuration name="game.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" nameIsGenerated="true" path-to-js-file="game.js" working-dir="$PROJECT_DIR$/BPMNPLAY/static" />
     <configuration name="server.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" nameIsGenerated="true" path-to-js-file="server.js" working-dir="$PROJECT_DIR$/BPMNPLAY" />
     <list>
-      <item itemvalue="JavaScript Debug.index.html" />
       <item itemvalue="Node.js.server.js" />
       <item itemvalue="Node.js.game.js" />
       <item itemvalue="JavaScript Debug.creacionPartida.html" />
       <item itemvalue="JavaScript Debug.unirsePartida.html" />
+      <item itemvalue="JavaScript Debug.partidaIndividual.html" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JavaScript Debug.partidaIndividual.html" />
         <item itemvalue="Node.js.server.js" />
         <item itemvalue="JavaScript Debug.creacionPartida.html" />
         <item itemvalue="JavaScript Debug.unirsePartida.html" />
         <item itemvalue="Node.js.game.js" />
-        <item itemvalue="JavaScript Debug.index.html" />
       </list>
     </recent_temporary>
   </component>
@@ -268,12 +270,12 @@
       <workItem from="1529296606811" duration="1829000" />
       <workItem from="1529349651695" duration="6969000" />
       <workItem from="1529435639776" duration="8999000" />
-      <workItem from="1529522061942" duration="223000" />
+      <workItem from="1529522061942" duration="500000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="179398000" />
+    <option name="totallyTimeSpent" value="179643000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -329,13 +331,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="13" selection-start-column="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/BPMNPLAY/funcionesTablero.js" />
     <entry file="file://$PROJECT_DIR$/BPMNPLAY/index.html">
       <provider selected="true" editor-type-id="text-editor">
@@ -447,20 +442,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/partidaIndividual.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="7" lean-forward="true" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/creacionPartida.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="29" column="17" selection-start-line="29" selection-start-column="17" selection-end-line="29" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/game.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -479,6 +460,27 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-143">
           <caret line="14" column="34" lean-forward="true" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/partidaIndividual.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="7" lean-forward="true" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/creacionPartida.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="29" column="17" selection-start-line="29" selection-start-column="17" selection-end-line="29" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/partidaIndividual.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="29" column="51" selection-start-line="29" selection-start-column="51" selection-end-line="29" selection-end-column="51" />
         </state>
       </provider>
     </entry>
