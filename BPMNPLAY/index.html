@@ -11,7 +11,7 @@
 <body>
 <div class="container">
     <div class="col">
-        <form action="/tablero" method="get">
+        <form action="/tablero" method="get" onsubmit="return  verificarSiElEquipoNoSeHaConectado()">
             <div id="centro">
                 <div class="form-group">
                     <label>Código partida:</label>
@@ -21,6 +21,11 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <div class="col-md-8">
+                        <button type="button" class="btn" id="consultarPartida" onclick="consultarJugadores()" > Consultar Jugadores</button>
+                    </div>
+                </div>
+                <div class="form-group" id="divTipoEquipo" hidden>
                     <label>Tipo de ingreso:</label>
                     <div class="col-md-8">
                         <select id="tipoIngreso" name="tipoIngreso" class="form-control" onchange="habilitarNombreEquipo()">
@@ -33,7 +38,9 @@
                 <div class="form-group" id="divNombreEquipo" hidden>
                     <label >Nombre del equipo:</label>
                     <div class="col-md-8">
-                    <input type="text" class="form-control" placeholder="Nombre del equipo con el cual va a jugar" id="nombreEquipo" name="nombreEquipo">
+                        <select id="nombreEquipo" name="nombreEquipo" class="form-control" onchange="verificarDisponibilidadEquipo()">
+                            <option value="ninguno" >Seleccione un nombre</option>
+                        </select>
                     </div>
                 </div>
 
@@ -53,6 +60,41 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
 <script>
+    var socket = io();
+
+    socket.on('confirmacionPartida', function (data) {
+
+        console.log("Ya recibi")
+
+        if(data.length>0) {
+            if(document.getElementById("codigoPartida").value != ""){
+                document.getElementById("divTipoEquipo").removeAttribute("hidden");
+                for(var i = 0; i < data.length; i++) {
+                    var option = document.createElement("OPTION");
+                    option.setAttribute("value",data[i].nombreEquipo);
+                    var nombre = document.createTextNode(data[i].nombreEquipo)
+                    option.appendChild(nombre);
+                    document.getElementById("nombreEquipo").appendChild(option);
+                }
+
+            }else
+            {
+                document.getElementById("divTipoEquipo").setAttribute("hidden","");
+            }
+
+        }
+        else {
+            alert("La partida ingresada no es válida");
+
+        }
+    })
+
+    function consultarJugadores() {
+        socket.emit('verificarPartida', document.getElementById("codigoPartida").value);
+console.log("Ya se envio")
+
+    }
+
 function habilitarNombreEquipo() {
     console.log("lklkkl"+document.getElementById("tipoIngreso").value);
     if(document.getElementById("tipoIngreso").value == "jugador"){
@@ -63,6 +105,26 @@ function habilitarNombreEquipo() {
         document.getElementById("divNombreEquipo").setAttribute("hidden","");
     }
 }
+
+function verificarSiElEquipoNoSeHaConectado() {
+
+    console.log("Nioooooooooooo")
+    socket.emit('verificarEquipo', document.getElementById("codigoPartida").value,document.getElementById("nombreEquipo").value);
+    socket.on('confirmacionEquipo', function (data) {
+        if(!data)
+        {
+            alert("El equipo con el cual desea ingresar ya se encuentra conectado. Se sugiere ingresar como espectador");
+            event.preventDefault();
+            return false;
+
+        }else {
+            return true;
+        }
+    })
+
+
+}
+
 </script>
 </body>
 </html>

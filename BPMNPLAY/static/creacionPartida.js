@@ -107,7 +107,6 @@ function unirsePartida() {
             iconoEquipo : partida[i]
         }
         nombreIconoEquipos.push(datoEquipo);
-        console.log("kkkkkkkkkkk: "+i+"  "+datoEquipo)
     }
     socket.emit('nuevaPartida',document.getElementById('codigoPartida').value, document.getElementById('rol').value, nombreIconoEquipos);
 }

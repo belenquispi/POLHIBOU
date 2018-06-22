@@ -47,8 +47,7 @@ function dados(nombrePartida) {
     this.dado2 = dado2;
 }
 
-function obtenerDatosQuienSeConecto()
-{
+function obtenerDatosQuienSeConecto() {
     var parameters = location.search.substring(1).split("&");
     var temp = parameters[0].split("=");
     roomActual = temp[1];
@@ -56,12 +55,12 @@ function obtenerDatosQuienSeConecto()
     rol = temp[1];
     temp = parameters[2].split("=");
     nombreEquipo = temp[1];
-    console.log("eeee   "+roomActual, rol, nombreEquipo);
+    console.log("eeee   " + roomActual, rol, nombreEquipo);
 }
 
 window.onload = function () {
     obtenerDatosQuienSeConecto();
-   // roomActual = partidas[generarRandonPartida()]
+    // roomActual = partidas[generarRandonPartida()]
     socket.emit('new player', roomActual, rol, nombreEquipo);
     color1.src = 'static/0.png';
     color2.src = 'static/1.png';
@@ -86,6 +85,12 @@ socket.on('nombreRol', function (nombre) {
 
 });
 
+socket.on('error', function (nombre) {
+
+    alert(nombre);
+
+});
+
 socket.on('parametrosJuego', function (data) {
     filas = data.filas;
     columnas = data.colum;
@@ -98,6 +103,7 @@ socket.on('parametrosJuego', function (data) {
 });
 socket.on('partida', function (data) {
     jugadores = data.jugadores;
+    console.log("El número de jugadores es: " + jugadores.length)
     for (var i = 0; i < jugadores.length; i++) {
 
         if (jugadores[i].idSocket == idSocketActual) {
@@ -125,7 +131,9 @@ socket.on('ocultarBoton', function (idSocket) {
     console.log("rrr: " + idSocket + "  " + idSocketActual);
     if (idSocket == idSocketActual) {
         if (document.getElementById("botonLanzar")) {
-            document.getElementById("botonLanzar").hide();
+            document.getElementById("botonLanzar").setAttribute("disabled", "");
+            document.getElementById("botonLanzar").style.backgroundColor = "white";
+            document.getElementById("botonLanzar").style.borderColor = "white";
         }
     }
 });
@@ -402,11 +410,11 @@ function moverDado2() {
 }
 
 function habilitarTablaJugador() {
-    if (jugadores.length < 5) {
-        for (var i = 1; i < jugadores.length; i++) {
-            document.getElementById("tablajug" + (i + 1)).style.visibility = 'visible';
+        for (var i = 0; i < jugadores.length; i++) {
+            if(jugadores[i].idSocket != "") {
+                document.getElementById("tablajug" + (i + 1)).style.visibility = 'visible';
+            }
         }
-    }
 }
 
 function mostrarJugadorActual() {
@@ -417,44 +425,48 @@ function mostrarJugadorActual() {
     var indiceJugadorActual = jugadores.map(function (value) {
         return value.idSocket
     }).indexOf(turnoJugadores[0]);
+
+    for (var j = 0; j < jugadores.length; j++) {
+        if (!document.getElementById("imagenJugador" + (j + 1)) && jugadores[j].idSocket !="" ) {
+            var images = document.createElement("IMG");
+            images.setAttribute("src", "static/buhoInicial" + (jugadores[j].iconoEquipo) + ".gif");
+            images.setAttribute("id", "imagenJugador" + (j + 1));
+            images.setAttribute("height", "50");
+            images.setAttribute("width", "50");
+            document.getElementById("columna" + (j + 1)).appendChild(images);
+            console.log("wwewewewe: " + j);
+
+
+
+        }
+    }
+
     if (indiceJugadorActual >= 0 && turnoJugadores.length > 0) {
         if (document.getElementById("tablajug" + (indiceJugadorActual + 1))) {
             document.getElementById("tablajug" + (indiceJugadorActual + 1)).style.border = "thick solid #A9BCF5";
-            switch ((indiceJugadorActual + 1)) {
-                case 1:
-                    document.getElementById("imagenJugador1").src = "static/buho1.gif";
-                    document.getElementById("imagenJugador2").src = "static/buhoInicial2.gif";
-                    document.getElementById("imagenJugador3").src = "static/buhoInicial3.gif";
-                    document.getElementById("imagenJugador4").src = "static/buhoInicial4.gif";
-                    break;
-                case 2:
-                    document.getElementById("imagenJugador1").src = "static/buhoInicial1.gif";
-                    document.getElementById("imagenJugador2").src = "static/buho2.gif";
-                    document.getElementById("imagenJugador3").src = "static/buhoInicial3.gif";
-                    document.getElementById("imagenJugador4").src = "static/buhoInicial4.gif";
-                    break;
-                case 3:
-                    document.getElementById("imagenJugador1").src = "static/buhoInicial1.gif";
-                    document.getElementById("imagenJugador2").src = "static/buhoInicial2.gif";
-                    document.getElementById("imagenJugador3").src = "static/buho3.gif";
-                    document.getElementById("imagenJugador4").src = "static/buhoInicial4.gif";
-                    break;
-                case 4:
-                    document.getElementById("imagenJugador1").src = "static/buhoInicial1.gif";
-                    document.getElementById("imagenJugador2").src = "static/buhoInicial2.gif";
-                    document.getElementById("imagenJugador3").src = "static/buhoInicial3.gif";
-                    document.getElementById("imagenJugador4").src = "static/buho4.gif";
-                    break;
-            }
-
+            console.log(jugadores[indiceJugadorActual].iconoEquipo + "  " + "ttttt");
+            cambiarImagen(indiceJugadorActual);
         }
-
     }
     else {
-        document.getElementById("imagenJugador1").src = "static/buhoInicial1.gif";
-        document.getElementById("imagenJugador2").src = "static/buhoInicial2.gif";
-        document.getElementById("imagenJugador3").src = "static/buhoInicial3.gif";
-        document.getElementById("imagenJugador4").src = "static/buhoInicial4.gif";
+        for (var j = 0; j < turnoJugadores.length; j++) {
+            if (jugadores.length > 0) {
+                document.getElementById("imagenJugador" + (j + 1)).src = "static/buhoInicial" + jugadores[j].iconoEquipo + ".gif";
+            }
+        }
+    }
+}
+
+function cambiarImagen(num) {
+    for (var j = 0; j < turnoJugadores.length; j++) {
+        console.log("j" + j);
+        if (j == num) {
+            document.getElementById("imagenJugador" + (j + 1)).src = "static/buho" + jugadores[j].iconoEquipo + ".gif";
+        } else {
+            if(document.getElementById("imagenJugador" + (j + 1))) {
+                document.getElementById("imagenJugador" + (j + 1)).src = "static/buhoInicial" + jugadores[j].iconoEquipo + ".gif";
+            }
+        }
     }
 }
 
@@ -470,7 +482,7 @@ function mostrarDesafio(colorCa) {
 
             break;
         case 1:
-           // mostrarUnir();
+            // mostrarUnir();
             document.getElementById("tipoJuego").innerHTML = "Unir";
             document.getElementById("desafios").removeAttribute("hidden");
             document.getElementById("unir").removeAttribute("hidden");
@@ -478,7 +490,7 @@ function mostrarDesafio(colorCa) {
             document.getElementById("opcionMultiple").setAttribute("hidden", "");
             break;
         case 2:
-           // cargarPreguntasOpcionMultiple();
+            // cargarPreguntasOpcionMultiple();
             document.getElementById("tipoJuego").innerHTML = "Opción Múltiple";
             document.getElementById("desafios").removeAttribute("hidden");
             document.getElementById("opcionMultiple").removeAttribute("hidden");
@@ -500,10 +512,11 @@ function newBoard() {
     document.getElementById('memory_board').innerHTML = output;
 
 }
+
 function memoryFlipTile(tile, val) {
-    console.log("url: "+tile.src)
+    console.log("url: " + tile.src)
     if (tile.alt == "" && memory_values.length < 2) {
-        console.log("url: "+tile.src)
+        console.log("url: " + tile.src)
         //tile.style.background = '#FFF';
         tile.src = val;
         tile.alt = val;
