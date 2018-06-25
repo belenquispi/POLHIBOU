@@ -11,41 +11,48 @@
 <body>
 <div class="container">
     <div class="col">
-        <form action="/tablero" method="get" onsubmit="return  verificarSiElEquipoNoSeHaConectado()">
+        <form action="/tablero" method="get">
             <div id="centro">
                 <div class="form-group">
                     <label>Código partida:</label>
                     <div class="col-md-8">
-                    <input type="text" class="form-control" placeholder="Código de la partida"
-                           id="codigoPartida" name="codigoPartida">
+                        <input type="text" class="form-control" placeholder="Código de la partida"
+                               id="codigoPartida" name="codigoPartida">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-8">
-                        <button type="button" class="btn" id="consultarPartida" onclick="consultarJugadores()" > Consultar Jugadores</button>
+                        <button type="button" class="btn" id="consultarPartida" onclick="consultarJugadores()">Verificar
+                            código partida
+                        </button>
                     </div>
                 </div>
                 <div class="form-group" id="divTipoEquipo" hidden>
                     <label>Tipo de ingreso:</label>
                     <div class="col-md-8">
-                        <select id="tipoIngreso" name="tipoIngreso" class="form-control" onchange="habilitarNombreEquipo()">
-                            <option value="ninguno" >Seleccione un tipo</option>
+                        <select id="tipoIngreso" name="tipoIngreso" class="form-control"
+                                onchange="habilitarNombreEquipo()">
+                            <option value="ninguno">Seleccione un tipo</option>
                             <option value="jugador">Jugador</option>
                             <option value="espectador">Espectador</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group" id="divNombreEquipo" hidden>
-                    <label >Nombre del equipo:</label>
+                    <label>Nombre del equipo:</label>
                     <div class="col-md-8">
-                        <select id="nombreEquipo" name="nombreEquipo" class="form-control" onchange="verificarDisponibilidadEquipo()">
-                            <option value="ninguno" >Seleccione un nombre</option>
+                        <select id="nombreEquipo" name="nombreEquipo" class="form-control"
+                                onchange="verificarDisponibilidadEquipo()">
                         </select>
                     </div>
                 </div>
 
             </div>
-            <button type="submit" class="btn btn-primary" >Unirse a partida</button>
+            <div class="form-group" >
+                <input type="button" value="Unirse a partida" class="btn btn-primary" onclick="unirsePartida()">
+                <button type="submit" class="btn btn-primary" id="unirPartida" hidden></button>
+
+            </div>
         </form>
     </div>
 </div>
@@ -61,25 +68,35 @@
         crossorigin="anonymous"></script>
 <script>
     var socket = io();
-
+    var disponible = false;
+    socket.on('confirmacionEquipo', function (data) {
+        if (data == "true") {
+            disponible = true;
+            return false;
+        } else {
+            return true;
+        }
+    })
     socket.on('confirmacionPartida', function (data) {
-
-        console.log("Ya recibi")
-
-        if(data.length>0) {
-            if(document.getElementById("codigoPartida").value != ""){
+        if (data.length > 0) {
+            if (document.getElementById("codigoPartida").value != "") {
                 document.getElementById("divTipoEquipo").removeAttribute("hidden");
-                for(var i = 0; i < data.length; i++) {
+                document.getElementById("nombreEquipo").innerHTML = "";
+                var option1 = document.createElement("OPTION");
+                option1.setAttribute("value", "ninguno");
+                var nombre1 = document.createTextNode("Seleccione un equipo")
+                option1.appendChild(nombre1);
+                document.getElementById("nombreEquipo").appendChild(option1);
+                for (var i = 0; i < data.length; i++) {
                     var option = document.createElement("OPTION");
-                    option.setAttribute("value",data[i].nombreEquipo);
+                    option.setAttribute("value", data[i].nombreEquipo);
                     var nombre = document.createTextNode(data[i].nombreEquipo)
                     option.appendChild(nombre);
                     document.getElementById("nombreEquipo").appendChild(option);
                 }
 
-            }else
-            {
-                document.getElementById("divTipoEquipo").setAttribute("hidden","");
+            } else {
+                document.getElementById("divTipoEquipo").setAttribute("hidden", "");
             }
 
         }
@@ -91,39 +108,45 @@
 
     function consultarJugadores() {
         socket.emit('verificarPartida', document.getElementById("codigoPartida").value);
-console.log("Ya se envio")
-
     }
 
-function habilitarNombreEquipo() {
-    console.log("lklkkl"+document.getElementById("tipoIngreso").value);
-    if(document.getElementById("tipoIngreso").value == "jugador"){
-        document.getElementById("divNombreEquipo").removeAttribute("hidden");
+    function habilitarNombreEquipo() {
+        if (document.getElementById("tipoIngreso").value == "jugador") {
+            document.getElementById("divNombreEquipo").removeAttribute("hidden");
 
-    }else
-    {
-        document.getElementById("divNombreEquipo").setAttribute("hidden","");
-    }
-}
-
-function verificarSiElEquipoNoSeHaConectado() {
-
-    console.log("Nioooooooooooo")
-    socket.emit('verificarEquipo', document.getElementById("codigoPartida").value,document.getElementById("nombreEquipo").value);
-    socket.on('confirmacionEquipo', function (data) {
-        if(!data)
-        {
-            alert("El equipo con el cual desea ingresar ya se encuentra conectado. Se sugiere ingresar como espectador");
-            event.preventDefault();
-            return false;
-
-        }else {
-            return true;
+        } else {
+            document.getElementById("divNombreEquipo").setAttribute("hidden", "");
         }
-    })
+    }
 
+    function verificarDisponibilidadEquipo() {
+        socket.emit('verificarEquipo', document.getElementById("codigoPartida").value, document.getElementById("nombreEquipo").value);
+    }
+    
+    function unirsePartida() {
+if(document.getElementById("nombreEquipo").value != "ninguno") {
 
+    if (document.getElementById('tipoIngreso').value == "jugador") {
+        if (disponible) {
+            document.getElementById('unirPartida').click();
+        }
+        else {
+            alert("El equipo con el cual desea ingresar ya se encuentra conectado. Se sugiere ingresar con el nombre de otro jugador o como de espectador");
+        }
+    } else {
+        if (document.getElementById('tipoIngreso').value == "ninguno") {
+            alert("Seleccione un tipo de ingreso a la partida");
+        }
+        else {
+            document.getElementById('unirPartida').click();
+        }
+
+    }
 }
+    else {
+    alert("Seleccione un jugador");
+
+}}
 
 </script>
 </body>

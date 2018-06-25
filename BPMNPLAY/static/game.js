@@ -60,7 +60,6 @@ function obtenerDatosQuienSeConecto() {
 
 window.onload = function () {
     obtenerDatosQuienSeConecto();
-    // roomActual = partidas[generarRandonPartida()]
     socket.emit('new player', roomActual, rol, nombreEquipo);
     color1.src = 'static/0.png';
     color2.src = 'static/1.png';
@@ -280,34 +279,36 @@ function drawGame() {
 
 function dibujarJugador() {
     for (var i = 0; i < jugadores.length; i++) {
-        ctx.fillStyle = jugadores[i].colorP;
-        per1.src = 'static/pieza2.gif';
-        per2.src = 'static/star.png';
-        per3.src = 'static/mal.png';
-        per4.src = 'static/pintura.png';
-        var patterper1 = ctx.createPattern(per1, "repeat");
-        var patterper2 = ctx.createPattern(per2, "repeat");
-        var patterper3 = ctx.createPattern(per3, "repeat");
-        var patterper4 = ctx.createPattern(per4, "repeat");
+        if (jugadores[i].idSocket != "") {
+            ctx.fillStyle = jugadores[i].colorP;
+            per1.src = 'static/trebol.png';
+            per2.src = 'static/star.png';
+            per3.src = 'static/mal.png';
+            per4.src = 'static/pintura.png';
+            var patterper1 = ctx.createPattern(per1, "repeat");
+            var patterper2 = ctx.createPattern(per2, "repeat");
+            var patterper3 = ctx.createPattern(per3, "repeat");
+            var patterper4 = ctx.createPattern(per4, "repeat");
 
-        switch (i) {
-            case 0:
-                ctx.fillStyle = patterper1;
-                ctx.fillRect(jugadores[i].position[0], jugadores[i].position[1], (jugadores[i].dimensions[0] / 2) + 1, (jugadores[i].dimensions[1] / 2)) + 1;
-                break;
-            case 1:
-                ctx.fillStyle = patterper2;
-                ctx.fillRect(jugadores[i].position[0] + jugadores[i].dimensions[1] / 2, jugadores[i].position[1], jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[1] / 2);
-                break;
-            case 2:
-                ctx.fillStyle = patterper3;
-                ctx.fillRect(jugadores[i].position[0], jugadores[i].position[1] + jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[1] / 2);
-                break;
-            case 3:
-                ctx.fillStyle = patterper4;
-                ctx.fillRect(jugadores[i].position[0] + jugadores[i].dimensions[0] / 2, jugadores[i].position[1] + jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[1] / 2);
-                break;
-            default:
+            switch (i) {
+                case 0:
+                    ctx.fillStyle = patterper1;
+                    ctx.fillRect(jugadores[i].position[0], jugadores[i].position[1], (jugadores[i].dimensions[0] / 2) + 1, (jugadores[i].dimensions[1] / 2)) + 1;
+                    break;
+                case 1:
+                    ctx.fillStyle = patterper2;
+                    ctx.fillRect(jugadores[i].position[0] + jugadores[i].dimensions[1] / 2, jugadores[i].position[1], jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[1] / 2);
+                    break;
+                case 2:
+                    ctx.fillStyle = patterper3;
+                    ctx.fillRect(jugadores[i].position[0], jugadores[i].position[1] + jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[1] / 2);
+                    break;
+                case 3:
+                    ctx.fillStyle = patterper4;
+                    ctx.fillRect(jugadores[i].position[0] + jugadores[i].dimensions[0] / 2, jugadores[i].position[1] + jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[1] / 2);
+                    break;
+                default:
+            }
         }
     }
 }
@@ -434,10 +435,7 @@ function mostrarJugadorActual() {
             images.setAttribute("height", "50");
             images.setAttribute("width", "50");
             document.getElementById("columna" + (j + 1)).appendChild(images);
-            console.log("wwewewewe: " + j);
-
-
-
+            document.getElementById("nombreEquipo"+(j+1)).innerHTML = jugadores[j].nombreEquipo;
         }
     }
 

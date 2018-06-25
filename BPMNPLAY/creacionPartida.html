@@ -3,66 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <title>Creacion de partidas</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
 <div class="container">
-<div class="col" >
-    <form action="/tablero" method="get" >
-        <div id = "centro" >
-        <div class="form-group col-md-12">
-            <label class="col-md-3">Materia:</label>
-            <div class="col-md-4">
-                <select id="idMateria" class="form-control">
-                    <option value="ninguna">Seleccione una materia</option>
-                    <option value="BPMN">BPMN</option>
-                    <option value="res2">Respuesta 2</option>
-                    <option value="res3">Respuesta 3</option>
-                    <option value="res4">Respuesta 4</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group col-md-12">
-            <label class="control-label col-md-3">Número de equipos:</label>
-            <div class="col-md-4">
-            <input class="form-control" type="number" id="numeroEquipo" value="0" min="1" max="4" onchange="generarDatosEquipo(this)">
-            </div>
-        <input type="hidden" id="codigoPartida" name="codigoPartida" value="nuevo">
-            <input type="hidden" id="rol" name="rol" value="profesor">
-            <input type="hidden" name="nombreEquipo" value="">
-        </div>
-        </div>
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick="generarPartida()">
-            Generar código partida
-        </button>
-
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Código Generado</h5>
+    <div class="col">
+        <form action="/tablero" method="get" onmouseover="verificarSeleccion()">
+                <div id="centro">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-3">Materia:</label>
+                        <div class="col-md-4">
+                            <select id="idMateria" class="form-control">
+                                <option value="ninguna">Seleccione una materia</option>
+                                <option value="BPMN">BPMN</option>
+                                <option value="res 2">Respuesta 2</option>
+                                <option value="res3">Respuesta 3</option>
+                                <option value="res4">Respuesta 4</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        <label id="codigoPartidaL" style="text-align:center;font-family:inherit;font-size:75px;font-style: normal;"></label>
+                    <div class="form-group col-md-12">
+                        <label class="control-label col-md-3">Número de equipos:</label>
+                        <div class="col-md-4">
+                            <input class="form-control" type="number" id="numeroEquipo" value="0" min="1" max="4"
+                                   onchange="generarDatosEquipo(this)">
+                        </div>
+                        <input type="hidden" id="codigoPartida" name="codigoPartida" value="nuevo">
+                        <input type="hidden" id="rol" name="rol" value="profesor">
+                        <input type="hidden" name="nombreEquipo" value="">
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="unirsePartida()" data-dismiss="modal">Salir</button>
-                        <button type="submit" class="btn btn-primary" onclick="unirsePartida()">Unirse a partida</button>
+                </div>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" id="botonModal" disabled data-target="#exampleModalCenter"
+                        onclick="generarPartida()">
+                    Generar código partida
+                </button>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" data-backdrop="static"
+                 data-keyboard="false" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Código Generado</h5>
+                        </div>
+                        <div class="modal-body">
+                            <label id="codigoPartidaL"
+                                   style="text-align:center;font-family:inherit;font-size:75px;font-style: normal;"></label>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" onclick="unirsePartida()"
+                                    data-dismiss="modal">Salir
+                            </button>
+                            <button type="submit" class="btn btn-primary" onclick="unirsePartida()">Unirse a partida
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
 
 
-</div>
+    </div>
 </div>
 <script src="/socket.io/socket.io.js"></script>
 <script src="static/creacionPartida.js"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </body>
 </html>

@@ -132,97 +132,94 @@ server.listen(5000, function () {
 // Add the WebSocket handlers
 io.on('connection', function (socket) {
     io.sockets.emit('parametrosJuego', parametrosJuego);
-    socket.on('new player', function (room, rol, nombreEquipo) {
+    socket.on('new player', function (room, rol, nombreEquipoJugar) {
 
         var idPartida = partidas.map(function (e) {
             return e.nombrePartida
         }).indexOf(room);
 
-        if(idPartida>=0)
-        {
-            if(rol=="espectador")
-            {
+        if (idPartida >= 0) {
+            if (rol == "espectador") {
                 socket.join(room);
-                socket.emit("nombreRol","Espectador");
-            }else{
-                if(rol =="profesor"){
+                socket.emit("nombreRol", "Espectador");
+            } else {
+                if (rol == "profesor") {
                     socket.join(room);
-                    socket.emit("nombreRol","Profesor");
+                    socket.emit("nombreRol", "Profesor");
                 }
-                else{
-                    if(rol=="jugador"){
+                else {
+                    if (rol == "jugador") {
 
-                       var  idJugador = partidas[idPartida].jugadores.map(function (e) { return e.nombreEquipo
+                        var nombreEquipo = nombreEquipoJugar.replace("+", " ");
+                        var idJugador = partidas[idPartida].jugadores.map(function (e) {
+                            return e.nombreEquipo
 
                         }).indexOf(nombreEquipo);
 
-                       if(idJugador >=0 ) {
-                           if(partidas[idPartida].jugadores[idJugador].idSocket == "") {
-                               socket.join(room);
-                               socket.emit("nombreRol", nombreEquipo);
-                               partidas[idPartida].jugadores[idJugador].idSocket = socket.id;
-                               turnoJugadores[idPartida].idSocketJugadores = [];
-                               for ( var i = 0 ; i < partidas[idPartida].jugadores.length; i++)
-                               {
-                                   if(partidas[idPartida].jugadores[i].idSocket!= "")
-                                   {
-                                   turnoJugadores[idPartida].idSocketJugadores.push(partidas[idPartida].jugadores[i].idSocket);
-                                   }
-                               }
 
-                               console.log("turno: "+ turnoJugadores[idPartida].idSocketJugadores)
-                           }
-                           else
-                           {
-                               socket.emit("error","El equipo: "+nombreEquipo+" ya se ha conectado");
-                           }
-                       }
-                       else {
-                           console.log("El nombre de equipo ingresado no es válido" + nombreEquipo);
-                       }
+                        if (idJugador >= 0) {
+                            if (partidas[idPartida].jugadores[idJugador].idSocket == "") {
+                                socket.join(room);
+                                socket.emit("nombreRol", nombreEquipo);
+                                partidas[idPartida].jugadores[idJugador].idSocket = socket.id;
+                                turnoJugadores[idPartida].idSocketJugadores = [];
+                                for (var i = 0; i < partidas[idPartida].jugadores.length; i++) {
+                                    if (partidas[idPartida].jugadores[i].idSocket != "") {
+                                        turnoJugadores[idPartida].idSocketJugadores.push(partidas[idPartida].jugadores[i].idSocket);
+                                    }
+                                }
+
+                                console.log("turno: " + turnoJugadores[idPartida].idSocketJugadores)
+                            }
+                            else {
+                                socket.emit("error", "El equipo: " + nombreEquipo + " ya se ha conectado");
+                            }
+                        }
+                        else {
+                            console.log("El nombre de equipo ingresado no es válido" + nombreEquipo);
+                        }
                     }
                 }
             }
 
-        }else
-        {
+        } else {
             console.log("El código de partida ingresada no es válido" + room);
         }
         actualizarOrdenPartidas();
     });
     socket.on('nuevaPartida', function (room, rol, nombreIconoEquipos) {
         socket.join(room);
-            /*if (partidas.length == 0) {
-                partidas.push(new partida(room));
-                turnoJugadores.push(new partidaTurno(room));
+        /*if (partidas.length == 0) {
+            partidas.push(new partida(room));
+            turnoJugadores.push(new partidaTurno(room));
 
-                for (var i = 0; i < nombreIconoEquipos.length; i++) {
-                    insertarDatosJugador(partidas.length-1, turnoJugadores.length-1,nombreIconoEquipos[i].iconoEquipo,nombreIconoEquipos[i].nombreEquipo )
-                }
+            for (var i = 0; i < nombreIconoEquipos.length; i++) {
+                insertarDatosJugador(partidas.length-1, turnoJugadores.length-1,nombreIconoEquipos[i].iconoEquipo,nombreIconoEquipos[i].nombreEquipo )
             }
-            else {*/
-            var idPartida = partidas.map(function (e) {
-                return e.nombrePartida
-            }).indexOf(room);
+        }
+        else {*/
+        var idPartida = partidas.map(function (e) {
+            return e.nombrePartida
+        }).indexOf(room);
 
-            if (idPartida >= 0) {
-                console.log("de nuevo");
-                if (partidas[idPartida].jugadores.length < 4) {
-                    for (var i = 0; i < nombreIconoEquipos.length; i++) {
-                        insertarDatosJugador(idPartida, nombreIconoEquipos[i].iconoEquipo, nombreIconoEquipos[i].nombreEquipo)
-                    }
-                    console.log(partidas[idPartida].jugadores.length);
-                }
-            }
-            else {
-                partidas.push(new partida(room));
-                turnoJugadores.push(new partidaTurno(room));
-                console.log("nuevooooo2");
+        if (idPartida >= 0) {
+            console.log("de nuevo");
+            if (partidas[idPartida].jugadores.length < 4) {
                 for (var i = 0; i < nombreIconoEquipos.length; i++) {
-                    insertarDatosJugador(partidas.length - 1, nombreIconoEquipos[i].iconoEquipo, nombreIconoEquipos[i].nombreEquipo)
+                    insertarDatosJugador(idPartida, nombreIconoEquipos[i].iconoEquipo, nombreIconoEquipos[i].nombreEquipo)
                 }
+                console.log(partidas[idPartida].jugadores.length);
             }
-            //  }
+        }
+        else {
+            partidas.push(new partida(room));
+            turnoJugadores.push(new partidaTurno(room));
+            console.log("nuevooooo2");
+            for (var i = 0; i < nombreIconoEquipos.length; i++) {
+                insertarDatosJugador(partidas.length - 1, nombreIconoEquipos[i].iconoEquipo, nombreIconoEquipos[i].nombreEquipo)
+            }
+        }
+        //  }
     });
     socket.on('disconnect', function () {
         // remove disconnected player
@@ -297,30 +294,32 @@ io.on('connection', function (socket) {
     });
     socket.on('verificarPartida', function (room) {
         var idPartida = consultarIdPartida(room);
-        var arrayJugadores
+        var arrayJugadores = [];
 
-        if(idPartida >=0){
+        if (idPartida >= 0) {
             arrayJugadores = partidas[idPartida].jugadores;
-            socket.emit('confirmacionPartida',arrayJugadores)
+            socket.emit('confirmacionPartida', arrayJugadores)
         }
         else {
-            arrayJugadores = [];
-            socket.emit('confirmacionPartida',arrayJugadores);
+            socket.emit('confirmacionPartida', arrayJugadores);
         }
     })
-    socket.on('verificarEquipo', function(room, nombreEquipo){
-        console.log("Si" + room + " " +nombreEquipo)
+    socket.on('verificarEquipo', function (room, nombreEquipo) {
+        console.log("Si" + room + " " + nombreEquipo);
         var idPartida = consultarIdPartida(room);
         var idJugador = consultarIdJugador(idPartida, nombreEquipo);
-        if(partidas[idPartida].jugadores[idJugador].idSocket =="")
-            {
-                socket.emit('confirmacionEquipo', true)
-            }else {
-                console.log("Nooooooo")
-                socket.emit('confirmacionEquipo', false)
-            }
+        console.log("idpartida: " + idPartida);
+        console.log("idJugador: " + idJugador);
+        if (partidas[idPartida].jugadores[idJugador].idSocket == "") {
+            console.log("Niiiii")
+            socket.emit('confirmacionEquipo', "true")
+        } else {
+            console.log("Nooooooo")
+            socket.emit('confirmacionEquipo', "false")
+        }
     });
 });
+
 function actualizarOrdenPartidas() {
     for (var i = 0; i < turnoJugadores.length; i++) {
         io.sockets.in(turnoJugadores[i].nombrePartida).emit('turnoPartida', turnoJugadores[i].idSocketJugadores);
@@ -333,18 +332,16 @@ setInterval(function () {
     }
 }, 1000 / 60);
 
-function consultarIdPartida(partida)
-{
+function consultarIdPartida(partida) {
     return partidas.map(function (e) {
         return e.nombrePartida
     }).indexOf(partida);
 }
 
-function consultarIdJugador(idPartida, nombreEquipo)
-{
-    return partidas.map(function (e) {
-        return e.nombrePartida
-    }).indexOf(partida);
+function consultarIdJugador(idPartida, nombreEquipo) {
+    return partidas[idPartida].jugadores.map(function (e) {
+        return e.nombreEquipo
+    }).indexOf(nombreEquipo);
 }
 
 Character.prototype.placeAt = function (x, y) {
@@ -547,8 +544,8 @@ function toIndex(x, y) {
     return ((y * columnas) + x);
 }
 
-function insertarDatosJugador(indicePartida, iconoEquipo, nombreEquipo ) {
-    partidas[indicePartida].jugadores.push(new Character(iconoEquipo, ((anchoCasilla * 2) + (anchoCasilla / 4)), (altoCasilla * (filas - 1) + (altoCasilla / 4)),nombreEquipo));
+function insertarDatosJugador(indicePartida, iconoEquipo, nombreEquipo) {
+    partidas[indicePartida].jugadores.push(new Character(iconoEquipo, ((anchoCasilla * 2) + (anchoCasilla / 4)), (altoCasilla * (filas - 1) + (altoCasilla / 4)), nombreEquipo));
     partidas[indicePartida].jugadores[partidas[indicePartida].jugadores.length - 1].numCasillasMoverseP = 0;
     partidas[indicePartida].jugadores[partidas[indicePartida].jugadores.length - 1].boton = 0;
 }
