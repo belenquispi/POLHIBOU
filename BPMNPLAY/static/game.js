@@ -61,17 +61,17 @@ function obtenerDatosQuienSeConecto() {
 window.onload = function () {
     obtenerDatosQuienSeConecto();
     socket.emit('new player', roomActual, rol, nombreEquipo);
-    color1.src = 'static/0.png';
-    color2.src = 'static/1.png';
-    color3.src = 'static/2.png';
+    color1.src = 'static/imagenes/0.png';
+    color2.src = 'static/imagenes/1.png';
+    color3.src = 'static/imagenes/2.png';
     casillaInicio.src = 'static/inicio.jpg';
-    casillaIncierto.src = 'static/incierto.png';
+    casillaIncierto.src = 'static/imagenes/incierto.png';
     casillaFin.src = 'static/fin.jpg';
-    casillaB.src = 'static/b.png';
-    casillaP.src = 'static/p.png';
-    casillaM.src = 'static/m.png';
-    casillaN.src = 'static/n.png';
-    casillaPlay.src = 'static/play.png';
+    casillaB.src = 'static/imagenes/b.png';
+    casillaP.src = 'static/imagenes/p.png';
+    casillaM.src = 'static/imagenes/m.png';
+    casillaN.src = 'static/imagenes/n.png';
+    casillaPlay.src = 'static/imagenes/play.png';
     console.log("carge las imagenes")
     ctx = document.getElementById('game').getContext("2d");
     requestAnimationFrame(drawGame);
@@ -281,10 +281,10 @@ function dibujarJugador() {
     for (var i = 0; i < jugadores.length; i++) {
         if (jugadores[i].idSocket != "") {
             ctx.fillStyle = jugadores[i].colorP;
-            per1.src = 'static/trebol.png';
-            per2.src = 'static/star.png';
-            per3.src = 'static/mal.png';
-            per4.src = 'static/pintura.png';
+            per1.src = 'static/imagenes/trebol.png';
+            per2.src = 'static/imagenes/star.png';
+            per3.src = 'static/imagenes/mal.png';
+            per4.src = 'static/imagenes/pintura.png';
             var patterper1 = ctx.createPattern(per1, "repeat");
             var patterper2 = ctx.createPattern(per2, "repeat");
             var patterper3 = ctx.createPattern(per3, "repeat");
