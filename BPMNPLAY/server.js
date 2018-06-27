@@ -69,47 +69,16 @@ var colorJugador = ["#01DF3A", "#FE2E2E", "#0431B4", "#61380B", "#8904B1"];
 var firebase = require("./firebase");
 var preguntasOpcionMultiple = firebase.obtenerPreguntasOpcionMultiple('BPMN');
 var preguntasUnirVoltear = firebase.obtenerPreguntasUnir().preguntasUnirVoltear;
+//var nuevoProfesor = firebase.insertarNuevoProfesor('bquispi','123456','belen quispi');
+//var nuevaMateria = firebase.insertarMaterias('bquispi','bpmn2','procesos');
 var memory_array = firebase.obtenerPreguntasUnir().memory_array;
 
-function seleccionarColor() {
-    var indice = 0;
-    for (var y = 0; y < filas; ++y) {
-        for (var x = 0; x < columnas; ++x) {
-            switch (gameMap[((y * columnas) + x)]) {
-                case 0:
-                    colorMap[indice] = -1;
-                    indice++;
-                    break;
-                default:
-                    var colorA = Math.floor(Math.random() * 3);
-                    var colorAnterior = -1;
-                    while (colorA == colorAnterior) {
-                        colorA = Math.floor(Math.random() * 3);
-                    }
-                    colorAnterior = colorA;
-                    switch (colorA) {
-                        case 0:
-                            colorMap[indice] = 0;
-                            indice++;
-                            break;
-                        case 1:
-                            colorMap[indice] = 1;
-                            indice++;
-                            break;
-                        case 2:
-                            colorMap[indice] = 2;
-                            indice++;
-                            break;
-                        default:
-                    }
-            }
-        }
-    }
-}
 
 app.set('port', 5000);
 app.use('/static', express.static(__dirname + '/static' + ''));
-// Routning
+
+/* --------------------------------------------- Routning */
+
 app.get('/', function (request, response) {
     response.sendFile(path.join(__dirname, 'index.html'));
 });
@@ -117,8 +86,8 @@ app.get('/tablero', function (request, response) {
     response.sendFile(path.join(__dirname, 'tablero.html'));
 });
 
-app.get('/profesor', function (request, response) {
-    response.sendFile(path.join(__dirname, 'ingresoPreguntas.html'));
+app.get('/opcionMultiple', function (request, response) {
+    response.sendFile(path.join(__dirname, 'preguntasOpcionMultiple.html'));
 });
 app.get('/creacionPartida', function (request, response) {
     response.sendFile(path.join(__dirname, 'creacionPartida.html'));
@@ -318,7 +287,50 @@ io.on('connection', function (socket) {
             socket.emit('confirmacionEquipo', "false")
         }
     });
+    
+    socket.on('guardarPreguntaOpcionMultiple', function (imagenes, file, file1, file2, file3, file4, preguntaOpcionMultiple) {
+
+        firebase.insertarPreguntasOpcionMultiple(imagenes, file, file1, file2, file3, file4, preguntaOpcionMultiple);
+
+    })
+    
+    
 });
+function seleccionarColor() {
+    var indice = 0;
+    for (var y = 0; y < filas; ++y) {
+        for (var x = 0; x < columnas; ++x) {
+            switch (gameMap[((y * columnas) + x)]) {
+                case 0:
+                    colorMap[indice] = -1;
+                    indice++;
+                    break;
+                default:
+                    var colorA = Math.floor(Math.random() * 3);
+                    var colorAnterior = -1;
+                    while (colorA == colorAnterior) {
+                        colorA = Math.floor(Math.random() * 3);
+                    }
+                    colorAnterior = colorA;
+                    switch (colorA) {
+                        case 0:
+                            colorMap[indice] = 0;
+                            indice++;
+                            break;
+                        case 1:
+                            colorMap[indice] = 1;
+                            indice++;
+                            break;
+                        case 2:
+                            colorMap[indice] = 2;
+                            indice++;
+                            break;
+                        default:
+                    }
+            }
+        }
+    }
+}
 
 function actualizarOrdenPartidas() {
     for (var i = 0; i < turnoJugadores.length; i++) {
