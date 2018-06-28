@@ -1,16 +1,6 @@
 var vectorTextoUnir = [];
 var preguntaRandomica;
 var resCorrecta;
-var downloadURL = null;
-var downloadURLRes1 = null;
-var downloadURLRes2 = null;
-var downloadURLRes3 = null;
-var downloadURLRes4 = null;
-var file = null;
-var file1 = null;
-var file2 = null;
-var file3 = null;
-var file4 = null;
 var imagenes = [];
 var imagenesUnirVoltear = [];
 var contadorURL = 0;
@@ -20,9 +10,7 @@ var serviceAccount = require('./bpmnplaydb-firebase-adminsdk-kgx4h-9094a1d02d.js
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: 'https://BPMNPlayDB.firebaseio.com',
-    storageBucket: 'bpmnplaydb.appspot.com'
 });
-var bucket = admin.storage().bucket()
 var db = admin.firestore();
 
 module.exports =
@@ -55,28 +43,21 @@ module.exports =
                 });
         },
 
-        insertarPreguntasOpcionMultiple: function (imagenes, fileN, file1N, file2N, file3N, file4N, preguntaOpcionMultiple) {
-            file = fileN;
-            file1 = file1N;
-            file2 = file2N;
-            file3 = file3N;
-            file4 = file4N;
-            console.log("creandoPregunta")
-            for (var i = 0; i < imagenes.length; i++) {
-                subirImagenOpcionMultiple(imagenes[i], function () {
+        insertarPreguntasOpcionMultiple: function (preguntaOpcionMultiple) {
 
-                    if (contadorURL == imagenes.length) {
+            console.log("creandoPregunta")
+
                         db.collection('profesores').doc(preguntaOpcionMultiple.usuario).collection('materias').doc(preguntaOpcionMultiple.idMateria).collection('preguntasOpcionMultiple').add({
                             enunciado: preguntaOpcionMultiple.enunciado,
-                            urlEnunciado: downloadURL,
+                            urlEnunciado: preguntaOpcionMultiple.urlEnunciado,
                             res1: preguntaOpcionMultiple.res1,
-                            urlRes1: downloadURLRes1,
+                            urlRes1: preguntaOpcionMultiple.urlRes1,
                             res2: preguntaOpcionMultiple.res2,
-                            urlRes2: downloadURLRes2,
+                            urlRes2: preguntaOpcionMultiple.urlRes2,
                             res3: preguntaOpcionMultiple.res3,
-                            urlRes3: downloadURLRes3,
+                            urlRes3: preguntaOpcionMultiple.urlRes3,
                             res4: preguntaOpcionMultiple.res4,
-                            urlRes4: downloadURLRes4,
+                            urlRes4: preguntaOpcionMultiple.urlRes4,
                             resCorrecta: preguntaOpcionMultiple.resCorrecta,
                         }).then(ref => {
                             console.log("Se ha creado exitosamente la pregunta opcion multiple")
@@ -84,17 +65,15 @@ module.exports =
                             .catch(error => {
                                 console.log("error al crear la pregunta opcion multiple")
                             });
-                    }
-                });
-            }
+
 
         },
 
-        insertarPreguntasUnirVoltear: function (usuarioProfesor, idMateriaN) {
-            console.log("creandoMateria")
-            var nuevaMateria = db.collection('profesores').doc(usuarioProfesor).collection('materias').doc(idMateriaN).collection('preguntasUnirVoltear').add({
-                idMateria: idMateriaN,
-                nombreMateria: nombreMateriaN
+        insertarPreguntasUnirVoltear: function (preguntaUnirVoltear ) {
+            console.log("creando unir voltear")
+            db.collection('profesores').doc(preguntaUnirVoltear.usuario).collection('materias').doc(preguntaUnirVoltear.idMateria).collection('preguntasUnirVoltear').add({
+                textoUnirVoltear: preguntaUnirVoltear.textoUnirVoltear,
+                urlImagenUnirVoltear: preguntaUnirVoltear.urlImagenUnirVoltear
             }).then(ref => {
                 console.log("Se ha creado exitosamente la pregunta unir voltear")
             })
@@ -429,73 +408,3 @@ module.exports =
         */
     }
 
-function subirImagenOpcionMultiple(nombreFile, callback) {
-    var files = null;
-    switch (nombreFile) {
-        case "file":
-            files = file;
-            break;
-        case "file1":
-            files = file1;
-            break;
-        case "file2":
-            files = file2;
-            break;
-        case "file3":
-            files = file3;
-            break;
-        case "file4":
-            files = file4;
-            break;
-    }
-
-    var storageRef = admin.storage().ref('imagenes/' + files.name + generarNombre() + generarNombre())
-
-    var task = storageRef.put(files);
-    task.on('state_changed',
-        function progress(snapshot) {
-            var porcentaje = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        },
-        function error(err) {
-            console.log(err);
-        },
-
-        function () {
-            switch (nombreFile) {
-                case "file":
-                    downloadURL = task.snapshot.downloadURL;
-                    contadorURL++;
-                    callback();
-                    break;
-                case "file1":
-                    downloadURLRes1 = task.snapshot.downloadURL;
-                    contadorURL++;
-                    callback();
-                    break;
-                case "file2":
-                    downloadURLRes2 = task.snapshot.downloadURL;
-                    contadorURL++;
-                    callback();
-                    break;
-                case "file3":
-                    downloadURLRes3 = task.snapshot.downloadURL;
-                    contadorURL++;
-                    callback();
-                    break;
-                case "file4":
-                    downloadURLRes4 = task.snapshot.downloadURL;
-                    contadorURL++;
-                    callback();
-                    break;
-
-            }
-
-        }
-    );
-}
-
-function generarNombre() {
-    return Math.floor((1 + Math.random()) * 0x10000)
-        .toString(16)
-        .substring(1);
-}

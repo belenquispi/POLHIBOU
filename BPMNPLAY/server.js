@@ -72,7 +72,14 @@ var preguntasUnirVoltear = firebase.obtenerPreguntasUnir().preguntasUnirVoltear;
 //var nuevoProfesor = firebase.insertarNuevoProfesor('bquispi','123456','belen quispi');
 //var nuevaMateria = firebase.insertarMaterias('bquispi','bpmn2','procesos');
 var memory_array = firebase.obtenerPreguntasUnir().memory_array;
-
+var config = {
+    apiKey: "AIzaSyARHMJb3ta8XMRb0lFRjUSgSP6RCZiayVo",
+    authDomain: "bpmnplaydb.firebaseapp.com",
+    databaseURL: "https://bpmnplaydb.firebaseio.com",
+    projectId: "bpmnplaydb",
+    storageBucket: "bpmnplaydb.appspot.com",
+    messagingSenderId: "559035240947", timestampsInSnapshots: true
+};
 
 app.set('port', 5000);
 app.use('/static', express.static(__dirname + '/static' + ''));
@@ -88,6 +95,10 @@ app.get('/tablero', function (request, response) {
 
 app.get('/opcionMultiple', function (request, response) {
     response.sendFile(path.join(__dirname, 'preguntasOpcionMultiple.html'));
+});
+
+app.get('/unirVoltear', function (request, response) {
+    response.sendFile(path.join(__dirname, 'preguntasUnirVoltear.html'));
 });
 app.get('/creacionPartida', function (request, response) {
     response.sendFile(path.join(__dirname, 'creacionPartida.html'));
@@ -287,15 +298,19 @@ io.on('connection', function (socket) {
             socket.emit('confirmacionEquipo', "false")
         }
     });
-    
-    socket.on('guardarPreguntaOpcionMultiple', function (imagenes, file, file1, file2, file3, file4, preguntaOpcionMultiple) {
-
-        firebase.insertarPreguntasOpcionMultiple(imagenes, file, file1, file2, file3, file4, preguntaOpcionMultiple);
-
+    socket.on('guardarPreguntaOpcionMultiple', function (preguntaOpcionMultiple) {
+        firebase.insertarPreguntasOpcionMultiple(preguntaOpcionMultiple);
+    });
+    socket.on('guardarPreguntaUnirVoltear', function (preguntaUnirVoltear) {
+        firebase.insertarPreguntasUnirVoltear(preguntaUnirVoltear);
+    });
+    socket.on('solicitarConfiguracion', function () {
+        socket.emit('configuracion',config);
     })
     
     
 });
+
 function seleccionarColor() {
     var indice = 0;
     for (var y = 0; y < filas; ++y) {
