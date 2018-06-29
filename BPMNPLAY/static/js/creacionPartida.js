@@ -113,6 +113,7 @@ function bloquearIconoJugador(num) {
 
 function unirsePartida() {
     var nombreIconoEquipos = [];
+    var usuario ='bquispi';
     for(var i=0; i < partida.length; i++){
         var datoEquipo = {
             nombreEquipo : document.getElementById("nombreEquipo" + (i + 1)).value,
@@ -120,7 +121,7 @@ function unirsePartida() {
         }
         nombreIconoEquipos.push(datoEquipo);
     }
-    socket.emit('nuevaPartida',document.getElementById('codigoPartida').value, document.getElementById('rol').value, nombreIconoEquipos);
+    socket.emit('nuevaPartida',document.getElementById('codigoPartida').value, document.getElementById('rol').value, nombreIconoEquipos, usuario, document.getElementById('idMateria').value );
 }
 
 function validarIngreso(e) {

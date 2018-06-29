@@ -25,7 +25,6 @@ var currentSpeed = 0;
 var socket = io();
 var jugadores = [];
 var turnoJugadores = [];
-var partidas = ["partida1", "partida2", "partida3"];
 var respuestaCorrecta = false;
 var turnoFinalizado = true;
 var idSocketActual;
@@ -36,10 +35,8 @@ var memory_array = [];
 var memory_values = [];
 var memory_tile_ids = [];
 var tiles_flipped = 0;
-
-function generarRandonPartida() {
-    return Math.floor(Math.random() * 1);
-}
+var preguntasOpcionMultiple = [];
+var resCorrecta;
 
 function dados(nombrePartida) {
     this.nombrePartida = nombrePartida;
@@ -79,15 +76,11 @@ window.onload = function () {
     console.log("adios")
 };
 socket.on('nombreRol', function (nombre) {
-
     document.getElementById("sesion").innerHTML = nombre;
-
 });
 
 socket.on('error', function (nombre) {
-
     alert(nombre);
-
 });
 
 socket.on('parametrosJuego', function (data) {
@@ -100,8 +93,10 @@ socket.on('parametrosJuego', function (data) {
     idSocketActual = socket.io.engine.id;
     console.log("Mi socket: " + idSocketActual)
 });
+
 socket.on('partida', function (data) {
     jugadores = data.jugadores;
+    preguntasOpcionMultiple = data.preguntasOpcionMultiple;
     console.log("El número de jugadores es: " + jugadores.length)
     for (var i = 0; i < jugadores.length; i++) {
 
@@ -112,10 +107,12 @@ socket.on('partida', function (data) {
     }
 
 });
+
 socket.on('turnoPartida', function (data) {
     turnoJugadores = data;
     console.log("hola jugadores: " + turnoJugadores);
 });
+
 socket.on('dados', function (dadoN1, dadoN2, dadoAnteriorN1, dadoAnteriorN2, numDesafioMostrarse) {
     dado1 = dadoN1;
     dado2 = dadoN2;
@@ -124,8 +121,8 @@ socket.on('dados', function (dadoN1, dadoN2, dadoAnteriorN1, dadoAnteriorN2, num
     moverDado();
     moverDado2();
     mostrarDesafio(numDesafioMostrarse);
-
 });
+
 socket.on('ocultarBoton', function (idSocket) {
     console.log("rrr: " + idSocket + "  " + idSocketActual);
     if (idSocket == idSocketActual) {
@@ -142,6 +139,11 @@ socket.on('emparejar', function (array) {
     memory_array = array;
     newBoard();
 });
+
+socket.on('respondiendoIndicePreguntaOpcionMultiple', function (indicePregunta) {
+    cargarPreguntaOpcionMultiple(indicePregunta);
+
+})
 
 function agregarNumerosCasilla() {
     for (var y = 0; y < filas; ++y) {
@@ -247,7 +249,6 @@ function drawGame() {
                 case '>':
                     ctx.fillStyle = patterPlay;
                     break;
-
                 default:
                     switch (colorMap[((y * columnas) + x)]) {
                         case 0:
@@ -270,7 +271,6 @@ function drawGame() {
     agregarNumerosCasilla();
     dibujarJugador();
     habilitarTablaJugador();
-
     ctx.fillStyle = "#ff0000";
     ctx.fillText("FPS: " + framesLastSecond, 10, 20);
     lastFrameTime = currentFrameTime;
@@ -477,7 +477,6 @@ function mostrarDesafio(colorCa) {
             document.getElementById("memory_board").removeAttribute("hidden");
             document.getElementById("unir").setAttribute("hidden", "");
             document.getElementById("opcionMultiple").setAttribute("hidden", "");
-
             break;
         case 1:
             // mostrarUnir();
@@ -489,12 +488,12 @@ function mostrarDesafio(colorCa) {
             break;
         case 2:
             // cargarPreguntasOpcionMultiple();
+            socket.emit('solicitarPreguntaOpcionMultiple',roomActual);
             document.getElementById("tipoJuego").innerHTML = "Opción Múltiple";
             document.getElementById("desafios").removeAttribute("hidden");
             document.getElementById("opcionMultiple").removeAttribute("hidden");
             document.getElementById("unir").setAttribute("hidden", "");
             document.getElementById("memory_board").setAttribute("hidden", "");
-
             break;
         default:
     }
@@ -508,7 +507,6 @@ function newBoard() {
         output += '<img id="tile_' + i + '" alt="" onclick="memoryFlipTile(this,\'' + memory_array[i] + '\')">';
     }
     document.getElementById('memory_board').innerHTML = output;
-
 }
 
 function memoryFlipTile(tile, val) {
@@ -554,9 +552,39 @@ function memoryFlipTile(tile, val) {
                     memory_values = [];
                     memory_tile_ids = [];
                 }
-
                 setTimeout(flip2Back, 700);
             }
         }
     }
+}
+
+function cargarPreguntaOpcionMultiple(indicePregunta) {
+    document.getElementById("enunciado").innerHTML = preguntasOpcionMultiple[indicePregunta].enunciado
+    if (preguntasOpcionMultiple[indicePregunta].urlEnunciado != null) {
+        document.getElementById("imagenEnunciado").src = preguntasOpcionMultiple[indicePregunta].urlEnunciado;
+    } else
+    {
+        document.getElementById("imagenEnunciado").src = "vacio.png";
+    }
+
+    if (preguntasOpcionMultiple[indicePregunta].urlRes1 != null) {
+        document.getElementById("divRespuestasImagenes").removeAttribute("hidden")
+        document.getElementById("divRespuestasTexto").setAttribute("hidden", "")
+        document.getElementById("imagenRes1").src = preguntasOpcionMultiple[indicePregunta].urlRes1;
+        document.getElementById("imagenRes2").src = preguntasOpcionMultiple[indicePregunta].urlRes2;
+        document.getElementById("imagenRes3").src = preguntasOpcionMultiple[indicePregunta].urlRes3;
+        document.getElementById("imagenRes4").src = preguntasOpcionMultiple[indicePregunta].urlRes4;
+    }
+
+    else {
+        document.getElementById("divRespuestasTexto").removeAttribute("hidden")
+        document.getElementById("divRespuestasImagenes").setAttribute("hidden", "")
+        document.getElementById("res1").innerHTML = preguntasOpcionMultiple[indicePregunta].res1;
+        document.getElementById("res2").innerHTML = preguntasOpcionMultiple[indicePregunta].res2;
+        document.getElementById("res3").innerHTML = preguntasOpcionMultiple[indicePregunta].res3;
+        document.getElementById("res4").innerHTML = preguntasOpcionMultiple[indicePregunta].res4;
+
+    }
+
+    resCorrecta = preguntasOpcionMultiple[indicePregunta].resCorrecta;
 }

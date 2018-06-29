@@ -67,11 +67,9 @@ var directions = {
 };
 var colorJugador = ["#01DF3A", "#FE2E2E", "#0431B4", "#61380B", "#8904B1"];
 var firebase = require("./firebase");
-var preguntasOpcionMultiple = firebase.obtenerPreguntasOpcionMultiple('BPMN');
-var preguntasUnirVoltear = firebase.obtenerPreguntasUnir().preguntasUnirVoltear;
 //var nuevoProfesor = firebase.insertarNuevoProfesor('bquispi','123456','belen quispi');
 //var nuevaMateria = firebase.insertarMaterias('bquispi','bpmn2','procesos');
-var memory_array = firebase.obtenerPreguntasUnir().memory_array;
+//var memory_array = firebase.obtenerPreguntasUnir().memory_array;
 var config = {
     apiKey: "AIzaSyARHMJb3ta8XMRb0lFRjUSgSP6RCZiayVo",
     authDomain: "bpmnplaydb.firebaseapp.com",
@@ -136,7 +134,6 @@ io.on('connection', function (socket) {
 
                         }).indexOf(nombreEquipo);
 
-
                         if (idJugador >= 0) {
                             if (partidas[idPartida].jugadores[idJugador].idSocket == "") {
                                 socket.join(room);
@@ -148,7 +145,6 @@ io.on('connection', function (socket) {
                                         turnoJugadores[idPartida].idSocketJugadores.push(partidas[idPartida].jugadores[i].idSocket);
                                     }
                                 }
-
                                 console.log("turno: " + turnoJugadores[idPartida].idSocketJugadores)
                             }
                             else {
@@ -161,32 +157,22 @@ io.on('connection', function (socket) {
                     }
                 }
             }
-
         } else {
             console.log("El código de partida ingresada no es válido" + room);
         }
         actualizarOrdenPartidas();
     });
-    socket.on('nuevaPartida', function (room, rol, nombreIconoEquipos) {
+    socket.on('nuevaPartida', function (room, rol, nombreIconoEquipos, usuario, idMateria) {
         socket.join(room);
-        /*if (partidas.length == 0) {
-            partidas.push(new partida(room));
-            turnoJugadores.push(new partidaTurno(room));
-
-            for (var i = 0; i < nombreIconoEquipos.length; i++) {
-                insertarDatosJugador(partidas.length-1, turnoJugadores.length-1,nombreIconoEquipos[i].iconoEquipo,nombreIconoEquipos[i].nombreEquipo )
-            }
-        }
-        else {*/
         var idPartida = partidas.map(function (e) {
             return e.nombrePartida
         }).indexOf(room);
-
         if (idPartida >= 0) {
             console.log("de nuevo");
             if (partidas[idPartida].jugadores.length < 4) {
                 for (var i = 0; i < nombreIconoEquipos.length; i++) {
-                    insertarDatosJugador(idPartida, nombreIconoEquipos[i].iconoEquipo, nombreIconoEquipos[i].nombreEquipo)
+                    insertarDatosJugador(idPartida, nombreIconoEquipos[i].iconoEquipo, nombreIconoEquipos[i].nombreEquipo);
+                    descargarPreguntas(idPartida, usuario, idMateria);
                 }
                 console.log(partidas[idPartida].jugadores.length);
             }
@@ -197,9 +183,9 @@ io.on('connection', function (socket) {
             console.log("nuevooooo2");
             for (var i = 0; i < nombreIconoEquipos.length; i++) {
                 insertarDatosJugador(partidas.length - 1, nombreIconoEquipos[i].iconoEquipo, nombreIconoEquipos[i].nombreEquipo)
+                descargarPreguntas(partidas.length-1, usuario, idMateria);
             }
         }
-        //  }
     });
     socket.on('disconnect', function () {
         // remove disconnected player
@@ -233,7 +219,7 @@ io.on('connection', function (socket) {
                 }).indexOf(socket.id)], numCasillasMoverse);
                 io.sockets.in(room).emit('dados', dado1, dado2, dadoAnterior1, dadoAnterior2, numDesafioMostrarse);
                 if (numDesafioMostrarse == 0) {
-                    io.sockets.in(room).emit('emparejar', newBoard());
+                //    io.sockets.in(room).emit('emparejar', newBoard());
                 }
             }
         }
@@ -259,14 +245,11 @@ io.on('connection', function (socket) {
                                 }
                             }
                             else {
-
                                 for (var i = 0; i < partidas.length; i++) {
                                     io.sockets.in(partidas[i].nombrePartida).emit('partida', partidas[i]);
                                 }
-
                             }
                         }
-
                     }
                 }
             }
@@ -307,8 +290,11 @@ io.on('connection', function (socket) {
     socket.on('solicitarConfiguracion', function () {
         socket.emit('configuracion',config);
     })
-    
-    
+    socket.on('solicitarPreguntaOpcionMultiple', function (room) {
+        var idPartida = consultarIdPartida(room);
+        var indicePreguntaRandomica = indiceRandomico(partidas[idPartida].preguntasOpcionMultiple);
+        io.sockets.in(partidas[idPartida].nombrePartida).emit('respondiendoIndicePreguntaOpcionMultiple', indicePreguntaRandomica);
+    })
 });
 
 function seleccionarColor() {
@@ -577,7 +563,6 @@ function insertarDatosJugador(indicePartida, iconoEquipo, nombreEquipo) {
     partidas[indicePartida].jugadores[partidas[indicePartida].jugadores.length - 1].boton = 0;
 }
 
-
 function mostrarDesafio(jugadorAct, numCasillasMoverse) {
     var colorCa = -1;
     for (var x = 0; x < filas; ++x) {
@@ -604,4 +589,14 @@ Array.prototype.memory_tile_shuffle = function () {
 function newBoard() {
     tiles_flipped = 0;
     return memory_array.memory_tile_shuffle();
+}
+
+function descargarPreguntas(idPartida, idProfesor, idMateria) {
+    partidas[idPartida].preguntasOpcionMultiple =  firebase.obtenerPreguntasOpcionMultiple(idProfesor, idMateria);
+    partidas[idPartida].preguntasUnirVoltear =  firebase.obtenerPreguntasUnir(idProfesor, idMateria);
+}
+
+
+function indiceRandomico(listaPreguntas) {
+    return Math.floor(Math.random() * listaPreguntas.length);
 }
