@@ -118,7 +118,7 @@ function unirsePartida() {
         var datoEquipo = {
             nombreEquipo : document.getElementById("nombreEquipo" + (i + 1)).value,
             iconoEquipo : partida[i]
-        }
+        };
         nombreIconoEquipos.push(datoEquipo);
     }
     socket.emit('nuevaPartida',document.getElementById('codigoPartida').value, document.getElementById('rol').value, nombreIconoEquipos, usuario, document.getElementById('idMateria').value );

@@ -182,7 +182,7 @@ io.on('connection', function (socket) {
             turnoJugadores.push(new partidaTurno(room));
             console.log("nuevooooo2");
             for (var i = 0; i < nombreIconoEquipos.length; i++) {
-                insertarDatosJugador(partidas.length - 1, nombreIconoEquipos[i].iconoEquipo, nombreIconoEquipos[i].nombreEquipo)
+                insertarDatosJugador(partidas.length - 1, nombreIconoEquipos[i].iconoEquipo, nombreIconoEquipos[i].nombreEquipo);
                 descargarPreguntas(partidas.length-1, usuario, idMateria);
             }
         }
@@ -266,7 +266,7 @@ io.on('connection', function (socket) {
         else {
             socket.emit('confirmacionPartida', arrayJugadores);
         }
-    })
+    });
     socket.on('verificarEquipo', function (room, nombreEquipo) {
         console.log("Si" + room + " " + nombreEquipo);
         var idPartida = consultarIdPartida(room);
@@ -274,10 +274,10 @@ io.on('connection', function (socket) {
         console.log("idpartida: " + idPartida);
         console.log("idJugador: " + idJugador);
         if (partidas[idPartida].jugadores[idJugador].idSocket == "") {
-            console.log("Niiiii")
+            console.log("Niiiii");
             socket.emit('confirmacionEquipo', "true")
         } else {
-            console.log("Nooooooo")
+            console.log("Nooooooo");
             socket.emit('confirmacionEquipo', "false")
         }
     });
@@ -289,7 +289,7 @@ io.on('connection', function (socket) {
     });
     socket.on('solicitarConfiguracion', function () {
         socket.emit('configuracion',config);
-    })
+    });
     socket.on('solicitarPreguntaOpcionMultiple', function (room) {
         var idPartida = consultarIdPartida(room);
         var indicePreguntaRandomica = indiceRandomico(partidas[idPartida].preguntasOpcionMultiple);
@@ -337,8 +337,7 @@ function actualizarOrdenPartidas() {
     for (var i = 0; i < turnoJugadores.length; i++) {
         io.sockets.in(turnoJugadores[i].nombrePartida).emit('turnoPartida', turnoJugadores[i].idSocketJugadores);
     }
-};
-
+}
 setInterval(function () {
     for (var i = 0; i < partidas.length; i++) {
         io.sockets.in(partidas[i].nombrePartida).emit('partida', partidas[i]);
@@ -366,28 +365,28 @@ Character.prototype.placeAt = function (x, y) {
 Character.prototype.processMovement = function (t, roomActual, idSocket) {
     var indicePartidaActual = partidas.map(function (e) {
         return e.nombrePartida;
-    }).indexOf(roomActual)
+    }).indexOf(roomActual);
     var indiceJugadorActual = partidas[indicePartidaActual].jugadores.map(function (e) {
         return e.idSocket;
-    }).indexOf(idSocket)
+    }).indexOf(idSocket);
 
     if (this.tileFrom[0] == this.tileTo[0] && this.tileFrom[1] == this.tileTo[1]) {
         return false;
     }
 
     if (this.casilla == 34) {
-        console.log("estoy en la casilla 33")
+        console.log("estoy en la casilla 33");
         partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = 1;
 
         io.sockets.in(roomActual).emit('ocultarBoton', idSocket);
     }
 
     if ((t - this.timeMoved) >= this.delayMove) {
-        console.log("puedo moverme")
+        console.log("puedo moverme");
         this.placeAt(this.tileTo[0], this.tileTo[1]);
 
         if (partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP > 1) {
-            console.log("mayor que 1 " + partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP)
+            console.log("mayor que 1 " + partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP);
             if (this.canMoveDirection(this.direction)) {
                 this.moveDirection(this.direction, t);
             }
@@ -401,7 +400,7 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
             }
         }
         else {
-            console.log("Soy menor que 1 " + partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP)
+            console.log("Soy menor que 1 " + partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP);
             partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = 0;
             var indicePartidaActualJu = turnoJugadores.map(function (e) {
                 return e.nombrePartida
@@ -600,3 +599,16 @@ function descargarPreguntas(idPartida, idProfesor, idMateria) {
 function indiceRandomico(listaPreguntas) {
     return Math.floor(Math.random() * listaPreguntas.length);
 }
+
+
+function desordenarTextoUnir() {
+    var j, x, i;
+    for (i = vectorTextoUnir.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = vectorTextoUnir[i];
+        vectorTextoUnir[i] = vectorTextoUnir[j];
+        vectorTextoUnir[j] = x;
+    }
+}
+
+

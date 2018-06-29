@@ -31,7 +31,7 @@ module.exports =
         },
 
         insertarMaterias: function (usuarioProfesor, idMateriaN, nombreMateriaN) {
-            console.log("creandoMateria")
+            console.log("creandoMateria");
             var nuevaMateria = db.collection('profesores').doc(usuarioProfesor).collection('materias').doc(idMateriaN).set({
                 idMateria: idMateriaN,
                 nombreMateria: nombreMateriaN
@@ -45,7 +45,7 @@ module.exports =
 
         insertarPreguntasOpcionMultiple: function (preguntaOpcionMultiple) {
 
-            console.log("creandoPregunta")
+            console.log("creandoPregunta");
 
                         db.collection('profesores').doc(preguntaOpcionMultiple.usuario).collection('materias').doc(preguntaOpcionMultiple.idMateria).collection('preguntasOpcionMultiple').add({
                             enunciado: preguntaOpcionMultiple.enunciado,
@@ -70,7 +70,7 @@ module.exports =
         },
 
         insertarPreguntasUnirVoltear: function (preguntaUnirVoltear ) {
-            console.log("creando unir voltear")
+            console.log("creando unir voltear");
             db.collection('profesores').doc(preguntaUnirVoltear.usuario).collection('materias').doc(preguntaUnirVoltear.idMateria).collection('preguntasUnirVoltear').add({
                 textoUnirVoltear: preguntaUnirVoltear.textoUnirVoltear,
                 urlImagenUnirVoltear: preguntaUnirVoltear.urlImagenUnirVoltear
@@ -83,7 +83,7 @@ module.exports =
         },
 
         obtenerPreguntasOpcionMultiple: function (usuario, idMateria) {
-            console.log("preguntassssss")
+            console.log("preguntassssss");
             var preguntasOpcionMultiple = [];
             console.log("uuuuu" + usuario+" "+idMateria);
 
@@ -112,8 +112,8 @@ module.exports =
                     preguntasUnirVoltear[preguntasUnirVoltear.length - 1].usada = "falsa";
                     console.log("iiii "+doc.id);
                 });
-            })
+            });
         return preguntasUnirVoltear;
         }
-    }
+    };
 

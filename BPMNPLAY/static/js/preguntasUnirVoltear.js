@@ -8,29 +8,29 @@ socket.on('configuracion',function (configN){
     config = configN;
 });
 
-var botonImagenUnir1 = document.getElementById("botonImagenUnir1")
+var botonImagenUnir1 = document.getElementById("botonImagenUnir1");
 botonImagenUnir1.addEventListener('change', function (e) {
         imagenesUnirVoltear.push(e.target.files[0]);
     }
-)
+);
 
-var botonImagenUnir2 = document.getElementById("botonImagenUnir2")
+var botonImagenUnir2 = document.getElementById("botonImagenUnir2");
 botonImagenUnir2.addEventListener('change', function (e) {
         imagenesUnirVoltear.push(e.target.files[0]);
     }
-)
+);
 
-var botonImagenUnir3 = document.getElementById("botonImagenUnir3")
+var botonImagenUnir3 = document.getElementById("botonImagenUnir3");
 botonImagenUnir3.addEventListener('change', function (e) {
         imagenesUnirVoltear.push(e.target.files[0]);
     }
-)
+);
 
-var botonImagenUnir4 = document.getElementById("botonImagenUnir4")
+var botonImagenUnir4 = document.getElementById("botonImagenUnir4");
 botonImagenUnir4.addEventListener('change', function (e) {
         imagenesUnirVoltear.push(e.target.files[0]);
     }
-)
+);
 
 var loadFile = function (event, imagen) {
     var output = document.getElementById(imagen);
@@ -46,7 +46,7 @@ function guardarPreguntaUnirVoltear() {
                 idMateria : "bpmn",
                 urlImagenUnirVoltear: urlFile,
                 textoUnirVoltear: document.getElementById('textoUnir'+(a+1)).value,
-            }
+            };
             socket.emit('guardarPreguntaUnirVoltear', preguntaUnirVoltear);
         }, i);
 
@@ -55,11 +55,11 @@ function guardarPreguntaUnirVoltear() {
 }
 
 function subirImagenUnir(file, callback, a) {
-    var storageRef = firebase.storage().ref('imagenes/' + file.name+generarNombre()+generarNombre())
+    var storageRef = firebase.storage().ref('imagenes/' + file.name+generarNombre()+generarNombre());
     var task = storageRef.put(file);
     task.on('state_changed',
         function progress(snapshot) {
-            var porcentaje = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            var porcentaje = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             console.log(porcentaje);
         },
         function error(err) {

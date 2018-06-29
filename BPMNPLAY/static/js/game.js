@@ -69,7 +69,7 @@ window.onload = function () {
     casillaM.src = 'static/imagenes/m.png';
     casillaN.src = 'static/imagenes/n.png';
     casillaPlay.src = 'static/imagenes/play.png';
-    console.log("carge las imagenes")
+    console.log("carge las imagenes");
     ctx = document.getElementById('game').getContext("2d");
     requestAnimationFrame(drawGame);
     ctx.font = "bold 10pt sans-serif";
@@ -97,7 +97,7 @@ socket.on('parametrosJuego', function (data) {
 socket.on('partida', function (data) {
     jugadores = data.jugadores;
     preguntasOpcionMultiple = data.preguntasOpcionMultiple;
-    console.log("El número de jugadores es: " + jugadores.length)
+    console.log("El número de jugadores es: " + jugadores.length);
     for (var i = 0; i < jugadores.length; i++) {
 
         if (jugadores[i].idSocket == idSocketActual) {
@@ -143,7 +143,7 @@ socket.on('emparejar', function (array) {
 socket.on('respondiendoIndicePreguntaOpcionMultiple', function (indicePregunta) {
     cargarPreguntaOpcionMultiple(indicePregunta);
 
-})
+});
 
 function agregarNumerosCasilla() {
     for (var y = 0; y < filas; ++y) {
@@ -510,9 +510,9 @@ function newBoard() {
 }
 
 function memoryFlipTile(tile, val) {
-    console.log("url: " + tile.src)
+    console.log("url: " + tile.src);
     if (tile.alt == "" && memory_values.length < 2) {
-        console.log("url: " + tile.src)
+        console.log("url: " + tile.src);
         //tile.style.background = '#FFF';
         tile.src = val;
         tile.alt = val;
@@ -559,7 +559,7 @@ function memoryFlipTile(tile, val) {
 }
 
 function cargarPreguntaOpcionMultiple(indicePregunta) {
-    document.getElementById("enunciado").innerHTML = preguntasOpcionMultiple[indicePregunta].enunciado
+    document.getElementById("enunciado").innerHTML = preguntasOpcionMultiple[indicePregunta].enunciado;
     if (preguntasOpcionMultiple[indicePregunta].urlEnunciado != null) {
         document.getElementById("imagenEnunciado").src = preguntasOpcionMultiple[indicePregunta].urlEnunciado;
     } else
@@ -568,8 +568,8 @@ function cargarPreguntaOpcionMultiple(indicePregunta) {
     }
 
     if (preguntasOpcionMultiple[indicePregunta].urlRes1 != null) {
-        document.getElementById("divRespuestasImagenes").removeAttribute("hidden")
-        document.getElementById("divRespuestasTexto").setAttribute("hidden", "")
+        document.getElementById("divRespuestasImagenes").removeAttribute("hidden");
+        document.getElementById("divRespuestasTexto").setAttribute("hidden", "");
         document.getElementById("imagenRes1").src = preguntasOpcionMultiple[indicePregunta].urlRes1;
         document.getElementById("imagenRes2").src = preguntasOpcionMultiple[indicePregunta].urlRes2;
         document.getElementById("imagenRes3").src = preguntasOpcionMultiple[indicePregunta].urlRes3;
@@ -577,8 +577,8 @@ function cargarPreguntaOpcionMultiple(indicePregunta) {
     }
 
     else {
-        document.getElementById("divRespuestasTexto").removeAttribute("hidden")
-        document.getElementById("divRespuestasImagenes").setAttribute("hidden", "")
+        document.getElementById("divRespuestasTexto").removeAttribute("hidden");
+        document.getElementById("divRespuestasImagenes").setAttribute("hidden", "");
         document.getElementById("res1").innerHTML = preguntasOpcionMultiple[indicePregunta].res1;
         document.getElementById("res2").innerHTML = preguntasOpcionMultiple[indicePregunta].res2;
         document.getElementById("res3").innerHTML = preguntasOpcionMultiple[indicePregunta].res3;
@@ -587,4 +587,17 @@ function cargarPreguntaOpcionMultiple(indicePregunta) {
     }
 
     resCorrecta = preguntasOpcionMultiple[indicePregunta].resCorrecta;
+}
+
+
+function mostrarUnir() {
+    vectorTextoUnir = [];
+    for (var j = 0; j < 4; j++) {
+        cargarUnirVoltear();
+    }
+    for (var a = 0; a < vectorTextoUnir.length; a++) {
+        document.getElementById("botonImagenAUnir"+(a+1)).setAttribute("nombre",respuestaCorrectaUnir[a*2]);
+        document.getElementById("imagenAUnir"+(a+1)).src = respuestaCorrectaUnir[a*2];
+        document.getElementById("textoAUnir"+(a+1)).innerHTML = vectorTextoUnir[a];
+    }
 }
