@@ -214,7 +214,7 @@ io.on('connection', function (socket) {
                 var numDesafioMostrarse = mostrarDesafio(partidas[i].jugadores[partidas[i].jugadores.map(function (e) {
                     return e.idSocket
                 }).indexOf(socket.id)], numCasillasMoverse);
-                io.sockets.in(room).emit('dados', dado1, dado2, dadoAnterior1, dadoAnterior2, numDesafioMostrarse);
+                io.sockets.in(room).emit('dados', dado1, dado2, dadoAnterior1, dadoAnterior2, numDesafioMostrarse, socket.id);
                 if (numDesafioMostrarse == 0) {
                     //    io.sockets.in(room).emit('emparejar', newBoard());
                 }
@@ -285,57 +285,77 @@ io.on('connection', function (socket) {
     socket.on('solicitarPreguntaOpcionMultiple', function (room) {
         var idPartida = consultarIdPartida(room);
         contadorPreguntasUsadas = 0;
+        console.log("contadorP: "+ idPartida);
         io.sockets.in(partidas[idPartida].nombrePartida).emit('respondiendoIndicePreguntaOpcionMultiple', indiceRandomicoOpcionMultiple(idPartida));
     });
-    socket.on('solicitarPreguntaUnirVoltear', function (room) {
+    socket.on('solicitarPreguntaUnir', function (room) {
         var idPartida = consultarIdPartida(room);
-        contadorPreguntasUsadas = 0;
-        for (var i = 0; i < partidas[idPartida].preguntasUnirVoltear.length; i++) {
-            if (partidas[idPartida].preguntasUnirVoltear[i].usada == true) {
-                contadorPreguntasUsadas++;
-            }
-        }
-        if (partidas[idPartida].preguntasUnirVoltear.length == contadorPreguntasUsadas) {
+        var contador = partidas[idPartida].preguntasUnirVoltear.length;
+        var arrayIndices = [];
+        console.log("contador: "+contador);
+        if(contador < 4) {
             for (var i = 0; i < partidas[idPartida].preguntasUnirVoltear.length; i++) {
-                partidas[idPartida].preguntasUnirVoltear[i].usada == false;
+                 partidas[idPartida].preguntasUnirVoltear[i].usada == false;
             }
+            contador = partidas[idPartida].preguntasUnirVoltear.length;
         }
+         for( var i = 0; i < 4; i++){
 
-        var indice1 = indiceRandomicoUnirVoltear(idPartida);
-        while (partidas[idPartida].preguntasUnirVoltear[indice1].usada == true) {
-            indice1 = indiceRandomicoUnirVoltear(idPartida);
+            var indice = indiceRandomicoUnirVoltear(idPartida);
+             console.log("entre al for " + indice);
+           //  if(buscarIndice(arrayIndices, indice) == 1)
+            while(arrayIndices.indexOf(indice) != -1){
+                indice = indiceRandomicoUnirVoltear(idPartida);
+                console.log(" entre al while " + indice);
+         }
+
+            partidas[idPartida].preguntasUnirVoltear[indice].usada == true;
+            contador--;
+            arrayIndices.push(indice);
+             console.log("el array es: " +arrayIndices);
         }
-        if (partidas[idPartida].preguntasUnirVoltear[indice1].usada == false) {
-            partidas[idPartida].preguntasUnirVoltear[indice1].usada == true
+        partidas[idPartida].contadorPreguntasLibresUnirVoltear = contador;
+        var arrayTexto = desordenarTextoUnir(idPartida,arrayIndices);
+        console.log(arrayTexto);
+        io.sockets.in(partidas[idPartida].nombrePartida).emit('respondiendoIndicePreguntaUnir', arrayIndices, arrayTexto);
+    });
+    socket.on('solicitarPreguntaVoltear', function (room) {
+        var idPartida = consultarIdPartida(room);
+        var contador = partidas[idPartida].preguntasUnirVoltear.length;
+        var arrayIndices = [];
+        console.log("contador: "+contador);
+        if(contador < 4) {
+            for (var i = 0; i < partidas[idPartida].preguntasUnirVoltear.length; i++) {
+                 partidas[idPartida].preguntasUnirVoltear[i].usada == false;
+            }
+            contador = partidas[idPartida].preguntasUnirVoltear.length;
         }
-        console.log("11111 " + indice1)
-        var indice2 = indiceRandomicoUnirVoltear(idPartida);
-        while (partidas[idPartida].preguntasUnirVoltear[indice2].usada == true) {
-            indice2 = indiceRandomicoUnirVoltear(idPartida);
+         for( var i = 0; i < 4; i++){
+
+            var indice = indiceRandomicoUnirVoltear(idPartida);
+             console.log("entre al for " + indice);
+           //  if(buscarIndice(arrayIndices, indice) == 1)
+            while(arrayIndices.indexOf(indice) != -1){
+                indice = indiceRandomicoUnirVoltear(idPartida);
+                console.log(" entre al while " + indice);
+         }
+
+            partidas[idPartida].preguntasUnirVoltear[indice].usada == true;
+            contador--;
+            arrayIndices.push(indice);
+             console.log("el array es: " +arrayIndices);
         }
-        if (partidas[idPartida].preguntasUnirVoltear[indice2].usada == false) {
-            partidas[idPartida].preguntasUnirVoltear[indice2].usada == true
+        partidas[idPartida].contadorPreguntasLibresUnirVoltear = contador;
+       var memory_array = [];
+        for(var i = 0; i < arrayIndices.length; i++){
+            memory_array.push( partidas[idPartida].preguntasUnirVoltear[arrayIndices[i]].urlImagenUnirVoltear);
+            memory_array.push( partidas[idPartida].preguntasUnirVoltear[arrayIndices[i]].urlImagenUnirVoltear);
         }
-        console.log("22222 " + indice2)
-        var indice3 = indiceRandomicoUnirVoltear(idPartida);
-        while (partidas[idPartida].preguntasUnirVoltear[indice3].usada == true) {
-            indice3 = indiceRandomicoUnirVoltear(idPartida);
-        }
-        if (partidas[idPartida].preguntasUnirVoltear[indice3].usada == false) {
-            partidas[idPartida].preguntasUnirVoltear[indice3].usada == true
-        }
-        console.log("333333 " + indice3)
-        var indice4 = indiceRandomicoUnirVoltear(idPartida);
-        while (partidas[idPartida].preguntasUnirVoltear[indice4].usada == true) {
-            indice4 = indiceRandomicoUnirVoltear(idPartida);
-        }
-        if (partidas[idPartida].preguntasUnirVoltear[indice1].usada == false) {
-            partidas[idPartida].preguntasUnirVoltear[indice4].usada == true
-        }
-        console.log("444444 " + indice4)
-        io.sockets.in(partidas[idPartida].nombrePartida).emit('respondiendoIndicePreguntaUnirVoltear', indice1, indice2, indice3, indice4);
+        memory_array.memory_tile_shuffle();
+        io.sockets.in(partidas[idPartida].nombrePartida).emit('respondiendoIndicePreguntaVoltear', memory_array);
     });
 });
+
 
 function seleccionarColor() {
     var indice = 0;
@@ -574,7 +594,6 @@ Character.prototype.moveDown = function (t) {
     this.direction = 2;
     this.casilla += 1;
 };
-
 Character.prototype.moveDirection = function (d, t) {
     switch (d) {
         case directions.up:
@@ -587,17 +606,14 @@ Character.prototype.moveDirection = function (d, t) {
             return this.moveRight(t);
     }
 };
-
 function toIndex(x, y) {
     return ((y * columnas) + x);
 }
-
 function insertarDatosJugador(indicePartida, iconoEquipo, nombreEquipo) {
     partidas[indicePartida].jugadores.push(new Character(iconoEquipo, ((anchoCasilla * 2) + (anchoCasilla / 4)), (altoCasilla * (filas - 1) + (altoCasilla / 4)), nombreEquipo));
     partidas[indicePartida].jugadores[partidas[indicePartida].jugadores.length - 1].numCasillasMoverseP = 0;
     partidas[indicePartida].jugadores[partidas[indicePartida].jugadores.length - 1].boton = 0;
 }
-
 function mostrarDesafio(jugadorAct, numCasillasMoverse) {
     var colorCa = -1;
     for (var x = 0; x < filas; ++x) {
@@ -609,7 +625,6 @@ function mostrarDesafio(jugadorAct, numCasillasMoverse) {
         }
     }
 }
-
 Array.prototype.memory_tile_shuffle = function () {
     var i = this.length, j, temp;
     while (--i > 0) {
@@ -619,17 +634,14 @@ Array.prototype.memory_tile_shuffle = function () {
         this[i] = temp;
     }
 };
-
 function newBoard() {
     tiles_flipped = 0;
     return memory_array.memory_tile_shuffle();
 }
-
 function descargarPreguntas(idPartida, idProfesor, idMateria) {
     partidas[idPartida].preguntasOpcionMultiple = firebase.obtenerPreguntasOpcionMultiple(idProfesor, idMateria);
     partidas[idPartida].preguntasUnirVoltear = firebase.obtenerPreguntasUnir(idProfesor, idMateria);
 }
-
 function indiceRandomicoOpcionMultiple(idPartida) {
     var indiceRandomicoP = Math.floor(Math.random() * partidas[idPartida].preguntasOpcionMultiple.length);
     if (partidas[idPartida].preguntasOpcionMultiple[indiceRandomicoP].usada) {
@@ -646,30 +658,16 @@ function indiceRandomicoOpcionMultiple(idPartida) {
     }
 
 }
-
 function indiceRandomicoUnirVoltear(idPartida) {
     var indiceRandomicoP = Math.floor(Math.random() * partidas[idPartida].preguntasUnirVoltear.length);
-    /*        console.log('unir: '+indiceRandomicoP);
-                if(partidas[idPartida].preguntasUnirVoltear[indiceRandomicoP].usada)
-                {
-                    console.log('usada');
-                    contadorPreguntasUsadas++;
-                    if(partidas[idPartida].preguntasUnirVoltear.length == contadorPreguntasUsadas) {
-                        for(var i = 0; i < partidas[idPartida].preguntasUnirVoltear.length ; i++ ){
-                            console.log('nueva de nuevo');
-                            partidas[idPartida].preguntasUnirVoltear[i].usada = false;
-                        }
-                    }
-                    indiceRandomicoUnirVoltear(idPartida);
-                }else {
-                    console.log('nueva');
-                    partidas[idPartida].preguntasUnirVoltear[indiceRandomicoP].usada = true;
-                    return indiceRandomicoP;
-                }*/
     return indiceRandomicoP;
 }
 
-function desordenarTextoUnir() {
+function desordenarTextoUnir(idPartida, arrayIndices) {
+    var vectorTextoUnir = [];
+    for(var k=0; k < arrayIndices.length; k++){
+        vectorTextoUnir.push(partidas[idPartida].preguntasUnirVoltear[arrayIndices[k]].textoUnirVoltear);
+    }
     var j, x, i;
     for (i = vectorTextoUnir.length - 1; i > 0; i--) {
         j = Math.floor(Math.random() * (i + 1));
@@ -677,6 +675,7 @@ function desordenarTextoUnir() {
         vectorTextoUnir[i] = vectorTextoUnir[j];
         vectorTextoUnir[j] = x;
     }
+    return vectorTextoUnir;
 }
 
 

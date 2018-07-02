@@ -38,7 +38,9 @@ var tiles_flipped = 0;
 var preguntasOpcionMultiple = [];
 var preguntasUnirVoltear = [];
 var resCorrecta;
-var mostrarDesafios = false;
+var respuestaUnir = [];
+var imagenUnir = ['botonImagenAUnir1','botonImagenAUnir2','botonImagenAUnir3','botonImagenAUnir4'];
+var textoUnir = ['textoAUnir1','textoAUnir2','textoAUnir3','textoAUnir4'];
 
 function dados(nombrePartida) {
     this.nombrePartida = nombrePartida;
@@ -116,14 +118,14 @@ socket.on('turnoPartida', function (data) {
     console.log("hola jugadores: " + turnoJugadores);
 });
 
-socket.on('dados', function (dadoN1, dadoN2, dadoAnteriorN1, dadoAnteriorN2, numDesafioMostrarse) {
+socket.on('dados', function (dadoN1, dadoN2, dadoAnteriorN1, dadoAnteriorN2, numDesafioMostrarse, idSocket) {
     dado1 = dadoN1;
     dado2 = dadoN2;
     dadoAnterior1 = dadoAnteriorN1;
     dadoAnterior2 = dadoAnteriorN2;
     moverDado();
     moverDado2();
-    mostrarDesafio(numDesafioMostrarse);
+    mostrarDesafio(numDesafioMostrarse, idSocket);
 });
 
 socket.on('ocultarBoton', function (idSocket) {
@@ -148,12 +150,22 @@ socket.on('respondiendoIndicePreguntaOpcionMultiple', function (indicePregunta) 
     cargarPreguntaOpcionMultiple(indicePregunta);
 });
 
-socket.on('respondiendoIndicePreguntaUnirVoltear', function (indicePregunta1,indicePregunta2,indicePregunta3,indicePregunta4) {
-    console.log("Voy a cargar unir "+indicePregunta1+" "+indicePregunta2+" "+indicePregunta3+" "+indicePregunta4)
-    cargarPreguntaUnirVoltear(indicePregunta1,1);
-    cargarPreguntaUnirVoltear(indicePregunta2,2);
-    cargarPreguntaUnirVoltear(indicePregunta3,3);
-    cargarPreguntaUnirVoltear(indicePregunta4,4);
+socket.on('respondiendoIndicePreguntaUnir', function (arrayIndices, arrayTexto) {
+    console.log("Voy a cargar unir "+ arrayIndices)
+    cargarPreguntaUnirVoltear(arrayIndices[0],arrayTexto[0],1);
+    cargarPreguntaUnirVoltear(arrayIndices[1],arrayTexto[1],2);
+    cargarPreguntaUnirVoltear(arrayIndices[2],arrayTexto[2],3);
+    cargarPreguntaUnirVoltear(arrayIndices[3],arrayTexto[3],4);
+});
+
+socket.on('respondiendoIndicePreguntaVoltear', function (arrayIndices) {
+    memory_array = [];
+    for(var i = 0; i < arrayIndices.length; i++){
+        memory_array.push( preguntasUnirVoltear[arrayIndices[i]].urlImagenUnirVoltear);
+        memory_array.push( preguntasUnirVoltear[arrayIndices[i]].urlImagenUnirVoltear);
+    }
+    console.log("Voy a cargar voltear "+ arrayIndices)
+    newBoard();
 });
 
 function agregarNumerosCasilla() {
@@ -210,9 +222,7 @@ function drawGame() {
                 return value.idSocket
             }).indexOf((idSocketActual))].boton == 1;
         }
-        if (mostrarDesafios) {
             mostrarJugadorActual();
-        }
     }
 
     for (var y = 0; y < filas; ++y) {
@@ -350,9 +360,7 @@ function lanzarDado() {
     dadoAnterior1 = dado1;
     dadoAnterior2 = dado2;
     numCasillasMoverse = dado1 + dado2;
-    mostrarDesafios = true;
     socket.emit('dados', dado1, dado2, roomActual, dadoAnterior1, dadoAnterior2, numCasillasMoverse);
-    mostrarDesafio();
 }
 
 function dadoRandomico() {
@@ -481,11 +489,13 @@ function cambiarImagen(num) {
     }
 }
 
-function mostrarDesafio(colorCa) {
-    mostrarDesafios =  false;
-    switch (colorCa) {
+function mostrarDesafio(colorCa, idSocket) {
+   switch (colorCa) {
         case 0:
             //newBoard();
+            if(idSocket == idSocketActual)
+            {
+                socket.emit('solicitarPreguntaVoltear',roomActual);}
             document.getElementById("tipoJuego").innerHTML = "Voltear";
             document.getElementById("desafios").removeAttribute("hidden");
             document.getElementById("memory_board").removeAttribute("hidden");
@@ -494,7 +504,9 @@ function mostrarDesafio(colorCa) {
             break;
         case 1:
             // mostrarUnir();
-            socket.emit('solicitarPreguntaUnirVoltear',roomActual);
+            if(idSocket == idSocketActual)
+            {
+            socket.emit('solicitarPreguntaUnir',roomActual);}
             document.getElementById("tipoJuego").innerHTML = "Unir";
             document.getElementById("desafios").removeAttribute("hidden");
             document.getElementById("unir").removeAttribute("hidden");
@@ -503,7 +515,8 @@ function mostrarDesafio(colorCa) {
             break;
         case 2:
             // cargarPreguntasOpcionMultiple();
-            socket.emit('solicitarPreguntaOpcionMultiple',roomActual);
+            if(idSocket == idSocketActual)
+            { socket.emit('solicitarPreguntaOpcionMultiple',roomActual); }
             document.getElementById("tipoJuego").innerHTML = "Opción Múltiple";
             document.getElementById("desafios").removeAttribute("hidden");
             document.getElementById("opcionMultiple").removeAttribute("hidden");
@@ -517,6 +530,7 @@ function mostrarDesafio(colorCa) {
 function newBoard() {
     tiles_flipped = 0;
     var output = '';
+    memory_array.memory_tile_shuffle();
     for (var i = 0; i < memory_array.length; i++) {
         console.log("eee");
         output += '<img id="tile_' + i + '" alt="" onclick="memoryFlipTile(this,\'' + memory_array[i] + '\')">';
@@ -602,9 +616,77 @@ function cargarPreguntaOpcionMultiple(indicePregunta) {
     resCorrecta = preguntasOpcionMultiple[indicePregunta].resCorrecta;
 }
 
-function cargarPreguntaUnirVoltear(indicePregunta, a) {
-   // vectorTextoUnir = [];
+function cargarPreguntaUnirVoltear(indicePregunta, texto, a) {
         document.getElementById("botonImagenAUnir"+(a)).setAttribute("nombre",preguntasUnirVoltear[indicePregunta]);
         document.getElementById("imagenAUnir"+(a)).src = preguntasUnirVoltear[indicePregunta].urlImagenUnirVoltear;
-        document.getElementById("textoAUnir"+(a)).innerHTML = preguntasUnirVoltear[indicePregunta].textoUnirVoltear;
+        document.getElementById("textoAUnir"+(a)).innerHTML = texto;
+}
+
+function obtenerId(e) {
+    var id = e.id;
+    switch (true){
+
+        case respuestaUnir.length < 2:
+            document.getElementById(id).style.border = "thick solid green";
+            break;
+        case respuestaUnir.length < 4:
+            document.getElementById(id).style.border = "thick solid red";
+            break;
+        case respuestaUnir.length < 6:
+            document.getElementById(id).style.border = "thick solid black";
+            break;
+        case respuestaUnir.length < 8:
+            document.getElementById(id).style.border = "thick solid yellow";
+            break;
+
+    }
+    respuestaUnir.push(id);
+    if(imagenUnir.indexOf(id) >= 0) {
+        for(var i = 0; i<imagenUnir.length; i++){
+            document.getElementById(imagenUnir[i]).setAttribute("disabled","");
+        }
+        for(var j = 0 ; j < textoUnir.length; j++){
+            if(respuestaUnir.indexOf(textoUnir[j])>0)
+            {
+                document.getElementById(textoUnir[j]).setAttribute("disabled","");
+            }else {
+                document.getElementById(textoUnir[j]).removeAttribute("disabled");
+            }
+        }
+    } else if (textoUnir.indexOf(id) >=0){
+        for(var i = 0; i<textoUnir.length; i++) {
+            document.getElementById(textoUnir[i]).setAttribute("disabled", "");
+        }
+
+        for(var j = 0 ; j < imagenUnir.length; j++){
+            if(respuestaUnir.indexOf(imagenUnir[j])>=0)
+            {
+                document.getElementById(imagenUnir[j]).setAttribute("disabled","");
+            }else {
+                document.getElementById(imagenUnir[j]).removeAttribute("disabled");
+            }
+        }
+    }
+}
+
+function verificarCompletoUnir() {
+    if(respuestaUnir.length != 8)
+    {
+        document.getElementById("enviarUnir").setAttribute("disabled","");
+    }
+    else {
+        document.getElementById("enviarUnir").removeAttribute("disabled");
+    }
+}
+
+function reiniciarUnir() {
+    for (var i =0; i < respuestaUnir.length; i++){
+        document.getElementById(respuestaUnir[i]).style.border = "gray";
+        if(imagenUnir.indexOf(respuestaUnir[i])>=0) {
+            document.getElementById(respuestaUnir[i]).removeAttribute("disabled");
+        }
+    }
+    for(var i = respuestaUnir.length; i > 0 ; i--) {
+        respuestaUnir.pop();
+    }
 }
