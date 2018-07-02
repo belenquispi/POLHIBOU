@@ -29,7 +29,6 @@ module.exports =
                 });
 
         },
-
         insertarMaterias: function (usuarioProfesor, idMateriaN, nombreMateriaN) {
             console.log("creandoMateria");
             var nuevaMateria = db.collection('profesores').doc(usuarioProfesor).collection('materias').doc(idMateriaN).set({
@@ -93,7 +92,7 @@ module.exports =
                     console.log("iiiilll: "+doc.id);
 
                     preguntasOpcionMultiple.push(doc.data());
-                    preguntasOpcionMultiple[preguntasOpcionMultiple.length - 1].usada = "falsa";
+                    preguntasOpcionMultiple[preguntasOpcionMultiple.length - 1].usada = false;
                 });
             })
                 .catch(error => {
@@ -109,7 +108,7 @@ module.exports =
             var documen = referenciaProfesores.get().then(collections => {
                 collections.forEach(doc => {
                     preguntasUnirVoltear.push(doc.data());
-                    preguntasUnirVoltear[preguntasUnirVoltear.length - 1].usada = "falsa";
+                    preguntasUnirVoltear[preguntasUnirVoltear.length - 1].usada = false;
                     console.log("iiii "+doc.id);
                 });
             });
