@@ -330,7 +330,7 @@ io.on('connection', function (socket) {
             }
             contador = partidas[idPartida].preguntasUnirVoltear.length;
         }
-         for( var i = 0; i < 4; i++){
+         for( var i = 0; i < 9; i++){
 
             var indice = indiceRandomicoUnirVoltear(idPartida);
              console.log("entre al for " + indice);
@@ -351,9 +351,15 @@ io.on('connection', function (socket) {
             memory_array.push( partidas[idPartida].preguntasUnirVoltear[arrayIndices[i]].urlImagenUnirVoltear);
             memory_array.push( partidas[idPartida].preguntasUnirVoltear[arrayIndices[i]].urlImagenUnirVoltear);
         }
+        console.log("memory antes: "+ memory_array)
         memory_array.memory_tile_shuffle();
+        console.log("memory despues: "+ memory_array)
         io.sockets.in(partidas[idPartida].nombrePartida).emit('respondiendoIndicePreguntaVoltear', memory_array);
     });
+    socket.on('parEncontrado', function (room, memory_tile_ids) {
+        var idPartida = consultarIdPartida(room);
+        io.sockets.in(partidas[idPartida].nombrePartida).emit('enviandoParEncontrado', memory_tile_ids);
+    })
 });
 
 

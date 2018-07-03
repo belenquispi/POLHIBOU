@@ -166,12 +166,10 @@ div#memory_board > img {
 
 #snackbarIn {
     background-color: #f53f95;
-
 }
-
 
 #snackbar.show, #snackbarIn.show {
     visibility: visible;
     -webkit-animation: fadein 0.5s, fadeout 0.5s 1.5s;
     animation: fadein 0.5s, fadeout 0.5s 1.5s;
-}
+}c

@@ -158,15 +158,21 @@ socket.on('respondiendoIndicePreguntaUnir', function (arrayIndices, arrayTexto) 
     cargarPreguntaUnirVoltear(arrayIndices[3],arrayTexto[3],4);
 });
 
-socket.on('respondiendoIndicePreguntaVoltear', function (arrayIndices) {
-    memory_array = [];
-    for(var i = 0; i < arrayIndices.length; i++){
-        memory_array.push( preguntasUnirVoltear[arrayIndices[i]].urlImagenUnirVoltear);
-        memory_array.push( preguntasUnirVoltear[arrayIndices[i]].urlImagenUnirVoltear);
-    }
-    console.log("Voy a cargar voltear "+ arrayIndices)
+socket.on('respondiendoIndicePreguntaVoltear', function (memory) {
+    memory_array = memory ;
+    console.log("Voy a cargar voltear "+ memory)
     newBoard();
 });
+
+socket.on('enviandoParEncontrado', function (memory_tile_ids) {
+    
+    if(socket.id != idSocketActual){
+        for(var i = 0; i < memory_tile_ids.length; i++)
+        {
+            document.getElementById(memory_tile_ids[i]).click();
+        }
+    }
+})
 
 function agregarNumerosCasilla() {
     for (var y = 0; y < filas; ++y) {
@@ -530,7 +536,6 @@ function mostrarDesafio(colorCa, idSocket) {
 function newBoard() {
     tiles_flipped = 0;
     var output = '';
-    memory_array.memory_tile_shuffle();
     for (var i = 0; i < memory_array.length; i++) {
         console.log("eee");
         output += '<img id="tile_' + i + '" alt="" onclick="memoryFlipTile(this,\'' + memory_array[i] + '\')">';
@@ -553,16 +558,18 @@ function memoryFlipTile(tile, val) {
             memory_tile_ids.push(tile.id);
             if (memory_values[0] == memory_values[1]) {
                 tiles_flipped += 2;
+                mostrarMensajeParEncontrado(memory_values[0]);
+                socket.emit('parEncontrado', roomActual , memory_tile_ids);
+
                 // Clear both arrays
                 memory_values = [];
                 memory_tile_ids = [];
-                mostrarMensajeParEncontrado(memory_array[0]);
                 // Check to see if the whole board is cleared
                 if (tiles_flipped == memory_array.length) {
                     // alert("Board cleared... generating new board");
                     desafioCorrecto();
                     document.getElementById('memory_board').innerHTML = "";
-                    newBoard();
+                    //newBoard();
                 }
             } else {
                 function flip2Back() {
@@ -670,8 +677,7 @@ function obtenerId(e) {
 }
 
 function verificarCompletoUnir() {
-    if(respuestaUnir.length != 8)
-    {
+    if(respuestaUnir.length != 8) {
         document.getElementById("enviarUnir").setAttribute("disabled","");
     }
     else {
@@ -689,4 +695,20 @@ function reiniciarUnir() {
     for(var i = respuestaUnir.length; i > 0 ; i--) {
         respuestaUnir.pop();
     }
+}
+
+function desafioCorrecto() {
+    mostrarMensaje("snackbar");
+    respuestaCorrecta = true;
+    document.getElementById("desafios").setAttribute("hidden","");
+
+}
+
+function mostrarMensajeParEncontrado(url) {
+var indicePreguntaUnir = preguntasUnirVoltear.map(function (e) {     return e.urlImagenUnirVoltear   }).indexOf(url);
+if(indicePreguntaUnir >=0) {
+    document.getElementById("mensajeVoltear").removeAttribute("hidden");
+    document.getElementById("nombreParEncontrado").innerHTML = preguntasUnirVoltear[indicePreguntaUnir].textoUnirVoltear;
+}
+
 }
