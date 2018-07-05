@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3299685f-4aef-430c-bbbf-10e9746e67af" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/static/css/estilos.css" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/static/css/estilos.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BPMNPLAY/static/js/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/static/js/game.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/tablero.html" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/tablero.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -20,7 +16,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="server.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="server.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BPMNPLAY/server.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="17">
@@ -43,11 +39,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="game.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="game.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/js/game.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="296">
-              <caret line="773" column="52" selection-start-line="773" selection-start-column="52" selection-end-line="773" selection-end-column="52" />
+              <caret line="773" column="37" selection-start-line="773" selection-start-column="37" selection-end-line="773" selection-end-column="37" />
               <folding>
                 <element signature="e#2868#2890#0" />
                 <element signature="e#2939#3203#0" />
@@ -59,7 +55,7 @@
       <file leaf-file-name="tablero.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BPMNPLAY/tablero.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1853">
+            <state relative-caret-position="17">
               <caret line="154" column="26" selection-start-line="154" selection-start-column="26" selection-end-line="154" selection-end-column="26" />
               <folding>
                 <element signature="n#div#0;n#div#3;n#body#0;n#html#0;n#!!top" />
@@ -245,7 +241,7 @@
       <path value="$PROJECT_DIR$/BPMNPLAY/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="10" />
     <option name="y" value="20" />
     <option name="width" value="1346" />
@@ -355,12 +351,12 @@
       <workItem from="1530503457326" duration="6625000" />
       <workItem from="1530644769368" duration="7439000" />
       <workItem from="1530732883248" duration="8432000" />
-      <workItem from="1530822457986" duration="232000" />
+      <workItem from="1530822457986" duration="887000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="276901000" />
+    <option name="totallyTimeSpent" value="277525000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -559,9 +555,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="366" column="25" selection-start-line="366" selection-start-column="25" selection-end-line="366" selection-end-column="25" />
+          <folding>
+            <element signature="e#5599#6558#0" />
+            <element signature="e#6601#6913#0" />
+            <element signature="e#6967#7201#0" />
+            <element signature="e#7307#8338#0" />
+            <element signature="e#8397#10016#0" />
+            <element signature="e#10069#10412#0" />
+            <element signature="e#10478#10811#0" />
+            <element signature="e#10895#10976#0" />
+            <element signature="e#11054#11129#0" />
+            <element signature="e#11184#11237#0" />
+            <element signature="e#11305#11595#0" />
+            <element signature="e#11653#13055#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/BPMNPLAY/tablero.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1853">
+        <state relative-caret-position="17">
           <caret line="154" column="26" selection-start-line="154" selection-start-column="26" selection-end-line="154" selection-end-column="26" />
           <folding>
             <element signature="n#div#0;n#div#3;n#body#0;n#html#0;n#!!top" />
@@ -580,31 +597,10 @@
     <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/js/game.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="296">
-          <caret line="773" column="52" selection-start-line="773" selection-start-column="52" selection-end-line="773" selection-end-column="52" />
+          <caret line="773" column="37" selection-start-line="773" selection-start-column="37" selection-end-line="773" selection-end-column="37" />
           <folding>
             <element signature="e#2868#2890#0" />
             <element signature="e#2939#3203#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="366" column="25" selection-start-line="366" selection-start-column="25" selection-end-line="366" selection-end-column="25" />
-          <folding>
-            <element signature="e#5599#6558#0" />
-            <element signature="e#6601#6913#0" />
-            <element signature="e#6967#7201#0" />
-            <element signature="e#7307#8338#0" />
-            <element signature="e#8397#10016#0" />
-            <element signature="e#10069#10412#0" />
-            <element signature="e#10478#10811#0" />
-            <element signature="e#10895#10976#0" />
-            <element signature="e#11054#11129#0" />
-            <element signature="e#11184#11237#0" />
-            <element signature="e#11305#11595#0" />
-            <element signature="e#11653#13055#0" />
           </folding>
         </state>
       </provider>

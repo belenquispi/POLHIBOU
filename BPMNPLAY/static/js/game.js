@@ -771,7 +771,7 @@ function desafioCorrecto(idBoton) {
     console.log("Correcto"+ idBoton);
 //    document.getElementById(idBoton).classList.remove("btn-info");
    // document.getElementById(idBoton).classList.add('btn-success');
-  document.getElementById(idBoton).style.borderColor = "#8a6d3b";
+  document.getElementById(idBoton).removeAttribute("class");
     mostrarMensaje("snackbar");
     respuestaCorrecta = true;
 }
