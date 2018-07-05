@@ -358,7 +358,8 @@ io.on('connection', function (socket) {
     });
     socket.on('parEncontrado', function (room, memory_tile_ids) {
         var idPartida = consultarIdPartida(room);
-        io.sockets.in(partidas[idPartida].nombrePartida).emit('enviandoParEncontrado', memory_tile_ids);
+        console.log("un par")
+        io.sockets.in(partidas[idPartida].nombrePartida).emit('enviandoParEncontrado', memory_tile_ids, socket.id);
     })
 });
 

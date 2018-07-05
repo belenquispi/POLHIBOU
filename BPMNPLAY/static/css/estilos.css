@@ -172,4 +172,18 @@ div#memory_board > img {
     visibility: visible;
     -webkit-animation: fadein 0.5s, fadeout 0.5s 1.5s;
     animation: fadein 0.5s, fadeout 0.5s 1.5s;
-}c
+}
+
+.disabledbutton {
+    pointer-events: none;
+
+}
+
+
+.visible {
+    visibility: visible;
+}
+
+.invisible {
+    visibility: hidden;
+}

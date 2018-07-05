@@ -103,7 +103,6 @@ socket.on('partida', function (data) {
     jugadores = data.jugadores;
     preguntasOpcionMultiple = data.preguntasOpcionMultiple;
     preguntasUnirVoltear = data.preguntasUnirVoltear;
-    console.log("El número de jugadores es: " + jugadores.length);
     for (var i = 0; i < jugadores.length; i++) {
 
         if (jugadores[i].idSocket == idSocketActual) {
@@ -132,9 +131,8 @@ socket.on('ocultarBoton', function (idSocket) {
     console.log("rrr: " + idSocket + "  " + idSocketActual);
     if (idSocket == idSocketActual) {
         if (document.getElementById("botonLanzar")) {
-            document.getElementById("botonLanzar").setAttribute("disabled", "");
-            document.getElementById("botonLanzar").style.backgroundColor = "white";
-            document.getElementById("botonLanzar").style.borderColor = "white";
+            document.getElementById("botonLanzar").classList.add("invisible")
+            document.getElementById("botonLanzar").classList.add("disabledbutton")
         }
     }
 });
@@ -164,11 +162,14 @@ socket.on('respondiendoIndicePreguntaVoltear', function (memory) {
     newBoard();
 });
 
-socket.on('enviandoParEncontrado', function (memory_tile_ids) {
-    
-    if(socket.id != idSocketActual){
+socket.on('enviandoParEncontrado', function (memory_tile_ids, idSocketN) {
+console.log("un par recibido" + memory_tile_ids.length)
+console.log("socket id" + idSocketN)
+console.log("socket actual" + idSocketActual)
+    if(idSocketN != idSocketActual){
         for(var i = 0; i < memory_tile_ids.length; i++)
         {
+            console.log("clic en "+memory_tile_ids[i]);
             document.getElementById(memory_tile_ids[i]).click();
         }
     }
@@ -344,17 +345,26 @@ function dibujarJugador() {
 
 function desbloquearBoton() {
     if (document.getElementById("botonLanzar")) {
+        document.getElementById("botonLanzar").classList.remove("invisible")
+        document.getElementById("botonLanzar").classList.remove("disabledbutton")
+        /*
         document.getElementById("botonLanzar").removeAttribute("disabled");
         document.getElementById("botonLanzar").style.backgroundColor = "#0174DF";
         document.getElementById("botonLanzar").style.borderColor = "#0174DF";
+        */
     }
 }
 
 function bloquearBoton() {
     if (document.getElementById("botonLanzar")) {
+        /*
         document.getElementById("botonLanzar").setAttribute("disabled", "");
         document.getElementById("botonLanzar").style.backgroundColor = "white";
         document.getElementById("botonLanzar").style.borderColor = "white";
+
+        */
+        document.getElementById("botonLanzar").classList.add("invisible")
+        document.getElementById("botonLanzar").classList.add("disabledbutton")
     }
 }
 
@@ -538,7 +548,13 @@ function newBoard() {
     var output = '';
     for (var i = 0; i < memory_array.length; i++) {
         console.log("eee");
-        output += '<img id="tile_' + i + '" alt="" onclick="memoryFlipTile(this,\'' + memory_array[i] + '\')">';
+        if(idSocketActual == turnoJugadores[0]) {
+            output += '<img id="tile_' + i + '" alt="" onclick="memoryFlipTile(this,\'' + memory_array[i] + '\')">';
+        }
+        else
+        {
+            output += '<img id="tile_' + i + '"  class = "disabledbutton" alt="" onclick="memoryFlipTile(this,\'' + memory_array[i] + '\')">';
+        }
     }
     document.getElementById('memory_board').innerHTML = output;
 }
@@ -559,8 +575,9 @@ function memoryFlipTile(tile, val) {
             if (memory_values[0] == memory_values[1]) {
                 tiles_flipped += 2;
                 mostrarMensajeParEncontrado(memory_values[0]);
-                socket.emit('parEncontrado', roomActual , memory_tile_ids);
-
+                if(turnoJugadores[0] == idSocketActual) {
+                    socket.emit('parEncontrado', roomActual, memory_tile_ids);
+                }
                 // Clear both arrays
                 memory_values = [];
                 memory_tile_ids = [];
@@ -595,6 +612,10 @@ function memoryFlipTile(tile, val) {
 }
 
 function cargarPreguntaOpcionMultiple(indicePregunta) {
+    if(idSocketActual != turnoJugadores[0])
+    {
+     document.getElementById("opcionMultiple").classList.add("disabledbutton")
+    }
     document.getElementById("enunciado").innerHTML = preguntasOpcionMultiple[indicePregunta].enunciado;
     if (preguntasOpcionMultiple[indicePregunta].urlEnunciado != null) {
         document.getElementById("imagenEnunciado").src = preguntasOpcionMultiple[indicePregunta].urlEnunciado;
@@ -624,6 +645,13 @@ function cargarPreguntaOpcionMultiple(indicePregunta) {
 }
 
 function cargarPreguntaUnirVoltear(indicePregunta, texto, a) {
+    if(idSocketActual != turnoJugadores[0])
+    {
+        document.getElementById("unir").classList.add("disabledbutton")
+        document.getElementById("reiniciarUnir").classList.add("invisible")
+        document.getElementById("enviarUnir").classList.add("invisible")
+
+    }
         document.getElementById("botonImagenAUnir"+(a)).setAttribute("nombre",preguntasUnirVoltear[indicePregunta]);
         document.getElementById("imagenAUnir"+(a)).src = preguntasUnirVoltear[indicePregunta].urlImagenUnirVoltear;
         document.getElementById("textoAUnir"+(a)).innerHTML = texto;
@@ -709,6 +737,49 @@ var indicePreguntaUnir = preguntasUnirVoltear.map(function (e) {     return e.ur
 if(indicePreguntaUnir >=0) {
     document.getElementById("mensajeVoltear").removeAttribute("hidden");
     document.getElementById("nombreParEncontrado").innerHTML = preguntasUnirVoltear[indicePreguntaUnir].textoUnirVoltear;
+
+    setTimeout(function(){
+        document.getElementById("mensajeVoltear").setAttribute("hidden","");
+        document.getElementById("nombreParEncontrado").innerHTML = "";
+        }, 2000);
 }
 
+}
+
+function validarRespuesta(boton) {
+
+    if(boton.id == resCorrecta )
+    { desafioCorrecto(boton.id);
+    }
+    else
+    { desafioIncorrecto(boton.id, resCorrecta)
+    }
+   // document.getElementById("desafios").setAttribute("hidden","");
+
+}
+
+function desafioIncorrecto(idBoton, resCorrecta) {
+    document.getElementById(idBoton).classList.remove("btn-info");
+    document.getElementById(idBoton).classList.add("btn-danger");
+    document.getElementById(resCorrecta).classList.remove("btn-info");
+    document.getElementById(resCorrecta).classList.add("btn-success");
+    mostrarMensaje("snackbarIn");
+    respuestaCorrecta = false;
+}
+
+function desafioCorrecto(idBoton) {
+    console.log("Correcto"+ idBoton);
+//    document.getElementById(idBoton).classList.remove("btn-info");
+   // document.getElementById(idBoton).classList.add('btn-success');
+  document.getElementById(idBoton).style.borderColor = "#8a6d3b";
+    mostrarMensaje("snackbar");
+    respuestaCorrecta = true;
+}
+
+function mostrarMensaje(texto) {
+    var x = document.getElementById(texto);
+    x.className = "show";
+    setTimeout(function () {
+        x.className = x.className.replace("show", "");
+    }, 2000);
 }

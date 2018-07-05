@@ -48,7 +48,7 @@
         </div>
     </div>
     <div class="separator"></div>
-    <div><button class="btn btn-info" id="botonLanzar" disabled onclick="lanzarDado()"> Lanzar Dado</button>
+    <div><button class="btn btn-info" id="botonLanzar" onclick="lanzarDado()"> Lanzar Dado</button>
     </div>
     <div id="snackbar">Puedes moverte</div>
     <div id="snackbarIn">No puedes moverte</div>
@@ -125,50 +125,42 @@
                 </div>
                 <div id="divRespuestasTexto" hidden>
                     <div class="row" style="margin-top: 20px">
-                        <div class="col-md-12">
-                            <button id="res1" class="btn btn-success btn-block" onclick="validarRespuesta(this)">Respuesta 1</button>
+                        <div class="col-md-6">
+                            <button id="res1" class="btn btn-info btn-block" onclick="validarRespuesta(this)">Respuesta 1</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button id="res2" class="btn btn-info btn-block" onclick="validarRespuesta(this)">Respuesta 2</button>
                         </div>
                     </div>
                     <div class="row" style="margin-top: 20px">
-                        <div class="col-md-12">
-                            <button id="res2" class="btn btn-success btn-block" onclick="validarRespuesta(this)">Respuesta 2</button>
+                        <div class="col-md-6">
+                            <button id="res3" class="btn btn-info btn-block" onclick="validarRespuesta(this)">Respuesta 3</button>
                         </div>
-                    </div>
-                    <div class="row" style="margin-top: 20px">
-                        <div class="col-md-12">
-                            <button id="res3" class="btn btn-success btn-block" onclick="validarRespuesta(this)">Respuesta 3</button>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top: 20px">
-                        <div class="col-md-12">
-                            <button id="res4" class="btn btn-success btn-block" onclick="validarRespuesta(this)">Respuesta 4</button>
+                        <div class="col-md-6">
+                            <button id="res4" class="btn btn-info btn-block" onclick="validarRespuesta(this)">Respuesta 4</button>
                         </div>
                     </div>
                 </div>
                 <div id="divRespuestasImagenes" hidden>
                     <div class="row" style="margin-top: 20px">
-                        <div class="col-md-12">
-                            <button id="res1" class="btn btn-success btn-block" onclick="validarRespuesta(this)">
+                        <div class="col-md-6">
+                            <button id="res1" class="btn btn-info btn-block" onclick="validarRespuesta(this)">
                                 <img id="imagenRes1" src="static/imagenes/vacio.png"  class="img-thumbnail" style="border:2px solid black" height="50" width="50"></button>
                         </div>
-                    </div>
-                    <div class="row" style="margin-top: 20px">
-                        <div class="col-md-12">
-                            <button id="res2" class="btn btn-success btn-block" onclick="validarRespuesta(this)">
+                        <div class="col-md-6">
+                            <button id="res2" class="btn btn-info btn-block" onclick="validarRespuesta(this)">
                                 <img id="imagenRes2" src="static/imagenes/vacio.png"  class="img-thumbnail" style="border:2px solid black" height="50" width="50">
                             </button>
                         </div>
                     </div>
                     <div class="row" style="margin-top: 20px">
-                        <div class="col-md-12">
-                            <button id="res3" class="btn btn-success btn-block" onclick="validarRespuesta(this)">
+                        <div class="col-md-6">
+                            <button id="res3" class="btn btn-info btn-block" onclick="validarRespuesta(this)">
                                 <img id="imagenRes3" src="static/imagenes/vacio.png"  class="img-thumbnail" style="border:2px solid black" height="50" width="50">
                             </button>
                         </div>
-                    </div>
-                    <div class="row" style="margin-top: 20px">
-                        <div class="col-md-12">
-                            <button id="res4" class="btn btn-success btn-block" onclick="validarRespuesta(this)">
+                        <div class="col-md-6">
+                            <button id="res4" class="btn btn-info btn-block" onclick="validarRespuesta(this)">
                                 <img id="imagenRes4" src="static/imagenes/vacio.png"  class="img-thumbnail" style="border:2px solid black" height="50" width="50">
                             </button>
                         </div>
