@@ -625,16 +625,19 @@ function cargarPreguntaOpcionMultiple(indicePregunta) {
     }
     document.getElementById("divRespuestasOpcionMultiple").removeAttribute("hidden");
 
+    for (var j = 0; j < 4; j++) {
+        console.log("Se ha ingresado a: " + j);
+        var boton = document.createElement("BUTTON");
+        boton.setAttribute("id", "res" + (j + 1));
+        boton.setAttribute("onclick", "validarRespuesta(this)");
+        boton.setAttribute("class", "btn btn-block btn-info");
+        boton.setAttribute("type", "button");
+        boton.style.margin = "0px 5px";
+        document.getElementById("puesto" + (j + 1)).appendChild(boton);
+    }
+
     if (preguntasOpcionMultiple[indicePregunta].urlRes1 != null) {
         for (var j = 0; j < 4; j++) {
-            console.log("Se ha ingresado a: "+j);
-            var boton = document.createElement("BUTTON");
-            boton.setAttribute("id", "res" + (j + 1));
-            boton.setAttribute("onclick", "validarRespuesta(this)");
-            boton.setAttribute("class", "btn btn-block btn-info");
-            boton.setAttribute("type", "button");
-            boton.style.margin = "0px 5px";
-            document.getElementById("puesto" + (j + 1)).appendChild(boton);
             var images = document.createElement("IMG");
             switch (j){
                 case 0:
@@ -663,50 +666,34 @@ function cargarPreguntaOpcionMultiple(indicePregunta) {
     }
 
     else {
-        document.getElementById("divRespuestasTexto").removeAttribute("hidden");
+     /*   document.getElementById("divRespuestasTexto").removeAttribute("hidden");
         document.getElementById("divRespuestasImagenes").setAttribute("hidden", "");
         document.getElementById("res1").innerHTML = preguntasOpcionMultiple[indicePregunta].res1;
         document.getElementById("res2").innerHTML = preguntasOpcionMultiple[indicePregunta].res2;
         document.getElementById("res3").innerHTML = preguntasOpcionMultiple[indicePregunta].res3;
-        document.getElementById("res4").innerHTML = preguntasOpcionMultiple[indicePregunta].res4;
-
+        document.getElementById("res4").innerHTML = preguntasOpcionMultiple[indicePregunta].res4; */
 
         for (var j = 0; j < 4; j++) {
             console.log("Se ha ingresado a: "+j);
-            var boton = document.createElement("BUTTON");
-            boton.setAttribute("id", "res" + (j + 1));
-            boton.setAttribute("onclick", "validarRespuesta(this)");
-            boton.setAttribute("class", "btn btn-block btn-info");
-            boton.setAttribute("type", "button");
-            boton.style.margin = "0px 5px";
-            document.getElementById("puesto" + (j + 1)).appendChild(boton);
-            var images = document.createElement("IMG");
             switch (j){
                 case 0:
                     console.log(j)
-                    images.setAttribute("src", preguntasOpcionMultiple[indicePregunta].urlRes1);
+                    document.getElementById("res1").innerHTML = preguntasOpcionMultiple[indicePregunta].res1;
                     break;
                 case 1:
                     console.log(j)
-                    images.setAttribute("src", preguntasOpcionMultiple[indicePregunta].urlRes2);
+                    document.getElementById("res1").innerHTML = preguntasOpcionMultiple[indicePregunta].res2;
                     break;
                 case 2:
                     console.log(j)
-                    images.setAttribute("src", preguntasOpcionMultiple[indicePregunta].urlRes3);
+                    document.getElementById("res1").innerHTML = preguntasOpcionMultiple[indicePregunta].res3;
                     break;
                 case 3:
                     console.log(j)
-                    images.setAttribute("src", preguntasOpcionMultiple[indicePregunta].urlRes4);
+                    document.getElementById("res1").innerHTML = preguntasOpcionMultiple[indicePregunta].res4;
                     break;
             }
-            images.setAttribute("id", "imagenRes" + (j + 1));
-            images.setAttribute("class", "img-thumbnail");
-            images.setAttribute("height", "50");
-            images.setAttribute("width", "50");
-            document.getElementById("res" + (j + 1)).appendChild(images);
         }
-
-
     }
     resCorrecta = preguntasOpcionMultiple[indicePregunta].resCorrecta;
 }
