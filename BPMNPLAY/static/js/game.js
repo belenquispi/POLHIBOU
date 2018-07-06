@@ -617,7 +617,7 @@ function cargarPreguntaOpcionMultiple(indicePregunta) {
      document.getElementById("opcionMultiple").classList.add("disabledbutton")
     }
     document.getElementById("enunciado").innerHTML = preguntasOpcionMultiple[indicePregunta].enunciado;
-    if (preguntasOpcionMultiple[indicePregunta].urlEnunciado != null) {
+    if (preguntasOpcionMultiple[indicePregunta].urlEnunciado != "") {
         document.getElementById("imagenEnunciado").src = preguntasOpcionMultiple[indicePregunta].urlEnunciado;
     } else
     {
@@ -625,6 +625,13 @@ function cargarPreguntaOpcionMultiple(indicePregunta) {
     }
     document.getElementById("divRespuestasOpcionMultiple").removeAttribute("hidden");
 
+    if(document.getElementById("res1"))
+    {
+        for (var j = 0; j < 4; j++) {
+            var elemento = document.getElementById("res"+(j+1))
+            elemento.parentNode.removeChild(elemento);
+        }
+    }
     for (var j = 0; j < 4; j++) {
         console.log("Se ha ingresado a: " + j);
         var boton = document.createElement("BUTTON");
@@ -636,7 +643,7 @@ function cargarPreguntaOpcionMultiple(indicePregunta) {
         document.getElementById("puesto" + (j + 1)).appendChild(boton);
     }
 
-    if (preguntasOpcionMultiple[indicePregunta].urlRes1 != null) {
+    if (preguntasOpcionMultiple[indicePregunta].urlRes1 != "") {
         for (var j = 0; j < 4; j++) {
             var images = document.createElement("IMG");
             switch (j){
@@ -672,27 +679,30 @@ function cargarPreguntaOpcionMultiple(indicePregunta) {
         document.getElementById("res2").innerHTML = preguntasOpcionMultiple[indicePregunta].res2;
         document.getElementById("res3").innerHTML = preguntasOpcionMultiple[indicePregunta].res3;
         document.getElementById("res4").innerHTML = preguntasOpcionMultiple[indicePregunta].res4; */
-
         for (var j = 0; j < 4; j++) {
+            var texto = "" ;
             console.log("Se ha ingresado a: "+j);
+            document.getElementById("res"+(j+1)).setAttribute("value","res");
             switch (j){
                 case 0:
                     console.log(j)
-                    document.getElementById("res1").innerHTML = preguntasOpcionMultiple[indicePregunta].res1;
+                    texto = document.createTextNode(preguntasOpcionMultiple[indicePregunta].res1)
                     break;
                 case 1:
                     console.log(j)
-                    document.getElementById("res1").innerHTML = preguntasOpcionMultiple[indicePregunta].res2;
+                    texto = document.createTextNode(preguntasOpcionMultiple[indicePregunta].res2)
                     break;
                 case 2:
                     console.log(j)
-                    document.getElementById("res1").innerHTML = preguntasOpcionMultiple[indicePregunta].res3;
+                    texto = document.createTextNode(preguntasOpcionMultiple[indicePregunta].res3)
                     break;
                 case 3:
                     console.log(j)
-                    document.getElementById("res1").innerHTML = preguntasOpcionMultiple[indicePregunta].res4;
+                    texto = document.createTextNode(preguntasOpcionMultiple[indicePregunta].res4)
                     break;
             }
+            document.getElementById("res"+(j+1)).appendChild(texto);
+
         }
     }
     resCorrecta = preguntasOpcionMultiple[indicePregunta].resCorrecta;
