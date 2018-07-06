@@ -174,6 +174,12 @@ console.log("socket actual" + idSocketActual)
         }
     }
 })
+socket.on('enviandoRespuestaOpcionMultiple', function (botonSeleccionado, idSocketN) {
+
+    if(idSocketN != idSocketActual) {
+        document.getElementById(botonSeleccionado).click();
+    }
+})
 
 function agregarNumerosCasilla() {
     for (var y = 0; y < filas; ++y) {
@@ -215,10 +221,12 @@ function drawGame() {
     else {
         frameCount++;
     }
+    console.log(numCasillasMoverse+"  "+turnoJugadores[0] + "  " + idSocketActual +" "+respuestaCorrecta)
 
-    if (numCasillasMoverse > 0 && (turnoJugadores[0] == idSocketActual)) {
+    if (numCasillasMoverse > 0 && (turnoJugadores[0] == idSocketActual) && respuestaCorrecta == true) {
         socket.emit('moverJugador', roomActual, currentFrameTime);
     } else {
+        respuestaCorrecta = false;
         bloquearBoton();
         if (jugadores.length > 0 && numCasillasMoverse == 0 && turnoJugadores.length > 0 && (turnoJugadores[0] == idSocketActual) && (jugadores[jugadores.map(function (value) {
             return value.idSocket
@@ -494,7 +502,6 @@ function mostrarJugadorActual() {
 
 function cambiarImagen(num) {
     for (var j = 0; j < turnoJugadores.length; j++) {
-        console.log("j" + j);
         if (j == num) {
             document.getElementById("imagenJugador" + (j + 1)).src = "static/buho" + jugadores[j].iconoEquipo + ".gif";
         } else {
@@ -621,7 +628,7 @@ function cargarPreguntaOpcionMultiple(indicePregunta) {
         document.getElementById("imagenEnunciado").src = preguntasOpcionMultiple[indicePregunta].urlEnunciado;
     } else
     {
-        document.getElementById("imagenEnunciado").src = "vacio.png";
+        document.getElementById("imagenEnunciado").src = "static/imagenes/vacio.png";
     }
     document.getElementById("divRespuestasOpcionMultiple").removeAttribute("hidden");
 
@@ -673,31 +680,20 @@ function cargarPreguntaOpcionMultiple(indicePregunta) {
     }
 
     else {
-     /*   document.getElementById("divRespuestasTexto").removeAttribute("hidden");
-        document.getElementById("divRespuestasImagenes").setAttribute("hidden", "");
-        document.getElementById("res1").innerHTML = preguntasOpcionMultiple[indicePregunta].res1;
-        document.getElementById("res2").innerHTML = preguntasOpcionMultiple[indicePregunta].res2;
-        document.getElementById("res3").innerHTML = preguntasOpcionMultiple[indicePregunta].res3;
-        document.getElementById("res4").innerHTML = preguntasOpcionMultiple[indicePregunta].res4; */
         for (var j = 0; j < 4; j++) {
             var texto = "" ;
-            console.log("Se ha ingresado a: "+j);
             document.getElementById("res"+(j+1)).setAttribute("value","res");
             switch (j){
                 case 0:
-                    console.log(j)
                     texto = document.createTextNode(preguntasOpcionMultiple[indicePregunta].res1)
                     break;
                 case 1:
-                    console.log(j)
                     texto = document.createTextNode(preguntasOpcionMultiple[indicePregunta].res2)
                     break;
                 case 2:
-                    console.log(j)
                     texto = document.createTextNode(preguntasOpcionMultiple[indicePregunta].res3)
                     break;
                 case 3:
-                    console.log(j)
                     texto = document.createTextNode(preguntasOpcionMultiple[indicePregunta].res4)
                     break;
             }
@@ -789,13 +785,6 @@ function reiniciarUnir() {
     }
 }
 
-function desafioCorrecto() {
-    mostrarMensaje("snackbar");
-    respuestaCorrecta = true;
-    document.getElementById("desafios").setAttribute("hidden","");
-
-}
-
 function mostrarMensajeParEncontrado(url) {
 var indicePreguntaUnir = preguntasUnirVoltear.map(function (e) {     return e.urlImagenUnirVoltear   }).indexOf(url);
 if(indicePreguntaUnir >=0) {
@@ -813,28 +802,31 @@ if(indicePreguntaUnir >=0) {
 function validarRespuesta(boton) {
 
     if(boton.id == resCorrecta )
-    { desafioCorrecto(boton.id);
+    { desafioCorrecto();
+        console.log("Correcto: "+ boton.id);
+        document.getElementById(boton.id).classList.remove('btn-info');
+        document.getElementById(boton.id).classList.add('btn-success');
     }
     else
-    { desafioIncorrecto(boton.id, resCorrecta)
+    { desafioIncorrecto()
+        document.getElementById(boton.id).classList.remove("btn-info");
+        document.getElementById(boton.id).classList.add("btn-danger");
+        document.getElementById(resCorrecta).classList.remove("btn-info");
+        document.getElementById(resCorrecta).classList.add("btn-success");
     }
-   // document.getElementById("desafios").setAttribute("hidden","");
+    if(turnoJugadores[0] == idSocketActual) {
+        socket.emit("respuestaOpcionMultiple", roomActual, boton.id);
+    }
+    // document.getElementById("desafios").setAttribute("hidden","");
 
 }
 
-function desafioIncorrecto(idBoton, resCorrecta) {
-    document.getElementById(idBoton).classList.remove("btn-info");
-    document.getElementById(idBoton).classList.add("btn-danger");
-    document.getElementById(resCorrecta).classList.remove("btn-info");
-    document.getElementById(resCorrecta).classList.add("btn-success");
+function desafioIncorrecto() {
     mostrarMensaje("snackbarIn");
     respuestaCorrecta = false;
 }
 
-function desafioCorrecto(idBoton) {
-    console.log("Correcto: "+ idBoton);
-    document.getElementById(idBoton).classList.remove('btn-info');
-    document.getElementById(idBoton).classList.add('btn-success');
+function desafioCorrecto() {
     mostrarMensaje("snackbar");
     respuestaCorrecta = true;
 }

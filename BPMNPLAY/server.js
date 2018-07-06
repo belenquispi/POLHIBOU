@@ -361,6 +361,11 @@ io.on('connection', function (socket) {
         console.log("un par")
         io.sockets.in(partidas[idPartida].nombrePartida).emit('enviandoParEncontrado', memory_tile_ids, socket.id);
     })
+    socket.on('respuestaOpcionMultiple', function (room, botonSeleccionado) {
+        var idPartida = consultarIdPartida(room);
+        console.log("una respuesta")
+        io.sockets.in(partidas[idPartida].nombrePartida).emit('enviandoRespuestaOpcionMultiple', botonSeleccionado, socket.id);
+    })
 });
 
 
