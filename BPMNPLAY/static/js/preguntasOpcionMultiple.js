@@ -100,6 +100,24 @@ function verificarBotonGuardar() {
 function guardarPreguntaOpcionMultiple() {
     console.log(config);
     firebase.initializeApp(config);
+    if(imagenes.length == 0){
+        var preguntaOpcionMultiple = {
+            usuario : "bquispi",
+            idMateria : "bpmn",
+            enunciado: document.getElementById('enunciado').value,
+            urlEnunciado: urlFile,
+            res1: document.getElementById('res1').value,
+            urlRes1: urlFile1,
+            res2: document.getElementById('res2').value,
+            urlRes2: urlFile2,
+            res3: document.getElementById('res3').value,
+            urlRes3: urlFile3,
+            res4: document.getElementById('res4').value,
+            urlRes4: urlFile4,
+            resCorrecta : document.getElementById('resCorrecta').value
+        };
+        socket.emit('guardarPreguntaOpcionMultiple', preguntaOpcionMultiple);
+    }
     for (var i = 0; i < imagenes.length; i++) {
         subirImagenOpcionMultiple(imagenes[i], function () {
 
