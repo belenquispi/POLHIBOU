@@ -303,7 +303,6 @@ io.on('connection', function (socket) {
 
             var indice = indiceRandomicoUnirVoltear(idPartida);
              console.log("entre al for " + indice);
-           //  if(buscarIndice(arrayIndices, indice) == 1)
             while(arrayIndices.indexOf(indice) != -1){
                 indice = indiceRandomicoUnirVoltear(idPartida);
                 console.log(" entre al while " + indice);
@@ -365,6 +364,10 @@ io.on('connection', function (socket) {
         var idPartida = consultarIdPartida(room);
         console.log("una respuesta")
         io.sockets.in(partidas[idPartida].nombrePartida).emit('enviandoRespuestaOpcionMultiple', botonSeleccionado, socket.id);
+    })
+    socket.on('respuestaUnir', function (room, respuestaUnir) {
+        var idPartida = consultarIdPartida(room);
+        io.sockets.in(partidas[idPartida].nombrePartida).emit('enviandoRespuestaUnir', respuestaUnir, socket.id);
     })
 });
 

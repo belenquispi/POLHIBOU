@@ -41,6 +41,7 @@ var resCorrecta;
 var respuestaUnir = [];
 var imagenUnir = ['botonImagenAUnir1','botonImagenAUnir2','botonImagenAUnir3','botonImagenAUnir4'];
 var textoUnir = ['textoAUnir1','textoAUnir2','textoAUnir3','textoAUnir4'];
+var respuestaCorrectaUnir = [];
 
 function dados(nombrePartida) {
     this.nombrePartida = nombrePartida;
@@ -150,10 +151,19 @@ socket.on('respondiendoIndicePreguntaOpcionMultiple', function (indicePregunta) 
 
 socket.on('respondiendoIndicePreguntaUnir', function (arrayIndices, arrayTexto) {
     console.log("Voy a cargar unir "+ arrayIndices)
-    cargarPreguntaUnirVoltear(arrayIndices[0],arrayTexto[0],1);
+    respuestaCorrectaUnir = [];
+    for(var i = 0; i< arrayIndices.length; i++){
+        respuestaCorrectaUnir.push(preguntasUnirVoltear[arrayIndices[i]].urlImagenUnirVoltear)
+        respuestaCorrectaUnir.push(preguntasUnirVoltear[arrayIndices[i]].textoUnirVoltear)
+        cargarPreguntaUnirVoltear(arrayIndices[i],arrayTexto[i],(i+1));
+        console.log("correcto: "+ respuestaCorrectaUnir[respuestaCorrectaUnir.length-2]+ " indice: "+arrayIndices[i]);
+        console.log("correcto: "+ respuestaCorrectaUnir[respuestaCorrectaUnir.length-1]+ " indice: "+arrayIndices[i]);
+    }
+
+ /*   cargarPreguntaUnirVoltear(arrayIndices[0],arrayTexto[0],1);
     cargarPreguntaUnirVoltear(arrayIndices[1],arrayTexto[1],2);
     cargarPreguntaUnirVoltear(arrayIndices[2],arrayTexto[2],3);
-    cargarPreguntaUnirVoltear(arrayIndices[3],arrayTexto[3],4);
+    cargarPreguntaUnirVoltear(arrayIndices[3],arrayTexto[3],4);*/
 });
 
 socket.on('respondiendoIndicePreguntaVoltear', function (memory) {
@@ -174,10 +184,20 @@ console.log("socket actual" + idSocketActual)
         }
     }
 })
+
 socket.on('enviandoRespuestaOpcionMultiple', function (botonSeleccionado, idSocketN) {
 
     if(idSocketN != idSocketActual) {
         document.getElementById(botonSeleccionado).click();
+    }
+})
+
+socket.on('enviandoRespuestaUnir', function (respuestaUnir, idSocketN) {
+    if(idSocketN != idSocketActual) {
+        reiniciarUnir();
+        for(var i = 0 ; i < respuestaUnir.length; i++){
+            document.getElementById(respuestaUnir[i]).click();
+        }
     }
 })
 
@@ -221,7 +241,6 @@ function drawGame() {
     else {
         frameCount++;
     }
-    console.log(numCasillasMoverse+"  "+turnoJugadores[0] + "  " + idSocketActual +" "+respuestaCorrecta)
 
     if (numCasillasMoverse > 0 && (turnoJugadores[0] == idSocketActual) && respuestaCorrecta == true) {
         socket.emit('moverJugador', roomActual, currentFrameTime);
@@ -355,11 +374,6 @@ function desbloquearBoton() {
     if (document.getElementById("botonLanzar")) {
         document.getElementById("botonLanzar").classList.remove("invisible")
         document.getElementById("botonLanzar").classList.remove("disabledbutton")
-        /*
-        document.getElementById("botonLanzar").removeAttribute("disabled");
-        document.getElementById("botonLanzar").style.backgroundColor = "#0174DF";
-        document.getElementById("botonLanzar").style.borderColor = "#0174DF";
-        */
     }
 }
 
@@ -515,10 +529,8 @@ function cambiarImagen(num) {
 function mostrarDesafio(colorCa, idSocket) {
    switch (colorCa) {
         case 0:
-            //newBoard();
             if(idSocket == idSocketActual)
-            {
-                socket.emit('solicitarPreguntaVoltear',roomActual);}
+            {  socket.emit('solicitarPreguntaVoltear',roomActual);}
             document.getElementById("tipoJuego").innerHTML = "Voltear";
             document.getElementById("desafios").removeAttribute("hidden");
             document.getElementById("memory_board").removeAttribute("hidden");
@@ -526,10 +538,9 @@ function mostrarDesafio(colorCa, idSocket) {
             document.getElementById("opcionMultiple").setAttribute("hidden", "");
             break;
         case 1:
-            // mostrarUnir();
+            respuestaUnir = [];
             if(idSocket == idSocketActual)
-            {
-            socket.emit('solicitarPreguntaUnir',roomActual);}
+            { socket.emit('solicitarPreguntaUnir',roomActual);}
             document.getElementById("tipoJuego").innerHTML = "Unir";
             document.getElementById("desafios").removeAttribute("hidden");
             document.getElementById("unir").removeAttribute("hidden");
@@ -537,7 +548,6 @@ function mostrarDesafio(colorCa, idSocket) {
             document.getElementById("opcionMultiple").setAttribute("hidden", "");
             break;
         case 2:
-            // cargarPreguntasOpcionMultiple();
             if(idSocket == idSocketActual)
             { socket.emit('solicitarPreguntaOpcionMultiple',roomActual); }
             document.getElementById("tipoJuego").innerHTML = "Opción Múltiple";
@@ -567,16 +577,20 @@ function newBoard() {
 }
 
 function memoryFlipTile(tile, val) {
-    console.log("url: " + tile.src);
+    console.log("url: " + tile.alt+"  "+turnoJugadores[0]);
     if (tile.alt == "" && memory_values.length < 2) {
         console.log("url: " + tile.src);
         //tile.style.background = '#FFF';
         tile.src = val;
         tile.alt = val;
         if (memory_values.length == 0) {
+            console.log("url1: " + tile.src);
+
             memory_values.push(val);
             memory_tile_ids.push(tile.id);
         } else if (memory_values.length == 1) {
+            console.log("ur2: " + tile.src);
+
             memory_values.push(val);
             memory_tile_ids.push(tile.id);
             if (memory_values[0] == memory_values[1]) {
@@ -623,6 +637,11 @@ function cargarPreguntaOpcionMultiple(indicePregunta) {
     {
      document.getElementById("opcionMultiple").classList.add("disabledbutton")
     }
+    else {
+        if(document.getElementById("opcionMultiple").classList.contains("disabledbutton")){
+            document.getElementById("opcionMultiple").classList.remove("disabledbutton")
+        }
+    }
     document.getElementById("enunciado").innerHTML = preguntasOpcionMultiple[indicePregunta].enunciado;
     if (preguntasOpcionMultiple[indicePregunta].urlEnunciado != "") {
         document.getElementById("imagenEnunciado").src = preguntasOpcionMultiple[indicePregunta].urlEnunciado;
@@ -640,7 +659,6 @@ function cargarPreguntaOpcionMultiple(indicePregunta) {
         }
     }
     for (var j = 0; j < 4; j++) {
-        console.log("Se ha ingresado a: " + j);
         var boton = document.createElement("BUTTON");
         boton.setAttribute("id", "res" + (j + 1));
         boton.setAttribute("onclick", "validarRespuesta(this)");
@@ -712,7 +730,18 @@ function cargarPreguntaUnirVoltear(indicePregunta, texto, a) {
         document.getElementById("enviarUnir").classList.add("invisible")
 
     }
-        document.getElementById("botonImagenAUnir"+(a)).setAttribute("nombre",preguntasUnirVoltear[indicePregunta]);
+    else {
+        if(document.getElementById("unir").classList.contains("disabledbutton")){
+            document.getElementById("unir").classList.remove("disabledbutton")
+        }
+        if(document.getElementById("reiniciarUnir").classList.contains("invisible")){
+            document.getElementById("reiniciarUnir").classList.remove("invisible")
+        }
+        if(document.getElementById("enviarUnir").classList.contains("invisible")){
+            document.getElementById("enviarUnir").classList.remove("invisible")
+        }
+    }
+        document.getElementById("botonImagenAUnir"+(a)).setAttribute("nombre",preguntasUnirVoltear[indicePregunta].urlImagenUnirVoltear);
         document.getElementById("imagenAUnir"+(a)).src = preguntasUnirVoltear[indicePregunta].urlImagenUnirVoltear;
         document.getElementById("textoAUnir"+(a)).innerHTML = texto;
 }
@@ -736,6 +765,11 @@ function obtenerId(e) {
 
     }
     respuestaUnir.push(id);
+
+    if(turnoJugadores[0] == idSocketActual) {
+        socket.emit("respuestaUnir", roomActual, respuestaUnir);
+    }
+
     if(imagenUnir.indexOf(id) >= 0) {
         for(var i = 0; i<imagenUnir.length; i++){
             document.getElementById(imagenUnir[i]).setAttribute("disabled","");
@@ -783,6 +817,9 @@ function reiniciarUnir() {
     for(var i = respuestaUnir.length; i > 0 ; i--) {
         respuestaUnir.pop();
     }
+    if(turnoJugadores[0] == idSocketActual) {
+        socket.emit("respuestaUnir", roomActual, respuestaUnir);
+    }
 }
 
 function mostrarMensajeParEncontrado(url) {
@@ -818,6 +855,32 @@ function validarRespuesta(boton) {
         socket.emit("respuestaOpcionMultiple", roomActual, boton.id);
     }
     // document.getElementById("desafios").setAttribute("hidden","");
+
+}
+
+function verificarRespuestaUnir() {
+    var contadorRespuestas = 0;
+    for(var j = 0; j < respuestaUnir.length-1; j++){
+        for (var k = 0; k < respuestaCorrectaUnir.length-1; k++)
+        {
+            var idBoton1 = respuestaUnir[j];
+            var idBoton2 = respuestaUnir[j+1];
+            if(document.getElementById(idBoton1).getAttribute("nombre") == respuestaCorrectaUnir[k] && document.getElementById(idBoton2).textContent == respuestaCorrectaUnir[k+1])
+            {    contadorRespuestas++;
+                j++;
+                k = respuestaUnir.length
+            }
+
+        }
+    }
+    if(contadorRespuestas == 4)
+    {
+        desafioCorrecto();
+    }
+    else {
+        desafioIncorrecto();
+    }
+    reiniciarUnir();
 
 }
 
