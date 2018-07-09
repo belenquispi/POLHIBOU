@@ -89,23 +89,28 @@ socket.on('error', function (nombre) {
     alert(nombre);
 });
 
-socket.on('parametrosJuego', function (data) {
+socket.on('parametrosJuego', function () {
+   /* filas = data.filas;
+    columnas = data.colum;
+    anchoCasilla = data.anchoCas;
+    altoCasilla = data.altoCas;
+    gameMap = data.gameM;
+    colorMap = data.colorM;*/
+    idSocketActual = socket.io.engine.id;
+    console.log("Mi socket: " + idSocketActual)
+});
+
+socket.on('partida', function (data) {
     filas = data.filas;
     columnas = data.colum;
     anchoCasilla = data.anchoCas;
     altoCasilla = data.altoCas;
     gameMap = data.gameM;
     colorMap = data.colorM;
-    idSocketActual = socket.io.engine.id;
-    console.log("Mi socket: " + idSocketActual)
-});
-
-socket.on('partida', function (data) {
     jugadores = data.jugadores;
     preguntasOpcionMultiple = data.preguntasOpcionMultiple;
     preguntasUnirVoltear = data.preguntasUnirVoltear;
     for (var i = 0; i < jugadores.length; i++) {
-
         if (jugadores[i].idSocket == idSocketActual) {
             jugadorActual = jugadores[i];
             numCasillasMoverse = jugadores[i].numCasillasMoverseP
@@ -159,11 +164,6 @@ socket.on('respondiendoIndicePreguntaUnir', function (arrayIndices, arrayTexto) 
         console.log("correcto: "+ respuestaCorrectaUnir[respuestaCorrectaUnir.length-2]+ " indice: "+arrayIndices[i]);
         console.log("correcto: "+ respuestaCorrectaUnir[respuestaCorrectaUnir.length-1]+ " indice: "+arrayIndices[i]);
     }
-
- /*   cargarPreguntaUnirVoltear(arrayIndices[0],arrayTexto[0],1);
-    cargarPreguntaUnirVoltear(arrayIndices[1],arrayTexto[1],2);
-    cargarPreguntaUnirVoltear(arrayIndices[2],arrayTexto[2],3);
-    cargarPreguntaUnirVoltear(arrayIndices[3],arrayTexto[3],4);*/
 });
 
 socket.on('respondiendoIndicePreguntaVoltear', function (memory) {
@@ -186,8 +186,8 @@ console.log("socket actual" + idSocketActual)
 })
 
 socket.on('enviandoRespuestaOpcionMultiple', function (botonSeleccionado, idSocketN) {
-
     if(idSocketN != idSocketActual) {
+        console.log("Se da clic ")
         document.getElementById(botonSeleccionado).click();
     }
 })
@@ -607,6 +607,7 @@ function memoryFlipTile(tile, val) {
                     // alert("Board cleared... generating new board");
                     desafioCorrecto();
                     document.getElementById('memory_board').innerHTML = "";
+                    document.getElementById('desafios').setAttribute("hidden","");
                     //newBoard();
                 }
             } else {
@@ -837,7 +838,9 @@ if(indicePreguntaUnir >=0) {
 }
 
 function validarRespuesta(boton) {
-
+    if(turnoJugadores[0] == idSocketActual) {
+        socket.emit("respuestaOpcionMultiple", roomActual, boton.id);
+    }
     if(boton.id == resCorrecta )
     { desafioCorrecto();
         console.log("Correcto: "+ boton.id);
@@ -851,11 +854,10 @@ function validarRespuesta(boton) {
         document.getElementById(resCorrecta).classList.remove("btn-info");
         document.getElementById(resCorrecta).classList.add("btn-success");
     }
-    if(turnoJugadores[0] == idSocketActual) {
-        socket.emit("respuestaOpcionMultiple", roomActual, boton.id);
-    }
-    // document.getElementById("desafios").setAttribute("hidden","");
 
+setTimeout(function(){
+        document.getElementById("desafios").setAttribute("hidden","");
+    }, 2000);
 }
 
 function verificarRespuestaUnir() {
@@ -880,6 +882,10 @@ function verificarRespuestaUnir() {
     else {
         desafioIncorrecto();
     }
+
+    setTimeout(function(){
+        document.getElementById("desafios").setAttribute("hidden","");
+    }, 2000);
     reiniciarUnir();
 
 }
@@ -887,6 +893,10 @@ function verificarRespuestaUnir() {
 function desafioIncorrecto() {
     mostrarMensaje("snackbarIn");
     respuestaCorrecta = false;
+    console.log("Respuesta Incorrecta")
+    if(turnoJugadores[0]==idSocketActual) {
+        socket.emit('pasarTurno', roomActual);
+    }
 }
 
 function desafioCorrecto() {

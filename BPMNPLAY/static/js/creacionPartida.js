@@ -35,7 +35,6 @@ function verificarSeleccion() {
     }
 }
 
-
 function generarDatosEquipo(numero) {
     var id = numero.id;
     console.log(id);
@@ -118,7 +117,7 @@ function bloquearIconoJugador(num) {
         document.getElementById(id).style.border = "thick solid green";
     }else
     {
-      console.log("Ya se encuentra seleccionado por otro equipo")   ;
+        console.log("Ya se encuentra seleccionado por otro equipo")   ;
     }
 }
 
