@@ -110,7 +110,7 @@ server.listen(5000, function () {
 
 // Add the WebSocket handlers
 io.on('connection', function (socket) {
-    io.sockets.emit('parametrosJuego', parametrosJuego);
+    //io.sockets.emit('parametrosJuego', parametrosJuego);
     socket.on('new player', function (room, rol, nombreEquipoJugar) {
 
         var idPartida = partidas.map(function (e) {
@@ -164,6 +164,10 @@ io.on('connection', function (socket) {
     });
     socket.on('nuevaPartida', function (room, rol, nombreIconoEquipos, usuario, idMateria) {
         socket.join(room);
+        seleccionarColor();
+        console.log("nueva partida" + room);
+       // io.sockets.in(room).emit('parametrosJuego', parametrosJuego);
+
         var idPartida = partidas.map(function (e) {
             return e.nombrePartida
         }).indexOf(room);
