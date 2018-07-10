@@ -34,7 +34,6 @@ function partida(nombrePartida) {
 }
 
 var partidas = [];
-var contadorPreguntasUsadas = 0;
 
 function Character(c, x, y, z) {
     this.nombreEquipo = z;
@@ -101,7 +100,6 @@ io.on('connection', function (socket) {
     socket.on('nuevaPartida', function (room, rol, nombreIconoEquipos, usuario, idMateria) {
         socket.join(room);
         //seleccionarColor(filas, columnas, gameMap);
-        console.log("nueva partida" + room);
         var idPartida = partidas.map(function (e) {
             return e.nombrePartida
         }).indexOf(room);
@@ -146,8 +144,6 @@ io.on('connection', function (socket) {
                                 socket.join(room);
                                 socket.emit("nombreRol", nombreEquipo);
                                 partidas[idPartida].jugadores[idJugador].idSocket = socket.id;
-
-                                console.log("hhh: " +partidas[idPartida].turnoJugadores );
                                 partidas[idPartida].turnoJugadores = [];
                                 for (var i = 0; i < partidas[idPartida].jugadores.length; i++){
                                     if(partidas[idPartida].jugadores[i].idSocket != ""){
@@ -155,7 +151,6 @@ io.on('connection', function (socket) {
                                     }
                                 }
                                 actualizarOrdenPartidas(room);
-                                console.log("hhh3: " +partidas[idPartida].turnoJugadores );
                             }
                             else {
                                 socket.emit("error", "El equipo: " + nombreEquipo + " ya se ha conectado");
@@ -273,15 +268,12 @@ io.on('connection', function (socket) {
     });
     socket.on('solicitarPreguntaOpcionMultiple', function (room) {
         var idPartida = consultarIdPartida(room);
-        contadorPreguntasUsadas = 0;
-        console.log("contadorP: "+ idPartida);
         io.sockets.in(partidas[idPartida].nombrePartida).emit('respondiendoIndicePreguntaOpcionMultiple', indiceRandomicoOpcionMultiple(idPartida));
     });
     socket.on('solicitarPreguntaUnir', function (room) {
         var idPartida = consultarIdPartida(room);
         var contador = partidas[idPartida].preguntasUnirVoltear.length;
         var arrayIndices = [];
-        console.log("contador: "+contador);
         if(contador < 4) {
             for (var i = 0; i < partidas[idPartida].preguntasUnirVoltear.length; i++) {
                 partidas[idPartida].preguntasUnirVoltear[i].usada == false;
@@ -290,26 +282,21 @@ io.on('connection', function (socket) {
         }
         for( var i = 0; i < 4; i++){
             var indice = indiceRandomicoUnirVoltear(idPartida);
-            console.log("entre al for " + indice);
             while(arrayIndices.indexOf(indice) != -1){
                 indice = indiceRandomicoUnirVoltear(idPartida);
-                console.log(" entre al while " + indice);
             }
             partidas[idPartida].preguntasUnirVoltear[indice].usada == true;
             contador--;
             arrayIndices.push(indice);
-            console.log("el array es: " +arrayIndices);
         }
         partidas[idPartida].contadorPreguntasLibresUnirVoltear = contador;
         var arrayTexto = desordenarTextoUnir(idPartida,arrayIndices);
-        console.log(arrayTexto);
         io.sockets.in(partidas[idPartida].nombrePartida).emit('respondiendoIndicePreguntaUnir', arrayIndices, arrayTexto);
     });
     socket.on('solicitarPreguntaVoltear', function (room) {
         var idPartida = consultarIdPartida(room);
         var contador = partidas[idPartida].preguntasUnirVoltear.length;
         var arrayIndices = [];
-        console.log("contador: "+contador);
         if(contador < 4) {
             for (var i = 0; i < partidas[idPartida].preguntasUnirVoltear.length; i++) {
                 partidas[idPartida].preguntasUnirVoltear[i].usada == false;
@@ -320,12 +307,10 @@ io.on('connection', function (socket) {
             var indice = indiceRandomicoUnirVoltear(idPartida);
             while(arrayIndices.indexOf(indice) != -1){
                 indice = indiceRandomicoUnirVoltear(idPartida);
-                console.log(" entre al while " + indice);
             }
             partidas[idPartida].preguntasUnirVoltear[indice].usada == true;
             contador--;
             arrayIndices.push(indice);
-            console.log("el array es: " +arrayIndices);
         }
         partidas[idPartida].contadorPreguntasLibresUnirVoltear = contador;
         var memory_array = [];
@@ -338,17 +323,19 @@ io.on('connection', function (socket) {
     });
     socket.on('parEncontrado', function (room, memory_tile_ids) {
         var idPartida = consultarIdPartida(room);
-        console.log("un par")
         io.sockets.in(partidas[idPartida].nombrePartida).emit('enviandoParEncontrado', memory_tile_ids, socket.id);
     })
     socket.on('respuestaOpcionMultiple', function (room, botonSeleccionado) {
         var idPartida = consultarIdPartida(room);
-        console.log("una respuesta")
         io.sockets.in(partidas[idPartida].nombrePartida).emit('enviandoRespuestaOpcionMultiple', botonSeleccionado, socket.id);
     })
     socket.on('respuestaUnir', function (room, respuestaUnir) {
         var idPartida = consultarIdPartida(room);
         io.sockets.in(partidas[idPartida].nombrePartida).emit('enviandoRespuestaUnir', respuestaUnir, socket.id);
+    })
+    socket.on('verificarUnir', function (room) {
+        var idPartida = consultarIdPartida(room);
+        io.sockets.in(partidas[idPartida].nombrePartida).emit('enviandoVerificarUnir', socket.id);
     })
     socket.on('pasarTurno', function (room) {
         var idPartida = consultarIdPartida(room);
@@ -365,7 +352,6 @@ setInterval(function () {
     }
 }, 1000 / 60);
 function seleccionarColor(filasN, columnasN, gameMapN,) {
-    console.log("seleccionarColor")
     var indice = 0;
     var colorMapN = [];
     for (var y = 0; y < filasN; ++y) {
@@ -376,7 +362,9 @@ function seleccionarColor(filasN, columnasN, gameMapN,) {
                     indice++;
                     break;
                 default:
-                    var colorA = Math.floor(Math.random() * 3);
+                   // var colorA = Math.floor(Math.random() * 3);
+                    var colorA = 1;
+
                     var colorAnterior = -1;
                     while (colorA == colorAnterior) {
                         colorA = Math.floor(Math.random() * 3);
@@ -404,7 +392,6 @@ return colorMapN;
 }
 function actualizarOrdenPartidas(room) {
     var idPartida = consultarIdPartida(room);
-    console.log("turnoJugadores: " + partidas[idPartida].turnoJugadores)
     io.sockets.in(room).emit('turnoPartida', partidas[idPartida].turnoJugadores);
 }
 function consultarIdPartida(partida) {
@@ -620,19 +607,28 @@ function descargarPreguntas(idPartida, idProfesor, idMateria) {
     partidas[idPartida].preguntasUnirVoltear = firebase.obtenerPreguntasUnir(idProfesor, idMateria);
 }
 function indiceRandomicoOpcionMultiple(idPartida) {
+    var arrayRandomico = [];
     var indiceRandomicoP = Math.floor(Math.random() * partidas[idPartida].preguntasOpcionMultiple.length);
-    if (partidas[idPartida].preguntasOpcionMultiple[indiceRandomicoP].usada) {
-        contadorPreguntasUsadas++;
-        if (partidas[idPartida].preguntasOpcionMultiple.length == contadorPreguntasUsadas) {
-            for (var i = 0; i < partidas[idPartida].preguntasOpcionMultiple.length; i++) {
-                partidas[idPartida].preguntasOpcionMultiple[i].usada = false;
-            }
+    arrayRandomico.push(indiceRandomicoP);
+    var contador = 0;
+    for (var i = 0; i < partidas[idPartida].preguntasOpcionMultiple.length; i++) {
+        if(partidas[idPartida].preguntasOpcionMultiple[i].usada == true){
+            contador++;
         }
-        indiceRandomicoOpcionMultiple(idPartida);
-    } else {
-        partidas[idPartida].preguntasOpcionMultiple[indiceRandomicoP].usada = true;
-        return indiceRandomicoP;
     }
+    if (partidas[idPartida].preguntasOpcionMultiple.length == contador) {
+        for (var i = 0; i < partidas[idPartida].preguntasOpcionMultiple.length; i++) {
+            partidas[idPartida].preguntasOpcionMultiple[i].usada = false;
+        }
+    }
+
+    while(partidas[idPartida].preguntasOpcionMultiple[indiceRandomicoP].usada == true)
+    {
+        indiceRandomicoP = Math.floor(Math.random() * partidas[idPartida].preguntasOpcionMultiple.length);
+    }
+
+    partidas[idPartida].preguntasOpcionMultiple[indiceRandomicoP].usada = true;
+    return indiceRandomicoP;
 }
 function indiceRandomicoUnirVoltear(idPartida) {
     var indiceRandomicoP = Math.floor(Math.random() * partidas[idPartida].preguntasUnirVoltear.length);

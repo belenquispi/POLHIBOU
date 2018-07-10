@@ -134,7 +134,6 @@ socket.on('dados', function (dadoN1, dadoN2, dadoAnteriorN1, dadoAnteriorN2, num
 });
 
 socket.on('ocultarBoton', function (idSocket) {
-    console.log("rrr: " + idSocket + "  " + idSocketActual);
     if (idSocket == idSocketActual) {
         if (document.getElementById("botonLanzar")) {
             document.getElementById("botonLanzar").classList.add("invisible")
@@ -144,42 +143,32 @@ socket.on('ocultarBoton', function (idSocket) {
 });
 
 socket.on('emparejar', function (array) {
-    console.log(array.length);
     memory_array = array;
     newBoard();
 });
 
 socket.on('respondiendoIndicePreguntaOpcionMultiple', function (indicePregunta) {
-    console.log("Voy a cargar opcion")
     cargarPreguntaOpcionMultiple(indicePregunta);
 });
 
 socket.on('respondiendoIndicePreguntaUnir', function (arrayIndices, arrayTexto) {
-    console.log("Voy a cargar unir "+ arrayIndices)
     respuestaCorrectaUnir = [];
     for(var i = 0; i< arrayIndices.length; i++){
         respuestaCorrectaUnir.push(preguntasUnirVoltear[arrayIndices[i]].urlImagenUnirVoltear)
         respuestaCorrectaUnir.push(preguntasUnirVoltear[arrayIndices[i]].textoUnirVoltear)
         cargarPreguntaUnirVoltear(arrayIndices[i],arrayTexto[i],(i+1));
-        console.log("correcto: "+ respuestaCorrectaUnir[respuestaCorrectaUnir.length-2]+ " indice: "+arrayIndices[i]);
-        console.log("correcto: "+ respuestaCorrectaUnir[respuestaCorrectaUnir.length-1]+ " indice: "+arrayIndices[i]);
     }
 });
 
 socket.on('respondiendoIndicePreguntaVoltear', function (memory) {
     memory_array = memory ;
-    console.log("Voy a cargar voltear "+ memory)
     newBoard();
 });
 
 socket.on('enviandoParEncontrado', function (memory_tile_ids, idSocketN) {
-console.log("un par recibido" + memory_tile_ids.length)
-console.log("socket id" + idSocketN)
-console.log("socket actual" + idSocketActual)
     if(idSocketN != idSocketActual){
         for(var i = 0; i < memory_tile_ids.length; i++)
         {
-            console.log("clic en "+memory_tile_ids[i]);
             document.getElementById(memory_tile_ids[i]).click();
         }
     }
@@ -187,7 +176,6 @@ console.log("socket actual" + idSocketActual)
 
 socket.on('enviandoRespuestaOpcionMultiple', function (botonSeleccionado, idSocketN) {
     if(idSocketN != idSocketActual) {
-        console.log("Se da clic ")
         document.getElementById(botonSeleccionado).click();
     }
 })
@@ -198,6 +186,13 @@ socket.on('enviandoRespuestaUnir', function (respuestaUnir, idSocketN) {
         for(var i = 0 ; i < respuestaUnir.length; i++){
             document.getElementById(respuestaUnir[i]).click();
         }
+    }
+})
+
+socket.on('enviandoVerificarUnir', function (idSocketN) {
+    if(idSocketN != idSocketActual) {
+        verificarRespuestaUnir();
+        reiniciarUnir();
     }
 })
 
@@ -500,17 +495,19 @@ function mostrarJugadorActual() {
     }
 
     if (indiceJugadorActual >= 0 && turnoJugadores.length > 0) {
+        document.getElementById("nombreEquipoActual").innerHTML = jugadores[indiceJugadorActual].nombreEquipo;
         if (document.getElementById("tablajug" + (indiceJugadorActual + 1))) {
             document.getElementById("tablajug" + (indiceJugadorActual + 1)).style.border = "thick solid #A9BCF5";
             cambiarImagen(indiceJugadorActual);
         }
     }
     else {
-        for (var j = 0; j < turnoJugadores.length; j++) {
+       /* for (var j = 0; j < turnoJugadores.length; j++) {
             if (jugadores.length > 0) {
+                //console.log("jjjjjojojojo: "+j)
                 document.getElementById("imagenJugador" + (j + 1)).src = "static/buhoInicial" + jugadores[j].iconoEquipo + ".gif";
             }
-        }
+        }*/
     }
 }
 
@@ -564,7 +561,6 @@ function newBoard() {
     tiles_flipped = 0;
     var output = '';
     for (var i = 0; i < memory_array.length; i++) {
-        console.log("eee");
         if(idSocketActual == turnoJugadores[0]) {
             output += '<img id="tile_' + i + '" alt="" onclick="memoryFlipTile(this,\'' + memory_array[i] + '\')">';
         }
@@ -577,19 +573,15 @@ function newBoard() {
 }
 
 function memoryFlipTile(tile, val) {
-    console.log("url: " + tile.alt+"  "+turnoJugadores[0]);
     if (tile.alt == "" && memory_values.length < 2) {
-        console.log("url: " + tile.src);
         //tile.style.background = '#FFF';
         tile.src = val;
         tile.alt = val;
         if (memory_values.length == 0) {
-            console.log("url1: " + tile.src);
 
             memory_values.push(val);
             memory_tile_ids.push(tile.id);
         } else if (memory_values.length == 1) {
-            console.log("ur2: " + tile.src);
 
             memory_values.push(val);
             memory_tile_ids.push(tile.id);
@@ -674,19 +666,15 @@ function cargarPreguntaOpcionMultiple(indicePregunta) {
             var images = document.createElement("IMG");
             switch (j){
                 case 0:
-                    console.log(j)
                     images.setAttribute("src", preguntasOpcionMultiple[indicePregunta].urlRes1);
                     break;
                 case 1:
-                    console.log(j)
                     images.setAttribute("src", preguntasOpcionMultiple[indicePregunta].urlRes2);
                     break;
                 case 2:
-                    console.log(j)
                     images.setAttribute("src", preguntasOpcionMultiple[indicePregunta].urlRes3);
                     break;
                 case 3:
-                    console.log(j)
                     images.setAttribute("src", preguntasOpcionMultiple[indicePregunta].urlRes4);
                     break;
             }
@@ -843,7 +831,6 @@ function validarRespuesta(boton) {
     }
     if(boton.id == resCorrecta )
     { desafioCorrecto();
-        console.log("Correcto: "+ boton.id);
         document.getElementById(boton.id).classList.remove('btn-info');
         document.getElementById(boton.id).classList.add('btn-success');
     }
@@ -861,6 +848,9 @@ setTimeout(function(){
 }
 
 function verificarRespuestaUnir() {
+    if(turnoJugadores[0]==idSocketActual) {
+        socket.emit('verificarUnir', roomActual);
+    }
     var contadorRespuestas = 0;
     for(var j = 0; j < respuestaUnir.length-1; j++){
         for (var k = 0; k < respuestaCorrectaUnir.length-1; k++)
@@ -875,6 +865,8 @@ function verificarRespuestaUnir() {
 
         }
     }
+
+
     if(contadorRespuestas == 4)
     {
         desafioCorrecto();
@@ -882,18 +874,13 @@ function verificarRespuestaUnir() {
     else {
         desafioIncorrecto();
     }
-
-    setTimeout(function(){
-        document.getElementById("desafios").setAttribute("hidden","");
-    }, 2000);
+    document.getElementById("desafios").setAttribute("hidden","");
     reiniciarUnir();
-
 }
 
 function desafioIncorrecto() {
     mostrarMensaje("snackbarIn");
     respuestaCorrecta = false;
-    console.log("Respuesta Incorrecta")
     if(turnoJugadores[0]==idSocketActual) {
         socket.emit('pasarTurno', roomActual);
     }
