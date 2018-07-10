@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3299685f-4aef-430c-bbbf-10e9746e67af" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/BPMNPLAY/firebase.js" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/firebase.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BPMNPLAY/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/static/js/creacionPartida.js" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/static/js/creacionPartida.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/static/js/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/static/js/game.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -18,64 +17,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="server.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="server.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/BPMNPLAY/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-306">
-              <caret line="355" column="73" selection-start-line="355" selection-start-column="73" selection-end-line="355" selection-end-column="73" />
-              <folding>
-                <element signature="e#10599#10942#0" />
-                <element signature="e#11425#11506#0" />
-                <element signature="e#11584#11659#0" />
-                <element signature="e#11714#11767#0" />
-                <element signature="e#11835#12125#0" />
-                <element signature="e#12183#13523#0" />
-                <element signature="e#13584#15124#0" />
-                <element signature="e#15191#15394#0" />
-                <element signature="e#15758#15929#0" />
-                <element signature="e#15959#16095#0" />
-                <element signature="e#16137#17325#0" />
-                <element signature="e#16195#17323#0" />
-                <element signature="e#17365#17496#0" />
-                <element signature="e#17534#17632#0" />
-                <element signature="e#17856#18065#0" />
-                <element signature="e#21124#21394#0" />
-                <element signature="e#21181#21210#0" />
-                <element signature="e#21255#21284#0" />
-                <element signature="e#21440#21510#0" />
-                <element signature="e#21558#21628#0" />
-                <element signature="e#21676#21746#0" />
-                <element signature="e#21795#21865#0" />
-                <element signature="e#21919#22205#0" />
-                <element signature="e#22256#22712#0" />
-                <element signature="e#22758#22857#0" />
-                <element signature="e#22904#23003#0" />
-                <element signature="e#23047#23146#0" />
-                <element signature="e#23192#23291#0" />
-                <element signature="e#23345#23623#0" />
-                <element signature="e#23648#23684#0" />
-                <element signature="e#23757#24142#0" />
-                <element signature="e#24199#24523#0" />
-                <element signature="e#24574#24763#0" />
-                <element signature="e#24785#24858#0" />
-                <element signature="e#24921#25139#0" />
-                <element signature="e#25190#25886#0" />
-                <element signature="e#25934#26070#0" />
-                <element signature="e#26125#26586#0" />
-              </folding>
+            <state relative-caret-position="245">
+              <caret line="190" column="11" selection-start-line="190" selection-start-column="11" selection-end-line="190" selection-end-column="11" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="game.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="game.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/js/game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-231">
+            <state relative-caret-position="17">
               <caret line="635" column="25" selection-start-line="635" selection-start-column="9" selection-end-line="635" selection-end-column="25" />
-              <folding>
-                <element signature="e#30839#30904#0" />
-                <element signature="e#30937#31108#0" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -83,7 +38,7 @@
       <file leaf-file-name="creacionPartida.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/js/creacionPartida.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2295">
+            <state relative-caret-position="289">
               <caret line="137" column="1" selection-start-line="137" selection-start-column="1" selection-end-line="137" selection-end-column="1" />
               <folding>
                 <element signature="e#569#581#0" />
@@ -104,7 +59,7 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BPMNPLAY/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
+            <state relative-caret-position="442">
               <caret line="26" column="33" selection-start-line="26" selection-start-column="33" selection-end-line="26" selection-end-column="33" />
             </state>
           </provider>
@@ -113,7 +68,7 @@
       <file leaf-file-name="tablero.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BPMNPLAY/tablero.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
+            <state relative-caret-position="850">
               <caret line="50" column="73" selection-start-line="50" selection-start-column="73" selection-end-line="50" selection-end-column="73" />
               <folding>
                 <element signature="n#div#0;n#div#3;n#body#0;n#html#0;n#!!top" />
@@ -132,11 +87,10 @@
       <file leaf-file-name="firebase.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BPMNPLAY/firebase.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1020">
-              <caret line="73" column="70" selection-start-line="73" selection-start-column="54" selection-end-line="73" selection-end-column="70" />
+            <state relative-caret-position="252">
+              <caret line="94" column="14" lean-forward="true" selection-start-line="94" selection-start-column="14" selection-end-line="94" selection-end-column="14" />
               <folding>
                 <element signature="e#522#994#0" />
-                <element signature="e#3772#4578#0" />
                 <element signature="e#4641#5240#0" />
               </folding>
             </state>
@@ -233,13 +187,13 @@
         <option value="$PROJECT_DIR$/BPMNPLAY/static/js/preguntasUnirVoltear.js" />
         <option value="$PROJECT_DIR$/BPMNPLAY/preguntasUnirVoltear.html" />
         <option value="$PROJECT_DIR$/BPMNPLAY/index.html" />
-        <option value="$PROJECT_DIR$/BPMNPLAY/firebase.js" />
         <option value="$PROJECT_DIR$/BPMNPLAY/static/js/preguntasOpcionMultiple.js" />
         <option value="$PROJECT_DIR$/BPMNPLAY/tablero.html" />
         <option value="$PROJECT_DIR$/BPMNPLAY/static/css/estilos.css" />
         <option value="$PROJECT_DIR$/BPMNPLAY/creacionPartida.html" />
         <option value="$PROJECT_DIR$/BPMNPLAY/static/js/creacionPartida.js" />
         <option value="$PROJECT_DIR$/BPMNPLAY/static/js/game.js" />
+        <option value="$PROJECT_DIR$/BPMNPLAY/firebase.js" />
         <option value="$PROJECT_DIR$/BPMNPLAY/server.js" />
       </list>
     </option>
@@ -381,7 +335,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="311749000" />
+    <option name="totallyTimeSpent" value="312719000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -399,31 +353,41 @@
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39087948" />
       <window_info anchor="bottom" id="TypeScript" order="7" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.1727672" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32838285" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.23289903" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39087948" />
       <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" weight="0.32899022" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32899022" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.29153094" />
+      <window_info id="Favorites" order="2" side_tool="true" />
     </layout>
     <layout-to-restore>
+      <window_info anchor="bottom" id="Version Control" order="11" weight="0.32838285" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.23615634" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="0" weight="0.1727672" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="TypeScript" order="8" />
-      <window_info active="true" anchor="bottom" id="Find" order="1" visible="true" weight="0.32899022" />
+      <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39087948" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.29153094" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.32899022" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Version Control" order="11" weight="0.32838285" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info active="true" anchor="bottom" id="Find" order="1" visible="true" weight="0.32899022" />
       <window_info id="Favorites" order="2" side_tool="true" />
     </layout-to-restore>
   </component>
@@ -537,18 +501,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/firebase.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1020">
-          <caret line="73" column="70" selection-start-line="73" selection-start-column="54" selection-end-line="73" selection-end-column="70" />
-          <folding>
-            <element signature="e#522#994#0" />
-            <element signature="e#3772#4578#0" />
-            <element signature="e#4641#5240#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/css/estilos.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3094">
@@ -582,14 +534,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/BPMNPLAY/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
+        <state relative-caret-position="442">
           <caret line="26" column="33" selection-start-line="26" selection-start-column="33" selection-end-line="26" selection-end-column="33" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/BPMNPLAY/tablero.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
+        <state relative-caret-position="850">
           <caret line="50" column="73" selection-start-line="50" selection-start-column="73" selection-end-line="50" selection-end-column="73" />
           <folding>
             <element signature="n#div#0;n#div#3;n#body#0;n#html#0;n#!!top" />
@@ -606,7 +558,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/js/creacionPartida.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2295">
+        <state relative-caret-position="289">
           <caret line="137" column="1" selection-start-line="137" selection-start-column="1" selection-end-line="137" selection-end-column="1" />
           <folding>
             <element signature="e#569#581#0" />
@@ -614,61 +566,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/server.js">
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/js/game.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-306">
-          <caret line="355" column="73" selection-start-line="355" selection-start-column="73" selection-end-line="355" selection-end-column="73" />
+        <state relative-caret-position="17">
+          <caret line="635" column="25" selection-start-line="635" selection-start-column="9" selection-end-line="635" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/firebase.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="94" column="14" lean-forward="true" selection-start-line="94" selection-start-column="14" selection-end-line="94" selection-end-column="14" />
           <folding>
-            <element signature="e#10599#10942#0" />
-            <element signature="e#11425#11506#0" />
-            <element signature="e#11584#11659#0" />
-            <element signature="e#11714#11767#0" />
-            <element signature="e#11835#12125#0" />
-            <element signature="e#12183#13523#0" />
-            <element signature="e#13584#15124#0" />
-            <element signature="e#15191#15394#0" />
-            <element signature="e#15758#15929#0" />
-            <element signature="e#15959#16095#0" />
-            <element signature="e#16137#17325#0" />
-            <element signature="e#16195#17323#0" />
-            <element signature="e#17365#17496#0" />
-            <element signature="e#17534#17632#0" />
-            <element signature="e#17856#18065#0" />
-            <element signature="e#21124#21394#0" />
-            <element signature="e#21181#21210#0" />
-            <element signature="e#21255#21284#0" />
-            <element signature="e#21440#21510#0" />
-            <element signature="e#21558#21628#0" />
-            <element signature="e#21676#21746#0" />
-            <element signature="e#21795#21865#0" />
-            <element signature="e#21919#22205#0" />
-            <element signature="e#22256#22712#0" />
-            <element signature="e#22758#22857#0" />
-            <element signature="e#22904#23003#0" />
-            <element signature="e#23047#23146#0" />
-            <element signature="e#23192#23291#0" />
-            <element signature="e#23345#23623#0" />
-            <element signature="e#23648#23684#0" />
-            <element signature="e#23757#24142#0" />
-            <element signature="e#24199#24523#0" />
-            <element signature="e#24574#24763#0" />
-            <element signature="e#24785#24858#0" />
-            <element signature="e#24921#25139#0" />
-            <element signature="e#25190#25886#0" />
-            <element signature="e#25934#26070#0" />
-            <element signature="e#26125#26586#0" />
+            <element signature="e#522#994#0" />
+            <element signature="e#4641#5240#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/js/game.js">
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-231">
-          <caret line="635" column="25" selection-start-line="635" selection-start-column="9" selection-end-line="635" selection-end-column="25" />
-          <folding>
-            <element signature="e#30839#30904#0" />
-            <element signature="e#30937#31108#0" />
-          </folding>
+        <state relative-caret-position="245">
+          <caret line="190" column="11" selection-start-line="190" selection-start-column="11" selection-end-line="190" selection-end-column="11" />
         </state>
       </provider>
     </entry>

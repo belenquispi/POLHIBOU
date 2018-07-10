@@ -178,7 +178,7 @@ io.on('connection', function (socket) {
 
     socket.on('disconnect', function () {
         // remove disconnected player
-        for (var i = 0 ; i < partidas.length; i++){
+        /*for (var i = 0 ; i < partidas.length; i++){
             var idJugador = partidas[i].jugadores.map(function (e) { return e.idSocket;}).indexOf(socket.id);
             if(idJugador >= 0)
             {	console.log("Se eliminara al sockect: " + socket.id);
@@ -188,7 +188,7 @@ io.on('connection', function (socket) {
             else{
                 console.log(i+") La partida: "+partidas[i].nombrePartida+"no posee al jugador con el id: "+socket.id);
             }
-        }
+        }*/
     });
     socket.on('nuevo array', function (data, room) {
         var idPartida = consultarIdPartida(room);

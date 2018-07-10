@@ -84,13 +84,11 @@ module.exports =
         obtenerPreguntasOpcionMultiple: function (usuario, idMateria) {
             console.log("preguntassssss");
             var preguntasOpcionMultiple = [];
-            console.log("uuuuu" + usuario+" "+idMateria);
-
             var referenciaProfesores = db.collection('profesores').doc(usuario).collection('materias').doc(idMateria).collection('preguntasOpcionMultiple');
             referenciaProfesores.get().then(collections => {
                 collections.forEach(doc => {
                     console.log("iiiilll: "+doc.id);
-
+                    console.log("enunciado: "+doc.data().enunciado);
                     preguntasOpcionMultiple.push(doc.data());
                     preguntasOpcionMultiple[preguntasOpcionMultiple.length - 1].usada = false;
                 });
