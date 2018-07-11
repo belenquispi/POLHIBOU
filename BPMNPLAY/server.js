@@ -303,7 +303,7 @@ io.on('connection', function (socket) {
             }
             contador = partidas[idPartida].preguntasUnirVoltear.length;
         }
-        for( var i = 0; i < 9; i++){
+        for( var i = 0; i < 8; i++){
             var indice = indiceRandomicoUnirVoltear(idPartida);
             while(arrayIndices.indexOf(indice) != -1){
                 indice = indiceRandomicoUnirVoltear(idPartida);
@@ -363,7 +363,7 @@ function seleccionarColor(filasN, columnasN, gameMapN,) {
                     break;
                 default:
                    // var colorA = Math.floor(Math.random() * 3);
-                    var colorA = 1;
+                    var colorA = 2;
 
                     var colorAnterior = -1;
                     while (colorA == colorAnterior) {

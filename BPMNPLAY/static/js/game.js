@@ -655,7 +655,7 @@ function cargarPreguntaOpcionMultiple(indicePregunta) {
         var boton = document.createElement("BUTTON");
         boton.setAttribute("id", "res" + (j + 1));
         boton.setAttribute("onclick", "validarRespuesta(this)");
-        boton.setAttribute("class", "btn btn-block btn-info");
+        boton.setAttribute("class", "btn btn-block btn-info cortaPalabra");
         boton.setAttribute("type", "button");
         boton.style.margin = "0px 5px";
         document.getElementById("puesto" + (j + 1)).appendChild(boton);
@@ -843,7 +843,9 @@ function validarRespuesta(boton) {
     }
 
 setTimeout(function(){
-        document.getElementById("desafios").setAttribute("hidden","");
+    document.getElementById("tarjeta").style.transform = "perspective( 600px ) rotateY( 0deg )"
+    document.getElementById("desafios").style.transform = "perspective( 600px ) rotateY( 180deg )"
+    //document.getElementById("desafios").setAttribute("hidden","");
     }, 2000);
 }
 
@@ -897,4 +899,9 @@ function mostrarMensaje(texto) {
     setTimeout(function () {
         x.className = x.className.replace("show", "");
     }, 2000);
+}
+
+function darLaVuelta() {
+    console.log(document.getElementById("tarjeta").style.transform = "perspective( 600px ) rotateY( -180deg )")
+    console.log(document.getElementById("desafios").style.transform = "perspective( 600px ) rotateY( 0deg )")
 }
