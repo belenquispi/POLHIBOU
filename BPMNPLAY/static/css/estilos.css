@@ -185,14 +185,20 @@ div#memory_board > img {
 .flip3D > .front{
     position:absolute;
     transform: perspective( 600px ) rotateY( 0deg );
-    background:#FC0; width:450px; height:450px; border-radius: 7px;
+    background: #bdffbf; width:450px; height:450px; border-radius: 7px;
+    border-color: black;
+    border-style: solid;
+    border-width: thick;
     backface-visibility: hidden;
     transition: transform .5s linear 0s;
 }
 .flip3D > .back{
     position:absolute;
     transform: perspective( 600px ) rotateY( 180deg );
-    background: #80BFFF; width:450px; height:450px; border-radius: 7px;
+    background: #bdffbf; width:450px; height:450px; border-radius: 7px;
+    border-color: black;
+    border-style: solid;
+    border-width: thick;
     backface-visibility: hidden;
     transition: transform .5s linear 0s;
 }

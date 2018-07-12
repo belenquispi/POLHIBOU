@@ -75,6 +75,7 @@ app.use('/static', express.static(__dirname + '/static' + ''));
 
 app.get('/', function (request, response) {
     response.sendFile(path.join(__dirname, 'index.html'));
+  //  response.render('index');
 });
 app.get('/tablero', function (request, response) {
     response.sendFile(path.join(__dirname, 'tablero.html'));
@@ -363,7 +364,7 @@ function seleccionarColor(filasN, columnasN, gameMapN,) {
                     break;
                 default:
                    // var colorA = Math.floor(Math.random() * 3);
-                    var colorA = 2;
+                    var colorA = 1;
 
                     var colorAnterior = -1;
                     while (colorA == colorAnterior) {

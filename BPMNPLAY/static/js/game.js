@@ -366,22 +366,23 @@ function dibujarJugador() {
 }
 
 function desbloquearBoton() {
+
     if (document.getElementById("botonLanzar")) {
         document.getElementById("botonLanzar").classList.remove("invisible")
         document.getElementById("botonLanzar").classList.remove("disabledbutton")
     }
+    document.getElementById("tarjeta").classList.add("disabledbutton")
 }
 
 function bloquearBoton() {
     if (document.getElementById("botonLanzar")) {
-        /*
-        document.getElementById("botonLanzar").setAttribute("disabled", "");
-        document.getElementById("botonLanzar").style.backgroundColor = "white";
-        document.getElementById("botonLanzar").style.borderColor = "white";
-
-        */
         document.getElementById("botonLanzar").classList.add("invisible")
         document.getElementById("botonLanzar").classList.add("disabledbutton")
+    }
+
+    if(turnoJugadores.length > 0 && turnoJugadores[0] == idSocketActual)
+    {
+        document.getElementById("tarjeta").classList.remove("disabledbutton")
     }
 }
 
@@ -526,6 +527,8 @@ function cambiarImagen(num) {
 function mostrarDesafio(colorCa, idSocket) {
    switch (colorCa) {
         case 0:
+            document.getElementById('tarjeta').style.backgroundColor = "#F2F5A9";
+            document.getElementById('desafios').style.backgroundColor = "#F2F5A9";
             if(idSocket == idSocketActual)
             {  socket.emit('solicitarPreguntaVoltear',roomActual);}
             document.getElementById("tipoJuego").innerHTML = "Voltear";
@@ -535,6 +538,8 @@ function mostrarDesafio(colorCa, idSocket) {
             document.getElementById("opcionMultiple").setAttribute("hidden", "");
             break;
         case 1:
+            document.getElementById('tarjeta').style.backgroundColor = "#F6CED8";
+            document.getElementById('desafios').style.backgroundColor = "#F6CED8";
             respuestaUnir = [];
             if(idSocket == idSocketActual)
             { socket.emit('solicitarPreguntaUnir',roomActual);}
@@ -545,6 +550,8 @@ function mostrarDesafio(colorCa, idSocket) {
             document.getElementById("opcionMultiple").setAttribute("hidden", "");
             break;
         case 2:
+            document.getElementById('tarjeta').style.backgroundColor = "#81DAF5";
+            document.getElementById('desafios').style.backgroundColor = "#81DAF5";
             if(idSocket == idSocketActual)
             { socket.emit('solicitarPreguntaOpcionMultiple',roomActual); }
             document.getElementById("tipoJuego").innerHTML = "Opción Múltiple";
@@ -598,9 +605,7 @@ function memoryFlipTile(tile, val) {
                 if (tiles_flipped == memory_array.length) {
                     // alert("Board cleared... generating new board");
                     desafioCorrecto();
-                    document.getElementById('memory_board').innerHTML = "";
-                    document.getElementById('desafios').setAttribute("hidden","");
-                    //newBoard();
+                    voltearTarjeta();
                 }
             } else {
                 function flip2Back() {
@@ -842,11 +847,8 @@ function validarRespuesta(boton) {
         document.getElementById(resCorrecta).classList.add("btn-success");
     }
 
-setTimeout(function(){
-    document.getElementById("tarjeta").style.transform = "perspective( 600px ) rotateY( 0deg )"
-    document.getElementById("desafios").style.transform = "perspective( 600px ) rotateY( 180deg )"
-    //document.getElementById("desafios").setAttribute("hidden","");
-    }, 2000);
+
+    voltearTarjeta();
 }
 
 function verificarRespuestaUnir() {
@@ -876,7 +878,7 @@ function verificarRespuestaUnir() {
     else {
         desafioIncorrecto();
     }
-    document.getElementById("desafios").setAttribute("hidden","");
+    voltearTarjeta();
     reiniciarUnir();
 }
 
@@ -904,4 +906,21 @@ function mostrarMensaje(texto) {
 function darLaVuelta() {
     console.log(document.getElementById("tarjeta").style.transform = "perspective( 600px ) rotateY( -180deg )")
     console.log(document.getElementById("desafios").style.transform = "perspective( 600px ) rotateY( 0deg )")
+}
+
+function voltearTarjeta() {
+    setTimeout(function(){
+            document.getElementById("desafios").style.transform = "perspective( 600px ) rotateY( 180deg )";
+            document.getElementById('tarjeta').style.backgroundColor = "#bdffbf";
+            document.getElementById("tarjeta").style.transform = "perspective( 600px ) rotateY( 0deg )";
+
+
+            setTimeout(function() {
+                document.getElementById('desafios').style.backgroundColor = "#bdffbf";
+            }  , 1000);
+
+
+        }
+        , 2000);
+
 }

@@ -7,7 +7,7 @@
     <title>Title</title>
     <script src="/socket.io/socket.io.js"></script>
 </head>
-<body style="width: 80%">
+<body>
 <div class="col-md-4">
     <canvas id="game" width="540" height="480"></canvas>
 </div>
@@ -111,12 +111,10 @@
 
     </div>
     <div class="row">
-        <div class="flip3D">
-            <div id="tarjeta" class="front" onclick="darLaVuelta()">Box 1 - Front</div>
+        <div class="flip3D" >
+            <div id="tarjeta" class="front disabledbutton" onclick="darLaVuelta()"  ></div>
             <div id="desafios" class="back container-fluid col-md-12" hidden>
-                <div class="row ">
-                    <h1><span id="tipoJuego" class="label label-default ">Tipo de Juego</span></h1>
-                </div>
+                    <h1 id="tipoJuego" >Tipo de Juego</h1>
                 <div id="opcionMultiple" class="row" hidden>
                     <div class="row">
                         <div class="col-md-7">
