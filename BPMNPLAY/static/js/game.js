@@ -605,7 +605,7 @@ function memoryFlipTile(tile, val) {
                 if (tiles_flipped == memory_array.length) {
                     // alert("Board cleared... generating new board");
                     desafioCorrecto();
-                    voltearTarjeta();
+                    voltearTarjeta(2000);
                 }
             } else {
                 function flip2Back() {
@@ -848,7 +848,7 @@ function validarRespuesta(boton) {
     }
 
 
-    voltearTarjeta();
+    voltearTarjeta(2000);
 }
 
 function verificarRespuestaUnir() {
@@ -870,7 +870,7 @@ function verificarRespuestaUnir() {
         }
     }
 
-
+    mostrarRespuestaCorrectaUnir();
     if(contadorRespuestas == 4)
     {
         desafioCorrecto();
@@ -878,7 +878,7 @@ function verificarRespuestaUnir() {
     else {
         desafioIncorrecto();
     }
-    voltearTarjeta();
+    voltearTarjeta(10000);
     reiniciarUnir();
 }
 
@@ -903,24 +903,26 @@ function mostrarMensaje(texto) {
     }, 2000);
 }
 
+function mostrarRespuestaCorrectaUnir() {
+    for (var i = 0; i < 4; i++){
+        document.getElementById("textoCorrecto"+(i+1)).innerHTML = respuestaCorrectaUnir[(i*2)+1];
+    }
+}
+
 function darLaVuelta() {
     console.log(document.getElementById("tarjeta").style.transform = "perspective( 600px ) rotateY( -180deg )")
     console.log(document.getElementById("desafios").style.transform = "perspective( 600px ) rotateY( 0deg )")
 }
 
-function voltearTarjeta() {
+function voltearTarjeta(t) {
     setTimeout(function(){
             document.getElementById("desafios").style.transform = "perspective( 600px ) rotateY( 180deg )";
             document.getElementById('tarjeta').style.backgroundColor = "#bdffbf";
             document.getElementById("tarjeta").style.transform = "perspective( 600px ) rotateY( 0deg )";
-
-
             setTimeout(function() {
                 document.getElementById('desafios').style.backgroundColor = "#bdffbf";
             }  , 1000);
-
-
         }
-        , 2000);
+        , t);
 
 }
