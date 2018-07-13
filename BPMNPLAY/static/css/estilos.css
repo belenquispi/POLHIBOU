@@ -1,6 +1,6 @@
 body {
     color: #333;
-    padding: 20px;
+    padding: 10px;
     text-align: center;
     font-family: Arial;
 }
@@ -8,14 +8,14 @@ canvas {
     border: 5px solid black;
 }
 .separator {
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 /* 3D Cube */
 .space3d, .space3d-2  {
     perspective: 700px;
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     text-align: center;
     display: inline-block;
 }
@@ -34,44 +34,44 @@ canvas {
     position: absolute;
     border: 1px solid #888;
     background: #fff;
-    box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.1), 0 0 25px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 0, 0, 0.3);
     color: #333;
-    line-height: 50px;
+    line-height: 40px;
     opacity: 0.8;
 }
 ._3dface--uno, ._3dface--uno-2 {
-    width: 50px;
-    height: 50px;
-    transform: translate3d(0, 0, 25px);
+    width: 40px;
+    height: 40px;
+    transform: translate3d(0, 0, 20px);
 }
 ._3dface--top, ._3dface--top-2 {
-    width: 50px;
-    height: 50px;
-    transform: rotateX(90deg) translate3d(0, 0, 25px);
+    width: 40px;
+    height: 40px;
+    transform: rotateX(90deg) translate3d(0, 0, 20px);
 }
 ._3dface--bottom, ._3dface--bottom-2 {
-    width: 50px;
-    height: 50px;
-    transform: rotateX(-90deg) translate3d(0, 0, 25px);
+    width: 40px;
+    height: 40px;
+    transform: rotateX(-90deg) translate3d(0, 0, 20px);
 }
 ._3dface--dos, ._3dface--dos-2  {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     left: 50%;
     margin-left: -15px;
-    transform: rotateY(-90deg) translate3d(0, 0, 25px);
+    transform: rotateY(-90deg) translate3d(0, 0, 14px);
 }
 ._3dface--tres, ._3dface--tres-2 {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     left: 50%;
     margin-left: -15px;
-    transform: rotateY(90deg) translate3d(0, 0, 25px);
+    transform: rotateY(90deg) translate3d(0, 0, 20px);
 }
 ._3dface--back, ._3dface--back-2 {
-    width: 50px;
-    height: 50px;
-    transform: rotateY(180deg) translate3d(0, 0, 25px);
+    width: 40px;
+    height: 40px;
+    transform: rotateY(180deg) translate3d(0, 0, 20px);
 }
 #radio-dos:checked ~ .space3d ._3dbox {
     transform: rotateY(90deg);
@@ -181,11 +181,11 @@ div#memory_board > img {
     visibility: hidden;
 }
 
-.flip3D{ width:450px; height:450px; margin:10px; float:left; }
+.flip3D{ width:450px; height:480px; margin:10px; float:left; }
 .flip3D > .front{
     position:absolute;
     transform: perspective( 600px ) rotateY( 0deg );
-    background: #bdffbf; width:450px; height:450px; border-radius: 7px;
+    background: #bdffbf; width:450px; height:480px; border-radius: 7px;
     border-color: black;
     border-style: solid;
     border-width: thick;
@@ -195,7 +195,7 @@ div#memory_board > img {
 .flip3D > .back{
     position:absolute;
     transform: perspective( 600px ) rotateY( 180deg );
-    background: #bdffbf; width:450px; height:450px; border-radius: 7px;
+    background: #bdffbf; width:450px; height:480px; border-radius: 7px;
     border-color: black;
     border-style: solid;
     border-width: thick;
