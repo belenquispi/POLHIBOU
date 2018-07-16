@@ -139,6 +139,7 @@ socket.on('ocultarBoton', function (idSocket) {
             document.getElementById("botonLanzar").classList.add("invisible")
             document.getElementById("botonLanzar").classList.add("disabledbutton")
         }
+        document.getElementById("tarjeta").classList.add("disabledbutton")
     }
 });
 
@@ -192,7 +193,12 @@ socket.on('enviandoRespuestaUnir', function (respuestaUnir, idSocketN) {
 socket.on('enviandoVerificarUnir', function (idSocketN) {
     if(idSocketN != idSocketActual) {
         verificarRespuestaUnir();
-        reiniciarUnir();
+    }
+})
+
+socket.on('enviandoDarLaVuelta', function (idSocketN) {
+    if(idSocketN != idSocketActual) {
+        darLaVuelta();
     }
 })
 
@@ -379,6 +385,7 @@ function bloquearBoton() {
         document.getElementById("botonLanzar").classList.add("invisible")
         document.getElementById("botonLanzar").classList.add("disabledbutton")
     }
+    document.getElementById("tarjeta").classList.add("disabledbutton");
 
     if(turnoJugadores.length > 0 && turnoJugadores[0] == idSocketActual)
     {
@@ -807,7 +814,13 @@ function reiniciarUnir() {
         if(imagenUnir.indexOf(respuestaUnir[i])>=0) {
             document.getElementById(respuestaUnir[i]).removeAttribute("disabled");
         }
+
+        if(i<4 && document.getElementById("textoCorrecto"+(i+1)).innerHTML !="")
+        {
+            document.getElementById("textoCorrecto"+(i+1)).innerHTML ="";
+        }
     }
+
     for(var i = respuestaUnir.length; i > 0 ; i--) {
         respuestaUnir.pop();
     }
@@ -847,7 +860,6 @@ function validarRespuesta(boton) {
         document.getElementById(resCorrecta).classList.add("btn-success");
     }
 
-
     voltearTarjeta(2000);
 }
 
@@ -878,8 +890,12 @@ function verificarRespuestaUnir() {
     else {
         desafioIncorrecto();
     }
+    document.getElementById("botonLanzar").classList.add("disabledbutton")
+    document.getElementById("botonLanzar").classList.add("invible")
     voltearTarjeta(10000);
-    reiniciarUnir();
+ setTimeout (function() {
+        reiniciarUnir();
+    }, 10000)
 }
 
 function desafioIncorrecto() {
@@ -910,8 +926,10 @@ function mostrarRespuestaCorrectaUnir() {
 }
 
 function darLaVuelta() {
-    console.log(document.getElementById("tarjeta").style.transform = "perspective( 600px ) rotateY( -180deg )")
-    console.log(document.getElementById("desafios").style.transform = "perspective( 600px ) rotateY( 0deg )")
+    document.getElementById("tarjeta").style.transform = "perspective( 600px ) rotateY( -180deg )";
+    document.getElementById("desafios").style.transform = "perspective( 600px ) rotateY( 0deg )";
+    if(turnoJugadores[0] == idSocketActual)
+    {  socket.emit('darLaVuelta',roomActual);}
 }
 
 function voltearTarjeta(t) {
@@ -924,5 +942,4 @@ function voltearTarjeta(t) {
             }  , 1000);
         }
         , t);
-
 }

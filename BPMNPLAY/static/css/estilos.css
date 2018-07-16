@@ -1,11 +1,14 @@
 body {
     color: #333;
-    padding: 10px;
     text-align: center;
     font-family: Arial;
 }
 canvas {
     border: 5px solid black;
+}
+
+.unir{
+    margin-top: 20px;
 }
 .separator {
     margin-top: 20px;

@@ -1,9 +1,12 @@
 // Dependencies
 var express = require('express');
+var express = require('express');
 var http = require('http');
 var path = require('path');
 var socketIO = require('socket.io');
 var app = express();
+// set the view engine to ejs
+app.set('view engine', 'ejs');
 var server = http.Server(app);
 var io = socketIO(server);
 var gameMap = [
@@ -74,20 +77,25 @@ app.use('/static', express.static(__dirname + '/static' + ''));
 /* --------------------------------------------- Routning */
 
 app.get('/', function (request, response) {
-    response.sendFile(path.join(__dirname, 'index.html'));
+    response.render('paginas/index');
+  //  response.sendFile(path.join(__dirname, 'index.html'));
   //  response.render('index');
 });
 app.get('/tablero', function (request, response) {
-    response.sendFile(path.join(__dirname, 'tablero.html'));
+    response.render('paginas/tablero');
+//    response.sendFile(path.join(__dirname, 'tablero.html'));
 });
 app.get('/opcionMultiple', function (request, response) {
-    response.sendFile(path.join(__dirname, 'preguntasOpcionMultiple.html'));
+    response.render('paginas/preguntasOpcionMultiple');
+//    response.sendFile(path.join(__dirname, 'preguntasOpcionMultiple.html'));
 });
 app.get('/unirVoltear', function (request, response) {
-    response.sendFile(path.join(__dirname, 'preguntasUnirVoltear.html'));
+    response.render('paginas/preguntasUnirVoltear');
+//    response.sendFile(path.join(__dirname, 'preguntasUnirVoltear.html'));
 });
 app.get('/creacionPartida', function (request, response) {
-    response.sendFile(path.join(__dirname, 'creacionPartida.html'));
+    response.render('paginas/creacionPartida');
+    //response.sendFile(path.join(__dirname, 'creacionPartida.ejs'));
 });
 
 // Starts the server.
@@ -346,7 +354,10 @@ io.on('connection', function (socket) {
         partidas[idPartida].turnoJugadores.push(i);
         actualizarOrdenPartidas(room);
     })
-});
+    socket.on('darLaVuelta', function (room) {
+        var idPartida = consultarIdPartida(room);
+        io.sockets.in(partidas[idPartida].nombrePartida).emit('enviandoDarLaVuelta', socket.id);
+    })});
 setInterval(function () {
     for (var i = 0; i < partidas.length; i++) {
         io.sockets.in(partidas[i].nombrePartida).emit('partida', partidas[i]);
@@ -364,7 +375,7 @@ function seleccionarColor(filasN, columnasN, gameMapN,) {
                     break;
                 default:
                    // var colorA = Math.floor(Math.random() * 3);
-                    var colorA = 1;
+                    var colorA = 2;
 
                     var colorAnterior = -1;
                     while (colorA == colorAnterior) {
