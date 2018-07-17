@@ -136,7 +136,7 @@ socket.on('dados', function (dadoN1, dadoN2, dadoAnteriorN1, dadoAnteriorN2, num
 socket.on('ocultarBoton', function (idSocket) {
     if (idSocket == idSocketActual) {
         if (document.getElementById("botonLanzar")) {
-            document.getElementById("botonLanzar").classList.add("invisible")
+            document.getElementById("botonLanzar").classList.add("invisible");
             document.getElementById("botonLanzar").classList.add("disabledbutton")
         }
         document.getElementById("tarjeta").classList.add("disabledbutton")
@@ -155,8 +155,8 @@ socket.on('respondiendoIndicePreguntaOpcionMultiple', function (indicePregunta) 
 socket.on('respondiendoIndicePreguntaUnir', function (arrayIndices, arrayTexto) {
     respuestaCorrectaUnir = [];
     for(var i = 0; i< arrayIndices.length; i++){
-        respuestaCorrectaUnir.push(preguntasUnirVoltear[arrayIndices[i]].urlImagenUnirVoltear)
-        respuestaCorrectaUnir.push(preguntasUnirVoltear[arrayIndices[i]].textoUnirVoltear)
+        respuestaCorrectaUnir.push(preguntasUnirVoltear[arrayIndices[i]].urlImagenUnirVoltear);
+        respuestaCorrectaUnir.push(preguntasUnirVoltear[arrayIndices[i]].textoUnirVoltear);
         cargarPreguntaUnirVoltear(arrayIndices[i],arrayTexto[i],(i+1));
     }
 });
@@ -173,13 +173,13 @@ socket.on('enviandoParEncontrado', function (memory_tile_ids, idSocketN) {
             document.getElementById(memory_tile_ids[i]).click();
         }
     }
-})
+});
 
 socket.on('enviandoRespuestaOpcionMultiple', function (botonSeleccionado, idSocketN) {
     if(idSocketN != idSocketActual) {
         document.getElementById(botonSeleccionado).click();
     }
-})
+});
 
 socket.on('enviandoRespuestaUnir', function (respuestaUnir, idSocketN) {
     if(idSocketN != idSocketActual) {
@@ -188,19 +188,19 @@ socket.on('enviandoRespuestaUnir', function (respuestaUnir, idSocketN) {
             document.getElementById(respuestaUnir[i]).click();
         }
     }
-})
+});
 
 socket.on('enviandoVerificarUnir', function (idSocketN) {
     if(idSocketN != idSocketActual) {
         verificarRespuestaUnir();
     }
-})
+});
 
 socket.on('enviandoDarLaVuelta', function (idSocketN) {
     if(idSocketN != idSocketActual) {
         darLaVuelta();
     }
-})
+});
 
 function agregarNumerosCasilla() {
     for (var y = 0; y < filas; ++y) {
@@ -374,7 +374,7 @@ function dibujarJugador() {
 function desbloquearBoton() {
 
     if (document.getElementById("botonLanzar")) {
-        document.getElementById("botonLanzar").classList.remove("invisible")
+        document.getElementById("botonLanzar").classList.remove("invisible");
         document.getElementById("botonLanzar").classList.remove("disabledbutton")
     }
     document.getElementById("tarjeta").classList.add("disabledbutton")
@@ -382,7 +382,7 @@ function desbloquearBoton() {
 
 function bloquearBoton() {
     if (document.getElementById("botonLanzar")) {
-        document.getElementById("botonLanzar").classList.add("invisible")
+        document.getElementById("botonLanzar").classList.add("invisible");
         document.getElementById("botonLanzar").classList.add("disabledbutton")
     }
     document.getElementById("tarjeta").classList.add("disabledbutton");
@@ -659,7 +659,7 @@ function cargarPreguntaOpcionMultiple(indicePregunta) {
     if(document.getElementById("res1"))
     {
         for (var j = 0; j < 4; j++) {
-            var elemento = document.getElementById("res"+(j+1))
+            var elemento = document.getElementById("res"+(j+1));
             elemento.parentNode.removeChild(elemento);
         }
     }
@@ -704,16 +704,16 @@ function cargarPreguntaOpcionMultiple(indicePregunta) {
             document.getElementById("res"+(j+1)).setAttribute("value","res");
             switch (j){
                 case 0:
-                    texto = document.createTextNode(preguntasOpcionMultiple[indicePregunta].res1)
+                    texto = document.createTextNode(preguntasOpcionMultiple[indicePregunta].res1);
                     break;
                 case 1:
-                    texto = document.createTextNode(preguntasOpcionMultiple[indicePregunta].res2)
+                    texto = document.createTextNode(preguntasOpcionMultiple[indicePregunta].res2);
                     break;
                 case 2:
-                    texto = document.createTextNode(preguntasOpcionMultiple[indicePregunta].res3)
+                    texto = document.createTextNode(preguntasOpcionMultiple[indicePregunta].res3);
                     break;
                 case 3:
-                    texto = document.createTextNode(preguntasOpcionMultiple[indicePregunta].res4)
+                    texto = document.createTextNode(preguntasOpcionMultiple[indicePregunta].res4);
                     break;
             }
             document.getElementById("res"+(j+1)).appendChild(texto);
@@ -726,8 +726,8 @@ function cargarPreguntaOpcionMultiple(indicePregunta) {
 function cargarPreguntaUnirVoltear(indicePregunta, texto, a) {
     if(idSocketActual != turnoJugadores[0])
     {
-        document.getElementById("unir").classList.add("disabledbutton")
-        document.getElementById("reiniciarUnir").classList.add("invisible")
+        document.getElementById("unir").classList.add("disabledbutton");
+        document.getElementById("reiniciarUnir").classList.add("invisible");
         document.getElementById("enviarUnir").classList.add("invisible")
 
     }
@@ -853,7 +853,7 @@ function validarRespuesta(boton) {
         document.getElementById(boton.id).classList.add('btn-success');
     }
     else
-    { desafioIncorrecto()
+    { desafioIncorrecto();
         document.getElementById(boton.id).classList.remove("btn-info");
         document.getElementById(boton.id).classList.add("btn-danger");
         document.getElementById(resCorrecta).classList.remove("btn-info");
@@ -890,8 +890,8 @@ function verificarRespuestaUnir() {
     else {
         desafioIncorrecto();
     }
-    document.getElementById("botonLanzar").classList.add("disabledbutton")
-    document.getElementById("botonLanzar").classList.add("invible")
+    document.getElementById("botonLanzar").classList.add("disabledbutton");
+    document.getElementById("botonLanzar").classList.add("invible");
     voltearTarjeta(10000);
  setTimeout (function() {
         reiniciarUnir();

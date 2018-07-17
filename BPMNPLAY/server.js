@@ -1,6 +1,5 @@
 // Dependencies
 var express = require('express');
-var express = require('express');
 var http = require('http');
 var path = require('path');
 var socketIO = require('socket.io');
@@ -9,6 +8,8 @@ var app = express();
 app.set('view engine', 'ejs');
 var server = http.Server(app);
 var io = socketIO(server);
+
+
 var gameMap = [
     13, 14, 15, 16, 17, 18, 19, 20, 21,
     12, 0, 0, 0, 0, 0, 0, 0, 22,
@@ -81,6 +82,13 @@ app.get('/', function (request, response) {
   //  response.sendFile(path.join(__dirname, 'index.html'));
   //  response.render('index');
 });
+
+app.get('/ingresoPartida', function (request, response) {
+    response.render('paginas/ingresoPartidas');
+    //  response.sendFile(path.join(__dirname, 'index.html'));
+    //  response.render('index');
+});
+
 app.get('/tablero', function (request, response) {
     response.render('paginas/tablero');
 //    response.sendFile(path.join(__dirname, 'tablero.html'));
@@ -333,27 +341,27 @@ io.on('connection', function (socket) {
     socket.on('parEncontrado', function (room, memory_tile_ids) {
         var idPartida = consultarIdPartida(room);
         io.sockets.in(partidas[idPartida].nombrePartida).emit('enviandoParEncontrado', memory_tile_ids, socket.id);
-    })
+    });
     socket.on('respuestaOpcionMultiple', function (room, botonSeleccionado) {
         var idPartida = consultarIdPartida(room);
         io.sockets.in(partidas[idPartida].nombrePartida).emit('enviandoRespuestaOpcionMultiple', botonSeleccionado, socket.id);
-    })
+    });
     socket.on('respuestaUnir', function (room, respuestaUnir) {
         var idPartida = consultarIdPartida(room);
         io.sockets.in(partidas[idPartida].nombrePartida).emit('enviandoRespuestaUnir', respuestaUnir, socket.id);
-    })
+    });
     socket.on('verificarUnir', function (room) {
         var idPartida = consultarIdPartida(room);
         io.sockets.in(partidas[idPartida].nombrePartida).emit('enviandoVerificarUnir', socket.id);
-    })
+    });
     socket.on('pasarTurno', function (room) {
         var idPartida = consultarIdPartida(room);
-        var idJugador = consultarIdJugadorSocket(idPartida,socket.id)
+        var idJugador = consultarIdJugadorSocket(idPartida,socket.id);
         partidas[idPartida].jugadores[idJugador].numCasillasMoverseP = 0;
         var i = partidas[idPartida].turnoJugadores.shift();
         partidas[idPartida].turnoJugadores.push(i);
         actualizarOrdenPartidas(room);
-    })
+    });
     socket.on('darLaVuelta', function (room) {
         var idPartida = consultarIdPartida(room);
         io.sockets.in(partidas[idPartida].nombrePartida).emit('enviandoDarLaVuelta', socket.id);
