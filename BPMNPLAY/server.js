@@ -1,14 +1,22 @@
 // Dependencies
 var express = require('express');
+var session = require('express-session');
 var http = require('http');
 var path = require('path');
 var socketIO = require('socket.io');
 var app = express();
 // set the view engine to ejs
 app.set('view engine', 'ejs');
+
+app.use(session({
+    secret: 'Esto es secreto',
+    resave: true,
+    saveUninitialized: true
+}))
+
 var server = http.Server(app);
 var io = socketIO(server);
-
+var routes = require('./routes');
 
 var gameMap = [
     13, 14, 15, 16, 17, 18, 19, 20, 21,
@@ -77,12 +85,15 @@ app.use('/static', express.static(__dirname + '/static' + ''));
 
 /* --------------------------------------------- Routning */
 
-app.get('/', function (request, response) {
+/*app.get('/', function (request, response) {
     response.render('paginas/index');
   //  response.sendFile(path.join(__dirname, 'index.html'));
   //  response.render('index');
 });
+*/
 
+app.get('/', routes.get_identificacion)
+app.post('/identificacion', sesiones.post_identificacion);
 app.get('/ingresoPartida', function (request, response) {
     response.render('paginas/ingresoPartidas');
     //  response.sendFile(path.join(__dirname, 'index.html'));

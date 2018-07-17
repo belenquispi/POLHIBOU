@@ -2,14 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3299685f-4aef-430c-bbbf-10e9746e67af" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/BPMNPLAY/views/paginas/ingresoPartidas.ejs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BPMNPLAY/views/parciales/headerProfesor.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BPMNPLAY/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BPMNPLAY/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BPMNPLAY/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/static/js/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/static/js/game.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/views/paginas/index.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/views/paginas/index.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/views/paginas/tablero.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/views/paginas/tablero.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/views/parciales/header.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/views/parciales/header.ejs" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -26,8 +21,8 @@
       <file leaf-file-name="server.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/BPMNPLAY/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="752">
-              <caret line="373" column="56" lean-forward="true" selection-start-line="373" selection-start-column="56" selection-end-line="373" selection-end-column="56" />
+            <state relative-caret-position="272">
+              <caret line="95" column="58" selection-start-line="95" selection-start-column="58" selection-end-line="95" selection-end-column="58" />
               <folding>
                 <element signature="e#331#618#0" />
                 <element signature="e#744#1088#0" />
@@ -35,7 +30,6 @@
                 <element signature="e#1503#1556#0" />
                 <element signature="e#1610#1909#0" />
                 <element signature="e#2000#2060#0" />
-                <element signature="e#2104#2238#0" />
                 <element signature="e#2146#2204#0" />
                 <element signature="e#2284#2418#0" />
                 <element signature="e#2326#2384#0" />
@@ -212,11 +206,20 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="routes.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/BPMNPLAY/routes.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="5" column="43" lean-forward="true" selection-start-line="5" selection-start-column="43" selection-end-line="5" selection-end-column="43" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="header.ejs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/parciales/header.ejs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="272">
-              <caret line="16" column="11" lean-forward="true" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
+              <caret line="16" column="11" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -291,8 +294,8 @@
       <list>
         <option value="CSS File" />
         <option value="TypeScript File" />
-        <option value="JavaScript File" />
         <option value="HTML File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -377,6 +380,8 @@
         <option value="$PROJECT_DIR$/BPMNPLAY/views/parciales/headerProfesor.ejs" />
         <option value="$PROJECT_DIR$/BPMNPLAY/views/parciales/header.ejs" />
         <option value="$PROJECT_DIR$/BPMNPLAY/views/paginas/index.ejs" />
+        <option value="$PROJECT_DIR$/BPMNPLAY/routers.js" />
+        <option value="$PROJECT_DIR$/BPMNPLAY/routes.js" />
         <option value="$PROJECT_DIR$/BPMNPLAY/server.js" />
       </list>
     </option>
@@ -549,12 +554,12 @@
       <workItem from="1531509608801" duration="7239000" />
       <workItem from="1531767911055" duration="9040000" />
       <workItem from="1531854314864" duration="180000" />
-      <workItem from="1531854511482" duration="5836000" />
+      <workItem from="1531854511482" duration="7790000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="361006000" />
+    <option name="totallyTimeSpent" value="362960000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -566,7 +571,7 @@
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" weight="0.32899022" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32899022" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32838285" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.1742671" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.1742671" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.29153094" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -615,7 +620,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/estilos.css" />
     <entry file="file://$PROJECT_DIR$/BPMNPLAY/funcionesTablero.js" />
     <entry file="file://$USER_HOME$/Downloads/Sala-Chat-master/client/main.js" />
     <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
@@ -779,7 +783,7 @@
     <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/parciales/header.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
-          <caret line="16" column="11" lean-forward="true" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
+          <caret line="16" column="11" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
         </state>
       </provider>
     </entry>
@@ -790,10 +794,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/routes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="43" lean-forward="true" selection-start-line="5" selection-start-column="43" selection-end-line="5" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/BPMNPLAY/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="752">
-          <caret line="373" column="56" lean-forward="true" selection-start-line="373" selection-start-column="56" selection-end-line="373" selection-end-column="56" />
+        <state relative-caret-position="272">
+          <caret line="95" column="58" selection-start-line="95" selection-start-column="58" selection-end-line="95" selection-end-column="58" />
           <folding>
             <element signature="e#331#618#0" />
             <element signature="e#744#1088#0" />
@@ -801,7 +812,6 @@
             <element signature="e#1503#1556#0" />
             <element signature="e#1610#1909#0" />
             <element signature="e#2000#2060#0" />
-            <element signature="e#2104#2238#0" />
             <element signature="e#2146#2204#0" />
             <element signature="e#2284#2418#0" />
             <element signature="e#2326#2384#0" />
