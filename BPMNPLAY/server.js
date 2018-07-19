@@ -1,22 +1,41 @@
 // Dependencies
 var express = require('express');
+var routes = require('./routes');
 var session = require('express-session');
 var http = require('http');
 var path = require('path');
 var socketIO = require('socket.io');
 var app = express();
-// set the view engine to ejs
-app.set('view engine', 'ejs');
+var server = http.Server(app);
+var io = socketIO(server);
+var firebase = require("./firebase");
+var bodyParser = require('body-parser')
+var cookieParser = require('cookie-parser');
+// create application/json parser
+var jsonParser = bodyParser.json()
 
+// create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
+
+var config = {
+    apiKey: "AIzaSyARHMJb3ta8XMRb0lFRjUSgSP6RCZiayVo",
+    authDomain: "bpmnplaydb.firebaseapp.com",
+    databaseURL: "https://bpmnplaydb.firebaseio.com",
+    projectId: "bpmnplaydb",
+    storageBucket: "bpmnplaydb.appspot.com",
+    messagingSenderId: "559035240947", timestampsInSnapshots: true
+};
+// set the view engine to ejs
+app.set('port', 5000);
+app.set('view engine', 'ejs');
+app.use(cookieParser());
 app.use(session({
     secret: 'Esto es secreto',
     resave: true,
     saveUninitialized: true
-}))
+}));
 
-var server = http.Server(app);
-var io = socketIO(server);
-var routes = require('./routes');
+app.use('/static', express.static(__dirname + '/static' + ''));
 
 var gameMap = [
     13, 14, 15, 16, 17, 18, 19, 20, 21,
@@ -69,19 +88,7 @@ var directions = {
     down: 2,
     left: 3
 };
-var firebase = require("./firebase");
 
-var config = {
-    apiKey: "AIzaSyARHMJb3ta8XMRb0lFRjUSgSP6RCZiayVo",
-    authDomain: "bpmnplaydb.firebaseapp.com",
-    databaseURL: "https://bpmnplaydb.firebaseio.com",
-    projectId: "bpmnplaydb",
-    storageBucket: "bpmnplaydb.appspot.com",
-    messagingSenderId: "559035240947", timestampsInSnapshots: true
-};
-
-app.set('port', 5000);
-app.use('/static', express.static(__dirname + '/static' + ''));
 
 /* --------------------------------------------- Routning */
 
@@ -92,29 +99,27 @@ app.use('/static', express.static(__dirname + '/static' + ''));
 });
 */
 
-app.get('/', routes.get_identificacion)
-app.post('/identificacion', sesiones.post_identificacion);
-app.get('/ingresoPartida', function (request, response) {
-    response.render('paginas/ingresoPartidas');
-    //  response.sendFile(path.join(__dirname, 'index.html'));
-    //  response.render('index');
-});
+app.get('/', routes.get_inicio);
+app.get('/inicioSesion', routes.get_inicio_sesion);
+app.post('/ingreso', urlencodedParser, routes.post_inicio_sesion);
+app.get('/ingresoProfesor', routes.get_ingreso_profesor);
+app.get('/ingresoEstudiante', routes.get_ingreso_estudiante);
+app.get('/salir', routes.salir);
 
 app.get('/tablero', function (request, response) {
     response.render('paginas/tablero');
-//    response.sendFile(path.join(__dirname, 'tablero.html'));
 });
+
 app.get('/opcionMultiple', function (request, response) {
     response.render('paginas/preguntasOpcionMultiple');
-//    response.sendFile(path.join(__dirname, 'preguntasOpcionMultiple.html'));
 });
+
 app.get('/unirVoltear', function (request, response) {
     response.render('paginas/preguntasUnirVoltear');
-//    response.sendFile(path.join(__dirname, 'preguntasUnirVoltear.html'));
 });
+
 app.get('/creacionPartida', function (request, response) {
     response.render('paginas/creacionPartida');
-    //response.sendFile(path.join(__dirname, 'creacionPartida.ejs'));
 });
 
 // Starts the server.
