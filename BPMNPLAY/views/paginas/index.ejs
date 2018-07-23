@@ -38,21 +38,21 @@
 </div>
         <div class="col-md-6">
             <h3 class="display-8">Crear Cuenta</h3>
-            <form >
+            <form action="/creacionCuenta" method="post">
                 <div class="form-row">
                     <div class="form-group col-md-6 mb-3">
                         <label for="inputNombre">Nombre</label>
-                        <input type="text" class="form-control" id="inputNombre" required placeholder="Nombre">
+                        <input type="text" class="form-control" id="inputNombre" name="nombre"  required placeholder="Nombre">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputUsuario">Usuario</label>
-                        <input type="text" class="form-control" id="inputUsuario" required placeholder="Usuario">
+                        <input type="text" class="form-control" id="inputUsuario" name="usuario" required placeholder="Usuario">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputContrasenia">Contraseña</label>
-                        <input type="password" class="form-control" id="inputContrasenia" required placeholder="Contraseña">
+                        <input type="password" class="form-control" id="inputContrasenia" name="contrasenia" required placeholder="Contraseña">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputContraseniaConfirmada">Confirmar Contraseña</label>
@@ -62,7 +62,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label for="rol">Rol</label>
-                        <select id="rol" class="form-control" required>
+                        <select id="rol" class="form-control" name="rol" required>
                             <option value="estudiante" selected>Estudiante</option>
                             <option value="profesor">Profesor</option>
                         </select>

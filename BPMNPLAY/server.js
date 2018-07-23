@@ -11,22 +11,9 @@ var io = socketIO(server);
 var firebase = require("./firebase");
 var bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser');
-var mongoose = require('mongoose');
 
-//Conexion al servidor
-mongoose.connect('mongodb://localhost:27017/buhoplay', { useNewUrlParser: true });
-// Creacion del esquema
-var Schema = mongoose.Schema;
-var usuarioSchemaJSON = {
-    nombre : String,
-    usuario: String,
-    contrasenia : String,
-    rol : String
-}
-var usuarioSchema = new Schema(usuarioSchemaJSON);
-
-//Creacion del modelo
-var usuario = mongoose.model("usuario", usuarioSchema);
+var Profesor = require("./models/profesor").Profesor;
+var Estudiante = require("./models/estudiante").Estudiante;
 
 var config = {
     apiKey: "AIzaSyARHMJb3ta8XMRb0lFRjUSgSP6RCZiayVo",
@@ -116,6 +103,7 @@ var directions = {
 
 app.get('/', routes.get_inicio);
 app.get('/inicioSesion', routes.get_inicio_sesion);
+app.post('/creacionCuenta', routes.post_creacion_cuenta);
 app.post('/ingreso', routes.post_inicio_sesion);
 app.get('/ingresoProfesor', routes.get_ingreso_profesor);
 app.get('/ingresoEstudiante', routes.get_ingreso_estudiante);
