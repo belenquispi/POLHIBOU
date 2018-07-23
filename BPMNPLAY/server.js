@@ -11,6 +11,22 @@ var io = socketIO(server);
 var firebase = require("./firebase");
 var bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser');
+var mongoose = require('mongoose');
+
+//Conexion al servidor
+mongoose.connect('mongodb://localhost:27017/buhoplay', { useNewUrlParser: true });
+// Creacion del esquema
+var Schema = mongoose.Schema;
+var usuarioSchemaJSON = {
+    nombre : String,
+    usuario: String,
+    contrasenia : String,
+    rol : String
+}
+var usuarioSchema = new Schema(usuarioSchemaJSON);
+
+//Creacion del modelo
+var usuario = mongoose.model("usuario", usuarioSchema);
 
 var config = {
     apiKey: "AIzaSyARHMJb3ta8XMRb0lFRjUSgSP6RCZiayVo",
@@ -20,8 +36,9 @@ var config = {
     storageBucket: "bpmnplaydb.appspot.com",
     messagingSenderId: "559035240947", timestampsInSnapshots: true
 };
-// set the view engine to ejs
+
 app.set('port', 5000);
+// set the view engine to ejs
 app.set('view engine', 'ejs');
 app.use(cookieParser());
 app.use(session({

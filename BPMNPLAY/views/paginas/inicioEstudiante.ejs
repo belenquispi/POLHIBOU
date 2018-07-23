@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html"/>
-    <link rel = "stylesheet" type = "text/css" href = "static/css/estilos.css" >
+    <link rel="stylesheet" type="text/css" href="static/css/estilos.css">
     <% include ../parciales/head %>
 
     <title>Title</title>
@@ -10,7 +10,204 @@
 </head>
 <body>
 <header>
-    <%include ../parciales/headerProfesor %>
+    <% include ../parciales/headerProfesor %>
 </header>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-7">
+            <div class="row">
+                <div class="col-md-3">
+                    <h2> <span class="badge badge-secondary">Opción Múltiple</span></h2>
+                </div>
+                <%for(var i=0; i<3; i++)
+                {
+               %>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                               Desafío <%=i+1%>
+                                <img src="/static/imagenes/estrellas.jpg">
+                            </h5>
+                            <a href="#" class="btn btn-primary" style="margin-bottom: 10px">Jugar</a>
+                            <%var puntaje=5%>
+                            <p class="card-text">Puntaje: <%=puntaje%></p>
+                        </div>
+                    </div>
+                </div>
+                <%}%>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-3">
+                   <h2> <span class="badge badge-secondary">Emparejar</span></h2>
+                </div>
+                <%for(var i=0; i<3; i++)
+                {
+                %>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Desafío <%=i+1%>
+                                <img src="/static/imagenes/estrellas.jpg">
+                            </h5>
+                            <a href="#" class="btn btn-primary" style="margin-bottom: 10px">Jugar</a>
+                            <%var puntaje=5%>
+                            <p class="card-text">Puntaje: <%=puntaje%></p>
+                        </div>
+                    </div>
+                </div>
+                <%}%>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-3">
+                    <h2> <span class="badge badge-secondary">Unir Voltear</span></h2>
+                </div>
+                <%for(var i=0; i<3; i++)
+                {
+                %>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Desafío <%=i+1%>
+                                <img src="/static/imagenes/estrellas.jpg">
+                            </h5>
+                            <a href="#" class="btn btn-primary" style="margin-bottom: 10px">Jugar</a>
+                            <%var puntaje=5%>
+                            <p class="card-text">Puntaje: <%=puntaje%></p>
+                        </div>
+                    </div>
+                </div>
+                <%}%>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="row">
+                <div class="flip3D">
+                    <div id="tarjeta" class="front disabledbutton" onclick="darLaVuelta()"></div>
+                    <div id="desafios" class="back container-fluid col-md-12" hidden>
+                        <h1 id="tipoJuego">Tipo de Juego</h1>
+                        <div id="opcionMultiple" class="row" hidden>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <h4><p id="enunciado"></p></h4>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <img id="imagenEnunciado" src="static/imagenes/vacio.png" class="img-rounded"
+                                             height="50"
+                                             width="50">
+                                    </div>
+                                </div>
+                                <div class="row" id="divRespuestasOpcionMultiple" hidden>
+                                    <div class="container-fluid">
+                                        <div class="row unir">
+                                            <div class="col-md-6" id="puesto1"></div>
+                                            <div class="col-md-6" id="puesto2"></div>
+                                        </div>
+                                        <div class="row unir">
+                                            <div class="col-md-6" id="puesto3"></div>
+                                            <div class="col-md-6" id="puesto4"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="unir" class="row" hidden onmouseover="verificarCompletoUnir()">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <button id="reiniciarUnir" class="btn btn-info" onclick="reiniciarUnir();">
+                                            Reiniciar
+                                        </button>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <button id="enviarUnir" class="btn btn-success" disabled="disabled"
+                                                onclick="verificarRespuestaUnir()">Enviar Respuesta
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="row unir">
+                                    <div class="col-md-5">
+                                        <label>1)</label>
+                                        <button id="botonImagenAUnir1" onclick="obtenerId(this);">
+                                            <img id="imagenAUnir1" src="static/imagenes/vacio.png" class="img-thumbnail"
+                                                 style="border:2px solid black" height="50" width="50">
+                                        </button>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label id="textoCorrecto1"></label>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <label>A)</label>
+                                        <button id="textoAUnir1" class="btn" disabled onclick="obtenerId(this);">Texto 1
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="row unir">
+                                    <div class="col-md-5">
+                                        <label>2)</label>
+                                        <button id="botonImagenAUnir2" onclick="obtenerId(this);">
+                                            <img id="imagenAUnir2" src="static/imagenes/vacio.png" class="img-thumbnail"
+                                                 style="border:2px solid black" height="50" width="50">
+                                        </button>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label id="textoCorrecto2"></label>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <label>B)</label>
+                                        <button id="textoAUnir2" class="btn " disabled onclick="obtenerId(this);">Texto
+                                            2
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="row unir">
+                                    <div class="col-md-5">
+                                        <label>3)</label>
+                                        <button id="botonImagenAUnir3" onclick="obtenerId(this);">
+                                            <img id="imagenAUnir3" src="static/imagenes/vacio.png" class="img-thumbnail"
+                                                 style="border:2px solid black" height="50" width="50">
+                                        </button>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label id="textoCorrecto3"></label>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <label>C)</label>
+                                        <button id="textoAUnir3" class="btn" disabled onclick="obtenerId(this);">Texto 3
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="row unir">
+                                    <div class="col-md-5">
+                                        <label>4)</label>
+                                        <button id="botonImagenAUnir4" onclick="obtenerId(this);">
+                                            <img id="imagenAUnir4" src="static/imagenes/vacio.png" class="img-thumbnail"
+                                                 style="border:2px solid black" height="50" width="50">
+                                        </button>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label id="textoCorrecto4"></label>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <label>D)</label>
+                                        <button id="textoAUnir4" class="btn" disabled onclick="obtenerId(this);">Texto 4
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="memory_board" hidden></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 </body>
 </html>
