@@ -17,6 +17,7 @@
     "express-ejs-layouts": "^2.4.0",
     "express-session": "^1.15.6",
     "firebase-admin": "^5.12.1",
+    "mongoose": "^5.2.4",
     "npm": "^6.2.0",
     "socket.io": "^2.1.1"
   }

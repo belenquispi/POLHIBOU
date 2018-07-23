@@ -11,11 +11,6 @@ var io = socketIO(server);
 var firebase = require("./firebase");
 var bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser');
-// create application/json parser
-var jsonParser = bodyParser.json()
-
-// create application/x-www-form-urlencoded parser
-var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 var config = {
     apiKey: "AIzaSyARHMJb3ta8XMRb0lFRjUSgSP6RCZiayVo",
@@ -34,8 +29,11 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
-
 app.use('/static', express.static(__dirname + '/static' + ''));
+// create application/json parser
+app.use(bodyParser.json());
+// create application/x-www-form-urlencoded parser
+app.use(bodyParser.urlencoded({ extended: true }));
 
 var gameMap = [
     13, 14, 15, 16, 17, 18, 19, 20, 21,
@@ -101,7 +99,7 @@ var directions = {
 
 app.get('/', routes.get_inicio);
 app.get('/inicioSesion', routes.get_inicio_sesion);
-app.post('/ingreso', urlencodedParser, routes.post_inicio_sesion);
+app.post('/ingreso', routes.post_inicio_sesion);
 app.get('/ingresoProfesor', routes.get_ingreso_profesor);
 app.get('/ingresoEstudiante', routes.get_ingreso_estudiante);
 app.get('/salir', routes.salir);
