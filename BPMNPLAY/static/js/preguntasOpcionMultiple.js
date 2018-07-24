@@ -99,7 +99,7 @@ function verificarBotonGuardar() {
 
 function guardarPreguntaOpcionMultiple() {
     console.log(config);
-    firebase.initializeApp(config);
+//    firebase.initializeApp(config);
     if(imagenes.length == 0){
         var preguntaOpcionMultiple = {
             usuario : "bquispi",

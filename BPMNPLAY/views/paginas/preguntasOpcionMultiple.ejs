@@ -2,16 +2,18 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <% include ../parciales/head %>
     <title>Preguntas de Opción Múltiple</title>
 </head>
 <body>
-
+<header>
+    <% include ../parciales/headerProfesor %>
+</header>
 <h1>Preguntas de Opción Múltiple</h1>
 
 <div class="container">
-    <form class="form-horizontal"  onmouseover="verificarBotonGuardar()">
+    <form action="/preguntasOpcionMultiple" method="post" onmouseover="verificarBotonGuardar()">
+        <input type="text" name="materia" value="<%=materia%>" hidden>
         <div class="form-group">
             <label class="control-label col-md-2">Enunciado:</label>
             <div class="col-md-6">
@@ -123,17 +125,17 @@
             </div>
         </div>
         </div>
-
-    </form>
-    <div id ="divBotonGuardar" class="form-group" hidden >
-        <div class="col-sm-offset-2 col-sm-10">
-            <button  type="submit" id="botonGuardar" onclick="guardarPreguntaOpcionMultiple()" class="btn btn-default" disabled>Guardar</button>
+        <div id ="divBotonGuardar" class="form-group" hidden >
+            <div class="col-sm-offset-2 col-sm-10">
+                <button  type="submit" id="botonGuardar"  class="btn btn-default" disabled>Guardar</button>
+            </div>
         </div>
-    </div>
+    </form>
+
 </div>
 
 <script type="text/javascript" src="/socket.io/socket.io.js"></script>
-<script src="static/js/preguntasOpcionMultiple.js"></script>
+<script src="/static/js/preguntasOpcionMultiple.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>

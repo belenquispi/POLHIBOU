@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html"/>
+    <link rel="stylesheet" type="text/css" href="static/css/estilos.css">
+    <% include ../parciales/head %>
+
+    <title>Title</title>
+    <script src="/socket.io/socket.io.js"></script>
+
+</head>
+<body>
+<header>
+    <% include ../parciales/headerProfesor %>
+</header>
+<div class="container">
+    <div class="row">
+        <h2>Preguntas Opción Múltiple de <%=materia%></h2>
+    </div>
+    <div class="row">
+        <div class="card-columns">
+            <%
+            console.log("hola1: "+nombre);
+            for(var i = 0; i<preguntas.length; i++) {%>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <%=preguntas[i]%>
+                    </h5>
+                    <a href="#" class="btn btn-info" style="margin-bottom: 10px" id=<%=preguntas[i]%>>Editar</a>
+                    <a href="#" class="btn btn-danger" style="margin-bottom: 10px">Eliminar</a>
+                    <br>
+                </div>
+            </div>
+            <%  }%>
+            <div class="card text-white bg-dark mb-3">
+                <div class="card-body">
+                        <h5 class="card-title">Agregar Pregunta</h5>
+                    <a href="/opcionMultiple/<%=materia%>" class="btn btn-info" style="margin-bottom: 10px">Agregar Pregunta</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script src="/static/js/profesor.js"></script>
+
+</body>
+</html>

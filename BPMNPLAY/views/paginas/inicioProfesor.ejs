@@ -7,6 +7,7 @@
 
     <title>Title</title>
     <script src="/socket.io/socket.io.js"></script>
+
 </head>
 <body>
 <header>
@@ -20,14 +21,14 @@
     <div class="card-columns">
 
         <%
-        var  materias = ["BPMN", "UML", "Matemáticas", "Física", "Cálculo"]
+            console.log("hola1: "+ nombre);
         for(var i = 0; i<materias.length; i++) {%>
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">
                     <%=materias[i]%>
                 </h5>
-                <a href="#" class="btn btn-primary" style="margin-bottom: 10px" id=<%=materias[i]%>>Preguntas Opción Multiple</a>
+                <a href="/preguntasOpcionMultiple/<%=materias[i]%>" class="btn btn-primary" style="margin-bottom: 10px" id=<%=materias[i]%>>Preguntas Opción Multiple</a>
                 <a href="#" class="btn btn-primary" style="margin-bottom: 10px">Preguntas Unir Voltear</a>
                 <br>
                 <a href="#" class="btn btn-success">Estadísticas</a>
@@ -36,15 +37,18 @@
         <%  }%>
         <div class="card text-white bg-dark mb-3">
             <div class="card-body">
+                <form action="/ingresoMateria" method="post">
                 <h5 class="card-title">Agregar Materia</h5>
-                <input type="text" class="form-control"  placeholder="Nombre de la materia" style="margin-bottom: 10px">
-                <a href="#" class="btn btn-primary" style="margin-bottom: 10px">Agregar Materia</a>
-
+                <input type="text" class="form-control"  placeholder="Nombre de la materia" name="nombreMateria" style="margin-bottom: 10px">
+                <input type="submit" class="btn btn-primary" style="margin-bottom: 10px" value="Agregar Materia">
+                </form>
             </div>
         </div>
     </div>
     </div>
 </div>
 </div>
+<script src="/static/js/profesor.js"></script>
+
 </body>
 </html>

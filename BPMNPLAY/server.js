@@ -113,8 +113,8 @@ app.get('/tablero', function (request, response) {
     response.render('paginas/tablero');
 });
 
-app.get('/opcionMultiple', function (request, response) {
-    response.render('paginas/preguntasOpcionMultiple');
+app.get('/opcionMultiple/:materia', function (request, response) {
+    response.render('paginas/preguntasOpcionMultiple', {nombre: request.session.nombre, materia: request.params.materia});
 });
 
 app.get('/unirVoltear', function (request, response) {
@@ -124,6 +124,11 @@ app.get('/unirVoltear', function (request, response) {
 app.get('/creacionPartida', function (request, response) {
     response.render('paginas/creacionPartida');
 });
+
+app.post('/ingresoMateria', routes.post_ingreso_materia);
+
+app.get('/preguntasOpcionMultiple/:materia',  routes.get_preguntas_opcion);
+app.post('/preguntasOpcionMultiple',  routes.post_preguntas_opcion);
 
 // Starts the server.
 server.listen(5000, function () {
