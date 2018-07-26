@@ -21,7 +21,8 @@ var profesorSchema = new Schema({
             imagenRes1 : Buffer,
             imagenRes2 : Buffer,
             imagenRes3 : Buffer,
-            imagenRes4 : Buffer
+            imagenRes4 : Buffer,
+            respuestaCorrecta : String
         }],
         preguntasUnirVoltear : [{
             idPreguntasUnirVoltear : String,

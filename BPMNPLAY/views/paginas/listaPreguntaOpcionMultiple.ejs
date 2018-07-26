@@ -21,14 +21,17 @@
         <div class="card-columns">
             <%
             console.log("hola1: "+nombre);
-            for(var i = 0; i<preguntas.length; i++) {%>
+            for(var i = 0; i<enunciadoPreguntas.length; i++) {%>
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">
-                        <%=preguntas[i]%>
+                        <%=enunciadoPreguntas[i]%>
                     </h5>
-                    <a href="#" class="btn btn-info" style="margin-bottom: 10px" id=<%=preguntas[i]%>>Editar</a>
-                    <a href="#" class="btn btn-danger" style="margin-bottom: 10px">Eliminar</a>
+                    <form action="/detalleOpcionMultiple" method="post">
+                        <input type="text" name="idPregunta" hidden value=<%=idPreguntas[i]%>>
+                        <input type="text" name="materia" hidden value=<%=materia%>>
+                    <input type="submit" class="btn btn-info" style="margin-bottom:10px" value="Ver Detalles" id=<%=enunciadoPreguntas[i]%> >
+                    </form>
                     <br>
                 </div>
             </div>

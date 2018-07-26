@@ -129,6 +129,7 @@ app.post('/ingresoMateria', routes.post_ingreso_materia);
 
 app.get('/preguntasOpcionMultiple/:materia',  routes.get_preguntas_opcion);
 app.post('/preguntasOpcionMultiple',  routes.post_preguntas_opcion);
+app.post('/detalleOpcionMultiple',  routes.post_detalle_opcion_multiple);
 
 // Starts the server.
 server.listen(5000, function () {
