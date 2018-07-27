@@ -13,15 +13,15 @@ var profesorSchema = new Schema({
         preguntasOpcionMultiple : [{
             idOpcionMultiple : String,
             enunciado : String,
-            imagenEnunciado : Buffer,
+            imagenEnunciado : String,
             res1: String,
             res2: String,
             res3: String,
             res4: String,
-            imagenRes1 : Buffer,
-            imagenRes2 : Buffer,
-            imagenRes3 : Buffer,
-            imagenRes4 : Buffer,
+            imagenRes1 : String,
+            imagenRes2 : String,
+            imagenRes3 : String,
+            imagenRes4 : String,
             respuestaCorrecta : String
         }],
         preguntasUnirVoltear : [{

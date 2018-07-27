@@ -123,7 +123,7 @@ exports.get_preguntas_opcion = function (req, res) {
             var enunciadoPreguntas = [];
             for(var i = 0; i < doc.materias[indice].preguntasOpcionMultiple.length; i++)
             {
-                idPreguntas.push(doc.materias[indice].preguntasOpcionMultiple[i]._id);
+                idPreguntas.push(doc.materias[indice].preguntasOpcionMultiple[i].idOpcionMultiple);
                 enunciadoPreguntas.push(doc.materias[indice].preguntasOpcionMultiple[i].enunciado);
             }
             res.render('paginas/listaPreguntaOpcionMultiple', {nombre: req.session.nombre, materia: req.params.materia, idPreguntas: idPreguntas, enunciadoPreguntas: enunciadoPreguntas });
@@ -154,7 +154,8 @@ exports.post_preguntas_opcion = function (req, res) {
      }).indexOf(req.body.materia);
      var preguntaOpcionMultiple = {
          enunciado : req.body.enunciado,
-         respuestaCorrecta :  req.body.respuestaCorrecta
+         respuestaCorrecta :  req.body.respuestaCorrecta,
+         idOpcionMultiple: generarNombre()
      }
 
      if(req.body.imagenEnunciado != ""){
@@ -196,25 +197,22 @@ exports.post_detalle_opcion_multiple = function(req, res){
         }
 
         var indice = doc.materias.map(function (e) {
-            console.log("ma:"+ e.nombre)
             return e.nombre
         }).indexOf(req.body.materia);
 
         var indicePregunta = doc.materias[indice].preguntasOpcionMultiple.map(function (e) {
-            console.log("ee:"+ e._id)
-            return e._id
-        }).indexOf("5b5a25f4ed1e1b02f4270c04")
+            return e.idOpcionMultiple
+        }).indexOf(req.body.idPregunta )
 
         console.log("arra: "+doc.materias[indice].preguntasOpcionMultiple);
         console.log("id: "+req.body.idPregunta );
         console.log("indice: "+indicePregunta );
 
         if(indicePregunta >= 0) {
-
-
             var preguntaOpcionMultiple = {
                 enunciado: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].enunciado,
                 imagenEnunciado: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].imagenEnunciado,
+                idOpcionMultiple: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].idOpcionMultiple,
                 res1: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].res1,
                 res2: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].res2,
                 res3: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].res3,
@@ -225,16 +223,22 @@ exports.post_detalle_opcion_multiple = function(req, res){
                 imagenRes4: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].imagenRes4,
                 respuestaCorrecta: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].respuestaCorrecta
             }
-
             console.log(preguntaOpcionMultiple);
+            res.render('paginas/detalleOpcionMultiple', {nombre: req.session.nombre, materia: req.body.materia, preguntaOpcionMultiple : preguntaOpcionMultiple });
+
         }
     });
 
 
-//    res.render('paginas/detalleOpcionMultiple', {nombre: req.session.nombre, materia: req.body.materia});
 }
 
 exports.salir = function (req, res) {
     req.session.usuario = null;
     res.redirect('/');
 };
+
+function generarNombre() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+}

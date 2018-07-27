@@ -15,65 +15,79 @@
         <h2>Detalle de Pregunta Opción Múltiple </h2>
     </div>
     <form action="/preguntasOpcionMultiple" method="post" onmouseover="verificarBotonGuardar()">
-        <div class="form-row">
+        <div class="form-row" id="rowEnunciado">
             <input type="text" name="materia" value="<%= materia %>" hidden>
             <div class="form-group col-md-6 mb-3">
                 <label for="enunciado">Enunciado:</label>
-                <input type="text" class="form-control" id="enunciado" required placeholder="Ingrese el enunciado de la pregunta" name="enunciado">
+                <input type="text" class="form-control" id="enunciado" required placeholder="Ingrese el enunciado de la pregunta" name="enunciado" value=<%=preguntaOpcionMultiple.enunciado%>>
             </div>
-            <div class="form-group col-md-4 mb-3">
+            <% if (preguntaOpcionMultiple.imagenEnunciado == undefined){%>
+            <div class="form-group col-md-4 mb-3" id="cargaImagenEnunciado">
                 <label for="botonArchivoEnunciado">Cargar imagen (opcional):</label>
-                <input type="file" class="form-control" id="botonArchivoEnunciado" value="uploadEnunciado"
-                       accept="image/*" name="imagenEnunciado"
-                       onchange="mostrarVistaPreviaImagen(event, 'imagenCargadaEnunciado')">
+                <input type="file" class="form-control-file" id="botonArchivoEnunciado" value="uploadEnunciado"
+                       accept="image/*"
+                       onchange="mostrarVistaPreviaImagen(event, 'imagenCargadaEnunciado'), encodeImageFileAsURL(this)">
+                <input type="text" hidden id="imagenEnunciado" name="imagenEnunciado">
             </div>
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-2" id="vistaImagenEnunciado">
                 <br>
                 <img id="imagenCargadaEnunciado" width="50" height="50"/>
             </div>
-
-        </div>
-
-        <div class="form-row" id="divRespuestasTexto" hidden>
-            <% for (var i = 1 ; i <5 ; i++) {%>
-            <div class="form-group col-md-6">
-                <label for="res<%=i%>" >Respuesta <%=i%>:</label>
-                <input type="text" class="form-control" id="res<%=i%>" placeholder="Ingrese la respuesta <%=i%>"
-                       name="res<%=i%>">
-            </div>
-            <%}%>
-        </div>
-
-        <div class="form-row" id="divRespuestasImagenes" hidden>
-            <% for (var i = 1 ; i <5 ; i++) {%>
-            <div class="form-group col-md-4">
-                <label for="imagenRes<%=i%>">Respuesta <%=i%>:</label>
-                <input type="file" name="imagenRes<%=i%>" class="form-control" id="botonArchivoRes<%=i%>"
-                       value="uploadRes<%=i%>" accept="image/*"
-                       onchange="mostrarVistaPreviaImagen(event, 'imagenCargadaRespuesta<%=i%>')">
-            </div>
-            <div class="form-group col-md-2">
+            <% } else { %>
+            <div class="form-group col-md-6" id="vistaImagenBase">
                 <br>
-                <img id="imagenCargadaRespuesta<%=i%>" width="50" height="50"/>
+                <img id="imagenCargadaEnunciado" src='<%=preguntaOpcionMultiple.imagenEnunciado%>' width="50" height="50"  />
+                <button type="button" class="btn btn-primary" id="nuevaImagenEnunciado" onclick="cambiarImagen(this)"> Cambiar Imagen </button>
             </div>
             <%}%>
 
         </div>
-        <div class="form-row" id="divRespuestas" hidden>
+
+        <%if(preguntaOpcionMultiple.imagenRes1 == undefined) {
+        %>
+        <div class="form-row" id="divRespuestasTexto" >
+            <% var respuesta =[preguntaOpcionMultiple.res1,preguntaOpcionMultiple.res2,preguntaOpcionMultiple.res3,preguntaOpcionMultiple.res4];
+            for (var i = 0 ; i <4 ; i++) {%>
+            <div class="form-group col-md-6">
+                <label for="res<%=(i+1)%>" >Respuesta <%=(i+1)%>:</label>
+                <input type="text" class="form-control" id="res<%=(i+1)%>" placeholder="Ingrese la respuesta <%=(i+1)%>"
+                       name="res<%=(i+1)%>" value="<%=respuesta[i]%>">
+            </div>
+            <%}%>
+        </div>
+        <% } else { %>
+        <div class="form-row" id="divRespuestasImagenes" >
+            <% var respuesta = [preguntaOpcionMultiple.imagenRes1,preguntaOpcionMultiple.imagenRes2,preguntaOpcionMultiple.imagenRes3,preguntaOpcionMultiple.imagenRes4];
+            for (var i = 1 ; i <5 ; i++) {%>
+            <div class="form-group col-md-6">
+                <label for="imagenRes<%=i%>">Respuesta <%=i%>:</label>
+                <br>
+                <img id="imagenCargadaRespuesta<%=i%>" src='<%=respuesta[i-1]%>' width="50" height="50"/>
+                <button type="button" class="btn btn-primary"> Cambiar Imagen </button>
+            </div>
+            <%}%>
+        </div>
+        <%}%>
+        <div class="form-row" id="divRespuestas">
             <div class="form-group col-md-3"></div>
             <div class="form-group col-md-6">
                 <label for="resCorrecta" >Respuesta correcta:</label>
                 <select id="resCorrecta" name="respuestaCorrecta" class="form-control">
-                    <option value="res1">Respuesta 1</option>
-                    <option value="res2">Respuesta 2</option>
-                    <option value="res3">Respuesta 3</option>
-                    <option value="res4">Respuesta 4</option>
+                    <% for (var i = 1; i<5; i++){
+                    if(preguntaOpcionMultiple.respuestaCorrecta == "res"+(i)){ %>
+                    <option  value="res<%=(i)%>" selected>Respuesta <%=(i)%> </option>
+                    <% } else {%>
+                    <option  value="res<%=(i)%>">Respuesta <%=(i)%></option>
+                    <%}}%>
                 </select>
+
+
             </div>
             <div class="form-group col-md-3"></div>
             <div class="form-group col-md-3"></div>
             <div class="form-group col-md-6">
-                <button type="submit" id="botonGuardar" class="btn btn-default" disabled>Guardar</button>
+                <button type="submit" id="botonActualizar" class="btn btn-info" >Actualizar</button>
+                <button type="submit" id="botonEliminar" class="btn btn-danger" >Eliminar</button>
             </div>
             <div class="form-group col-md-3"></div>
 
@@ -84,15 +98,8 @@
 </div>
 
 <script type="text/javascript" src="/socket.io/socket.io.js"></script>
-<script src="/static/js/preguntasOpcionMultiple.js"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+<script src="/static/js/detalleOpcionMultiple.js"></script>
+
+
 </body>
 </html>
