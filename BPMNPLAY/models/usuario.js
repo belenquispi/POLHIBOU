@@ -10,6 +10,12 @@ var usuarioSchema = new Schema({
     nombre: String,
     contrasenia: String,
     rol : String
+});
+
+usuarioSchema.virtual("confirmacion_contrasenia").get(function () {
+    return this.contrasenia_confirmada;
+}).set(function (contrasenia) {
+    this.contrasenia_confirmada = contrasenia;
 })
 
 //Creacion del modelo

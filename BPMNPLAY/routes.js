@@ -59,7 +59,8 @@ exports.post_creacion_cuenta = function (req, res) {
         nombre: req.body.nombre,
         usuario: req.body.usuario,
         contrasenia: req.body.contrasenia,
-        rol : req.body.rol
+        rol : req.body.rol,
+        contrasenia_confirmada : req.body.contrasenia_confirmada
     })
 
         usuario.save();
@@ -70,7 +71,9 @@ exports.post_creacion_cuenta = function (req, res) {
             usuario: req.body.usuario,
         })
 
-        profesor.save();
+        profesor.save(function (error) {
+            
+        });
     } else {
         if (req.body.rol == "estudiante") {
 
@@ -78,7 +81,9 @@ exports.post_creacion_cuenta = function (req, res) {
                 usuario: req.body.usuario,
             })
 
-            estudiante.save();
+            estudiante.save(function (error) {
+                
+            });
         }
     }
     res.redirect('/inicioSesion');
