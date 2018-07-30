@@ -25,7 +25,7 @@ var profesorSchema = new Schema({
             respuestaCorrecta : String
         }],
         preguntasUnirVoltear : [{
-            idPreguntasUnirVoltear : String,
+            idUnirVoltear : String,
             texto : String,
             imagen : Buffer
         }]

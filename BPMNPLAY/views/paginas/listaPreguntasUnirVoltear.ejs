@@ -15,22 +15,23 @@
 </header>
 <div class="container">
     <div class="row">
-        <h2>Preguntas Opción Múltiple de <%=materia%></h2>
+        <h2>Preguntas Unir Voltear de <%=materia%></h2>
     </div>
     <div class="row">
         <div class="card-columns">
             <%
             console.log("hola1: "+nombre);
-            for(var i = 0; i<enunciadoPreguntas.length; i++) {%>
+            for(var i = 0; i<textoPreguntas.length; i++) {%>
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">
-                        <%=enunciadoPreguntas[i]%>
+                        <%=textoPreguntas[i]%>
                     </h5>
                     <form action="/detalleOpcionMultiple" method="post">
                         <input type="text" name="idPregunta" hidden value=<%=idPreguntas[i]%>>
                         <input type="text" name="materia" hidden value=<%=materia%>>
-                        <input type="submit" class="btn btn-info" style="margin-bottom:10px" value="Ver Detalles" id=<%=enunciadoPreguntas[i]%> >
+                        <img id="imagen" src='<%=imagenPreguntas.imagen%>' width="50" height="50"  />
+                        <input type="submit" class="btn btn-info" style="margin-bottom:10px" value="Ver Detalles" id=<%=textoPreguntas[i]%> >
                     </form>
                     <br>
                 </div>
@@ -38,8 +39,8 @@
             <%  }%>
             <div class="card text-white bg-dark mb-3">
                 <div class="card-body">
-                        <h5 class="card-title">Agregar Pregunta</h5>
-                    <a href="/opcionMultiple/<%=materia%>" class="btn btn-info" style="margin-bottom: 10px">Agregar Pregunta</a>
+                    <h5 class="card-title">Agregar Preguntas</h5>
+                    <a href="/unirVoltear/<%=materia%>" class="btn btn-info" style="margin-bottom: 10px">Agregar Preguntas</a>
                 </div>
             </div>
         </div>

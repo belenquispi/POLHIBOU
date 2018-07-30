@@ -93,14 +93,6 @@ var directions = {
 
 
 /* --------------------------------------------- Routning */
-
-/*app.get('/', function (request, response) {
-    response.render('paginas/index');
-  //  response.sendFile(path.join(__dirname, 'index.html'));
-  //  response.render('index');
-});
-*/
-
 app.get('/', routes.get_inicio);
 app.get('/inicioSesion', routes.get_inicio_sesion);
 app.post('/creacionCuenta', routes.post_creacion_cuenta);
@@ -108,28 +100,17 @@ app.post('/ingreso', routes.post_inicio_sesion);
 app.get('/ingresoProfesor', routes.get_ingreso_profesor);
 app.get('/ingresoEstudiante', routes.get_ingreso_estudiante);
 app.get('/salir', routes.salir);
-
-app.get('/tablero', function (request, response) {
-    response.render('paginas/tablero');
-});
-
-app.get('/opcionMultiple/:materia', function (request, response) {
-    response.render('paginas/preguntasOpcionMultiple', {nombre: request.session.nombre, materia: request.params.materia});
-});
-
-app.get('/unirVoltear', function (request, response) {
-    response.render('paginas/preguntasUnirVoltear');
-});
-
-app.get('/creacionPartida', function (request, response) {
-    response.render('paginas/creacionPartida');
-});
-
+app.get('/tablero', routes.get_tablero);
+app.get('/opcionMultiple/:materia', routes.get_opcion_multiple);
+app.get('/unirVoltear/:materia', routes.get_unir_voltear);
+//app.get('/unirVoltear', routes.get_unir_voltear);
+app.get('/creacionPartida', routes.get_creacion_partida);
 app.post('/ingresoMateria', routes.post_ingreso_materia);
-
 app.get('/preguntasOpcionMultiple/:materia',  routes.get_preguntas_opcion);
+app.get('/preguntasUnirVoltear/:materia',  routes.get_preguntas_unir_voltear);
 app.post('/preguntasOpcionMultiple',  routes.post_preguntas_opcion);
 app.post('/detalleOpcionMultiple',  routes.post_detalle_opcion_multiple);
+app.get('/ingresoPartida', routes.get_ingreso_partida);
 
 // Starts the server.
 server.listen(5000, function () {

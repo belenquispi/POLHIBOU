@@ -63,7 +63,9 @@ exports.post_creacion_cuenta = function (req, res) {
         contrasenia_confirmada : req.body.contrasenia_confirmada
     })
 
-        usuario.save();
+        usuario.save( function (err) {
+            
+        });
 
     if (req.body.rol == "profesor") {
 
@@ -136,7 +138,7 @@ exports.get_preguntas_opcion = function (req, res) {
         res.redirect('/inicioSesion');
     }
 
-}
+};
 
 exports.post_preguntas_opcion = function (req, res) {
 
@@ -182,7 +184,6 @@ exports.post_preguntas_opcion = function (req, res) {
 
          })
      }
-
     });
 
 };
@@ -231,6 +232,71 @@ exports.post_detalle_opcion_multiple = function(req, res){
 
 
 }
+
+exports.get_creacion_partida = function (req, res) {
+    if(req.session.usuario){
+        res.render('paginas/creacionPartida');
+    }else {
+        res.redirect('/inicioSesion');
+    }
+};
+
+exports.get_tablero = function (req, res) {
+    if(req.session.usuario){
+        res.render('paginas/tablero');
+    }else {
+        res.redirect('/inicioSesion');
+    }
+};
+
+exports.get_opcion_multiple = function (req, res) {
+    if(req.session.usuario){
+        res.render('paginas/preguntasOpcionMultiple', {nombre: req.session.nombre, materia: req.params.materia});
+    }else {
+        res.redirect('/inicioSesion');
+    }
+};
+
+exports.get_unir_voltear = function (req, res) {
+   if(req.session.usuario){
+        res.render('paginas/preguntasUnirVoltear', {nombre: req.session.nombre, materia: req.params.materia});
+    }else {
+        res.redirect('/inicioSesion');
+    }
+};
+
+exports.get_ingreso_partida = function (req, res) {
+  res.render('paginas/ingresoPartidas');
+};
+
+exports.get_preguntas_unir_voltear = function (req, res) {
+    if (req.session.nombre && req.params.materia) {
+        Profesor.findOne({usuario : req.session.usuario}, function (error, doc) {
+            if(error)
+            {
+                console.log("Error: "+error)
+            }
+
+            var indice = doc.materias.map(function (e) {
+                return e.nombre
+            }).indexOf(req.params.materia);
+            var idPreguntas = [];
+            var textoPreguntas = [];
+            var imagenPreguntas = [];
+            for(var i = 0; i < doc.materias[indice].preguntasUnirVoltear.length; i++)
+            {
+                idPreguntas.push(doc.materias[indice].preguntasUnirVoltear[i].idUnirVoltear);
+                textoPreguntas.push(doc.materias[indice].preguntasUnirVoltear[i].texto);
+                imagenPreguntas.push(doc.materias[indice].preguntasUnirVoltear[i].imagen);
+            }
+            res.render('paginas/listaPreguntasUnirVoltear', {nombre: req.session.nombre, materia: req.params.materia, idPreguntas: idPreguntas, textoPreguntas: textoPreguntas, imagenPreguntas: imagenPreguntas });
+        });
+    }
+    else {
+        res.redirect('/inicioSesion');
+    }
+}
+
 
 exports.salir = function (req, res) {
     req.session.usuario = null;
