@@ -93,8 +93,6 @@ exports.post_creacion_cuenta = function (req, res) {
 
 exports.post_ingreso_materia = function (req, res) {
 
-    console.log(req.session.usuario)
-
     Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
         var materia = {
             nombre: req.body.nombreMateria
@@ -114,10 +112,7 @@ exports.get_preguntas_opcion = function (req, res) {
     if (req.session.nombre && req.params.materia) {
         Profesor.findOne({usuario : req.session.usuario}, function (error, doc) {
             if(error)
-            {
-                console.log("Error: "+error)
-            }
-
+            {console.log("Error: "+error);            }
             var indice = doc.materias.map(function (e) {
                 return e.nombre
             }).indexOf(req.params.materia);
@@ -140,10 +135,45 @@ exports.get_preguntas_opcion = function (req, res) {
 
 };
 
+exports.get_eliminar_pregunta_opcion = function(req,res){
+    if (req.session.usuario && req.params.idMateria) {
+        console.log(req.params)
+        var str = req.params.idMateria;
+        var resp = str.split("&");
+        console.log(resp);
+        var materia = resp[0];
+        var idPregunta = resp[1];
+        Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
+
+            if(error)
+            {
+                console.log("Error: "+error)
+            }
+
+            var indice = doc.materias.map(function (e) {
+                return e.nombre
+            }).indexOf(materia);
+
+            if(indice >=0){
+                var indicePregunta = doc.materias[indice].preguntasOpcionMultiple.map(function (e) {
+                    return e.idOpcionMultiple
+                }).indexOf(idPregunta);
+                if(indicePregunta >=0){
+                    doc.materias[indice].preguntasOpcionMultiple.splice(indicePregunta,1);
+                    doc.save(function (err, docActualizado) {
+                        if (err) return console.log(err);
+                        res.redirect('/preguntasOpcionMultiple/'+materia);
+                });
+                }
+            }
+
+        });
+    }
+
+}
+
 exports.post_preguntas_opcion = function (req, res) {
-
-    console.log(req.body)
-
+    console.log(req.body);
  Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
 
      if(error)
@@ -164,12 +194,16 @@ exports.post_preguntas_opcion = function (req, res) {
          preguntaOpcionMultiple.imagenEnunciado = req.body.imagenEnunciado
      }
 
-     if(req.body.res1 != ""){
+     if(req.body.res1 &&(req.body.res1 != "" || req.body.res1 != undefined)){
+         console.log("Solo texto:"+req.body.res1)
+         console.log(req.body)
          preguntaOpcionMultiple.res1 = req.body.res1;
          preguntaOpcionMultiple.res2 = req.body.res2;
          preguntaOpcionMultiple.res3 = req.body.res3;
          preguntaOpcionMultiple.res4 = req.body.res4;
      }else {
+         console.log("Solo imagenes")
+
          preguntaOpcionMultiple.imagenRes1 = req.body.imagenRes1;
          preguntaOpcionMultiple.imagenRes2 = req.body.imagenRes2;
          preguntaOpcionMultiple.imagenRes3 = req.body.imagenRes3;
@@ -177,12 +211,24 @@ exports.post_preguntas_opcion = function (req, res) {
      }
 
      if(indice >=0){
-         doc.materias[indice].preguntasOpcionMultiple.push(preguntaOpcionMultiple);
-         doc.save(function (err, docActualizado) {
-             if (err) return console.log(err);
-             res.redirect('/preguntasOpcionMultiple/'+req.body.materia);
+         var indicePregunta = doc.materias[indice].preguntasOpcionMultiple.map(function (e) {
+             return e.idOpcionMultiple
+         }).indexOf(req.body.idOpcionMultiple);
+         console.log("eliminar: "+indicePregunta)
+         if(indicePregunta >=0) {
+             console.log("ERERER: " + doc.materias[indice].preguntasOpcionMultiple.length)
+             doc.materias[indice].preguntasOpcionMultiple.splice(indicePregunta, 1);
+             console.log("ERERER: " + doc.materias[indice].preguntasOpcionMultiple.length)
+         }
+             doc.materias[indice].preguntasOpcionMultiple.push(preguntaOpcionMultiple);
+             console.log("ERERER: " + doc.materias[indice].preguntasOpcionMultiple.length)
 
-         })
+             doc.save(function (err, docActualizado) {
+                 if (err) return console.log(err);
+                 res.redirect('/preguntasOpcionMultiple/' + req.body.materia);
+
+             })
+
      }
     });
 
@@ -205,9 +251,6 @@ exports.post_detalle_opcion_multiple = function(req, res){
             return e.idOpcionMultiple
         }).indexOf(req.body.idPregunta )
 
-        console.log("arra: "+doc.materias[indice].preguntasOpcionMultiple);
-        console.log("id: "+req.body.idPregunta );
-        console.log("indice: "+indicePregunta );
 
         if(indicePregunta >= 0) {
             var preguntaOpcionMultiple = {
@@ -224,6 +267,7 @@ exports.post_detalle_opcion_multiple = function(req, res){
                 imagenRes4: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].imagenRes4,
                 respuestaCorrecta: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].respuestaCorrecta
             }
+            console.log("pregunta Oppppp");
             console.log(preguntaOpcionMultiple);
             res.render('paginas/detalleOpcionMultiple', {nombre: req.session.nombre, materia: req.body.materia, preguntaOpcionMultiple : preguntaOpcionMultiple });
 

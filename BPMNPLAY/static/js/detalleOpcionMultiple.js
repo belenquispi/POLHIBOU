@@ -18,6 +18,9 @@ function verificarBotonGuardar() {
 
 function encodeImageFileAsURL(element) {
     var file = element.files[0];
+    for(var i = 0; i<element.files.length; i++){
+        console.log(element.files[i])
+    }
     var reader = new FileReader();
     reader.onloadend = function () {
         console.log('RESULT', reader.result)

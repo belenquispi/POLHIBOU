@@ -109,6 +109,7 @@ app.post('/ingresoMateria', routes.post_ingreso_materia);
 app.get('/preguntasOpcionMultiple/:materia',  routes.get_preguntas_opcion);
 app.get('/preguntasUnirVoltear/:materia',  routes.get_preguntas_unir_voltear);
 app.post('/preguntasOpcionMultiple',  routes.post_preguntas_opcion);
+app.get('/eliminarPreguntaOpcionMultiple/:idMateria',  routes.get_eliminar_pregunta_opcion);
 app.post('/detalleOpcionMultiple',  routes.post_detalle_opcion_multiple);
 app.get('/ingresoPartida', routes.get_ingreso_partida);
 

@@ -9,7 +9,13 @@
 <header>
     <% include ../parciales/headerProfesor %>
 </header>
-
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="#">Materias</a></li>
+        <li class="breadcrumb-item"><a href="#">Preguntas</a></li>
+    </ol>
+</nav>
 <div class="container">
     <div class="row">
         <h2>Detalle de Pregunta Opción Múltiple </h2>
@@ -19,7 +25,11 @@
             <input type="text" name="materia" value="<%= materia %>" hidden>
             <div class="form-group col-md-6 mb-3">
                 <label for="enunciado">Enunciado:</label>
-                <input type="text" class="form-control" id="enunciado" required placeholder="Ingrese el enunciado de la pregunta" name="enunciado" value=<%=preguntaOpcionMultiple.enunciado%>>
+                <input type="text" hidden id="idOpcionMultiple" name="idOpcionMultiple" value="<%=preguntaOpcionMultiple.idOpcionMultiple%>">
+                <%console.log(preguntaOpcionMultiple.enunciado)%>
+                <input type="text" class="form-control" id="enunciado" placeholder="Ingrese el enunciado de la pregunta" name="enunciado" value="<%=preguntaOpcionMultiple.enunciado%>">
+                <%console.log(preguntaOpcionMultiple.enunciado)%>
+
             </div>
             <% if (preguntaOpcionMultiple.imagenEnunciado == undefined){%>
             <div class="form-group col-md-4 mb-3" id="cargaImagenEnunciado">
@@ -37,6 +47,7 @@
             <div class="form-group col-md-6" id="vistaImagenBase">
                 <br>
                 <img id="imagenCargadaEnunciado" src='<%=preguntaOpcionMultiple.imagenEnunciado%>' width="50" height="50"  />
+                <input type="text" hidden id="imagenEnunciado" name="imagenEnunciado" value="<%=preguntaOpcionMultiple.imagenEnunciado%>">
                 <button type="button" class="btn btn-primary" id="nuevaImagenEnunciado" onclick="cambiarImagen(this)"> Cambiar Imagen </button>
             </div>
             <%}%>
@@ -60,9 +71,10 @@
             <% var respuesta = [preguntaOpcionMultiple.imagenRes1,preguntaOpcionMultiple.imagenRes2,preguntaOpcionMultiple.imagenRes3,preguntaOpcionMultiple.imagenRes4];
             for (var i = 1 ; i <5 ; i++) {%>
             <div class="form-group col-md-6">
-                <label for="imagenRes<%=i%>">Respuesta <%=i%>:</label>
+                <label for="imagenCargadaRespuesta<%=i%>">Respuesta <%=i%>:</label>
                 <br>
                 <img id="imagenCargadaRespuesta<%=i%>" src='<%=respuesta[i-1]%>' width="50" height="50"/>
+                <input type="text" hidden id="imagenRes<%=i%>" name="imagenRes<%=i%>" value="<%=respuesta[i-1]%>">
                 <button type="button" class="btn btn-primary"> Cambiar Imagen </button>
             </div>
             <%}%>
@@ -87,7 +99,7 @@
             <div class="form-group col-md-3"></div>
             <div class="form-group col-md-6">
                 <button type="submit" id="botonActualizar" class="btn btn-info" >Actualizar</button>
-                <button type="submit" id="botonEliminar" class="btn btn-danger" >Eliminar</button>
+                <a href="/eliminarPreguntaOpcionMultiple/<%=materia%>&<%=preguntaOpcionMultiple.idOpcionMultiple%>" id="botonEliminar" class="btn btn-danger" >Eliminar</a>
             </div>
             <div class="form-group col-md-3"></div>
 
