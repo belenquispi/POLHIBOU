@@ -112,6 +112,10 @@ app.post('/preguntasOpcionMultiple',  routes.post_preguntas_opcion);
 app.get('/eliminarPreguntaOpcionMultiple/:idMateria',  routes.get_eliminar_pregunta_opcion);
 app.post('/detalleOpcionMultiple',  routes.post_detalle_opcion_multiple);
 app.get('/ingresoPartida', routes.get_ingreso_partida);
+app.post('/agregarUnirVoltear', routes.post_agregar_unir_voltear);
+app.post('/eliminarUnirVoltear', routes.post_eliminar_unir_voltear);
+app.post('/agregarVariasUnirVoltear', routes.post_agregar_varias_unir_voltear);
+
 
 // Starts the server.
 server.listen(5000, function () {

@@ -341,6 +341,107 @@ exports.get_preguntas_unir_voltear = function (req, res) {
     }
 }
 
+exports.post_agregar_unir_voltear = function(req, res){
+    if (req.session.nombre) {
+        console.log(req.body)
+        Profesor.findOne({usuario : req.session.usuario}, function (error, doc) {
+            if (error) {
+                console.log("Error: " + error)
+            }
+
+            var indice = doc.materias.map(function (e) {
+                return e.nombre
+            }).indexOf(req.body.materia);
+
+            var preguntaUnir = {
+                idUnirVoltear: generarNombre(),
+                texto: req.body.nombreImagen,
+                imagen: req.body.imagenUnir
+            }
+
+            if (indice >= 0) {
+                doc.materias[indice].preguntasUnirVoltear.push(preguntaUnir);
+                console.log("ERERER: " + doc.materias[indice].preguntasUnirVoltear.length)
+
+                doc.save(function (err, docActualizado) {
+                    if (err) return console.log(err);
+
+                    res.redirect('/preguntasUnirVoltear/'+req.body.materia);
+                });
+            }
+        });
+    }
+    else {
+        res.redirect('/inicioSesion');
+    }
+}
+
+exports.post_eliminar_unir_voltear = function(req,res){
+    if (req.session.usuario && req.body.materia) {
+
+        Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
+            if(error)
+            {
+                console.log("Error: "+error)
+            }
+            console.log(doc)
+
+            var indice = doc.materias.map(function (e) {
+                return e.nombre
+            }).indexOf(req.body.materia);
+
+            if(indice >=0){
+                var indicePregunta = doc.materias[indice].preguntasUnirVoltear.map(function (e) {
+                    return e.idUnirVoltear
+                }).indexOf(req.body.idPregunta);
+                if(indicePregunta >=0){
+                    doc.materias[indice].preguntasUnirVoltear.splice(indicePregunta,1);
+                    doc.save(function (err, docActualizado) {
+                        if (err) return console.log(err);
+                        res.redirect('/preguntasUnirVoltear/'+req.body.materia);
+                    });
+                }
+            }
+
+        });
+    }
+
+}
+
+exports.post_agregar_varias_unir_voltear = function(req, res){
+    if (req.session.nombre) {
+        console.log(req.body)
+      /*Profesor.findOne({usuario : req.session.usuario}, function (error, doc) {
+            if (error) {
+                console.log("Error: " + error)
+            }
+
+            var indice = doc.materias.map(function (e) {
+                return e.nombre
+            }).indexOf(req.body.materia);
+
+            var preguntaUnir = {
+                idUnirVoltear: generarNombre(),
+                texto: req.body.nombreImagen,
+                imagen: req.body.imagenUnir
+            }
+
+            if (indice >= 0) {
+                doc.materias[indice].preguntasUnirVoltear.push(preguntaUnir);
+                console.log("ERERER: " + doc.materias[indice].preguntasUnirVoltear.length)
+
+                doc.save(function (err, docActualizado) {
+                    if (err) return console.log(err);
+
+                    res.redirect('/preguntasUnirVoltear/'+req.body.materia);
+                });
+            }
+        });*/
+    }
+    else {
+        res.redirect('/inicioSesion');
+    }
+}
 
 exports.salir = function (req, res) {
     req.session.usuario = null;

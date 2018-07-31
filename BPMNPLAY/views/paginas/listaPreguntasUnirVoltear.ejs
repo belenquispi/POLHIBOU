@@ -21,39 +21,72 @@
 </nav>
 <div class="container">
     <div class="row">
-        <h2>Preguntas Unir Voltear de <%=materia%></h2>
+        <div class="col-md-10">
+        <h2>Preguntas Unir Voltear de <%= materia %>
+        </h2> </div>
+        <div class="col-md-2"> <a href="/unirVoltear/<%= materia %>" class="btn btn-info" style="margin-bottom: 10px">Agregar Varias Preguntas</a>
+        </div>
+
     </div>
     <div class="row">
         <div class="card-columns">
             <%
-            console.log("hola1: "+nombre);
-            for(var i = 0; i<textoPreguntas.length; i++) {%>
+            console.log("hola1: " + nombre);
+            for(var i = 0; i < textoPreguntas.length; i++) { %>
             <div class="card">
                 <div class="card-body">
+                    <form action="/eliminarUnirVoltear" method="post">
                     <h5 class="card-title">
-                        <%=textoPreguntas[i]%>
+                        <%= textoPreguntas[i] %>
                     </h5>
-                    <form action="/detalleOpcionMultiple" method="post">
-                        <input type="text" name="idPregunta" hidden value=<%=idPreguntas[i]%>>
-                        <input type="text" name="materia" hidden value=<%=materia%>>
-                        <img id="imagen" src='<%=imagenPreguntas.imagen%>' width="50" height="50"  />
-                        <input type="submit" class="btn btn-info" style="margin-bottom:10px" value="Ver Detalles" id=<%=textoPreguntas[i]%> >
+                        <input type="text" name="idPregunta" hidden value=<%= idPreguntas[i] %>>
+                        <input type="text" name="materia" hidden value=<%= materia %>>
+                        <img id="imagen" src='<%= imagenPreguntas[i]%>' width="50" height="50"/>
+                        <input type="submit" class="btn btn-outline-danger" style="margin-bottom:10px" value="Eliminar">
                     </form>
                     <br>
                 </div>
             </div>
-            <%  }%>
+            <% } %>
+
             <div class="card text-white bg-dark mb-3">
                 <div class="card-body">
-                    <h5 class="card-title">Agregar Preguntas</h5>
-                    <a href="/unirVoltear/<%=materia%>" class="btn btn-info" style="margin-bottom: 10px">Agregar Preguntas</a>
+                    <form action="/agregarUnirVoltear" method="post">
+                        <h5 class="card-title">Agregar Pregunta </h5>
+                        <div class="form-row">
+                        <div class="form-group col-md-10">
+                            <input type="file" class="form-control" id="botonArchivo"
+                                   value="uploadUnir" required accept="image/*"
+                                   onchange="mostrarVistaPreviaImagen(event, 'imagenCargadaRespuesta', encodeImageFileAsURL(this))">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <input type="text" hidden id="imagenUnir" name="imagenUnir">
+                            <img id="imagenCargadaRespuesta" width="50" height="50"/>
+                        </div>
+                        </div>
+                        <div class="form-row">
+                        <div class="form-group col-md-12">
+                        <input type="text" class="form-control" required placeholder="Nombre de la imagen" name="nombreImagen"
+                               style="margin-bottom: 10px">
+                            <input type="text" name="materia" hidden value=<%=materia%>>
+                        </div>
+                        </div>
+                        <div class="form-row">
+
+                        <div class="form-group col-md-12">
+
+                        <input type="submit" class="btn btn-primary" style="margin-bottom: 10px"
+                               value="Agregar Pregunta">
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
 </div>
-<script src="/static/js/profesor.js"></script>
+<script src="/static/js/preguntasUnirVoltear.js"></script>
 
 </body>
 </html>

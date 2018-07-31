@@ -14,57 +14,25 @@
     <div class="row">
         <h2>Ingreso de Preguntas Unir Voltear </h2>
     </div>
-
-    <form action="/preguntasOpcionMultiple" method="post" onmouseover="verificarBotonGuardar()">
-        <div class="form-row">
+    <div>
+        <label>Número de preguntas: </label>
+        <input class="form-control" type="number" id="numeroEquipo" value="0" min="2" max="50" required onchange="generarDatosPregunta(this)">
+    </div>
+    <form action="/agregarVariasUnirVoltear" method="post" >
+        <div class="form-row" id="divPreguntas">
             <input type="text" name="materia" value="<%= materia %>" hidden>
-            <% for (var i = 1 ; i <5 ; i++) {%>
-            <div class="form-group col-md-4 mb-3">
-                <label for="textoUnir<%=i%>">Texto <%=i%>:</label>
-                <input type="text" class="form-control" id="textoUnir<%=i%>" placeholder="Ingrese la respuesta <%=i%>" required name="textoUnir<%=i%>">
+        </div>
+        <div id ="divBotonGuardar" class="form-group" >
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" id="botonGuardarUnirVoltear"  class="btn btn-default">Guardar</button>
             </div>
-            <div class="form-group col-md-4 mb-3">
-            <label for="botonImagenUnir<%=i%>">Imagen <%=i%>:</label>
-                <input type="file" class="form-control" id="botonImagenUnir<%=i%>" value="uploadImagenUnir<%=i%>" accept="image/*"
-                       onchange="loadFile(event, 'imagenUnir<%=i%>')">
-            </div>
-            <div class="form-group col-md-2 mb-3">
-                <br>
-                <img id="imagenUnir<%=i%>" width="50" height="50"/>
-            </div>
-            <%}%>
         </div>
     </form>
 
-    <div id ="divBotonGuardar" class="form-group" >
 
-        <div class="col-sm-offset-2 col-sm-10">
-
-            <button id="botonGuardarUnirVoltear" onclick="guardarPreguntaUnirVoltear()" class="btn btn-default">Guardar</button>
-
-        </div>
-
-    </div>
 
 </div>
-<script type="text/javascript" src="/socket.io/socket.io.js"></script>
-
-
-
-<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-app.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-firestore.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-storage.js"></script>
-
-<script type="text/javascript" src="static/js/preguntasUnirVoltear.js"></script>
-
-
-
-
-
+<script type="text/javascript" src="../../static/js/preguntasUnirVoltear.js"></script>
 </body>
 
 

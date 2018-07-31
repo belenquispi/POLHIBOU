@@ -1,79 +1,111 @@
-var socket = io();
-var config;
-var imagenesUnirVoltear = [];
-var urlFile = null;
-
-socket.emit('solicitarConfiguracion');
-socket.on('configuracion',function (configN){
-    config = configN;
-});
-
-var botonImagenUnir1 = document.getElementById("botonImagenUnir1");
-botonImagenUnir1.addEventListener('change', function (e) {
-        imagenesUnirVoltear.push(e.target.files[0]);
-    }
-);
-
-var botonImagenUnir2 = document.getElementById("botonImagenUnir2");
-botonImagenUnir2.addEventListener('change', function (e) {
-        imagenesUnirVoltear.push(e.target.files[0]);
-    }
-);
-
-var botonImagenUnir3 = document.getElementById("botonImagenUnir3");
-botonImagenUnir3.addEventListener('change', function (e) {
-        imagenesUnirVoltear.push(e.target.files[0]);
-    }
-);
-
-var botonImagenUnir4 = document.getElementById("botonImagenUnir4");
-botonImagenUnir4.addEventListener('change', function (e) {
-        imagenesUnirVoltear.push(e.target.files[0]);
-    }
-);
-
-var loadFile = function (event, imagen) {
+var mostrarVistaPreviaImagen = function (event, imagen) {
     var output = document.getElementById(imagen);
     output.src = URL.createObjectURL(event.target.files[0]);
 };
 
-function guardarPreguntaUnirVoltear() {
-    firebase.initializeApp(config);
-    for (var i = 0; i < imagenesUnirVoltear.length; i++) {
-        subirImagenUnir(imagenesUnirVoltear[i], function (a) {
-            var preguntaUnirVoltear = {
-                usuario : "bquispi",
-                idMateria : "bpmn",
-                urlImagenUnirVoltear: urlFile,
-                textoUnirVoltear: document.getElementById('textoUnir'+(a+1)).value,
-            };
-            socket.emit('guardarPreguntaUnirVoltear', preguntaUnirVoltear);
-        }, i);
+function encodeImageFileAsURL(element) {
+    var file = element.files[0];
+    var reader = new FileReader();
+    reader.onloadend = function () {
+        console.log('RESULT', reader.result)
+        document.getElementById("imagenUnir").value = reader.result;
+    }
+    reader.readAsDataURL(file);
+}
+
+function generarDatosPregunta (numero) {
+    var id = numero.id;
+    var valor = document.getElementById(id).value;
+    console.log(id);
+    for(var i=1; i <= valor ; i++ ) {
+        if (document.getElementById("form-group"+i)) {
+            eliminarAnteriores(i,1);
+        }
+        if (document.getElementById("form-group-img-"+i)) {
+            eliminarAnteriores(i,2);
+        }
+        if (document.getElementById("form-group-img2-"+i)) {
+            eliminarAnteriores(i,3);
+        }
+    }
+    for (var i = 0; i < valor; i++) {
+        var divTexto = document.createElement("DIV");
+        divTexto.setAttribute("class", "form-group col-md-4 mb-3");
+        divTexto.setAttribute("id", "form-group" + (i + 1));
+        document.getElementById("divPreguntas").appendChild(divTexto);
+
+        var labelTexto = document.createElement("LABEL");
+        labelTexto.setAttribute("for", "textoUnir" + (i + 1));
+        labelTexto.setAttribute("id","labelTexto"+(i+1))
+        document.getElementById("form-group" + (i + 1)).appendChild(labelTexto);
+        document.getElementById('labelTexto' + (i + 1)).innerHTML = "Texto " + (i + 1);
+
+        var inputTexto = document.createElement("INPUT");
+        inputTexto.setAttribute("type", "text");
+        inputTexto.setAttribute("class", "form-control");
+        inputTexto.setAttribute("id", "textoUnir" + (i + 1));
+        inputTexto.setAttribute("placeholder", "Ingrese el nombre de la imagen " + (i + 1));
+        inputTexto.setAttribute("required", "");
+        inputTexto.setAttribute("name", "textoUnir" + (i + 1));
+        document.getElementById("form-group" + (i + 1)).appendChild(inputTexto);
+
+
+        var  divImagen= document.createElement("DIV");
+        divImagen.setAttribute("class", "form-group col-md-4 mb-3");
+        divImagen.setAttribute("id", "form-group-img-" + (i + 1));
+        document.getElementById("divPreguntas").appendChild(divImagen);
+
+        var labelImagen = document.createElement("LABEL");
+        labelImagen.setAttribute("for", "botonImagenUnir" + (i + 1));
+        labelImagen.setAttribute("id","labelImagen"+(i+1))
+        document.getElementById("form-group-img-" + (i + 1)).appendChild(labelImagen);
+        document.getElementById('labelImagen' + (i + 1)).innerHTML = "Imagen " + (i + 1);
+
+        var inputImagen = document.createElement("INPUT");
+        inputImagen.setAttribute("type", "file");
+        inputImagen.setAttribute("class", "form-control");
+        inputImagen.setAttribute("id", "botonImagenUnir" + (i + 1));
+        inputImagen.setAttribute("value", "uploadImagenUnir" + (i + 1));
+        inputImagen.setAttribute("required", "");
+        inputImagen.setAttribute("accept", "image/*");
+        inputImagen.setAttribute("onchange", "mostrarVistaPreviaImagen(event, \'imagenUnir"+ (i + 1)+"\'), encodeImageFileAsURL(this)") ;
+        document.getElementById("form-group-img-" + (i + 1)).appendChild(inputImagen);
+
+        var inputImagen2 = document.createElement("INPUT");
+        inputImagen2.setAttribute("type", "text");
+        inputImagen2.setAttribute("id", "imagen" + (i + 1));
+        inputImagen2.setAttribute("name", "imagen" + (i + 1));
+        inputImagen2.setAttribute("hidden", "");
+        document.getElementById("form-group-img-" + (i + 1)).appendChild(inputImagen2);
+
+        var  divImagen2 = document.createElement("DIV");
+        divImagen2.setAttribute("class", "form-group col-md-2 mb-3");
+        divImagen2.setAttribute("id", "form-group-img2-" + (i + 1));
+        document.getElementById("divPreguntas").appendChild(divImagen2);
+
+        var br = document.createElement("BR");
+        document.getElementById("form-group-img2-"+ (i + 1)).appendChild(br);
+
+
+        var imagen = document.createElement("IMG");
+        imagen.setAttribute("id", "imagenUnir" + (i + 1));
+        imagen.setAttribute("width", "50" );
+        imagen.setAttribute("height", "50");
+        document.getElementById("form-group-img2-"+ (i + 1)).appendChild(imagen);
 
     }
-
 }
 
-function subirImagenUnir(file, callback, a) {
-    var storageRef = firebase.storage().ref('imagenes/' + file.name+generarNombre()+generarNombre());
-    var task = storageRef.put(file);
-    task.on('state_changed',
-        function progress(snapshot) {
-            var porcentaje = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log(porcentaje);
-        },
-        function error(err) {
-            console.log(err);
-        },
-        function () {
-            urlFile = task.snapshot.downloadURL;
-            callback(a);
-        }
-    );
-}
+function eliminarAnteriores(num, x) {
+    switch (x){
+        case 1:
+            document.getElementById("form-group" + (num)).parentNode.removeChild(document.getElementById("form-group" + (num)));
 
-function generarNombre() {
-    return Math.floor((1 + Math.random()) * 0x10000)
-        .toString(16)
-        .substring(1);
+        case 2:
+            document.getElementById("form-group-img-" + (num)).parentNode.removeChild(document.getElementById("form-group-img-" + (num)));
+
+        case 3:
+            document.getElementById("form-group-img2-" + (num)).parentNode.removeChild(document.getElementById("form-group-img2-" + (num)));
+
+    }
 }

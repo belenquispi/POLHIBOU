@@ -3,11 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="78571066-be25-425c-ba1d-193279d06a6d" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BPMNPLAY/models/profesor.js" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/models/profesor.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BPMNPLAY/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/routes.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BPMNPLAY/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/static/js/detalleOpcionMultiple.js" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/static/js/detalleOpcionMultiple.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/views/paginas/detalleOpcionMultiple.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/views/paginas/detalleOpcionMultiple.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/views/paginas/inicioProfesor.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/views/paginas/inicioProfesor.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BPMNPLAY/static/js/preguntasUnirVoltear.js" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/static/js/preguntasUnirVoltear.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BPMNPLAY/static/js/profesor.js" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/static/js/profesor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BPMNPLAY/views/paginas/listaPreguntasUnirVoltear.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/views/paginas/listaPreguntasUnirVoltear.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BPMNPLAY/views/paginas/preguntasUnirVoltear.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/views/paginas/preguntasUnirVoltear.ejs" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/BPMNPLAY/node_modules/" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -25,35 +27,35 @@
       <file leaf-file-name="server.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BPMNPLAY/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="248">
-              <caret line="112" column="56" selection-start-line="112" selection-start-column="56" selection-end-line="112" selection-end-column="56" />
+            <state relative-caret-position="136">
+              <caret line="116" column="11" selection-start-line="116" selection-start-column="11" selection-end-line="116" selection-end-column="11" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="preguntasOpcionMultiple.ejs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/paginas/preguntasOpcionMultiple.ejs">
+      <file leaf-file-name="preguntasUnirVoltear.ejs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/paginas/preguntasUnirVoltear.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="60" column="63" lean-forward="true" selection-start-line="60" selection-start-column="63" selection-end-line="60" selection-end-column="63" />
+            <state relative-caret-position="109">
+              <caret line="20" column="43" selection-start-line="20" selection-start-column="43" selection-end-line="20" selection-end-column="43" />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="profesor.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/BPMNPLAY/models/profesor.js">
+        <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/js/profesor.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="329">
-              <caret line="27" column="16" selection-start-line="27" selection-start-column="12" selection-end-line="27" selection-end-column="16" />
+            <state relative-caret-position="17">
+              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="usuario.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/BPMNPLAY/models/usuario.js">
+      <file leaf-file-name="preguntasUnirVoltear.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/js/preguntasUnirVoltear.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="9" selection-start-line="16" selection-start-column="9" selection-end-line="16" selection-end-column="9" />
+            <state relative-caret-position="143">
+              <caret line="70" column="106" selection-start-line="70" selection-start-column="106" selection-end-line="70" selection-end-column="106" />
             </state>
           </provider>
         </entry>
@@ -61,50 +63,26 @@
       <file leaf-file-name="routes.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BPMNPLAY/routes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="177">
-              <caret line="221" column="10" selection-start-line="221" selection-start-column="10" selection-end-line="221" selection-end-column="10" />
+            <state relative-caret-position="57">
+              <caret line="413" column="8" selection-start-line="413" selection-start-column="8" selection-end-line="413" selection-end-column="8" />
               <folding>
-                <element signature="e#5488#7641#0" />
+                <element signature="e#9561#9697#0" />
+                <element signature="e#9742#9870#0" />
+                <element signature="e#9923#10126#0" />
+                <element signature="e#10428#10472#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="listaPreguntaOpcionMultiple.ejs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/paginas/listaPreguntaOpcionMultiple.ejs">
+      <file leaf-file-name="listaPreguntasUnirVoltear.ejs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/paginas/listaPreguntasUnirVoltear.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="41" column="44" selection-start-line="41" selection-start-column="44" selection-end-line="41" selection-end-column="44" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="inicioProfesor.ejs" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/paginas/inicioProfesor.ejs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="17" column="54" selection-start-line="17" selection-start-column="54" selection-end-line="17" selection-end-column="54" />
+            <state relative-caret-position="68">
+              <caret line="59" column="128" selection-start-line="59" selection-start-column="128" selection-end-line="59" selection-end-column="128" />
               <folding>
-                <element signature="n#style#0;n#a#1;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#a#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="detalleOpcionMultiple.ejs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/paginas/detalleOpcionMultiple.ejs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="23" column="183" selection-start-line="23" selection-start-column="183" selection-end-line="23" selection-end-column="183" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="detalleOpcionMultiple.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/js/detalleOpcionMultiple.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="21" column="36" selection-start-line="21" selection-start-column="36" selection-end-line="21" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -137,6 +115,9 @@
       <find>/preguntasOpcionMultiple</find>
       <find>detalleOpcionMultiple</find>
       <find>generar</find>
+      <find>imagenUnir</find>
+      <find>imagenUnirVoltear</find>
+      <find>encodeImageFileAsURL</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -158,7 +139,6 @@
         <option value="$PROJECT_DIR$/BPMNPLAY/ingresoPreguntas.html" />
         <option value="$PROJECT_DIR$/BPMNPLAY/preguntasOpcionMultiple.js" />
         <option value="$PROJECT_DIR$/BPMNPLAY/preguntasOpcionMultiple.html" />
-        <option value="$PROJECT_DIR$/BPMNPLAY/static/js/preguntasUnirVoltear.js" />
         <option value="$PROJECT_DIR$/BPMNPLAY/preguntasUnirVoltear.html" />
         <option value="$PROJECT_DIR$/BPMNPLAY/creacionPartida.html" />
         <option value="$PROJECT_DIR$/BPMNPLAY/static/js/creacionPartida.js" />
@@ -181,21 +161,22 @@
         <option value="$PROJECT_DIR$/BPMNPLAY/views/paginas/inicioSesion.ejs" />
         <option value="$PROJECT_DIR$/BPMNPLAY/views/parciales/headerProfesor.ejs" />
         <option value="$PROJECT_DIR$/BPMNPLAY/profesor.js" />
-        <option value="$PROJECT_DIR$/BPMNPLAY/static/js/profesor.js" />
         <option value="$PROJECT_DIR$/BPMNPLAY/views/paginas/index.ejs" />
         <option value="$PROJECT_DIR$/BPMNPLAY/views/paginas/preguntasOpcionMultiple.ejs" />
         <option value="$PROJECT_DIR$/BPMNPLAY/static/js/preguntasOpcionMultiple.js" />
         <option value="$PROJECT_DIR$/BPMNPLAY/models/usuario.js" />
         <option value="$PROJECT_DIR$/BPMNPLAY/views/paginas/partidas.ejs" />
-        <option value="$PROJECT_DIR$/BPMNPLAY/models/profesor.js" />
-        <option value="$PROJECT_DIR$/BPMNPLAY/views/paginas/listaPreguntaOpcionMultiple.ejs" />
-        <option value="$PROJECT_DIR$/BPMNPLAY/views/paginas/listaPreguntasUnirVoltear.ejs" />
-        <option value="$PROJECT_DIR$/BPMNPLAY/views/paginas/preguntasUnirVoltear.ejs" />
-        <option value="$PROJECT_DIR$/BPMNPLAY/server.js" />
-        <option value="$PROJECT_DIR$/BPMNPLAY/views/paginas/detalleOpcionMultiple.ejs" />
-        <option value="$PROJECT_DIR$/BPMNPLAY/routes.js" />
         <option value="$PROJECT_DIR$/BPMNPLAY/static/js/detalleOpcionMultiple.js" />
         <option value="$PROJECT_DIR$/BPMNPLAY/views/paginas/inicioProfesor.ejs" />
+        <option value="$PROJECT_DIR$/BPMNPLAY/views/paginas/listaPreguntaOpcionMultiple.ejs" />
+        <option value="$PROJECT_DIR$/BPMNPLAY/views/paginas/detalleOpcionMultiple.ejs" />
+        <option value="$PROJECT_DIR$/BPMNPLAY/static/js/profesor.js" />
+        <option value="$PROJECT_DIR$/BPMNPLAY/models/profesor.js" />
+        <option value="$PROJECT_DIR$/BPMNPLAY/views/paginas/listaPreguntasUnirVoltear.ejs" />
+        <option value="$PROJECT_DIR$/BPMNPLAY/server.js" />
+        <option value="$PROJECT_DIR$/BPMNPLAY/views/paginas/preguntasUnirVoltear.ejs" />
+        <option value="$PROJECT_DIR$/BPMNPLAY/routes.js" />
+        <option value="$PROJECT_DIR$/BPMNPLAY/static/js/preguntasUnirVoltear.js" />
       </list>
     </option>
   </component>
@@ -349,12 +330,13 @@
       <workItem from="1532632046168" duration="10129000" />
       <workItem from="1532656601309" duration="899000" />
       <workItem from="1532664601590" duration="2019000" />
-      <workItem from="1532977533961" duration="10295000" />
+      <workItem from="1532977533961" duration="10506000" />
+      <workItem from="1533065283988" duration="9009000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="61904000" />
+    <option name="totallyTimeSpent" value="71124000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -365,7 +347,7 @@
       <window_info anchor="bottom" id="Docker" order="15" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="17" side_tool="true" weight="0.32899022" />
       <window_info anchor="bottom" id="Version Control" order="16" weight="0.32838285" />
-      <window_info active="true" anchor="bottom" id="Run" order="4" visible="true" weight="0.32899022" />
+      <window_info active="true" anchor="bottom" id="Run" order="4" visible="true" weight="0.40716612" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="18" weight="0.29153094" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -380,10 +362,10 @@
       <window_info anchor="bottom" id="Find" order="1" weight="0.32899022" />
     </layout>
     <layout-to-restore>
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.32838285" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="0" weight="0.08565154" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -391,12 +373,12 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="TypeScript" order="7" />
       <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.41530946" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32899022" />
+      <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39087948" />
       <window_info anchor="bottom" id="Terminal" order="11" weight="0.29153094" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.32899022" />
-      <window_info anchor="bottom" id="Version Control" order="9" weight="0.32838285" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32899022" />
       <window_info id="Favorites" order="2" side_tool="true" />
     </layout-to-restore>
   </component>
@@ -418,13 +400,6 @@
     <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/creacionPartida.js" />
     <entry file="file://$PROJECT_DIR$/BPMNPLAY/preguntasOpcionMultiple.html" />
     <entry file="file://$PROJECT_DIR$/BPMNPLAY/preguntasUnirVoltear.html" />
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/js/preguntasUnirVoltear.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="799">
-          <caret line="47" column="32" selection-start-line="47" selection-start-column="16" selection-end-line="47" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/BPMNPLAY/creacionPartida.html" />
     <entry file="file://$USER_HOME$/Downloads/BPMNPLAY-sockets/BPMNPLAY-sockets/BPMNPLAY/server.js" />
     <entry file="file://$USER_HOME$/Downloads/BPMNPLAY-sockets/BPMNPLAY-sockets/BPMNPLAY/static/js/creacionPartida.js" />
@@ -459,13 +434,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="107" column="12" selection-start-line="107" selection-start-column="12" selection-end-line="107" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/paginas/creacionPartida.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="47" selection-start-line="23" selection-start-column="47" selection-end-line="23" selection-end-column="47" />
         </state>
       </provider>
     </entry>
@@ -513,16 +481,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/js/creacionPartida.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="813">
-          <caret line="137" column="1" selection-start-line="137" selection-start-column="1" selection-end-line="137" selection-end-column="1" />
-          <folding>
-            <element signature="e#569#581#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/paginas/tablero.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
@@ -530,7 +488,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/js/profesor.js" />
     <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/parciales/headerProfesor.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -566,13 +523,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/js/preguntasOpcionMultiple.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/BPMNPLAY/models/usuario.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
@@ -588,73 +538,120 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/paginas/listaPreguntasUnirVoltear.ejs" />
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/paginas/preguntasUnirVoltear.ejs">
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/js/detalleOpcionMultiple.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="25" column="38" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="112" column="56" selection-start-line="112" selection-start-column="56" selection-end-line="112" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/models/profesor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="27" column="16" selection-start-line="27" selection-start-column="12" selection-end-line="27" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/paginas/listaPreguntaOpcionMultiple.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="41" column="44" selection-start-line="41" selection-start-column="44" selection-end-line="41" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/routes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="221" column="10" selection-start-line="221" selection-start-column="10" selection-end-line="221" selection-end-column="10" />
-          <folding>
-            <element signature="e#5488#7641#0" />
-          </folding>
+        <state relative-caret-position="357">
+          <caret line="21" column="36" selection-start-line="21" selection-start-column="36" selection-end-line="21" selection-end-column="36" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/paginas/detalleOpcionMultiple.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="23" column="183" selection-start-line="23" selection-start-column="183" selection-end-line="23" selection-end-column="183" />
+        <state relative-caret-position="51">
+          <caret line="15" column="57" selection-start-line="15" selection-start-column="57" selection-end-line="15" selection-end-column="57" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/paginas/preguntasOpcionMultiple.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="60" column="63" lean-forward="true" selection-start-line="60" selection-start-column="63" selection-end-line="60" selection-end-column="63" />
+        <state relative-caret-position="170">
+          <caret line="60" selection-start-line="60" selection-end-line="61" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/js/detalleOpcionMultiple.js">
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/paginas/listaPreguntaOpcionMultiple.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="21" column="36" selection-start-line="21" selection-start-column="36" selection-end-line="21" selection-end-column="36" />
+        <state relative-caret-position="85">
+          <caret line="37" selection-start-line="37" selection-end-line="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/models/profesor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="30" column="9" selection-start-line="30" selection-start-column="9" selection-end-line="30" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/paginas/inicioProfesor.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="17" column="54" selection-start-line="17" selection-start-column="54" selection-end-line="17" selection-end-column="54" />
+        <state relative-caret-position="142">
+          <caret line="36" column="26" selection-start-line="36" selection-start-column="26" selection-end-line="36" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/paginas/creacionPartida.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="31" column="59" selection-start-line="31" selection-start-column="59" selection-end-line="31" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/js/creacionPartida.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="93" selection-start-line="93" selection-end-line="93" />
           <folding>
-            <element signature="n#style#0;n#a#1;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#569#581#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/js/preguntasOpcionMultiple.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/js/profesor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="116" column="11" selection-start-line="116" selection-start-column="11" selection-end-line="116" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/routes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="413" column="8" selection-start-line="413" selection-start-column="8" selection-end-line="413" selection-end-column="8" />
+          <folding>
+            <element signature="e#9561#9697#0" />
+            <element signature="e#9742#9870#0" />
+            <element signature="e#9923#10126#0" />
+            <element signature="e#10428#10472#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/paginas/preguntasUnirVoltear.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="109">
+          <caret line="20" column="43" selection-start-line="20" selection-start-column="43" selection-end-line="20" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/paginas/listaPreguntasUnirVoltear.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="59" column="128" selection-start-line="59" selection-start-column="128" selection-end-line="59" selection-end-column="128" />
+          <folding>
+            <element signature="n#style#0;n#a#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/js/preguntasUnirVoltear.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="70" column="106" selection-start-line="70" selection-start-column="106" selection-end-line="70" selection-end-column="106" />
         </state>
       </provider>
     </entry>
