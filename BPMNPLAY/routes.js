@@ -4,10 +4,25 @@ var Usuario = require("./models/usuario").Usuario;
 
 
 exports.get_inicio = function (req, res) {
+    if(req.session.usuario){
+        if(req.session.rol =="profesor"){
+            res.redirect('/ingresoProfesor');
+        }
+        else {
+            if(req.session.rol == "estudiante"){
+                res.redirect('/ingresoEstudiante');
+
+            }else {
+                res.render('paginas/index');
+            }
+        }
+    }else {
     res.render('paginas/index');
+    }
 };
 exports.get_inicio_sesion = function (req, res) {
-    res.render('paginas/inicioSesion');
+    var usuario = ""
+    res.render('paginas/inicioSesion', {usuario: usuario});
 };
 exports.post_inicio_sesion = function (req, res) {
 
@@ -15,12 +30,19 @@ exports.post_inicio_sesion = function (req, res) {
 
         req.session.nombre = doc.nombre;
         req.session.usuario = doc.usuario;
-        if(doc.rol == "profesor") {
-            res.redirect('/ingresoProfesor');
-        } else
+        req.session.rol = doc.rol;
+        if(req.body.contrasenia != doc.contrasenia)
         {
-            if(doc.rol == "estudiante") {
-                res.redirect('/ingresoEstudiante');
+            res.render('paginas/inicioSesion', {usuario: doc.usuario});
+        }else {
+            if (doc.rol == "profesor") {
+                res.redirect('/ingresoProfesor');
+            } else {
+                if (doc.rol == "estudiante") {
+                    res.redirect('/ingresoEstudiante');
+                }else{
+
+                }
             }
         }
     })
@@ -279,7 +301,16 @@ exports.post_detalle_opcion_multiple = function(req, res){
 
 exports.get_creacion_partida = function (req, res) {
     if(req.session.usuario){
-        res.render('paginas/creacionPartida');
+        if(req.session.rol == "profesor") {
+            res.render('paginas/creacionPartida');
+        }else{
+            if(req.session.rol == "estudiante"){
+                res.redirect('/inicioEstudiante');
+            }
+            else {
+                res.redirect('/inicioSesion');
+            }
+        }
     }else {
         res.redirect('/inicioSesion');
     }
