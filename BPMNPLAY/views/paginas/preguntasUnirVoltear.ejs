@@ -14,23 +14,27 @@
     <div class="row">
         <h2>Ingreso de Preguntas Unir Voltear </h2>
     </div>
-    <div>
-        <label>Número de preguntas: </label>
-        <input class="form-control" type="number" id="numeroEquipo" value="0" min="2" max="50" required onchange="generarDatosPregunta(this)">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <label for="numeroPreguntas">Número de preguntas: </label>
+        <input class="form-control" type="number" id="numeroDePreguntas" value="0" min="2" max="50" required onchange="generarDatosPregunta(this)">
     </div>
+    <div class="col-md-3"></div>
+
     <form action="/agregarVariasUnirVoltear" method="post" >
+        <input type="text" name="materia" value="<%= materia %>" hidden>
+        <input type="text" name="numeroPreguntas" id="numeroPreguntas" hidden>
         <div class="form-row" id="divPreguntas">
-            <input type="text" name="materia" value="<%= materia %>" hidden>
+
         </div>
         <div id ="divBotonGuardar" class="form-group" >
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" id="botonGuardarUnirVoltear"  class="btn btn-default">Guardar</button>
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <button type="submit" id="botonGuardarUnirVoltear"  class="btn btn-info" hidden>Guardar</button>
             </div>
+            <div class="col-md-2"></div>
         </div>
     </form>
-
-
-
 </div>
 <script type="text/javascript" src="../../static/js/preguntasUnirVoltear.js"></script>
 </body>

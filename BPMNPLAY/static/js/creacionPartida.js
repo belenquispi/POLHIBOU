@@ -62,7 +62,7 @@ function generarDatosEquipo(numero) {
         label.setAttribute("id", "labelEquipo" + (i + 1));
         label.setAttribute("class", "col-md-3");
         document.getElementById("form-group" + (i + 1)).appendChild(label);
-        document.getElementById('labelEquipo' + (i + 1)).innerHTML = "Nombre del Equipo" + (i + 1);
+        document.getElementById('labelEquipo' + (i + 1)).innerHTML = "Nombre del Equipo " + (i + 1);
 
         var inputs = document.createElement("INPUT");
         inputs.setAttribute("class", "form-control col-md-3");
@@ -70,8 +70,11 @@ function generarDatosEquipo(numero) {
         inputs.setAttribute("onkeypress", "return validarIngreso(event)");
         inputs.setAttribute("maxlength", "10");
         inputs.setAttribute("type", "text");
+        inputs.setAttribute("required", "");
+        inputs.setAttribute("name", "nombreEquipo"+ (i + 1));
         inputs.setAttribute("id", "nombreEquipo" + (i + 1));
         document.getElementById("form-group" + (i + 1)).appendChild(inputs);
+
 
         for (var j = 0; j < 6; j++) {
             var boton = document.createElement("BUTTON");
@@ -88,6 +91,12 @@ function generarDatosEquipo(numero) {
             images.setAttribute("width", "50");
             document.getElementById("buttonImagen" + (j + 1) + "Equipo" + (i + 1)).appendChild(images);
         }
+        var inputImagen = document.createElement("INPUT");
+        inputImagen.setAttribute("type", "text");
+        inputImagen.setAttribute("hidden", "");
+        inputImagen.setAttribute("name", "imagenEquipo"+ (i + 1));
+        inputImagen.setAttribute("id", "imagenEquipo" + (i + 1));
+        document.getElementById("form-group" + (i + 1)).appendChild(inputImagen);
     }
 }
 
@@ -100,6 +109,7 @@ function bloquearIconoJugador(num) {
     var numImagen = id.substr(12, 1);
     var numEquipo = id.substr(19,1);
     console.log(numImagen);
+    console.log(numEquipo);
     console.log(id);
     var contador = 0;
     for(var i = 0 ; i < partida.length; i++)
@@ -114,6 +124,9 @@ function bloquearIconoJugador(num) {
             document.getElementById("buttonImagen" + (j + 1) + "Equipo" + numEquipo).style.border = "gray";
         }
         partida[numEquipo-1]= numImagen;
+        console.log("equipo:"+numEquipo);
+
+        document.getElementById("imagenEquipo"+numEquipo).value = numImagen;
         document.getElementById(id).style.border = "thick solid green";
     }else
     {

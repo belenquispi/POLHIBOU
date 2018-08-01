@@ -15,18 +15,20 @@
 </header>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoProfesor">Inicio</a></li>
     </ol>
 </nav>
 <div class="container">
     <div class="row">
-        <h2>Materias</h2>
+        <div class="col-md-10">
+            <h2>Materias</h2>
+        </div>
+        <div class="col-md-2"> <a href="/creacionPartida" class="btn btn-info" style="margin-bottom: 10px">Crear Partidas</a>
+        </div>
     </div>
         <div class="row">
     <div class="card-columns">
-
         <%
-            console.log("hola1: "+ nombre);
         for(var i = 0; i<materias.length; i++) {%>
         <div class="card">
             <div class="card-body">

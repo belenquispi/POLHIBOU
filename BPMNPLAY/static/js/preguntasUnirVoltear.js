@@ -6,9 +6,11 @@ var mostrarVistaPreviaImagen = function (event, imagen) {
 function encodeImageFileAsURL(element) {
     var file = element.files[0];
     var reader = new FileReader();
+    var id = element.id.substr(15,2)
+    console.log("id: "+id);
     reader.onloadend = function () {
         console.log('RESULT', reader.result)
-        document.getElementById("imagenUnir").value = reader.result;
+        document.getElementById("imagenUnir"+id).value = reader.result;
     }
     reader.readAsDataURL(file);
 }
@@ -17,17 +19,9 @@ function generarDatosPregunta (numero) {
     var id = numero.id;
     var valor = document.getElementById(id).value;
     console.log(id);
-    for(var i=1; i <= valor ; i++ ) {
-        if (document.getElementById("form-group"+i)) {
-            eliminarAnteriores(i,1);
-        }
-        if (document.getElementById("form-group-img-"+i)) {
-            eliminarAnteriores(i,2);
-        }
-        if (document.getElementById("form-group-img2-"+i)) {
-            eliminarAnteriores(i,3);
-        }
-    }
+    document.getElementById("numeroPreguntas").value = valor;
+     document.getElementById("divPreguntas").innerHTML = ""
+
     for (var i = 0; i < valor; i++) {
         var divTexto = document.createElement("DIV");
         divTexto.setAttribute("class", "form-group col-md-4 mb-3");
@@ -68,12 +62,12 @@ function generarDatosPregunta (numero) {
         inputImagen.setAttribute("value", "uploadImagenUnir" + (i + 1));
         inputImagen.setAttribute("required", "");
         inputImagen.setAttribute("accept", "image/*");
-        inputImagen.setAttribute("onchange", "mostrarVistaPreviaImagen(event, \'imagenUnir"+ (i + 1)+"\'), encodeImageFileAsURL(this)") ;
+        inputImagen.setAttribute("onchange", "mostrarVistaPreviaImagen(event, \'imagen"+ (i + 1)+"\'), encodeImageFileAsURL(this)") ;
         document.getElementById("form-group-img-" + (i + 1)).appendChild(inputImagen);
 
         var inputImagen2 = document.createElement("INPUT");
         inputImagen2.setAttribute("type", "text");
-        inputImagen2.setAttribute("id", "imagen" + (i + 1));
+        inputImagen2.setAttribute("id", "imagenUnir" + (i + 1));
         inputImagen2.setAttribute("name", "imagen" + (i + 1));
         inputImagen2.setAttribute("hidden", "");
         document.getElementById("form-group-img-" + (i + 1)).appendChild(inputImagen2);
@@ -88,12 +82,14 @@ function generarDatosPregunta (numero) {
 
 
         var imagen = document.createElement("IMG");
-        imagen.setAttribute("id", "imagenUnir" + (i + 1));
+        imagen.setAttribute("id", "imagen" + (i + 1));
         imagen.setAttribute("width", "50" );
         imagen.setAttribute("height", "50");
         document.getElementById("form-group-img2-"+ (i + 1)).appendChild(imagen);
 
     }
+    document.getElementById("botonGuardarUnirVoltear").removeAttribute("hidden");
+
 }
 
 function eliminarAnteriores(num, x) {

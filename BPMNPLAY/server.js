@@ -115,7 +115,7 @@ app.get('/ingresoPartida', routes.get_ingreso_partida);
 app.post('/agregarUnirVoltear', routes.post_agregar_unir_voltear);
 app.post('/eliminarUnirVoltear', routes.post_eliminar_unir_voltear);
 app.post('/agregarVariasUnirVoltear', routes.post_agregar_varias_unir_voltear);
-
+app.post('/lobby', routes.post_lobby);
 
 // Starts the server.
 server.listen(5000, function () {

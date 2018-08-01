@@ -28,13 +28,14 @@ exports.post_inicio_sesion = function (req, res) {
 
     Usuario.findOne({usuario: req.body.usuario}, function (error, doc) {
 
-        req.session.nombre = doc.nombre;
-        req.session.usuario = doc.usuario;
-        req.session.rol = doc.rol;
+
         if(req.body.contrasenia != doc.contrasenia)
         {
             res.render('paginas/inicioSesion', {usuario: doc.usuario});
         }else {
+            req.session.nombre = doc.nombre;
+            req.session.usuario = doc.usuario;
+            req.session.rol = doc.rol;
             if (doc.rol == "profesor") {
                 res.redirect('/ingresoProfesor');
             } else {
@@ -302,7 +303,19 @@ exports.post_detalle_opcion_multiple = function(req, res){
 exports.get_creacion_partida = function (req, res) {
     if(req.session.usuario){
         if(req.session.rol == "profesor") {
-            res.render('paginas/creacionPartida');
+            Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
+                if(error)
+                {
+                    console.log("Error: "+error)
+                }
+               console.log(doc.materias.length)
+                var materias = [];
+                for(var i = 0; i<doc.materias.length; i++){
+                    materias.push(doc.materias[i].nombre);
+                }
+                console.log(materias);
+                res.render('paginas/creacionPartida', {nombre : req.session.nombre, materias: materias});
+            });
         }else{
             if(req.session.rol == "estudiante"){
                 res.redirect('/inicioEstudiante');
@@ -441,8 +454,10 @@ exports.post_eliminar_unir_voltear = function(req,res){
 
 exports.post_agregar_varias_unir_voltear = function(req, res){
     if (req.session.nombre) {
+        console.log("ggg: "+Object.keys(req.body).length)
         console.log(req.body)
-      /*Profesor.findOne({usuario : req.session.usuario}, function (error, doc) {
+        console.log("lll: "+req.body["imagen1"])
+      Profesor.findOne({usuario : req.session.usuario}, function (error, doc) {
             if (error) {
                 console.log("Error: " + error)
             }
@@ -451,26 +466,49 @@ exports.post_agregar_varias_unir_voltear = function(req, res){
                 return e.nombre
             }).indexOf(req.body.materia);
 
-            var preguntaUnir = {
-                idUnirVoltear: generarNombre(),
-                texto: req.body.nombreImagen,
-                imagen: req.body.imagenUnir
+            var numeroPreguntas = req.body.numeroPreguntas;
+            console.log(numeroPreguntas)
+
+            for(var i = 1; i<=numeroPreguntas; i++){
+                var preguntaU = [];
+                preguntaU.push("imagen"+i);
+                preguntaU.push("textoUnir"+i);
+
+                var preguntaUnir = {
+                    idUnirVoltear: generarNombre(),
+                    texto: req.body[preguntaU[1]],
+                    imagen: req.body[preguntaU[0]]
+                }
+                console.log(preguntaUnir);
+
+                if (indice >= 0) {
+                    doc.materias[indice].preguntasUnirVoltear.push(preguntaUnir);
+                    console.log("ERERER: " + doc.materias[indice].preguntasUnirVoltear.length)
+
+                    doc.save(function (err, docActualizado) {
+                        if (err) return console.log(err);
+                    });
+                }
             }
+          res.redirect('/preguntasUnirVoltear/'+req.body.materia);
 
-            if (indice >= 0) {
-                doc.materias[indice].preguntasUnirVoltear.push(preguntaUnir);
-                console.log("ERERER: " + doc.materias[indice].preguntasUnirVoltear.length)
-
-                doc.save(function (err, docActualizado) {
-                    if (err) return console.log(err);
-
-                    res.redirect('/preguntasUnirVoltear/'+req.body.materia);
-                });
-            }
-        });*/
+      });
     }
     else {
         res.redirect('/inicioSesion');
+    }
+}
+
+exports.post_lobby = function(req,res){
+    console.log(req.body)
+    if(req.session.usuario)
+    {
+        var idPartida = req.body.materia + Math.floor((1 + Math.random()) * 0x1000).toString(5).substring(1);
+        res.render('paginas/lobby', {nombre: req.session.nombre, materia: req.body.materia, idPartida :idPartida});
+
+    }else
+    {
+
     }
 }
 
