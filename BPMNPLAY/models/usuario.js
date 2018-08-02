@@ -16,7 +16,7 @@ var validacion_contrasenia = {
 var usuarioSchema = new Schema({
     usuario: {type : String, required : true},
     nombre: {type :String, required : true},
-    contrasenia: { type :String, minlength: [8, "La contraseña es muy corto"], validate: validacion_contrasenia},
+    contrasenia: { type :String},
     rol : {type :String, enum: {values: rol, message:"Opción no válida"},required : true}
 });
 

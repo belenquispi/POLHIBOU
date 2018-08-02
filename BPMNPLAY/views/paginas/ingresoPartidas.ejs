@@ -9,64 +9,96 @@
 <header>
     <% include ../parciales/header %>
 </header>
-
 <div class="container">
-    <div class="col">
-        <form action="/tablero" method="get">
-            <div id="centro">
-                <div class="form-group">
-                    <label>Código partida:</label>
-                    <div class="col-md-8">
-                        <input type="text" class="form-control" placeholder="Código de la partida"
-                               id="codigoPartida" name="codigoPartida">
-                    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-lg-12">
+                    <img class="rounded mx-auto d-block"
+                         src="https://cem.epn.edu.ec/imagenes/logos_institucionales/big_jpg/BUHO_ABSTRACCION_EPN_big.jpg"
+                         height="100" width="100">
                 </div>
-                <div class="form-group">
-                    <div class="col-md-8">
-                        <button type="button" class="btn" id="consultarPartida" onclick="consultarJugadores()">Verificar
-                            código partida
-                        </button>
-                    </div>
-                </div>
-                <div class="form-group" id="divTipoEquipo" hidden>
-                    <label>Tipo de ingreso:</label>
-                    <div class="col-md-8">
-                        <select id="tipoIngreso" name="tipoIngreso" class="form-control"
-                                onchange="habilitarNombreEquipo()">
-                            <option value="ninguno">Seleccione un tipo</option>
-                            <option value="jugador">Jugador</option>
-                            <option value="espectador">Espectador</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group" id="divNombreEquipo" hidden>
-                    <label>Nombre del equipo:</label>
-                    <div class="col-md-8">
-                        <select id="nombreEquipo" name="nombreEquipo" class="form-control"
-                                onchange="verificarDisponibilidadEquipo()">
-                        </select>
-                    </div>
-                </div>
-
             </div>
-            <div class="form-group">
-                <input type="button" value="Unirse a partida" class="btn btn-primary" onclick="unirsePartida()">
-                <button type="submit" class="btn btn-primary" id="unirPartida" hidden></button>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <form id="login-form" action="#" method="post" role="form" style="display: block;">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8 text-center">
+                                <label for="codigoPartida">Código partida:</label>
+                                <input type="text" class="form-control bg-dark text-white rounded text-center" placeholder="Código de la partida"
+                                               id="codigoPartida" name="codigoPartida">
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <button type="button" class="btn btn-info" id="consultarPartida" onclick="consultarJugadores()">Verificar código partida
+                                </button>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row" id="divTipoEquipo" hidden>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8 text-center">
+                                <label for="tipoIngreso">Tipo de Ingreso:</label>
+                                <select id="tipoIngreso" name="tipoIngreso" class="form-control text-center"
+                                        onchange="habilitarNombreEquipo()">
+                                    <option value="ninguno">Seleccione un tipo de ingreso</option>
+                                    <option value="jugador">Jugador</option>
+                                    <option value="espectador">Espectador</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+                        <br>
+                        <div class="row" id="divNombreEquipo" hidden>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8 text-center">
+                                <label for="nombreEquipo">Nombre del Equipo:</label>
+                                <select id="nombreEquipo" name="nombreEquipo" class="form-control text-center"
+                                        onchange="verificarDisponibilidadEquipo()">
+                                </select>
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8 text-center">
+                                <input type="button" value="Unirse a partida" class="btn btn-primary" hidden id="botonUnir" onclick="unirsePartida()">
+                                <button type="submit" class="btn btn-primary" id="unirPartida" hidden></button>
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+                    </form>
+                    <div class="row text-center">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <img src="../../static/imagenes/espera.gif" id="imagenE" width="150px" hidden height="200px">
+                        </div>
+                        <div class="col-md-2"></div>
 
+
+
+                    </div>
+                </div>
             </div>
-        </form>
+        </div>
+        <div class="col-md-3"></div>
     </div>
 </div>
 <script src="/socket.io/socket.io.js"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+
 <script>
     var socket = io();
     var disponible = false;
@@ -85,7 +117,7 @@
                 document.getElementById("nombreEquipo").innerHTML = "";
                 var option1 = document.createElement("OPTION");
                 option1.setAttribute("value", "ninguno");
-                var nombre1 = document.createTextNode("Seleccione un equipo");
+                var nombre1 = document.createTextNode("Selecciona el equipo que representas");
                 option1.appendChild(nombre1);
                 document.getElementById("nombreEquipo").appendChild(option1);
                 for (var i = 0; i < data.length; i++) {
@@ -114,9 +146,16 @@
     function habilitarNombreEquipo() {
         if (document.getElementById("tipoIngreso").value == "jugador") {
             document.getElementById("divNombreEquipo").removeAttribute("hidden");
+            document.getElementById("botonUnir").removeAttribute("hidden");
 
         } else {
             document.getElementById("divNombreEquipo").setAttribute("hidden", "");
+            if (document.getElementById("tipoIngreso").value == "espectador"){
+                document.getElementById("botonUnir").removeAttribute("hidden");
+
+            }else {
+                document.getElementById("botonUnir").setAttribute("hidden", "");
+            }
         }
     }
 
@@ -126,7 +165,7 @@
 
     function unirsePartida() {
         if (document.getElementById("tipoIngreso") == "espectador") {
-            document.getElementById('unirPartida').click();
+            //document.getElementById('unirPartida').click();
         }
         else {
 
@@ -136,9 +175,12 @@
                 }
                 else {
                     if (disponible) {
-                        document.getElementById('unirPartida').click();
+                      //  document.getElementById('unirPartida').click();
+                            document.getElementById("imagenE").removeAttribute("hidden");
+                        socket.emit('new player', document.getElementById('codigoPartida').value, document.getElementById('tipoIngreso').value, document.getElementById('nombreEquipo').value);
                     }
                     else {
+                        document.getElementById("imagenE").setAttribute("hidden", "");
                         alert("El equipo con el cual desea ingresar ya se encuentra conectado. Se sugiere ingresar con el nombre de otro jugador o como de espectador");
                     }
                 }

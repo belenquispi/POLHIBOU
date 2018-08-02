@@ -108,9 +108,6 @@ function bloquearIconoJugador(num) {
     var id = num.id;
     var numImagen = id.substr(12, 1);
     var numEquipo = id.substr(19,1);
-    console.log(numImagen);
-    console.log(numEquipo);
-    console.log(id);
     var contador = 0;
     for(var i = 0 ; i < partida.length; i++)
     {
@@ -132,10 +129,6 @@ function bloquearIconoJugador(num) {
     {
         console.log("Ya se encuentra seleccionado por otro equipo")   ;
     }
-}
-
-function unirsePartida() {
-
 }
 
 function validarIngreso(e) {

@@ -9,6 +9,7 @@ var app = express();
 var server = http.Server(app);
 var io = socketIO(server);
 var firebase = require("./firebase");
+var baseDatos = require("./baseDatos");
 var bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser');
 
@@ -141,6 +142,7 @@ io.on('connection', function (socket) {
         }
         else {
             partidas.push(new partida(room));
+            console.log(nombreIconoEquipos)
             for (var i = 0; i < nombreIconoEquipos.length; i++) {
                 insertarDatosJugador(partidas.length - 1, nombreIconoEquipos[i].iconoEquipo, nombreIconoEquipos[i].nombreEquipo);
                 descargarPreguntas(partidas.length - 1, usuario, idMateria);
@@ -634,8 +636,8 @@ function newBoard() {
     return memory_array.memory_tile_shuffle();
 }
 function descargarPreguntas(idPartida, idProfesor, idMateria) {
-    partidas[idPartida].preguntasOpcionMultiple = firebase.obtenerPreguntasOpcionMultiple(idProfesor, idMateria);
-    partidas[idPartida].preguntasUnirVoltear = firebase.obtenerPreguntasUnir(idProfesor, idMateria);
+    partidas[idPartida].preguntasOpcionMultiple = baseDatos.obtenerPreguntasOpcionMultiple(idProfesor, idMateria);
+    partidas[idPartida].preguntasOpcionMultiple = baseDatos.obtenerPreguntasUnir(idProfesor, idMateria);
 }
 function indiceRandomicoOpcionMultiple(idPartida) {
     var arrayRandomico = [];

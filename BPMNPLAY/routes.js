@@ -27,8 +27,10 @@ exports.get_inicio_sesion = function (req, res) {
 exports.post_inicio_sesion = function (req, res) {
 
     Usuario.findOne({usuario: req.body.usuario}, function (error, doc) {
-
-
+        if(error)
+        {console.log("Error: "+error);            }
+        if(doc !=null)
+        {
         if(req.body.contrasenia != doc.contrasenia)
         {
             res.render('paginas/inicioSesion', {usuario: doc.usuario});
@@ -45,6 +47,10 @@ exports.post_inicio_sesion = function (req, res) {
 
                 }
             }
+        }}
+        else
+        {
+            res.render('paginas/inicioSesion', {usuario: req.body.usuario});
         }
     })
 };
@@ -84,7 +90,7 @@ exports.post_creacion_cuenta = function (req, res) {
         contrasenia: req.body.contrasenia,
         rol : req.body.rol,
         contrasenia_confirmada : req.body.contrasenia_confirmada
-    })
+    });
 
         usuario.save( function (err) {
             
@@ -500,14 +506,44 @@ exports.post_agregar_varias_unir_voltear = function(req, res){
 }
 
 exports.post_lobby = function(req,res){
-    console.log(req.body)
     if(req.session.usuario)
     {
-        var idPartida = req.body.materia + Math.floor((1 + Math.random()) * 0x1000).toString(5).substring(1);
-        res.render('paginas/lobby', {nombre: req.session.nombre, materia: req.body.materia, idPartida :idPartida});
+        if(req.session.rol =="profesor") {
+            var numeroEquipos = req.body.numeroEquipos;
+            if(req.body.idPartida)
+            {
+                res.render('paginas/lobby', {nombre: req.session.nombre, materia: req.body.materia, idPartida: req.body.idPartida});
+            }else{
+                var idPartida = req.body.materia + Math.floor((1 + Math.random()) * 0x1000).toString(5).substring(1);
+                req.body.idPartida = idPartida;
+
+
+                var informacionJugadores =[];
+                for(var i = 1; i<=numeroEquipos; i++){
+                    var equipoU = [];
+                    equipoU.push("nombreEquipo"+i);
+                    equipoU.push("imagenEquipo"+i);
+
+                    var nuevoEquipo = {
+                        nombreEquipo: req.body[equipoU[0]],
+                        imagenEquipo: req.body[equipoU[1]]
+                    }
+                    informacionJugadores.push(nuevoEquipo);
+
+                }
+
+                console.log("nuevoEquipo");
+                console.log(informacionJugadores)
+                res.render('paginas/lobby', {nombre: req.session.nombre, rol: req.session.rol, usuario:req.session.usuario, materia: req.body.materia, idPartida: idPartida, numeroEquipos: numeroEquipos ,informacionJugadores: informacionJugadores});
+            }
+
+        }else {
+            res.redirect("/");
+        }
 
     }else
     {
+        res.redirect('/inicioSesion');
 
     }
 }
