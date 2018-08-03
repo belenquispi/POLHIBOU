@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.2.0",
     "@google-cloud/storage": "^1.7.0",
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
