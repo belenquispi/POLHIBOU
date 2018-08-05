@@ -1,6 +1,5 @@
 body {
     color: #333;
-    text-align: center;
     font-family: Arial;
 }
 canvas {
@@ -13,7 +12,6 @@ canvas {
 .separator {
     margin-top: 20px;
 }
-
 /* 3D Cube */
 .space3d, .space3d-2  {
     perspective: 700px;

@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <% include ../parciales/head %>
     <meta http-equiv="Content-Type" content="text/html"/>
     <link rel="stylesheet" type="text/css" href="static/css/estilos.css">
-    <% include ../parciales/head %>
-
     <title>Title</title>
-    <script src="/socket.io/socket.io.js"></script>
-
 </head>
 <body>
 <header>
@@ -34,9 +31,9 @@
                 <h5 class="card-title">
                     <%=materias[i]%>
                 </h5>
-                <a href="/preguntasOpcionMultiple/<%=materias[i]%>" class="btn btn-primary" style="margin-bottom: 10px" id=<%=materias[i]%>>Preguntas Opción Multiple</a>
-                <a href= "/preguntasUnirVoltear/<%=materias[i]%>" class="btn btn-primary" style="margin-bottom: 10px">Preguntas Unir Voltear</a>
-                <a href="/creacionPartida" class="btn btn-info" style="margin-bottom: 10px">Crear Partidas</a>
+                <a href="/ingresoProfesor/preguntasOpcionMultiple/<%=materias[i]%>" class="btn btn-primary" style="margin-bottom: 10px" id=<%=materias[i]%>>Preguntas Opción Multiple</a>
+                <a href= "/ingresoProfesor/preguntasUnirVoltear/<%=materias[i]%>" class="btn btn-primary" style="margin-bottom: 10px">Preguntas Unir Voltear</a>
+                <a href="/ingresoProfesor/creacionPartida/<%=materias[i]%>" class="btn btn-info" style="margin-bottom: 10px">Crear Partidas</a>
                 <br>
                 <a href="#" class="btn btn-success">Estadísticas</a>
             </div>
@@ -55,7 +52,10 @@
     </div>
 </div>
 </div>
+<script src="/socket.io/socket.io.js"></script>
 <script src="/static/js/profesor.js"></script>
-
+<footer>
+    <% include ../parciales/footer.ejs %>
+</footer>
 </body>
 </html>

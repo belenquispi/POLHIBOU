@@ -4,20 +4,20 @@ var Usuario = require("./models/usuario").Usuario;
 
 
 exports.get_inicio = function (req, res) {
-    if(req.session.usuario){
-        if(req.session.rol =="profesor"){
+    if (req.session.usuario) {
+        if (req.session.rol == "profesor") {
             res.redirect('/ingresoProfesor');
         }
         else {
-            if(req.session.rol == "estudiante"){
+            if (req.session.rol == "estudiante") {
                 res.redirect('/ingresoEstudiante');
 
-            }else {
+            } else {
                 res.render('paginas/index');
             }
         }
-    }else {
-    res.render('paginas/index');
+    } else {
+        res.render('paginas/index');
     }
 };
 exports.get_inicio_sesion = function (req, res) {
@@ -27,43 +27,45 @@ exports.get_inicio_sesion = function (req, res) {
 exports.post_inicio_sesion = function (req, res) {
 
     Usuario.findOne({usuario: req.body.usuario}, function (error, doc) {
-        if(error)
-        {console.log("Error: "+error);            }
-        if(doc !=null)
-        {
-        if(req.body.contrasenia != doc.contrasenia)
-        {
-            res.render('paginas/inicioSesion', {usuario: doc.usuario});
-        }else {
-            req.session.nombre = doc.nombre;
-            req.session.usuario = doc.usuario;
-            req.session.rol = doc.rol;
-            if (doc.rol == "profesor") {
-                res.redirect('/ingresoProfesor');
+        if (error) {
+            console.log("Error: " + error);
+        }
+        if (doc != null) {
+            if (req.body.contrasenia != doc.contrasenia) {
+                res.render('paginas/inicioSesion', {usuario: doc.usuario});
             } else {
-                if (doc.rol == "estudiante") {
-                    res.redirect('/ingresoEstudiante');
-                }else{
+                req.session.nombre = doc.nombre;
+                req.session.usuario = doc.usuario;
+                req.session.rol = doc.rol;
+                if (doc.rol == "profesor") {
+                    res.redirect('/ingresoProfesor');
+                } else {
+                    if (doc.rol == "estudiante") {
+                        res.redirect('/ingresoEstudiante');
+                    } else {
 
+                    }
                 }
             }
-        }}
-        else
-        {
+        }
+        else {
             res.render('paginas/inicioSesion', {usuario: req.body.usuario});
         }
     })
 };
 exports.get_ingreso_profesor = function (req, res) {
     if (req.session.nombre) {
-        Profesor.findOne({usuario : req.session.usuario}, function (error, doc) {
+        Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
             var materias = [];
-            for(var i = 0 ; i < doc.materias.length; i++)
-            {
+            for (var i = 0; i < doc.materias.length; i++) {
                 materias.push(doc.materias[i].nombre);
 
             }
-            res.render('paginas/inicioProfesor', {nombre: req.session.nombre, usuario: req.session.usuario, materias: materias});
+            res.render('paginas/inicioProfesor', {
+                nombre: req.session.nombre,
+                usuario: req.session.usuario,
+                materias: materias
+            });
 
         });
 
@@ -84,17 +86,17 @@ exports.get_ingreso_estudiante = function (req, res) {
 
 exports.post_creacion_cuenta = function (req, res) {
 
-    var usuario = new Usuario ({
+    var usuario = new Usuario({
         nombre: req.body.nombre,
         usuario: req.body.usuario,
         contrasenia: req.body.contrasenia,
-        rol : req.body.rol,
-        contrasenia_confirmada : req.body.contrasenia_confirmada
+        rol: req.body.rol,
+        contrasenia_confirmada: req.body.contrasenia_confirmada
     });
 
-        usuario.save( function (err) {
-            
-        });
+    usuario.save(function (err) {
+
+    });
 
     if (req.body.rol == "profesor") {
 
@@ -103,7 +105,7 @@ exports.post_creacion_cuenta = function (req, res) {
         })
 
         profesor.save(function (error) {
-            
+
         });
     } else {
         if (req.body.rol == "estudiante") {
@@ -113,7 +115,7 @@ exports.post_creacion_cuenta = function (req, res) {
             })
 
             estudiante.save(function (error) {
-                
+
             });
         }
     }
@@ -139,20 +141,25 @@ exports.post_ingreso_materia = function (req, res) {
 
 exports.get_preguntas_opcion = function (req, res) {
     if (req.session.nombre && req.params.materia) {
-        Profesor.findOne({usuario : req.session.usuario}, function (error, doc) {
-            if(error)
-            {console.log("Error: "+error);            }
+        Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
+            if (error) {
+                console.log("Error: " + error);
+            }
             var indice = doc.materias.map(function (e) {
                 return e.nombre
             }).indexOf(req.params.materia);
             var idPreguntas = [];
             var enunciadoPreguntas = [];
-            for(var i = 0; i < doc.materias[indice].preguntasOpcionMultiple.length; i++)
-            {
+            for (var i = 0; i < doc.materias[indice].preguntasOpcionMultiple.length; i++) {
                 idPreguntas.push(doc.materias[indice].preguntasOpcionMultiple[i].idOpcionMultiple);
                 enunciadoPreguntas.push(doc.materias[indice].preguntasOpcionMultiple[i].enunciado);
             }
-            res.render('paginas/listaPreguntaOpcionMultiple', {nombre: req.session.nombre, materia: req.params.materia, idPreguntas: idPreguntas, enunciadoPreguntas: enunciadoPreguntas });
+            res.render('paginas/listaPreguntaOpcionMultiple', {
+                nombre: req.session.nombre,
+                materia: req.params.materia,
+                idPreguntas: idPreguntas,
+                enunciadoPreguntas: enunciadoPreguntas
+            });
 
 
         });
@@ -164,7 +171,7 @@ exports.get_preguntas_opcion = function (req, res) {
 
 };
 
-exports.get_eliminar_pregunta_opcion = function(req,res){
+exports.get_eliminar_pregunta_opcion = function (req, res) {
     if (req.session.usuario && req.params.idMateria) {
         console.log(req.params)
         var str = req.params.idMateria;
@@ -174,25 +181,24 @@ exports.get_eliminar_pregunta_opcion = function(req,res){
         var idPregunta = resp[1];
         Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
 
-            if(error)
-            {
-                console.log("Error: "+error)
+            if (error) {
+                console.log("Error: " + error)
             }
 
             var indice = doc.materias.map(function (e) {
                 return e.nombre
             }).indexOf(materia);
 
-            if(indice >=0){
+            if (indice >= 0) {
                 var indicePregunta = doc.materias[indice].preguntasOpcionMultiple.map(function (e) {
                     return e.idOpcionMultiple
                 }).indexOf(idPregunta);
-                if(indicePregunta >=0){
-                    doc.materias[indice].preguntasOpcionMultiple.splice(indicePregunta,1);
+                if (indicePregunta >= 0) {
+                    doc.materias[indice].preguntasOpcionMultiple.splice(indicePregunta, 1);
                     doc.save(function (err, docActualizado) {
                         if (err) return console.log(err);
-                        res.redirect('/preguntasOpcionMultiple/'+materia);
-                });
+                        res.redirect('/ingresoProfesor/preguntasOpcionMultiple/' + materia);
+                    });
                 }
             }
 
@@ -203,73 +209,71 @@ exports.get_eliminar_pregunta_opcion = function(req,res){
 
 exports.post_preguntas_opcion = function (req, res) {
     console.log(req.body);
- Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
+    Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
 
-     if(error)
-     {
-         console.log("Error: "+error)
-     }
+        if (error) {
+            console.log("Error: " + error)
+        }
 
-     var indice = doc.materias.map(function (e) {
-         return e.nombre
-     }).indexOf(req.body.materia);
-     var preguntaOpcionMultiple = {
-         enunciado : req.body.enunciado,
-         respuestaCorrecta :  req.body.respuestaCorrecta,
-         idOpcionMultiple: generarNombre()
-     }
+        var indice = doc.materias.map(function (e) {
+            return e.nombre
+        }).indexOf(req.body.materia);
+        var preguntaOpcionMultiple = {
+            enunciado: req.body.enunciado,
+            respuestaCorrecta: req.body.respuestaCorrecta,
+            idOpcionMultiple: generarNombre()
+        };
 
-     if(req.body.imagenEnunciado != ""){
-         preguntaOpcionMultiple.imagenEnunciado = req.body.imagenEnunciado
-     }
+        if (req.body.imagenEnunciado != "") {
+            preguntaOpcionMultiple.imagenEnunciado = req.body.imagenEnunciado
+        }
 
-     if(req.body.res1 &&(req.body.res1 != "" || req.body.res1 != undefined)){
-         console.log("Solo texto:"+req.body.res1)
-         console.log(req.body)
-         preguntaOpcionMultiple.res1 = req.body.res1;
-         preguntaOpcionMultiple.res2 = req.body.res2;
-         preguntaOpcionMultiple.res3 = req.body.res3;
-         preguntaOpcionMultiple.res4 = req.body.res4;
-     }else {
-         console.log("Solo imagenes")
+        if (req.body.res1 && (req.body.res1 != "" || req.body.res1 != undefined)) {
+            console.log("Solo texto:" + req.body.res1)
+            console.log(req.body)
+            preguntaOpcionMultiple.res1 = req.body.res1;
+            preguntaOpcionMultiple.res2 = req.body.res2;
+            preguntaOpcionMultiple.res3 = req.body.res3;
+            preguntaOpcionMultiple.res4 = req.body.res4;
+        } else {
+            console.log("Solo imagenes")
 
-         preguntaOpcionMultiple.imagenRes1 = req.body.imagenRes1;
-         preguntaOpcionMultiple.imagenRes2 = req.body.imagenRes2;
-         preguntaOpcionMultiple.imagenRes3 = req.body.imagenRes3;
-         preguntaOpcionMultiple.imagenRes4 = req.body.imagenRes4;
-     }
+            preguntaOpcionMultiple.imagenRes1 = req.body.imagenRes1;
+            preguntaOpcionMultiple.imagenRes2 = req.body.imagenRes2;
+            preguntaOpcionMultiple.imagenRes3 = req.body.imagenRes3;
+            preguntaOpcionMultiple.imagenRes4 = req.body.imagenRes4;
+        }
 
-     if(indice >=0){
-         var indicePregunta = doc.materias[indice].preguntasOpcionMultiple.map(function (e) {
-             return e.idOpcionMultiple
-         }).indexOf(req.body.idOpcionMultiple);
-         console.log("eliminar: "+indicePregunta)
-         if(indicePregunta >=0) {
-             console.log("ERERER: " + doc.materias[indice].preguntasOpcionMultiple.length)
-             doc.materias[indice].preguntasOpcionMultiple.splice(indicePregunta, 1);
-             console.log("ERERER: " + doc.materias[indice].preguntasOpcionMultiple.length)
-         }
-             doc.materias[indice].preguntasOpcionMultiple.push(preguntaOpcionMultiple);
-             console.log("ERERER: " + doc.materias[indice].preguntasOpcionMultiple.length)
+        if (indice >= 0) {
+            var indicePregunta = doc.materias[indice].preguntasOpcionMultiple.map(function (e) {
+                return e.idOpcionMultiple
+            }).indexOf(req.body.idOpcionMultiple);
+            console.log("eliminar: " + indicePregunta);
+            if (indicePregunta >= 0) {
+                console.log("ERERER: " + doc.materias[indice].preguntasOpcionMultiple.length)
+                doc.materias[indice].preguntasOpcionMultiple.splice(indicePregunta, 1);
+                console.log("ERERER: " + doc.materias[indice].preguntasOpcionMultiple.length)
+            }
+            doc.materias[indice].preguntasOpcionMultiple.push(preguntaOpcionMultiple);
+            console.log("ERERER: " + doc.materias[indice].preguntasOpcionMultiple.length)
 
-             doc.save(function (err, docActualizado) {
-                 if (err) return console.log(err);
-                 res.redirect('/preguntasOpcionMultiple/' + req.body.materia);
+            doc.save(function (err, docActualizado) {
+                if (err) return console.log(err);
+                res.redirect('/ingresoProfesor/preguntasOpcionMultiple/' + req.body.materia);
 
-             })
+            })
 
-     }
+        }
     });
 
 };
 
-exports.post_detalle_opcion_multiple = function(req, res){
+exports.post_detalle_opcion_multiple = function (req, res) {
 
     Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
 
-        if(error)
-        {
-            console.log("Error: "+error)
+        if (error) {
+            console.log("Error: " + error)
         }
 
         var indice = doc.materias.map(function (e) {
@@ -278,10 +282,10 @@ exports.post_detalle_opcion_multiple = function(req, res){
 
         var indicePregunta = doc.materias[indice].preguntasOpcionMultiple.map(function (e) {
             return e.idOpcionMultiple
-        }).indexOf(req.body.idPregunta )
+        }).indexOf(req.body.idPregunta)
 
 
-        if(indicePregunta >= 0) {
+        if (indicePregunta >= 0) {
             var preguntaOpcionMultiple = {
                 enunciado: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].enunciado,
                 imagenEnunciado: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].imagenEnunciado,
@@ -298,7 +302,11 @@ exports.post_detalle_opcion_multiple = function(req, res){
             }
             console.log("pregunta Oppppp");
             console.log(preguntaOpcionMultiple);
-            res.render('paginas/detalleOpcionMultiple', {nombre: req.session.nombre, materia: req.body.materia, preguntaOpcionMultiple : preguntaOpcionMultiple });
+            res.render('paginas/detalleOpcionMultiple', {
+                nombre: req.session.nombre,
+                materia: req.body.materia,
+                preguntaOpcionMultiple: preguntaOpcionMultiple
+            });
 
         }
     });
@@ -307,68 +315,55 @@ exports.post_detalle_opcion_multiple = function(req, res){
 }
 
 exports.get_creacion_partida = function (req, res) {
-    if(req.session.usuario){
-        if(req.session.rol == "profesor") {
-            Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
-                if(error)
-                {
-                    console.log("Error: "+error)
-                }
-               console.log(doc.materias.length)
-                var materias = [];
-                for(var i = 0; i<doc.materias.length; i++){
-                    materias.push(doc.materias[i].nombre);
-                }
-                console.log(materias);
-                res.render('paginas/creacionPartida', {nombre : req.session.nombre, materias: materias});
-            });
-        }else{
-            if(req.session.rol == "estudiante"){
+    if (req.session.usuario && req.params.materia) {
+        if (req.session.rol == "profesor") {
+            res.render('paginas/creacionPartida', {nombre: req.session.nombre, materia: req.params.materia});
+        } else {
+            if (req.session.rol == "estudiante") {
                 res.redirect('/inicioEstudiante');
             }
             else {
                 res.redirect('/inicioSesion');
             }
         }
-    }else {
+    } else {
         res.redirect('/inicioSesion');
     }
 };
 
 exports.get_tablero = function (req, res) {
-    if(req.session.usuario){
+    if (req.session.usuario) {
         res.render('paginas/tablero');
-    }else {
+    } else {
         res.redirect('/inicioSesion');
     }
 };
 
 exports.get_opcion_multiple = function (req, res) {
-    if(req.session.usuario){
+    if (req.session.usuario) {
         res.render('paginas/preguntasOpcionMultiple', {nombre: req.session.nombre, materia: req.params.materia});
-    }else {
+    } else {
         res.redirect('/inicioSesion');
     }
 };
 
 exports.get_unir_voltear = function (req, res) {
-   if(req.session.usuario){
+    if (req.session.usuario) {
         res.render('paginas/preguntasUnirVoltear', {nombre: req.session.nombre, materia: req.params.materia});
-    }else {
+    } else {
         res.redirect('/inicioSesion');
     }
 };
 
 exports.get_ingreso_partida = function (req, res) {
-  res.render('paginas/ingresoPartidas');
+    res.render('paginas/ingresoPartidas');
 };
 
 exports.get_preguntas_unir_voltear = function (req, res) {
     if (req.session.nombre && req.params.materia) {
-        Profesor.findOne({usuario : req.session.usuario}, function (error, doc) {
-            if(error)
-            {
-                console.log("Error: "+error)
+        Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
+            if (error) {
+                console.log("Error: " + error)
             }
 
             var indice = doc.materias.map(function (e) {
@@ -377,13 +372,18 @@ exports.get_preguntas_unir_voltear = function (req, res) {
             var idPreguntas = [];
             var textoPreguntas = [];
             var imagenPreguntas = [];
-            for(var i = 0; i < doc.materias[indice].preguntasUnirVoltear.length; i++)
-            {
+            for (var i = 0; i < doc.materias[indice].preguntasUnirVoltear.length; i++) {
                 idPreguntas.push(doc.materias[indice].preguntasUnirVoltear[i].idUnirVoltear);
                 textoPreguntas.push(doc.materias[indice].preguntasUnirVoltear[i].texto);
                 imagenPreguntas.push(doc.materias[indice].preguntasUnirVoltear[i].imagen);
             }
-            res.render('paginas/listaPreguntasUnirVoltear', {nombre: req.session.nombre, materia: req.params.materia, idPreguntas: idPreguntas, textoPreguntas: textoPreguntas, imagenPreguntas: imagenPreguntas });
+            res.render('paginas/listaPreguntasUnirVoltear', {
+                nombre: req.session.nombre,
+                materia: req.params.materia,
+                idPreguntas: idPreguntas,
+                textoPreguntas: textoPreguntas,
+                imagenPreguntas: imagenPreguntas
+            });
         });
     }
     else {
@@ -391,10 +391,10 @@ exports.get_preguntas_unir_voltear = function (req, res) {
     }
 }
 
-exports.post_agregar_unir_voltear = function(req, res){
+exports.post_agregar_unir_voltear = function (req, res) {
     if (req.session.nombre) {
         console.log(req.body)
-        Profesor.findOne({usuario : req.session.usuario}, function (error, doc) {
+        Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
             if (error) {
                 console.log("Error: " + error)
             }
@@ -416,7 +416,7 @@ exports.post_agregar_unir_voltear = function(req, res){
                 doc.save(function (err, docActualizado) {
                     if (err) return console.log(err);
 
-                    res.redirect('/preguntasUnirVoltear/'+req.body.materia);
+                    res.redirect('/preguntasUnirVoltear/' + req.body.materia);
                 });
             }
         });
@@ -426,13 +426,12 @@ exports.post_agregar_unir_voltear = function(req, res){
     }
 }
 
-exports.post_eliminar_unir_voltear = function(req,res){
+exports.post_eliminar_unir_voltear = function (req, res) {
     if (req.session.usuario && req.body.materia) {
 
         Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
-            if(error)
-            {
-                console.log("Error: "+error)
+            if (error) {
+                console.log("Error: " + error)
             }
             console.log(doc)
 
@@ -440,15 +439,15 @@ exports.post_eliminar_unir_voltear = function(req,res){
                 return e.nombre
             }).indexOf(req.body.materia);
 
-            if(indice >=0){
+            if (indice >= 0) {
                 var indicePregunta = doc.materias[indice].preguntasUnirVoltear.map(function (e) {
                     return e.idUnirVoltear
                 }).indexOf(req.body.idPregunta);
-                if(indicePregunta >=0){
-                    doc.materias[indice].preguntasUnirVoltear.splice(indicePregunta,1);
+                if (indicePregunta >= 0) {
+                    doc.materias[indice].preguntasUnirVoltear.splice(indicePregunta, 1);
                     doc.save(function (err, docActualizado) {
                         if (err) return console.log(err);
-                        res.redirect('/preguntasUnirVoltear/'+req.body.materia);
+                        res.redirect('/preguntasUnirVoltear/' + req.body.materia);
                     });
                 }
             }
@@ -458,12 +457,12 @@ exports.post_eliminar_unir_voltear = function(req,res){
 
 }
 
-exports.post_agregar_varias_unir_voltear = function(req, res){
+exports.post_agregar_varias_unir_voltear = function (req, res) {
     if (req.session.nombre) {
-        console.log("ggg: "+Object.keys(req.body).length)
+        console.log("ggg: " + Object.keys(req.body).length)
         console.log(req.body)
-        console.log("lll: "+req.body["imagen1"])
-      Profesor.findOne({usuario : req.session.usuario}, function (error, doc) {
+        console.log("lll: " + req.body["imagen1"])
+        Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
             if (error) {
                 console.log("Error: " + error)
             }
@@ -475,10 +474,10 @@ exports.post_agregar_varias_unir_voltear = function(req, res){
             var numeroPreguntas = req.body.numeroPreguntas;
             console.log(numeroPreguntas)
 
-            for(var i = 1; i<=numeroPreguntas; i++){
+            for (var i = 1; i <= numeroPreguntas; i++) {
                 var preguntaU = [];
-                preguntaU.push("imagen"+i);
-                preguntaU.push("textoUnir"+i);
+                preguntaU.push("imagen" + i);
+                preguntaU.push("textoUnir" + i);
 
                 var preguntaUnir = {
                     idUnirVoltear: generarNombre(),
@@ -496,57 +495,81 @@ exports.post_agregar_varias_unir_voltear = function(req, res){
                     });
                 }
             }
-          res.redirect('/preguntasUnirVoltear/'+req.body.materia);
+            res.redirect('/preguntasUnirVoltear/' + req.body.materia);
 
-      });
+        });
     }
     else {
         res.redirect('/inicioSesion');
     }
-}
+};
 
-exports.post_lobby = function(req,res){
-    if(req.session.usuario)
-    {
-        if(req.session.rol =="profesor") {
+exports.post_lobby = function (req, res) {
+    console.log("idPArtida: "+req.session.idPartida);
+    if (req.session.usuario) {
+        if (req.session.rol == "profesor") {
             var numeroEquipos = req.body.numeroEquipos;
-            if(req.body.idPartida)
-            {
-                res.render('paginas/lobby', {nombre: req.session.nombre, materia: req.body.materia, idPartida: req.body.idPartida});
-            }else{
+            if (req.body.idPartida) {
+                res.render('paginas/lobby', {
+                    nombre: req.session.nombre,
+                    materia: req.body.materia,
+                    idPartida: req.body.idPartida
+                });
+            } else {
                 var idPartida = req.body.materia + Math.floor((1 + Math.random()) * 0x1000).toString(5).substring(1);
-                req.body.idPartida = idPartida;
-
-
-                var informacionJugadores =[];
-                for(var i = 1; i<=numeroEquipos; i++){
+                req.session.idPartida = idPartida;
+                var informacionJugadores = [];
+                for (var i = 1; i <= numeroEquipos; i++) {
                     var equipoU = [];
-                    equipoU.push("nombreEquipo"+i);
-                    equipoU.push("imagenEquipo"+i);
+                    equipoU.push("nombreEquipo" + i);
+                    equipoU.push("imagenEquipo" + i);
 
                     var nuevoEquipo = {
                         nombreEquipo: req.body[equipoU[0]],
                         imagenEquipo: req.body[equipoU[1]]
-                    }
+                    };
+                    console.log("nuevoEquipo");
                     informacionJugadores.push(nuevoEquipo);
-
                 }
-
-                console.log("nuevoEquipo");
-                console.log(informacionJugadores)
-                res.render('paginas/lobby', {nombre: req.session.nombre, rol: req.session.rol, usuario:req.session.usuario, materia: req.body.materia, idPartida: idPartida, numeroEquipos: numeroEquipos ,informacionJugadores: informacionJugadores});
+                console.log("nuevoEquipo2");
+                console.log(informacionJugadores);
+                console.log("nuevoEquipo3");
+                res.render('paginas/lobby', {
+                    nombre: req.session.nombre,
+                    rol: req.session.rol,
+                    usuario: req.session.usuario,
+                    materia: req.body.materia,
+                    idPartida: idPartida,
+                    numeroEquipos: numeroEquipos,
+                    informacionJugadores: informacionJugadores
+                });
             }
 
-        }else {
+        } else {
             res.redirect("/");
         }
 
-    }else
-    {
+    } else {
         res.redirect('/inicioSesion');
 
     }
-}
+};
+
+exports.post_lobby_pariticipante = function (req, res) {
+    console.log(req.body);
+    if (req.body.tipoIngreso == "jugador" || req.body.tipoIngredo == "espectador") {
+        var nombre = ((req.session.nombre == null) ? "Participante" : req.session.nombre);
+        res.render('paginas/lobbyParticipante', {
+            nombreEquipo: req.body.nombreEquipo,
+            codigoPartida: req.body.codigoPartida,
+            tipoIngreso: req.body.tipoIngreso,
+            nombre : nombre
+        });
+    } else {
+        res.send("Lo siento estas accediendo a un lugar donde no tienes acceso");
+    }
+
+};
 
 exports.salir = function (req, res) {
     req.session.usuario = null;

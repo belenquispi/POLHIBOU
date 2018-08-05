@@ -38,7 +38,7 @@ app.use('/static', express.static(__dirname + '/static' + ''));
 // create application/json parser
 app.use(bodyParser.json());
 // create application/x-www-form-urlencoded parser
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 
 var gameMap = [
     13, 14, 15, 16, 17, 18, 19, 20, 21,
@@ -82,6 +82,7 @@ function Character(c, x, y, z) {
     this.iconoEquipo = c;
     this.boton = 0;
     this.puesto = 0;
+    this.listo = 0;
     this.idSocket = "";
 }
 
@@ -98,25 +99,26 @@ app.get('/', routes.get_inicio);
 app.get('/inicioSesion', routes.get_inicio_sesion);
 app.post('/creacionCuenta', routes.post_creacion_cuenta);
 app.post('/ingreso', routes.post_inicio_sesion);
-app.get('/ingresoProfesor', routes.get_ingreso_profesor);
+app.get('/ingresoProfesor/', routes.get_ingreso_profesor);
 app.get('/ingresoEstudiante', routes.get_ingreso_estudiante);
 app.get('/salir', routes.salir);
 app.get('/tablero', routes.get_tablero);
-app.get('/opcionMultiple/:materia', routes.get_opcion_multiple);
+app.get('/ingresoProfesor/preguntasOpcionMultiple/:materia/ingresoOpcionMultiple/:materia', routes.get_opcion_multiple);
 app.get('/unirVoltear/:materia', routes.get_unir_voltear);
 //app.get('/unirVoltear', routes.get_unir_voltear);
-app.get('/creacionPartida', routes.get_creacion_partida);
+app.get('/ingresoProfesor/creacionPartida/:materia', routes.get_creacion_partida);
 app.post('/ingresoMateria', routes.post_ingreso_materia);
-app.get('/preguntasOpcionMultiple/:materia',  routes.get_preguntas_opcion);
-app.get('/preguntasUnirVoltear/:materia',  routes.get_preguntas_unir_voltear);
-app.post('/preguntasOpcionMultiple',  routes.post_preguntas_opcion);
-app.get('/eliminarPreguntaOpcionMultiple/:idMateria',  routes.get_eliminar_pregunta_opcion);
-app.post('/detalleOpcionMultiple',  routes.post_detalle_opcion_multiple);
+app.get('/ingresoProfesor/preguntasOpcionMultiple/:materia', routes.get_preguntas_opcion);
+app.get('/ingresoProfesor/preguntasUnirVoltear/:materia', routes.get_preguntas_unir_voltear);
+app.post('/ingresoProfesor/preguntasOpcionMultiple', routes.post_preguntas_opcion);
+app.get('/ingresoProfesor/eliminarPreguntaOpcionMultiple/:idMateria', routes.get_eliminar_pregunta_opcion);
+app.post('/detalleOpcionMultiple', routes.post_detalle_opcion_multiple);
 app.get('/ingresoPartida', routes.get_ingreso_partida);
 app.post('/agregarUnirVoltear', routes.post_agregar_unir_voltear);
 app.post('/eliminarUnirVoltear', routes.post_eliminar_unir_voltear);
 app.post('/agregarVariasUnirVoltear', routes.post_agregar_varias_unir_voltear);
 app.post('/lobby', routes.post_lobby);
+app.post('/lobbyParticipante', routes.post_lobby_pariticipante);
 
 // Starts the server.
 server.listen(5000, function () {
@@ -142,12 +144,55 @@ io.on('connection', function (socket) {
         }
         else {
             partidas.push(new partida(room));
-            console.log(nombreIconoEquipos)
             for (var i = 0; i < nombreIconoEquipos.length; i++) {
                 insertarDatosJugador(partidas.length - 1, nombreIconoEquipos[i].iconoEquipo, nombreIconoEquipos[i].nombreEquipo);
                 descargarPreguntas(partidas.length - 1, usuario, idMateria);
             }
         }
+    });
+    socket.on('inicio', function (room, rol, nombreEquipoJugar) {
+        console.log("room: " + room + " rol: " + rol + " nombreEquipoJugar: " + nombreEquipoJugar);
+        var idPartida = partidas.map(function (e) {
+            return e.nombrePartida
+        }).indexOf(room);
+        if (idPartida >= 0) {
+            console.log("222room: " + room + " rol: " + rol + " nombreEquipoJugar: " + nombreEquipoJugar);
+            if (rol == "espectador") {
+                socket.join(room);
+                socket.emit("nombreRol", "Espectador");
+            } else {
+                if (rol == "profesor") {
+                    socket.join(room);
+                    socket.emit("nombreRol", "Profesor");
+                }
+                else {
+                    if (rol == "jugador") {
+                        socket.join(room);
+                        console.log("333room: " + room + " rol: " + rol + " nombreEquipoJugar: " + nombreEquipoJugar);
+                        var nombreEquipo = nombreEquipoJugar.replace("+", " ");
+                        var idJugador = partidas[idPartida].jugadores.map(function (e) {
+                            return e.nombreEquipo
+                        }).indexOf(nombreEquipo);
+                        if (idJugador >= 0) {
+                            console.log("4444room: " + room + " rol: " + rol + " nombreEquipoJugar: " + nombreEquipoJugar);
+
+                            partidas[idPartida].jugadores[idJugador].listo = 1;
+                            actualizarJugadoresIngresados(room);
+                        }
+                        else {
+                            socket.emit("error", "El equipo: " + nombreEquipo + " ya se ha conectado");
+                        }
+                    }
+                    else {
+                        console.log("El nombre de equipo ingresado no es válido" + nombreEquipo);
+                    }
+                }
+
+            }
+        } else {
+            console.log("El código de partida ingresada no es válido" + room);
+        }
+
     });
     socket.on('new player', function (room, rol, nombreEquipoJugar) {
         var idPartida = partidas.map(function (e) {
@@ -175,8 +220,8 @@ io.on('connection', function (socket) {
                                 socket.emit("nombreRol", nombreEquipo);
                                 partidas[idPartida].jugadores[idJugador].idSocket = socket.id;
                                 partidas[idPartida].turnoJugadores = [];
-                                for (var i = 0; i < partidas[idPartida].jugadores.length; i++){
-                                    if(partidas[idPartida].jugadores[i].idSocket != ""){
+                                for (var i = 0; i < partidas[idPartida].jugadores.length; i++) {
+                                    if (partidas[idPartida].jugadores[i].idSocket != "") {
                                         partidas[idPartida].turnoJugadores.push(partidas[idPartida].jugadores[i].idSocket);
                                     }
                                 }
@@ -190,7 +235,7 @@ io.on('connection', function (socket) {
                             console.log("El nombre de equipo ingresado no es válido" + nombreEquipo);
                         }
                     }
-                    else{
+                    else {
                         console.log("No se ha seleccionado un rol válido" + rol);
                     }
                 }
@@ -200,7 +245,6 @@ io.on('connection', function (socket) {
         }
 
     });
-
     socket.on('disconnect', function () {
         // remove disconnected player
         /*for (var i = 0 ; i < partidas.length; i++){
@@ -217,10 +261,11 @@ io.on('connection', function (socket) {
     });
     socket.on('nuevo array', function (data, room) {
         var idPartida = consultarIdPartida(room);
-        if( idPartida >=0){
+        if (idPartida >= 0) {
             partidas[idPartida].turnoJugadores = data;
             actualizarOrdenPartidas(room);
-        }});
+        }
+    });
     socket.on('dados', function (dado1, dado2, room, dadoAnterior1, dadoAnterior2, numCasillasMoverse) {
         var idPartida = consultarIdPartida(room);
         partidas[idPartida].dadoP1 = dado1;
@@ -304,15 +349,15 @@ io.on('connection', function (socket) {
         var idPartida = consultarIdPartida(room);
         var contador = partidas[idPartida].preguntasUnirVoltear.length;
         var arrayIndices = [];
-        if(contador < 4) {
+        if (contador < 4) {
             for (var i = 0; i < partidas[idPartida].preguntasUnirVoltear.length; i++) {
                 partidas[idPartida].preguntasUnirVoltear[i].usada == false;
             }
             contador = partidas[idPartida].preguntasUnirVoltear.length;
         }
-        for( var i = 0; i < 4; i++){
+        for (var i = 0; i < 4; i++) {
             var indice = indiceRandomicoUnirVoltear(idPartida);
-            while(arrayIndices.indexOf(indice) != -1){
+            while (arrayIndices.indexOf(indice) != -1) {
                 indice = indiceRandomicoUnirVoltear(idPartida);
             }
             partidas[idPartida].preguntasUnirVoltear[indice].usada == true;
@@ -320,22 +365,22 @@ io.on('connection', function (socket) {
             arrayIndices.push(indice);
         }
         partidas[idPartida].contadorPreguntasLibresUnirVoltear = contador;
-        var arrayTexto = desordenarTextoUnir(idPartida,arrayIndices);
+        var arrayTexto = desordenarTextoUnir(idPartida, arrayIndices);
         io.sockets.in(partidas[idPartida].nombrePartida).emit('respondiendoIndicePreguntaUnir', arrayIndices, arrayTexto);
     });
     socket.on('solicitarPreguntaVoltear', function (room) {
         var idPartida = consultarIdPartida(room);
         var contador = partidas[idPartida].preguntasUnirVoltear.length;
         var arrayIndices = [];
-        if(contador < 4) {
+        if (contador < 4) {
             for (var i = 0; i < partidas[idPartida].preguntasUnirVoltear.length; i++) {
                 partidas[idPartida].preguntasUnirVoltear[i].usada == false;
             }
             contador = partidas[idPartida].preguntasUnirVoltear.length;
         }
-        for( var i = 0; i < 8; i++){
+        for (var i = 0; i < 8; i++) {
             var indice = indiceRandomicoUnirVoltear(idPartida);
-            while(arrayIndices.indexOf(indice) != -1){
+            while (arrayIndices.indexOf(indice) != -1) {
                 indice = indiceRandomicoUnirVoltear(idPartida);
             }
             partidas[idPartida].preguntasUnirVoltear[indice].usada == true;
@@ -344,9 +389,9 @@ io.on('connection', function (socket) {
         }
         partidas[idPartida].contadorPreguntasLibresUnirVoltear = contador;
         var memory_array = [];
-        for(var i = 0; i < arrayIndices.length; i++){
-            memory_array.push( partidas[idPartida].preguntasUnirVoltear[arrayIndices[i]].urlImagenUnirVoltear);
-            memory_array.push( partidas[idPartida].preguntasUnirVoltear[arrayIndices[i]].urlImagenUnirVoltear);
+        for (var i = 0; i < arrayIndices.length; i++) {
+            memory_array.push(partidas[idPartida].preguntasUnirVoltear[arrayIndices[i]].urlImagenUnirVoltear);
+            memory_array.push(partidas[idPartida].preguntasUnirVoltear[arrayIndices[i]].urlImagenUnirVoltear);
         }
         memory_array.memory_tile_shuffle();
         io.sockets.in(partidas[idPartida].nombrePartida).emit('respondiendoIndicePreguntaVoltear', memory_array);
@@ -369,7 +414,7 @@ io.on('connection', function (socket) {
     });
     socket.on('pasarTurno', function (room) {
         var idPartida = consultarIdPartida(room);
-        var idJugador = consultarIdJugadorSocket(idPartida,socket.id);
+        var idJugador = consultarIdJugadorSocket(idPartida, socket.id);
         partidas[idPartida].jugadores[idJugador].numCasillasMoverseP = 0;
         var i = partidas[idPartida].turnoJugadores.shift();
         partidas[idPartida].turnoJugadores.push(i);
@@ -378,12 +423,14 @@ io.on('connection', function (socket) {
     socket.on('darLaVuelta', function (room) {
         var idPartida = consultarIdPartida(room);
         io.sockets.in(partidas[idPartida].nombrePartida).emit('enviandoDarLaVuelta', socket.id);
-    })});
+    })
+});
 setInterval(function () {
     for (var i = 0; i < partidas.length; i++) {
         io.sockets.in(partidas[i].nombrePartida).emit('partida', partidas[i]);
     }
 }, 1000 / 60);
+
 function seleccionarColor(filasN, columnasN, gameMapN,) {
     var indice = 0;
     var colorMapN = [];
@@ -395,7 +442,7 @@ function seleccionarColor(filasN, columnasN, gameMapN,) {
                     indice++;
                     break;
                 default:
-                   // var colorA = Math.floor(Math.random() * 3);
+                    // var colorA = Math.floor(Math.random() * 3);
                     var colorA = 2;
 
                     var colorAnterior = -1;
@@ -421,27 +468,43 @@ function seleccionarColor(filasN, columnasN, gameMapN,) {
             }
         }
     }
-return colorMapN;
+    return colorMapN;
 }
+
 function actualizarOrdenPartidas(room) {
     var idPartida = consultarIdPartida(room);
     io.sockets.in(room).emit('turnoPartida', partidas[idPartida].turnoJugadores);
 }
+
+function actualizarJugadoresIngresados(room) {
+    var idPartida = consultarIdPartida(room);
+    var jugadoresConectados = [];
+    for (var i = 0; i < partidas[idPartida].jugadores.length; i++) {
+        if (partidas[idPartida].jugadores[i].listo == 1) {
+            jugadoresConectados.push(partidas[idPartida].jugadores[i]);
+        }
+    }
+    io.sockets.in(room).emit('ingresoJugadores', jugadoresConectados);
+}
+
 function consultarIdPartida(partida) {
     return partidas.map(function (e) {
         return e.nombrePartida
     }).indexOf(partida);
 }
+
 function consultarIdJugador(idPartida, nombreEquipo) {
     return partidas[idPartida].jugadores.map(function (e) {
         return e.nombreEquipo
     }).indexOf(nombreEquipo);
 }
+
 function consultarIdJugadorSocket(idPartida, idSocket) {
     return partidas[idPartida].jugadores.map(function (e) {
         return e.idSocket
     }).indexOf(idSocket);
 }
+
 Character.prototype.placeAt = function (x, y) {
     this.tileFrom = [x, y];
     this.tileTo = [x, y];
@@ -603,14 +666,17 @@ Character.prototype.moveDirection = function (d, t) {
             return this.moveRight(t);
     }
 };
+
 function toIndex(x, y) {
     return ((y * columnas) + x);
 }
+
 function insertarDatosJugador(indicePartida, iconoEquipo, nombreEquipo) {
     partidas[indicePartida].jugadores.push(new Character(iconoEquipo, ((anchoCasilla * 2) + (anchoCasilla / 4)), (altoCasilla * (filas - 1) + (altoCasilla / 4)), nombreEquipo));
     partidas[indicePartida].jugadores[partidas[indicePartida].jugadores.length - 1].numCasillasMoverseP = 0;
     partidas[indicePartida].jugadores[partidas[indicePartida].jugadores.length - 1].boton = 0;
 }
+
 function mostrarDesafio(jugadorAct, numCasillasMoverse, colorM) {
     var colorCa = -1;
     for (var x = 0; x < filas; ++x) {
@@ -622,6 +688,7 @@ function mostrarDesafio(jugadorAct, numCasillasMoverse, colorM) {
         }
     }
 }
+
 Array.prototype.memory_tile_shuffle = function () {
     var i = this.length, j, temp;
     while (--i > 0) {
@@ -631,21 +698,24 @@ Array.prototype.memory_tile_shuffle = function () {
         this[i] = temp;
     }
 };
+
 function newBoard() {
     tiles_flipped = 0;
     return memory_array.memory_tile_shuffle();
 }
+
 function descargarPreguntas(idPartida, idProfesor, idMateria) {
     partidas[idPartida].preguntasOpcionMultiple = baseDatos.obtenerPreguntasOpcionMultiple(idProfesor, idMateria);
     partidas[idPartida].preguntasOpcionMultiple = baseDatos.obtenerPreguntasUnir(idProfesor, idMateria);
 }
+
 function indiceRandomicoOpcionMultiple(idPartida) {
     var arrayRandomico = [];
     var indiceRandomicoP = Math.floor(Math.random() * partidas[idPartida].preguntasOpcionMultiple.length);
     arrayRandomico.push(indiceRandomicoP);
     var contador = 0;
     for (var i = 0; i < partidas[idPartida].preguntasOpcionMultiple.length; i++) {
-        if(partidas[idPartida].preguntasOpcionMultiple[i].usada == true){
+        if (partidas[idPartida].preguntasOpcionMultiple[i].usada == true) {
             contador++;
         }
     }
@@ -655,21 +725,22 @@ function indiceRandomicoOpcionMultiple(idPartida) {
         }
     }
 
-    while(partidas[idPartida].preguntasOpcionMultiple[indiceRandomicoP].usada == true)
-    {
+    while (partidas[idPartida].preguntasOpcionMultiple[indiceRandomicoP].usada == true) {
         indiceRandomicoP = Math.floor(Math.random() * partidas[idPartida].preguntasOpcionMultiple.length);
     }
 
     partidas[idPartida].preguntasOpcionMultiple[indiceRandomicoP].usada = true;
     return indiceRandomicoP;
 }
+
 function indiceRandomicoUnirVoltear(idPartida) {
     var indiceRandomicoP = Math.floor(Math.random() * partidas[idPartida].preguntasUnirVoltear.length);
     return indiceRandomicoP;
 }
+
 function desordenarTextoUnir(idPartida, arrayIndices) {
     var vectorTextoUnir = [];
-    for(var k=0; k < arrayIndices.length; k++){
+    for (var k = 0; k < arrayIndices.length; k++) {
         vectorTextoUnir.push(partidas[idPartida].preguntasUnirVoltear[arrayIndices[k]].textoUnirVoltear);
     }
     var j, x, i;

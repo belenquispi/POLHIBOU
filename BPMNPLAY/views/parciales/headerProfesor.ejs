@@ -1,22 +1,26 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="collapse navbar-collapse" id="navbarText">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="/">Polhibou</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="true" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse show" id="navbarCollapse" style="">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a class="nav-link" href="/">Inicio <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Profesor</a>
+                <a class="nav-link" href="#">Link</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
+                <a class="nav-link disabled" href="#">Disabled</a>
             </li>
         </ul>
-        <span class="navbar-text ">
+        <span class="navbar-text mt-2 mt-md-0">
             Bienvenido Profesor: <%=nombre%>
         </span>
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link btn " href="/salir">Cerrar Sesión</a>
+                <a class="nav-link btn my-2 my-sm-0" href="/salir">Cerrar Sesión</a>
             </li>
         </ul>
     </div>

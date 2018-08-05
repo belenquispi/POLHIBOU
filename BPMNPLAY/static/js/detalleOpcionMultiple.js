@@ -18,7 +18,7 @@ function verificarBotonGuardar() {
 
 function encodeImageFileAsURL(element) {
     var file = element.files[0];
-    for(var i = 0; i<element.files.length; i++){
+    for (var i = 0; i < element.files.length; i++) {
         console.log(element.files[i])
     }
     var reader = new FileReader();
@@ -45,13 +45,14 @@ function encodeImageFileAsURL(element) {
     }
     reader.readAsDataURL(file);
 }
+
 function cambiarImagen(boton) {
     console.log(boton.id);
     console.log(boton.id.indexOf("belen"));
     var idBoton = boton.id;
-    if(idBoton.indexOf("Enunciado")>=0){
-        document.getElementById("vistaImagenBase").setAttribute("hidden","");
-        document.getElementById("vistaImagenBase").innerHTML="";
+    if (idBoton.indexOf("Enunciado") >= 0) {
+        document.getElementById("vistaImagenBase").setAttribute("hidden", "");
+        document.getElementById("vistaImagenBase").innerHTML = "";
         var div = document.createElement("DIV");
         div.setAttribute("id", "cargaImagenEnunciado");
         div.setAttribute("class", "form-group col-md-4 ");
@@ -89,54 +90,54 @@ function cambiarImagen(boton) {
         img.setAttribute("width", "50");
         img.setAttribute("height", "50");
         document.getElementById("vistaImagenEnunciado").appendChild(img);
-    }else {
-        if(idBoton.indexOf("imagenRes")>=0){
-            console.log(idBoton.substr(9,1));
-            document.getElementById("card"+idBoton).innerHTML="";
+    } else {
+        if (idBoton.indexOf("imagenRes") >= 0) {
+            console.log(idBoton.substr(9, 1));
+            document.getElementById("card" + idBoton).innerHTML = "";
             var divR = document.createElement("DIV");
-            divR.setAttribute("id", "rcard"+idBoton);
+            divR.setAttribute("id", "rcard" + idBoton);
             divR.setAttribute("class", "row");
-            document.getElementById("card"+idBoton).appendChild(divR);
+            document.getElementById("card" + idBoton).appendChild(divR);
 
             var div = document.createElement("DIV");
-            div.setAttribute("id", "datos"+idBoton);
+            div.setAttribute("id", "datos" + idBoton);
             div.setAttribute("class", "form-group col-md-8");
-            document.getElementById("rcard"+idBoton).appendChild(div);
+            document.getElementById("rcard" + idBoton).appendChild(div);
 
             var label = document.createElement("LABEL");
-            label.setAttribute("for", "botonArchivo"+idBoton);
-            var t = document.createTextNode("Respuesta "+idBoton.substr(9,1)+":");
+            label.setAttribute("for", "botonArchivo" + idBoton);
+            var t = document.createTextNode("Respuesta " + idBoton.substr(9, 1) + ":");
             label.appendChild(t);
-            document.getElementById("datos"+idBoton).appendChild(label);
+            document.getElementById("datos" + idBoton).appendChild(label);
             var input = document.createElement("INPUT");
             input.setAttribute("type", "file");
             input.setAttribute("class", "form-control-file");
-            input.setAttribute("id", "botonArchivo"+idBoton);
-            input.setAttribute("value", "upload"+idBoton);
+            input.setAttribute("id", "botonArchivo" + idBoton);
+            input.setAttribute("value", "upload" + idBoton);
             input.setAttribute("accept", "image/*");
             input.setAttribute("required", "");
-            input.setAttribute("onchange", "mostrarVistaPreviaImagen(event, 'nueva"+idBoton+"'), encodeImageFileAsURL(this)");
-            document.getElementById("datos"+idBoton).appendChild(input);
+            input.setAttribute("onchange", "mostrarVistaPreviaImagen(event, 'nueva" + idBoton + "'), encodeImageFileAsURL(this)");
+            document.getElementById("datos" + idBoton).appendChild(input);
 
             var input2 = document.createElement("INPUT");
             input2.setAttribute("type", "text");
             input2.setAttribute("id", idBoton);
             input2.setAttribute("name", idBoton);
             input2.setAttribute("hidden", "");
-            document.getElementById("datos"+idBoton).appendChild(input2);
+            document.getElementById("datos" + idBoton).appendChild(input2);
 
             var div2 = document.createElement("DIV");
-            div2.setAttribute("id", "vista"+idBoton);
+            div2.setAttribute("id", "vista" + idBoton);
             div2.setAttribute("class", "form-group col-sm-4");
-            document.getElementById("rcard"+idBoton).appendChild(div2);
+            document.getElementById("rcard" + idBoton).appendChild(div2);
 
             var br = document.createElement("BR");
-            document.getElementById("vista"+idBoton).appendChild(br);
+            document.getElementById("vista" + idBoton).appendChild(br);
             var img = document.createElement("IMG");
-            img.setAttribute("id", "nueva"+idBoton);
+            img.setAttribute("id", "nueva" + idBoton);
             img.setAttribute("width", "50");
             img.setAttribute("height", "50");
-            document.getElementById("vista"+idBoton).appendChild(img);
+            document.getElementById("vista" + idBoton).appendChild(img);
         }
     }
 }

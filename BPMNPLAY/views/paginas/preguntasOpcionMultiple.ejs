@@ -2,6 +2,19 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        .subir{
+            padding: 5px 10px;
+            background: #f55d3e;
+            color:#fff;
+            border:0px solid #fff;
+        }
+        .subir:hover{
+            color:#fff;
+            background: #f7cb15;
+        }
+    </style>
+
     <% include ../parciales/head %>
     <title>Preguntas de Opción Múltiple</title>
 </head>
@@ -14,18 +27,25 @@
     <div class="row">
         <h2>Ingreso de Pregunta Opción Múltiple </h2>
     </div>
-    <form action="/preguntasOpcionMultiple" method="post" onmouseover="verificarBotonGuardar()">
+    <form action="/ingresoProfesor/preguntasOpcionMultiple" method="post" onmouseover="verificarBotonGuardar()">
         <div class="form-row">
             <input type="text" name="materia" value="<%= materia %>" hidden>
             <div class="form-group col-md-6 mb-3">
                 <label for="enunciado">Enunciado:</label>
-                <input type="text" class="form-control" id="enunciado" required placeholder="Ingrese el enunciado de la pregunta" name="enunciado">
+                <input type="text" class="form-control" id="enunciado" required
+                       placeholder="Ingrese el enunciado de la pregunta" name="enunciado">
             </div>
             <div class="form-group col-md-4 mb-3">
-                <label for="botonArchivoEnunciado">Cargar imagen (opcional):</label>
-                <input type="file" class="form-control" id="botonArchivoEnunciado" value="uploadEnunciado"
+               <!-- <label for="botonArchivoEnunciado">Cargar imagen (opcional):</label>
+                <input type="file" class="btn btn-default btn-file" id="botonArchivoEnunciado" value="uploadEnunciado"
                        accept="image/*"
-                       onchange="mostrarVistaPreviaImagen(event, 'imagenCargadaEnunciado'), encodeImageFileAsURL(this)">
+                       onchange="mostrarVistaPreviaImagen(event, 'imagenCargadaEnunciado'), encodeImageFileAsURL(this)">-->
+                <br>
+                <label for="botonArchivoEnunciado" class="subir">
+                    <i class="fas fa-cloud-upload-alt"></i> Subir imagen (opcional)
+                </label>
+                <input id="botonArchivoEnunciado" type="file" style='display: none;' value="uploadEnunciado"
+                       accept="image/*" onchange="mostrarVistaPreviaImagen(event, 'imagenCargadaEnunciado'), encodeImageFileAsURL(this)"/>
                 <input type="text" hidden id="imagenEnunciado" name="imagenEnunciado">
             </div>
             <div class="form-group col-md-2">
@@ -36,76 +56,61 @@
         </div>
         <div class="form-row">
             <div class="form-group col-md-12">
-                <label for="soloTexto" >Seleccione el tipo de respuesta:</label>
-                <button type="button" id="soloTexto" onclick="mostrarRespuestas(1)">Solo texto</button>
-                <button type="button" id="soloImagenes" onclick="mostrarRespuestas(2)">Solo imagenes</button>
+                <label for="soloTexto">Seleccione el tipo de respuesta:</label>
+                <button type="button" id="soloTexto" class="btn btn-outline-primary" onclick="mostrarRespuestas(1)">Solo texto</button>
+                <button type="button" id="soloImagenes" class="btn btn-outline-primary" onclick="mostrarRespuestas(2)">Solo imagenes</button>
             </div>
         </div>
         <div class="form-row" id="divRespuestasTexto" hidden>
-            <% for (var i = 1 ; i <5 ; i++) {%>
+            <% for (var i = 1 ; i < 5 ; i++) { %>
             <div class="form-group col-md-6">
-                <label for="res<%=i%>" >Respuesta <%=i%>:</label>
-                <input type="text" class="form-control" id="res<%=i%>" placeholder="Ingrese la respuesta <%=i%>"
-                       name="res<%=i%>">
+                <label for="res<%= i %>">Respuesta <%= i %>:</label>
+                <input type="text" class="form-control " id="res<%= i %>" placeholder="Ingrese la respuesta <%= i %>"
+                       name="res<%= i %>">
             </div>
-            <%}%>
+            <% } %>
         </div>
-
         <div class="form-row" id="divRespuestasImagenes" hidden>
-            <% for (var i = 1 ; i <5 ; i++) {%>
+            <% for (var i = 1 ; i < 5 ; i++) { %>
             <div class="form-group col-md-4">
-                    <label for="botonArchivoRes<%=i%>">Respuesta <%=i%>:</label>
-                    <input type="file" class="form-control" id="botonArchivoRes<%=i%>"
-                               value="uploadRes<%=i%>" accept="image/*"
-                               onchange="mostrarVistaPreviaImagen(event, 'imagenCargadaRespuesta<%=i%>', encodeImageFileAsURL(this))">
-                <input type="text" hidden id="imagenRes<%=i%>" name="imagenRes<%=i%>">
-
+                <label for="botonArchivoRes<%= i %>">Respuesta <%= i %>:</label>
+                <input type="file" class="form-control" id="botonArchivoRes<%= i %>"
+                       value="uploadRes<%= i %>" accept="image/*"
+                       onchange="mostrarVistaPreviaImagen(event, 'imagenCargadaRespuesta<%= i %>', encodeImageFileAsURL(this))">
+                <input type="text" hidden id="imagenRes<%= i %>" name="imagenRes<%= i %>">
             </div>
             <div class="form-group col-md-2">
                 <br>
-                <img id="imagenCargadaRespuesta<%=i%>" width="50" height="50"/>
+                <img id="imagenCargadaRespuesta<%= i %>" width="50" height="50"/>
             </div>
-            <%}%>
-
+            <% } %>
         </div>
         <div class="form-row" id="divRespuestas" hidden>
-            <div class="form-group col-md-3"></div>
             <div class="form-group col-md-6">
-                    <label for="resCorrecta" >Respuesta correcta:</label>
-                        <select id="resCorrecta" name="respuestaCorrecta" class="form-control">
-                            <option value="res1">Respuesta 1</option>
-                            <option value="res2">Respuesta 2</option>
-                            <option value="res3">Respuesta 3</option>
-                            <option value="res4">Respuesta 4</option>
-                        </select>
-                </div>
-            <div class="form-group col-md-3"></div>
-            <div class="form-group col-md-3"></div>
-            <div class="form-group col-md-6">
-                <button type="submit" id="botonGuardar" class="btn btn-default" disabled>Guardar</button>
+                <label for="dificultad">Dificultad:</label>
+                <select id="dificultad" name="dificultad" required class="form-control">
+                    <option value="fácil">Fácil</option>
+                    <option value="medio">Medio</option>
+                    <option value="difícil">Difícil</option>
+                </select>
             </div>
-            <div class="form-group col-md-3"></div>
 
+            <div class="form-group col-md-6">
+                <label for="resCorrecta">Respuesta correcta:</label>
+                <select id="resCorrecta" name="respuestaCorrecta" class="form-control">
+                    <option value="res1">Respuesta 1</option>
+                    <option value="res2">Respuesta 2</option>
+                    <option value="res3">Respuesta 3</option>
+                    <option value="res4">Respuesta 4</option>
+                </select>
+            </div>
+            <div class="form-group col-md-12 text-center">
+                <button type="submit" id="botonGuardar" class="btn btn-success" disabled>Guardar</button>
+            </div>
         </div>
     </form>
-    </div>
-
 </div>
-
-<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+</div>
 <script src="/static/js/preguntasOpcionMultiple.js"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
-<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-firestore.js"></script>
-<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-storage.js"></script>
 </body>
 </html>

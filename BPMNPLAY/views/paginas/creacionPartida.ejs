@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Creacion de partidas</title>
     <% include ../parciales/head %>
 
@@ -16,25 +17,12 @@
 </nav>
 <div class="container">
     <div class="row">
-        <div class="col-md-10">
-            <h2>Creación de Partida</h2>
-        </div>
+        <h2>Creación de Partida</h2>
     </div>
-    <div class="col">
         <form action="/lobby" method="post" onmouseover="verificarSeleccion()">
-            <div id="centro">
-                    <div class="form-group col-md-12">
-                        <label class="col-md-3">Materia:</label>
-                        <div class="col-md-4">
-                            <select id="idMateria" name="materia" class="form-control">
-                                <option value="ninguna">Seleccione una materia</option>
-                                <%for(var i=0; i< materias.length; i++){%>
-                                <option value=<%=materias[i]%>><%=materias[i]%></option>
-                                <%}%>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-12">
+            <div class="form-row" id="centro">
+                <input type="text" name="materia" value="<%= materia %>" hidden>
+                <div class="form-group col-md-12">
                         <label class="control-label col-md-3">Número de equipos:</label>
                         <div class="col-md-4">
                             <input class="form-control" type="number" id="numeroEquipo" name="numeroEquipos" value="0" min="1" max="4"
@@ -45,7 +33,7 @@
                 </div>
                 <!-- Button trigger modal -->
             <div>
-                <button type="submit" class="btn btn-primary" id="botonModal" disabled >
+                <button type="submit" class="btn btn-info text-center" id="botonModal" disabled >
                     Generar código partida
                 </button>
             </div>
@@ -53,7 +41,7 @@
     </div>
 </div>
 <script src="/socket.io/socket.io.js"></script>
-<script src="static/js/creacionPartida.js"></script>
+<script src="../../static/js/creacionPartida.js"></script>
 
 </body>
 </html>

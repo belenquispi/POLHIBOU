@@ -1,11 +1,3 @@
-var socket = io();
-var imagenes = [];
-var config;
-socket.emit('solicitarConfiguracion');
-socket.on('configuracion', function (configN) {
-    config = configN;
-});
-
 var mostrarVistaPreviaImagen = function (event, imagen) {
     var output = document.getElementById(imagen);
     output.src = URL.createObjectURL(event.target.files[0]);
@@ -23,8 +15,6 @@ function mostrarRespuestas(valor) {
         document.getElementById("soloTexto").setAttribute("hidden", "")
     }
     document.getElementById("divRespuestas").removeAttribute("hidden");
-    document.getElementById("divBotonGuardar").removeAttribute("hidden")
-
 }
 
 function verificarBotonGuardar() {
@@ -53,15 +43,23 @@ function encodeImageFileAsURL(element) {
         switch (element.id) {
             case "botonArchivoEnunciado":
                 document.getElementById("imagenEnunciado").value = reader.result;
+                break;
             case "botonArchivoRes1":
                 document.getElementById("imagenRes1").value = reader.result;
+                break;
             case "botonArchivoRes2":
                 document.getElementById("imagenRes2").value = reader.result;
+                break;
             case "botonArchivoRes3":
                 document.getElementById("imagenRes3").value = reader.result;
+                break;
             case "botonArchivoRes4":
                 document.getElementById("imagenRes4").value = reader.result;
+                break;
         }
-    }
+    };
     reader.readAsDataURL(file);
+}function cambiar(){
+    var pdrs = document.getElementById('file-upload').files[0].name;
+    document.getElementById('info').innerHTML = pdrs;
 }
