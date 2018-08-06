@@ -5,6 +5,7 @@ var session = require('express-session');
 var http = require('http');
 var path = require('path');
 var socketIO = require('socket.io');
+//var correo = require('./correo');
 var app = express();
 var server = http.Server(app);
 var io = socketIO(server);
@@ -15,6 +16,8 @@ var cookieParser = require('cookie-parser');
 
 var Profesor = require("./models/profesor").Profesor;
 var Estudiante = require("./models/estudiante").Estudiante;
+
+
 
 var config = {
     apiKey: "AIzaSyARHMJb3ta8XMRb0lFRjUSgSP6RCZiayVo",
@@ -123,6 +126,7 @@ app.post('/lobbyParticipante', routes.post_lobby_pariticipante);
 // Starts the server.
 server.listen(5000, function () {
     console.log('Starting server on port 5000');
+   // correo.inicio();
 });
 
 // Add the WebSocket handlers

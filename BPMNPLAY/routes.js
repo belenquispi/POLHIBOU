@@ -1,7 +1,7 @@
 var Profesor = require("./models/profesor").Profesor;
 var Estudiante = require("./models/estudiante").Estudiante;
 var Usuario = require("./models/usuario").Usuario;
-
+var correo = require("./correo");
 
 exports.get_inicio = function (req, res) {
     if (req.session.usuario) {
@@ -25,7 +25,8 @@ exports.get_inicio_sesion = function (req, res) {
     res.render('paginas/inicioSesion', {usuario: usuario});
 };
 exports.post_inicio_sesion = function (req, res) {
-
+    correo.inicio();
+    correo.enviarCorreo("santylema8@gmail.com")
     Usuario.findOne({usuario: req.body.usuario}, function (error, doc) {
         if (error) {
             console.log("Error: " + error);
