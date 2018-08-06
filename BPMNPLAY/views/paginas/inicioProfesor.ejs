@@ -22,33 +22,49 @@
         </div>
 
     </div>
-        <div class="row">
-    <div class="card-columns">
-        <%
-        for(var i = 0; i<materias.length; i++) {%>
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">
-                    <%=materias[i]%>
-                </h5>
-                <a href="/ingresoProfesor/preguntasOpcionMultiple/<%=materias[i]%>" class="btn btn-primary" style="margin-bottom: 10px" id=<%=materias[i]%>>Preguntas Opción Multiple</a>
-                <a href= "/ingresoProfesor/preguntasUnirVoltear/<%=materias[i]%>" class="btn btn-primary" style="margin-bottom: 10px">Preguntas Unir Voltear</a>
-                <a href="/ingresoProfesor/creacionPartida/<%=materias[i]%>" class="btn btn-info" style="margin-bottom: 10px">Crear Partidas</a>
-                <br>
-                <a href="#" class="btn btn-success">Estadísticas</a>
+    <div class="row">
+        <div class="card-columns">
+            <%
+            for(var i = 0; i < materias.length; i++) { %>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <%= materias[i] %>
+                    </h5>
+                    <a href="/ingresoProfesor/preguntasOpcionMultiple/<%= materias[i] %>" class="btn btn-primary"
+                       style="margin-bottom: 10px" id=<%= materias[i] %>><i class="far fa-list-alt"></i> Preguntas
+                        Opción Multiple</a>
+                    <a href="/ingresoProfesor/preguntasUnirVoltear/<%= materias[i] %>" class="btn btn-info"
+                       style="margin-bottom: 10px"><i class="fas fa-th"></i> Preguntas Unir Voltear</a>
+                    <a href="/ingresoProfesor/creacionPartida/<%= materias[i] %>" class="btn btn-primary"
+                       style="margin-bottom: 10px"><i class="fas fa-plus"></i> Crear Partidas</a>
+                    <br>
+                    <a href="#" class="btn btn-success"> <i class="fas fa-chart-bar"></i> Estadísticas</a>
+                </div>
+            </div>
+            <% } %>
+            <div class="card text-white bg-dark mb-3">
+                <div class="card-body">
+                    <form action="/ingresoMateria" method="post">
+                        <h5 class="card-title">Agregar Materia</h5>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fas fa-book"></i></div>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Nombre de la materia"
+                                   name="nombreMateria" >
+                        </div>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fas fa-plus"></i></div>
+                            </div>
+                        <input type="submit" class="btn btn-primary""
+                               value="Agregar Materia">
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-        <%  }%>
-        <div class="card text-white bg-dark mb-3">
-            <div class="card-body">
-                <form action="/ingresoMateria" method="post">
-                <h5 class="card-title">Agregar Materia</h5>
-                <input type="text" class="form-control"  placeholder="Nombre de la materia" name="nombreMateria" style="margin-bottom: 10px">
-                <input type="submit" class="btn btn-primary" style="margin-bottom: 10px" value="Agregar Materia">
-                </form>
-            </div>
-        </div>
-    </div>
     </div>
 </div>
 </div>

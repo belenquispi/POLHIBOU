@@ -331,7 +331,7 @@ exports.get_creacion_partida = function (req, res) {
     }
 };
 
-exports.get_tablero = function (req, res) {
+exports.post_tablero = function (req, res) {
     if (req.session.usuario) {
         res.render('paginas/tablero');
     } else {

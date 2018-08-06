@@ -102,7 +102,7 @@ app.post('/ingreso', routes.post_inicio_sesion);
 app.get('/ingresoProfesor/', routes.get_ingreso_profesor);
 app.get('/ingresoEstudiante', routes.get_ingreso_estudiante);
 app.get('/salir', routes.salir);
-app.get('/tablero', routes.get_tablero);
+app.post('/tablero', routes.post_tablero);
 app.get('/ingresoProfesor/preguntasOpcionMultiple/:materia/ingresoOpcionMultiple/:materia', routes.get_opcion_multiple);
 app.get('/unirVoltear/:materia', routes.get_unir_voltear);
 //app.get('/unirVoltear', routes.get_unir_voltear);
