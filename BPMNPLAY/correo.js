@@ -16,11 +16,20 @@ var mailOptions = {
 };
 
 
-function obtenerDatosAdmin(callback)
-{
-    console.log(administrador);
+function inicio() {
+    console.log("Ya consulte555");
+    console.log(administrador)
+    transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: administrador.correo,
+            pass: administrador.contrasenia
+        }
+    });
+}
 
-        console.log("Ya ");
+setTimeout(function(){ console.log("Ya consulte");
+    console.log(administrador); inicio(); }, 3000);
         Usuario.findOne({usuario: "polhibou@gmail.com"}, function (error, doc) {
             if (error) {
                 console.log("Error: " + error)
@@ -32,25 +41,12 @@ function obtenerDatosAdmin(callback)
                     administrador.contrasenia = doc.contrasenia
                 } }
         });
-    console.log("Ya consulte");
-    console.log(administrador);
-    callback();
-}
+
+
 
 
 exports.inicio = function(){
     console.log("llenar datos");
-    obtenerDatosAdmin(function () {
-        console.log("Ya consulte555");
-        console.log(administrador)
-        transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: administrador.correo,
-            pass: administrador.contrasenia
-        }
-    });
-    })
 }
 exports.enviarCorreo = function(mail) {
     mailOptions.to = mail;
