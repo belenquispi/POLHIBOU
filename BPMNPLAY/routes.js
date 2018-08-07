@@ -25,8 +25,8 @@ exports.get_inicio_sesion = function (req, res) {
     res.render('paginas/inicioSesion', {usuario: usuario});
 };
 exports.post_inicio_sesion = function (req, res) {
-    correo.inicio();
-    correo.enviarCorreo("santylema8@gmail.com")
+    //correo.inicio();
+    //orreo.enviarCorreo("santylema8@gmail.com")
     Usuario.findOne({usuario: req.body.usuario}, function (error, doc) {
         if (error) {
             console.log("Error: " + error);
@@ -333,11 +333,9 @@ exports.get_creacion_partida = function (req, res) {
 };
 
 exports.post_tablero = function (req, res) {
-    if (req.session.usuario) {
-        res.render('paginas/tablero');
-    } else {
-        res.redirect('/inicioSesion');
-    }
+        console.log("body");
+        console.log(req.body);
+        res.render('paginas/tablero', {idPartida: req.body.idPartida, rol: req.body.rol, nombreEquipo: req.body.nombreEquipo});
 };
 
 exports.get_opcion_multiple = function (req, res) {
@@ -417,7 +415,7 @@ exports.post_agregar_unir_voltear = function (req, res) {
                 doc.save(function (err, docActualizado) {
                     if (err) return console.log(err);
 
-                    res.redirect('/preguntasUnirVoltear/' + req.body.materia);
+                    res.redirect('ingresoProfesor/preguntasUnirVoltear/' + req.body.materia);
                 });
             }
         });
@@ -448,7 +446,7 @@ exports.post_eliminar_unir_voltear = function (req, res) {
                     doc.materias[indice].preguntasUnirVoltear.splice(indicePregunta, 1);
                     doc.save(function (err, docActualizado) {
                         if (err) return console.log(err);
-                        res.redirect('/preguntasUnirVoltear/' + req.body.materia);
+                        res.redirect('/ingresoProfesor/preguntasUnirVoltear/' + req.body.materia);
                     });
                 }
             }
@@ -496,7 +494,7 @@ exports.post_agregar_varias_unir_voltear = function (req, res) {
                     });
                 }
             }
-            res.redirect('/preguntasUnirVoltear/' + req.body.materia);
+            res.redirect('/ingresoProfesor/preguntasUnirVoltear/' + req.body.materia);
 
         });
     }

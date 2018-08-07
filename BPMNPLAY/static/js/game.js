@@ -50,13 +50,9 @@ function dados(nombrePartida) {
 }
 
 function obtenerDatosQuienSeConecto() {
-    var parameters = location.search.substring(1).split("&");
-    var temp = parameters[0].split("=");
-    roomActual = temp[1];
-    temp = parameters[1].split("=");
-    rol = temp[1];
-    temp = parameters[2].split("=");
-    nombreEquipo = temp[1];
+    roomActual = document.getElementById("idPartida").value;
+    rol = document.getElementById("rol").value;
+    nombreEquipo = document.getElementById("nombreEquipo").value;
     console.log("eeee   " + roomActual, rol, nombreEquipo);
 }
 
@@ -155,8 +151,8 @@ socket.on('respondiendoIndicePreguntaOpcionMultiple', function (indicePregunta) 
 socket.on('respondiendoIndicePreguntaUnir', function (arrayIndices, arrayTexto) {
     respuestaCorrectaUnir = [];
     for(var i = 0; i< arrayIndices.length; i++){
-        respuestaCorrectaUnir.push(preguntasUnirVoltear[arrayIndices[i]].urlImagenUnirVoltear);
-        respuestaCorrectaUnir.push(preguntasUnirVoltear[arrayIndices[i]].textoUnirVoltear);
+        respuestaCorrectaUnir.push(preguntasUnirVoltear[arrayIndices[i]].imagen);
+        respuestaCorrectaUnir.push(preguntasUnirVoltear[arrayIndices[i]].texto);
         cargarPreguntaUnirVoltear(arrayIndices[i],arrayTexto[i],(i+1));
     }
 });
@@ -638,6 +634,8 @@ function memoryFlipTile(tile, val) {
 }
 
 function cargarPreguntaOpcionMultiple(indicePregunta) {
+    console.log("pregunta");
+    console.log(preguntasOpcionMultiple[indicePregunta]);
     if(idSocketActual != turnoJugadores[0])
     {
      document.getElementById("opcionMultiple").classList.add("disabledbutton")
@@ -648,8 +646,8 @@ function cargarPreguntaOpcionMultiple(indicePregunta) {
         }
     }
     document.getElementById("enunciado").innerHTML = preguntasOpcionMultiple[indicePregunta].enunciado;
-    if (preguntasOpcionMultiple[indicePregunta].urlEnunciado != "") {
-        document.getElementById("imagenEnunciado").src = preguntasOpcionMultiple[indicePregunta].urlEnunciado;
+    if ( preguntasOpcionMultiple[indicePregunta].hasOwnProperty("imagenEnunciado") && preguntasOpcionMultiple[indicePregunta].imagenEnunciado != "") {
+        document.getElementById("imagenEnunciado").src = preguntasOpcionMultiple[indicePregunta].imagenEnunciado;
     } else
     {
         document.getElementById("imagenEnunciado").src = "static/imagenes/vacio.png";
@@ -672,22 +670,21 @@ function cargarPreguntaOpcionMultiple(indicePregunta) {
         boton.style.margin = "0px 5px";
         document.getElementById("puesto" + (j + 1)).appendChild(boton);
     }
-
-    if (preguntasOpcionMultiple[indicePregunta].urlRes1 != "") {
+    if ( preguntasOpcionMultiple[indicePregunta].hasOwnProperty("imagenRes1") && preguntasOpcionMultiple[indicePregunta].imagenRes1 != "") {
         for (var j = 0; j < 4; j++) {
             var images = document.createElement("IMG");
             switch (j){
                 case 0:
-                    images.setAttribute("src", preguntasOpcionMultiple[indicePregunta].urlRes1);
+                    images.setAttribute("src", preguntasOpcionMultiple[indicePregunta].imagenRes1);
                     break;
                 case 1:
-                    images.setAttribute("src", preguntasOpcionMultiple[indicePregunta].urlRes2);
+                    images.setAttribute("src", preguntasOpcionMultiple[indicePregunta].imagenRes2);
                     break;
                 case 2:
-                    images.setAttribute("src", preguntasOpcionMultiple[indicePregunta].urlRes3);
+                    images.setAttribute("src", preguntasOpcionMultiple[indicePregunta].imagenRes3);
                     break;
                 case 3:
-                    images.setAttribute("src", preguntasOpcionMultiple[indicePregunta].urlRes4);
+                    images.setAttribute("src", preguntasOpcionMultiple[indicePregunta].imagenRes4);
                     break;
             }
             images.setAttribute("id", "imagenRes" + (j + 1));
@@ -720,7 +717,7 @@ function cargarPreguntaOpcionMultiple(indicePregunta) {
 
         }
     }
-    resCorrecta = preguntasOpcionMultiple[indicePregunta].resCorrecta;
+    resCorrecta = preguntasOpcionMultiple[indicePregunta].respuestaCorrecta;
 }
 
 function cargarPreguntaUnirVoltear(indicePregunta, texto, a) {
@@ -742,8 +739,8 @@ function cargarPreguntaUnirVoltear(indicePregunta, texto, a) {
             document.getElementById("enviarUnir").classList.remove("invisible")
         }
     }
-        document.getElementById("botonImagenAUnir"+(a)).setAttribute("nombre",preguntasUnirVoltear[indicePregunta].urlImagenUnirVoltear);
-        document.getElementById("imagenAUnir"+(a)).src = preguntasUnirVoltear[indicePregunta].urlImagenUnirVoltear;
+        document.getElementById("botonImagenAUnir"+(a)).setAttribute("nombre",preguntasUnirVoltear[indicePregunta].imagen);
+        document.getElementById("imagenAUnir"+(a)).src = preguntasUnirVoltear[indicePregunta].imagen;
         document.getElementById("textoAUnir"+(a)).innerHTML = texto;
 }
 
@@ -830,10 +827,10 @@ function reiniciarUnir() {
 }
 
 function mostrarMensajeParEncontrado(url) {
-var indicePreguntaUnir = preguntasUnirVoltear.map(function (e) {     return e.urlImagenUnirVoltear   }).indexOf(url);
+var indicePreguntaUnir = preguntasUnirVoltear.map(function (e) {     return e.imagen   }).indexOf(url);
 if(indicePreguntaUnir >=0) {
     document.getElementById("mensajeVoltear").removeAttribute("hidden");
-    document.getElementById("nombreParEncontrado").innerHTML = preguntasUnirVoltear[indicePreguntaUnir].textoUnirVoltear;
+    document.getElementById("nombreParEncontrado").innerHTML = preguntasUnirVoltear[indicePreguntaUnir].texto;
 
     setTimeout(function(){
         document.getElementById("mensajeVoltear").setAttribute("hidden","");

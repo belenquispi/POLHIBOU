@@ -270,6 +270,12 @@ io.on('connection', function (socket) {
             actualizarOrdenPartidas(room);
         }
     });
+    socket.on('iniciarPartida', function (room) {
+        var idPartida = consultarIdPartida(room);
+        if (idPartida >= 0) {
+            io.sockets.in(room).emit('unirPartida');
+        }
+    });
     socket.on('dados', function (dado1, dado2, room, dadoAnterior1, dadoAnterior2, numCasillasMoverse) {
         var idPartida = consultarIdPartida(room);
         partidas[idPartida].dadoP1 = dado1;
@@ -394,8 +400,8 @@ io.on('connection', function (socket) {
         partidas[idPartida].contadorPreguntasLibresUnirVoltear = contador;
         var memory_array = [];
         for (var i = 0; i < arrayIndices.length; i++) {
-            memory_array.push(partidas[idPartida].preguntasUnirVoltear[arrayIndices[i]].urlImagenUnirVoltear);
-            memory_array.push(partidas[idPartida].preguntasUnirVoltear[arrayIndices[i]].urlImagenUnirVoltear);
+            memory_array.push(partidas[idPartida].preguntasUnirVoltear[arrayIndices[i]].imagen);
+            memory_array.push(partidas[idPartida].preguntasUnirVoltear[arrayIndices[i]].imagen);
         }
         memory_array.memory_tile_shuffle();
         io.sockets.in(partidas[idPartida].nombrePartida).emit('respondiendoIndicePreguntaVoltear', memory_array);
@@ -447,7 +453,11 @@ function seleccionarColor(filasN, columnasN, gameMapN,) {
                     break;
                 default:
                     // var colorA = Math.floor(Math.random() * 3);
-                    var colorA = 2;
+                    // 0 = Unir voltear - amarillo
+                    // 1 = Emparejar - rosado
+                    // 2 = Opción múltiple - azul
+
+                    var colorA =0;
 
                     var colorAnterior = -1;
                     while (colorA == colorAnterior) {
@@ -710,7 +720,7 @@ function newBoard() {
 
 function descargarPreguntas(idPartida, idProfesor, idMateria) {
     partidas[idPartida].preguntasOpcionMultiple = baseDatos.obtenerPreguntasOpcionMultiple(idProfesor, idMateria);
-    partidas[idPartida].preguntasOpcionMultiple = baseDatos.obtenerPreguntasUnir(idProfesor, idMateria);
+    partidas[idPartida].preguntasUnirVoltear = baseDatos.obtenerPreguntasUnir(idProfesor, idMateria);
 }
 
 function indiceRandomicoOpcionMultiple(idPartida) {
@@ -745,7 +755,7 @@ function indiceRandomicoUnirVoltear(idPartida) {
 function desordenarTextoUnir(idPartida, arrayIndices) {
     var vectorTextoUnir = [];
     for (var k = 0; k < arrayIndices.length; k++) {
-        vectorTextoUnir.push(partidas[idPartida].preguntasUnirVoltear[arrayIndices[k]].textoUnirVoltear);
+        vectorTextoUnir.push(partidas[idPartida].preguntasUnirVoltear[arrayIndices[k]].texto);
     }
     var j, x, i;
     for (i = vectorTextoUnir.length - 1; i > 0; i--) {

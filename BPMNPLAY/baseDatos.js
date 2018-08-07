@@ -16,9 +16,10 @@ exports.obtenerPreguntasOpcionMultiple = function (usuarioP, materiaP) {
             preguntasOpcionMultiple[preguntasOpcionMultiple.length - 1].usada = false;
             console.log(preguntasOpcionMultiple[preguntasOpcionMultiple.length - 1].usada);
         }
-    })
+        console.log(preguntasOpcionMultiple)
+    });
         return preguntasOpcionMultiple;
-}
+};
 
 exports.obtenerPreguntasUnir = function (usuarioP, materiaP) {
     var preguntasUnirVoltear = [];
@@ -34,6 +35,7 @@ exports.obtenerPreguntasUnir = function (usuarioP, materiaP) {
             preguntasUnirVoltear[preguntasUnirVoltear.length - 1].usada = false;
             console.log(preguntasUnirVoltear[preguntasUnirVoltear.length - 1].usada);
         }
-    })
+        console.log(preguntasUnirVoltear)
+    });
     return preguntasUnirVoltear;
-}
+};

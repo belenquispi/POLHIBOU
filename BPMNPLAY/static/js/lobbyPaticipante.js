@@ -14,6 +14,11 @@ socket.on('ingresoJugadores', function (data) {
     console.log("hola jugadores: " + jugadoresConectados);
     actualizacion();
 });
+
+socket.on('unirPartida', function () {
+    console.log("Hice clic en el cliente");
+    document.getElementById('botonUnirPartida').click();
+});
 function actualizacion() {
     document.getElementById("jugadoresConectados").innerText="";
     for(var i = 0 ; i < jugadoresConectados.length; i++){

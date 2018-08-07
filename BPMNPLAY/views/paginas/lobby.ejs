@@ -20,7 +20,7 @@
     <input type="text" hidden id="usuario" value="<%=usuario%>">
     <input type="text" hidden id="materia" value="<%=materia%>">
     <input type="text" hidden id="numeroEquipos" value="<%=numeroEquipos%>">
-    <input type="text" hidden id="rol" value="<%=rol%>">
+
     <%for(var i=0; i< numeroEquipos; i++){%>
     <input type="text" hidden id="nombreEquipo<%=i%>" value="<%=informacionJugadores[i].nombreEquipo%>">
     <input type="text" hidden id="imagenEquipo<%=i%>" value="<%=informacionJugadores[i].imagenEquipo%>">
@@ -52,6 +52,8 @@
                                     <div class="container ">
                                         <h1 class="text-center font-weight-bold"><%= idPartida %></h1>
                                         <input type="text" hidden name="idPartida" id="idPartida" value="<%= idPartida %>">
+                                        <input type="text" hidden name="rol" id="rol" value="<%=rol%>">
+                                        <input type="text" hidden name="nombreEquipo" id="nombreEquipo">
                                     </div>
                                 </div>
                             </div>
@@ -59,7 +61,8 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                <button type="submit" class="btn btn-success">Empezar Partida</button>
+                                <button type="button" class="btn btn-success" onclick="unirPartida()">Empezar Partida</button>
+                                <button id="botonIniciar" type="submit" class="btn btn-success" hidden></button>
                             </div>
                         </div>
                     </form>

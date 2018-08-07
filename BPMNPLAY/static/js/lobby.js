@@ -42,3 +42,9 @@ function actualizacion() {
         document.getElementById("card"+(i+1)).appendChild(h5);
     }
 }
+
+function unirPartida() {
+    console.log("Hice clic ");
+    socket.emit("iniciarPartida", document.getElementById('idPartida').value );
+    document.getElementById('botonIniciar').click();
+}

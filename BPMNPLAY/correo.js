@@ -7,14 +7,12 @@ var administrador = {
 
 var transporter;
 
-
 var mailOptions = {
     from: administrador.correo,
     to: '',
     subject: 'Actualización contraseña',
     html: '<h1>Welcome</h1><p>That was easy!</p>'
 };
-
 
 function inicio() {
     console.log("Ya consulte555");
@@ -41,8 +39,6 @@ setTimeout(function(){ console.log("Ya consulte");
                     administrador.contrasenia = doc.contrasenia
                 } }
         });
-
-
 
 
 exports.inicio = function(){
