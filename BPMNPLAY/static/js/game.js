@@ -2,6 +2,7 @@ var ctx = null;
 var color1 = new Image();
 var color2 = new Image();
 var color3 = new Image();
+var llegada = new Image();
 var casillaInicio = new Image();
 var casillaFin = new Image();
 var casillaIncierto = new Image();
@@ -17,7 +18,7 @@ var per4 = new Image();
 var filas, columnas, anchoCasilla, altoCasilla;
 var gameMap = [];
 var colorMap = [];
-var patterColor1, patterColor2, patterColor3, patterInicio, patterIncierto, patterFin, patterB, patterP, patterM,
+var patterColor1, patterColor2, patterColor3, patterLlegada, patterInicio, patterIncierto, patterFin, patterB, patterP, patterM,
     patterN, patterPlay;
 var currentSecond = 0, frameCount = 0, framesLastSecond = 0, lastFrameTime = 0;
 var gameTime = 0;
@@ -62,6 +63,7 @@ window.onload = function () {
     color1.src = 'static/imagenes/0.png';
     color2.src = 'static/imagenes/1.png';
     color3.src = 'static/imagenes/2.png';
+    llegada.src = 'static/imagenes/llegada-t.png';
     casillaInicio.src = 'static/inicio.jpg';
     casillaIncierto.src = 'static/imagenes/incierto.png';
     casillaFin.src = 'static/fin.jpg';
@@ -70,11 +72,9 @@ window.onload = function () {
     casillaM.src = 'static/imagenes/m.png';
     casillaN.src = 'static/imagenes/n.png';
     casillaPlay.src = 'static/imagenes/play.png';
-    console.log("carge las imagenes");
     ctx = document.getElementById('game').getContext("2d");
     requestAnimationFrame(drawGame);
     ctx.font = "bold 10pt sans-serif";
-    console.log("adios")
 };
 
 socket.on('nombreRol', function (nombre) {
@@ -254,6 +254,7 @@ function drawGame() {
             }).indexOf((idSocketActual))].boton == 1;
         }
             mostrarJugadorActual();
+
     }
 
     for (var y = 0; y < filas; ++y) {
@@ -282,7 +283,7 @@ function drawGame() {
                 case 7:
                 case 13:
                 case 21:
-                case  27:
+                case 27:
                     ctx.fillStyle = patterIncierto;
                     break;
                 case 34:
@@ -324,6 +325,7 @@ function drawGame() {
 
     agregarNumerosCasilla();
     dibujarJugador();
+    dibujarLlegarA();
     habilitarTablaJugador();
     ctx.fillStyle = "#ff0000";
     ctx.fillText("FPS: " + framesLastSecond, 10, 20);
@@ -347,7 +349,7 @@ function dibujarJugador() {
             switch (i) {
                 case 0:
                     ctx.fillStyle = patterper1;
-                    ctx.fillRect(jugadores[i].position[0], jugadores[i].position[1], (jugadores[i].dimensions[0] / 2) + 1, (jugadores[i].dimensions[1] / 2)) + 1;
+                    ctx.fillRect(jugadores[i].position[0], jugadores[i].position[1], (jugadores[i].dimensions[0] / 2) + 1, (jugadores[i].dimensions[1] / 2));
                     break;
                 case 1:
                     ctx.fillStyle = patterper2;
@@ -365,6 +367,43 @@ function dibujarJugador() {
             }
         }
     }
+}
+
+function dibujarLlegarA() {
+    if(jugadores.length >0){
+    if(jugadores[indiceJugadorActualF()].moverseA > 0)
+    {
+        var moverseA = jugadores[indiceJugadorActualF()].moverseA;
+        patterLlegada = ctx.createPattern(llegada, "repeat");
+        for (var y = 0; y < filas; ++y) {
+            for (var x = 0; x < columnas; ++x) {
+                switch (gameMap[((y * columnas) + x)]) {
+                    case moverseA:
+                        ctx.fillStyle = patterLlegada;
+                        ctx.fillRect(x * anchoCasilla, y * altoCasilla, anchoCasilla, altoCasilla);
+                        y = filas;
+                        x = columnas;
+                        break;
+                    default:
+                }
+            }
+        }
+
+    }}
+}
+
+function indiceJugadorActualF() {
+    var indice = -1;
+    console.log(jugadores);
+    console.log(turnoJugadores);
+    if(jugadores.length>0){
+     indice = jugadores.map(function (value) {
+        return value.idSocket
+    }).indexOf(turnoJugadores[0]);} else
+    {
+        indice = -1;
+    }
+    return indice;
 }
 
 function desbloquearBoton() {
@@ -482,9 +521,6 @@ function mostrarJugadorActual() {
         document.getElementById("tablajug" + (i + 1)).style.border = "thick grey";
     }
 
-    var indiceJugadorActual = jugadores.map(function (value) {
-        return value.idSocket
-    }).indexOf(turnoJugadores[0]);
 
     for (var j = 0; j < jugadores.length; j++) {
         if (!document.getElementById("imagenJugador" + (j + 1)) && jugadores[j].idSocket !="" ) {
@@ -497,6 +533,7 @@ function mostrarJugadorActual() {
             document.getElementById("nombreEquipo"+(j+1)).innerHTML = jugadores[j].nombreEquipo;
         }
     }
+    var indiceJugadorActual = indiceJugadorActualF();
 
     if (indiceJugadorActual >= 0 && turnoJugadores.length > 0) {
         document.getElementById("nombreEquipoActual").innerHTML = jugadores[indiceJugadorActual].nombreEquipo;
@@ -634,8 +671,7 @@ function memoryFlipTile(tile, val) {
 }
 
 function cargarPreguntaOpcionMultiple(indicePregunta) {
-    console.log("pregunta");
-    console.log(preguntasOpcionMultiple[indicePregunta]);
+
     if(idSocketActual != turnoJugadores[0])
     {
      document.getElementById("opcionMultiple").classList.add("disabledbutton")
@@ -668,7 +704,7 @@ function cargarPreguntaOpcionMultiple(indicePregunta) {
         boton.setAttribute("class", "btn btn-block btn-info cortaPalabra");
         boton.setAttribute("type", "button");
         boton.style.margin = "0px 5px";
-        document.getElementById("puesto" + (j + 1)).appendChild(boton);
+        document.getElementById("botonTextoUnir" + (j + 1)).appendChild(boton);
     }
     if ( preguntasOpcionMultiple[indicePregunta].hasOwnProperty("imagenRes1") && preguntasOpcionMultiple[indicePregunta].imagenRes1 != "") {
         for (var j = 0; j < 4; j++) {

@@ -9,6 +9,7 @@
 </head>
 <body>
 <header>
+
 </header>
 <input type="text" hidden name="idPartida" id="idPartida" value=<%=idPartida%>>
 <input type="text" hidden name="rol" id="rol" value=<%=rol%>>
@@ -105,8 +106,18 @@
                 <div id="mensajeOpcionMultiple" hidden></div>
             </div>
             </div>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">Small modal</button>
+
         </div>
         <div class="col-md-5">
+
+            <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        ...
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="flip3D">
                     <div id="tarjeta" class="front disabledbutton" onclick="darLaVuelta()"></div>
@@ -127,12 +138,12 @@
                             <div class="row" id="divRespuestasOpcionMultiple" hidden>
                                 <div class="container-fluid">
                                 <div class="row unir" >
-                                    <div class="col-md-6" id="puesto1"></div>
-                                    <div class="col-md-6" id="puesto2"></div>
+                                    <div class="col-md-6" id="botonTextoUnir1"></div>
+                                    <div class="col-md-6" id="botonTextoUnir2"></div>
                                 </div>
                                 <div class="row unir" >
-                                    <div class="col-md-6" id="puesto3"></div>
-                                    <div class="col-md-6" id="puesto4"></div>
+                                    <div class="col-md-6" id="botonTextoUnir3"></div>
+                                    <div class="col-md-6" id="botonTextoUnir4"></div>
                                 </div>
                                 </div>
                             </div>
@@ -228,9 +239,9 @@
         </div>
     </div>
 </div>
+<% include ../parciales/footer %>
 </body>
-<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-firestore.js"></script>
+
 <script src="/static/js/game.js"></script>
 
 </html>

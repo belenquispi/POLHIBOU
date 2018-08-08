@@ -84,7 +84,7 @@ function Character(c, x, y, z) {
     this.casilla = 0;
     this.iconoEquipo = c;
     this.boton = 0;
-    this.puesto = 0;
+    this.moverseA = 0;
     this.listo = 0;
     this.idSocket = "";
 }
@@ -285,6 +285,13 @@ io.on('connection', function (socket) {
         partidas[idPartida].jugadores[partidas[idPartida].jugadores.map(function (e) {
             return e.idSocket
         }).indexOf(socket.id)].numCasillasMoverseP = numCasillasMoverse;
+        partidas[idPartida].jugadores[partidas[idPartida].jugadores.map(function (e) {
+            return e.idSocket
+        }).indexOf(socket.id)].moverseA += numCasillasMoverse;
+        console.log("Numero de casillas a moverse");
+        console.log(partidas[idPartida].jugadores[partidas[idPartida].jugadores.map(function (e) {
+            return e.idSocket
+        }).indexOf(socket.id)]);
         var numDesafioMostrarse = mostrarDesafio(partidas[idPartida].jugadores[partidas[idPartida].jugadores.map(function (e) {
             return e.idSocket
         }).indexOf(socket.id)], numCasillasMoverse, partidas[idPartida].colorM);
@@ -457,7 +464,7 @@ function seleccionarColor(filasN, columnasN, gameMapN,) {
                     // 1 = Emparejar - rosado
                     // 2 = Opción múltiple - azul
 
-                    var colorA =0;
+                    var colorA =2;
 
                     var colorAnterior = -1;
                     while (colorA == colorAnterior) {
