@@ -11,7 +11,7 @@ function encodeImageFileAsURL(element) {
     reader.onloadend = function () {
         console.log('RESULT', reader.result)
         document.getElementById("imagenUnir"+id).value = reader.result;
-    }
+    };
     reader.readAsDataURL(file);
 }
 

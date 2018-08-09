@@ -63,10 +63,13 @@ window.onload = function () {
     color1.src = 'static/imagenes/0.png';
     color2.src = 'static/imagenes/1.png';
     color3.src = 'static/imagenes/2.png';
-    llegada.src = 'static/imagenes/llegada-t.png';
+    llegada.src = 'static/imagenes/llegada-30.png';
+    //llegada.src = 'static/imagenes/buho1.gif';
     casillaInicio.src = 'static/inicio.jpg';
     casillaIncierto.src = 'static/imagenes/incierto.png';
     casillaFin.src = 'static/fin.jpg';
+    //console.log(casillaFin.toDataURL());
+    //casillaFin = contrastImage(casillaFin.toDataURL(), 30);
     casillaB.src = 'static/imagenes/b.png';
     casillaP.src = 'static/imagenes/p.png';
     casillaM.src = 'static/imagenes/m.png';
@@ -275,7 +278,8 @@ function drawGame() {
             switch (gameMap[((y * columnas) + x)]) {
                 case 0:
                     //ctx.fillStyle = "#6A0888";
-                    ctx.fillStyle = "#0B610B";
+                   ctx.fillStyle = "#0B610B";
+
                     break;
                 case 'I':
                     ctx.fillStyle = patterInicio;
@@ -316,7 +320,7 @@ function drawGame() {
                             ctx.fillStyle = patterColor3;
                             break;
                         default:
-                            ctx.fillStyle = "#5aa457";
+                          ctx.fillStyle = "#5aa457";
                     }
             }
             ctx.fillRect(x * anchoCasilla, y * altoCasilla, anchoCasilla, altoCasilla);
@@ -370,23 +374,36 @@ function dibujarJugador() {
 }
 
 function dibujarLlegarA() {
+
     if(jugadores.length >0){
-    if(jugadores[indiceJugadorActualF()].moverseA > 0)
+    if(indiceJugadorActualF() >= 0 && jugadores[indiceJugadorActualF()].moverseA > 0)
     {
+        if(jugadores[indiceJugadorActualF()].casilla != jugadores[indiceJugadorActualF()].moverseA)
+        {
         var moverseA = jugadores[indiceJugadorActualF()].moverseA;
+        var casilla = jugadores[indiceJugadorActualF()].casilla;
         patterLlegada = ctx.createPattern(llegada, "repeat");
         for (var y = 0; y < filas; ++y) {
             for (var x = 0; x < columnas; ++x) {
-                switch (gameMap[((y * columnas) + x)]) {
-                    case moverseA:
-                        ctx.fillStyle = patterLlegada;
-                        ctx.fillRect(x * anchoCasilla, y * altoCasilla, anchoCasilla, altoCasilla);
+                var caso = gameMap[((y * columnas) + x)];
+                switch (true) {
+                    case (caso == moverseA):
+                    case (caso == casilla):
+
+                        /*ctx.fillStyle = patterLlegada;
+                        ctx.fillRect((x * anchoCasilla)+anchoCasilla/4, (y * altoCasilla)+altoCasilla/4, anchoCasilla/2, altoCasilla/2);
                         y = filas;
-                        x = columnas;
+                        x = columnas;*/
+                        break;
+                    case (caso>0 && caso <35):
+                    case (caso == 'I'):
+                        ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+                        ctx.fillRect(x * anchoCasilla, y * altoCasilla, anchoCasilla, altoCasilla);
                         break;
                     default:
                 }
             }
+        }
         }
 
     }}

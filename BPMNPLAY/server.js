@@ -287,7 +287,14 @@ io.on('connection', function (socket) {
         }).indexOf(socket.id)].numCasillasMoverseP = numCasillasMoverse;
         partidas[idPartida].jugadores[partidas[idPartida].jugadores.map(function (e) {
             return e.idSocket
-        }).indexOf(socket.id)].moverseA += numCasillasMoverse;
+        }).indexOf(socket.id)].moverseA = partidas[idPartida].jugadores[partidas[idPartida].jugadores.map(function (e) {
+            return e.idSocket
+        }).indexOf(socket.id)].casilla + numCasillasMoverse;
+        ((partidas[idPartida].jugadores[partidas[idPartida].jugadores.map(function (e) {
+            return e.idSocket
+        }).indexOf(socket.id)].moverseA) > 34 ? partidas[idPartida].jugadores[partidas[idPartida].jugadores.map(function (e) {
+            return e.idSocket
+        }).indexOf(socket.id)].moverseA = 34 : "");
         console.log("Numero de casillas a moverse");
         console.log(partidas[idPartida].jugadores[partidas[idPartida].jugadores.map(function (e) {
             return e.idSocket
@@ -295,6 +302,10 @@ io.on('connection', function (socket) {
         var numDesafioMostrarse = mostrarDesafio(partidas[idPartida].jugadores[partidas[idPartida].jugadores.map(function (e) {
             return e.idSocket
         }).indexOf(socket.id)], numCasillasMoverse, partidas[idPartida].colorM);
+        if(numDesafioMostrarse == -1)
+        {
+            numDesafioMostrarse = Math.floor(Math.random() * 3);
+        }
         io.sockets.in(room).emit('dados', dado1, dado2, dadoAnterior1, dadoAnterior2, numDesafioMostrarse, socket.id);
     });
     socket.on('moverJugador', function (room, gameTime) {
@@ -433,6 +444,7 @@ io.on('connection', function (socket) {
         var idPartida = consultarIdPartida(room);
         var idJugador = consultarIdJugadorSocket(idPartida, socket.id);
         partidas[idPartida].jugadores[idJugador].numCasillasMoverseP = 0;
+        partidas[idPartida].jugadores[idJugador].moverseA = partidas[idPartida].jugadores[idJugador].casilla;
         var i = partidas[idPartida].turnoJugadores.shift();
         partidas[idPartida].turnoJugadores.push(i);
         actualizarOrdenPartidas(room);
@@ -704,10 +716,11 @@ function mostrarDesafio(jugadorAct, numCasillasMoverse, colorM) {
         for (var y = 0; y < columnas; ++y) {
             if ((gameMap[((x * columnas) + y)]) == (jugadorAct.casilla + numCasillasMoverse)) {
                 colorCa = colorM[((x * columnas) + y)];
-                return colorCa;
+            }else {
             }
         }
     }
+    return colorCa;
 }
 
 Array.prototype.memory_tile_shuffle = function () {
