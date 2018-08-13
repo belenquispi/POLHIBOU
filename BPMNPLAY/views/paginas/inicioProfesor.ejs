@@ -24,50 +24,91 @@
     </div>
     <div class="row">
         <div class="card-columns">
-            <%
-            for(var i = 0; i < materias.length; i++) { %>
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <%= materias[i] %>
-                    </h5>
-                    <a href="/ingresoProfesor/preguntasOpcionMultiple/<%= materias[i] %>" class="btn btn-primary"
-                       style="margin-bottom: 10px" id=<%= materias[i] %>><i class="far fa-list-alt"></i> Preguntas
-                        Opción Multiple</a>
-                    <a href="/ingresoProfesor/preguntasUnirVoltear/<%= materias[i] %>" class="btn btn-info"
-                       style="margin-bottom: 10px"><i class="fas fa-th"></i> Preguntas Unir Voltear</a>
-                    <a href="/ingresoProfesor/creacionPartida/<%= materias[i] %>" class="btn btn-primary"
-                       style="margin-bottom: 10px"><i class="fas fa-plus"></i> Crear Partidas</a>
-                    <br>
-                    <a href="#" class="btn btn-success"> <i class="fas fa-chart-bar"></i> Estadísticas</a>
-                </div>
-            </div>
-            <% } %>
-            <div class="card text-white bg-dark mb-3">
+            <div class="card text-white bg-dark mb-3" style="height: 271px">
+                <h5 class="card-header">AGREGAR MATERIA</h5>
                 <div class="card-body">
                     <form action="/ingresoMateria" method="post">
-                        <h5 class="card-title">Agregar Materia</h5>
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
                                 <div class="input-group-text"><i class="fas fa-book"></i></div>
                             </div>
                             <input type="text" class="form-control" placeholder="Nombre de la materia"
-                                   name="nombreMateria" >
+                                   name="nombreMateria">
                         </div>
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
-                                <div class="input-group-text"><i class="fas fa-plus"></i></div>
+                                <div class="input-group-text"><i id="iconoTipo" class="fas fa-unlock"></i></div>
                             </div>
-                        <input type="submit" class="btn btn-primary""
-                               value="Agregar Materia">
+                            <select id="tipo" name="tipo" class="form-control" onchange="cambiarIcono()">
+                                <option value="publica">Pública</option>
+                                <option value="privada">Privada</option>
+                            </select>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="input-group mb-2 col-md-8">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text"><i class="fas fa-plus"></i></div>
+                                </div>
+                                <input type="submit" class="btn btn-primary"
+                                       value="Agregar Materia">
+                            </div>
+                            <div class="col-md-2"></div>
                         </div>
                     </form>
+
                 </div>
+            </div>
+            <%
+            for(var i = 0; i < materias.length; i++) {
+            console.log(materias[i])%>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <h5><%= materias[i].nombre %></h5>
+                            </div>
+                            <div class="col-md-1">
+                                <% if(materias[i].tipo == "privada")
+                                {
+                                %>
+                                    <i id="tipo<%=materias[i].nombre%>" class="fas fa-lock" onclick="cambiarTipo('<%=materias[i].nombre%>')"></i>
+                                <%
+                                }
+                                else
+                                { %>
+                                    <i id="tipo<%=materias[i].nombre%>" class="fas fa-unlock" onclick="cambiarTipo('<%=materias[i].nombre%>')"></i>
+                                <%
+                                } %>
+
+                            </div>
+                            <div class="col-md-1">
+                                <i class="fas fa-trash-alt"></i>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <a href="/ingresoProfesor/preguntasOpcionMultiple/<%= materias[i].nombre%>" class="btn btn-primary"
+                           style="margin-bottom: 10px" id=<%= materias[i] %>><i class="far fa-list-alt"></i> Preguntas
+                            Opción Multiple</a>
+                        <a href="/ingresoProfesor/preguntasUnirVoltear/<%= materias[i].nombre%>" class="btn btn-info"
+                           style="margin-bottom: 10px"><i class="fas fa-th"></i> Preguntas Unir Voltear</a>
+                        <a href="/ingresoProfesor/creacionPartida/<%= materias[i].nombre%>" class="btn btn-primary"
+                           style="margin-bottom: 10px"><i class="fas fa-plus"></i> Crear Partidas</a>
+                        <br>
+                        <a href="#" class="btn btn-success"> <i class="fas fa-chart-bar"></i> Estadísticas</a>
+                    </div>
+                </div>
+            <% } %>
+            <div class="card" style="width:364.66px; height:258px">
             </div>
         </div>
     </div>
 </div>
-</div>
+
 <script src="/socket.io/socket.io.js"></script>
 <script src="/static/js/profesor.js"></script>
 <footer>

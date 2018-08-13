@@ -10,6 +10,7 @@ var profesorSchema = new Schema({
     materias : [{
         idMateria : String,
         nombre: String,
+        tipo: String,
         preguntasOpcionMultiple : [{
             idOpcionMultiple : String,
             enunciado : String,

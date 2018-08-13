@@ -37,12 +37,13 @@ socket.on('confirmacionPartida', function (data) {
     }
 });
 
-function consultarJugadores() {
+function verificarPartida() {
     socket.emit('verificarPartida', document.getElementById("codigoPartida").value);
 }
 
 function habilitarNombreEquipo() {
     if (document.getElementById("tipoIngreso").value == "jugador") {
+        verificarPartida();
         document.getElementById("divNombreEquipo").removeAttribute("hidden");
         document.getElementById("botonUnir").removeAttribute("hidden");
 

@@ -17,14 +17,14 @@
 </nav>
 
 <div class="container">
-    <input type="text" hidden id="usuario" value="<%=usuario%>">
-    <input type="text" hidden id="materia" value="<%=materia%>">
-    <input type="text" hidden id="numeroEquipos" value="<%=numeroEquipos%>">
+    <input type="text" hidden id="usuario" value="<%= usuario %>">
+    <input type="text" hidden id="materia" value="<%= materia %>">
+    <input type="text" hidden id="numeroEquipos" value="<%= numeroEquipos %>">
 
-    <%for(var i=0; i< numeroEquipos; i++){%>
-    <input type="text" hidden id="nombreEquipo<%=i%>" value="<%=informacionJugadores[i].nombreEquipo%>">
-    <input type="text" hidden id="imagenEquipo<%=i%>" value="<%=informacionJugadores[i].imagenEquipo%>">
-    <%}%>
+    <% for(var i = 0; i < numeroEquipos; i++){ %>
+    <input type="text" hidden id="nombreEquipo<%= i %>" value="<%= informacionJugadores[i].nombreEquipo %>">
+    <input type="text" hidden id="imagenEquipo<%= i %>" value="<%= informacionJugadores[i].imagenEquipo %>">
+    <% } %>
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
@@ -47,21 +47,21 @@
                     <form id="login-form" action="/tablero" method="post" role="form" style="display: block;">
                         <div class="row">
                             <div class="col-md-2"></div>
-                            <div class="col-md-8">
-                                <div class="bg-dark text-white rounded ">
-                                    <div class="container ">
-                                        <h1 class="text-center font-weight-bold"><%= idPartida %></h1>
-                                        <input type="text" hidden name="idPartida" id="idPartida" value="<%= idPartida %>">
-                                        <input type="text" hidden name="rol" id="rol" value="<%=rol%>">
-                                        <input type="text" hidden name="nombreEquipo" id="nombreEquipo">
-                                    </div>
+                            <div class="col-md-8 bg-dark text-white rounded">
+                                <div class="container ">
+                                    <h1 class="text-center font-weight-bold"><%= idPartida %></h1>
+                                    <input type="text" hidden name="idPartida" id="idPartida" value="<%= idPartida %>">
+                                    <input type="text" hidden name="rol" id="rol" value="<%= rol %>">
+                                    <input type="text" hidden name="nombreEquipo" id="nombreEquipo">
                                 </div>
                             </div>
                             <div class="col-md-2"></div>
                         </div>
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                <button type="button" class="btn btn-success" onclick="unirPartida()">Empezar Partida</button>
+                                <br>
+                                <button type="button" class="btn btn-success" onclick="unirPartida()">Empezar Partida
+                                </button>
                                 <button id="botonIniciar" type="submit" class="btn btn-success" hidden></button>
                             </div>
                         </div>
@@ -70,14 +70,11 @@
             </div>
         </div>
         <div class="col-md-3"></div>
-
     </div>
     <br>
     <div><label class="font-weight-bold">Jugadores Conectados</label></div>
-    <div class="row border border-info rounded">
-        <div class="col-sm-3" id="jugadoresConectados" style="padding:10px">
-        </div>
-        </div>
+    <div class="row border border-info rounded" id="jugadoresConectados" style="height: 150px">
+    </div>
 </div>
 <script src="/socket.io/socket.io.js"></script>
 <script src="static/js/lobby.js"></script>

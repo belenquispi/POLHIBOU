@@ -342,30 +342,24 @@ function dibujarJugador() {
         if (jugadores[i].idSocket != "") {
             ctx.fillStyle = jugadores[i].colorP;
             per1.src = 'static/imagenes/trebol.png';
+            //per1.src = 'static/imagenes/flor.jpg';
             per2.src = 'static/imagenes/star.png';
             per3.src = 'static/imagenes/mal.png';
             per4.src = 'static/imagenes/pintura.png';
-            var patterper1 = ctx.createPattern(per1, "repeat");
-            var patterper2 = ctx.createPattern(per2, "repeat");
-            var patterper3 = ctx.createPattern(per3, "repeat");
-            var patterper4 = ctx.createPattern(per4, "repeat");
 
             switch (i) {
                 case 0:
-                    ctx.fillStyle = patterper1;
-                    ctx.fillRect(jugadores[i].position[0], jugadores[i].position[1], (jugadores[i].dimensions[0] / 2) + 1, (jugadores[i].dimensions[1] / 2));
+                    ctx.drawImage(per1, jugadores[i].position[0], jugadores[i].position[1], (jugadores[i].dimensions[0] / 2), (jugadores[i].dimensions[1] / 2));
+                   // ctx.fillRect(jugadores[i].position[0], jugadores[i].position[1], (jugadores[i].dimensions[0] / 2), (jugadores[i].dimensions[1] / 2));
                     break;
                 case 1:
-                    ctx.fillStyle = patterper2;
-                    ctx.fillRect(jugadores[i].position[0] + jugadores[i].dimensions[1] / 2, jugadores[i].position[1], jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[1] / 2);
+                    ctx.drawImage(per2, jugadores[i].position[0] + jugadores[i].dimensions[1] / 2, jugadores[i].position[1], jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[1] / 2);
                     break;
                 case 2:
-                    ctx.fillStyle = patterper3;
-                    ctx.fillRect(jugadores[i].position[0], jugadores[i].position[1] + jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[1] / 2);
+                    ctx.drawImage(per3, jugadores[i].position[0], jugadores[i].position[1] + jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[1] / 2);
                     break;
                 case 3:
-                    ctx.fillStyle = patterper4;
-                    ctx.fillRect(jugadores[i].position[0] + jugadores[i].dimensions[0] / 2, jugadores[i].position[1] + jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[1] / 2);
+                    ctx.drawImage(per4, jugadores[i].position[0] + jugadores[i].dimensions[0] / 2, jugadores[i].position[1] + jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[1] / 2);
                     break;
                 default:
             }

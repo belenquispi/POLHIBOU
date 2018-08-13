@@ -21,17 +21,23 @@ socket.on('ingresoJugadores', function (data) {
 function actualizacion() {
     document.getElementById("jugadoresConectados").innerText="";
     for(var i = 0 ; i < jugadoresConectados.length; i++){
+        var div0 = document.createElement("DIV");
+        div0.setAttribute("id", "cardI"+(i+1));
+        div0.setAttribute("class", "col-sm-3");
+        div0.setAttribute("style", "padding:10px");
+        document.getElementById("jugadoresConectados").appendChild(div0);
         var divCard = document.createElement("DIV");
         divCard.setAttribute("id", "card"+(i+1));
-        divCard.setAttribute("class", "card");
-        document.getElementById("jugadoresConectados").appendChild(divCard);
+        divCard.setAttribute("class", "card text-center");
+        document.getElementById("cardI"+(i+1)).appendChild(divCard);
         var divCard2 = document.createElement("DIV");
         divCard2.setAttribute("id", "cardB"+(i+1));
         divCard2.setAttribute("class", "card-body text-center");
         document.getElementById("card"+(i+1)).appendChild(divCard2);
         var img = document.createElement("IMG");
         img.setAttribute("id", "imagen"+(i+1));
-        img.setAttribute("src", "static/buhoInicial" + (jugadoresConectados[i].iconoEquipo) + ".gif");
+        img.setAttribute("src", "static/buho" + (jugadoresConectados[i].iconoEquipo) + ".gif");
+        img.setAttribute("class", "rounded mx-auto d-block");
         img.setAttribute("width", "50px");
         img.setAttribute("height", "50px");
         document.getElementById("card"+(i+1)).appendChild(img);
@@ -42,7 +48,6 @@ function actualizacion() {
         document.getElementById("card"+(i+1)).appendChild(h5);
     }
 }
-
 function unirPartida() {
     console.log("Hice clic ");
     socket.emit("iniciarPartida", document.getElementById('idPartida').value );

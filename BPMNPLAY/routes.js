@@ -58,9 +58,14 @@ exports.get_ingreso_profesor = function (req, res) {
     if (req.session.nombre) {
         Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
             var materias = [];
-            for (var i = 0; i < doc.materias.length; i++) {
-                materias.push(doc.materias[i].nombre);
 
+            for (var i = 0; i < doc.materias.length; i++) {
+                var materia = {
+                nombre : doc.materias[i].nombre,
+                tipo : doc.materias[i].tipo
+                };
+                materias.push(materia);
+                console.log(materias)
             }
             res.render('paginas/inicioProfesor', {
                 nombre: req.session.nombre,
@@ -127,7 +132,8 @@ exports.post_ingreso_materia = function (req, res) {
 
     Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
         var materia = {
-            nombre: req.body.nombreMateria
+            nombre: req.body.nombreMateria,
+            tipo: req.body.tipo
         }
         doc.materias.push(materia);
 

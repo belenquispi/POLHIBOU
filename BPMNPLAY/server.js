@@ -79,7 +79,7 @@ function Character(c, x, y, z) {
     this.timeMoved = 0;
     this.dimensions = [30, 30];
     this.position = [x, y];
-    this.delayMove = 100;
+    this.delayMove = 500;
     this.direction = directions.up;
     this.casilla = 0;
     this.iconoEquipo = c;
@@ -344,7 +344,13 @@ io.on('connection', function (socket) {
         var arrayJugadores = [];
 
         if (idPartida >= 0) {
-            arrayJugadores = partidas[idPartida].jugadores;
+            for(var i=0; i < partidas[idPartida].jugadores.length; i++)
+            {
+                if(partidas[idPartida].jugadores[i].listo == 0)
+                {
+                    arrayJugadores.push(partidas[idPartida].jugadores[i])
+                }
+            }
             socket.emit('confirmacionPartida', arrayJugadores)
         }
         else {
