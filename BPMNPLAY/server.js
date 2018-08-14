@@ -122,6 +122,8 @@ app.post('/eliminarUnirVoltear', routes.post_eliminar_unir_voltear);
 app.post('/agregarVariasUnirVoltear', routes.post_agregar_varias_unir_voltear);
 app.post('/lobby', routes.post_lobby);
 app.post('/lobbyParticipante', routes.post_lobby_pariticipante);
+app.post('/cambiarTipoMateria', routes.post_cambiar_tipo_materia);
+app.post('/eliminarMateria', routes.post_eliminar_materia);
 
 // Starts the server.
 server.listen(5000, function () {

@@ -24,8 +24,8 @@
     </div>
     <div class="row">
         <div class="card-columns">
-            <div class="card text-white bg-dark mb-3" style="height: 271px">
-                <h5 class="card-header">AGREGAR MATERIA</h5>
+            <div class="card text-white bg-dark mb-3" style="height: 285px">
+                <h5 class="card-header">Agregar Materia</h5>
                 <div class="card-body">
                     <form action="/ingresoMateria" method="post">
                         <div class="input-group mb-2">
@@ -66,36 +66,57 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-md-9">
+                            <div class="col-md-8">
                                 <h5><%= materias[i].nombre %></h5>
                             </div>
-                            <div class="col-md-1">
+                            <div class="col-md-2">
+                                <form action="/cambiarTipoMateria" method="post">
+                                    <input type="text" name="materia" value="<%=materias[i].nombre%>" hidden>
                                 <% if(materias[i].tipo == "privada")
                                 {
                                 %>
-                                    <i id="tipo<%=materias[i].nombre%>" class="fas fa-lock" onclick="cambiarTipo('<%=materias[i].nombre%>')"></i>
+                                <button class="btn btn-default" type="submit" id="boton<%=materias[i].nombre%>"><i class="fas fa-lock"></i></button>
                                 <%
                                 }
                                 else
                                 { %>
-                                    <i id="tipo<%=materias[i].nombre%>" class="fas fa-unlock" onclick="cambiarTipo('<%=materias[i].nombre%>')"></i>
+                                <button class="btn btn-default" type="submit" id="boton<%=materias[i].nombre%>"><i class="fas fa-unlock"></i></button>
                                 <%
                                 } %>
-
+                                </form>
                             </div>
-                            <div class="col-md-1">
-                                <i class="fas fa-trash-alt"></i>
+                            <div class="col-md-2">
+                                <form action="/eliminarMateria" method="post">
+                                    <input type="text" name="materia" value="<%=materias[i].nombre%>" hidden>
+                                    <button class="btn btn-default" type="button"><i class="fas fa-trash-alt" onclick="eliminarMateria('<%=materias[i].nombre%>')"></i></button>
+                                    <button id="botonEliminar<%=materias[i].nombre%>" type="submit" hidden></button>
+
+                                </form>
                             </div>
 
                         </div>
                     </div>
 
                     <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-10">
                         <a href="/ingresoProfesor/preguntasOpcionMultiple/<%= materias[i].nombre%>" class="btn btn-primary"
                            style="margin-bottom: 10px" id=<%= materias[i] %>><i class="far fa-list-alt"></i> Preguntas
                             Opción Multiple</a>
+                            </div>
+                            <div class="col-md-2">
+                              <a class="btn btn-primary" style="margin-bottom: 10px; color:white"><%= materias[i].numOpcionMultiple%></a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-10">
                         <a href="/ingresoProfesor/preguntasUnirVoltear/<%= materias[i].nombre%>" class="btn btn-info"
                            style="margin-bottom: 10px"><i class="fas fa-th"></i> Preguntas Unir Voltear</a>
+                            </div>
+                            <div class="col-md-2">
+                                <a class="btn btn-info" style="margin-bottom: 10px; color:white"><%= materias[i].numUnirVoltear%></a>
+                            </div>
+                        </div>
                         <a href="/ingresoProfesor/creacionPartida/<%= materias[i].nombre%>" class="btn btn-primary"
                            style="margin-bottom: 10px"><i class="fas fa-plus"></i> Crear Partidas</a>
                         <br>
@@ -103,7 +124,7 @@
                     </div>
                 </div>
             <% } %>
-            <div class="card" style="width:364.66px; height:258px">
+            <div class="card text-center" style="width:364.66px; height:287px; background: url('../../static/imagenes/iconoMas.png') no-repeat center ;" >
             </div>
         </div>
     </div>

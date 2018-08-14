@@ -61,8 +61,10 @@ exports.get_ingreso_profesor = function (req, res) {
 
             for (var i = 0; i < doc.materias.length; i++) {
                 var materia = {
-                nombre : doc.materias[i].nombre,
-                tipo : doc.materias[i].tipo
+                    nombre: doc.materias[i].nombre,
+                    tipo: doc.materias[i].tipo,
+                    numOpcionMultiple: doc.materias[i].preguntasOpcionMultiple.length,
+                    numUnirVoltear: doc.materias[i].preguntasUnirVoltear.length
                 };
                 materias.push(materia);
                 console.log(materias)
@@ -71,6 +73,7 @@ exports.get_ingreso_profesor = function (req, res) {
                 nombre: req.session.nombre,
                 usuario: req.session.usuario,
                 materias: materias
+
             });
 
         });
@@ -339,9 +342,13 @@ exports.get_creacion_partida = function (req, res) {
 };
 
 exports.post_tablero = function (req, res) {
-        console.log("body");
-        console.log(req.body);
-        res.render('paginas/tablero', {idPartida: req.body.idPartida, rol: req.body.rol, nombreEquipo: req.body.nombreEquipo});
+    console.log("body");
+    console.log(req.body);
+    res.render('paginas/tablero', {
+        idPartida: req.body.idPartida,
+        rol: req.body.rol,
+        nombreEquipo: req.body.nombreEquipo
+    });
 };
 
 exports.get_opcion_multiple = function (req, res) {
@@ -510,7 +517,7 @@ exports.post_agregar_varias_unir_voltear = function (req, res) {
 };
 
 exports.post_lobby = function (req, res) {
-    console.log("idPArtida: "+req.session.idPartida);
+    console.log("idPArtida: " + req.session.idPartida);
     if (req.session.usuario) {
         if (req.session.rol == "profesor") {
             var numeroEquipos = req.body.numeroEquipos;
@@ -568,7 +575,7 @@ exports.post_lobby_pariticipante = function (req, res) {
             nombreEquipo: req.body.nombreEquipo,
             codigoPartida: req.body.codigoPartida,
             tipoIngreso: req.body.tipoIngreso,
-            nombre : nombre
+            nombre: nombre
         });
     } else {
         res.send("Lo siento estas accediendo a un lugar donde no tienes acceso");
@@ -576,6 +583,59 @@ exports.post_lobby_pariticipante = function (req, res) {
 
 };
 
+exports.post_cambiar_tipo_materia = function (req, res) {
+    if (req.session.usuario && req.body.materia) {
+        Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
+            if (error) {
+                console.log("Error: " + error)
+            }
+            var indice = doc.materias.map(function (e) {
+                return e.nombre
+            }).indexOf(req.body.materia);
+
+            if (indice >= 0) {
+                if (doc.materias[indice].tipo == "publica") {
+                    doc.materias[indice].tipo = "privada";
+                }
+                else if (doc.materias[indice].tipo == "privada") {
+                    doc.materias[indice].tipo = "publica";
+                }
+                doc.save(function (err, docActualizado) {
+                    if (err) return console.log(err);
+                    res.redirect('/ingresoProfesor');
+                });
+            }
+        });
+    }
+    else {
+        res.redirect('/inicioSesion');
+    }
+};
+
+
+exports.post_eliminar_materia = function (req, res) {
+    if (req.session.usuario && req.body.materia) {
+        Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
+            if (error) {
+                console.log("Error: " + error)
+            }
+            var indice = doc.materias.map(function (e) {
+                return e.nombre
+            }).indexOf(req.body.materia);
+
+            if (indice >= 0) {
+                doc.materias.splice(indice, 1);
+                doc.save(function (err, docActualizado) {
+                    if (err) return console.log(err);
+                    res.redirect('/ingresoProfesor');
+                });
+            }
+        });
+    }
+    else {
+        res.redirect('/inicioSesion');
+    }
+};
 exports.salir = function (req, res) {
     req.session.usuario = null;
     res.redirect('/');

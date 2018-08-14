@@ -2,19 +2,6 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <style>
-        .subir{
-            padding: 5px 10px;
-            background: #f55d3e;
-            color:#fff;
-            border:0px solid #fff;
-        }
-        .subir:hover{
-            color:#fff;
-            background: #f7cb15;
-        }
-    </style>
-
     <% include ../parciales/head %>
     <title>Preguntas de Opción Múltiple</title>
 </head>
@@ -23,6 +10,14 @@
     <% include ../parciales/headerProfesor %>
 </header>
 
+<div class="container">
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="#">Materias</a></li>
+    </ol>
+</nav>
+</div>
 <div class="container">
     <div class="row">
         <h2>Ingreso de Pregunta Opción Múltiple </h2>
@@ -36,16 +31,10 @@
                        placeholder="Ingrese el enunciado de la pregunta" name="enunciado">
             </div>
             <div class="form-group col-md-4 mb-3">
-               <!-- <label for="botonArchivoEnunciado">Cargar imagen (opcional):</label>
+               <label for="botonArchivoEnunciado">Cargar imagen (opcional):</label>
                 <input type="file" class="btn btn-default btn-file" id="botonArchivoEnunciado" value="uploadEnunciado"
                        accept="image/*"
-                       onchange="mostrarVistaPreviaImagen(event, 'imagenCargadaEnunciado'), encodeImageFileAsURL(this)">-->
-                <br>
-                <label for="botonArchivoEnunciado" class="subir">
-                    <i class="fas fa-cloud-upload-alt"></i> Subir imagen (opcional)
-                </label>
-                <input id="botonArchivoEnunciado" type="file" style='display: none;' value="uploadEnunciado"
-                       accept="image/*" onchange="mostrarVistaPreviaImagen(event, 'imagenCargadaEnunciado'), encodeImageFileAsURL(this)"/>
+                       onchange="mostrarVistaPreviaImagen(event, 'imagenCargadaEnunciado'), encodeImageFileAsURL(this)">
                 <input type="text" hidden id="imagenEnunciado" name="imagenEnunciado">
             </div>
             <div class="form-group col-md-2">
@@ -89,9 +78,9 @@
             <div class="form-group col-md-6">
                 <label for="dificultad">Dificultad:</label>
                 <select id="dificultad" name="dificultad" required class="form-control">
-                    <option value="fácil">Fácil</option>
+                    <option value="facil">Fácil</option>
                     <option value="medio">Medio</option>
-                    <option value="difícil">Difícil</option>
+                    <option value="dificil">Difícil</option>
                 </select>
             </div>
 
@@ -110,7 +99,7 @@
         </div>
     </form>
 </div>
-</div>
-<script src="/static/js/preguntasOpcionMultiple.js"></script>
+
+<script type="text/javascript" src="/static/js/preguntasOpcionMultiple.js"></script>
 </body>
 </html>

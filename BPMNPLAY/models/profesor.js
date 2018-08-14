@@ -23,12 +23,14 @@ var profesorSchema = new Schema({
             imagenRes2 : String,
             imagenRes3 : String,
             imagenRes4 : String,
+            dificultad: String,
             respuestaCorrecta : String
         }],
         preguntasUnirVoltear : [{
             idUnirVoltear : String,
             texto : String,
-            imagen : String
+            imagen : String,
+            dificultad: String
         }]
     }]
 });
