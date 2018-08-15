@@ -15,8 +15,8 @@
 </header>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-        <li class="breadcrumb-item"><a href="#">Materias</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoProfesor">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoProfesor/">Materias</a></li>
     </ol>
 </nav>
 <div class="container">
@@ -25,28 +25,39 @@
     </div>
     <div class="row">
         <div class="card-columns">
+            <div class="card text-white bg-dark">
+                <h5 class="card-header">Agregar Pregunta</h5>
+                <div class="card-body">
+                    <div class="input-group mb-2 col-md-12">
+                        <a href="/ingresoProfesor/preguntasOpcionMultiple/<%=materia%>/ingresoOpcionMultiple/<%=materia%>" class="btn btn-info" style="margin-bottom: 10px"><i class="fas fa-plus"></i> Agregar Pregunta</a>
+                    </div>
+
+                </div>
+            </div>
             <%
             console.log("hola1: "+nombre);
             for(var i = 0; i<enunciadoPreguntas.length; i++) {%>
             <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5><%=enunciadoPreguntas[i] %></h5>
+                        </div>
+
+                    </div>
+                </div>
                 <div class="card-body">
-                    <h5 class="card-title">
-                        <%=enunciadoPreguntas[i]%>
-                    </h5>
+                    <div class="input-group mb-2 col-md-12">
                     <form action="/detalleOpcionMultiple" method="post">
                         <input type="text" name="idPregunta" hidden value=<%=idPreguntas[i]%>>
                         <input type="text" name="materia" hidden value=<%=materia%>>
-                        <input type="submit" class="btn btn-info" style="margin-bottom:10px" value="Ver Detalles" id=<%=enunciadoPreguntas[i]%> >
+                        <button id=<%=enunciadoPreguntas[i]%> type="submit" class="btn btn-info" style="margin-bottom:10px"> <i class="fas fa-info-circle"></i> Ver Detalles </button>
                     </form>
-                    <br>
+                    </div>
                 </div>
             </div>
             <%  }%>
-            <div class="card text-white bg-dark mb-3">
-                <div class="card-body">
-                        <h5 class="card-title">Agregar Pregunta</h5>
-                    <a href="/ingresoProfesor/preguntasOpcionMultiple/<%=materia%>/ingresoOpcionMultiple/<%=materia%>" class="btn btn-info" style="margin-bottom: 10px">Agregar Pregunta</a>
-                </div>
+            <div class="card text-center" style="width:366.66px; height:148px; background: url('../../static/imagenes/iconoPeque.png') no-repeat center ;" >
             </div>
         </div>
     </div>

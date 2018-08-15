@@ -9,15 +9,13 @@
 <header>
     <% include ../parciales/headerProfesor %>
 </header>
-
-<div class="container">
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-        <li class="breadcrumb-item"><a href="#">Materias</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoProfesor">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoProfesor/">Materias</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoProfesor/preguntasOpcionMultiple/<%= materia %>">Preguntas</a></li>
     </ol>
 </nav>
-</div>
 <div class="container">
     <div class="row">
         <h2>Ingreso de Pregunta Opción Múltiple </h2>
@@ -78,9 +76,9 @@
             <div class="form-group col-md-6">
                 <label for="dificultad">Dificultad:</label>
                 <select id="dificultad" name="dificultad" required class="form-control">
-                    <option value="facil">Fácil</option>
-                    <option value="medio">Medio</option>
-                    <option value="dificil">Difícil</option>
+                    <option value="Fácil">Fácil</option>
+                    <option value="Medio">Medio</option>
+                    <option value="Difícil">Difícil</option>
                 </select>
             </div>
 

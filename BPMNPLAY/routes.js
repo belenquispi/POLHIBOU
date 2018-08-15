@@ -231,6 +231,7 @@ exports.post_preguntas_opcion = function (req, res) {
         var preguntaOpcionMultiple = {
             enunciado: req.body.enunciado,
             respuestaCorrecta: req.body.respuestaCorrecta,
+            dificultad: req.body.dificultad,
             idOpcionMultiple: generarNombre()
         };
 
@@ -308,6 +309,7 @@ exports.post_detalle_opcion_multiple = function (req, res) {
                 imagenRes2: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].imagenRes2,
                 imagenRes3: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].imagenRes3,
                 imagenRes4: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].imagenRes4,
+                dificultad: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].dificultad,
                 respuestaCorrecta: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].respuestaCorrecta
             }
             console.log("pregunta Oppppp");
@@ -384,17 +386,20 @@ exports.get_preguntas_unir_voltear = function (req, res) {
             var idPreguntas = [];
             var textoPreguntas = [];
             var imagenPreguntas = [];
+            var dificultades = [];
             for (var i = 0; i < doc.materias[indice].preguntasUnirVoltear.length; i++) {
                 idPreguntas.push(doc.materias[indice].preguntasUnirVoltear[i].idUnirVoltear);
                 textoPreguntas.push(doc.materias[indice].preguntasUnirVoltear[i].texto);
                 imagenPreguntas.push(doc.materias[indice].preguntasUnirVoltear[i].imagen);
+                dificultades.push(doc.materias[indice].preguntasUnirVoltear[i].dificultad);
             }
             res.render('paginas/listaPreguntasUnirVoltear', {
                 nombre: req.session.nombre,
                 materia: req.params.materia,
                 idPreguntas: idPreguntas,
                 textoPreguntas: textoPreguntas,
-                imagenPreguntas: imagenPreguntas
+                imagenPreguntas: imagenPreguntas,
+                dificultades : dificultades
             });
         });
     }
@@ -418,7 +423,8 @@ exports.post_agregar_unir_voltear = function (req, res) {
             var preguntaUnir = {
                 idUnirVoltear: generarNombre(),
                 texto: req.body.nombreImagen,
-                imagen: req.body.imagenUnir
+                imagen: req.body.imagenUnir,
+                dificultad : req.body.dificultad
             }
 
             if (indice >= 0) {

@@ -102,7 +102,7 @@ app.get('/', routes.get_inicio);
 app.get('/inicioSesion', routes.get_inicio_sesion);
 app.post('/creacionCuenta', routes.post_creacion_cuenta);
 app.post('/ingreso', routes.post_inicio_sesion);
-app.get('/ingresoProfesor/', routes.get_ingreso_profesor);
+app.get('/ingresoProfesor', routes.get_ingreso_profesor);
 app.get('/ingresoEstudiante', routes.get_ingreso_estudiante);
 app.get('/salir', routes.salir);
 app.post('/tablero', routes.post_tablero);

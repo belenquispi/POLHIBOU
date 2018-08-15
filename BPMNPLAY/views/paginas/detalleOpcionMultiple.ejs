@@ -80,7 +80,33 @@
         </div>
         <%}%>
         <div class="form-row" id="divRespuestas">
-            <div class="form-group col-md-3"></div>
+            <div class="form-group col-md-6">
+                <label for="dificultad" >Dificultad:</label>
+                <select id="dificultad" name="dificultad" class="form-control">
+                    <% switch(preguntaOpcionMultiple.dificultad){
+                    case "Fácil":%>
+                    <option  value="Fácil" selected>Fácil </option>
+                    <option  value="Medio" >Medio </option>
+                    <option  value="Difícil" >Difícil </option>
+                    <%
+                        break;
+                    case "Medio":
+                        %>
+                    <option  value="Fácil" >Fácil </option>
+                    <option  value="Medio" selected >Medio </option>
+                    <option  value="Difícil" >Difícil </option>
+                    <%
+                        break;
+                    case "Difícil":
+                    %>
+                    <option  value="Fácil" >Fácil </option>
+                    <option  value="Medio" >Medio </option>
+                    <option  value="Difícil" selected >Difícil </option>
+                    <% break;
+                    }
+                    %>
+                </select>
+            </div>
             <div class="form-group col-md-6">
                 <label for="resCorrecta" >Respuesta correcta:</label>
                 <select id="resCorrecta" name="respuestaCorrecta" class="form-control">
@@ -93,10 +119,9 @@
                 </select>
             </div>
             <div class="form-group col-md-3"></div>
-            <div class="form-group col-md-3"></div>
             <div class="form-group col-md-6">
-                <button type="submit" id="botonActualizar" class="btn btn-info" >Actualizar</button>
-                <a href="/ingresoProfesor/eliminarPreguntaOpcionMultiple/<%=materia%>&<%=preguntaOpcionMultiple.idOpcionMultiple%>" id="botonEliminar" class="btn btn-danger" >Eliminar</a>
+                <button type="submit" id="botonActualizar" class="btn btn-info" ><i class="fas fa-sync-alt"></i> Actualizar</button>
+                <a href="/ingresoProfesor/eliminarPreguntaOpcionMultiple/<%=materia%>&<%=preguntaOpcionMultiple.idOpcionMultiple%>" id="botonEliminar" class="btn btn-danger" ><i class="fas fa-trash-alt"></i> Eliminar</a>
             </div>
             <div class="form-group col-md-3"></div>
 
