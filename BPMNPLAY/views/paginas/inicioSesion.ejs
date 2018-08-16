@@ -6,12 +6,6 @@
     <% include ../parciales/head %>
     <title>Title</title>
     <script src="/socket.io/socket.io.js"></script>
-    <style>
-        .custom-file-text {
-            en: "Browse";
-            es: "Elegir"
-        }
-    </style>
 </head>
 <body>
 <header>
@@ -39,8 +33,7 @@
                                     <div class="input-group-text"><i class="fas fa-user"></i></div>
                                 </div>
                                 <input type="text" name="usuario" id="usuario" tabindex="1"
-                                       class="form-control is-invalid" required placeholder="Usuario"
-                                       value=<%= usuario %>>
+                                       class="form-control is-invalid" required placeholder="Usuario">
                             </div>
                            <div class="input-group mb-2">
                             <div class="input-group-prepend">

@@ -102,19 +102,19 @@ app.get('/', routes.get_inicio);
 app.get('/inicioSesion', routes.get_inicio_sesion);
 app.post('/creacionCuenta', routes.post_creacion_cuenta);
 app.post('/ingreso', routes.post_inicio_sesion);
-app.get('/ingresoProfesor', routes.get_ingreso_profesor);
-app.get('/ingresoEstudiante', routes.get_ingreso_estudiante);
+app.get('/ingresoFacilitador', routes.get_ingreso_profesor);
+app.get('/ingresoParticipante', routes.get_ingreso_estudiante);
 app.get('/salir', routes.salir);
 app.post('/tablero', routes.post_tablero);
-app.get('/ingresoProfesor/preguntasOpcionMultiple/:materia/ingresoOpcionMultiple/:materia', routes.get_opcion_multiple);
+app.get('/ingresoFacilitador/preguntasOpcionMultiple/:materia/ingresoOpcionMultiple/:materia', routes.get_opcion_multiple);
 app.get('/unirVoltear/:materia', routes.get_unir_voltear);
 //app.get('/unirVoltear', routes.get_unir_voltear);
-app.get('/ingresoProfesor/creacionPartida/:materia', routes.get_creacion_partida);
+app.get('/ingresoFacilitador/creacionPartida/:materia', routes.get_creacion_partida);
 app.post('/ingresoMateria', routes.post_ingreso_materia);
-app.get('/ingresoProfesor/preguntasOpcionMultiple/:materia', routes.get_preguntas_opcion);
-app.get('/ingresoProfesor/preguntasUnirVoltear/:materia', routes.get_preguntas_unir_voltear);
-app.post('/ingresoProfesor/preguntasOpcionMultiple', routes.post_preguntas_opcion);
-app.get('/ingresoProfesor/eliminarPreguntaOpcionMultiple/:idMateria', routes.get_eliminar_pregunta_opcion);
+app.get('/ingresoFacilitador/preguntasOpcionMultiple/:materia', routes.get_preguntas_opcion);
+app.get('/ingresoFacilitador/preguntasUnirVoltear/:materia', routes.get_preguntas_unir_voltear);
+app.post('/ingresoFacilitador/preguntasOpcionMultiple', routes.post_preguntas_opcion);
+app.get('/ingresoFacilitador/eliminarPreguntaOpcionMultiple/:idMateria', routes.get_eliminar_pregunta_opcion);
 app.post('/detalleOpcionMultiple', routes.post_detalle_opcion_multiple);
 app.get('/ingresoPartida', routes.get_ingreso_partida);
 app.post('/agregarUnirVoltear', routes.post_agregar_unir_voltear);
@@ -124,6 +124,8 @@ app.post('/lobby', routes.post_lobby);
 app.post('/lobbyParticipante', routes.post_lobby_pariticipante);
 app.post('/cambiarTipoMateria', routes.post_cambiar_tipo_materia);
 app.post('/eliminarMateria', routes.post_eliminar_materia);
+app.get('/validarCuenta', routes.get_validar_cuenta);
+app.post('/confirmarCuenta', routes.post_confirmar_cuenta);
 
 // Starts the server.
 server.listen(5000, function () {

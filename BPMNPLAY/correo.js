@@ -10,8 +10,8 @@ var transporter;
 var mailOptions = {
     from: administrador.correo,
     to: '',
-    subject: 'Actualización contraseña',
-    html: '<h1>Welcome</h1><p>That was easy!</p>'
+    subject: '',
+    html: ''
 };
 
 function inicio() {
@@ -26,28 +26,34 @@ function inicio() {
     });
 }
 
-setTimeout(function(){ console.log("Ya consulte");
-    console.log(administrador); inicio(); }, 3000);
-        Usuario.findOne({usuario: "polhibou@gmail.com"}, function (error, doc) {
-            if (error) {
-                console.log("Error: " + error)
-            }
-            else {
-                console.log(doc);
-                while (administrador.correo == '') {
-                    administrador.correo = doc.usuario;
-                    administrador.contrasenia = doc.contrasenia
-                } }
-        });
+setTimeout(function () {
+    console.log("Ya consulte");
+    console.log(administrador);
+    inicio();
+}, 3000);
+Usuario.findOne({usuario: "polhibou@gmail.com"}, function (error, doc) {
+    if (error) {
+        console.log("Error: " + error)
+    }
+    else {
+        console.log(doc);
+        while (administrador.correo == '') {
+            administrador.correo = doc.usuario;
+            administrador.contrasenia = doc.contrasenia
+        }
+    }
+});
 
 
-exports.inicio = function(){
+exports.inicio = function () {
     console.log("llenar datos");
 }
-exports.enviarCorreo = function(mail) {
+
+exports.enviarCorreo = function (mail, codigo) {
     mailOptions.to = mail;
+    mailOptions.subject = 'Verificación de cuenta';
+    mailOptions.html = '<h1>Estimado usuario</h1><p>Su código de verificación es: </p><strong>'+codigo+'</strong>';
     console.log(mailOptions);
-  transporter.sendMail(mailOptions);
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
             console.log(error);

@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 //Conexion al servidor
 mongoose.connect('mongodb://localhost:27017/polibou', { useNewUrlParser: true });
 
-var rol = ["profesor", "estudiante"];
+var rol = ["facilitador", "participante"];
 var validacion_contrasenia = {
     validator: function (p) {
         return this.contrasenia_confirmada == p;
@@ -17,6 +17,7 @@ var usuarioSchema = new Schema({
     usuario: {type : String, required : true},
     nombre: {type :String, required : true},
     contrasenia: { type :String},
+    codigoVerificacion: {type : String},
     rol : {type :String, enum: {values: rol, message:"Opción no válida"},required : true}
 });
 
