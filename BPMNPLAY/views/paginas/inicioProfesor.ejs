@@ -12,7 +12,7 @@
 </header>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/ingresoProfesor">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoFacilitador">Inicio</a></li>
     </ol>
 </nav>
 <div class="container">
@@ -101,7 +101,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-10">
-                        <a href="/ingresoProfesor/preguntasOpcionMultiple/<%= materias[i].nombre%>" class="btn btn-primary"
+                        <a href="/ingresoFacilitador/preguntasOpcionMultiple/<%= materias[i].nombre%>" class="btn btn-primary"
                            style="margin-bottom: 10px" id=<%= materias[i] %>><i class="far fa-list-alt"></i> Preguntas
                             Opción Multiple</a>
                             </div>
@@ -111,14 +111,14 @@
                         </div>
                         <div class="row">
                             <div class="col-md-10">
-                        <a href="/ingresoProfesor/preguntasUnirVoltear/<%= materias[i].nombre%>" class="btn btn-info"
+                        <a href="/ingresoFacilitador/preguntasUnirVoltear/<%= materias[i].nombre%>" class="btn btn-info"
                            style="margin-bottom: 10px"><i class="fas fa-th"></i> Preguntas Unir Voltear</a>
                             </div>
                             <div class="col-md-2">
                                 <a class="btn btn-info" style="margin-bottom: 10px; color:white"><%= materias[i].numUnirVoltear%></a>
                             </div>
                         </div>
-                        <a href="/ingresoProfesor/creacionPartida/<%= materias[i].nombre%>" class="btn btn-primary"
+                        <a href="/ingresoFacilitador/creacionPartida/<%= materias[i].nombre%>" class="btn btn-primary"
                            style="margin-bottom: 10px"><i class="fas fa-plus"></i> Crear Partidas</a>
                         <br>
                         <a href="#" class="btn btn-success"> <i class="fas fa-chart-bar"></i> Estadísticas</a>

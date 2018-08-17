@@ -126,6 +126,10 @@ app.post('/cambiarTipoMateria', routes.post_cambiar_tipo_materia);
 app.post('/eliminarMateria', routes.post_eliminar_materia);
 app.get('/validarCuenta', routes.get_validar_cuenta);
 app.post('/confirmarCuenta', routes.post_confirmar_cuenta);
+app.post('/retosMateria', routes.post_retos_materia);
+app.post('/mostrarOpcionMultiple', routes.post_mostrar_opcion);
+app.post('/mostrarEmparejar', routes.post_mostrar_emparejar);
+app.post('/mostrarUnirVoltear', routes.post_mostrar_unir);
 
 // Starts the server.
 server.listen(5000, function () {

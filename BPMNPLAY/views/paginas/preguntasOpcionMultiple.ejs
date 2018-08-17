@@ -11,16 +11,16 @@
 </header>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/ingresoProfesor">Inicio</a></li>
-        <li class="breadcrumb-item"><a href="/ingresoProfesor/">Materias</a></li>
-        <li class="breadcrumb-item"><a href="/ingresoProfesor/preguntasOpcionMultiple/<%= materia %>">Preguntas</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoFacilitador">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoFacilitador/">Materias</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoFacilitador/preguntasOpcionMultiple/<%= materia %>">Preguntas</a></li>
     </ol>
 </nav>
 <div class="container">
     <div class="row">
         <h2>Ingreso de Pregunta Opción Múltiple </h2>
     </div>
-    <form action="/ingresoProfesor/preguntasOpcionMultiple" method="post" onmouseover="verificarBotonGuardar()">
+    <form action="/ingresoFacilitador/preguntasOpcionMultiple" method="post" onmouseover="verificarBotonGuardar()">
         <div class="form-row">
             <input type="text" name="materia" value="<%= materia %>" hidden>
             <div class="form-group col-md-6 mb-3">

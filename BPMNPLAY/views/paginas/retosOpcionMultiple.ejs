@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html"/>
+    <link rel="stylesheet" type="text/css" href="static/css/estilos.css">
+    <% include ../parciales/head %>
+
+    <title>Desafío Opción Múltiple</title>
+</head>
+<body>
+<header>
+    <% include ../parciales/headerEstudiante %>
+</header>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/ingresoParticipante">Inicio</a></li>
+    </ol>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-md-7">
+            <div class="row">
+                <div class="flip3D">
+                    <div id="tarjeta" class="front disabledbutton" onclick="darLaVuelta()"></div>
+                    <div id="desafios" class="back container-fluid col-md-12" hidden>
+                        <h1 id="tipoJuego">Tipo de Juego</h1>
+                        <div id="opcionMultiple" class="row" hidden>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <h4><p id="enunciado"></p></h4>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <img id="imagenEnunciado" src="static/imagenes/vacio.png" class="img-rounded"
+                                             height="50"
+                                             width="50">
+                                    </div>
+                                </div>
+                                <div class="row" id="divRespuestasOpcionMultiple" hidden>
+                                    <div class="container-fluid">
+                                        <div class="row unir">
+                                            <div class="col-md-6" id="puesto1"></div>
+                                            <div class="col-md-6" id="puesto2"></div>
+                                        </div>
+                                        <div class="row unir">
+                                            <div class="col-md-6" id="puesto3"></div>
+                                            <div class="col-md-6" id="puesto4"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+</div>
+</body>
+</html>

@@ -7,6 +7,7 @@ mongoose.connect('mongodb://localhost:27017/polibou', { useNewUrlParser: true })
 // Creacion del esquema
 var profesorSchema = new Schema({
     usuario: String,
+    nombre : String,
     materias : [{
         idMateria : String,
         nombre: String,

@@ -39,8 +39,12 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <a href="#" class="btn btn-success"> <i class="fas fa-chart-bar"></i> Ir a desafíos</a>
-                    <a href="#" class="btn btn-success"> <i class="fas fa-chart-bar"></i> Estadísticas</a>
+                <h5>    <strong>Facilitador: </strong><%= materias[i].facilitador %></h5>
+                    <form action="/retosMateria" method="post">
+                    <button type="submit" class="btn btn-success"><i class="fas fa-hourglass-start"></i> Ir a desafíos</button>
+                        <input type="text" name="facilitador" value="<%= materias[i].facilitador %>" hidden >
+                        <input type="text" name="materia" value="<%= materias[i].nombre %>" hidden >
+                    </form>
                 </div>
             </div>
             <% } %>

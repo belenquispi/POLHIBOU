@@ -144,6 +144,7 @@ exports.get_ingreso_estudiante = function (req, res) {
 
             var profesor = new Profesor({
                 usuario: req.body.usuario,
+                nombre: req.body.nombre
             })
 
             profesor.save(function (error) {
@@ -154,6 +155,7 @@ exports.get_ingreso_estudiante = function (req, res) {
 
                 var estudiante = new Estudiante({
                     usuario: req.body.usuario,
+                    nombre: req.body.nombre
                 })
 
                 estudiante.save(function (error) {
@@ -718,6 +720,71 @@ exports.get_ingreso_estudiante = function (req, res) {
             res.redirect('/')
         }
     };
+
+exports.post_retos_materia = function(req,res)
+{
+    if (req.session.usuario && req.body.materia && (req.session.rol == "participante")) {
+        res.render('paginas/retosEstudiante',{
+            nombre : req.session.nombre,
+            facilitador : req.body.facilitador,
+            materia : req.body.materia
+
+        })
+    }
+    else
+    {
+        res.redirect('/')
+    }
+}
+
+
+exports.post_mostrar_opcion = function(req,res)
+{
+    if (req.session.usuario && req.body.materia && (req.session.rol == "participante")) {
+        res.render('paginas/retosOpcionMultiple',{
+           // nombre : req.session.nombre,
+            //facilitador : req.body.facilitador,
+            //materia : req.body.materia
+
+        })
+    }
+    else
+    {
+        res.redirect('/')
+    }
+}
+exports.post_mostrar_emparejar = function(req,res)
+{
+    if (req.session.usuario && req.body.materia && (req.session.rol == "participante")) {
+        res.render('paginas/retosEmparejar',{
+            /*nombre : req.session.nombre,
+            facilitador : req.body.facilitador,
+            materia : req.body.materia*/
+
+        })
+    }
+    else
+    {
+        res.redirect('/')
+    }
+}
+
+exports.post_mostrar_unir = function(req,res)
+{
+    if (req.session.usuario && req.body.materia && (req.session.rol == "participante")) {
+        res.render('paginas/retosUnir',{
+           /* nombre : req.session.nombre,
+            facilitador : req.body.facilitador,
+            materia : req.body.materia*/
+
+        })
+    }
+    else
+    {
+        res.redirect('/')
+    }
+}
+
 
     function generarNombre() {
         return Math.floor((1 + Math.random()) * 0x10000)
