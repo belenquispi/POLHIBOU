@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html"/>
-    <link rel="stylesheet" type="text/css" href="static/css/estilos.css">
     <% include ../parciales/head %>
 
     <title>Desafío Opción Múltiple</title>
@@ -18,43 +17,96 @@
 </nav>
 <div class="container">
     <div class="row">
-        <div class="col-md-7">
-            <div class="row">
-                <div class="flip3D">
-                    <div id="tarjeta" class="front disabledbutton" onclick="darLaVuelta()"></div>
-                    <div id="desafios" class="back container-fluid col-md-12" hidden>
-                        <h1 id="tipoJuego">Tipo de Juego</h1>
-                        <div id="opcionMultiple" class="row" hidden>
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-md-9">
-                                        <h4><p id="enunciado"></p></h4>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <img id="imagenEnunciado" src="static/imagenes/vacio.png" class="img-rounded"
-                                             height="50"
-                                             width="50">
-                                    </div>
-                                </div>
-                                <div class="row" id="divRespuestasOpcionMultiple" hidden>
-                                    <div class="container-fluid">
-                                        <div class="row unir">
-                                            <div class="col-md-6" id="puesto1"></div>
-                                            <div class="col-md-6" id="puesto2"></div>
-                                        </div>
-                                        <div class="row unir">
-                                            <div class="col-md-6" id="puesto3"></div>
-                                            <div class="col-md-6" id="puesto4"></div>
-                                        </div>
-                                    </div>
-                                </div>
+        <h1 id="tipoJuego">Opción Múltiple</h1>
+    </div>
+    <div class="row">
+        <form action="/validarRespuestaOpcionMultiple" method="post">
+            <div class="col-md-7">
+                <% for(var i = 0; i < preguntas.length; i++) { %>
+                <input type="text" hidden name="idPregunta" value="<%= preguntas[i]._id %>">
+                <div class="row border border-info rounded" style="margin-bottom: 10px">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <h4 id="enunciado<%= i %>"><%= preguntas[i].enunciado %></h4>
+                            </div>
+                            <div class="col-md-2">
+                                <% if(preguntas[i].imagenEnunciado) { %>
+                                    <img id="imagenEnunciado<%= i %>" src="<%= preguntas[i].imagenEnunciado %>"
+                                         class="img-rounded"
+                                         height="50" width="50">
+                                <% } %>
                             </div>
                         </div>
+                        <% if(preguntas[i].imagenRes1) { %>
+                            <div class="row">
+                                <div class="col-md-6 text-center">
+                                    <button type="button" id="botonImagen<%= i %>Res1" class="btn btn-light"
+                                            style="margin-bottom: 10px">
+                                        <img id="imagenEnunciado<%= i %>"
+                                             src="<%= preguntas[i].imagenRes1 %>"
+                                             class="img-rounded" height="50" width="50"></button>
+
+                                </div>
+                                <div class="col-md-6 text-center">
+                                    <button type="button" id="botonImagen<%= i %>Res2" class="btn btn-light"
+                                            style="margin-bottom: 10px">
+                                        <img id="imagenEnunciado<%= i %>"
+                                             src="<%= preguntas[i].imagenRes2 %>"
+                                             class="img-rounded" height="50" width="50"></button>
+
+                                </div>
+                                <div class="col-md-6 text-center">
+                                    <button type="button" id="botonImagen<%= i %>Res3" class="btn btn-light"
+                                            style="margin-bottom: 10px">
+                                        <img id="imagenEnunciado<%= i %>"
+                                             src="<%= preguntas[i].imagenRes3 %>"
+                                             class="img-rounded" height="50" width="50"></button>
+
+                                </div>
+                                <div class="col-md-6 text-center">
+                                    <button type="button" id="botonImagen<%= i %>Res4" class="btn btn-light"
+                                            style="margin-bottom: 10px">
+                                        <img id="imagenEnunciado<%= i %>"
+                                             src="<%= preguntas[i].imagenRes4 %>"
+                                             class="img-rounded" height="50" width="50"></button>
+
+                                </div>
+                            </div>
+                        <% } else { %>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button  type="button"id="botonTexto<%= i %>Res1" class="btn btn-light btn-block"
+                                            style="margin-bottom: 10px"><%= preguntas[i].res1 %>
+                                    </button>
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="button" id="botonTexto<%= i %>Res2" class="btn btn-light btn-block"
+                                            style="margin-bottom: 10px"><%= preguntas[i].res2 %>
+                                    </button>
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="button" id="botonTexto<%= i %>Res3" class="btn btn-light btn-block"
+                                            style="margin-bottom: 10px"><%= preguntas[i].res3 %>
+                                    </button>
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="button" id="botonTexto<%= i %>Res4" class="btn btn-light btn-block"
+                                            style="margin-bottom: 10px"><%= preguntas[i].res4 %>
+                                    </button>
+                                </div>
+                            </div>
+                        <% } %>
                     </div>
                 </div>
+
+                <% } %>
             </div>
-        </div>
-        <div class="col-md-5"></div>
+            <div class="col-md-5"></div>
+            <div class="col-md-7 text-center">
+                <button type="submit" class="btn btn-primary">Enviar respuestas</button>
+            </div>
+        </form>
     </div>
 </div>
 </body>
