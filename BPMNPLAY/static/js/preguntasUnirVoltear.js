@@ -80,12 +80,47 @@ function generarDatosPregunta (numero) {
         var br = document.createElement("BR");
         document.getElementById("form-group-img2-"+ (i + 1)).appendChild(br);
 
-
         var imagen = document.createElement("IMG");
         imagen.setAttribute("id", "imagen" + (i + 1));
         imagen.setAttribute("width", "50" );
         imagen.setAttribute("height", "50");
         document.getElementById("form-group-img2-"+ (i + 1)).appendChild(imagen);
+
+        var divDificultad = document.createElement("DIV");
+        divDificultad.setAttribute("class", "form-group col-md-2 mb-3");
+        divDificultad.setAttribute("id", "form-group-dif-" + (i + 1));
+        document.getElementById("divPreguntas").appendChild(divDificultad);
+
+        var labelDificultad = document.createElement("LABEL");
+        labelDificultad.setAttribute("for", "dificultad" + (i + 1));
+        labelDificultad.setAttribute("id","labelDificultad"+(i+1));
+        document.getElementById("form-group-dif-" + (i + 1)).appendChild(labelDificultad);
+        document.getElementById('labelDificultad' + (i + 1)).innerHTML = "Dificultad"+ (i + 1);
+
+        var selectDificultad = document.createElement("SELECT");
+        selectDificultad.setAttribute("id", "dificultad"+ (i + 1));
+        selectDificultad.setAttribute("name", "dificultad"+ (i + 1));
+        selectDificultad.setAttribute("class", "form-control");
+        document.getElementById("form-group-dif-" + (i + 1)).appendChild(selectDificultad);
+
+        var facil = document.createElement("option");
+        facil.setAttribute("value", "Fácil");
+        var t = document.createTextNode("Fácil");
+        facil.appendChild(t);
+        document.getElementById("dificultad"+ (i + 1)).appendChild(facil);
+
+        var medio = document.createElement("option");
+        medio.setAttribute("value", "Medio");
+        var u = document.createTextNode("Medio");
+        medio.appendChild(u);
+        document.getElementById("dificultad"+ (i + 1)).appendChild(medio);
+
+        var dificil = document.createElement("option");
+        dificil.setAttribute("value", "Difícil");
+        var v = document.createTextNode("Difícil");
+        dificil.appendChild(v);
+        document.getElementById("dificultad"+ (i + 1)).appendChild(dificil);
+
 
     }
     document.getElementById("botonGuardarUnirVoltear").removeAttribute("hidden");

@@ -64,14 +64,81 @@ exports.post_inicio_sesion = function (req, res) {
 exports.get_ingreso_profesor = function (req, res) {
     if (req.session.nombre) {
         Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
+
             var materias = [];
 
             for (var i = 0; i < doc.materias.length; i++) {
+                var facilOpcion=0;
+                var medioOpcion=0;
+                var dificilOpcion =0;
+                var facilUnir=0;
+                var medioUnir=0;
+                var dificilUnir =0;
+                var boolOpcion = false;
+                var boolUnir = false;
+                for (var j=0;j<doc.materias[i].preguntasOpcionMultiple.length; j++)
+                {
+                    if(doc.materias[i].preguntasOpcionMultiple[j].dificultad == "Fácil")
+                    {
+                        facilOpcion++;
+                        console.log("sumando 1 fa op")
+                    }
+                    else
+                    {
+                        if(doc.materias[i].preguntasOpcionMultiple[j].dificultad == "Medio")
+                        {
+                            medioOpcion++;
+                            console.log("sumando 1 me op")
+                        }
+                        else
+                        {
+                            if(doc.materias[i].preguntasOpcionMultiple[j].dificultad == "Difícil") {
+                                dificilOpcion++;
+                                console.log("sumando 1 di op")
+                            }
+                        }
+                    }
+                }
+                for (var k=0;k<doc.materias[i].preguntasUnirVoltear.length; k++)
+                {
+                    if(doc.materias[i].preguntasUnirVoltear[k].dificultad == "Fácil")
+                    {
+                        facilUnir++;
+                        console.log("sumando 1 fa")
+                    }
+                    else
+                    {
+                        if(doc.materias[i].preguntasUnirVoltear[k].dificultad == "Medio")
+                        {
+                            medioUnir++;
+                            console.log("sumando 1 me")
+                        }
+                        else
+                        {
+                            if(doc.materias[i].preguntasUnirVoltear[k].dificultad == "Difícil") {
+                                dificilUnir++;
+                                console.log("sumando 1 dif")
+                            }
+                        }
+                    }
+                }
+                if(facilOpcion <5 || medioOpcion <5 || dificilOpcion <5)
+                {
+                   boolOpcion = true
+                }
+                if(facilUnir <8 || medioUnir <8 || dificilUnir <8)
+                {
+                    boolUnir = true
+                }
+
                 var materia = {
                     nombre: doc.materias[i].nombre,
                     tipo: doc.materias[i].tipo,
                     numOpcionMultiple: doc.materias[i].preguntasOpcionMultiple.length,
-                    numUnirVoltear: doc.materias[i].preguntasUnirVoltear.length
+                    numUnirVoltear: doc.materias[i].preguntasUnirVoltear.length,
+                    boolOpcion: boolOpcion,
+                    boolUnir : boolUnir
+
                 };
                 materias.push(materia);
                 console.log(materias)
@@ -194,15 +261,18 @@ exports.get_preguntas_opcion = function (req, res) {
             }).indexOf(req.params.materia);
             var idPreguntas = [];
             var enunciadoPreguntas = [];
+            var dificultadPreguntas = [];
             for (var i = 0; i < doc.materias[indice].preguntasOpcionMultiple.length; i++) {
                 idPreguntas.push(doc.materias[indice].preguntasOpcionMultiple[i].idOpcionMultiple);
                 enunciadoPreguntas.push(doc.materias[indice].preguntasOpcionMultiple[i].enunciado);
+                dificultadPreguntas.push(doc.materias[indice].preguntasOpcionMultiple[i].dificultad);
             }
             res.render('paginas/listaPreguntaOpcionMultiple', {
                 nombre: req.session.nombre,
                 materia: req.params.materia,
                 idPreguntas: idPreguntas,
-                enunciadoPreguntas: enunciadoPreguntas
+                enunciadoPreguntas: enunciadoPreguntas,
+                dificultades : dificultadPreguntas
             });
 
 
@@ -754,7 +824,7 @@ exports.post_mostrar_opcion = function (req, res) {
 
             for (var i = 0; i < 5; i++) {
                 var indice = Math.floor(Math.random() * doc.materias[indiceMateria].preguntasOpcionMultiple.length);
-                while (indices.indexOf(indice) >= 0 && indices.length < doc.materias[indiceMateria].preguntasOpcionMultiple.length) {
+                while (indices.indexOf(indice) >= 0 || doc.materias[indiceMateria].preguntasOpcionMultiple[indice].dificultad != req.body.dificultad) {
                     indice = Math.floor(Math.random() * doc.materias[indiceMateria].preguntasOpcionMultiple.length);
                 }
                 indices.push(indice);
@@ -765,21 +835,6 @@ exports.post_mostrar_opcion = function (req, res) {
                 nombre: req.session.nombre,
                 preguntas: preguntas
             })
-            /* var preguntaOpcionMultiple = {
-                 enunciado: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].enunciado,
-                 imagenEnunciado: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].imagenEnunciado,
-                 idOpcionMultiple: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].idOpcionMultiple,
-                 res1: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].res1,
-                 res2: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].res2,
-                 res3: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].res3,
-                 res4: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].res4,
-                 imagenRes1: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].imagenRes1,
-                 imagenRes2: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].imagenRes2,
-                 imagenRes3: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].imagenRes3,
-                 imagenRes4: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].imagenRes4,
-                 dificultad: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].dificultad,
-                 respuestaCorrecta: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].respuestaCorrecta
-             }*/
         });
     }
     else {

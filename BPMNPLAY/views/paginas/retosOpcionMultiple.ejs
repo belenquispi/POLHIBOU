@@ -40,60 +40,80 @@
                         </div>
                         <% if(preguntas[i].imagenRes1) { %>
                             <div class="row">
-                                <div class="col-md-6 text-center">
-                                    <button type="button" id="botonImagen<%= i %>Res1" class="btn btn-light"
-                                            style="margin-bottom: 10px">
-                                        <img id="imagenEnunciado<%= i %>"
-                                             src="<%= preguntas[i].imagenRes1 %>"
-                                             class="img-rounded" height="50" width="50"></button>
-
+                                <div class="col-md-1">
+                                    <input id="botonTexto<%= i %>Res1" type="radio" name="respuestaSeleccionada<%= i %>" value="res1">
                                 </div>
-                                <div class="col-md-6 text-center">
-                                    <button type="button" id="botonImagen<%= i %>Res2" class="btn btn-light"
-                                            style="margin-bottom: 10px">
+                                <div class="col-md-5 text-center">
+                                    <label for="botonTexto<%= i %>Res1">
+                                    <img id="imagenEnunciado<%= i %>"
+                                         src="<%= preguntas[i].imagenRes1 %>"
+                                         class="img-rounded" height="50" width="50">
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <input id="botonTexto<%= i %>Res2" type="radio" name="respuestaSeleccionada<%= i %>" value="res1">
+                                </div>
+                                <div class="col-md-5 text-center">
+                                    <label for="botonTexto<%= i %>Res2">
                                         <img id="imagenEnunciado<%= i %>"
                                              src="<%= preguntas[i].imagenRes2 %>"
-                                             class="img-rounded" height="50" width="50"></button>
-
+                                             class="img-rounded" height="50" width="50">
+                                    </label>
                                 </div>
-                                <div class="col-md-6 text-center">
-                                    <button type="button" id="botonImagen<%= i %>Res3" class="btn btn-light"
-                                            style="margin-bottom: 10px">
+                                <div class="col-md-1">
+                                    <input id="botonTexto<%= i %>Res3" type="radio" name="respuestaSeleccionada<%= i %>" value="res1">
+                                </div>
+                                <div class="col-md-5 text-center">
+                                    <label for="botonTexto<%= i %>Res3">
                                         <img id="imagenEnunciado<%= i %>"
                                              src="<%= preguntas[i].imagenRes3 %>"
-                                             class="img-rounded" height="50" width="50"></button>
-
+                                             class="img-rounded" height="50" width="50">
+                                    </label>
                                 </div>
-                                <div class="col-md-6 text-center">
-                                    <button type="button" id="botonImagen<%= i %>Res4" class="btn btn-light"
-                                            style="margin-bottom: 10px">
+                                <div class="col-md-1">
+                                    <input id="botonTexto<%= i %>Res4" type="radio" name="respuestaSeleccionada<%= i %>" value="res1">
+                                </div>
+                                <div class="col-md-5 text-center">
+                                    <label for="botonTexto<%= i %>Res4">
                                         <img id="imagenEnunciado<%= i %>"
                                              src="<%= preguntas[i].imagenRes4 %>"
-                                             class="img-rounded" height="50" width="50"></button>
-
+                                             class="img-rounded" height="50" width="50">
+                                    </label>
                                 </div>
                             </div>
                         <% } else { %>
                             <div class="row">
-                                <div class="col-md-12">
-                                    <button  type="button"id="botonTexto<%= i %>Res1" class="btn btn-light btn-block"
+                                    <div class="col-md-1">
+                                    <input id="botonTexto<%= i %>Res1" type="radio" name="respuestaSeleccionada<%= i %>" value="res1">
+                                    </div>
+                                    <div class="col-md-11">
+                                    <label for="botonTexto<%= i %>Res1" class="btn btn-light btn-block"
                                             style="margin-bottom: 10px"><%= preguntas[i].res1 %>
-                                    </button>
+                                    </label>
+                                    </div>
+                                <div class="col-md-1">
+                                    <input id="botonTexto<%= i %>Res2" type="radio" name="respuestaSeleccionada<%= i %>" value="res2">
                                 </div>
-                                <div class="col-md-12">
-                                    <button type="button" id="botonTexto<%= i %>Res2" class="btn btn-light btn-block"
-                                            style="margin-bottom: 10px"><%= preguntas[i].res2 %>
-                                    </button>
+                                <div class="col-md-11">
+                                    <label for="botonTexto<%= i %>Res2" class="btn btn-light btn-block"
+                                           style="margin-bottom: 10px"><%= preguntas[i].res1 %>
+                                    </label>
                                 </div>
-                                <div class="col-md-12">
-                                    <button type="button" id="botonTexto<%= i %>Res3" class="btn btn-light btn-block"
-                                            style="margin-bottom: 10px"><%= preguntas[i].res3 %>
-                                    </button>
+                                <div class="col-md-1">
+                                    <input id="botonTexto<%= i %>Res3" type="radio" name="respuestaSeleccionada<%= i %>" value="res3">
                                 </div>
-                                <div class="col-md-12">
-                                    <button type="button" id="botonTexto<%= i %>Res4" class="btn btn-light btn-block"
-                                            style="margin-bottom: 10px"><%= preguntas[i].res4 %>
-                                    </button>
+                                <div class="col-md-11">
+                                    <label for="botonTexto<%= i %>Res3" class="btn btn-light btn-block"
+                                           style="margin-bottom: 10px"><%= preguntas[i].res1 %>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <input id="botonTexto<%= i %>Res4" type="radio" name="respuestaSeleccionada<%= i %>" value="res4">
+                                </div>
+                                <div class="col-md-11">
+                                    <label for="botonTexto<%= i %>Res4" class="btn btn-light btn-block"
+                                           style="margin-bottom: 10px"><%= preguntas[i].res1 %>
+                                    </label>
                                 </div>
                             </div>
                         <% } %>

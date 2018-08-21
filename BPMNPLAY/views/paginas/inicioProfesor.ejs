@@ -91,7 +91,6 @@
                                     <input type="text" name="materia" value="<%=materias[i].nombre%>" hidden>
                                     <button class="btn btn-default" type="button"><i class="fas fa-trash-alt" onclick="eliminarMateria('<%=materias[i].nombre%>')"></i></button>
                                     <button id="botonEliminar<%=materias[i].nombre%>" type="submit" hidden></button>
-
                                 </form>
                             </div>
 
@@ -103,25 +102,38 @@
                             <div class="col-md-10">
                         <a href="/ingresoFacilitador/preguntasOpcionMultiple/<%= materias[i].nombre%>" class="btn btn-primary"
                            style="margin-bottom: 10px" id=<%= materias[i] %>><i class="far fa-list-alt"></i> Preguntas
-                            Opción Multiple</a>
+                            Opción Multiple <span class="badge badge-light"><%= materias[i].numOpcionMultiple%></span></a>
                             </div>
                             <div class="col-md-2">
-                              <a class="btn btn-primary" style="margin-bottom: 10px; color:white"><%= materias[i].numOpcionMultiple%></a>
+                                <%if(materias[i].boolOpcion)
+                                {%>
+                                    <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="No cuenta con el número mínimo de preguntas.">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </button>
+                                <%}%>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-10">
                         <a href="/ingresoFacilitador/preguntasUnirVoltear/<%= materias[i].nombre%>" class="btn btn-info"
-                           style="margin-bottom: 10px"><i class="fas fa-th"></i> Preguntas Unir Voltear</a>
+                           style="margin-bottom: 10px"><i class="fas fa-th"></i> Preguntas Unir Voltear <span class="badge badge-light"><%= materias[i].numUnirVoltear%></span></a>
                             </div>
                             <div class="col-md-2">
-                                <a class="btn btn-info" style="margin-bottom: 10px; color:white"><%= materias[i].numUnirVoltear%></a>
+                                <%if(materias[i].boolUnir)
+                                {%>
+                                <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="No cuenta con el número mínimo de preguntas.">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </button>
+                                    <%}%>
                             </div>
                         </div>
+
                         <a href="/ingresoFacilitador/creacionPartida/<%= materias[i].nombre%>" class="btn btn-primary"
                            style="margin-bottom: 10px"><i class="fas fa-plus"></i> Crear Partidas</a>
                         <br>
                         <a href="#" class="btn btn-success"> <i class="fas fa-chart-bar"></i> Estadísticas</a>
+
+
                     </div>
                 </div>
             <% } %>
@@ -130,11 +142,22 @@
         </div>
     </div>
 </div>
-
+<script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="/static/js/profesor.js"></script>
+
+
 <footer>
     <% include ../parciales/footer.ejs %>
 </footer>
+
 </body>
 </html>
