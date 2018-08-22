@@ -73,7 +73,7 @@ function generarDatosPregunta (numero) {
         document.getElementById("form-group-img-" + (i + 1)).appendChild(inputImagen2);
 
         var  divImagen2 = document.createElement("DIV");
-        divImagen2.setAttribute("class", "form-group col-md-2 mb-3");
+        divImagen2.setAttribute("class", "form-group col-md-1 mb-3");
         divImagen2.setAttribute("id", "form-group-img2-" + (i + 1));
         document.getElementById("divPreguntas").appendChild(divImagen2);
 
@@ -87,7 +87,7 @@ function generarDatosPregunta (numero) {
         document.getElementById("form-group-img2-"+ (i + 1)).appendChild(imagen);
 
         var divDificultad = document.createElement("DIV");
-        divDificultad.setAttribute("class", "form-group col-md-2 mb-3");
+        divDificultad.setAttribute("class", "form-group col-md-3 mb-3");
         divDificultad.setAttribute("id", "form-group-dif-" + (i + 1));
         document.getElementById("divPreguntas").appendChild(divDificultad);
 
@@ -95,7 +95,7 @@ function generarDatosPregunta (numero) {
         labelDificultad.setAttribute("for", "dificultad" + (i + 1));
         labelDificultad.setAttribute("id","labelDificultad"+(i+1));
         document.getElementById("form-group-dif-" + (i + 1)).appendChild(labelDificultad);
-        document.getElementById('labelDificultad' + (i + 1)).innerHTML = "Dificultad"+ (i + 1);
+        document.getElementById('labelDificultad' + (i + 1)).innerHTML = "Dificultad "+ (i + 1);
 
         var selectDificultad = document.createElement("SELECT");
         selectDificultad.setAttribute("id", "dificultad"+ (i + 1));

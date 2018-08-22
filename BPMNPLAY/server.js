@@ -215,9 +215,9 @@ io.on('connection', function (socket) {
                 socket.join(room);
                 socket.emit("nombreRol", "Espectador");
             } else {
-                if (rol == "profesor") {
+                if (rol == "facilitador") {
                     socket.join(room);
-                    socket.emit("nombreRol", "Profesor");
+                    socket.emit("nombreRol", "Facilitador");
                 }
                 else {
                     if (rol == "jugador") {

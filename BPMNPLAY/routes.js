@@ -5,12 +5,12 @@ var correo = require("./correo");
 
 exports.get_inicio = function (req, res) {
     if (req.session.usuario) {
-        if (req.session.rol == "profesor") {
+        if (req.session.rol == "facilitador") {
             res.redirect('/ingresoFacilitador');
         }
         else {
-            if (req.session.rol == "estudiante") {
-                res.redirect('/ingresoEstudiante');
+            if (req.session.rol == "participante") {
+                res.redirect('/ingresoParticipante');
 
             } else {
                 res.render('paginas/index');
@@ -68,68 +68,6 @@ exports.get_ingreso_profesor = function (req, res) {
             var materias = [];
 
             for (var i = 0; i < doc.materias.length; i++) {
-                var facilOpcion=0;
-                var medioOpcion=0;
-                var dificilOpcion =0;
-                var facilUnir=0;
-                var medioUnir=0;
-                var dificilUnir =0;
-                var boolOpcion = false;
-                var boolUnir = false;
-                for (var j=0;j<doc.materias[i].preguntasOpcionMultiple.length; j++)
-                {
-                    if(doc.materias[i].preguntasOpcionMultiple[j].dificultad == "Fácil")
-                    {
-                        facilOpcion++;
-                        console.log("sumando 1 fa op")
-                    }
-                    else
-                    {
-                        if(doc.materias[i].preguntasOpcionMultiple[j].dificultad == "Medio")
-                        {
-                            medioOpcion++;
-                            console.log("sumando 1 me op")
-                        }
-                        else
-                        {
-                            if(doc.materias[i].preguntasOpcionMultiple[j].dificultad == "Difícil") {
-                                dificilOpcion++;
-                                console.log("sumando 1 di op")
-                            }
-                        }
-                    }
-                }
-                for (var k=0;k<doc.materias[i].preguntasUnirVoltear.length; k++)
-                {
-                    if(doc.materias[i].preguntasUnirVoltear[k].dificultad == "Fácil")
-                    {
-                        facilUnir++;
-                        console.log("sumando 1 fa")
-                    }
-                    else
-                    {
-                        if(doc.materias[i].preguntasUnirVoltear[k].dificultad == "Medio")
-                        {
-                            medioUnir++;
-                            console.log("sumando 1 me")
-                        }
-                        else
-                        {
-                            if(doc.materias[i].preguntasUnirVoltear[k].dificultad == "Difícil") {
-                                dificilUnir++;
-                                console.log("sumando 1 dif")
-                            }
-                        }
-                    }
-                }
-                if(facilOpcion <5 || medioOpcion <5 || dificilOpcion <5)
-                {
-                   boolOpcion = true
-                }
-                if(facilUnir <8 || medioUnir <8 || dificilUnir <8)
-                {
-                    boolUnir = true
-                }
 
                 var materia = {
                     nombre: doc.materias[i].nombre,
@@ -161,20 +99,26 @@ exports.get_ingreso_estudiante = function (req, res) {
     if (req.session.nombre) {
         Profesor.find({}, function (error, doc) {
             var materias = [];
-
-            console.log("profesor");
-            console.log(doc);
             doc.forEach(function (facilitador) {
                 for (var i = 0; i < facilitador.materias.length; i++) {
                     var materia = {
                         facilitador: '',
                         nombre: ''
                     };
-                    console.log("profesor: " + i);
+                    var preguntasOpcion = facilitador.materias[i].preguntasOpcionMultiple;
+                    var preguntasUnir = facilitador.materias[i].preguntasUnirVoltear;
 
-                    console.log(facilitador);
+                    console.log(facilitador.materias[i].preguntasOpcionMultiple);
+                    console.log(facilitador.materias[i].preguntasUnirVoltear);
 
-                    if (facilitador.materias[i].tipo == "publica") {
+                    boolOpcion = verificarNumeroPreguntas(preguntasOpcion,5);
+                    boolUnir = verificarNumeroPreguntas(preguntasUnir,8);
+
+                    console.log(boolOpcion);
+                    console.log(boolUnir);
+
+
+                    if (facilitador.materias[i].tipo == "publica" && !boolOpcion && !boolUnir) {
                         materia.facilitador = facilitador.nombre;
                         materia.nombre = facilitador.materias[i].nombre;
                         materias.push(materia);
@@ -432,10 +376,10 @@ exports.post_detalle_opcion_multiple = function (req, res) {
 
 exports.get_creacion_partida = function (req, res) {
     if (req.session.usuario && req.params.materia) {
-        if (req.session.rol == "profesor") {
+        if (req.session.rol == "facilitador") {
             res.render('paginas/creacionPartida', {nombre: req.session.nombre, materia: req.params.materia});
         } else {
-            if (req.session.rol == "estudiante") {
+            if (req.session.rol == "partipante") {
                 res.redirect('/inicioEstudiante');
             }
             else {
@@ -474,7 +418,11 @@ exports.get_unir_voltear = function (req, res) {
 };
 
 exports.get_ingreso_partida = function (req, res) {
-    res.render('paginas/ingresoPartidas');
+    var nombre = ((req.session.nombre == null) ? "Participante" : req.session.nombre);
+    res.render('paginas/ingresoPartidas',
+        {
+            nombre: nombre
+        });
 };
 
 exports.get_preguntas_unir_voltear = function (req, res) {
@@ -600,11 +548,13 @@ exports.post_agregar_varias_unir_voltear = function (req, res) {
                 var preguntaU = [];
                 preguntaU.push("imagen" + i);
                 preguntaU.push("textoUnir" + i);
+                preguntaU.push("dificultad" + i)
 
                 var preguntaUnir = {
                     idUnirVoltear: generarNombre(),
+                    imagen: req.body[preguntaU[0]],
                     texto: req.body[preguntaU[1]],
-                    imagen: req.body[preguntaU[0]]
+                    dificultad : req.body[preguntaU[2]]
                 }
                 console.log(preguntaUnir);
 
@@ -629,7 +579,7 @@ exports.post_agregar_varias_unir_voltear = function (req, res) {
 exports.post_lobby = function (req, res) {
     console.log("idPArtida: " + req.session.idPartida);
     if (req.session.usuario) {
-        if (req.session.rol == "profesor") {
+        if (req.session.rol == "facilitador") {
             var numeroEquipos = req.body.numeroEquipos;
             if (req.body.idPartida) {
                 res.render('paginas/lobby', {
@@ -876,6 +826,36 @@ function generarNombre() {
         .toString(16)
         .substring(1);
 }
+
+function contarPreguntas (array, dificultad) {
+
+    var numPreguntas = 0;
+    for (var j = 0; j < array.length; j++) {
+        if (array.dificultad == dificultad) {
+            numPreguntas++;
+        }
+    }
+    return numPreguntas;
+}
+
+function verificarNumeroPreguntas(array, num)
+{
+    console.log(array)
+    var facil;
+    var medio;
+    var dificil;
+    var boolResultado;
+
+    facil = contarPreguntas(array, "Fácil");
+    medio = contarPreguntas(array, "Medio");
+    dificil = contarPreguntas(array, "Difícil");
+
+    console.log("f"+ facil +" "+ medio + " "+dificil)
+
+    boolResultado = facil < num || medio < num || dificil < num;
+    return boolResultado;
+}
+
 
 exports.salir = function (req, res) {
     req.session.usuario = null;
