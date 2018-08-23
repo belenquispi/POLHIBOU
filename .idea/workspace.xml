@@ -129,7 +129,7 @@
         <counts>
           <entry key="css" value="18" />
           <entry key="ejs" value="8108" />
-          <entry key="js" value="10554" />
+          <entry key="js" value="10583" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.js.language.service.starts" />
@@ -138,18 +138,18 @@
           <entry key="CSS" value="18" />
           <entry key="EJS" value="8108" />
           <entry key="HTML" value="2" />
-          <entry key="JavaScript" value="10552" />
+          <entry key="JavaScript" value="10581" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/BPMNPLAY/routes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="758" column="25" lean-forward="true" selection-start-line="758" selection-start-column="25" selection-end-line="758" selection-end-column="25" />
+            <state relative-caret-position="457">
+              <caret line="793" column="53" selection-start-line="793" selection-start-column="53" selection-end-line="793" selection-end-column="53" />
             </state>
           </provider>
         </entry>
@@ -194,7 +194,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/paginas/retosEstudiante.ejs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="125">
@@ -215,7 +215,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/paginas/retosOpcionMultiple.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="169">
+            <state relative-caret-position="-590">
               <caret line="21" column="39" selection-start-line="21" selection-start-column="39" selection-end-line="21" selection-end-column="39" />
               <folding>
                 <element signature="n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" />
@@ -247,7 +247,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ingresoEs</find>
       <find>proto</find>
       <find>lobby</find>
       <find>jugadores</find>
@@ -277,6 +276,7 @@
       <find>validarRes</find>
       <find>attr</find>
       <find>mostr</find>
+      <find>iiii</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -334,8 +334,8 @@
         <option value="$PROJECT_DIR$/BPMNPLAY/views/paginas/listaPreguntasUnirVoltear.ejs" />
         <option value="$PROJECT_DIR$/BPMNPLAY/models/profesor.js" />
         <option value="$PROJECT_DIR$/BPMNPLAY/views/paginas/retosOpcionMultiple.ejs" />
-        <option value="$PROJECT_DIR$/BPMNPLAY/routes.js" />
         <option value="$PROJECT_DIR$/BPMNPLAY/views/paginas/retosEstudiante.ejs" />
+        <option value="$PROJECT_DIR$/BPMNPLAY/routes.js" />
       </list>
     </option>
   </component>
@@ -529,12 +529,12 @@
       <workItem from="1534878773854" duration="10027000" />
       <workItem from="1534964342177" duration="2974000" />
       <workItem from="1534967427124" duration="7056000" />
-      <workItem from="1535051190585" duration="13453000" />
+      <workItem from="1535051190585" duration="13737000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="267199000" />
+    <option name="totallyTimeSpent" value="267483000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -953,9 +953,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/paginas/retosEstudiante.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="47" column="34" lean-forward="true" selection-start-line="47" selection-start-column="34" selection-end-line="47" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/paginas/retosOpcionMultiple.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
+        <state relative-caret-position="-590">
           <caret line="21" column="39" selection-start-line="21" selection-start-column="39" selection-end-line="21" selection-end-column="39" />
           <folding>
             <element signature="n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" />
@@ -974,15 +981,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/BPMNPLAY/routes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="758" column="25" lean-forward="true" selection-start-line="758" selection-start-column="25" selection-end-line="758" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/paginas/retosEstudiante.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="47" column="34" lean-forward="true" selection-start-line="47" selection-start-column="34" selection-end-line="47" selection-end-column="34" />
+        <state relative-caret-position="457">
+          <caret line="793" column="53" selection-start-line="793" selection-start-column="53" selection-end-line="793" selection-end-column="53" />
         </state>
       </provider>
     </entry>

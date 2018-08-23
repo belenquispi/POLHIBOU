@@ -17,11 +17,7 @@
 </nav>
 <div class="container">
     <div class="row">
-        <h1 id="tipoJuego">Reto <%=contadorPreguntas%> Opción Múltiple</h1>
-        <%console.log("Holasssasa");%>
-        <%console.log(contadorPreguntas);%>
-        <%console.log("tetrerte");%>
-        <%console.log(preguntas[contadorPreguntas]);%>
+        <h1 id="tipoJuego">Reto <%=(contadorPreguntas+1)%> Opción Múltiple</h1>
     </div>
     <div class="row">
 
@@ -112,7 +108,7 @@
                 </div>
                     <div class="row">
                         <div class="col-md-4"> </div>
-                        <div class="col-md-4"> <button type="submit" class="btn btn-success" style="margin: 20px" >Siguiente Reto</button> </div>
+                        <div class="col-md-4"> <button type="submit" class="btn btn-success" style="margin: 20px" >Siguiente Reto <i class="fas fa-angle-right"></i></button> </div>
                         <div class="col-md-4"> </div>
 
                     </div>
