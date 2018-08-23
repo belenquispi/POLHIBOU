@@ -17,17 +17,25 @@
 </nav>
 <div class="container">
     <div class="row">
-        <h1 id="tipoJuego">Opción Múltiple</h1>
+        <h1 id="tipoJuego">Reto <%=contadorPreguntas%> Opción Múltiple</h1>
+        <%console.log("Holasssasa");%>
+        <%console.log(contadorPreguntas);%>
+        <%console.log("tetrerte");%>
+        <%console.log(preguntas[contadorPreguntas]);%>
     </div>
     <div class="row">
-        <form action="/validarRespuestaOpcionMultiple" method="post">
-            <div class="col-md-7">
+
+            <div class="col-md-7 ">
+                <form action="/mostrarOpcionMultiple" method="post">
                 <input type="text" hidden name="idPregunta" value="<%= preguntas[contadorPreguntas]._id %>">
-                <div class="row">
+                <input type="text" hidden name="contadorPreguntas" value="<%= contadorPreguntas %>">
+                <input type="text" hidden name="materia" value="<%= materia %>">
+                <div class="row border border-info rounded-top">
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-10">
-                                <h4 id="enunciado"><%= preguntas[contadorPreguntas].enunciado %></h4>
+                                <h2 id="enunciado"><%= preguntas[contadorPreguntas].enunciado %></h2>
+                                <input type="text" id="resCorrecta" hidden value="<%=preguntas[contadorPreguntas].respuestaCorrecta%>">
                             </div>
                             <div class="col-md-2">
                                 <% if(preguntas[contadorPreguntas].imagenEnunciado) { %>
@@ -40,14 +48,14 @@
                         <% if(preguntas[contadorPreguntas].imagenRes1) { %>
                             <div class="row">
                                 <div class="col-md-6 text-center">
-                                    <button type="button" class="btn btn-light" style="margin-bottom: 10px">
+                                    <button type="button" id="res1" class="btn btn-light" style="margin: 20px" onclick="validarRespuesta(this)">
                                     <img id="imagenRes1"
                                          src="<%= preguntas[contadorPreguntas].imagenRes1 %>"
                                          class="img-rounded" height="50" width="50">
                                     </button>
                                 </div>
                                 <div class="col-md-6 text-center">
-                                    <button type="button" class="btn btn-light" style="margin-bottom: 10px">
+                                    <button type="button" id="res2" class="btn btn-light" style="margin: 20px" onclick="validarRespuesta(this)">
                                         <img id="imagenRes2"
                                              src="<%= preguntas[contadorPreguntas].imagenRes2 %>"
                                              class="img-rounded" height="50" width="50">
@@ -56,14 +64,14 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6 text-center" >
-                                    <button type="button" class="btn btn-light" style="margin-bottom: 10px">
+                                    <button type="button" id="res3" class="btn btn-light" style="margin: 20px" onclick="validarRespuesta(this)">
                                         <img id="imagenRes3"
                                              src="<%= preguntas[contadorPreguntas].imagenRes3 %>"
                                              class="img-rounded" height="50" width="50">
                                     </button>
                                 </div>
                                 <div class="col-md-6 text-center">
-                                    <button type="button" class="btn btn-light" style="margin-bottom: 10px">
+                                    <button type="button" id="res4" class="btn btn-light" style="margin: 20px" onclick="validarRespuesta(this)">
                                         <img id="imagenRes4>"
                                              src="<%= preguntas[contadorPreguntas].imagenRes4 %>"
                                              class="img-rounded" height="50" width="50">
@@ -73,39 +81,70 @@
                         <% } else { %>
                             <div class="row">
                                     <div class="col-md-12">
-                                    <button id="textoRes1" class="btn btn-light btn-block"
-                                            style="margin-bottom: 10px"><%= preguntas[contadorPreguntas].res1 %>
+                                    <button type="button" id="res1" class="btn btn-light btn-block"
+                                            style="margin-bottom: 10px; font-size:28px" onclick="validarRespuesta(this)"><%= preguntas[contadorPreguntas].res1 %>
                                     </button>
                                     </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <button id="textoRes2" class="btn btn-light btn-block"
-                                            style="margin-bottom: 10px"><%= preguntas[contadorPreguntas].res2 %>
+                                    <button type="button" id="res2" class="btn btn-light btn-block"
+                                            style="margin-bottom: 10px; font-size:28px" onclick="validarRespuesta(this)"><%= preguntas[contadorPreguntas].res2 %>
                                     </button>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <button id="textoRes3" class="btn btn-light btn-block"
-                                            style="margin-bottom: 10px"><%= preguntas[contadorPreguntas].res3 %>
+                                    <button type="button" id="res3" class="btn btn-light btn-block"
+                                            style="margin-bottom: 10px; font-size:28px" onclick="validarRespuesta(this)"><%= preguntas[contadorPreguntas].res3 %>
                                     </button>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <button id="textoRes4" class="btn btn-light btn-block"
-                                            style="margin-bottom: 10px"><%= preguntas[contadorPreguntas].res4 %>
+                                    <button type="button" id="res4" class="btn btn-light btn-block"
+                                            style="margin-bottom: 10px; font-size:28px" onclick="validarRespuesta(this)"><%= preguntas[contadorPreguntas].res4 %>
                                     </button>
                                 </div>
                             </div>
                         <% } %>
                     </div>
                 </div>
+                    <div class="row">
+                        <div class="col-md-4"> </div>
+                        <div class="col-md-4"> <button type="submit" class="btn btn-success" style="margin: 20px" >Siguiente Reto</button> </div>
+                        <div class="col-md-4"> </div>
+
+                    </div>
+                </form>
             </div>
             <div class="col-md-5"></div>
-        </form>
     </div>
 </div>
+<script>
+    var resCorrecta = document.getElementById("resCorrecta").value;
+    function validarRespuesta(boton) {
+
+        if(boton.id == resCorrecta )
+        {
+            document.getElementById(boton.id).classList.remove('btn-light');
+            document.getElementById(boton.id).classList.add('btn-success');
+        }
+        else
+        {
+            document.getElementById(boton.id).classList.remove("btn-light");
+            document.getElementById(boton.id).classList.add("btn-danger");
+            document.getElementById(resCorrecta).classList.remove("btn-light");
+            document.getElementById(resCorrecta).classList.add("btn-success");
+        }
+        bloquearBotones();
+    }
+    function bloquearBotones() {
+        for (var i = 1; i<5; i++)
+        {
+            document.getElementById("res"+i).setAttribute("disabled","");
+        }
+    }
+</script>
 </body>
 </html>

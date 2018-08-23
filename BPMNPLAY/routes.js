@@ -751,11 +751,13 @@ exports.post_retos_materia = function (req, res) {
 
 var preguntas = [];
 exports.post_mostrar_opcion = function (req, res) {
+    var contadorPreguntas = req.body.contadorPreguntas;
+    contadorPreguntas++;
+    console.log("iiiiiiii");
+    console.log(contadorPreguntas);
     if (req.session.usuario && req.body.materia && (req.session.rol == "participante")) {
-        console.log("aaa");
-        console.log(req.body);
         var indices = [];
-        if (req.body.contadorPreguntas == 0)
+        if ( contadorPreguntas == 0)
         {
             preguntas = [];
             Profesor.findOne({nombre: req.body.facilitador}, function (error, doc) {
@@ -776,18 +778,20 @@ exports.post_mostrar_opcion = function (req, res) {
                     indices.push(indice);
                     preguntas.push(doc.materias[indiceMateria].preguntasOpcionMultiple[indice])
                 }
-
+                console.log(contadorPreguntas);
                 res.render('paginas/retosOpcionMultiple', {
                     nombre: req.session.nombre,
+                    materia: req.body.materia,
                     preguntas: preguntas,
-                    contadorPreguntas : req.body.contadorPreguntas
+                    contadorPreguntas :contadorPreguntas
                 })
             });
         } else{
             res.render('paginas/retosOpcionMultiple', {
                 nombre: req.session.nombre,
+                materia: req.body.materia,
                 preguntas: preguntas,
-                contadorPreguntas : (req.body.contadorPreguntas+1)
+                contadorPreguntas : contadorPreguntas
             })
         }
     }
