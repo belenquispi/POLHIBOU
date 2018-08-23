@@ -68,7 +68,8 @@ exports.get_ingreso_profesor = function (req, res) {
             var materias = [];
 
             for (var i = 0; i < doc.materias.length; i++) {
-
+                var boolOpcion = verificarNumeroPreguntas(doc.materias[i].preguntasOpcionMultiple,5);
+                var  boolUnir = verificarNumeroPreguntas(doc.materias[i].preguntasUnirVoltear,8);
                 var materia = {
                     nombre: doc.materias[i].nombre,
                     tipo: doc.materias[i].tipo,
@@ -105,14 +106,8 @@ exports.get_ingreso_estudiante = function (req, res) {
                         facilitador: '',
                         nombre: ''
                     };
-                    var preguntasOpcion = facilitador.materias[i].preguntasOpcionMultiple;
-                    var preguntasUnir = facilitador.materias[i].preguntasUnirVoltear;
-
-                    console.log(facilitador.materias[i].preguntasOpcionMultiple);
-                    console.log(facilitador.materias[i].preguntasUnirVoltear);
-
-                    boolOpcion = verificarNumeroPreguntas(preguntasOpcion,5);
-                    boolUnir = verificarNumeroPreguntas(preguntasUnir,8);
+                    var boolOpcion = verificarNumeroPreguntas(facilitador.materias[i].preguntasOpcionMultiple,5);
+                   var  boolUnir = verificarNumeroPreguntas(facilitador.materias[i].preguntasUnirVoltear,8);
 
                     console.log(boolOpcion);
                     console.log(boolUnir);
@@ -754,38 +749,47 @@ exports.post_retos_materia = function (req, res) {
     }
 }
 
-
+var preguntas = [];
 exports.post_mostrar_opcion = function (req, res) {
     if (req.session.usuario && req.body.materia && (req.session.rol == "participante")) {
         console.log("aaa");
         console.log(req.body);
-        var preguntas = [];
         var indices = [];
+        if (req.body.contadorPreguntas == 0)
+        {
+            preguntas = [];
+            Profesor.findOne({nombre: req.body.facilitador}, function (error, doc) {
 
-        Profesor.findOne({nombre: req.body.facilitador}, function (error, doc) {
-
-            if (error) {
-                console.log("Error: " + error)
-            }
-
-            var indiceMateria = doc.materias.map(function (e) {
-                return e.nombre
-            }).indexOf(req.body.materia);
-
-            for (var i = 0; i < 5; i++) {
-                var indice = Math.floor(Math.random() * doc.materias[indiceMateria].preguntasOpcionMultiple.length);
-                while (indices.indexOf(indice) >= 0 || doc.materias[indiceMateria].preguntasOpcionMultiple[indice].dificultad != req.body.dificultad) {
-                    indice = Math.floor(Math.random() * doc.materias[indiceMateria].preguntasOpcionMultiple.length);
+                if (error) {
+                    console.log("Error: " + error)
                 }
-                indices.push(indice);
-                preguntas.push(doc.materias[indiceMateria].preguntasOpcionMultiple[indice])
-            }
 
+                var indiceMateria = doc.materias.map(function (e) {
+                    return e.nombre
+                }).indexOf(req.body.materia);
+
+                for (var i = 0; i < 5; i++) {
+                    var indice = Math.floor(Math.random() * doc.materias[indiceMateria].preguntasOpcionMultiple.length);
+                    while (indices.indexOf(indice) >= 0 || doc.materias[indiceMateria].preguntasOpcionMultiple[indice].dificultad != req.body.dificultad) {
+                        indice = Math.floor(Math.random() * doc.materias[indiceMateria].preguntasOpcionMultiple.length);
+                    }
+                    indices.push(indice);
+                    preguntas.push(doc.materias[indiceMateria].preguntasOpcionMultiple[indice])
+                }
+
+                res.render('paginas/retosOpcionMultiple', {
+                    nombre: req.session.nombre,
+                    preguntas: preguntas,
+                    contadorPreguntas : req.body.contadorPreguntas
+                })
+            });
+        } else{
             res.render('paginas/retosOpcionMultiple', {
                 nombre: req.session.nombre,
-                preguntas: preguntas
+                preguntas: preguntas,
+                contadorPreguntas : (req.body.contadorPreguntas+1)
             })
-        });
+        }
     }
     else {
         res.redirect('/')
@@ -831,7 +835,7 @@ function contarPreguntas (array, dificultad) {
 
     var numPreguntas = 0;
     for (var j = 0; j < array.length; j++) {
-        if (array.dificultad == dificultad) {
+        if (array[j].dificultad == dificultad) {
             numPreguntas++;
         }
     }
@@ -850,7 +854,7 @@ function verificarNumeroPreguntas(array, num)
     medio = contarPreguntas(array, "Medio");
     dificil = contarPreguntas(array, "Difícil");
 
-    console.log("f"+ facil +" "+ medio + " "+dificil)
+    console.log("fghi"+ facil +" "+ medio + " "+dificil)
 
     boolResultado = facil < num || medio < num || dificil < num;
     return boolResultado;

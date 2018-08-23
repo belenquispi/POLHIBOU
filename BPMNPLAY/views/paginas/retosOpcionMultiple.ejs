@@ -22,110 +22,88 @@
     <div class="row">
         <form action="/validarRespuestaOpcionMultiple" method="post">
             <div class="col-md-7">
-                <% for(var i = 0; i < preguntas.length; i++) { %>
-                <input type="text" hidden name="idPregunta" value="<%= preguntas[i]._id %>">
-                <div class="row border border-info rounded" style="margin-bottom: 10px">
+                <input type="text" hidden name="idPregunta" value="<%= preguntas[contadorPreguntas]._id %>">
+                <div class="row">
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-10">
-                                <h4 id="enunciado<%= i %>"><%= preguntas[i].enunciado %></h4>
+                                <h4 id="enunciado"><%= preguntas[contadorPreguntas].enunciado %></h4>
                             </div>
                             <div class="col-md-2">
-                                <% if(preguntas[i].imagenEnunciado) { %>
-                                    <img id="imagenEnunciado<%= i %>" src="<%= preguntas[i].imagenEnunciado %>"
+                                <% if(preguntas[contadorPreguntas].imagenEnunciado) { %>
+                                    <img id="imagenEnunciado" src="<%= preguntas[contadorPreguntas].imagenEnunciado %>"
                                          class="img-rounded"
                                          height="50" width="50">
                                 <% } %>
                             </div>
                         </div>
-                        <% if(preguntas[i].imagenRes1) { %>
+                        <% if(preguntas[contadorPreguntas].imagenRes1) { %>
                             <div class="row">
-                                <div class="col-md-1">
-                                    <input id="botonTexto<%= i %>Res1" type="radio" name="respuestaSeleccionada<%= i %>" value="res1">
-                                </div>
-                                <div class="col-md-5 text-center">
-                                    <label for="botonTexto<%= i %>Res1">
-                                    <img id="imagenEnunciado<%= i %>"
-                                         src="<%= preguntas[i].imagenRes1 %>"
+                                <div class="col-md-6 text-center">
+                                    <button type="button" class="btn btn-light" style="margin-bottom: 10px">
+                                    <img id="imagenRes1"
+                                         src="<%= preguntas[contadorPreguntas].imagenRes1 %>"
                                          class="img-rounded" height="50" width="50">
-                                    </label>
+                                    </button>
                                 </div>
-                                <div class="col-md-1">
-                                    <input id="botonTexto<%= i %>Res2" type="radio" name="respuestaSeleccionada<%= i %>" value="res1">
-                                </div>
-                                <div class="col-md-5 text-center">
-                                    <label for="botonTexto<%= i %>Res2">
-                                        <img id="imagenEnunciado<%= i %>"
-                                             src="<%= preguntas[i].imagenRes2 %>"
+                                <div class="col-md-6 text-center">
+                                    <button type="button" class="btn btn-light" style="margin-bottom: 10px">
+                                        <img id="imagenRes2"
+                                             src="<%= preguntas[contadorPreguntas].imagenRes2 %>"
                                              class="img-rounded" height="50" width="50">
-                                    </label>
+                                    </button>
                                 </div>
-                                <div class="col-md-1">
-                                    <input id="botonTexto<%= i %>Res3" type="radio" name="respuestaSeleccionada<%= i %>" value="res1">
-                                </div>
-                                <div class="col-md-5 text-center">
-                                    <label for="botonTexto<%= i %>Res3">
-                                        <img id="imagenEnunciado<%= i %>"
-                                             src="<%= preguntas[i].imagenRes3 %>"
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 text-center" >
+                                    <button type="button" class="btn btn-light" style="margin-bottom: 10px">
+                                        <img id="imagenRes3"
+                                             src="<%= preguntas[contadorPreguntas].imagenRes3 %>"
                                              class="img-rounded" height="50" width="50">
-                                    </label>
+                                    </button>
                                 </div>
-                                <div class="col-md-1">
-                                    <input id="botonTexto<%= i %>Res4" type="radio" name="respuestaSeleccionada<%= i %>" value="res1">
-                                </div>
-                                <div class="col-md-5 text-center">
-                                    <label for="botonTexto<%= i %>Res4">
-                                        <img id="imagenEnunciado<%= i %>"
-                                             src="<%= preguntas[i].imagenRes4 %>"
+                                <div class="col-md-6 text-center">
+                                    <button type="button" class="btn btn-light" style="margin-bottom: 10px">
+                                        <img id="imagenRes4>"
+                                             src="<%= preguntas[contadorPreguntas].imagenRes4 %>"
                                              class="img-rounded" height="50" width="50">
-                                    </label>
+                                    </button>
                                 </div>
                             </div>
                         <% } else { %>
                             <div class="row">
-                                    <div class="col-md-1">
-                                    <input id="botonTexto<%= i %>Res1" type="radio" name="respuestaSeleccionada<%= i %>" value="res1">
+                                    <div class="col-md-12">
+                                    <button id="textoRes1" class="btn btn-light btn-block"
+                                            style="margin-bottom: 10px"><%= preguntas[contadorPreguntas].res1 %>
+                                    </button>
                                     </div>
-                                    <div class="col-md-11">
-                                    <label for="botonTexto<%= i %>Res1" class="btn btn-light btn-block"
-                                            style="margin-bottom: 10px"><%= preguntas[i].res1 %>
-                                    </label>
-                                    </div>
-                                <div class="col-md-1">
-                                    <input id="botonTexto<%= i %>Res2" type="radio" name="respuestaSeleccionada<%= i %>" value="res2">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button id="textoRes2" class="btn btn-light btn-block"
+                                            style="margin-bottom: 10px"><%= preguntas[contadorPreguntas].res2 %>
+                                    </button>
                                 </div>
-                                <div class="col-md-11">
-                                    <label for="botonTexto<%= i %>Res2" class="btn btn-light btn-block"
-                                           style="margin-bottom: 10px"><%= preguntas[i].res1 %>
-                                    </label>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button id="textoRes3" class="btn btn-light btn-block"
+                                            style="margin-bottom: 10px"><%= preguntas[contadorPreguntas].res3 %>
+                                    </button>
                                 </div>
-                                <div class="col-md-1">
-                                    <input id="botonTexto<%= i %>Res3" type="radio" name="respuestaSeleccionada<%= i %>" value="res3">
-                                </div>
-                                <div class="col-md-11">
-                                    <label for="botonTexto<%= i %>Res3" class="btn btn-light btn-block"
-                                           style="margin-bottom: 10px"><%= preguntas[i].res1 %>
-                                    </label>
-                                </div>
-                                <div class="col-md-1">
-                                    <input id="botonTexto<%= i %>Res4" type="radio" name="respuestaSeleccionada<%= i %>" value="res4">
-                                </div>
-                                <div class="col-md-11">
-                                    <label for="botonTexto<%= i %>Res4" class="btn btn-light btn-block"
-                                           style="margin-bottom: 10px"><%= preguntas[i].res1 %>
-                                    </label>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button id="textoRes4" class="btn btn-light btn-block"
+                                            style="margin-bottom: 10px"><%= preguntas[contadorPreguntas].res4 %>
+                                    </button>
                                 </div>
                             </div>
                         <% } %>
                     </div>
                 </div>
-
-                <% } %>
             </div>
             <div class="col-md-5"></div>
-            <div class="col-md-7 text-center">
-                <button type="submit" class="btn btn-primary">Enviar respuestas</button>
-            </div>
         </form>
     </div>
 </div>
