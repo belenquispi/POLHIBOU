@@ -761,11 +761,9 @@ exports.post_mostrar_opcion = function (req, res) {
         {
             preguntas = [];
             Profesor.findOne({nombre: req.body.facilitador}, function (error, doc) {
-
                 if (error) {
                     console.log("Error: " + error)
                 }
-
                 var indiceMateria = doc.materias.map(function (e) {
                     return e.nombre
                 }).indexOf(req.body.materia);
@@ -779,20 +777,75 @@ exports.post_mostrar_opcion = function (req, res) {
                     preguntas.push(doc.materias[indiceMateria].preguntasOpcionMultiple[indice])
                 }
                 console.log(contadorPreguntas);
-                res.render('paginas/retosOpcionMultiple', {
+                var intento =
+                    {
+                        idIntento: generarNombre(),
+                        profesor: req.body.facilitador,
+                        materia: req.body.materia,
+                        tipoDesafio: 'opcionMultiple',
+                        dificultad: req.body.dificultad,
+                        preguntas: []
+                    };
+
+                for(var j=0; j<5; j++)
+                {
+                    var pregunta =
+                        {
+                            id: preguntas[j]._id,
+                            correctoIncorrecto: '-1',
+                            puntaje: '0'
+                        }
+                    intento.preguntas.push(pregunta)
+                }
+                Estudiante.findOne({
+                    usuario: req.session.usuario}, function (error, doc) {
+                    doc.intentos.push(intento);
+                    console.log(doc);
+                        doc.save(function (err, docActualizado) {
+                            if (err) return console.log(err);
+                            res.render('paginas/retosOpcionMultiple', {
+                                nombre: req.session.nombre,
+                                materia: req.body.materia,
+                                preguntas: preguntas,
+                                contadorPreguntas :contadorPreguntas,
+                                idIntento: intento.idIntento
+                            })
+                        });
+                },
+                    )
+
+            });
+        } else {
+            if (contadorPreguntas < 5){
+                Estudiante.findOne({
+                        usuario: req.session.usuario}, function (error, doc) {
+                    var indice = doc.intentos.map(function (e) {
+                        return e.idIntento
+                    }).indexOf(req.body.idIntento);
+                        doc.intentos[indice].preguntas[contadorPreguntas].correctoIncorrecto = req.body.correctoIncorrecto;
+                        console.log(doc);
+                        doc.save(function (err, docActualizado) {
+                            if (err) return console.log(err);
+                            res.render('paginas/retosOpcionMultiple', {
+                                nombre: req.session.nombre,
+                                materia: req.body.materia,
+                                preguntas: preguntas,
+                                contadorPreguntas: contadorPreguntas,
+                                idIntento: req.body.idIntento
+                            })
+                        });
+
+                    },
+                )
+        }
+            else {
+                res.render('paginas/resultadosOpcionMultiple', {
                     nombre: req.session.nombre,
                     materia: req.body.materia,
                     preguntas: preguntas,
-                    contadorPreguntas :contadorPreguntas
+                    contadorPreguntas: contadorPreguntas
                 })
-            });
-        } else{
-            res.render('paginas/retosOpcionMultiple', {
-                nombre: req.session.nombre,
-                materia: req.body.materia,
-                preguntas: preguntas,
-                contadorPreguntas : contadorPreguntas
-            })
+            }
         }
     }
     else {
@@ -800,7 +853,13 @@ exports.post_mostrar_opcion = function (req, res) {
     }
 };
 
-exports.post_mostrar_emparejar = function (req, res) {
+exports.post_actualizar_intento = function (req, res) {
+    {
+
+    }
+};
+
+        exports.post_mostrar_emparejar = function (req, res) {
     if (req.session.usuario && req.body.materia && (req.session.rol == "participante")) {
         res.render('paginas/retosEmparejar', {
             /*nombre : req.session.nombre,

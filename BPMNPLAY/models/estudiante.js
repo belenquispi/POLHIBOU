@@ -8,8 +8,24 @@ mongoose.connect('mongodb://localhost:27017/polibou', { useNewUrlParser: true })
 var estudianteSchema = new Schema({
     usuario: String,
     nombre: String,
-    nombre : String,
-    contrasenia : String
+    contrasenia : String,
+    intentos: [
+        {
+            idIntento: String,
+            profesor: String,
+            materia: String,
+            tipoDesafio: String,
+            dificultad: String,
+            preguntas: [
+                {
+                    idPregunta: String,
+                    correctoIncorrecto: String,
+                    puntaje: String
+                }
+            ]
+
+        }
+        ]
 });
 //Creacion del modelo
 
