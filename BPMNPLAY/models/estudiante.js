@@ -16,11 +16,14 @@ var estudianteSchema = new Schema({
             materia: String,
             tipoDesafio: String,
             dificultad: String,
+            puntaje: String,
             preguntas: [
                 {
                     idPregunta: String,
+                    enunciado : String,
+                    imagenEnunciado: String,
                     correctoIncorrecto: String,
-                    puntaje: String
+
                 }
             ]
 

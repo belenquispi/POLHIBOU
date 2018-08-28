@@ -15,7 +15,7 @@ var profesorSchema = new Schema({
         numOpcionMultiple : String,
         numUnirVoltear: String,
         preguntasOpcionMultiple : [{
-            idOpcionMultiple : String,
+            idPregunta : String,
             enunciado : String,
             imagenEnunciado : String,
             res1: String,
@@ -30,7 +30,7 @@ var profesorSchema = new Schema({
             respuestaCorrecta : String
         }],
         preguntasUnirVoltear : [{
-            idUnirVoltear : String,
+            idPregunta : String,
             texto : String,
             imagen : String,
             dificultad: String

@@ -736,13 +736,31 @@ exports.post_confirmar_cuenta = function (req, res) {
 };
 
 exports.post_retos_materia = function (req, res) {
+    var opcionMultiple=[];
+    var emparejar=[];
+    var unirVoltear=[];
+    var intentosMateria = [];
     if (req.session.usuario && req.body.materia && (req.session.rol == "participante")) {
-        res.render('paginas/retosEstudiante', {
-            nombre: req.session.nombre,
-            facilitador: req.body.facilitador,
-            materia: req.body.materia
+        Estudiante.findOne({
+                usuario: req.session.usuario}, function (error, doc) {
+               console.log(doc.intentos)
+                for(var i=0; i < doc.intentos.length;i++){
+                    if(doc.intentos[i].materia == req.body.materia && doc.intentos[i].profesor == req.body.facilitador)
+                    {
+                        intentosMateria.push(doc.intentos[i])
+                    }
+                }
+                opcionMultiple = obtenerPuntaje(intentosMateria, "opcionMultiple");
+                emparejar = obtenerPuntaje(intentosMateria, "emparejar");
+                unirVoltear = obtenerPuntaje(intentosMateria, "unirVoltear");
 
-        })
+                    res.render('paginas/retosEstudiante', {
+                        nombre: req.session.nombre,
+                        facilitador: req.body.facilitador,
+                        materia: req.body.materia,
+
+                    })
+                });
     }
     else {
         res.redirect('/')
@@ -784,6 +802,7 @@ exports.post_mostrar_opcion = function (req, res) {
                         materia: req.body.materia,
                         tipoDesafio: 'opcionMultiple',
                         dificultad: req.body.dificultad,
+                        puntaje: '0',
                         preguntas: []
                     };
 
@@ -791,9 +810,10 @@ exports.post_mostrar_opcion = function (req, res) {
                 {
                     var pregunta =
                         {
-                            id: preguntas[j]._id,
-                            correctoIncorrecto: '-1',
-                            puntaje: '0'
+                            idPregunta: preguntas[j].idPregunta,
+                            enunciado: preguntas[j].enunciado,
+                            imagenEnunciado: preguntas[j].imagenEnunciado,
+                            correctoIncorrecto: '-1'
                         }
                     intento.preguntas.push(pregunta)
                 }
@@ -816,16 +836,21 @@ exports.post_mostrar_opcion = function (req, res) {
 
             });
         } else {
-            if (contadorPreguntas < 5){
+            if (contadorPreguntas <= 5){
                 Estudiante.findOne({
                         usuario: req.session.usuario}, function (error, doc) {
                     var indice = doc.intentos.map(function (e) {
                         return e.idIntento
                     }).indexOf(req.body.idIntento);
-                        doc.intentos[indice].preguntas[contadorPreguntas].correctoIncorrecto = req.body.correctoIncorrecto;
-                        console.log(doc);
+                    console.log("correctoIncorrecto" + req.body.correctoIncorrecto + "d" + indice + "C" + contadorPreguntas)
+                        doc.intentos[indice].preguntas[contadorPreguntas-1].correctoIncorrecto = req.body.correctoIncorrecto;
+                        doc.intentos[indice].preguntas[contadorPreguntas-1].resSeleccionada = req.body.resSeleccionada;
+
+                        console.log(doc.intentos[indice].preguntas);
                         doc.save(function (err, docActualizado) {
                             if (err) return console.log(err);
+                            if(contadorPreguntas <5)
+                            {
                             res.render('paginas/retosOpcionMultiple', {
                                 nombre: req.session.nombre,
                                 materia: req.body.materia,
@@ -833,19 +858,30 @@ exports.post_mostrar_opcion = function (req, res) {
                                 contadorPreguntas: contadorPreguntas,
                                 idIntento: req.body.idIntento
                             })
+                            }
+                            else
+                            {
+                                var puntaje = 0;
+                                for(var k=0; k<5;k++)
+                                {
+                                    if(doc.intentos[indice].preguntas[k].correctoIncorrecto == 1)
+                                    {
+                                        puntaje++;
+                                    }
+                                }
+                                res.render('paginas/resultadosOpcionMultiple', {
+                                    nombre: req.session.nombre,
+                                    materia: req.body.materia,
+                                    preguntas: doc.intentos[indice].preguntas,
+                                    puntaje: puntaje,
+                                    facilitador: doc.intentos[indice].profesor
+                                })
+                            }
                         });
 
                     },
                 )
         }
-            else {
-                res.render('paginas/resultadosOpcionMultiple', {
-                    nombre: req.session.nombre,
-                    materia: req.body.materia,
-                    preguntas: preguntas,
-                    contadorPreguntas: contadorPreguntas
-                })
-            }
         }
     }
     else {
@@ -887,6 +923,26 @@ exports.post_mostrar_unir = function (req, res) {
     }
 }
 
+exports.get_retos_materia = function (req, res) {
+    if (req.session.usuario) {
+        if (req.session.rol == "facilitador") {
+            res.redirect('/ingresoFacilitador');
+        }
+        else {
+            if (req.session.rol == "participante") {
+                if(req.body.materia != "")
+                {
+                    res.render()
+                }
+
+            } else {
+                res.render('paginas/index');
+            }
+        }
+    } else {
+        res.render('paginas/index');
+    }
+};
 
 function generarNombre() {
     return Math.floor((1 + Math.random()) * 0x10000)
@@ -923,6 +979,14 @@ function verificarNumeroPreguntas(array, num)
     return boolResultado;
 }
 
+function obtenerPuntaje(array, tipoPregunta)
+{
+    var puntajes=[];
+    for(var i=0; i < array.length; i++)
+    {
+        if(array[i].)
+    }
+}
 
 exports.salir = function (req, res) {
     req.session.usuario = null;
