@@ -17,11 +17,13 @@
 </nav>
 <div class="container">
     <div class="row">
-        <h1 id="tipoJuego">Reto <%=(contadorPreguntas+1)%> Opción Múltiple</h1>
+        <div class="col-md-3"></div>
+        <div class="col-md-6"><h1 id="tipoJuego">Reto <%=(contadorPreguntas+1)%> Opción Múltiple</h1></div>
+        <div class="col-md-3"></div>
     </div>
     <div class="row">
-
-            <div class="col-md-7 ">
+             <div class="col-md-3"></div>
+            <div class="col-md-6 ">
                 <form action="/mostrarOpcionMultiple" method="post">
                 <input type="text" hidden name="idPregunta" value="<%= preguntas[contadorPreguntas]._id %>">
                 <input type="text" hidden name="contadorPreguntas" value="<%= contadorPreguntas %>">
@@ -117,7 +119,7 @@
                     </div>
                 </form>
             </div>
-            <div class="col-md-5"></div>
+            <div class="col-md-3"></div>
     </div>
 </div>
 <script>

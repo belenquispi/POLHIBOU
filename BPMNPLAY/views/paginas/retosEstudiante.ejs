@@ -31,10 +31,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">
-                                    <% var puntaje = 5 %>
-                                    <% var numIntentos = 3 %>
                                     Desafío <%= i+1 %>
-                                    <% for(var j = 0; j < puntaje; j++){
+                                    <% for(var j = 0; j < opcionMutiple[(i*2)+1]; j++){
                                     %>
                                         <i class="fas fa-star fa-sm fa-spin " style="color:gold"></i>
                                     <% } %>
@@ -60,8 +58,8 @@
                                  }%>
                                     <button type="submit" class="btn btn-primary"><i class="fas fa-gamepad"></i> Jugar</button>
                                 </form>
-                                <p class="card-text">Puntaje: <%= puntaje %></p>
-                                <p class="card-text">Número de intentos: <%= numIntentos %></p>
+                                <p class="card-text">Puntaje máximo: <%= opcionMutiple[(i*2)+1] %></p>
+                                <p class="card-text">Número de intentos: <%= opcionMutiple[(i*2)] %></p>
                             </div>
                         </div>
                     </div>
@@ -80,7 +78,7 @@
                         <div class="card-body">
                             <h5 class="card-title">
                                 Desafío <%= i+1 %>
-                                <% for(var j = 0; j < puntaje; j++){
+                                <% for(var j = 0; j < emparejar[(i*2)+1]; j++){
                                 %>
                                     <i class="fas fa-star fa-sm fa-spin " style="color:gold"></i>
                                 <% } %>
@@ -105,8 +103,8 @@
                                 }%>
                                 <button type="submit" class="btn btn-primary"><i class="fas fa-gamepad"></i> Jugar</button>
                             </form>
-                            <p class="card-text">Puntaje: <%= puntaje %></p>
-                            <p class="card-text">Número de intentos: <%= numIntentos %></p>
+                            <p class="card-text">Puntaje máximo: <%= emparejar[(i*2)+1] %></p>
+                            <p class="card-text">Número de intentos: <%= emparejar[(i*2)] %></p>
                         </div>
                     </div>
                 </div>
@@ -125,7 +123,7 @@
                         <div class="card-body">
                             <h5 class="card-title">
                                 Desafío <%= i+1 %>
-                                <% for(var j = 0; j < puntaje; j++){
+                                <% for(var j = 0; j <unirVoltear[(i*2)+1]; j++){
                                 %>
                                     <i class="fas fa-star fa-sm fa-spin " style="color:gold"></i>
                                 <% } %>
@@ -149,8 +147,8 @@
                                 }%>
                                 <button type="submit" class="btn btn-primary"><i class="fas fa-gamepad"></i> Jugar</button>
                             </form>
-                            <p class="card-text">Puntaje: <%= puntaje %></p>
-                            <p class="card-text">Número de intentos: <%= numIntentos %></p>
+                            <p class="card-text">Puntaje máximo: <%= unirVoltear[(i*2)+1] %></p>
+                            <p class="card-text">Número de intentos: <%= unirVoltear[(i*2)] %></p>
                         </div>
                     </div>
                 </div>

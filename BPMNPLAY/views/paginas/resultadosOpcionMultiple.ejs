@@ -60,9 +60,8 @@
         <div class="col-md-4"> </div>
         <div class="col-md-4">
             <form action="/retosMateria" method="post">
-                <input type="text" name="nombre" hidden value=<%= nombre %>>
-                <input type="text" name="facilitador" hidden value=<%= facilitador %>>
-                <input type="text" name="materia" hidden value=<%= materia %>>
+                <input type="text" name="facilitador" hidden value="<%= facilitador %>">
+                <input type="text" name="materia" hidden value="<%= materia %>">
             <button  class="btn btn-info" type="submit">Regresar a desafíos</button>
             </form>
         </div>

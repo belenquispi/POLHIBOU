@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html"/>
+    <% include ../parciales/head %>
+
+    <title>Desafío Emparejar</title>
+</head>
+<body>
+<header>
+    <% include ../parciales/headerEstudiante %>
+</header>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/ingresoParticipante">Inicio</a></li>
+    </ol>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h1 id="tipoJuego">Reto de Emparejar</h1>
+        </div>
+
+        <div class="col-md-3"></div>
+    </div>
+    <div id="unir" class="row" onmouseover="verificarCompletoUnir()">
+        <div class="col-md-3"></div>
+        <canvas  style="z-index:1; border:black solid">
+
+        </canvas>
+        <div class="col-md-6"  style="z-index:2; position: absolute">
+            <% for(var i = 0; i < preguntas.length;i++)
+            { %>
+                <div class="row unir" style="margin-bottom: 10px">
+                    <div class="col-md-6">
+                        <button class="btn btn-outline-secondary" id="botonImagenAUnir<%= (i + 1) %>" onclick="obtenerId(this);">
+                            <img id="imagenAUnir<%= (i + 1) %>" src="<%= preguntas[i].imagen %>"
+                                 height="50" width="50">
+                        </button>
+                    </div>
+                    <div class="col-md-6">
+                        <button id="textoAUnir<%= (i + 1) %>" class="btn btn-outline-secondary btn-block" disabled
+                                onclick="obtenerId(this);"><%= textoDesordenado[i]%>
+                        </button>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-3">
+                    <button id="reiniciarUnir" type="button" class="btn btn-info" onclick="reiniciarUnir();">Reiniciar
+                    </button>
+                </div>
+                <div class="col-md-3 text-center">
+                    <form action="/resultadosEmparejar" method="post">
+                    <input type="text" name="materia" hidden value="<%= materia %>">
+                    <input type="text" name="respuestas" hidden>
+                    <button class="btn" style="background: darkcyan; color: white" id="enviarUnir" type="submit" disabled>Verificar respuesta</button>
+                    </form>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+        </div>
+</body>
+<script>
+    var respuestaUnir = [];
+    var imagenUnir = ['botonImagenAUnir1','botonImagenAUnir2','botonImagenAUnir3','botonImagenAUnir4','botonImagenAUnir5'];
+    var textoUnir = ['textoAUnir1','textoAUnir2','textoAUnir3','textoAUnir4','textoAUnir5'];
+    function obtenerId(e) {
+
+        var id = e.id;
+        switch (true){
+
+            case respuestaUnir.length < 2:
+                document.getElementById(id).style.border = "thick solid green";
+                break;
+            case respuestaUnir.length < 4:
+                document.getElementById(id).style.border = "thick solid red";
+                break;
+            case respuestaUnir.length < 6:
+                document.getElementById(id).style.border = "thick solid black";
+                break;
+            case respuestaUnir.length < 8:
+                document.getElementById(id).style.border = "thick solid yellow";
+                break;
+            case respuestaUnir.length < 10:
+                document.getElementById(id).style.border = "thick solid blue";
+                break;
+        }
+        respuestaUnir.push(id);
+
+        if(imagenUnir.indexOf(id) >= 0) {
+            for(var i = 0; i<imagenUnir.length; i++){
+                document.getElementById(imagenUnir[i]).setAttribute("disabled","");
+            }
+            for(var j = 0 ; j < textoUnir.length; j++){
+                if(respuestaUnir.indexOf(textoUnir[j])>0)
+                {
+                    document.getElementById(textoUnir[j]).setAttribute("disabled","");
+                }else {
+                    document.getElementById(textoUnir[j]).removeAttribute("disabled");
+                }
+            }
+        } else if (textoUnir.indexOf(id) >=0){
+            for(var i = 0; i<textoUnir.length; i++) {
+                document.getElementById(textoUnir[i]).setAttribute("disabled", "");
+            }
+
+            for(var j = 0 ; j < imagenUnir.length; j++){
+                if(respuestaUnir.indexOf(imagenUnir[j])>=0)
+                {
+                    document.getElementById(imagenUnir[j]).setAttribute("disabled","");
+                }else {
+                    document.getElementById(imagenUnir[j]).removeAttribute("disabled");
+                }
+            }
+        }
+    }
+
+    function verificarCompletoUnir() {
+        if(respuestaUnir.length != 10) {
+            document.getElementById("enviarUnir").setAttribute("disabled","");
+        }
+        else {
+            document.getElementById("enviarUnir").removeAttribute("disabled");
+        }
+    }
+
+    function reiniciarUnir() {
+        for (var i =0; i < respuestaUnir.length; i++){
+            document.getElementById(respuestaUnir[i]).style.border = "";
+            if(imagenUnir.indexOf(respuestaUnir[i])>=0) {
+                document.getElementById(respuestaUnir[i]).removeAttribute("disabled");
+            }
+        }
+
+        for(var i = respuestaUnir.length; i > 0 ; i--) {
+            respuestaUnir.pop();
+        }
+    }
+
+</script>
+</html>
