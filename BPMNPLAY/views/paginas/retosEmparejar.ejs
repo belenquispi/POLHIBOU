@@ -26,22 +26,19 @@
     </div>
     <div id="unir" class="row" onmouseover="verificarCompletoUnir()">
         <div class="col-md-3"></div>
-        <canvas  style="z-index:1; border:black solid">
-
-        </canvas>
-        <div class="col-md-6"  style="z-index:2; position: absolute">
+        <div class="col-md-6">
             <% for(var i = 0; i < preguntas.length;i++)
             { %>
                 <div class="row unir" style="margin-bottom: 10px">
                     <div class="col-md-6">
-                        <button class="btn btn-outline-secondary" id="botonImagenAUnir<%= (i + 1) %>" onclick="obtenerId(this);">
+                        <button value="<%=  preguntas[i].idPregunta %>" class="btn btn-outline-secondary" id="botonImagenAUnir<%= (i + 1) %>" onclick="obtenerId(this);">
                             <img id="imagenAUnir<%= (i + 1) %>" src="<%= preguntas[i].imagen %>"
                                  height="50" width="50">
                         </button>
                     </div>
                     <div class="col-md-6">
                         <button id="textoAUnir<%= (i + 1) %>" class="btn btn-outline-secondary btn-block" disabled
-                                onclick="obtenerId(this);"><%= textoDesordenado[i]%>
+                                value="<%= textoDesordenado[i]%>" onclick="obtenerId(this);"><%= textoDesordenado[i]%>
                         </button>
                     </div>
                 </div>
@@ -58,7 +55,13 @@
                 <div class="col-md-3 text-center">
                     <form action="/resultadosEmparejar" method="post">
                     <input type="text" name="materia" hidden value="<%= materia %>">
-                    <input type="text" name="respuestas" hidden>
+                    <input type="text" id="respuestas" name="respuestas" hidden>
+                    <input type="text" id="idIntento" name="idIntento" value="<%=idIntento%>"hidden>
+                    <input type="text" id="facilitador" name="facilitador" value="<%=facilitador%>"hidden>
+                        <%for(var j=0; j< preguntas.length; j++)
+                        {%>
+                        <input type="text" id="pregunta<%=j+1%>" name="pregunta<%=j+1%>" hidden value="<%=preguntas[j]%>">
+                        <%}%>
                     <button class="btn" style="background: darkcyan; color: white" id="enviarUnir" type="submit" disabled>Verificar respuesta</button>
                     </form>
                 </div>
@@ -68,8 +71,16 @@
 </body>
 <script>
     var respuestaUnir = [];
-    var imagenUnir = ['botonImagenAUnir1','botonImagenAUnir2','botonImagenAUnir3','botonImagenAUnir4','botonImagenAUnir5'];
-    var textoUnir = ['textoAUnir1','textoAUnir2','textoAUnir3','textoAUnir4','textoAUnir5'];
+    var respuestaUnirId = [];
+    var imagenUnirId = ['botonImagenAUnir1','botonImagenAUnir2','botonImagenAUnir3','botonImagenAUnir4','botonImagenAUnir5'];
+    var textoUnirId = ['textoAUnir1','textoAUnir2','textoAUnir3','textoAUnir4','textoAUnir5'];
+    var imagenUnir = [];
+    var textoUnir = [];
+    for(var i=1; i<6;i++)
+    {
+        imagenUnir.push(doc.getElementById("botonImagenAUnir"+i).value);
+        textoUnir.push(doc.getElementById("textoAUnir"+i).value);
+    }
     function obtenerId(e) {
 
         var id = e.id;
@@ -91,31 +102,31 @@
                 document.getElementById(id).style.border = "thick solid blue";
                 break;
         }
-        respuestaUnir.push(id);
+        respuestaUnir.push(document.getElementById(id).value);
+        respuestaUnirId.push(id);
 
-        if(imagenUnir.indexOf(id) >= 0) {
-            for(var i = 0; i<imagenUnir.length; i++){
-                document.getElementById(imagenUnir[i]).setAttribute("disabled","");
+        if(imagenUnirId.indexOf(id) >= 0) {
+            for(var i = 0; i<imagenUnirId.length; i++){
+                document.getElementById(imagenUnirId[i]).setAttribute("disabled","");
             }
-            for(var j = 0 ; j < textoUnir.length; j++){
-                if(respuestaUnir.indexOf(textoUnir[j])>0)
+            for(var j = 0 ; j < textoUnirId.length; j++){
+                if(respuestaUnirId.indexOf(textoUnirId[j])>0)
                 {
-                    document.getElementById(textoUnir[j]).setAttribute("disabled","");
+                    document.getElementById(textoUnirId[j]).setAttribute("disabled","");
                 }else {
-                    document.getElementById(textoUnir[j]).removeAttribute("disabled");
+                    document.getElementById(textoUnirId[j]).removeAttribute("disabled");
                 }
             }
-        } else if (textoUnir.indexOf(id) >=0){
-            for(var i = 0; i<textoUnir.length; i++) {
-                document.getElementById(textoUnir[i]).setAttribute("disabled", "");
+        } else if (textoUnirId.indexOf(id) >=0){
+            for(var i = 0; i<textoUnirId.length; i++) {
+                document.getElementById(textoUnirId[i]).setAttribute("disabled", "");
             }
-
-            for(var j = 0 ; j < imagenUnir.length; j++){
-                if(respuestaUnir.indexOf(imagenUnir[j])>=0)
+            for(var j = 0 ; j < imagenUnirId.length; j++){
+                if(respuestaUnirId.indexOf(imagenUnir[j])>=0)
                 {
-                    document.getElementById(imagenUnir[j]).setAttribute("disabled","");
+                    document.getElementById(imagenUnirId[j]).setAttribute("disabled","");
                 }else {
-                    document.getElementById(imagenUnir[j]).removeAttribute("disabled");
+                    document.getElementById(imagenUnirId[j]).removeAttribute("disabled");
                 }
             }
         }
@@ -127,21 +138,24 @@
         }
         else {
             document.getElementById("enviarUnir").removeAttribute("disabled");
+            document.getElementById("respuestas").value = respuestaUnir;
         }
     }
 
     function reiniciarUnir() {
-        for (var i =0; i < respuestaUnir.length; i++){
-            document.getElementById(respuestaUnir[i]).style.border = "";
-            if(imagenUnir.indexOf(respuestaUnir[i])>=0) {
-                document.getElementById(respuestaUnir[i]).removeAttribute("disabled");
+        for (var i =0; i < respuestaUnirId.length; i++){
+            document.getElementById(respuestaUnirId[i]).style.border = "";
+            if(imagenUnirId.indexOf(respuestaUnirId[i])>=0) {
+                document.getElementById(respuestaUnirId[i]).removeAttribute("disabled");
             }
         }
 
-        for(var i = respuestaUnir.length; i > 0 ; i--) {
+        for(var i = respuestaUnirId.length; i > 0 ; i--) {
             respuestaUnir.pop();
+            respuestaUnirId.pop();
         }
     }
+
 
 </script>
 </html>
