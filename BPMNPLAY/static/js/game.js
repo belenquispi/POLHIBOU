@@ -142,11 +142,6 @@ socket.on('ocultarBoton', function (idSocket) {
     }
 });
 
-socket.on('emparejar', function (array) {
-    memory_array = array;
-    newBoard();
-});
-
 socket.on('respondiendoIndicePreguntaOpcionMultiple', function (indicePregunta) {
     cargarPreguntaOpcionMultiple(indicePregunta);
 });

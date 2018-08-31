@@ -58,10 +58,6 @@
                     <input type="text" id="respuestas" name="respuestas" hidden>
                     <input type="text" id="idIntento" name="idIntento" value="<%=idIntento%>"hidden>
                     <input type="text" id="facilitador" name="facilitador" value="<%=facilitador%>"hidden>
-                        <%for(var j=0; j< preguntas.length; j++)
-                        {%>
-                        <input type="text" id="pregunta<%=j+1%>" name="pregunta<%=j+1%>" hidden value="<%=preguntas[j]%>">
-                        <%}%>
                     <button class="btn" style="background: darkcyan; color: white" id="enviarUnir" type="submit" disabled>Verificar respuesta</button>
                     </form>
                 </div>
