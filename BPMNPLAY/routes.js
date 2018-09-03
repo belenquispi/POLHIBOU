@@ -978,7 +978,7 @@ exports.post_mostrar_unir = function (req, res) {
                 return e.nombre
             }).indexOf(req.body.materia);
 
-            for (var i = 0; i < 5; i++) {
+            for (var i = 0; i < 6; i++) {
                 var indice = Math.floor(Math.random() * doc.materias[indiceMateria].preguntasUnirVoltear.length);
                 while (indices.indexOf(indice) >= 0 || doc.materias[indiceMateria].preguntasUnirVoltear[indice].dificultad != req.body.dificultad) {
                     indice = Math.floor(Math.random() * doc.materias[indiceMateria].preguntasUnirVoltear.length);
@@ -999,7 +999,7 @@ exports.post_mostrar_unir = function (req, res) {
                     preguntas: []
                 };
 
-            for (var j = 0; j < 5; j++) {
+            for (var j = 0; j < 6; j++) {
                 var pregunta =
                     {
                         idPregunta: preguntasUnir[j].idPregunta,
@@ -1010,6 +1010,7 @@ exports.post_mostrar_unir = function (req, res) {
                 intento.preguntas.push(pregunta)
             }
             memory_array.memory_tile_shuffle();
+            console.log(memory_array)
             Estudiante.findOne({
                 usuario: req.session.usuario
             }, function (error, doc) {

@@ -19,36 +19,63 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3"></div>
-        <div class="col-md-6">
+        <div class="col-md-6 text-center" >
             <h1 id="tipoJuego">Reto de Unir Voltear</h1>
         </div>
-
         <div class="col-md-3"></div>
     </div>
-    <div id="unir" class="row">
-        <div class="col-md-3">
+    <div class="row">
+        <div class="col-md-3" ></div>
+        <div class="col-md-6">
             <div class="progress">
                 <div id="progreso" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
             </div>
         </div>
+        <div class="col-md-3" ></div>
+    </div>
+    <div class="row" style="margin-top: 10px;" >
+        <div class="col-md-3" >
         </div>
-        <div class="col-md-6">
-            <div id="memory_board">
-                <%for(var i=0; i<memory_array.length; i++)
-                {%>
-                    <img id="tile_<%=i%>" alt="" onclick="memoryFlipTile(this,memory_array[i])">
-                <input type="text" hidden value="memory_array">
-                <%}%>
-                
+        <div class="col-md-6 border border-warning rounded bg-warning">
+            <div class="row">
+                <input type="text" hidden id="tamanioArray" value="<%=memory_array.length%>">
+               <div class="col-md-2">
+               </div>
+                <%
 
+                for(var i=0; i<memory_array.length; i++)
+                {
+                    console.log(memory_array[i]);
+               %>
+                <div class="col-md-2">
+                    <img class="imagenUnir" id="tile_<%=i%>" alt="" onclick="memoryFlipTile(this,'\'<%=memory_array[i]%>\'')">
+                </div>
+                <%if(i==3 || i ==7)
+                {%>
+                <div class="col-md-2">
+                </div>
+                    <div class="col-md-2">
+                    </div>
+               <% }%>
+                <!--<input type="text" hidden value="memory_array">-->
+                <%}%>
             </div>
         </div>
         <div class="col-md-3"></div>
     </div>
     <div class="row">
         <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <label>Pares encontrados</label>
+
+        </div>
+        <div class="col-md-3"></div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
         <div class="col-md-6 text-center">
-            <form action="/resultadosEmparejar" method="post">
+            <form action="/resultadosUnir" method="post">
                 <input type="text" name="materia" hidden value="<%= materia %>">
                 <input type="text" id="respuestas" name="respuestas" hidden>
                 <input type="text" id="idIntento" name="idIntento" value="<%=idIntento%>"hidden>
@@ -64,10 +91,13 @@
     var tiles_flipped =0;
     var memory_values = [];
     var memory_tile_ids = [];
+    var memory_array = document.getElementById('tamanioArray').value
 
     function memoryFlipTile(tile, val) {
         if (tile.alt == "" && memory_values.length < 2) {
             //tile.style.background = '#FFF';
+            console.log(val)
+            val = val.slice(1,-1)
             tile.src = val;
             tile.alt = val;
             if (memory_values.length == 0) {
@@ -85,7 +115,7 @@
                     memory_values = [];
                     memory_tile_ids = [];
                     // Check to see if the whole board is cleared
-                    if (tiles_flipped == memory_array.length) {
+                    if (tiles_flipped == memory_array) {
                         // alert("Board cleared... generating new board");
                         document.getElementById("enviarUnir").click();
                     }
@@ -123,6 +153,6 @@
             clearTimeout(counterBack);
         }
 
-    }, 1000);
+    }, 500);
 </script>
 </html>
