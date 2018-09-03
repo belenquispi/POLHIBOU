@@ -968,6 +968,7 @@ var preguntasUnir = [];
 exports.post_mostrar_unir = function (req, res) {
     if (req.session.usuario && req.body.materia && (req.session.rol == "participante")) {
         preguntasUnir = [];
+        var stringPreguntaUnir = "";
         var indices = [];
         var memory_array = [];
         Profesor.findOne({nombre: req.body.facilitador}, function (error, doc) {
@@ -985,6 +986,7 @@ exports.post_mostrar_unir = function (req, res) {
                 }
                 indices.push(indice);
                 preguntasUnir.push(doc.materias[indiceMateria].preguntasUnirVoltear[indice]);
+                stringPreguntaUnir+=doc.materias[indiceMateria].preguntasUnirVoltear[indice].imagen + "," + doc.materias[indiceMateria].preguntasUnirVoltear[indice].texto +",";
                 memory_array.push(doc.materias[indiceMateria].preguntasUnirVoltear[indice].imagen);
                 memory_array.push(doc.materias[indiceMateria].preguntasUnirVoltear[indice].imagen)
             }
@@ -1020,7 +1022,7 @@ exports.post_mostrar_unir = function (req, res) {
                     res.render('paginas/retosUnir', {
                         nombre: req.session.nombre,
                         materia: req.body.materia,
-                        preguntas: preguntasUnir,
+                        preguntas: stringPreguntaUnir,
                         idIntento: intento.idIntento,
                         facilitador: req.body.facilitador,
                         memory_array: memory_array

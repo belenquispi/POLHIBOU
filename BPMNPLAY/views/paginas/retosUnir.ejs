@@ -33,12 +33,12 @@
         </div>
         <div class="col-md-3" ></div>
     </div>
-    <div class="row" style="margin-top: 10px;" >
-        <div class="col-md-3" >
-        </div>
-        <div class="col-md-6 border border-warning rounded bg-warning">
+    <div class="row" style="margin-top: 10px; margin-bottom: 20px" >
+        <div class="col-md-3" ></div>
+        <div class="col-md-6 border border-warning rounded bg-warning" style="margin-top: 10px;" >
             <div class="row">
                 <input type="text" hidden id="tamanioArray" value="<%=memory_array.length%>">
+                <input type="text" hidden id="stringPreguntas" value="<%=preguntas%>">
                <div class="col-md-2">
                </div>
                 <%
@@ -61,15 +61,26 @@
                 <%}%>
             </div>
         </div>
-        <div class="col-md-3"></div>
-    </div>
-    <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-            <label>Pares encontrados</label>
-
+        <div class="col-md-3" ></div>
         </div>
-        <div class="col-md-3"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Pares encontrados</h3>
+            <%for (var i = 0; i<2; i++)
+            {%>
+                <div class="row">
+                    <%for (var j = 0; j<3; j++)
+                    {%>
+                        <div class="col-md-2">
+                            <img width="50px" height="50px" hidden id="parImagen<%=i%>_<%=j%>">
+                        </div>
+                        <div class="col-md-2">
+                           <label hidden id="parTexto<%=i%>_<%=j%>" ></label>
+                        </div>
+                    <% }%>
+                </div>
+         <% }%>
+            </div>
 
     </div>
     <div class="row">
@@ -92,6 +103,7 @@
     var memory_values = [];
     var memory_tile_ids = [];
     var memory_array = document.getElementById('tamanioArray').value
+    var preguntas_array = document.getElementById('stringPreguntas').value.split(',')
 
     function memoryFlipTile(tile, val) {
         if (tile.alt == "" && memory_values.length < 2) {
@@ -110,6 +122,7 @@
                 memory_tile_ids.push(tile.id);
                 if (memory_values[0] == memory_values[1]) {
                     tiles_flipped += 2;
+                    mostrarParEncontrado(memory_values[0]);
 
                     // Clear both arrays
                     memory_values = [];
@@ -154,5 +167,15 @@
         }
 
     }, 500);
+
+    function mostrarParEncontrado(imagen)
+    {
+        var indice = preguntas_array.indexOf(imagen);
+        if(indice >=0)
+        {
+            document.getElementById("parImagen"+tiles_flipped-2+"_"+tiles_flipped-1).src= imagen;
+
+        }
+    }
 </script>
 </html>
