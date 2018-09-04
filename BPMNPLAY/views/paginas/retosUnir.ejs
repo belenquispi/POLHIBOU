@@ -63,23 +63,32 @@
         </div>
         <div class="col-md-3" ></div>
         </div>
-    <div class="row">
+    <div class="row ">
         <div class="col-md-12">
             <h3>Pares encontrados</h3>
-            <%for (var i = 0; i<2; i++)
-            {%>
-                <div class="row">
-                    <%for (var j = 0; j<3; j++)
+            <div class="row border border-warning rounded " style="margin-bottom: 20px;" >
+                <%for (var i = 2; i<7; i+=2)
+                {%>
+                <div class="col-md-1">
+                    <img width="50px" height="50px" id="parImagen<%=i%>" style="margin:10px">
+                </div>
+                <div class="col-md-3">
+                    <label hidden id="parTexto<%=i%>" style="margin:10px"></label>
+                </div>
+                <% }%>
+            </div>
+                <div class="row border border-warning rounded">
+                    <%for (var j = 8; j<13; j+=2)
                     {%>
-                        <div class="col-md-2">
-                            <img width="50px" height="50px" hidden id="parImagen<%=i%>_<%=j%>">
+                        <div class="col-md-1">
+                            <img width="50px" height="50px"  id="parImagen<%=j%>" style="margin:10px">
                         </div>
-                        <div class="col-md-2">
-                           <label hidden id="parTexto<%=i%>_<%=j%>" ></label>
+                        <div class="col-md-3">
+                           <label hidden id="parTexto<%=j%>" style="margin:10px"></label >
                         </div>
                     <% }%>
                 </div>
-         <% }%>
+
             </div>
 
     </div>
@@ -103,7 +112,8 @@
     var memory_values = [];
     var memory_tile_ids = [];
     var memory_array = document.getElementById('tamanioArray').value
-    var preguntas_array = document.getElementById('stringPreguntas').value.split(',')
+    var preguntas_array = document.getElementById('stringPreguntas').value.split('@')
+    var respuestas = [];
 
     function memoryFlipTile(tile, val) {
         if (tile.alt == "" && memory_values.length < 2) {
@@ -129,7 +139,10 @@
                     memory_tile_ids = [];
                     // Check to see if the whole board is cleared
                     if (tiles_flipped == memory_array) {
-                        // alert("Board cleared... generating new board");
+                        // alert("Board cleared... generating new board")
+                        // ;
+                        console.log(respuestas)
+                        document.getElementById("respuestas").value = respuestas;
                         document.getElementById("enviarUnir").click();
                     }
                 } else {
@@ -164,16 +177,26 @@
             //document.getElementById("progreso").innerHTML = i-1+"%";
         } else {
             clearTimeout(counterBack);
+            document.getElementById("respuestas").value = respuestas;
+            document.getElementById("enviarUnir").click();
         }
 
-    }, 500);
+    }, 300);
 
     function mostrarParEncontrado(imagen)
     {
+        console.log("par encontrado")
         var indice = preguntas_array.indexOf(imagen);
+        console.log(preguntas_array)
+        console.log(indice)
         if(indice >=0)
         {
-            document.getElementById("parImagen"+tiles_flipped-2+"_"+tiles_flipped-1).src= imagen;
+            document.getElementById("parImagen"+tiles_flipped).src= imagen;
+            document.getElementById("parTexto"+tiles_flipped).innerHTML= preguntas_array[indice+1];
+            document.getElementById("parImagen"+tiles_flipped).removeAttribute("hidden")
+            document.getElementById("parTexto"+tiles_flipped).removeAttribute("hidden")
+            respuestas.push(preguntas_array[indice+1]);
+            console.log(respuestas)
 
         }
     }

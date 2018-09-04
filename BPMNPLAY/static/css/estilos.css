@@ -204,7 +204,11 @@ div#memory_board {
     transition: transform .5s linear 0s;
 }
 
-
+.miTurno
+{
+    width: 150%;
+    height: 150%;
+}
 /*.flip3D:hover > .front{
     transform: perspective( 600px ) rotateY( -180deg );
 }

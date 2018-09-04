@@ -8,8 +8,8 @@
     <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
-<header>
-
+<header style="margin-bottom: 10px">
+        <% include ../parciales/headerTablero %>
 </header>
 <input type="text" hidden name="idPartida" id="idPartida" value=<%=idPartida%>>
 <input type="text" hidden name="rol" id="rol" value=<%=rol%>>
@@ -26,24 +26,29 @@
                 <table class="table">
                     <thead>
                     <tr>
+                        <th></th>
                         <th>Jugador</th>
                         <th>Nombre</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr id="tablajug1" style="visibility:hidden">
+                        <td><i id="turno1" hidden class="fas fa-hand-point-right fa-3x"></i></td>
                         <td id="columna1"></td>
                         <td><label id="nombreEquipo1">Equipo 1</label></td>
                     </tr>
                     <tr id="tablajug2" style="visibility: hidden">
+                        <td><i id="turno2" hidden class="fas fa-hand-point-right fa-3x"></i></td>
                         <td id="columna2"></td>
                         <td><label id="nombreEquipo2">Equipo 2</label></td>
                     </tr>
                     <tr id="tablajug3" style="visibility:hidden">
+                        <td><i id="turno3" hidden class="fas fa-hand-point-right fa-3x"></i></td>
                         <td id="columna3"></td>
                         <td><label id="nombreEquipo3">Equipo 3</label></td>
                     </tr>
                     <tr id="tablajug4" style="visibility:hidden">
+                        <td><i id="turno4" hidden class="fas fa-hand-point-right fa-3x"></i></td>
                         <td id="columna4"></td>
                         <td><label id="nombreEquipo4">Equipo 4</label></td>
                     </tr>
@@ -95,9 +100,9 @@
                 </div>
                 <div id="snackbar">Puedes moverte</div>
                 <div id="snackbarIn">No puedes moverte</div>
-                <div id="mensajeTurno">
+               <!-- <div id="mensajeTurno">
                     <p>Es turno del equipo:<label id="nombreEquipoActual"></label></p>
-                </div>
+                </div>-->
                 <div id="mensajeUnir" hidden>
                 </div>
                 <div id="mensajeVoltear" hidden>
@@ -106,18 +111,8 @@
                 <div id="mensajeOpcionMultiple" hidden></div>
             </div>
             </div>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">Small modal</button>
-
         </div>
         <div class="col-md-5">
-
-            <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-sm">
-                    <div class="modal-content">
-                        ...
-                    </div>
-                </div>
-            </div>
             <div class="row">
                 <div class="flip3D">
                     <div id="tarjeta" class="front disabledbutton" onclick="darLaVuelta()"></div>
@@ -164,7 +159,6 @@
                             </div>
                             <div class="row unir" >
                                 <div class="col-md-5">
-                                    <label>1)</label>
                                     <button id="botonImagenAUnir1" onclick="obtenerId(this);">
                                         <img id="imagenAUnir1" src="static/imagenes/vacio.png" class="img-thumbnail"
                                              style="border:2px solid black" height="50" width="50">
@@ -174,14 +168,12 @@
                                     <label id="textoCorrecto1"></label>
                                 </div>
                                 <div class="col-md-5">
-                                    <label>A)</label>
                                     <button id="textoAUnir1" class="btn" disabled onclick="obtenerId(this);">Texto 1
                                     </button>
                                 </div>
                             </div>
                             <div class="row unir">
                                 <div class="col-md-5">
-                                    <label>2)</label>
                                     <button id="botonImagenAUnir2" onclick="obtenerId(this);">
                                         <img id="imagenAUnir2" src="static/imagenes/vacio.png" class="img-thumbnail"
                                              style="border:2px solid black" height="50" width="50">
@@ -191,14 +183,12 @@
                                     <label id="textoCorrecto2"></label>
                                 </div>
                                 <div class="col-md-5">
-                                    <label>B)</label>
                                     <button id="textoAUnir2" class="btn " disabled onclick="obtenerId(this);">Texto 2
                                     </button>
                                 </div>
                             </div>
                             <div class="row unir">
                                 <div class="col-md-5">
-                                    <label>3)</label>
                                     <button id="botonImagenAUnir3" onclick="obtenerId(this);">
                                         <img id="imagenAUnir3" src="static/imagenes/vacio.png" class="img-thumbnail"
                                              style="border:2px solid black" height="50" width="50">
@@ -208,14 +198,12 @@
                                     <label id="textoCorrecto3"></label>
                                 </div>
                                 <div class="col-md-5">
-                                    <label>C)</label>
                                     <button id="textoAUnir3" class="btn" disabled onclick="obtenerId(this);">Texto 3
                                     </button>
                                 </div>
                             </div>
                             <div class="row unir">
                                 <div class="col-md-5">
-                                    <label>4)</label>
                                     <button id="botonImagenAUnir4" onclick="obtenerId(this);">
                                         <img id="imagenAUnir4" src="static/imagenes/vacio.png" class="img-thumbnail"
                                              style="border:2px solid black" height="50" width="50">
@@ -225,7 +213,6 @@
                                     <label id="textoCorrecto4"></label>
                                 </div>
                                 <div class="col-md-5">
-                                    <label>D)</label>
                                     <button id="textoAUnir4" class="btn" disabled onclick="obtenerId(this);">Texto 4
                                     </button>
                                 </div>

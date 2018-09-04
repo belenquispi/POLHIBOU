@@ -132,7 +132,7 @@ app.post('/mostrarOpcionMultiple', routes.post_mostrar_opcion);
 app.post('/mostrarEmparejar', routes.post_mostrar_emparejar);
 app.post('/mostrarUnirVoltear', routes.post_mostrar_unir);
 app.post('/resultadosEmparejar', routes.post_resultados_emparejar);
-//app.post('/resultadosUnir', routes.post_resultados_unir);
+app.post('/resultadosUnir', routes.post_resultados_unir);
 
 // Starts the server.
 server.listen(5000, function () {

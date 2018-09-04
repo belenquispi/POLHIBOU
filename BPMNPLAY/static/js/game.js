@@ -400,8 +400,6 @@ function dibujarLlegarA() {
 
 function indiceJugadorActualF() {
     var indice = -1;
-    console.log(jugadores);
-    console.log(turnoJugadores);
     if(jugadores.length>0){
      indice = jugadores.map(function (value) {
         return value.idSocket
@@ -525,8 +523,9 @@ function habilitarTablaJugador() {
 function mostrarJugadorActual() {
     for (var i = 0; i < jugadores.length; i++) {
         document.getElementById("tablajug" + (i + 1)).style.border = "thick grey";
+        document.getElementById("tablajug" + (i + 1)).style.background = "#FFFFFF";
+        document.getElementById("turno" + (i + 1)).setAttribute("hidden", "");
     }
-
 
     for (var j = 0; j < jugadores.length; j++) {
         if (!document.getElementById("imagenJugador" + (j + 1)) && jugadores[j].idSocket !="" ) {
@@ -542,9 +541,11 @@ function mostrarJugadorActual() {
     var indiceJugadorActual = indiceJugadorActualF();
 
     if (indiceJugadorActual >= 0 && turnoJugadores.length > 0) {
-        document.getElementById("nombreEquipoActual").innerHTML = jugadores[indiceJugadorActual].nombreEquipo;
+      //  document.getElementById("nombreEquipoActual").innerHTML = jugadores[indiceJugadorActual].nombreEquipo;
         if (document.getElementById("tablajug" + (indiceJugadorActual + 1))) {
-            document.getElementById("tablajug" + (indiceJugadorActual + 1)).style.border = "thick solid #A9BCF5";
+            document.getElementById("tablajug" + (indiceJugadorActual + 1)).style.background = "#A9BCF5";
+            document.getElementById("turno" + (indiceJugadorActual + 1)).removeAttribute("hidden");
+         //  document.getElementById("tablajug" + (indiceJugadorActual + 1)).classList.add('miTurno');
             cambiarImagen(indiceJugadorActual);
         }
     }
@@ -707,7 +708,7 @@ function cargarPreguntaOpcionMultiple(indicePregunta) {
         var boton = document.createElement("BUTTON");
         boton.setAttribute("id", "res" + (j + 1));
         boton.setAttribute("onclick", "validarRespuesta(this)");
-        boton.setAttribute("class", "btn btn-block btn-info cortaPalabra");
+        boton.setAttribute("class", "btn btn-block btn-outline-dark cortaPalabra");
         boton.setAttribute("type", "button");
         boton.style.margin = "0px 5px";
         document.getElementById("botonTextoUnir" + (j + 1)).appendChild(boton);

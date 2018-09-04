@@ -372,11 +372,25 @@ exports.get_creacion_partida = function (req, res) {
 };
 
 exports.post_tablero = function (req, res) {
-    res.render('paginas/tablero', {
-        idPartida: req.body.idPartida,
-        rol: req.body.rol,
-        nombreEquipo: req.body.nombreEquipo
-    });
+    if(req.session.rol == "facilitador")
+    {
+        res.render('paginas/tablero', {
+            idPartida: req.body.idPartida,
+            rol: req.body.rol,
+            nombreEquipo: req.body.nombreEquipo,
+            nombre: req.session.nombre
+        });
+    }
+    else {
+
+
+        res.render('paginas/tablero', {
+            idPartida: req.body.idPartida,
+            rol: req.body.rol,
+            nombreEquipo: req.body.nombreEquipo,
+            nombre: req.body.nombreEquipo
+        });
+    }
 };
 
 exports.get_opcion_multiple = function (req, res) {
@@ -719,7 +733,7 @@ exports.post_retos_materia = function (req, res) {
             }
             opcionMultiple = obtenerPuntaje(intentosMateria, "opcionMultiple");
             emparejar = obtenerPuntaje(intentosMateria, "emparejar");
-            unirVoltear = obtenerPuntaje(intentosMateria, "unirVoltear");
+            unirVoltear = obtenerPuntaje(intentosMateria, "unir");
 
 
             res.render('paginas/retosEstudiante', {
@@ -986,7 +1000,7 @@ exports.post_mostrar_unir = function (req, res) {
                 }
                 indices.push(indice);
                 preguntasUnir.push(doc.materias[indiceMateria].preguntasUnirVoltear[indice]);
-                stringPreguntaUnir+=doc.materias[indiceMateria].preguntasUnirVoltear[indice].imagen + "," + doc.materias[indiceMateria].preguntasUnirVoltear[indice].texto +",";
+                stringPreguntaUnir+=doc.materias[indiceMateria].preguntasUnirVoltear[indice].imagen + "@" + doc.materias[indiceMateria].preguntasUnirVoltear[indice].texto +"@";
                 memory_array.push(doc.materias[indiceMateria].preguntasUnirVoltear[indice].imagen);
                 memory_array.push(doc.materias[indiceMateria].preguntasUnirVoltear[indice].imagen)
             }
@@ -1007,7 +1021,6 @@ exports.post_mostrar_unir = function (req, res) {
                         idPregunta: preguntasUnir[j].idPregunta,
                         enunciado: preguntasUnir[j].texto,
                         imagenEnunciado: preguntasUnir[j].imagen,
-                        correctoIncorrecto: '-1'
                     }
                 intento.preguntas.push(pregunta)
             }
@@ -1036,6 +1049,52 @@ exports.post_mostrar_unir = function (req, res) {
     }
 }
 
+
+exports.post_resultados_unir = function (req, res) {
+    if (req.session.usuario && req.body.materia && (req.session.rol == "participante")) {
+        var puntaje = 0;
+        var respuestas = [];
+        if(req.body.respuestas.length >0)
+        {
+           respuestas = req.body.respuestas.split(",");
+        }
+        else
+        {
+            puntaje=0;
+        }
+        if(respuestas.length == 1)
+        {
+            puntaje=1;
+        }
+        else
+        {
+        puntaje = Math.floor((respuestas.length * 5) /6);
+        }
+
+        Estudiante.findOne({
+            usuario: req.session.usuario
+        }, function (error, doc) {
+            var indiceIntento = doc.intentos.map(function (e) {
+                return e.idIntento
+            }).indexOf(req.body.idIntento);
+            doc.intentos[indiceIntento].puntaje = puntaje;
+            doc.save(function (err, docActualizado) {
+
+                res.render('paginas/resultadosUnir', {
+                    respuestas: respuestas,
+                    nombre : req.session.nombre,
+                    facilitador : req.body.facilitador,
+                    materia : req.body.materia,
+                    preguntas: preguntasUnir,
+                    puntaje: puntaje
+                })
+            })
+        })
+    }
+    else {
+        res.redirect('/')
+    }
+}
 exports.get_retos_materia = function (req, res) {
     if (req.session.usuario) {
         if (req.session.rol == "facilitador") {
