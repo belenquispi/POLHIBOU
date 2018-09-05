@@ -97,4 +97,5 @@ function eliminarImagenCargada() {
         padre2.appendChild(inputNuevo)
     }
     document.getElementById("eliminarImagen").setAttribute("hidden","");
+    document.getElementById("imagenEnunciado").value = "";
 }
