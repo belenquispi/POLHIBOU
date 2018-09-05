@@ -199,7 +199,7 @@ exports.get_preguntas_opcion = function (req, res) {
             var enunciadoPreguntas = [];
             var dificultadPreguntas = [];
             for (var i = 0; i < doc.materias[indice].preguntasOpcionMultiple.length; i++) {
-                idPreguntas.push(doc.materias[indice].preguntasOpcionMultiple[i].idOpcionMultiple);
+                idPreguntas.push(doc.materias[indice].preguntasOpcionMultiple[i].idPregunta);
                 enunciadoPreguntas.push(doc.materias[indice].preguntasOpcionMultiple[i].enunciado);
                 dificultadPreguntas.push(doc.materias[indice].preguntasOpcionMultiple[i].dificultad);
             }
@@ -239,7 +239,7 @@ exports.get_eliminar_pregunta_opcion = function (req, res) {
 
             if (indice >= 0) {
                 var indicePregunta = doc.materias[indice].preguntasOpcionMultiple.map(function (e) {
-                    return e.idOpcionMultiple
+                    return e.idPregunta
                 }).indexOf(idPregunta);
                 if (indicePregunta >= 0) {
                     doc.materias[indice].preguntasOpcionMultiple.splice(indicePregunta, 1);
@@ -269,7 +269,7 @@ exports.post_preguntas_opcion = function (req, res) {
             enunciado: req.body.enunciado,
             respuestaCorrecta: req.body.respuestaCorrecta,
             dificultad: req.body.dificultad,
-            idOpcionMultiple: generarNombre()
+            idPregunta: generarNombre()
         };
 
         if (req.body.imagenEnunciado != "") {
@@ -291,7 +291,7 @@ exports.post_preguntas_opcion = function (req, res) {
 
         if (indice >= 0) {
             var indicePregunta = doc.materias[indice].preguntasOpcionMultiple.map(function (e) {
-                return e.idOpcionMultiple
+                return e.idPregunta
             }).indexOf(req.body.idOpcionMultiple);
             if (indicePregunta >= 0) {
                 doc.materias[indice].preguntasOpcionMultiple.splice(indicePregunta, 1);
@@ -312,7 +312,6 @@ exports.post_preguntas_opcion = function (req, res) {
 exports.post_detalle_opcion_multiple = function (req, res) {
 
     Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
-
         if (error) {
             console.log("Error: " + error)
         }
@@ -322,15 +321,17 @@ exports.post_detalle_opcion_multiple = function (req, res) {
         }).indexOf(req.body.materia);
 
         var indicePregunta = doc.materias[indice].preguntasOpcionMultiple.map(function (e) {
-            return e.idOpcionMultiple
-        }).indexOf(req.body.idPregunta)
+            return e.idPregunta
+        }).indexOf(req.body.idPregunta);
 
-
+        console.log("idpregunta")
+        console.log(indicePregunta)
+        console.log(req.body.idPregunta)
         if (indicePregunta >= 0) {
             var preguntaOpcionMultiple = {
                 enunciado: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].enunciado,
                 imagenEnunciado: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].imagenEnunciado,
-                idOpcionMultiple: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].idOpcionMultiple,
+                idOpcionMultiple: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].idPregunta,
                 res1: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].res1,
                 res2: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].res2,
                 res3: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].res3,
@@ -341,7 +342,7 @@ exports.post_detalle_opcion_multiple = function (req, res) {
                 imagenRes4: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].imagenRes4,
                 dificultad: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].dificultad,
                 respuestaCorrecta: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].respuestaCorrecta
-            }
+            };
             res.render('paginas/detalleOpcionMultiple', {
                 nombre: req.session.nombre,
                 materia: req.body.materia,
@@ -350,8 +351,6 @@ exports.post_detalle_opcion_multiple = function (req, res) {
 
         }
     });
-
-
 }
 
 exports.get_creacion_partida = function (req, res) {
@@ -432,7 +431,7 @@ exports.get_preguntas_unir_voltear = function (req, res) {
             var imagenPreguntas = [];
             var dificultades = [];
             for (var i = 0; i < doc.materias[indice].preguntasUnirVoltear.length; i++) {
-                idPreguntas.push(doc.materias[indice].preguntasUnirVoltear[i].idUnirVoltear);
+                idPreguntas.push(doc.materias[indice].preguntasUnirVoltear[i].idPregunta);
                 textoPreguntas.push(doc.materias[indice].preguntasUnirVoltear[i].texto);
                 imagenPreguntas.push(doc.materias[indice].preguntasUnirVoltear[i].imagen);
                 dificultades.push(doc.materias[indice].preguntasUnirVoltear[i].dificultad);
@@ -464,7 +463,7 @@ exports.post_agregar_unir_voltear = function (req, res) {
             }).indexOf(req.body.materia);
 
             var preguntaUnir = {
-                idUnirVoltear: generarNombre(),
+                idPregunta: generarNombre(),
                 texto: req.body.nombreImagen,
                 imagen: req.body.imagenUnir,
                 dificultad: req.body.dificultad
@@ -498,7 +497,7 @@ exports.post_eliminar_unir_voltear = function (req, res) {
 
             if (indice >= 0) {
                 var indicePregunta = doc.materias[indice].preguntasUnirVoltear.map(function (e) {
-                    return e.idUnirVoltear
+                    return e.idPregunta
                 }).indexOf(req.body.idPregunta);
                 if (indicePregunta >= 0) {
                     doc.materias[indice].preguntasUnirVoltear.splice(indicePregunta, 1);
@@ -534,7 +533,7 @@ exports.post_agregar_varias_unir_voltear = function (req, res) {
                 preguntaU.push("dificultad" + i)
 
                 var preguntaUnir = {
-                    idUnirVoltear: generarNombre(),
+                    idPregunta: generarNombre(),
                     imagen: req.body[preguntaU[0]],
                     texto: req.body[preguntaU[1]],
                     dificultad: req.body[preguntaU[2]]

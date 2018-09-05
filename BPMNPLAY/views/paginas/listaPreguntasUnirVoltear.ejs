@@ -116,10 +116,10 @@ for (var i = 0; i < dificultades.length; i++) {
                     <div class="card">
                         <div class="card-header">
                             <div class="row">
-                                <div class="col-md-10">
+                                <div class="col-md-9">
                                     <h5><%= textoPreguntas[i] %></h5>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <form action="/eliminarUnirVoltear" method="post">
                                         <input type="text" name="idPregunta" hidden value=<%= idPreguntas[i] %>>
                                         <input type="text" name="materia" hidden value=<%= materia %>>

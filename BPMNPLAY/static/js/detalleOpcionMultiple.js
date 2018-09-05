@@ -68,7 +68,7 @@ function cambiarImagen(boton) {
         input.setAttribute("class", "form-control-file");
         input.setAttribute("id", "botonArchivoEnunciado");
         input.setAttribute("value", "uploadEnunciado");
-        input.setAttribute("accept", "image/*");
+        input.setAttribute("accept", ".png, .jpg, .jpeg");
         input.setAttribute("required", "");
         input.setAttribute("onchange", "mostrarVistaPreviaImagen(event, 'imagenCargadaEnunciado'), encodeImageFileAsURL(this)");
         document.getElementById("cargaImagenEnunciado").appendChild(input);
@@ -114,7 +114,7 @@ function cambiarImagen(boton) {
             input.setAttribute("class", "form-control-file");
             input.setAttribute("id", "botonArchivo" + idBoton);
             input.setAttribute("value", "upload" + idBoton);
-            input.setAttribute("accept", "image/*");
+            input.setAttribute("accept", ".png, .jpg, .jpeg");
             input.setAttribute("required", "");
             input.setAttribute("onchange", "mostrarVistaPreviaImagen(event, 'nueva" + idBoton + "'), encodeImageFileAsURL(this)");
             document.getElementById("datos" + idBoton).appendChild(input);
@@ -145,4 +145,40 @@ function cambiarImagen(boton) {
 var mostrarVistaPreviaImagen = function (event, imagen) {
     var output = document.getElementById(imagen);
     output.src = URL.createObjectURL(event.target.files[0]);
+    document.getElementById("eliminarImagen").removeAttribute("hidden");
 };
+function eliminarImagenCargada() {
+    var input = document.getElementById("botonArchivoEnunciado");
+    var  imagen = document.getElementById("imagenCargadaEnunciado");
+
+    var imagenNueva = document.createElement("IMG");
+    imagenNueva.setAttribute("id", "imagenCargadaEnunciado");
+    imagenNueva.setAttribute("width", "50" );
+    imagenNueva.setAttribute("height", "50");
+
+    var inputNuevo = document.createElement("INPUT");
+    inputNuevo.setAttribute("type", "file");
+    inputNuevo.setAttribute("id", "botonArchivoEnunciado");
+    inputNuevo.setAttribute("class", "btn btn-file btn-light");
+    inputNuevo.setAttribute("accept", ".png, .jpg, .jpeg");
+    inputNuevo.setAttribute("value", "uploadEnunciado");
+    inputNuevo.setAttribute("onchange", "mostrarVistaPreviaImagen(event, 'imagenCargadaEnunciado'), encodeImageFileAsURL(this)");
+
+    if (!imagen){
+        alert("El elemento selecionado no existe");
+    } else {
+        var padre = imagen.parentNode;
+        padre.removeChild(imagen);
+        padre.appendChild(imagenNueva);
+    }
+    if (!input){
+        alert("El elemento selecionado no existe");
+    } else {
+        var padre2 = input.parentNode;
+        padre2.removeChild(input);
+        padre2.appendChild(inputNuevo)
+    }
+    document.getElementById("eliminarImagen").setAttribute("hidden","");
+    document.getElementById("imagenEnunciado").value = "";
+
+}

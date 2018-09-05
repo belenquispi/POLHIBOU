@@ -61,7 +61,7 @@ function generarDatosPregunta (numero) {
         inputImagen.setAttribute("id", "botonImagenUnir" + (i + 1));
         inputImagen.setAttribute("value", "uploadImagenUnir" + (i + 1));
         inputImagen.setAttribute("required", "");
-        inputImagen.setAttribute("accept", "image/*");
+        inputImagen.setAttribute("accept", ".png, .jpg, .jpeg");
         inputImagen.setAttribute("onchange", "mostrarVistaPreviaImagen(event, \'imagen"+ (i + 1)+"\'), encodeImageFileAsURL(this)") ;
         document.getElementById("form-group-img-" + (i + 1)).appendChild(inputImagen);
 

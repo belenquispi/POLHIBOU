@@ -34,13 +34,17 @@
             <div class="form-group col-md-4 " id="cargaImagenEnunciado">
                 <label for="botonArchivoEnunciado">Cargar imagen (opcional):</label>
                 <input type="file" class="form-control-file" id="botonArchivoEnunciado" value="uploadEnunciado"
-                       accept="image/*"
+                       accept=".png, .jpg, .jpeg"
                        onchange="mostrarVistaPreviaImagen(event, 'imagenCargadaEnunciado'), encodeImageFileAsURL(this)">
                 <input type="text" hidden id="imagenEnunciado" name="imagenEnunciado">
             </div>
-            <div class="form-group col-md-2" id="vistaImagenEnunciado">
+            <div class="form-group col-md-1" id="vistaImagenEnunciado">
                 <br>
                 <img id="imagenCargadaEnunciado" width="50" height="50"/>
+            </div>
+            <div class="form-group col-md-1">
+                <br>
+                <button type="button" id="eliminarImagen" class="btn btn-light" hidden onclick="eliminarImagenCargada()"> <i class = "far fa-times-circle fa-2x" style="color: red"></i></button>
             </div>
             <% } else { %>
             <div class="form-group col-md-6" id="vistaImagenBase">
