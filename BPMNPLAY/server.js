@@ -159,19 +159,17 @@ io.on('connection', function (socket) {
         }
         else {
             partidas.push(new partida(room));
-            for (var i = 0; i < nombreIconoEquipos.length; i++) {
-                insertarDatosJugador(partidas.length - 1, nombreIconoEquipos[i].iconoEquipo, nombreIconoEquipos[i].nombreEquipo);
+            for (var j = 0; j < nombreIconoEquipos.length; j++) {
+                insertarDatosJugador(partidas.length - 1, nombreIconoEquipos[j].iconoEquipo, nombreIconoEquipos[j].nombreEquipo);
                 descargarPreguntas(partidas.length - 1, usuario, idMateria);
             }
         }
     });
     socket.on('inicio', function (room, rol, nombreEquipoJugar) {
-        console.log("room: " + room + " rol: " + rol + " nombreEquipoJugar: " + nombreEquipoJugar);
         var idPartida = partidas.map(function (e) {
             return e.nombrePartida
         }).indexOf(room);
         if (idPartida >= 0) {
-            console.log("222room: " + room + " rol: " + rol + " nombreEquipoJugar: " + nombreEquipoJugar);
             if (rol == "espectador") {
                 socket.join(room);
                 socket.emit("nombreRol", "Espectador");
@@ -189,9 +187,7 @@ io.on('connection', function (socket) {
                             return e.nombreEquipo
                         }).indexOf(nombreEquipo);
                         if (idJugador >= 0) {
-                            console.log("4444room: " + room + " rol: " + rol + " nombreEquipoJugar: " + nombreEquipoJugar);
-
-                            partidas[idPartida].jugadores[idJugador].listo = 1;
+                                                       partidas[idPartida].jugadores[idJugador].listo = 1;
                             actualizarJugadoresIngresados(room);
                         }
                         else {
@@ -306,10 +302,7 @@ io.on('connection', function (socket) {
         }).indexOf(socket.id)].moverseA) > 34 ? partidas[idPartida].jugadores[partidas[idPartida].jugadores.map(function (e) {
             return e.idSocket
         }).indexOf(socket.id)].moverseA = 34 : "");
-        console.log("Numero de casillas a moverse");
-        console.log(partidas[idPartida].jugadores[partidas[idPartida].jugadores.map(function (e) {
-            return e.idSocket
-        }).indexOf(socket.id)]);
+
         var numDesafioMostrarse = mostrarDesafio(partidas[idPartida].jugadores[partidas[idPartida].jugadores.map(function (e) {
             return e.idSocket
         }).indexOf(socket.id)], numCasillasMoverse, partidas[idPartida].colorM);
@@ -319,7 +312,8 @@ io.on('connection', function (socket) {
         }
         io.sockets.in(room).emit('dados', dado1, dado2, dadoAnterior1, dadoAnterior2, numDesafioMostrarse, socket.id);
     });
-    socket.on('moverJugador', function (room, gameTime) {
+    socket.on('moverJugador', function (room) {
+        var gameTime = Date.now();
         for (var i = 0; i < partidas.length; i++) {
             if (partidas[i].nombrePartida == room) {
                 for (var j = 0; j < partidas[i].jugadores.length; j++) {
@@ -340,8 +334,8 @@ io.on('connection', function (socket) {
                                 }
                             }
                             else {
-                                for (var i = 0; i < partidas.length; i++) {
-                                    io.sockets.in(partidas[i].nombrePartida).emit('partida', partidas[i]);
+                                for (var k = 0; k < partidas.length; k++) {
+                                    io.sockets.in(partidas[k].nombrePartida).emit('partida', partidas[k]);
                                 }
                             }
                         }
@@ -434,9 +428,9 @@ io.on('connection', function (socket) {
         }
         partidas[idPartida].contadorPreguntasLibresUnirVoltear = contador;
         var memory_array = [];
-        for (var i = 0; i < arrayIndices.length; i++) {
-            memory_array.push(partidas[idPartida].preguntasUnirVoltear[arrayIndices[i]].imagen);
-            memory_array.push(partidas[idPartida].preguntasUnirVoltear[arrayIndices[i]].imagen);
+        for (var j = 0; j < arrayIndices.length; j++) {
+            memory_array.push(partidas[idPartida].preguntasUnirVoltear[arrayIndices[j]].imagen);
+            memory_array.push(partidas[idPartida].preguntasUnirVoltear[arrayIndices[j]].imagen);
         }
         memory_array.memory_tile_shuffle();
         io.sockets.in(partidas[idPartida].nombrePartida).emit('respondiendoIndicePreguntaVoltear', memory_array);
@@ -475,7 +469,7 @@ setInterval(function () {
     for (var i = 0; i < partidas.length; i++) {
         io.sockets.in(partidas[i].nombrePartida).emit('partida', partidas[i]);
     }
-}, 1000 / 60);
+}, 1000 / 30);
 
 function seleccionarColor(filasN, columnasN, gameMapN,) {
     var indice = 0;
@@ -493,7 +487,7 @@ function seleccionarColor(filasN, columnasN, gameMapN,) {
                     // 1 = Emparejar - rosado
                     // 2 = Opción múltiple - azul
 
-                    var colorA =2;
+                    var colorA =0;
 
                     var colorAnterior = -1;
                     while (colorA == colorAnterior) {
