@@ -4,7 +4,7 @@
     <% include ../parciales/head %>
     <meta http-equiv="Content-Type" content="text/html"/>
     <link rel="stylesheet" type="text/css" href="static/css/estilos.css">
-    <title>Title</title>
+    <title>Inicio Facilitador</title>
 </head>
 <body>
 <header>
@@ -15,157 +15,199 @@
         <li class="breadcrumb-item"><a href="/ingresoFacilitador">Inicio</a></li>
     </ol>
 </nav>
-<div class="container">
+<div class="container-fluid">
     <div class="row">
+        <div class="col-md-2">
+
+        </div>
         <div class="col-md-10">
-            <h2>Materias</h2>
-        </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <h2>Materias</h2>
+                </div>
+            </div>
+                    <div class="row" >
+                        <div class="col-md-4">
+                            <div class="card text-white bg-dark" style="margin-top: 10px">
+                                <h5 class="card-header">Agregar Materia</h5>
+                                <div class="card-body">
+                                    <form action="/ingresoMateria" method="post">
+                                        <div class="row">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text"><i class="fas fa-book"></i></div>
+                                                </div>
+                                                <input type="text" class="form-control"
+                                                       placeholder="Nombre de la materia" name="nombreMateria" required>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text"><i id="iconoTipo"
+                                                                                     class="fas fa-unlock"></i></div>
+                                                </div>
+                                                <select id="tipo" name="tipo" class="form-control"
+                                                        onchange="cambiarIcono()">
+                                                    <option value="publica">Pública</option>
+                                                    <option value="privada">Privada</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-2"></div>
+                                            <div class="input-group col-md-8">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text"><i class="fas fa-plus"></i></div>
+                                                </div>
+                                                <input type="submit" class="btn btn-primary"
+                                                       value="Agregar Materia">
+                                            </div>
+                                            <div class="col-md-2"></div>
+                                        </div>
 
-    </div>
-    <div class="row">
-        <div class="card-columns">
-            <div class="card text-white bg-dark mb-3" style="height: 285px">
-                <h5 class="card-header">Agregar Materia</h5>
-                <div class="card-body">
-                    <form action="/ingresoMateria" method="post">
-                        <div class="input-group mb-2">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text"><i class="fas fa-book"></i></div>
-                            </div>
-                            <input type="text" class="form-control" placeholder="Nombre de la materia"
-                                   name="nombreMateria">
-                        </div>
-                        <div class="input-group mb-2">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text"><i id="iconoTipo" class="fas fa-unlock"></i></div>
-                            </div>
-                            <select id="tipo" name="tipo" class="form-control" onchange="cambiarIcono()">
-                                <option value="publica">Pública</option>
-                                <option value="privada">Privada</option>
-                            </select>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-2"></div>
-                            <div class="input-group mb-2 col-md-8">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text"><i class="fas fa-plus"></i></div>
+                                    </form>
+
                                 </div>
-                                <input type="submit" class="btn btn-primary"
-                                       value="Agregar Materia">
                             </div>
-                            <div class="col-md-2"></div>
                         </div>
+                        <%
+                        for(var i = 0; i < materias.length; i++) {
+                            console.log(materias[i]) %>
 
-                    </form>
-
-                </div>
-            </div>
-            <%
-            for(var i = 0; i < materias.length; i++) {
-            console.log(materias[i])%>
-                <div class="card">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <h5><%= materias[i].nombre %></h5>
+                        <div class="col-md-4" >
+                            <div class="card" style="margin-top: 10px" >
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <h5><%= materias[i].nombre %></h5>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <form action="/cambiarTipoMateria" method="post">
+                                                <input type="text" name="materia" value="<%= materias[i].nombre %>"
+                                                       hidden>
+                                                <% if(materias[i].tipo == "privada")
+                                                {
+                                                %>
+                                                    <button class="btn btn-default" type="submit" data-toggle="tooltip"
+                                                            data-placement="right" title="Privada"
+                                                            id="boton<%= materias[i].nombre %>"><i
+                                                                class="fas fa-lock"></i></button>
+                                                <%
+                                                }
+                                                else
+                                                { %>
+                                                    <button class="btn btn-default" type="submit" data-toggle="tooltip"
+                                                            data-placement="right" title="Pública"
+                                                            id="boton<%= materias[i].nombre %>"><i
+                                                                class="fas fa-unlock"></i></button>
+                                                <%
+                                                } %>
+                                            </form>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <form action="/eliminarMateria" method="post">
+                                                <input type="text" name="materia" value="<%= materias[i].nombre %>"
+                                                       hidden>
+                                                <button class="btn btn-default" type="button" data-toggle="tooltip"
+                                                        data-placement="right" title="Eliminar Materia"><i
+                                                            class="fas fa-trash-alt"
+                                                            onclick="eliminarMateria('<%= materias[i].nombre %>')"></i>
+                                                </button>
+                                                <button id="botonEliminar<%= materias[i].nombre %>" type="submit"
+                                                        hidden></button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <a href="/ingresoFacilitador/preguntasOpcionMultiple/<%= materias[i].nombre %>"
+                                               class="btn btn-primary" style="margin-bottom: 10px"
+                                               id=<%= materias[i] %>>
+                                                <i class="far fa-list-alt"></i>Preguntas Opción Multiple <span
+                                                        class="badge badge-light"><%= materias[i].numOpcionMultiple %></span></a>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <% if(materias[i].boolOpcion)
+                                            { %>
+                                                <button type="button" class="btn btn-secondary" data-toggle="tooltip"
+                                                        data-placement="right"
+                                                        title="No cuenta con el número mínimo de preguntas.">
+                                                    <i class="fas fa-exclamation-triangle"></i>
+                                                </button>
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <a href="/ingresoFacilitador/preguntasUnirVoltear/<%= materias[i].nombre %>"
+                                               class="btn btn-info" style="margin-bottom: 10px">
+                                                <i class="fas fa-th"></i> Preguntas Unir Voltear <span
+                                                        class="badge badge-light"><%= materias[i].numUnirVoltear %></span></a>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <% if(materias[i].boolUnir)
+                                            { %>
+                                                <button type="button" class="btn btn-secondary" data-toggle="tooltip"
+                                                        data-placement="right"
+                                                        title="No cuenta con el número mínimo de preguntas.">
+                                                    <i class="fas fa-exclamation-triangle"></i>
+                                                </button>
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <% if(materias[i].boolUnir || materias[i].boolOpcion )
+                                            { %>
+                                                <button type="button" class="btn btn-secondary" data-toggle="tooltip"
+                                                        data-placement="right"
+                                                        style="margin-bottom: 10px"
+                                                        title="No cuenta con el número mínimo de preguntas.">
+                                                    <i class="fas fa-plus"></i> Crear Partidas
+                                                </button>
+                                            <% }
+                                            else
+                                            { %>
+                                                <a href="/ingresoFacilitador/creacionPartida/<%= materias[i].nombre %>"
+                                                   class="btn btn-primary"
+                                                   style="margin-bottom: 10px"><i class="fas fa-plus"></i> Crear
+                                                    Partidas</a>
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-2">
-                                <form action="/cambiarTipoMateria" method="post">
-                                    <input type="text" name="materia" value="<%=materias[i].nombre%>" hidden>
-                                <% if(materias[i].tipo == "privada")
-                                {
-                                %>
-                                <button class="btn btn-default" type="submit" id="boton<%=materias[i].nombre%>"><i class="fas fa-lock"></i></button>
-                                <%
-                                }
-                                else
-                                { %>
-                                <button class="btn btn-default" type="submit" id="boton<%=materias[i].nombre%>"><i class="fas fa-unlock"></i></button>
-                                <%
-                                } %>
-                                </form>
+                        </div>
+                        <% } %>
+                        <div class="col-md-4" >
+                            <div class="card" style=" border-style: dashed; margin-top: 10px; height: 240px">
+                                <div class="row">
+                                    <div class="col-md-3" ></div>
+                                    <div class="col-md-6" >
+                                        <img src="../../static/imagenes/iconoMas.png" height="200" width="200" alt="Card image">
+                                    </div>
+                                    <div class="col-md-3" ></div>
+                                </div>
                             </div>
-                            <div class="col-md-2">
-                                <form action="/eliminarMateria" method="post">
-                                    <input type="text" name="materia" value="<%=materias[i].nombre%>" hidden>
-                                    <button class="btn btn-default" type="button"><i class="fas fa-trash-alt" onclick="eliminarMateria('<%=materias[i].nombre%>')"></i></button>
-                                    <button id="botonEliminar<%=materias[i].nombre%>" type="submit" hidden></button>
-                                </form>
-                            </div>
-
                         </div>
                     </div>
-
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-10">
-                        <a href="/ingresoFacilitador/preguntasOpcionMultiple/<%= materias[i].nombre%>" class="btn btn-primary"
-                           style="margin-bottom: 10px" id=<%= materias[i] %>><i class="far fa-list-alt"></i> Preguntas
-                            Opción Multiple <span class="badge badge-light"><%= materias[i].numOpcionMultiple%></span></a>
-                            </div>
-                            <div class="col-md-2">
-                                <%if(materias[i].boolOpcion)
-                                {%>
-                                    <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="No cuenta con el número mínimo de preguntas.">
-                                        <i class="fas fa-exclamation-triangle"></i>
-                                    </button>
-                                <%}%>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-10">
-                        <a href="/ingresoFacilitador/preguntasUnirVoltear/<%= materias[i].nombre%>" class="btn btn-info"
-                           style="margin-bottom: 10px"><i class="fas fa-th"></i> Preguntas Unir Voltear <span class="badge badge-light"><%= materias[i].numUnirVoltear%></span></a>
-                            </div>
-                            <div class="col-md-2">
-                                <%if(materias[i].boolUnir)
-                                {%>
-                                <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="No cuenta con el número mínimo de preguntas.">
-                                    <i class="fas fa-exclamation-triangle"></i>
-                                </button>
-                                    <%}%>
-                            </div>
-                        </div>
-                        <%if(materias[i].boolUnir || materias[i].boolOpcion )
-                        {%>
-                            <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" style="margin-bottom: 10px" title="No cuenta con el número mínimo de preguntas.">
-                                <i class="fas fa-plus"></i> Crear Partidas
-                            </button>
-                            <br>
-
-                        <%}
-                        else
-                        {%>
-                            <a href="/ingresoFacilitador/creacionPartida/<%= materias[i].nombre%>" class="btn btn-primary"
-                               style="margin-bottom: 10px"><i class="fas fa-plus"></i> Crear Partidas</a>
-                            <br>
-                        <%}%>
-
-                        <a href="#" class="btn btn-success"> <i class="fas fa-chart-bar"></i> Estadísticas</a>
-
-
-                    </div>
-                </div>
-            <% } %>
-            <div class="card text-center" style="width:364.66px; height:287px; background: url('../../static/imagenes/iconoMas.png') no-repeat center ;" >
-            </div>
         </div>
     </div>
+
 </div>
 <script
         src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
     });
 </script>
-<script src="/socket.io/socket.io.js"></script>
 <script src="/static/js/profesor.js"></script>
-
-
 <footer>
     <% include ../parciales/footer.ejs %>
 </footer>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../parciales/head %>
+    <meta http-equiv="Content-Type" content="text/html"/>
+    <link rel="stylesheet" type="text/css" href="static/css/estilos.css">
+    <title>Estadísticas</title>
+</head>
+<body>
+<header>
+    <% include ../parciales/headerProfesor %>
+</header>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/ingresoFacilitador">Inicio</a></li>
+    </ol>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+
+        </div>
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-10">
+                    <h2>Materias</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card-columns">
+                    <%
+                    for(var i = 0; i < materias.length; i++) {
+                        console.log(materias[i]) %>
+                    <div class="card" style="display: inline-block">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h5><%= materias[i].nombre %></h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <a href="#" class="btn btn-success"> <i class="fas fa-chart-bar"></i> Estadísticas</a>
+                        </div>
+                    </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+<script src="/static/js/profesor.js"></script>
+<footer>
+    <% include ../parciales/footer.ejs %>
+</footer>
+
+</body>
+</html>
