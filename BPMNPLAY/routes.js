@@ -1093,7 +1093,7 @@ exports.post_resultados_unir = function (req, res) {
     else {
         res.redirect('/')
     }
-}
+};
 exports.get_retos_materia = function (req, res) {
     if (req.session.usuario) {
         if (req.session.rol == "facilitador") {
@@ -1111,6 +1111,41 @@ exports.get_retos_materia = function (req, res) {
         }
     } else {
         res.render('paginas/index');
+    }
+};
+
+exports.get_estadisticas = function (req, res) {
+    if (req.session.nombre) {
+        Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
+
+            var materias = [];
+            for (var i = 0; i < doc.materias.length; i++) {
+                var boolOpcion = verificarNumeroPreguntas(doc.materias[i].preguntasOpcionMultiple, 5);
+                var boolUnir = verificarNumeroPreguntas(doc.materias[i].preguntasUnirVoltear, 8);
+                var materia = {
+                    nombre: doc.materias[i].nombre,
+                    tipo: doc.materias[i].tipo,
+                    numOpcionMultiple: doc.materias[i].preguntasOpcionMultiple.length,
+                    numUnirVoltear: doc.materias[i].preguntasUnirVoltear.length,
+                    boolOpcion: boolOpcion,
+                    boolUnir: boolUnir
+
+                };
+                materias.push(materia);
+
+            }
+            res.render('paginas/inicioEstadistica', {
+                nombre: req.session.nombre,
+                usuario: req.session.usuario,
+                materias: materias
+
+            });
+
+        });
+
+    }
+    else {
+        res.redirect('/inicioSesion');
     }
 };
 

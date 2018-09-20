@@ -18,33 +18,44 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2">
-
+            <div class="row">
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/ingresoFacilitador">
+                        <i class="far fa-list-alt"></i> Modo Facilitador</a>
+                    <a href="/ingresoParticipante"
+                       class="dropdown-item">
+                        <i class="far fa-list-alt"></i> Modo Participante</a>
+                    <a href="/estadisticas"
+                       class="dropdown-item active">
+                        <i class="fas fa-chart-bar"></i> Estadísticas</a>
+                </div>
+            </div>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Regular link</a>
+                <a class="dropdown-item active" href="#">Active link</a>
+                <a class="dropdown-item" href="#">Another link</a>
+            </div>
         </div>
         <div class="col-md-10">
             <div class="row">
-                <div class="col-md-10">
-                    <h2>Materias</h2>
-                </div>
+                <h2>Materias</h2>
             </div>
             <div class="row">
-                <div class="card-columns">
-                    <%
-                    for(var i = 0; i < materias.length; i++) {
-                        console.log(materias[i]) %>
-                    <div class="card" style="display: inline-block">
+                <%
+                for(var i = 0; i < materias.length; i++) {
+                    console.log(materias[i]) %>
+                <div class="col-md-4">
+                    <div class="card" style="margin-top: 10px">
                         <div class="card-header">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <h5><%= materias[i].nombre %></h5>
-                                </div>
-                            </div>
+                            <h5><%= materias[i].nombre %></h5>
                         </div>
                         <div class="card-body">
-                            <a href="#" class="btn btn-success"> <i class="fas fa-chart-bar"></i> Estadísticas</a>
+                            <a href="#" class="btn btn-success"> <i class="fas fa-chart-bar"></i> Por Estudiante</a>
+                            <a href="#" class="btn btn-success"> <i class="fas fa-chart-bar"></i> Por Pregunta</a>
                         </div>
                     </div>
-                    <% } %>
                 </div>
+                <% } %>
             </div>
         </div>
     </div>
