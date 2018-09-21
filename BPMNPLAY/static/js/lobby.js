@@ -47,6 +47,13 @@ function actualizacion() {
         h5.appendChild(t);
         document.getElementById("card"+(i+1)).appendChild(h5);
     }
+
+    if(document.getElementById("numeroEquipos").value == jugadoresConectados.length){
+        document.getElementById("unirPartida").removeAttribute("disabled");
+    }
+    else {
+        document.getElementById("unirPartida").setAttribute("disabled","");
+    }
 }
 function unirPartida() {
     console.log("Hice clic ");

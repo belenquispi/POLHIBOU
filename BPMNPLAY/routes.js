@@ -108,16 +108,13 @@ exports.get_ingreso_estudiante = function (req, res) {
                     };
                     var boolOpcion = verificarNumeroPreguntas(facilitador.materias[i].preguntasOpcionMultiple, 5);
                     var boolUnir = verificarNumeroPreguntas(facilitador.materias[i].preguntasUnirVoltear, 8);
-
-
                     if (facilitador.materias[i].tipo == "publica" && !boolOpcion && !boolUnir) {
                         materia.facilitador = facilitador.nombre;
                         materia.nombre = facilitador.materias[i].nombre;
                         materias.push(materia);
                     }
                 }
-            })
-
+            });
             res.render('paginas/inicioEstudiante', {nombre: req.session.nombre, materias: materias});
         })
     }
