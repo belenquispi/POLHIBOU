@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <% include ../parciales/head %>
     <meta http-equiv="Content-Type" content="text/html"/>
@@ -19,26 +19,26 @@
     <div class="row">
         <div class="col-md-2">
             <div class="row">
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/ingresoFacilitador">
+                <div class="col-md-12">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a href="/ingresoFacilitador"
+                       class="nav-link" style="margin-bottom: 10px">
                         <i class="far fa-list-alt"></i> Modo Facilitador</a>
                     <a href="/ingresoParticipante"
-                       class="dropdown-item">
+                       class="nav-link" style="margin-bottom: 10px">
                         <i class="far fa-list-alt"></i> Modo Participante</a>
                     <a href="/estadisticas"
-                       class="dropdown-item active">
+                       class="nav-link active" style="margin-bottom: 10px">
                         <i class="fas fa-chart-bar"></i> Estadísticas</a>
+                    </div>
                 </div>
-            </div>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Regular link</a>
-                <a class="dropdown-item active" href="#">Active link</a>
-                <a class="dropdown-item" href="#">Another link</a>
             </div>
         </div>
         <div class="col-md-10">
             <div class="row">
-                <h2>Materias</h2>
+                <div class="col-md-12" >
+                    <h2>Asignaturas</h2>
+                </div>
             </div>
             <div class="row">
                 <%
@@ -50,8 +50,8 @@
                             <h5><%= materias[i].nombre %></h5>
                         </div>
                         <div class="card-body">
-                            <a href="#" class="btn btn-success"> <i class="fas fa-chart-bar"></i> Por Estudiante</a>
-                            <a href="#" class="btn btn-success"> <i class="fas fa-chart-bar"></i> Por Pregunta</a>
+                            <a href="/estadisticaParticipante/<%=materias[i].nombre%>" class="btn btn-success"> <i class="fas fa-chart-bar"></i> Por Participante</a>
+                            <a href="/estadisticaPregunta" class="btn btn-success"> <i class="fas fa-chart-bar"></i> Por Pregunta</a>
                         </div>
                     </div>
                 </div>

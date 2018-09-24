@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <% include ../parciales/head %>
     <meta http-equiv="Content-Type" content="text/html"/>
@@ -20,26 +20,30 @@
         <div class="col-md-2">
             <div class="row">
                 <div class="col-md-12">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <a href="/ingresoFacilitador"
-                       class="btn btn-light" style="margin-bottom: 10px">
+                       class="nav-link active" style="margin-bottom: 10px">
                         <i class="far fa-list-alt"></i> Modo Facilitador</a>
                     <a href="/ingresoParticipante"
-                       class="btn btn-primary" style="margin-bottom: 10px">
+                       class="nav-link" style="margin-bottom: 10px">
                         <i class="far fa-list-alt"></i> Modo Participante</a>
                     <a href="/estadisticas"
-                       class="btn btn-primary" style="margin-bottom: 10px">
+                       class="nav-link" style="margin-bottom: 10px">
                         <i class="fas fa-chart-bar"></i> Estadísticas</a>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-md-10">
             <div class="row">
-                <h2>Materias</h2>
+                <div class="col-md-12" >
+                <h2>Asignaturas</h2>
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
                     <div class="card text-white bg-dark" style="margin-top: 10px">
-                        <h5 class="card-header">Agregar Materia</h5>
+                        <h5 class="card-header">Agregar Asignatura</h5>
                         <div class="card-body">
                             <form action="/ingresoMateria" method="post">
                                 <div class="row">
@@ -48,7 +52,7 @@
                                             <div class="input-group-text"><i class="fas fa-book"></i></div>
                                         </div>
                                         <input type="text" class="form-control"
-                                               placeholder="Nombre de la materia" name="nombreMateria" required>
+                                               placeholder="Nombre de la asignatura" name="nombreMateria" required>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -71,7 +75,7 @@
                                             <div class="input-group-text"><i class="fas fa-plus"></i></div>
                                         </div>
                                         <input type="submit" class="btn btn-primary"
-                                               value="Agregar Materia">
+                                               value="Agregar Asignatura">
                                     </div>
                                     <div class="col-md-2"></div>
                                 </div>
@@ -206,7 +210,6 @@
             </div>
         </div>
     </div>
-
 </div>
 <script
         src="https://code.jquery.com/jquery-3.3.1.min.js"

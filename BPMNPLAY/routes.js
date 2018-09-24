@@ -121,9 +121,7 @@ exports.get_ingreso_estudiante = function (req, res) {
     else {
         res.redirect('/inicioSesion');
     }
-}
-;
-
+};
 exports.post_creacion_cuenta = function (req, res) {
 
     var usuario = new Usuario({
@@ -164,7 +162,6 @@ exports.post_creacion_cuenta = function (req, res) {
     }
     res.redirect('/validarCuenta');
 };
-
 exports.post_ingreso_materia = function (req, res) {
 
     Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
@@ -182,7 +179,6 @@ exports.post_ingreso_materia = function (req, res) {
     });
 
 };
-
 exports.get_preguntas_opcion = function (req, res) {
     if (req.session.nombre && req.params.materia) {
         Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
@@ -217,7 +213,6 @@ exports.get_preguntas_opcion = function (req, res) {
     }
 
 };
-
 exports.get_eliminar_pregunta_opcion = function (req, res) {
     if (req.session.usuario && req.params.idMateria) {
         var str = req.params.idMateria;
@@ -250,8 +245,7 @@ exports.get_eliminar_pregunta_opcion = function (req, res) {
         });
     }
 
-}
-
+};
 exports.post_preguntas_opcion = function (req, res) {
     Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
 
@@ -305,7 +299,6 @@ exports.post_preguntas_opcion = function (req, res) {
     });
 
 };
-
 exports.post_detalle_opcion_multiple = function (req, res) {
 
     Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
@@ -348,8 +341,7 @@ exports.post_detalle_opcion_multiple = function (req, res) {
 
         }
     });
-}
-
+};
 exports.get_creacion_partida = function (req, res) {
     if (req.session.usuario && req.params.materia) {
         if (req.session.rol == "facilitador") {
@@ -366,7 +358,6 @@ exports.get_creacion_partida = function (req, res) {
         res.redirect('/inicioSesion');
     }
 };
-
 exports.post_tablero = function (req, res) {
     if(req.session.rol == "facilitador")
     {
@@ -388,7 +379,6 @@ exports.post_tablero = function (req, res) {
         });
     }
 };
-
 exports.get_opcion_multiple = function (req, res) {
     if (req.session.usuario) {
         res.render('paginas/preguntasOpcionMultiple', {nombre: req.session.nombre, materia: req.params.materia});
@@ -396,7 +386,6 @@ exports.get_opcion_multiple = function (req, res) {
         res.redirect('/inicioSesion');
     }
 };
-
 exports.get_unir_voltear = function (req, res) {
     if (req.session.usuario) {
         res.render('paginas/preguntasUnirVoltear', {nombre: req.session.nombre, materia: req.params.materia});
@@ -404,7 +393,6 @@ exports.get_unir_voltear = function (req, res) {
         res.redirect('/inicioSesion');
     }
 };
-
 exports.get_ingreso_partida = function (req, res) {
     var nombre = ((req.session.nombre == null) ? "Participante" : req.session.nombre);
     res.render('paginas/ingresoPartidas',
@@ -412,7 +400,6 @@ exports.get_ingreso_partida = function (req, res) {
             nombre: nombre
         });
 };
-
 exports.get_preguntas_unir_voltear = function (req, res) {
     if (req.session.nombre && req.params.materia) {
         Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
@@ -446,8 +433,7 @@ exports.get_preguntas_unir_voltear = function (req, res) {
     else {
         res.redirect('/inicioSesion');
     }
-}
-
+};
 exports.post_agregar_unir_voltear = function (req, res) {
     if (req.session.nombre) {
         Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
@@ -479,8 +465,7 @@ exports.post_agregar_unir_voltear = function (req, res) {
     else {
         res.redirect('/inicioSesion');
     }
-}
-
+};
 exports.post_eliminar_unir_voltear = function (req, res) {
     if (req.session.usuario && req.body.materia) {
 
@@ -508,8 +493,7 @@ exports.post_eliminar_unir_voltear = function (req, res) {
         });
     }
 
-}
-
+};
 exports.post_agregar_varias_unir_voltear = function (req, res) {
     if (req.session.nombre) {
         Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
@@ -552,7 +536,6 @@ exports.post_agregar_varias_unir_voltear = function (req, res) {
         res.redirect('/inicioSesion');
     }
 };
-
 exports.post_lobby = function (req, res) {
     console.log("idPArtida: " + req.session.idPartida);
     if (req.session.usuario) {
@@ -600,7 +583,6 @@ exports.post_lobby = function (req, res) {
 
     }
 };
-
 exports.post_lobby_pariticipante = function (req, res) {
     if (req.body.tipoIngreso == "jugador" || req.body.tipoIngredo == "espectador") {
         var nombre = ((req.session.nombre == null) ? "Participante" : req.session.nombre);
@@ -615,7 +597,6 @@ exports.post_lobby_pariticipante = function (req, res) {
     }
 
 };
-
 exports.post_cambiar_tipo_materia = function (req, res) {
     if (req.session.usuario && req.body.materia) {
         Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
@@ -644,8 +625,6 @@ exports.post_cambiar_tipo_materia = function (req, res) {
         res.redirect('/inicioSesion');
     }
 };
-
-
 exports.post_eliminar_materia = function (req, res) {
     if (req.session.usuario && req.body.materia) {
         Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
@@ -669,7 +648,6 @@ exports.post_eliminar_materia = function (req, res) {
         res.redirect('/inicioSesion');
     }
 };
-
 exports.get_validar_cuenta = function (req, res) {
     if (req.session.usuarioTemporal != "") {
         res.render('paginas/validacionCuenta', {
@@ -681,7 +659,6 @@ exports.get_validar_cuenta = function (req, res) {
         res.redirect('/')
     }
 };
-
 exports.post_confirmar_cuenta = function (req, res) {
     if (req.session.usuarioTemporal != "") {
         Usuario.findOne({usuario: req.body.usuario}, function (error, doc) {
@@ -712,7 +689,6 @@ exports.post_confirmar_cuenta = function (req, res) {
         res.redirect('/')
     }
 };
-
 exports.post_retos_materia = function (req, res) {
     var opcionMultiple = [];
     var emparejar = [];
@@ -730,8 +706,6 @@ exports.post_retos_materia = function (req, res) {
             opcionMultiple = obtenerPuntaje(intentosMateria, "opcionMultiple");
             emparejar = obtenerPuntaje(intentosMateria, "emparejar");
             unirVoltear = obtenerPuntaje(intentosMateria, "unir");
-
-
             res.render('paginas/retosEstudiante', {
                 nombre: req.session.nombre,
                 facilitador: req.body.facilitador,
@@ -739,15 +713,13 @@ exports.post_retos_materia = function (req, res) {
                 opcionMutiple: opcionMultiple,
                 emparejar: emparejar,
                 unirVoltear: unirVoltear
-
             })
         });
     }
     else {
         res.redirect('/')
     }
-}
-
+};
 var preguntas = [];
 exports.post_mostrar_opcion = function (req, res) {
     var contadorPreguntas = req.body.contadorPreguntas;
@@ -927,8 +899,7 @@ exports.post_mostrar_emparejar = function (req, res) {
     else {
         res.redirect('/')
     }
-}
-
+};
 exports.post_resultados_emparejar = function (req, res) {
     if (req.session.usuario && req.body.materia && (req.session.rol == "participante")) {
         var puntaje = 0;
@@ -972,8 +943,7 @@ exports.post_resultados_emparejar = function (req, res) {
     else {
         res.redirect('/')
     }
-}
-
+};
 var preguntasUnir = [];
 exports.post_mostrar_unir = function (req, res) {
     if (req.session.usuario && req.body.materia && (req.session.rol == "participante")) {
@@ -1044,8 +1014,6 @@ exports.post_mostrar_unir = function (req, res) {
         res.redirect('/')
     }
 }
-
-
 exports.post_resultados_unir = function (req, res) {
     if (req.session.usuario && req.body.materia && (req.session.rol == "participante")) {
         var puntaje = 0;
@@ -1110,7 +1078,6 @@ exports.get_retos_materia = function (req, res) {
         res.render('paginas/index');
     }
 };
-
 exports.get_estadisticas = function (req, res) {
     if (req.session.nombre) {
         Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
@@ -1145,13 +1112,67 @@ exports.get_estadisticas = function (req, res) {
         res.redirect('/inicioSesion');
     }
 };
+exports.get_estadisticaParticipante = function (req, res) {
+    if (req.session.nombre) {
+        Estudiante.find({}, function (error, doc) {
+            var participantes = [];
+            doc.forEach(function (participante) {
+               participantes.push(participante.usuario);
+               participantes.push(participante.nombre);
+            });
+            res.render('paginas/listaParticipantes', {
+                nombre: req.session.nombre,
+                usuario: req.session.usuario,
+                materia: req.params.materia,
+                participantes: participantes
 
+            });
+
+    })
+    }
+    else {
+        res.redirect('/inicioSesion');
+    }
+};
+exports.get_estadisticaPreguntas = function (req, res) {
+    if (req.session.nombre) {
+        Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
+
+            var materias = [];
+            for (var i = 0; i < doc.materias.length; i++) {
+                var boolOpcion = verificarNumeroPreguntas(doc.materias[i].preguntasOpcionMultiple, 5);
+                var boolUnir = verificarNumeroPreguntas(doc.materias[i].preguntasUnirVoltear, 8);
+                var materia = {
+                    nombre: doc.materias[i].nombre,
+                    tipo: doc.materias[i].tipo,
+                    numOpcionMultiple: doc.materias[i].preguntasOpcionMultiple.length,
+                    numUnirVoltear: doc.materias[i].preguntasUnirVoltear.length,
+                    boolOpcion: boolOpcion,
+                    boolUnir: boolUnir
+
+                };
+                materias.push(materia);
+
+            }
+            res.render('paginas/inicioEstadistica', {
+                nombre: req.session.nombre,
+                usuario: req.session.usuario,
+                materias: materias
+
+            });
+
+        });
+
+    }
+    else {
+        res.redirect('/inicioSesion');
+    }
+};
 function generarNombre() {
     return Math.floor((1 + Math.random()) * 0x10000)
         .toString(16)
         .substring(1);
 }
-
 function contarPreguntas(array, dificultad) {
 
     var numPreguntas = 0;
@@ -1162,7 +1183,6 @@ function contarPreguntas(array, dificultad) {
     }
     return numPreguntas;
 }
-
 function verificarNumeroPreguntas(array, num) {
 
     var facil;
@@ -1178,7 +1198,6 @@ function verificarNumeroPreguntas(array, num) {
     boolResultado = facil < num || medio < num || dificil < num;
     return boolResultado;
 }
-
 function obtenerPuntaje(array, tipoPregunta) {
     var puntajes = [0, 0, 0, 0, 0, 0];
     for (var i = 0; i < array.length; i++) {
@@ -1207,7 +1226,6 @@ function obtenerPuntaje(array, tipoPregunta) {
     }
     return puntajes;
 }
-
 function desordenarTextoUnir(arrayPreguntas) {
     var vectorTextoUnir = [];
     for (var k = 0; k < arrayPreguntas.length; k++) {
@@ -1222,7 +1240,6 @@ function desordenarTextoUnir(arrayPreguntas) {
     }
     return vectorTextoUnir;
 }
-
 Array.prototype.memory_tile_shuffle = function () {
     var i = this.length, j, temp;
     while (--i > 0) {

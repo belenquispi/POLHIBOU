@@ -129,6 +129,8 @@ app.post('/mostrarUnirVoltear', routes.post_mostrar_unir);
 app.post('/resultadosEmparejar', routes.post_resultados_emparejar);
 app.post('/resultadosUnir', routes.post_resultados_unir);
 app.get('/estadisticas', routes.get_estadisticas);
+app.get('/estadisticaParticipante/:materia', routes.get_estadisticaParticipante);
+app.get('/estadisticaPregunta', routes.get_estadisticaPreguntas);
 
 // Starts the server.
 server.listen(5000, function () {
