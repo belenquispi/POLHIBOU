@@ -131,6 +131,8 @@ app.post('/resultadosUnir', routes.post_resultados_unir);
 app.get('/estadisticas', routes.get_estadisticas);
 app.get('/estadisticaParticipante/:materia', routes.get_estadisticaParticipante);
 app.get('/estadisticaPregunta', routes.get_estadisticaPreguntas);
+app.post('/detalleParticipante', routes.post_detalleParticipante);
+
 
 // Starts the server.
 server.listen(5000, function () {

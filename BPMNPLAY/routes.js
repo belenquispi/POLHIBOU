@@ -64,9 +64,7 @@ exports.post_inicio_sesion = function (req, res) {
 exports.get_ingreso_profesor = function (req, res) {
     if (req.session.nombre) {
         Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
-
             var materias = [];
-
             for (var i = 0; i < doc.materias.length; i++) {
                 var boolOpcion = verificarNumeroPreguntas(doc.materias[i].preguntasOpcionMultiple, 5);
                 var boolUnir = verificarNumeroPreguntas(doc.materias[i].preguntasUnirVoltear, 8);
@@ -123,61 +121,40 @@ exports.get_ingreso_estudiante = function (req, res) {
     }
 };
 exports.post_creacion_cuenta = function (req, res) {
-
     var usuario = new Usuario({
         nombre: req.body.nombre,
         usuario: req.body.usuario,
         contrasenia: req.body.contrasenia,
-        rol: req.body.rol,
         contrasenia_confirmada: req.body.contrasenia_confirmada,
         codigoVerificacion: generarNombre()
     });
     req.session.usuarioTemporal = req.body.usuario;
-    usuario.save(function (err) {
-        }
-    );
+    usuario.save(function (err) {});
     correo.enviarCorreo(req.body.usuario, usuario.codigoVerificacion);
-    if (req.body.rol == "facilitador") {
-
-        var profesor = new Profesor({
-            usuario: req.body.usuario,
-            nombre: req.body.nombre
-        })
-
-        profesor.save(function (error) {
-
-        });
-    } else {
-        if (req.body.rol == "participante") {
-
-            var estudiante = new Estudiante({
-                usuario: req.body.usuario,
-                nombre: req.body.nombre
-            })
-
-            estudiante.save(function (error) {
-
-            });
-        }
-    }
+    var profesor = new Profesor({
+        usuario: req.body.usuario,
+        nombre: req.body.nombre
+    });
+    profesor.save(function (error) {});
+    var estudiante = new Estudiante({
+        usuario: req.body.usuario,
+        nombre: req.body.nombre
+    });
+    estudiante.save(function (error) {});
     res.redirect('/validarCuenta');
 };
 exports.post_ingreso_materia = function (req, res) {
-
     Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
         var materia = {
             nombre: req.body.nombreMateria,
             tipo: req.body.tipo
-        }
+        };
         doc.materias.push(materia);
-
         doc.save(function (err, docActualizado) {
             if (err) return console.log(err);
             res.redirect('/ingresoFacilitador');
-
         })
     });
-
 };
 exports.get_preguntas_opcion = function (req, res) {
     if (req.session.nombre && req.params.materia) {
@@ -359,8 +336,7 @@ exports.get_creacion_partida = function (req, res) {
     }
 };
 exports.post_tablero = function (req, res) {
-    if(req.session.rol == "facilitador")
-    {
+    if (req.session.rol == "facilitador") {
         res.render('paginas/tablero', {
             idPartida: req.body.idPartida,
             rol: req.body.rol,
@@ -694,7 +670,7 @@ exports.post_retos_materia = function (req, res) {
     var emparejar = [];
     var unirVoltear = [];
     var intentosMateria = [];
-    if (req.session.usuario && req.body.materia && (req.session.rol == "participante")) {
+    if (req.session.usuario && req.body.materia) {
         Estudiante.findOne({
             usuario: req.session.usuario
         }, function (error, doc) {
@@ -920,8 +896,7 @@ exports.post_resultados_emparejar = function (req, res) {
                     puntajes.push(1);
                     puntaje++;
                 }
-                else
-                {
+                else {
                     doc.intentos[indiceIntento].preguntas[i].correctoIncorrecto = 0;
                     puntajes.push(0);
                 }
@@ -930,13 +905,13 @@ exports.post_resultados_emparejar = function (req, res) {
             doc.save(function (err, docActualizado) {
                 res.render('paginas/resultadosEmparejar', {
                     respuestas: respuestas,
-                    nombre : req.session.nombre,
-                    facilitador : req.body.facilitador,
-                    materia : req.body.materia,
+                    nombre: req.session.nombre,
+                    facilitador: req.body.facilitador,
+                    materia: req.body.materia,
                     preguntas: preguntasEmparejar,
                     puntaje: puntaje,
                     puntajes: puntajes
-            })
+                })
             })
         })
     }
@@ -966,7 +941,7 @@ exports.post_mostrar_unir = function (req, res) {
                 }
                 indices.push(indice);
                 preguntasUnir.push(doc.materias[indiceMateria].preguntasUnirVoltear[indice]);
-                stringPreguntaUnir+=doc.materias[indiceMateria].preguntasUnirVoltear[indice].imagen + "@" + doc.materias[indiceMateria].preguntasUnirVoltear[indice].texto +"@";
+                stringPreguntaUnir += doc.materias[indiceMateria].preguntasUnirVoltear[indice].imagen + "@" + doc.materias[indiceMateria].preguntasUnirVoltear[indice].texto + "@";
                 memory_array.push(doc.materias[indiceMateria].preguntasUnirVoltear[indice].imagen);
                 memory_array.push(doc.materias[indiceMateria].preguntasUnirVoltear[indice].imagen)
             }
@@ -1018,21 +993,17 @@ exports.post_resultados_unir = function (req, res) {
     if (req.session.usuario && req.body.materia && (req.session.rol == "participante")) {
         var puntaje = 0;
         var respuestas = [];
-        if(req.body.respuestas.length >0)
-        {
-           respuestas = req.body.respuestas.split(",");
+        if (req.body.respuestas.length > 0) {
+            respuestas = req.body.respuestas.split(",");
         }
-        else
-        {
-            puntaje=0;
+        else {
+            puntaje = 0;
         }
-        if(respuestas.length == 1)
-        {
-            puntaje=1;
+        if (respuestas.length == 1) {
+            puntaje = 1;
         }
-        else
-        {
-        puntaje = Math.floor((respuestas.length * 5) /6);
+        else {
+            puntaje = Math.floor((respuestas.length * 5) / 6);
         }
 
         Estudiante.findOne({
@@ -1046,9 +1017,9 @@ exports.post_resultados_unir = function (req, res) {
 
                 res.render('paginas/resultadosUnir', {
                     respuestas: respuestas,
-                    nombre : req.session.nombre,
-                    facilitador : req.body.facilitador,
-                    materia : req.body.materia,
+                    nombre: req.session.nombre,
+                    facilitador: req.body.facilitador,
+                    materia: req.body.materia,
                     preguntas: preguntasUnir,
                     puntaje: puntaje
                 })
@@ -1117,18 +1088,21 @@ exports.get_estadisticaParticipante = function (req, res) {
         Estudiante.find({}, function (error, doc) {
             var participantes = [];
             doc.forEach(function (participante) {
-               participantes.push(participante.usuario);
-               participantes.push(participante.nombre);
+                var participante = {
+                    usuario : participante.usuario,
+                    nombre: participante.nombre
+                };
+                participantes.push(participante);
             });
             res.render('paginas/listaParticipantes', {
                 nombre: req.session.nombre,
                 usuario: req.session.usuario,
-                materia: req.params.materia,
+                asignatura: req.params.materia,
                 participantes: participantes
 
             });
 
-    })
+        })
     }
     else {
         res.redirect('/inicioSesion');
@@ -1168,11 +1142,47 @@ exports.get_estadisticaPreguntas = function (req, res) {
         res.redirect('/inicioSesion');
     }
 };
+
+exports.post_detalleParticipante = function (req, res) {
+    if (req.session.nombre) {
+        var opcionMultiple = [];
+        var emparejar = [];
+        var unirVoltear = [];
+        var intentosMateria = [];
+        var participante = "";
+        Estudiante.findOne({usuario: req.body.usuario}, function (error, doc) {
+            participante = doc.nombre;
+            for (var i = 0; i < doc.intentos.length; i++) {
+                if (doc.intentos[i].materia == req.body.asignatura && doc.intentos[i].profesor == req.body.facilitador) {
+                    intentosMateria.push(doc.intentos[i])
+                }
+            }
+            opcionMultiple = obtenerPuntaje(intentosMateria, "opcionMultiple");
+            emparejar = obtenerPuntaje(intentosMateria, "emparejar");
+            unirVoltear = obtenerPuntaje(intentosMateria, "unir");
+            res.render('paginas/detalleParticipante', {
+                nombre: req.session.nombre,
+                usuario: req.session.usuario,
+                participante: participante,
+                opcionMultiple: opcionMultiple,
+                emparejar: emparejar,
+                unirVoltear: unirVoltear,
+                asignatura: req.body.asignatura
+
+            });
+        });
+    }
+    else {
+        res.redirect('/inicioSesion');
+    }
+};
+
 function generarNombre() {
     return Math.floor((1 + Math.random()) * 0x10000)
         .toString(16)
         .substring(1);
 }
+
 function contarPreguntas(array, dificultad) {
 
     var numPreguntas = 0;
@@ -1183,6 +1193,7 @@ function contarPreguntas(array, dificultad) {
     }
     return numPreguntas;
 }
+
 function verificarNumeroPreguntas(array, num) {
 
     var facil;
@@ -1198,6 +1209,7 @@ function verificarNumeroPreguntas(array, num) {
     boolResultado = facil < num || medio < num || dificil < num;
     return boolResultado;
 }
+
 function obtenerPuntaje(array, tipoPregunta) {
     var puntajes = [0, 0, 0, 0, 0, 0];
     for (var i = 0; i < array.length; i++) {
@@ -1226,6 +1238,7 @@ function obtenerPuntaje(array, tipoPregunta) {
     }
     return puntajes;
 }
+
 function desordenarTextoUnir(arrayPreguntas) {
     var vectorTextoUnir = [];
     for (var k = 0; k < arrayPreguntas.length; k++) {
@@ -1240,6 +1253,7 @@ function desordenarTextoUnir(arrayPreguntas) {
     }
     return vectorTextoUnir;
 }
+
 Array.prototype.memory_tile_shuffle = function () {
     var i = this.length, j, temp;
     while (--i > 0) {
@@ -1249,7 +1263,6 @@ Array.prototype.memory_tile_shuffle = function () {
         this[i] = temp;
     }
 };
-
 
 
 exports.salir = function (req, res) {
