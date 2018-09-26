@@ -130,7 +130,7 @@ app.post('/resultadosEmparejar', routes.post_resultados_emparejar);
 app.post('/resultadosUnir', routes.post_resultados_unir);
 app.get('/estadisticas', routes.get_estadisticas);
 app.get('/estadisticaParticipante/:materia', routes.get_estadisticaParticipante);
-app.get('/estadisticaPregunta', routes.get_estadisticaPreguntas);
+app.get('/estadisticaPregunta/:materia', routes.get_estadisticaPreguntas);
 app.post('/detalleParticipante', routes.post_detalleParticipante);
 
 

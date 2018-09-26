@@ -12,6 +12,7 @@
     "@fortawesome/fontawesome-free": "^5.2.0",
     "@google-cloud/storage": "^1.7.0",
     "body-parser": "^1.18.3",
+    "chart.js": "^2.7.2",
     "cookie-parser": "^1.4.3",
     "ejs": "^2.6.1",
     "express": "^4.16.3",

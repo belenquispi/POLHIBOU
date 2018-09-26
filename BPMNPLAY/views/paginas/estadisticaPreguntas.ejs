@@ -6,6 +6,7 @@
     <% include ../parciales/head %>
     <title>Title</title>
     <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 </head>
 <body>
 <header>
@@ -39,39 +40,65 @@
         <div class="col-md-10">
             <div class="row">
                 <div class="col-md-12">
-                    <h2>Participantes de la temática <%=asignatura%></h2>
+                    <h2>Preguntas de la temática <%= asignatura %></h2>
                 </div>
             </div>
             <div class="row">
-                <%for(var i = 0; i < participantes.length; i++) {
-                    console.log(participantes[i]) %>
                 <div class="col-md-6">
                     <div class="card" style="margin-top: 10px">
                         <div class="card-body">
                             <div class="row">
-                            <div class="col-md-8">
-                                <h5><%= participantes[i].nombre%></h5>
+                                <div class="col-md-8">
+                                    <h5>Enunciado</h5>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5>Imagen</h5>
+                                    <canvas id="myChart"></canvas>
+                                </div>
                             </div>
-                            <div class="col-md-4">
-                                <form action="/detalleParticipante" method="post">
-                                    <input type="text" name="usuario" value="<%= participantes[i].usuario %>" hidden>
-                                    <input type="text" name="asignatura" value="<%=asignatura%>" hidden>
-                                    <input type="text" name="facilitador" value="<%=nombre%>" hidden>
-                                    <button class="btn btn-info" type="submit" data-toggle="tooltip"
-                                            data-placement="right" title="Privada"
-                                            id="boton<%=i%>"><i class="fas fa-caret-right"></i> Ver Detalles</button>
-                                </form>
-                            </div>
-                        </div>
                         </div>
                     </div>
                 </div>
-                <% } %>
-
             </div>
         </div>
     </div>
 </div>
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'horizontalBar',
+        data: {
+            labels: ["Correctos", "Incorrectos"],
+            datasets: [{
+                label: "My First Dataset",
+                data: [2, 10],
+                backgroundColor: ['rgb(255, 99, 132)','rgb(255, 99, 32)'],
+                borderColor: ['rgb(255, 99, 132)', 'rgb(255, 99, 12)'],
+                label: "My First Dataset2",
 
+            }
+            ]
+        },
+
+        options: {}
+
+        /*new Chart(document.getElementById("chartjs-2"), {
+            "type": "horizontalBar",
+            "data": {
+                "labels": ["January", "February", "March", "April", "May", "June", "July"],
+                "datasets": [{
+                    "label": "My First Dataset",
+                    "data": [65, 59, 80, 81, 56, 55, 40],
+                    "fill": false,
+                    "backgroundColor": ["rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)", "rgba(255, 205, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(54, 162, 235, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(201, 203, 207, 0.2)"],
+                    "borderColor": ["rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "rgb(75, 192, 192)", "rgb(54, 162, 235)", "rgb(153, 102, 255)", "rgb(201, 203, 207)"],
+                    "borderWidth": 1
+                }]
+            },
+            "options": {"scales": {"xAxes": [{"ticks": {"beginAtZero": true}}]}}*/
+        //});
+    })
+    ;
+</script>
 </body>
 </html>

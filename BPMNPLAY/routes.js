@@ -988,7 +988,7 @@ exports.post_mostrar_unir = function (req, res) {
     else {
         res.redirect('/')
     }
-}
+};
 exports.post_resultados_unir = function (req, res) {
     if (req.session.usuario && req.body.materia && (req.session.rol == "participante")) {
         var puntaje = 0;
@@ -1112,27 +1112,90 @@ exports.get_estadisticaPreguntas = function (req, res) {
     if (req.session.nombre) {
         Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
 
-            var materias = [];
-            for (var i = 0; i < doc.materias.length; i++) {
-                var boolOpcion = verificarNumeroPreguntas(doc.materias[i].preguntasOpcionMultiple, 5);
-                var boolUnir = verificarNumeroPreguntas(doc.materias[i].preguntasUnirVoltear, 8);
-                var materia = {
-                    nombre: doc.materias[i].nombre,
-                    tipo: doc.materias[i].tipo,
-                    numOpcionMultiple: doc.materias[i].preguntasOpcionMultiple.length,
-                    numUnirVoltear: doc.materias[i].preguntasUnirVoltear.length,
-                    boolOpcion: boolOpcion,
-                    boolUnir: boolUnir
-
+            var preguntas = [];
+            var idMateria= doc.materias.map(function (e) {
+                return e.nombre
+            }).indexOf(req.params.materia);
+            for (var i = 0; i < doc.materias[idMateria].preguntasOpcionMultiple.length; i++) {
+                var preguntaOpcion = {
+                    idPregunta:"",
+                    enunciado:"",
+                    resCorrecta: 0,
+                    resIncorrecta: 0
                 };
-                materias.push(materia);
+                if(doc.materias[idMateria].preguntasOpcionMultiple[i].imagenEnunciado) {
+                preguntaOpcion = {};
+                preguntaOpcion.idPregunta = doc.materias[idMateria].preguntasOpcionMultiple[i].idPregunta;
+                preguntaOpcion.enunciado = doc.materias[idMateria].preguntasOpcionMultiple[i].enunciado;
+                preguntaOpcion.imagenEnunciado = doc.materias[idMateria].preguntasOpcionMultiple[i].imagenEnunciado;
+                }else {
+                    preguntaOpcion = {};
+                    preguntaOpcion.idPregunta = doc.materias[idMateria].preguntasOpcionMultiple[i].idPregunta;
+                    preguntaOpcion.enunciado = doc.materias[idMateria].preguntasOpcionMultiple[i].enunciado;
+                }
 
+                Estudiante.find({}, function (error, doc) {
+                    doc.forEach(function (participante) {
+                        for (var j = 0; j < participante.intentos.length; j++) {
+                            if(participante.intentos[j].tipoDesafio != "unir")
+                            {  for (var k = 0; k < participante.intentos[j].preguntas.length; k++) {
+                                    if(participante.intentos[j].preguntas[k].idPregunta == preguntaOpcion.idPregunta)
+                                    {
+                                        if(participante.intentos[j].preguntas[k].correctoIncorrecto == 1)
+                                        {
+                                            preguntaOpcion.resCorrecta +=1;
+                                        }else {
+                                            preguntaOpcion.resIncorrecta +=1;
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+                    });
+                });
+                preguntas.push(preguntaOpcion);
             }
-            res.render('paginas/inicioEstadistica', {
+            for (var a = 0; a < doc.materias[idMateria].preguntasUnirVoltear.length; a++) {
+                var preguntaUnir = {
+                    idPregunta:"",
+                    enunciado:"",
+                    imagen:"",
+                    resCorrecta: 0,
+                    resIncorrecta: 0
+                };
+               preguntaUnir.idPregunta = doc.materias[idMateria].preguntasUnirVoltear[i].idPregunta;
+               preguntaUnir.enunciado = doc.materias[idMateria].preguntasUnirVoltear[i].texto;
+               preguntaUnir.imagen = doc.materias[idMateria].preguntasUnirVoltear[i].imagen;
+
+                Estudiante.find({}, function (error, doc) {
+                    doc.forEach(function (participante) {
+                        for (var b = 0;  b< participante.intentos.length; b++) {
+                            if(participante.intentos[b].tipoDesafio != "unir")
+                            {
+                                for (var c = 0; c < participante.intentos[b].preguntas.length; c++) {
+                                    if(participante.intentos[b].preguntas[c].idPregunta == preguntaUnir.idPregunta)
+                                    {
+                                        if(participante.intentos[b].preguntas[c].correctoIncorrecto == 1)
+                                        {
+                                            preguntaUnir.resCorrecta +=1;
+                                        }else {
+                                            preguntaUnir.resIncorrecta +=1;
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+                    });
+                });
+                preguntas.push(preguntaUnir);
+            }
+            res.render('paginas/estadisticaPreguntas', {
                 nombre: req.session.nombre,
                 usuario: req.session.usuario,
-                materias: materias
-
+                asignatura: req.params.materia,
+                preguntas: preguntas
             });
 
         });
