@@ -72,17 +72,7 @@
     var ctx = document.getElementById('myChart1').getContext('2d');
     var chart = new Chart(ctx, {
             type: 'horizontalBar',
-            data: {
-                labels: ["Correctos", "Incorrectos"],
-                datasets: [{
-                    label: "My First Dataset",
-                    data: [12, 10],
-                    backgroundColor: ['rgb(255, 99, 132)', 'rgb(255, 99, 32)'],
-                    borderColor: ['rgb(255, 99, 132)', 'rgb(255, 99, 12)'],
-                    label: "My First Dataset2",
-                }
-                ]
-            },
+            data: horizontalBarChartData,
 
             options: {}
 
@@ -102,6 +92,28 @@
                 "options": {"scales": {"xAxes": [{"ticks": {"beginAtZero": true}}]}}*/
             //});
         })
+
+    var horizontalBarChartData = {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [{
+                label: 'Dataset 1',
+                backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+                borderColor: window.chartColors.red,
+                borderWidth: 1,
+                data: [
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                ]
+            }, {
+                label: 'Dataset 2',
+                backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
+                borderColor: window.chartColors.blue,
+                data: [
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                ]
+            }]
+        }
     ;
 </script>
 </body>
