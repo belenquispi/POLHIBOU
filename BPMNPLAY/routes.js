@@ -1111,7 +1111,6 @@ exports.get_estadisticaParticipante = function (req, res) {
 exports.get_estadisticaPreguntas = function (req, res) {
     if (req.session.nombre) {
         Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
-
             var preguntas = [];
             var idMateria= doc.materias.map(function (e) {
                 return e.nombre
@@ -1124,36 +1123,13 @@ exports.get_estadisticaPreguntas = function (req, res) {
                     resIncorrecta: 0
                 };
                 if(doc.materias[idMateria].preguntasOpcionMultiple[i].imagenEnunciado) {
-                preguntaOpcion = {};
                 preguntaOpcion.idPregunta = doc.materias[idMateria].preguntasOpcionMultiple[i].idPregunta;
                 preguntaOpcion.enunciado = doc.materias[idMateria].preguntasOpcionMultiple[i].enunciado;
                 preguntaOpcion.imagenEnunciado = doc.materias[idMateria].preguntasOpcionMultiple[i].imagenEnunciado;
                 }else {
-                    preguntaOpcion = {};
                     preguntaOpcion.idPregunta = doc.materias[idMateria].preguntasOpcionMultiple[i].idPregunta;
                     preguntaOpcion.enunciado = doc.materias[idMateria].preguntasOpcionMultiple[i].enunciado;
                 }
-
-                Estudiante.find({}, function (error, doc) {
-                    doc.forEach(function (participante) {
-                        for (var j = 0; j < participante.intentos.length; j++) {
-                            if(participante.intentos[j].tipoDesafio != "unir")
-                            {  for (var k = 0; k < participante.intentos[j].preguntas.length; k++) {
-                                    if(participante.intentos[j].preguntas[k].idPregunta == preguntaOpcion.idPregunta)
-                                    {
-                                        if(participante.intentos[j].preguntas[k].correctoIncorrecto == 1)
-                                        {
-                                            preguntaOpcion.resCorrecta +=1;
-                                        }else {
-                                            preguntaOpcion.resIncorrecta +=1;
-                                        }
-                                    }
-                                }
-                            }
-
-                        }
-                    });
-                });
                 preguntas.push(preguntaOpcion);
             }
             for (var a = 0; a < doc.materias[idMateria].preguntasUnirVoltear.length; a++) {
@@ -1168,38 +1144,47 @@ exports.get_estadisticaPreguntas = function (req, res) {
                preguntaUnir.enunciado = doc.materias[idMateria].preguntasUnirVoltear[i].texto;
                preguntaUnir.imagen = doc.materias[idMateria].preguntasUnirVoltear[i].imagen;
 
-                Estudiante.find({}, function (error, doc) {
-                    doc.forEach(function (participante) {
-                        for (var b = 0;  b< participante.intentos.length; b++) {
-                            if(participante.intentos[b].tipoDesafio != "unir")
-                            {
-                                for (var c = 0; c < participante.intentos[b].preguntas.length; c++) {
-                                    if(participante.intentos[b].preguntas[c].idPregunta == preguntaUnir.idPregunta)
+                preguntas.push(preguntaUnir);
+            }
+            Estudiante.find({}, function (error, doc) {
+                doc.forEach(function (participante) {
+                    for (var b = 0;  b< participante.intentos.length; b++) {
+                        console.log("intentos");
+                        console.log( participante.intentos.length);
+                        if(participante.intentos[b].tipoDesafio != "unir")
+                        {
+                            console.log("Distintos de unir");
+                            console.log( participante.intentos[b].tipoDesafio);
+                            for (var c = 0; c < participante.intentos[b].preguntas.length; c++) {
+                                var indicePregunta = preguntas.map(function (e) {
+                                    return e.idPregunta
+                                }).indexOf(participante.intentos[b].preguntas[c].idPregunta);
+                                console.log("Preguntas");
+                                console.log( indicePregunta);
+                                if(indicePregunta > 0)
+                                {
+                                    if(participante.intentos[b].preguntas[c].correctoIncorrecto == 1)
                                     {
-                                        if(participante.intentos[b].preguntas[c].correctoIncorrecto == 1)
-                                        {
-                                            preguntaUnir.resCorrecta +=1;
-                                        }else {
-                                            preguntaUnir.resIncorrecta +=1;
-                                        }
+                                        preguntas[indicePregunta].resCorrecta +=1;
+                                        console.log("Uno más: ");
+                                        console.log( preguntas[indicePregunta].resCorrecta);
+                                    }else {
+                                        preguntas[indicePregunta].resIncorrecta +=1;
                                     }
                                 }
                             }
-
                         }
-                    });
+
+                    }
                 });
-                preguntas.push(preguntaUnir);
-            }
-            res.render('paginas/estadisticaPreguntas', {
-                nombre: req.session.nombre,
-                usuario: req.session.usuario,
-                asignatura: req.params.materia,
-                preguntas: preguntas
+                res.render('paginas/estadisticaPreguntas', {
+                    nombre: req.session.nombre,
+                    usuario: req.session.usuario,
+                    asignatura: req.params.materia,
+                    preguntas: preguntas
+                });
             });
-
         });
-
     }
     else {
         res.redirect('/inicioSesion');
