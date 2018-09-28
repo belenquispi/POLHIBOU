@@ -43,78 +43,117 @@
                     <h2>Preguntas de la temática <%= asignatura %></h2>
                 </div>
             </div>
+            <input type="text" id="numPreguntas" hidden value="<%= preguntas.length %>">
             <% for(var i = 0; i < preguntas.length; i++ ) { %>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card" style="margin-top: 10px">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <h5>Pregunta: <%=(i+1) %></h5>
-                                    <p><%=preguntas[i].enunciado%></p>
-                                    <canvas id="myChart<%=(i+1)%>" width="100" height="100"></canvas>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card" style="margin-top: 10px">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5>Pregunta: <%= (i + 1) %></h5>
+                                    </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <% if(preguntas[i].imagen != undefined || preguntas[i].imagenEnunciado != undefined) { %>
-                                        <h5>Imagen</h5>
-                                    <% } %>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-8">
+
+                                        <p><%=preguntas[i].enunciado %></p>
+                                        <canvas id="myChart<%= (i + 1) %>" width="1000" height="150"
+                                                class="chartjs-render-monitor"
+                                                style="display: block; width: 1000px; height: 150px;"
+                                                onclick="llenarDatos('myChart<%= (i + 1) %>',<%= preguntas[i].resCorrecta %>, <%= preguntas[i].resIncorrecta %>, <%= i %> )"></canvas>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <% if(preguntas[i].imagenEnunciado != undefined) { %>
+                                            <img id="imagen<%= (i+1)%>" src='<%=preguntas[i].imagenEnunciado %>' width="50"
+                                                 height="50"/>
+                                        <% } %>
+                                        <% if(preguntas[i].imagen != undefined ) { %>
+                                            <img id="imagen<%= (i+1)%>" src='<%=preguntas[i].imagen %>' width="50" height="50"/>
+                                        <% } %>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <form action="/detalleOpcionMultiple" method="post">
+                                            <input type="text" name="idPregunta" hidden
+                                                   value=<%= preguntas[i].idPregunta %>>
+                                            <input type="text" name="materia" hidden value=<%= asignatura %>>
+                                            <br>
+                                            <br>
+                                            <button type="submit" class="btn btn-info" style="margin-bottom:10px"><i
+                                                        class="fas fa-info-circle"></i> Ver Detalles
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
             <% } %>
         </div>
     </div>
 </div>
 <script>
-    var ctx = document.getElementById('myChart1').getContext('2d');
-    var chart = new Chart(ctx, {
+
+    function llenarDatos(idCanvas, correctos, incorrectos, num) {
+        var ctx = document.getElementById(idCanvas).getContext('2d');
+        var myHorizontalBar = new Chart(ctx, {
             type: 'horizontalBar',
-            data: horizontalBarChartData,
-
-            options: {}
-
-            /*new Chart(document.getElementById("chartjs-2"), {
-                "type": "horizontalBar",
-                "data": {
-                    "labels": ["January", "February", "March", "April", "May", "June", "July"],
-                    "datasets": [{
-                        "label": "My First Dataset",
-                        "data": [65, 59, 80, 81, 56, 55, 40],
-                        "fill": false,
-                        "backgroundColor": ["rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)", "rgba(255, 205, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(54, 162, 235, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(201, 203, 207, 0.2)"],
-                        "borderColor": ["rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "rgb(75, 192, 192)", "rgb(54, 162, 235)", "rgb(153, 102, 255)", "rgb(201, 203, 207)"],
-                        "borderWidth": 1
+            data: {
+                labels: ['Pregunta ' + (num+1)],
+                datasets: [{
+                    label: 'Correctas',
+                    backgroundColor: "rgba(46, 205, 113, 0.5)",
+                    borderColor: "rgba(0, 255, 100)",
+                    borderWidth: 1,
+                    data: [correctos]
+                }, {
+                    label: 'Incorrectas',
+                    backgroundColor: "rgba(255, 0, 0, 0.5)",
+                    borderColor: "rgba(255, 0, 0)",
+                    borderWidth: 1,
+                    data: [incorrectos]
+                }]
+            },
+            options: {
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        },
+                        gridLines: {
+                            offsetGridLines: true
+                        }
                     }]
                 },
-                "options": {"scales": {"xAxes": [{"ticks": {"beginAtZero": true}}]}}*/
-            //});
-        })
+                elements: {
+                    rectangle: {
+                        borderWidth: 2,
+                    }
+                },
+                responsive: true,
+                legend: {
+                    position: 'right',
+                },
+                title: {
+                    display: true,
+                    text: 'Número de respuestas'
+                }
+            }
 
-    var horizontalBarChartData = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [{
-                label: 'Dataset 1',
-                backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
-                borderColor: window.chartColors.red,
-                borderWidth: 1,
-                data: [
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                ]
-            }, {
-                label: 'Dataset 2',
-                backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
-                borderColor: window.chartColors.blue,
-                data: [
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                ]
-            }]
+        })
+    }
+
+    window.onload = function () {
+        for (var i = 0; i < document.getElementById("numPreguntas").value; i++) {
+            document.getElementById("myChart" + (i + 1)).click();
         }
-    ;
+
+    }
+
+
 </script>
 </body>
 </html>

@@ -1140,9 +1140,9 @@ exports.get_estadisticaPreguntas = function (req, res) {
                     resCorrecta: 0,
                     resIncorrecta: 0
                 };
-               preguntaUnir.idPregunta = doc.materias[idMateria].preguntasUnirVoltear[i].idPregunta;
-               preguntaUnir.enunciado = doc.materias[idMateria].preguntasUnirVoltear[i].texto;
-               preguntaUnir.imagen = doc.materias[idMateria].preguntasUnirVoltear[i].imagen;
+               preguntaUnir.idPregunta = doc.materias[idMateria].preguntasUnirVoltear[a].idPregunta;
+               preguntaUnir.enunciado = doc.materias[idMateria].preguntasUnirVoltear[a].texto;
+               preguntaUnir.imagen = doc.materias[idMateria].preguntasUnirVoltear[a].imagen;
 
                 preguntas.push(preguntaUnir);
             }
