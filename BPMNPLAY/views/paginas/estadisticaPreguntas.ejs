@@ -74,7 +74,18 @@
                                             <img id="imagen<%= (i+1)%>" src='<%=preguntas[i].imagen %>' width="50" height="50"/>
                                         <% } %>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-2 text-center" >
+                                        <% if(preguntas[i].imagen != undefined) { %>
+                                            <form action="/eliminarUnirVoltear" method="post">
+                                                <input type="text" name="idPregunta" hidden
+                                                       value=<%= preguntas[i].idPregunta %>>
+                                                <input type="text" name="materia" hidden value=<%= asignatura %>>
+                                                <br>
+                                                <br>
+                                                <button class="btn btn-default" type="submit"><i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </form>
+                                        <% } else {%>
                                         <form action="/detalleOpcionMultiple" method="post">
                                             <input type="text" name="idPregunta" hidden
                                                    value=<%= preguntas[i].idPregunta %>>
@@ -85,6 +96,7 @@
                                                         class="fas fa-info-circle"></i> Ver Detalles
                                             </button>
                                         </form>
+                                        <%}%>
                                     </div>
                                 </div>
                             </div>
@@ -96,13 +108,12 @@
     </div>
 </div>
 <script>
-
     function llenarDatos(idCanvas, correctos, incorrectos, num) {
         var ctx = document.getElementById(idCanvas).getContext('2d');
         var myHorizontalBar = new Chart(ctx, {
             type: 'horizontalBar',
             data: {
-                labels: ['Pregunta ' + (num+1)],
+                labels: [''],
                 datasets: [{
                     label: 'Correctas',
                     backgroundColor: "rgba(46, 205, 113, 0.5)",
@@ -152,8 +163,6 @@
         }
 
     }
-
-
 </script>
 </body>
 </html>

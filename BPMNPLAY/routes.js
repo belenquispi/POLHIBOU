@@ -36,16 +36,7 @@ exports.post_inicio_sesion = function (req, res) {
                 } else {
                     req.session.nombre = doc.nombre;
                     req.session.usuario = doc.usuario;
-                    req.session.rol = doc.rol;
-                    if (doc.rol == "facilitador") {
-                        res.redirect('/ingresoFacilitador');
-                    } else {
-                        if (doc.rol == "participante") {
-                            res.redirect('/ingresoParticipante');
-                        } else {
-
-                        }
-                    }
+                    res.redirect('/ingresoFacilitador');
                 }
             }
             else {
@@ -1315,5 +1306,6 @@ Array.prototype.memory_tile_shuffle = function () {
 
 exports.salir = function (req, res) {
     req.session.usuario = null;
+    req.session.nombre  = null;
     res.redirect('/');
 };

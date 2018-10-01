@@ -15,148 +15,193 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/ingresoParticipante">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoParticipante">Temáticas</a></li>
     </ol>
 </nav>
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-2">
             <div class="row">
-                <div class="col-md-3">
-                    <h2><span class="badge badge-secondary" style="margin-top: 25%">Opción Múltiple</span></h2>
+                <div class="col-md-12">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <a href="/ingresoFacilitador"
+                           class="nav-link " style="margin-bottom: 10px">
+                            <i class="far fa-list-alt "></i> Modo Facilitador</a>
+                        <a href="/ingresoParticipante"
+                           class="nav-link active" style="margin-bottom: 10px">
+                            <i class="far fa-list-alt"></i> Modo Participante</a>
+                        <a href="/estadisticas"
+                           class="nav-link " style="margin-bottom: 10px">
+                            <i class="fas fa-chart-bar"></i> Estadísticas</a>
+                    </div>
                 </div>
-                <% for(var i = 0; i < 3; i++)
-                {
-                %>
-                    <div class="col-md-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    Desafío <%= i+1 %>
-                                    <% for(var j = 0; j < opcionMutiple[(i*2)+1]; j++){
-                                    %>
-                                        <i class="fas fa-star fa-sm fa-spin " style="color:gold"></i>
-                                    <% } %>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h2><span class="badge badge-secondary" style="margin-top: 25%">Opción Múltiple</span></h2>
+                        </div>
+                        <% for(var i = 0; i < 3; i++)
+                        {
+                        %>
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            Desafío <%= i + 1 %>
+                                            <% for(var j = 0; j < opcionMutiple[(i * 2) + 1]; j++){
+                                            %>
+                                                <i class="fas fa-star fa-sm fa-spin " style="color:gold"></i>
+                                            <% } %>
+                                            <% if(opcionMutiple[(i * 2) + 1] < 5){
+                                                for(var a = opcionMutiple[(i * 2) + 1] ; a < 5; a++){
+                                            %>
+                                                <i class="fas fa-star fa-sm " style="color:gainsboro"></i>
+                                            <% }
+                                            } %>
 
-                                </h5>
-                                <form action="/mostrarOpcionMultiple" method="post">
-                                    <input type="text" name="facilitador" value="<%= facilitador %>" hidden>
-                                    <input type="text" name="materia" value="<%= materia %>" hidden>
-                                    <input type="text" name="contadorPreguntas" value=-1 hidden>
-                                 <%switch (i)
-                                 {
-                                     case 0:%>
-                                    <input type="text" name="dificultad" value="Fácil" hidden>
-                                    <%
-                                        break;
-                                    case 1:%>
-                                    <input type="text" name="dificultad" value="Medio" hidden>
-                                    <%
-                                        break;
-                                    case 2:%>
-                                    <input type="text" name="dificultad" value="Difícil" hidden>
-                                    <% break;
-                                 }%>
-                                    <button type="submit" class="btn btn-primary"><i class="fas fa-gamepad"></i> Jugar</button>
-                                </form>
-                                <p class="card-text">Puntaje máximo: <%= opcionMutiple[(i*2)+1] %></p>
-                                <p class="card-text">Número de intentos: <%= opcionMutiple[(i*2)] %></p>
+                                        </h5>
+                                        <form action="/mostrarOpcionMultiple" method="post">
+                                            <input type="text" name="facilitador" value="<%= facilitador %>" hidden>
+                                            <input type="text" name="materia" value="<%= materia %>" hidden>
+                                            <input type="text" name="contadorPreguntas" value=-1 hidden>
+                                            <% switch (i)
+                                            {
+                                            case 0: %>
+                                            <input type="text" name="dificultad" value="Fácil" hidden>
+                                            <%
+                                                break;
+                                            case 1: %>
+                                            <input type="text" name="dificultad" value="Medio" hidden>
+                                            <%
+                                                break;
+                                            case 2: %>
+                                            <input type="text" name="dificultad" value="Difícil" hidden>
+                                            <% break;
+                                            } %>
+                                            <button type="submit" class="btn btn-primary"><i class="fas fa-gamepad"></i>
+                                                Jugar
+                                            </button>
+                                        </form>
+                                        <p class="card-text">Puntaje máximo: <%= opcionMutiple[(i * 2) + 1] %></p>
+                                        <p class="card-text">Número de intentos: <%= opcionMutiple[(i * 2)] %></p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        <% } %>
                     </div>
-                <% } %>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-md-3">
-                    <h2><span class="badge badge-secondary" style="margin-top: 25%">Emparejar</span></h2>
-                </div>
-                <% for(var i = 0; i < 3; i++)
-                {
-                %>
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                Desafío <%= i+1 %>
-                                <% for(var j = 0; j < emparejar[(i*2)+1]; j++){
-                                %>
-                                    <i class="fas fa-star fa-sm fa-spin " style="color:gold"></i>
-                                <% } %>
-                            </h5>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h2><span class="badge badge-secondary" style="margin-top: 25%">Emparejar</span></h2>
+                        </div>
+                        <% for(var k = 0; k < 3; k++)
+                        {
+                        %>
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            Desafío <%= k + 1 %>
+                                            <% for(var l = 0; l < emparejar[(k * 2) + 1]; l++){
+                                            %>
+                                                <i class="fas fa-star fa-sm fa-spin " style="color:gold"></i>
+                                            <% } %>
+                                            <% if(emparejar[(k * 2) + 1] < 5){
+                                            for(var b = emparejar[(k * 2) + 1] ; b < 5; b++){
+                                            %>
+                                                <i class="fas fa-star fa-sm " style="color:gainsboro"></i>
+                                            <% }
+                                            } %>
+                                        </h5>
 
-                            <form action="/mostrarEmparejar" method="post">
-                                <input type="text" name="facilitador" value="<%= facilitador %>" hidden>
-                                <input type="text" name="materia" value="<%= materia %>" hidden>
-                                <%switch (i)
-                                {
-                                case 0:%>
-                                <input type="text" name="dificultad" value="Fácil" hidden>
-                                <%
-                                    break;
-                                case 1:%>
-                                <input type="text" name="dificultad" value="Medio" hidden>
-                                <%
-                                    break;
-                                case 2:%>
-                                <input type="text" name="dificultad" value="Difícil" hidden>
-                                <% break;
-                                }%>
-                                <button type="submit" class="btn btn-primary"><i class="fas fa-gamepad"></i> Jugar</button>
-                            </form>
-                            <p class="card-text">Puntaje máximo: <%= emparejar[(i*2)+1] %></p>
-                            <p class="card-text">Número de intentos: <%= emparejar[(i*2)] %></p>
+                                        <form action="/mostrarEmparejar" method="post">
+                                            <input type="text" name="facilitador" value="<%= facilitador %>" hidden>
+                                            <input type="text" name="materia" value="<%= materia %>" hidden>
+                                            <% switch (k)
+                                            {
+                                            case 0: %>
+                                            <input type="text" name="dificultad" value="Fácil" hidden>
+                                            <%
+                                                break;
+                                            case 1: %>
+                                            <input type="text" name="dificultad" value="Medio" hidden>
+                                            <%
+                                                break;
+                                            case 2: %>
+                                            <input type="text" name="dificultad" value="Difícil" hidden>
+                                            <% break;
+                                            } %>
+                                            <button type="submit" class="btn btn-primary"><i class="fas fa-gamepad"></i>
+                                                Jugar
+                                            </button>
+                                        </form>
+                                        <p class="card-text">Puntaje máximo: <%= emparejar[(k * 2) + 1] %></p>
+                                        <p class="card-text">Número de intentos: <%= emparejar[(k * 2)] %></p>
+                                    </div>
+                                </div>
+                            </div>
+                        <% } %>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h2><span class="badge badge-secondary" style="margin-top: 25%">Unir Voltear</span></h2>
                         </div>
+                        <% for(var m = 0; m < 3; m++)
+                        {
+                        %>
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            Desafío <%= m + 1 %>
+                                            <% for(var n = 0; n < unirVoltear[(m * 2) + 1]; n++){
+                                            %>
+                                                <i class="fas fa-star fa-sm fa-spin " style="color:gold"></i>
+                                            <% } %>
+                                            <% if(unirVoltear[(m * 2) + 1] < 5){
+                                            for(var c = unirVoltear[(m * 2) + 1] ; c < 5; c++){
+                                            %>
+                                                <i class="fas fa-star fa-sm " style="color:gainsboro"></i>
+                                            <% }
+                                            } %>
+                                        </h5>
+                                        <form action="/mostrarUnirVoltear" method="post">
+                                            <input type="text" name="facilitador" value="<%= facilitador %>" hidden>
+                                            <input type="text" name="materia" value="<%= materia %>" hidden>
+                                            <% switch (m)
+                                            {
+                                            case 0: %>
+                                            <input type="text" name="dificultad" value="Fácil" hidden>
+                                            <%
+                                                break;
+                                            case 1: %>
+                                            <input type="text" name="dificultad" value="Medio" hidden>
+                                            <%
+                                                break;
+                                            case 2: %>
+                                            <input type="text" name="dificultad" value="Difícil" hidden>
+                                            <% break;
+                                            } %>
+                                            <button type="submit" class="btn btn-primary"><i class="fas fa-gamepad"></i>
+                                                Jugar
+                                            </button>
+                                        </form>
+                                        <p class="card-text">Puntaje máximo: <%= unirVoltear[(m * 2) + 1] %></p>
+                                        <p class="card-text">Número de intentos: <%= unirVoltear[(m * 2)] %></p>
+                                    </div>
+                                </div>
+                            </div>
+                        <% } %>
                     </div>
                 </div>
-                <% } %>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-md-3">
-                    <h2><span class="badge badge-secondary" style="margin-top: 25%">Unir Voltear</span></h2>
-                </div>
-                <% for(var i = 0; i < 3; i++)
-                {
-                %>
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                Desafío <%= i+1 %>
-                                <% for(var j = 0; j <unirVoltear[(i*2)+1]; j++){
-                                %>
-                                    <i class="fas fa-star fa-sm fa-spin " style="color:gold"></i>
-                                <% } %>
-                            </h5>
-                            <form action="/mostrarUnirVoltear" method="post">
-                                <input type="text" name="facilitador" value="<%= facilitador %>" hidden>
-                                <input type="text" name="materia" value="<%= materia %>" hidden>
-                                <%switch (i)
-                                {
-                                case 0:%>
-                                <input type="text" name="dificultad" value="Fácil" hidden>
-                                <%
-                                    break;
-                                case 1:%>
-                                <input type="text" name="dificultad" value="Medio" hidden>
-                                <%
-                                    break;
-                                case 2:%>
-                                <input type="text" name="dificultad" value="Difícil" hidden>
-                                <% break;
-                                }%>
-                                <button type="submit" class="btn btn-primary"><i class="fas fa-gamepad"></i> Jugar</button>
-                            </form>
-                            <p class="card-text">Puntaje máximo: <%= unirVoltear[(i*2)+1] %></p>
-                            <p class="card-text">Número de intentos: <%= unirVoltear[(i*2)] %></p>
-                        </div>
-                    </div>
-                </div>
-                <% } %>
             </div>
         </div>
     </div>
 </div>
-
 </body>
 </html>

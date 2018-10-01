@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta http-equiv="Content-Type" content="text/html"/>
     <% include ../parciales/head %>
@@ -9,49 +9,65 @@
 </head>
 <body>
 <header>
-    <% var x = 5; if(x==5){ %>
-        <%include ../parciales/header %>
+    <% var x = 5; if(x == 5){ %>
+        <% include ../parciales/header %>
     <% } else { %>
-    <%include ../parciales/headerProfesor %>
-    <% }  %>
+        <% include ../parciales/headerProfesor %>
+    <% } %>
 </header>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6">
-<div class="jumbotron">
-    <h1 class="display-4">BPMN PLAY!</h1>
-    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-    <hr class="my-4">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-    <p class="lead">
-        <a class="btn btn-primary btn-lg" href="/ingresoPartida" role="button"><i class="fas fa-sign-in-alt"></i> Ingresar a Partida</a>
-    </p>
-</div>
-</div>
+            <div class="jumbotron">
+                <h1 class="display-4">BPMN PLAY!</h1>
+                <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra
+                    attention to featured content or information.</p>
+                <hr class="my-4">
+                <p>It uses utility classes for typography and spacing to space content out within the larger
+                    container.</p>
+                <p class="lead">
+                    <a class="btn btn-primary btn-lg" href="/ingresoPartida" role="button"><i
+                                class="fas fa-sign-in-alt"></i> Ingresar a Partida</a>
+                </p>
+            </div>
+        </div>
         <div class="col-md-6">
             <h3 class="display-8">Crear Cuenta</h3>
             <form action="/creacionCuenta" method="post">
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputNombre">Nombres completos</label>
-                        <input type="text" class="form-control" id="inputNombre" name="nombre"  required placeholder="Nombres completos">
+                        <input type="text" class="form-control" id="inputNombre" name="nombre" required
+                               placeholder="Nombres completos">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputUsuario">Correo electrónico</label>
-                        <input type="email" class="form-control" id="inputUsuario" name="usuario" required placeholder="Correo electrónico">
+                        <input type="email" class="form-control" id="inputUsuario" name="usuario" required
+                               placeholder="Correo electrónico">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputContrasenia">Contraseña</label>
-                        <input type="password" class="form-control" id="inputContrasenia" name="contrasenia" required placeholder="Contraseña">
+                        <input type="password" class="form-control" id="inputContrasenia" name="contrasenia" required
+                               placeholder="Contraseña">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputContraseniaConfirmada">Confirmar Contraseña</label>
-                        <input type="password" class="form-control" id="inputContraseniaConfirmada" name="contrasenia_confirmada" required placeholder="Confirmar contraseña">
+                        <input type="password" class="form-control" id="inputContraseniaConfirmada"
+                               name="contrasenia_confirmada" required placeholder="Confirmar contraseña">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary"><i class="fas fa-user-plus"></i> Crear Cuenta</button>
+                <div class="form-row text-center">
+                    <div class="form-group col-md-4">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-user-plus"></i> Crear Cuenta
+                        </button>
+                    </div>
+                    <div class="form-group col-md-4">
+                    </div>
+                </div>
             </form>
 
         </div>

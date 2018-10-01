@@ -29,10 +29,10 @@ function generarPartida() {
 
 function verificarSeleccion() {
     if (document.getElementById('numeroEquipo').value > 0 && (verificarIconosSeleccionados() == true)) {
-        document.getElementById('botonModal').removeAttribute('disabled');
+        document.getElementById('generarCodigo').removeAttribute('disabled');
     }
     else {
-        document.getElementById('botonModal').setAttribute('disabled', '');
+        document.getElementById('generarCodigo').setAttribute('disabled', '');
     }
 }
 
@@ -47,8 +47,9 @@ function verificarIconosSeleccionados() {
 function generarDatosEquipo(numero) {
     var id = numero.id;
     iconoSeleccionados = [];
-    partida = [];
-    console.log(id);
+    if (document.getElementById("generarCodigo")) {
+        document.getElementById("generarCodigo").removeAttribute("hidden");
+    }
     if (document.getElementById("form-group1")) {
         eliminarAnteriores(1);
     }
@@ -73,7 +74,7 @@ function generarDatosEquipo(numero) {
         label.setAttribute("id", "labelEquipo" + (i + 1));
         label.setAttribute("class", "col-md-3");
         document.getElementById("form-group" + (i + 1)).appendChild(label);
-        document.getElementById('labelEquipo' + (i + 1)).innerHTML = "Nombre del Equipo " + (i + 1);
+        document.getElementById('labelEquipo' + (i + 1)).innerHTML = "- Datos del Equipo " + (i + 1)+":";
 
         var inputs = document.createElement("INPUT");
         inputs.setAttribute("class", "form-control col-md-3");

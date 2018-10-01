@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <title>Ingreso de Jugadores</title>
     <% include ../parciales/head %>
@@ -14,92 +14,129 @@
         <li class="breadcrumb-item"><a href="/ingresoParticipante">Inicio</a></li>
     </ol>
 </nav>
-<div class="container">
+
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-            <div class="row">
-                <div class="col-lg-12">
-                    <img class="rounded mx-auto d-block"
-                         src="https://cem.epn.edu.ec/imagenes/logos_institucionales/big_jpg/BUHO_ABSTRACCION_EPN_big.jpg"
-                         height="100" width="100">
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3"></div>
-    </div>
-    <br>
-    <div class="row" >
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-            <div class="row" style="border: black solid">
-                <div class="col-md-12">
-                    <form id="login-form" action="/lobbyParticipante" method="post" role="form" style="display: block;">
-                        <div class="row">
-                            <div class="col-md-2"></div>
-                            <div class="col-md-8 text-center">
-                                <label for="codigoPartida">Ingresar código de partida:</label>
-                                <input type="text" class="form-control bg-dark text-white rounded text-center" placeholder="Código de la partida"
-                                               id="codigoPartida" name="codigoPartida">
-                            </div>
-                            <div class="col-md-2"></div>
+        <% if(nombre != "Participante"){ %>
+            <div class="col-md-2">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+                             aria-orientation="vertical">
+                            <a href="/ingresoFacilitador"
+                               class="nav-link " style="margin-bottom: 10px">
+                                <i class="far fa-list-alt "></i> Modo Facilitador</a>
+                            <a href="/ingresoParticipante"
+                               class="nav-link active" style="margin-bottom: 10px">
+                                <i class="far fa-list-alt"></i> Modo Participante</a>
+                            <a href="/estadisticas"
+                               class="nav-link " style="margin-bottom: 10px">
+                                <i class="fas fa-chart-bar"></i> Estadísticas</a>
                         </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-12 text-center">
-                                <button type="button" class="btn btn-info" id="consultarPartida" onclick="verificarPartida()">Verificar código partida
-                                </button>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row" id="divTipoEquipo" hidden>
-                            <div class="col-md-2"></div>
-                            <div class="col-md-8 text-center">
-                                <label for="tipoIngreso">Tipo de Ingreso:</label>
-                                <select id="tipoIngreso" name="tipoIngreso" class="form-control text-center"
-                                        onchange="habilitarNombreEquipo()">
-                                    <option value="ninguno">Seleccione un tipo de ingreso</option>
-                                    <option value="jugador">Jugador</option>
-                                    <option value="espectador">Espectador</option>
-                                </select>
-                            </div>
-                            <div class="col-md-2"></div>
-                        </div>
-                        <br>
-                        <div class="row" id="divNombreEquipo" hidden>
-                            <div class="col-md-2"></div>
-                            <div class="col-md-8 text-center">
-                                <label for="nombreEquipo">Nombre del Equipo:</label>
-                                <select id="nombreEquipo" name="nombreEquipo" class="form-control text-center"
-                                        onchange="verificarDisponibilidadEquipo()">
-                                </select>
-                            </div>
-                            <div class="col-md-2"></div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-2"></div>
-                            <div class="col-md-8 text-center">
-                                <button type="submit" value="Unirse a partida" class="btn btn-primary" hidden id="botonUnir">Unirse</button>
-                                <button type="submit" class="btn btn-primary" id="unirPartida" hidden></button>
-                            </div>
-                            <div class="col-md-2"></div>
-                        </div>
-                    </form>
-                    <div class="row text-center">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-8">
-                            <img src="../../static/imagenes/espera.gif" id="imagenE" width="150px" hidden height="200px">
-                        </div>
-                        <div class="col-md-2"></div>
                     </div>
                 </div>
             </div>
+            <div class="col-md-10">
+            <% }else{ %>
+            <div class="col-md-12">
+                <% } %>
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <img class="rounded mx-auto d-block"
+                                     src="https://cem.epn.edu.ec/imagenes/logos_institucionales/big_jpg/BUHO_ABSTRACCION_EPN_big.jpg"
+                                     height="100" width="100">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <div class="row" style="border: black solid">
+                            <div class="col-md-12">
+                                <form id="login-form" action="/lobbyParticipante" method="post" role="form"
+                                      style="display: block;">
+                                    <div class="row">
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-8 text-center">
+                                            <label for="codigoPartida">Ingresar código de partida:</label>
+                                            <input type="text"
+                                                   class="form-control bg-dark text-white rounded text-center"
+                                                   placeholder="Código de la partida"
+                                                   id="codigoPartida" name="codigoPartida">
+                                        </div>
+                                        <div class="col-md-2"></div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-12 text-center">
+                                            <button type="button" class="btn btn-info" id="consultarPartida"
+                                                    onclick="verificarPartida()">Verificar código partida
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row" id="divTipoEquipo" hidden>
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-8 text-center">
+                                            <label for="tipoIngreso">Tipo de Ingreso:</label>
+                                            <select id="tipoIngreso" name="tipoIngreso" class="form-control text-center"
+                                                    onchange="habilitarNombreEquipo()">
+                                                <option value="ninguno">Seleccione un tipo de ingreso</option>
+                                                <option value="jugador">Jugador</option>
+                                                <option value="espectador">Espectador</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2"></div>
+                                    </div>
+                                    <br>
+                                    <div class="row" id="divNombreEquipo" hidden>
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-8 text-center">
+                                            <label for="nombreEquipo">Nombre del Equipo:</label>
+                                            <select id="nombreEquipo" name="nombreEquipo"
+                                                    class="form-control text-center"
+                                                    onchange="verificarDisponibilidadEquipo()">
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2"></div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-8 text-center">
+                                            <button type="submit" value="Unirse a partida" class="btn btn-primary"
+                                                    hidden id="botonUnir">Unirse
+                                            </button>
+                                            <button type="submit" class="btn btn-primary" id="unirPartida"
+                                                    hidden></button>
+                                        </div>
+                                        <div class="col-md-2"></div>
+                                    </div>
+                                </form>
+                                <div class="row text-center">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8">
+                                        <img src="../../static/imagenes/espera.gif" id="imagenE" width="150px" hidden
+                                             height="200px">
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-3"></div>
     </div>
 </div>
-<script src="/socket.io/socket.io.js"></script>
-<script src="../../static/js/ingresoPartidas.js"> </script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="../../static/js/ingresoPartidas.js"></script>
 </body>
 </html>
