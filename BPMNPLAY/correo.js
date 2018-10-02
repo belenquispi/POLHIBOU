@@ -33,7 +33,7 @@ setTimeout(function () {
 }, 3000);
 Usuario.findOne({usuario: "polhibou@gmail.com"}, function (error, doc) {
     if (error) {
-        console.log("Error: " + error)
+        console.log("Error: " + error);
     }
     else {
         console.log(doc);
@@ -43,12 +43,9 @@ Usuario.findOne({usuario: "polhibou@gmail.com"}, function (error, doc) {
         }
     }
 });
-
-
 exports.inicio = function () {
     console.log("llenar datos");
-}
-
+};
 exports.enviarCorreo = function (mail, codigo) {
     mailOptions.to = mail;
     mailOptions.subject = 'Verificación de cuenta';
@@ -61,6 +58,6 @@ exports.enviarCorreo = function (mail, codigo) {
             console.log('Email sent: ' + info.response);
         }
     });
-}
+};
 
 

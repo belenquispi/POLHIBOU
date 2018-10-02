@@ -1,10 +1,10 @@
-var mongoose = require('mongoose');
+ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 //Conexion al servidor
 mongoose.connect('mongodb://localhost:27017/polibou', { useNewUrlParser: true });
 
-var rol = ["facilitador", "participante"];
+var rol = ["facilitador", "participante","administrador"];
 var validacion_contrasenia = {
     validator: function (p) {
         return this.contrasenia_confirmada == p;

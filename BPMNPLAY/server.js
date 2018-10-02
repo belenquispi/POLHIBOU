@@ -132,6 +132,7 @@ app.get('/estadisticas', routes.get_estadisticas);
 app.get('/estadisticaParticipante/:materia', routes.get_estadisticaParticipante);
 app.get('/estadisticaPregunta/:materia', routes.get_estadisticaPreguntas);
 app.post('/detalleParticipante', routes.post_detalleParticipante);
+app.get('/ingresoAdministrador', routes.get_ingreso_administrador);
 
 
 // Starts the server.
