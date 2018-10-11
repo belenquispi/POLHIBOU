@@ -20,10 +20,14 @@ exports.get_inicio_sesion = function (req, res) {
     res.render('paginas/inicioSesion', {usuario: usuario});
 };
 exports.post_inicio_sesion = function (req, res) {
+    if (req.body.usuario == 'administrador') {
+        req.body.usuario = 'polhibou@gmail.com';
+    }
     Usuario.findOne({usuario: req.body.usuario}, function (error, doc) {
         if (error) {
             console.log("Error: " + error);
         }
+        let now = new Date();
         if (doc != null) {
             if (doc.codigoVerificacion == 0) {
                 if (req.body.contrasenia != doc.contrasenia) {
@@ -31,11 +35,15 @@ exports.post_inicio_sesion = function (req, res) {
                 } else {
                     req.session.nombre = doc.nombre;
                     req.session.usuario = doc.usuario;
-                    if (req.session.nombre == "admin") {
-                        res.redirect('/ingresoAdministrador');
-                    } else {
-                        res.redirect('/ingresoFacilitador');
-                    }
+                    doc.fechaUltimaConexion = now;
+                    doc.save(function (err, docActualizado) {
+                        if (err) return console.log(err);
+                        if (req.session.nombre == "administrador") {
+                            res.redirect('/ingresoAdministrador');
+                        } else {
+                            res.redirect('/ingresoFacilitador');
+                        }
+                    })
                 }
             }
             else {
@@ -116,7 +124,8 @@ exports.post_creacion_cuenta = function (req, res) {
         usuario: req.body.usuario,
         contrasenia: req.body.contrasenia,
         contrasenia_confirmada: req.body.contrasenia_confirmada,
-        codigoVerificacion: generarNombre()
+        codigoVerificacion: generarNombre(),
+        fechaUltimaConexion: ""
     });
     req.session.usuarioTemporal = req.body.usuario;
     usuario.save(function (err) {
@@ -650,7 +659,7 @@ exports.post_confirmar_cuenta = function (req, res) {
                 }
             }
             else {
-                res.render('/');
+                res.redirect('/');
             }
         })
     }
@@ -1222,7 +1231,8 @@ exports.get_ingreso_administrador = function (req, res) {
                     nombre: usuario.nombre,
                     usuario: usuario.usuario,
                     contrasenia: usuario.contrasenia,
-                    codigoVerificacion: usuario.codigoVerificacion
+                    codigoVerificacion: usuario.codigoVerificacion,
+                    fechaUltimaConexion: usuario.fechaUltimaConexion
                 };
                 usuarios.push(usuarioX);
             });

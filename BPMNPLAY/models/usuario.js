@@ -18,6 +18,7 @@ var usuarioSchema = new Schema({
     nombre: {type :String, required : true},
     contrasenia: { type :String},
     codigoVerificacion: {type : String},
+    fechaUltimaConexion : {type : Date},
     rol : {type :String, enum: {values: rol, message:"Opción no válida"},required : true}
 });
 
