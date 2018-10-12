@@ -19,7 +19,7 @@ var usuarioSchema = new Schema({
     contrasenia: { type :String},
     codigoVerificacion: {type : String},
     fechaUltimaConexion : {type : Date},
-    rol : {type :String, enum: {values: rol, message:"Opción no válida"},required : true}
+    rol : {type :String, enum: {values: rol, message:"Opción no válida"}, required : true}
 });
 
 usuarioSchema.virtual("confirmacion_contrasenia").get(function () {

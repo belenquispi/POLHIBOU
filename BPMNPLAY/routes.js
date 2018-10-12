@@ -39,8 +39,10 @@ exports.post_inicio_sesion = function (req, res) {
                     doc.save(function (err, docActualizado) {
                         if (err) return console.log(err);
                         if (req.session.nombre == "administrador") {
+                            req.session.rol = "administrador";
                             res.redirect('/ingresoAdministrador');
                         } else {
+                            req.session.rol = "facilitador";
                             res.redirect('/ingresoFacilitador');
                         }
                     })
@@ -78,6 +80,7 @@ exports.get_ingreso_profesor = function (req, res) {
                 materias.push(materia);
 
             }
+            req.session.rol = "facilitador";
             res.render('paginas/inicioProfesor', {
                 nombre: req.session.nombre,
                 usuario: req.session.usuario,
@@ -111,6 +114,7 @@ exports.get_ingreso_estudiante = function (req, res) {
                     }
                 }
             });
+            req.session.rol = "participante";
             res.render('paginas/inicioEstudiante', {nombre: req.session.nombre, materias: materias});
         })
     }
@@ -129,21 +133,28 @@ exports.post_creacion_cuenta = function (req, res) {
     });
     req.session.usuarioTemporal = req.body.usuario;
     usuario.save(function (err) {
+        if(err){console.log("Error al crear: "+err)
+            res.render('paginas/error');
+        }
+        else {
+            correo.enviarCorreo(req.body.usuario, usuario.codigoVerificacion);
+            var profesor = new Profesor({
+                usuario: req.body.usuario,
+                nombre: req.body.nombre
+            });
+            profesor.save(function (error) {
+                if(error){console.log("Error al crear facilitador: "+error)}
+            });
+            var estudiante = new Estudiante({
+                usuario: req.body.usuario,
+                nombre: req.body.nombre
+            });
+            estudiante.save(function (error) {
+                if(error){console.log("Error al crear participante: "+error)}
+            });
+            res.redirect('/validarCuenta');
+        }
     });
-    correo.enviarCorreo(req.body.usuario, usuario.codigoVerificacion);
-    var profesor = new Profesor({
-        usuario: req.body.usuario,
-        nombre: req.body.nombre
-    });
-    profesor.save(function (error) {
-    });
-    var estudiante = new Estudiante({
-        usuario: req.body.usuario,
-        nombre: req.body.nombre
-    });
-    estudiante.save(function (error) {
-    });
-    res.redirect('/validarCuenta');
 };
 exports.post_ingreso_materia = function (req, res) {
     Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
