@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Creacion de partidas</title>
+    <% include ../parciales/head %>
+
+</head>
+<body>
+<header>
+    <% include ../parciales/headerProfesor %>
+</header>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/ingresoProfesor">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoProfesor/">Materias</a></li>
+    </ol>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <a href="/ingresoFacilitador"
+                           class="nav-link active " style="margin-bottom: 10px">
+                            <i class="far fa-list-alt"></i> Modo Facilitador</a>
+                        <a href="/ingresoParticipante"
+                           class="nav-link" style="margin-bottom: 10px">
+                            <i class="far fa-list-alt"></i> Modo Participante</a>
+                        <a href="/estadisticas"
+                           class="nav-link " style="margin-bottom: 10px">
+                            <i class="fas fa-chart-bar"></i> Estadísticas</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10">
+    <div class="row">
+        <h2>Creación de Partida</h2>
+    </div>
+    <form action="/lobby" method="post" onmouseover="verificarSeleccion()">
+        <div class="row" id="centro">
+            <input type="text" name="materia" value="<%= materia %>" hidden>
+            <div class=" row align-items-center form-group col-md-12">
+                <label class="col-md-3"><strong>Número de equipos:</strong></label>
+                <input class="form-control col-md-3" type="number" id="numeroEquipo" name="numeroEquipos" value="0" min="1"
+                       max="4"
+                       onchange="generarDatosEquipo(this)">
+            <div class="col-md-6" style="margin-bottom: 10px"></div>
+            </div>
+            <input type="hidden" id="rol" name="rol" value="profesor">
+        </div>
+        <!-- Button trigger modal -->
+        <div class="row text-center">
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-info text-center" id="generarCodigo" disabled hidden>
+                    <i class="fas fa-qrcode"></i> Generar código partida
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+    </div>
+</div>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="../../static/js/creacionPartida.js"></script>
+
+</body>
+</html>

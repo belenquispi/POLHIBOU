@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:padding-l="http://www.w3.org/1999/xhtml" xmlns:padding="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Ingreso a partida</title>
+    <% include ../parciales/head %>
+
+</head>
+<body>
+<header>
+    <% include ../parciales/headerEstudiante %>
+</header>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/ingresoEstudiante">Inicio</a></li>
+    </ol>
+</nav>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-lg-12">
+                    <img class="rounded mx-auto d-block"
+                         src="https://cem.epn.edu.ec/imagenes/logos_institucionales/big_jpg/BUHO_ABSTRACCION_EPN_big.jpg"
+                         height="100" width="100">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <form id="login-form" action="/tablero" method="post" role="form" style="display: block;">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8 bg-dark text-white rounded">
+                                    <div class="container ">
+                                        <h1 class="text-center font-weight-bold"><%= codigoPartida %></h1>
+                                        <input type="text" hidden name="idPartida" id="codigoPartida" value="<%= codigoPartida %>">
+                                        <input type="text" hidden name="nombreEquipo" id="nombreEquipo" value="<%= nombreEquipo %>">
+                                        <input type="text" hidden name="rol" id="tipoIngreso" value="<%= tipoIngreso %>">
+                                    </div>
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <p> Espera mientras se unen  todos los equipos participantes</p>
+                            </div>
+                        </div>
+                        <button type="submit" hidden id="botonUnirPartida"></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    <br>
+    <div><label class="font-weight-bold">Jugadores Conectados</label></div>
+    <div class="row border border-info rounded" id="jugadoresConectados">
+    </div>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="../../static/js/lobbyPaticipante.js"></script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html"/>
+    <link rel="stylesheet" type="text/css" href="static/css/estilos.css">
+    <% include ../parciales/head %>
+    <title>Detalle Participante</title>
+</head>
+<body>
+<header>
+    <% include ../parciales/headerProfesor %>
+</header>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/ingresoFacilitador">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="/estadisticas">Estadísticas</a></li>
+        <li class="breadcrumb-item"><a href="/estadisticaParticipante/<%=asignatura%>">Participantes</a></li>
+    </ol>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <a href="/ingresoFacilitador"
+                           class="nav-link " style="margin-bottom: 10px">
+                            <i class="far fa-list-alt"></i> Modo Facilitador</a>
+                        <a href="/ingresoParticipante"
+                           class="nav-link" style="margin-bottom: 10px">
+                            <i class="far fa-list-alt"></i> Modo Participante</a>
+                        <a href="/estadisticas"
+                           class="nav-link active" style="margin-bottom: 10px">
+                            <i class="fas fa-chart-bar"></i> Estadísticas</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-12" >
+                    <h3>Temática: <%=asignatura%></h3>
+                    <h4>Participante: <%=participante%></h4>
+                </div>
+            </div>
+            <div class="row">
+                <table class="table table-striped" style="margin-right: 15px">
+                    <thead>
+                    <tr>
+                        <th scope="col">Desafíos \ Nivel</th>
+                        <th scope="col">Nivel 1</th>
+                        <th scope="col">Nivel 2</th>
+                        <th scope="col">Nivel 3</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">Opción Múltiple</th>
+                        <td>
+                            Intentos: <%=opcionMultiple[0]%>
+                            <br>
+                            Puntaje Máximo: <%=opcionMultiple[1]%>
+                            <br>
+                            Puntaje Promedio:
+                        </td>
+                        <td>
+                            Intentos: <%=opcionMultiple[2]%>
+                            <br>
+                            Puntaje Máximo: <%=opcionMultiple[3]%>
+                            <br>
+                            Puntaje Promedio:
+                        </td>
+                        <td>
+                            Intentos: <%=opcionMultiple[4]%>
+                            <br>
+                            Puntaje Máximo: <%=opcionMultiple[5]%>
+                            <br>
+                            Puntaje Promedio:
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Emparejar</th>
+                        <td>
+                            Intentos: <%=emparejar[0]%>
+                            <br>
+                            Puntaje Máximo: <%=emparejar[1]%>
+                            <br>
+                            Puntaje Promedio:
+                        </td>
+                        <td>
+                            Intentos: <%=emparejar[2]%>
+                            <br>
+                            Puntaje Máximo: <%=emparejar[3]%>
+                            <br>
+                            Puntaje Promedio:
+                        </td>
+                        <td>
+                            Intentos: <%=emparejar[4]%>
+                            <br>
+                            Puntaje Máximo: <%=emparejar[5]%>
+                            <br>
+                            Puntaje Promedio:
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">UnirVoltear</th>
+                        <td>
+                            Intentos: <%=unirVoltear[0]%>
+                            <br>
+                            Puntaje Máximo: <%=unirVoltear[1]%>
+                            <br>
+                            Puntaje Promedio:
+                        </td>
+                        <td>
+                            Intentos: <%=unirVoltear[2]%>
+                            <br>
+                            Puntaje Máximo: <%=unirVoltear[3]%>
+                            <br>
+                            Puntaje Promedio:
+                        </td>
+                        <td>
+                            Intentos: <%=unirVoltear[4]%>
+                            <br>
+                            Puntaje Máximo: <%=unirVoltear[5]%>
+                            <br>
+                            Puntaje Promedio:
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html"/>
+    <% include ../parciales/head %>
+
+    <title>Desafío Unir Voltear</title>
+</head>
+<body>
+<header>
+    <% include ../parciales/headerEstudiante %>
+    <link rel="stylesheet" type="text/css" href="static/css/estilos.css">
+</header>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/ingresoParticipante">Inicio</a></li>
+    </ol>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 text-center" >
+            <h1 id="tipoJuego">Reto de Unir Voltear</h1>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-3" ></div>
+        <div class="col-md-6">
+            <div class="progress">
+                <div id="progreso" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+            </div>
+        </div>
+        <div class="col-md-3" ></div>
+    </div>
+    <div class="row" style="margin-top: 10px; margin-bottom: 20px" >
+        <div class="col-md-3" ></div>
+        <div class="col-md-6 border border-warning rounded bg-warning" style="margin-top: 10px;" >
+            <div class="row">
+                <input type="text" hidden id="tamanioArray" value="<%=memory_array.length%>">
+                <input type="text" hidden id="stringPreguntas" value="<%=preguntas%>">
+               <div class="col-md-2">
+               </div>
+                <%
+
+                for(var i=0; i<memory_array.length; i++)
+                {
+                    console.log(memory_array[i]);
+               %>
+                <div class="col-md-2">
+                    <img class="imagenUnir" id="tile_<%=i%>" alt="" onclick="memoryFlipTile(this,'\'<%=memory_array[i]%>\'')">
+                </div>
+                <%if(i==3 || i ==7)
+                {%>
+                <div class="col-md-2">
+                </div>
+                    <div class="col-md-2">
+                    </div>
+               <% }%>
+                <!--<input type="text" hidden value="memory_array">-->
+                <%}%>
+            </div>
+        </div>
+        <div class="col-md-3" ></div>
+        </div>
+    <div class="row ">
+        <div class="col-md-12">
+            <h3>Pares encontrados</h3>
+            <div class="row border border-warning rounded " style="margin-bottom: 20px;" >
+                <%for (var i = 2; i<7; i+=2)
+                {%>
+                <div class="col-md-1">
+                    <img width="50px" height="50px" id="parImagen<%=i%>" style="margin:10px">
+                </div>
+                <div class="col-md-3">
+                    <label hidden id="parTexto<%=i%>" style="margin:10px"></label>
+                </div>
+                <% }%>
+            </div>
+                <div class="row border border-warning rounded">
+                    <%for (var j = 8; j<13; j+=2)
+                    {%>
+                        <div class="col-md-1">
+                            <img width="50px" height="50px"  id="parImagen<%=j%>" style="margin:10px">
+                        </div>
+                        <div class="col-md-3">
+                           <label hidden id="parTexto<%=j%>" style="margin:10px"></label >
+                        </div>
+                    <% }%>
+                </div>
+
+            </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 text-center">
+            <form action="/resultadosUnir" method="post">
+                <input type="text" name="materia" hidden value="<%= materia %>">
+                <input type="text" id="respuestas" name="respuestas" hidden>
+                <input type="text" id="idIntento" name="idIntento" value="<%=idIntento%>"hidden>
+                <input type="text" id="facilitador" name="facilitador" value="<%=facilitador%>"hidden>
+                <button class="btn" style="background: darkcyan; color: white" id="enviarUnir" type="submit" hidden >Verificar respuesta</button>
+            </form>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+</body>
+<script>
+    var tiles_flipped =0;
+    var memory_values = [];
+    var memory_tile_ids = [];
+    var memory_array = document.getElementById('tamanioArray').value
+    var preguntas_array = document.getElementById('stringPreguntas').value.split('@')
+    var respuestas = [];
+
+    function memoryFlipTile(tile, val) {
+        if (tile.alt == "" && memory_values.length < 2) {
+            //tile.style.background = '#FFF';
+            console.log(val)
+            val = val.slice(1,-1)
+            tile.src = val;
+            tile.alt = val;
+            if (memory_values.length == 0) {
+
+                memory_values.push(val);
+                memory_tile_ids.push(tile.id);
+            } else if (memory_values.length == 1) {
+
+                memory_values.push(val);
+                memory_tile_ids.push(tile.id);
+                if (memory_values[0] == memory_values[1]) {
+                    tiles_flipped += 2;
+                    mostrarParEncontrado(memory_values[0]);
+
+                    // Clear both arrays
+                    memory_values = [];
+                    memory_tile_ids = [];
+                    // Check to see if the whole board is cleared
+                    if (tiles_flipped == memory_array) {
+                        // alert("Board cleared... generating new board")
+                        // ;
+                        console.log(respuestas)
+                        document.getElementById("respuestas").value = respuestas;
+                        document.getElementById("enviarUnir").click();
+                    }
+                } else {
+                    function flip2Back() {
+                        // Flip the 2 tiles back over
+                        var tile_1 = document.getElementById(memory_tile_ids[0]);
+                        var tile_2 = document.getElementById(memory_tile_ids[1]);
+                        // tile_1.style.background = 'url(corona.png) no-repeat';
+                        tile_1.src = "corona.png";
+                        tile_1.alt = "";
+                        tile_1.removeAttribute("src");
+                        //tile_2.style.background = 'url(corona.png) no-repeat';
+                        tile_2.src = "corona.png";
+                        tile_2.alt = "";
+                        tile_2.removeAttribute("src");
+                        // Clear both arrays
+                        memory_values = [];
+                        memory_tile_ids = [];
+                    }
+                    setTimeout(flip2Back, 700);
+                }
+            }
+        }
+    }
+
+    var i = 100;
+
+    var counterBack = setInterval(function(){
+        i--;
+        if(i>0){
+            document.getElementById("progreso").style.width = i-2+"%";
+            //document.getElementById("progreso").innerHTML = i-1+"%";
+        } else {
+            clearTimeout(counterBack);
+            document.getElementById("respuestas").value = respuestas;
+            document.getElementById("enviarUnir").click();
+        }
+
+    }, 300);
+
+    function mostrarParEncontrado(imagen)
+    {
+        console.log("par encontrado")
+        var indice = preguntas_array.indexOf(imagen);
+        console.log(preguntas_array)
+        console.log(indice)
+        if(indice >=0)
+        {
+            document.getElementById("parImagen"+tiles_flipped).src= imagen;
+            document.getElementById("parTexto"+tiles_flipped).innerHTML= preguntas_array[indice+1];
+            document.getElementById("parImagen"+tiles_flipped).removeAttribute("hidden")
+            document.getElementById("parTexto"+tiles_flipped).removeAttribute("hidden")
+            respuestas.push(preguntas_array[indice+1]);
+            console.log(respuestas)
+
+        }
+    }
+</script>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <% include ../parciales/head %>
+    <meta http-equiv="Content-Type" content="text/html"/>
+    <title>Title</title>
+</head>
+<body>
+<header>
+    <% include ../parciales/header %>
+</header>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/ingresoParticipante">Inicio</a></li>
+    </ol>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+    <div class="col-md-2">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a href="/ingresoFacilitador"
+                   class="nav-link " style="margin-bottom: 10px">
+                    <i class="far fa-list-alt"></i> Modo Facilitador</a>
+                <a href="/ingresoParticipante"
+                   class="nav-link active" style="margin-bottom: 10px">
+                    <i class="far fa-list-alt"></i> Modo Participante</a>
+                <a href="/ingresoPartida"
+                   class="nav-link">
+                    <i class="fas fa-sign-in-alt"></i> Ingresar a Partida</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-10" >
+    <div class="row">
+        <div class="col-md-12" >
+        <h2>Temáticas</h2>
+        </div>
+    </div>
+        <div class="row">
+            <div class="col-md-4">
+            <%
+            for(var i = 0; i < materias.length; i++) {
+                console.log(materias[i])%>
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h5><%= materias[i].nombre %></h5>
+                        </div>
+                        <div class="col-md-3">
+                                <button class="btn btn-default disabledbutton" id="boton<%=materias[i].nombre%>"><i class="fas fa-unlock"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                <h5>    <strong>Facilitador: </strong><%= materias[i].facilitador %></h5>
+                    <form action="/retosMateria" method="post">
+                    <button type="submit" class="btn btn-success"><i class="fas fa-hourglass-start"></i> Ir a desafíos</button>
+                        <input type="text" name="facilitador" value="<%= materias[i].facilitador %>" hidden >
+                        <input type="text" name="materia" value="<%= materias[i].nombre %>" hidden >
+                    </form>
+                </div>
+            </div>
+            <% } %>
+        </div>
+    </div>
+    </div>
+</div>
+</div>
+<!--<script src="/static/js/estudiante.js"></script>-->
+<script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<footer>
+    <% include ../parciales/footer.ejs %>
+</footer>
+</body>
+</html>

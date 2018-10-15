@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html"/>
+    <% include ../parciales/head %>
+
+    <title>Desafío Opción Múltiple</title>
+</head>
+<body>
+<header>
+    <% include ../parciales/headerEstudiante %>
+</header>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/ingresoParticipante">Inicio</a></li>
+    </ol>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6"><h1 id="tipoJuego">Reto <%=(contadorPreguntas+1)%> Opción Múltiple</h1></div>
+        <div class="col-md-3"></div>
+    </div>
+    <div class="row">
+             <div class="col-md-3"></div>
+            <div class="col-md-6 ">
+                <form action="/mostrarOpcionMultiple" method="post">
+                <input type="text" hidden name="idPregunta" value="<%= preguntas[contadorPreguntas]._id %>">
+                <input type="text" hidden name="contadorPreguntas" value="<%= contadorPreguntas %>">
+                <input type="text" hidden name="materia" value="<%= materia %>">
+                <input type="text" name="idIntento" value="<%= idIntento %>" hidden>
+                <input id="correctoIncorrecto" type="text" hidden name="correctoIncorrecto">
+                <input id="resSeleccionada" type="text" hidden name="resSeleccionada">
+                <div class="row border border-info rounded-top">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <h2 id="enunciado"><%= preguntas[contadorPreguntas].enunciado %></h2>
+                                <input type="text" id="resCorrecta" hidden value="<%=preguntas[contadorPreguntas].respuestaCorrecta%>">
+                            </div>
+                            <div class="col-md-2">
+                                <% if(preguntas[contadorPreguntas].imagenEnunciado) { %>
+                                    <img id="imagenEnunciado" src="<%= preguntas[contadorPreguntas].imagenEnunciado %>"
+                                         class="img-rounded"
+                                         height="50" width="50">
+                                <% } %>
+                            </div>
+                        </div>
+                        <% if(preguntas[contadorPreguntas].imagenRes1) { %>
+                            <div class="row">
+                                <div class="col-md-6 text-center">
+                                    <button type="button" id="res1" class="btn btn-light" style="margin: 20px" onclick="validarRespuesta(this)">
+                                    <img id="imagenRes1"
+                                         src="<%= preguntas[contadorPreguntas].imagenRes1 %>"
+                                         class="img-rounded" height="50" width="50">
+                                    </button>
+                                </div>
+                                <div class="col-md-6 text-center">
+                                    <button type="button" id="res2" class="btn btn-light" style="margin: 20px" onclick="validarRespuesta(this)">
+                                        <img id="imagenRes2"
+                                             src="<%= preguntas[contadorPreguntas].imagenRes2 %>"
+                                             class="img-rounded" height="50" width="50">
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 text-center" >
+                                    <button type="button" id="res3" class="btn btn-light" style="margin: 20px" onclick="validarRespuesta(this)">
+                                        <img id="imagenRes3"
+                                             src="<%= preguntas[contadorPreguntas].imagenRes3 %>"
+                                             class="img-rounded" height="50" width="50">
+                                    </button>
+                                </div>
+                                <div class="col-md-6 text-center">
+                                    <button type="button" id="res4" class="btn btn-light" style="margin: 20px" onclick="validarRespuesta(this)">
+                                        <img id="imagenRes4>"
+                                             src="<%= preguntas[contadorPreguntas].imagenRes4 %>"
+                                             class="img-rounded" height="50" width="50">
+                                    </button>
+                                </div>
+                            </div>
+                        <% } else { %>
+                            <div class="row">
+                                    <div class="col-md-12">
+                                    <button type="button" id="res1" class="btn btn-light btn-block"
+                                            style="margin-bottom: 10px; font-size:28px" onclick="validarRespuesta(this)"><%= preguntas[contadorPreguntas].res1 %>
+                                    </button>
+                                    </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button type="button" id="res2" class="btn btn-light btn-block"
+                                            style="margin-bottom: 10px; font-size:28px" onclick="validarRespuesta(this)"><%= preguntas[contadorPreguntas].res2 %>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button type="button" id="res3" class="btn btn-light btn-block"
+                                            style="margin-bottom: 10px; font-size:28px" onclick="validarRespuesta(this)"><%= preguntas[contadorPreguntas].res3 %>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button type="button" id="res4" class="btn btn-light btn-block"
+                                            style="margin-bottom: 10px; font-size:28px" onclick="validarRespuesta(this)"><%= preguntas[contadorPreguntas].res4 %>
+                                    </button>
+                                </div>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+                    <div class="row">
+                        <div class="col-md-4"> </div>
+                        <div class="col-md-4"> <button type="submit" class="btn btn-success" style="margin: 20px" >Siguiente Reto <i class="fas fa-angle-right"></i></button> </div>
+                        <div class="col-md-4"> </div>
+
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-3"></div>
+    </div>
+</div>
+<script>
+    var resCorrecta = document.getElementById("resCorrecta").value;
+    function validarRespuesta(boton) {
+
+        if(boton.id == resCorrecta )
+        {
+            document.getElementById(boton.id).classList.remove('btn-light');
+            document.getElementById(boton.id).classList.add('btn-success');
+            document.getElementById('correctoIncorrecto').value="1";
+        }
+        else
+        {
+            document.getElementById(boton.id).classList.remove("btn-light");
+            document.getElementById(boton.id).classList.add("btn-danger");
+            document.getElementById(resCorrecta).classList.remove("btn-light");
+            document.getElementById(resCorrecta).classList.add("btn-success");
+            document.getElementById('correctoIncorrecto').value="0";
+        }
+        document.getElementById('resSeleccionada').value=boton.id;
+        bloquearBotones();
+    }
+    function bloquearBotones() {
+        for (var i = 1; i<5; i++)
+        {
+            document.getElementById("res"+i).setAttribute("disabled","");
+        }
+    }
+</script>
+</body>
+</html>

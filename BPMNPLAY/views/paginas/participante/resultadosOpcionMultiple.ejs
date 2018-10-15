@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html"/>
+    <link rel="stylesheet" type="text/css" href="static/css/estilos.css">
+    <% include ../parciales/head %>
+
+    <title>Title</title>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+<header>
+    <% include ../parciales/headerEstudiante %>
+</header>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/ingresoParticipante">Inicio</a></li>
+    </ol>
+</nav>
+<div class="container">
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-md-6">
+            <h2>Puntaje: <%= puntaje %></h2>
+        </div>
+        <div class="col-md-6">
+            <% for(var i = 0; i < puntaje; i++)
+            { %>
+                <i class="fas fa-star fa-5x fa-spin " style="color:gold"></i>
+            <% } %>
+        </div>
+    </div>
+    <% for(var i = 0; i < preguntas.length; i++)
+    { %>
+    <div class="row border border-info rounded" style="margin-bottom: 10px">
+        <div class="col-md-8">
+            <label><strong>Pregunta <%=i+1%></strong></label>
+            <br>
+            <label><%=preguntas[i].enunciado%></label>
+        </div>
+        <div class="col-md-2" >
+            <% if(preguntas[i].imagenEnunciado != undefined)
+            {%>
+                <img src="<%=preguntas[i].imagenEnunciado%>" width="50px" height="50px" style="margin-top: 10px">
+            <% }%>
+        </div>
+        <div class="col-md-2" >
+            <% if(preguntas[i].correctoIncorrecto == 0)
+            {%>
+                <i class="far fa-3x fa-times-circle" style="color:red; margin-top: 10px"></i>
+            <% }
+            else
+            {%>
+                    <i class="far fa-3x fa-check-circle" style="color:green; margin-top: 10px"></i>
+            <%}%>
+        </div>
+
+    </div>
+    <% } %>
+    <div class="row text-center">
+        <div class="col-md-4"> </div>
+        <div class="col-md-4">
+            <form action="/retosMateria" method="post">
+                <input type="text" name="facilitador" hidden value="<%= facilitador %>">
+                <input type="text" name="materia" hidden value="<%= materia %>">
+            <button  class="btn btn-info" type="submit">Regresar a desafíos</button>
+            </form>
+        </div>
+        <div class="col-md-4"> </div>
+
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <% include ../parciales/head %>
+    <meta http-equiv="Content-Type" content="text/html"/>
+    <link rel="stylesheet" type="text/css" href="static/css/estilos.css">
+    <title>Estadísticas</title>
+</head>
+<body>
+<header>
+    <% include ../parciales/headerProfesor %>
+</header>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/ingresoFacilitador">Inicio</a></li>
+    </ol>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a href="/ingresoFacilitador"
+                       class="nav-link" style="margin-bottom: 10px">
+                        <i class="far fa-list-alt"></i> Modo Facilitador</a>
+                    <a href="/ingresoParticipante"
+                       class="nav-link" style="margin-bottom: 10px">
+                        <i class="far fa-list-alt"></i> Modo Participante</a>
+                    <a href="/estadisticas"
+                       class="nav-link active" style="margin-bottom: 10px">
+                        <i class="fas fa-chart-bar"></i> Estadísticas</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-12" >
+                    <h2>Temáticas</h2>
+                </div>
+            </div>
+            <div class="row">
+                <%
+                for(var i = 0; i < materias.length; i++) {
+                    console.log(materias[i]) %>
+                <div class="col-md-4">
+                    <div class="card" style="margin-top: 10px">
+                        <div class="card-header">
+                            <h5><%= materias[i].nombre %></h5>
+                        </div>
+                        <div class="card-body">
+                            <a href="/estadisticaParticipante/<%=materias[i].nombre%>" class="btn btn-success"> <i class="fas fa-chart-bar"></i> Por Participante</a>
+                            <a href="/estadisticaPregunta/<%=materias[i].nombre%>" class="btn btn-success"> <i class="fas fa-chart-bar"></i> Por Pregunta</a>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+<script src="/static/js/profesor.js"></script>
+<footer>
+    <% include ../parciales/footer.ejs %>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html"/>
+    <link rel="stylesheet" type="text/css" href="static/css/estilos.css">
+    <% include ../parciales/head %>
+    <title>Title</title>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+<header>
+    <% include ../parciales/headerProfesor %>
+</header>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/ingresoFacilitador">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="/estadisticas">Estadísticas</a></li>
+    </ol>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <a href="/ingresoFacilitador"
+                           class="nav-link " style="margin-bottom: 10px">
+                            <i class="far fa-list-alt"></i> Modo Facilitador</a>
+                        <a href="/ingresoParticipante"
+                           class="nav-link" style="margin-bottom: 10px">
+                            <i class="far fa-list-alt"></i> Modo Participante</a>
+                        <a href="/estadisticas"
+                           class="nav-link active" style="margin-bottom: 10px">
+                            <i class="fas fa-chart-bar"></i> Estadísticas</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Participantes de la temática <%=asignatura%></h2>
+                </div>
+            </div>
+            <div class="row">
+                <%for(var i = 0; i < participantes.length; i++) {
+                    console.log(participantes[i]) %>
+                <div class="col-md-6">
+                    <div class="card" style="margin-top: 10px">
+                        <div class="card-body">
+                            <div class="row">
+                            <div class="col-md-8">
+                                <h5><%= participantes[i].nombre%></h5>
+                            </div>
+                            <div class="col-md-4">
+                                <form action="/detalleParticipante" method="post">
+                                    <input type="text" name="usuario" value="<%= participantes[i].usuario %>" hidden>
+                                    <input type="text" name="asignatura" value="<%=asignatura%>" hidden>
+                                    <input type="text" name="facilitador" value="<%=nombre%>" hidden>
+                                    <button class="btn btn-info" type="submit" data-toggle="tooltip"
+                                            data-placement="right" title="Privada"
+                                            id="boton<%=i%>"><i class="fas fa-caret-right"></i> Ver Detalles</button>
+                                </form>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

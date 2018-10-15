@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html"/>
+    <link rel="stylesheet" type="text/css" href="static/css/estilos.css">
+    <% include ../parciales/head %>
+
+    <title>Title</title>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+<header>
+    <% include ../parciales/headerProfesor %>
+</header>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/ingresoFacilitador">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoFacilitador">Materias</a></li>
+    </ol>
+</nav>
+<% var faciles = 0, medias = 0, dificiles = 0;
+for (var i = 0; i < dificultades.length; i++) {
+    switch (dificultades[i]) {
+        case "Fácil":
+            faciles++;
+            break;
+        case "Medio":
+            medias++;
+            break;
+        case "Difícil":
+            dificiles++;
+            break;
+    }
+} %>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <a href="/ingresoFacilitador"
+                           class="nav-link active" style="margin-bottom: 10px">
+                            <i class="far fa-list-alt "></i> Modo Facilitador</a>
+                        <a href="/ingresoParticipante"
+                           class="nav-link" style="margin-bottom: 10px">
+                            <i class="far fa-list-alt"></i> Modo Participante</a>
+                        <a href="/estadisticas"
+                           class="nav-link " style="margin-bottom: 10px">
+                            <i class="fas fa-chart-bar"></i> Estadísticas</a>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Total de preguntas</h5>
+                    <p>Preguntas fáciles: <%= faciles %></p>
+                    <p>Preguntas medias: <%= medias %></p>
+                    <p>Preguntas difíciles: <%= dificiles %></p>
+                </div>
+                <div class="card-footer text-muted">
+                    Recuerde que se necesitan al menos 5 preguntas de cada dificultad para que la materia se muestre a
+                    los
+                    participantes
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="row">
+                <h2>Preguntas Opción Múltiple de <%= materia %></h2>
+
+            </div>
+            <div class="row">
+                <div class="card-columns">
+                    <div class="card text-white bg-dark">
+                        <h5 class="card-header">Agregar Pregunta</h5>
+                        <div class="card-body">
+                            <div class="input-group mb-2 col-md-12">
+                                <a href="/ingresoFacilitador/preguntasOpcionMultiple/<%= materia %>/ingresoOpcionMultiple/<%= materia %>"
+                                   class="btn btn-info" style="margin-bottom: 10px"><i class="fas fa-plus"></i> Agregar
+                                    Pregunta</a>
+                            </div>
+
+                        </div>
+                    </div>
+                    <%
+                    console.log("hola1: " + nombre);
+                    for(var i = 0; i < enunciadoPreguntas.length; i++) { %>
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5><%= enunciadoPreguntas[i] %></h5>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="input-group mb-2 col-md-12">
+                                    <form action="/detalleOpcionMultiple" method="post">
+                                        <input type="text" name="idPregunta" hidden value=<%= idPreguntas[i] %>>
+                                        <input type="text" name="materia" hidden value=<%= materia %>>
+                                        <span class="badge badge-light">Dificultad: <%= dificultades[i] %></span>
+                                        <br>
+                                        <button id=<%= enunciadoPreguntas[i] %> type="submit" class="btn btn-info"
+                                                style="margin-bottom:10px"><i class="fas fa-info-circle"></i> Ver
+                                            Detalles
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+                    <div class="card text-center"
+                         style="width:366.66px; border-style: dashed;  height:148px; background: url('../../static/imagenes/iconoPeque.png') no-repeat center ;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="/static/js/profesor.js"></script>
+
+</body>
+</html>
