@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <% include ../../parciales/head %>
+    <meta http-equiv="Content-Type" content="text/html"/>
     <title>Ingreso de Jugadores</title>
-    <% include ../parciales/head %>
-
 </head>
 <body>
 <header>
-    <% include ../parciales/headerEstudiante %>
+    <%if(nombre == "Participante"){%>
+    <% include ../../parciales/header%>
+    <%}else{%>
+            <% include ../../parciales/headerProfesor%>
+        <%}%>
 </header>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">

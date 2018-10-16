@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <% include ../parciales/head %>
+    <% include ../../parciales/head %>
     <meta http-equiv="Content-Type" content="text/html"/>
-    <title>Title</title>
+    <title>Inicio Participante</title>
 </head>
 <body>
 <header>
-    <% include ../parciales/header %>
+    <% include ../../parciales/headerProfesor %>
 </header>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -36,7 +36,7 @@
     <div class="col-md-10" >
     <div class="row">
         <div class="col-md-12" >
-        <h2>Temáticas</h2>
+        <h2>Temáticas públicas</h2>
         </div>
     </div>
         <div class="row">
@@ -47,11 +47,8 @@
             <div class="card">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-md-9">
+                        <div class="col-md-12">
                             <h5><%= materias[i].nombre %></h5>
-                        </div>
-                        <div class="col-md-3">
-                                <button class="btn btn-default disabledbutton" id="boton<%=materias[i].nombre%>"><i class="fas fa-unlock"></i></button>
                         </div>
                     </div>
                 </div>
@@ -76,7 +73,7 @@
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
 <footer>
-    <% include ../parciales/footer.ejs %>
+    <% include ../../parciales/footer.ejs %>
 </footer>
 </body>
 </html>

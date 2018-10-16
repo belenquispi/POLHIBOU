@@ -2,17 +2,17 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <% include ../parciales/head %>
+    <% include ../../parciales/head %>
     <title>Preguntas de Opción Múltiple</title>
 </head>
 <body>
 <header>
-    <% include ../parciales/headerProfesor %>
+    <% include ../../parciales/headerProfesor %>
 </header>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/ingresoFacilitador">Inicio</a></li>
-        <li class="breadcrumb-item"><a href="/ingresoFacilitador">Materias</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoFacilitador">Temáticas</a></li>
         <li class="breadcrumb-item"><a href="/ingresoFacilitador/preguntasOpcionMultiple/<%= materia %>">Preguntas</a></li>
     </ol>
 </nav>
@@ -132,12 +132,7 @@
         </div>
     </form>
 </div>
-
-</div>
-
 <script type="text/javascript" src="/socket.io/socket.io.js"></script>
 <script src="/static/js/detalleOpcionMultiple.js"></script>
-
-
 </body>
 </html>

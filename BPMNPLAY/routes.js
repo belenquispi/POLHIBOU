@@ -89,6 +89,7 @@ exports.get_ingreso_profesor = function (req, res) {
 
             }
             req.session.rol = "facilitador";
+            console.log("Holaaaaa: "+ req.session.rol);
             res.render('paginas/facilitador/inicioProfesor', {
                 nombre: req.session.nombre,
                 usuario: req.session.usuario,

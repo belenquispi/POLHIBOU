@@ -55,7 +55,7 @@ function actualizacion() {
         document.getElementById("unirPartida").setAttribute("disabled","");
     }
 }
-function unirPartida() {
+function empezarPartida() {
     console.log("Hice clic ");
     socket.emit("iniciarPartida", document.getElementById('idPartida').value );
     document.getElementById('botonIniciar').click();

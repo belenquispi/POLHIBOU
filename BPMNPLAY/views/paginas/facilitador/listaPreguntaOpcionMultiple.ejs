@@ -1,21 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta http-equiv="Content-Type" content="text/html"/>
-    <link rel="stylesheet" type="text/css" href="static/css/estilos.css">
-    <% include ../parciales/head %>
-
-    <title>Title</title>
-    <script src="/socket.io/socket.io.js"></script>
+    <% include ../../parciales/head %>
+    <title>Preguntas Opción Múltiple</title>
 </head>
 <body>
 <header>
-    <% include ../parciales/headerProfesor %>
+    <% include ../../parciales/headerProfesor %>
 </header>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/ingresoFacilitador">Inicio</a></li>
-        <li class="breadcrumb-item"><a href="/ingresoFacilitador">Materias</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoFacilitador">Temáticas</a></li>
     </ol>
 </nav>
 <% var faciles = 0, medias = 0, dificiles = 0;
@@ -112,15 +109,13 @@ for (var i = 0; i < dificultades.length; i++) {
                         </div>
                     <% } %>
                     <div class="card text-center"
-                         style="width:366.66px; border-style: dashed;  height:148px; background: url('../../static/imagenes/iconoPeque.png') no-repeat center ;">
+                         style="width:366.66px; border-style: dashed;  height:148px; background: url('../../../static/imagenes/iconoPeque.png') no-repeat center ;">
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 <script src="/static/js/profesor.js"></script>
-
 </body>
 </html>

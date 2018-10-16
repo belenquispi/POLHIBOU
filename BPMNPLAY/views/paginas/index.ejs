@@ -1,19 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <% include ../parciales/head.ejs %>
     <meta http-equiv="Content-Type" content="text/html"/>
-    <% include ../parciales/head %>
-
-    <title>Title</title>
-    <script src="/socket.io/socket.io.js"></script>
+    <title>Inicio</title>
 </head>
 <body>
 <header>
-    <% var x = 5; if(x == 5){ %>
         <% include ../parciales/header %>
-    <% } else { %>
-        <% include ../parciales/headerProfesor %>
-    <% } %>
 </header>
 <div class="container-fluid">
     <div class="row">
