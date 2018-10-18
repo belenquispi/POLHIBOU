@@ -9,21 +9,11 @@ var socketIO = require('socket.io');
 var app = express();
 var server = http.Server(app);
 var io = socketIO(server);
-var firebase = require("./firebase");
 var baseDatos = require("./baseDatos");
 var bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser');
 var Profesor = require("./models/profesor").Profesor;
 var Estudiante = require("./models/estudiante").Estudiante;
-
-var config = {
-    apiKey: "AIzaSyARHMJb3ta8XMRb0lFRjUSgSP6RCZiayVo",
-    authDomain: "bpmnplaydb.firebaseapp.com",
-    databaseURL: "https://bpmnplaydb.firebaseio.com",
-    projectId: "bpmnplaydb",
-    storageBucket: "bpmnplaydb.appspot.com",
-    messagingSenderId: "559035240947", timestampsInSnapshots: true
-};
 
 app.set('port', 5000);
 // set the view engine to ejs
@@ -42,13 +32,13 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 var gameMap = [
     13, 14, 15, 16, 17, 18, 19, 20, 21,
-    12, 0, 0, 0, 0, 0, 0, 0, 22,
-    11, 10, 9, 0, 'B', 0, 25, 24, 23,
-    0, 0, 8, 0, 'P', 0, 26, 0, 0,
-    0, 0, 7, 0, 'M', 0, 27, 0, 0,
-    4, 5, 6, 0, 'N', 0, 28, 29, 30,
-    3, 0, 0, 0, '>', 0, 0, 0, 31,
-    2, 1, 'I', 0, 0, 0, 34, 33, 32
+    12, -1, -1, -1, -1, -1, -1, -1, 22,
+    11, 10, 9, -1, 'B', -1, 25, 24, 23,
+    -1, -1, 8, -1, 'P', -1, 26, -1, -1,
+    -1, -1, 7, -1, 'M', -1, 27, -1, -1,
+    4, 5, 6, -1, 'N', -1, 28, 29, 30,
+    3, -1, -1, -1, '>', -1, -1, -1, 31,
+    2, 1, 0, -1, -1, -1, 34, 33, 32
 ];
 var anchoCasilla = 60, altoCasilla = 60;
 var columnas = 9, filas = 8;
@@ -78,7 +68,7 @@ function Character(c, x, y, z) {
     this.position = [x, y];
     this.delayMove = 500;
     this.direction = directions.up;
-    this.casilla = 'I';
+    this.casilla = 0;
     this.iconoEquipo = c;
     this.boton = 0;
     this.moverseA = 0;
@@ -293,13 +283,10 @@ io.on('connection', function (socket) {
         partidas[idPartida].dadoAnteriorP1 = dadoAnterior1;
         partidas[idPartida].dadoAnteriorP2 = dadoAnterior2;
         partidas[idPartida].jugadores[idJugador].numCasillasMoverseP = numCasillasMoverse;
-        ((partidas[idPartida].jugadores[idJugador].casilla) == 'I' ? partidas[idPartida].jugadores[idJugador].moverseA = 0 : partidas[idPartida].jugadores[idJugador].casilla + numCasillasMoverse );
+        partidas[idPartida].jugadores[idJugador].moverseA = partidas[idPartida].jugadores[idJugador].casilla + numCasillasMoverse;
         ((partidas[idPartida].jugadores[idJugador].moverseA) > 34 ? partidas[idPartida].jugadores[idJugador].moverseA = 34 : "");
-        console.log("Casilla ");
-        console.log(partidas[idPartida].jugadores[idJugador].casilla);
+
         var numDesafioMostrarse = mostrarDesafio(partidas[idPartida].jugadores[idJugador], numCasillasMoverse, partidas[idPartida].colorM);
-        console.log("Número de desafío");
-        console.log(numDesafioMostrarse);
 
         if (numDesafioMostrarse == -1) {
             numDesafioMostrarse = Math.floor(Math.random() * 3);
@@ -308,9 +295,9 @@ io.on('connection', function (socket) {
     });
     socket.on('moverJugador', function (room) {
         var gameTime = Date.now();
-        for (var i = 0; i < partidas.length; i++) {
+        for (let i = 0; i < partidas.length; i++) {
             if (partidas[i].nombrePartida == room) {
-                for (var j = 0; j < partidas[i].jugadores.length; j++) {
+                for (let j = 0; j < partidas[i].jugadores.length; j++) {
                     if (partidas[i].jugadores[j].idSocket == socket.id) {
                         if (!partidas[i].jugadores[j].processMovement(gameTime, room, socket.id)) {
                             if (partidas[i].jugadores[j].casilla < 34) {
@@ -362,15 +349,6 @@ io.on('connection', function (socket) {
         } else {
             socket.emit('confirmacionEquipo', "false")
         }
-    });
-    socket.on('guardarPreguntaOpcionMultiple', function (preguntaOpcionMultiple) {
-        firebase.insertarPreguntasOpcionMultiple(preguntaOpcionMultiple);
-    });
-    socket.on('guardarPreguntaUnirVoltear', function (preguntaUnirVoltear) {
-        firebase.insertarPreguntasUnirVoltear(preguntaUnirVoltear);
-    });
-    socket.on('solicitarConfiguracion', function () {
-        socket.emit('configuracion', config);
     });
     socket.on('solicitarPreguntaOpcionMultiple', function (room) {
         var idPartida = consultarIdPartida(room);
@@ -447,7 +425,7 @@ io.on('connection', function (socket) {
         var idPartida = consultarIdPartida(room);
         var idJugador = consultarIdJugadorSocket(idPartida, socket.id);
         partidas[idPartida].jugadores[idJugador].numCasillasMoverseP = 0;
-        ((partidas[idPartida].jugadores[idJugador].casilla == 'I') ? partidas[idPartida].jugadores[idJugador].moverseA = 0 : partidas[idPartida].jugadores[idJugador].moverseA = partidas[idPartida].jugadores[idJugador].casilla);
+        partidas[idPartida].jugadores[idJugador].moverseA = partidas[idPartida].jugadores[idJugador].casilla;
         var i = partidas[idPartida].turnoJugadores.shift();
         partidas[idPartida].turnoJugadores.push(i);
         actualizarOrdenPartidas(room);
@@ -545,6 +523,7 @@ Character.prototype.placeAt = function (x, y) {
     this.position = [((anchoCasilla * x) + ((anchoCasilla - this.dimensions[0]) / 2)), ((altoCasilla * y) + ((altoCasilla - this.dimensions[1]) / 2))];
 };
 Character.prototype.processMovement = function (t, roomActual, idSocket) {
+    console.log("Mover a la casilla")
     var indicePartidaActual = consultarIdPartida(roomActual);
     var indiceJugadorActual = consultarIdJugadorSocket(indicePartidaActual, idSocket);
     if (this.tileFrom[0] == this.tileTo[0] && this.tileFrom[1] == this.tileTo[1]) {
@@ -565,13 +544,13 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
                 this.moveDirection(this.direction, t);
             }
             partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP - 1;
-            for (var i = 0; i < partidas.length; i++) {
+            for (let i = 0; i < partidas.length; i++) {
                 io.sockets.in(partidas[i].nombrePartida).emit('partida', partidas[i]);
             }
         }
         else {
             partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = 0;
-            var j = partidas[indicePartidaActual].turnoJugadores.shift();
+            let j = partidas[indicePartidaActual].turnoJugadores.shift();
             if (this.casilla != 34) {
                 partidas[indicePartidaActual].turnoJugadores.push(j);
             }
@@ -611,7 +590,7 @@ Character.prototype.canMoveTo = function (x, y) {
     else if ([gameMap[toIndex(x, y)]] == 0) {
         return false;
     }
-    else if ([gameMap[((y * columnas) + x)]] < (this.casilla == 'I' ? 0 : this.casilla)) {
+    else if ([gameMap[((y * columnas) + x)]] < this.casilla) {
         return false;
     }
     return true;
@@ -664,25 +643,25 @@ Character.prototype.moveLeft = function (t) {
     this.tileTo[0] -= 1;
     this.timeMoved = t;
     this.direction = 3;
-    ((this.casilla == 'I')? this.casilla = 1 : this.casilla += 1);
+    this.casilla += 1;
 };
 Character.prototype.moveRight = function (t) {
     this.tileTo[0] += 1;
     this.timeMoved = t;
     this.direction = 1;
-    ((this.casilla == 'I')? this.casilla = 1 : this.casilla += 1);
+    this.casilla += 1;
 };
 Character.prototype.moveUp = function (t) {
     this.tileTo[1] -= 1;
     this.timeMoved = t;
     this.direction = 0;
-    ((this.casilla == 'I')? this.casilla = 1 : this.casilla += 1);
+    this.casilla += 1;
 };
 Character.prototype.moveDown = function (t) {
     this.tileTo[1] += 1;
     this.timeMoved = t;
     this.direction = 2;
-    ((this.casilla == 'I')? this.casilla = 1 : this.casilla += 1);
+    this.casilla += 1;
 };
 Character.prototype.moveDirection = function (d, t) {
     switch (d) {
@@ -711,7 +690,7 @@ function mostrarDesafio(jugadorAct, numCasillasMoverse, colorM) {
     var colorCa = -1;
     for (var x = 0; x < filas; ++x) {
         for (var y = 0; y < columnas; ++y) {
-            if ((gameMap[((x * columnas) + y)]) == ((jugadorAct.casilla == 'I' ? 0 : jugadorAct.casilla) + numCasillasMoverse)) {
+            if ((gameMap[((x * columnas) + y)]) == (jugadorAct.casilla + numCasillasMoverse)) {
                 colorCa = colorM[((x * columnas) + y)];
             } else {
             }

@@ -24,7 +24,6 @@ var jugadores = [];
 var turnoJugadores = [];
 var respuestaCorrecta = false;
 var turnoFinalizado = true;
-var miIndiceJugador = -1;
 var idSocketActual;
 var roomActual, rol, nombreEquipo;
 var dado1 = -1, dado2 = -1, dadoAnterior1 = 1, dadoAnterior2 = 1;
@@ -89,12 +88,6 @@ socket.on('error', function (nombre) {
 });
 
 socket.on('parametrosJuego', function () {
-    /* filas = data.filas;
-     columnas = data.colum;
-     anchoCasilla = data.anchoCas;
-     altoCasilla = data.altoCas;
-     gameMap = data.gameM;
-     colorMap = data.colorM;*/
     idSocketActual = socket.io.engine.id;
     console.log("Mi socket: " + idSocketActual)
 });
@@ -109,9 +102,8 @@ socket.on('partida', function (data) {
     jugadores = data.jugadores;
     preguntasOpcionMultiple = data.preguntasOpcionMultiple;
     preguntasUnirVoltear = data.preguntasUnirVoltear;
-    for (var i = 0; i < jugadores.length; i++) {
+    for (let i = 0; i < jugadores.length; i++) {
         if (jugadores[i].idSocket == idSocketActual) {
-            miIndiceJugador = i;
             numCasillasMoverse = jugadores[i].numCasillasMoverseP
         }
     }
@@ -199,8 +191,8 @@ function agregarNumerosCasilla() {
     for (var y = 0; y < filas; ++y) {
         for (var x = 0; x < columnas; ++x) {
             switch (gameMap[((y * columnas) + x)]) {
-                case 0:
-                case 'I':
+                case -1:
+                case 0 :
                 case 34:
                 case 7:
                 case 13:
@@ -220,12 +212,11 @@ function agregarNumerosCasilla() {
         }
     }
 }
-
 function drawGame() {
     if (ctx == null) {
         return;
     }
-    /*    var sec = Math.floor(Date.now() / 500);
+   /* var sec = Math.floor(Date.now() / 500);
         if (sec != currentSecond) {
             currentSecond = sec;
             framesLastSecond = frameCount;
@@ -233,8 +224,8 @@ function drawGame() {
         }
         else {
             frameCount++;
-        }*/
-
+        }
+*/
     if (numCasillasMoverse > 0 && (turnoJugadores[0] == idSocketActual) && respuestaCorrecta == true) {
         socket.emit('moverJugador', roomActual);
     } else {
@@ -269,12 +260,12 @@ function drawGame() {
             patterPlay = ctx.createPattern(casillaPlay, "repeat");
 
             switch (gameMap[((y * columnas) + x)]) {
-                case 0:
+                case -1:
                     //ctx.fillStyle = "#6A0888";
                     ctx.fillStyle = "#0B610B";
 
                     break;
-                case 'I':
+                case 0:
                     ctx.fillStyle = patterInicio;
                     break;
                 case 7:
@@ -324,15 +315,14 @@ function drawGame() {
     dibujarJugador();
     dibujarLlegarA();
     habilitarTablaJugador();
-    // ctx.fillStyle = "#ff0000";
-    // ctx.fillText("FPS: " + framesLastSecond, 10, 20);
-    //
-    //lastFrameTime = currentFrameTime;
+    /*ctx.fillStyle = "#ff0000";
+    ctx.fillText("FPS: " + framesLastSecond, 10, 20);
+    let lastFrameTime = currentFrameTime;*/
     requestAnimationFrame(drawGame);
 }
 
 function dibujarJugador() {
-    for (var i = 0; i < jugadores.length; i++) {
+    for (let i = 0; i < jugadores.length; i++) {
         if (jugadores[i].idSocket != "") {
             ctx.fillStyle = jugadores[i].colorP;
             per1.src = 'static/imagenes/trebol.png';
@@ -362,16 +352,15 @@ function dibujarJugador() {
 }
 
 function dibujarLlegarA() {
-    console.log("Voy a dibujar");
-
+    console.log("Voy a dibujar:"+ jugadores.length);
     if (jugadores.length > 0) {
-        console.log("Mas de un jugador: "+indiceJugadorActualF());
-        if (indiceJugadorActualF() >= 0 && jugadores[indiceJugadorActualF()].moverseA> 0) {
-            var moverseA = jugadores[indiceJugadorActualF()].moverseA;
+        console.log("Mas de un jugador: "+indiceDelJugadorConTurno());
+        if (indiceDelJugadorConTurno() >= 0 && jugadores[indiceDelJugadorConTurno()].moverseA > 0) {
+            var moverseA = jugadores[indiceDelJugadorConTurno()].moverseA;
             console.log("Moverse: " + moverseA);
-            console.log("casilla: " +  (jugadores[indiceJugadorActualF()].casilla == 'I' ? 0 : jugadores[indiceJugadorActualF()].casilla));
-            if (moverseA != (jugadores[indiceJugadorActualF()].casilla == 'I' ? 0 : jugadores[indiceJugadorActualF()].casilla)) {
-                var casilla = jugadores[indiceJugadorActualF()].casilla;
+            console.log("casilla: " +  (jugadores[indiceDelJugadorConTurno()].casilla == 'I' ? 0 : jugadores[indiceDelJugadorConTurno()].casilla));
+            if (moverseA != (jugadores[indiceDelJugadorConTurno()].casilla == 'I' ? 0 : jugadores[indiceDelJugadorConTurno()].casilla)) {
+                var casilla = jugadores[indiceDelJugadorConTurno()].casilla;
                 patterLlegada = ctx.createPattern(llegada, "repeat");
                 for (var y = 0; y < filas; ++y) {
                     for (var x = 0; x < columnas; ++x) {
@@ -385,8 +374,7 @@ function dibujarLlegarA() {
                                 y = filas;
                                 x = columnas;*/
                                 break;
-                            case (caso > 0 && caso < 35):
-                            case (caso == 'I' && caso != casilla):
+                            case (caso >= 0 && caso < 35):
                                 ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
                                 ctx.fillRect(x * anchoCasilla, y * altoCasilla, anchoCasilla, altoCasilla);
                                 break;
@@ -400,17 +388,13 @@ function dibujarLlegarA() {
     }
 }
 
-function indiceJugadorActualF() {
+function indiceDelJugadorConTurno() {
     var indice = -1;
     if (jugadores.length > 0) {
-        console.log('Hay uno adicional')
         indice = jugadores.map(function (value) {
-            console.log("id: Soc: "+value.idSocket);
             return value.idSocket;
         }).indexOf(turnoJugadores[0]);
-        console.log('iiii: '+indice)
-
-    } else {
+       } else {
         indice = -1;
     }
     return indice;
@@ -543,7 +527,7 @@ function mostrarJugadorActual() {
             document.getElementById("nombreEquipo" + (j + 1)).innerHTML = jugadores[j].nombreEquipo;
         }
     }
-    var indiceJugadorActual = indiceJugadorActualF();
+    var indiceJugadorActual = indiceDelJugadorConTurno();
 
     if (indiceJugadorActual >= 0 && turnoJugadores.length > 0) {
         //  document.getElementById("nombreEquipoActual").innerHTML = jugadores[indiceJugadorActual].nombreEquipo;
