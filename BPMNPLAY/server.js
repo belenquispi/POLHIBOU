@@ -283,7 +283,7 @@ io.on('connection', function (socket) {
         partidas[idPartida].dadoAnteriorP1 = dadoAnterior1;
         partidas[idPartida].dadoAnteriorP2 = dadoAnterior2;
         partidas[idPartida].jugadores[idJugador].numCasillasMoverseP = numCasillasMoverse;
-        partidas[idPartida].jugadores[idJugador].moverseA = partidas[idPartida].jugadores[idJugador].casilla + numCasillasMoverse;
+        partidas[idPartida].jugadores[idJugador].moverseA = partidas[idPartida].jugadores[idJugador].moverseA + numCasillasMoverse;
         ((partidas[idPartida].jugadores[idJugador].moverseA) > 34 ? partidas[idPartida].jugadores[idJugador].moverseA = 34 : "");
 
         var numDesafioMostrarse = mostrarDesafio(partidas[idPartida].jugadores[idJugador], numCasillasMoverse, partidas[idPartida].colorM);
@@ -523,7 +523,7 @@ Character.prototype.placeAt = function (x, y) {
     this.position = [((anchoCasilla * x) + ((anchoCasilla - this.dimensions[0]) / 2)), ((altoCasilla * y) + ((altoCasilla - this.dimensions[1]) / 2))];
 };
 Character.prototype.processMovement = function (t, roomActual, idSocket) {
-    console.log("Mover a la casilla")
+    console.log("Mover a la casilla");
     var indicePartidaActual = consultarIdPartida(roomActual);
     var indiceJugadorActual = consultarIdJugadorSocket(indicePartidaActual, idSocket);
     if (this.tileFrom[0] == this.tileTo[0] && this.tileFrom[1] == this.tileTo[1]) {
@@ -549,7 +549,12 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
             }
         }
         else {
-            partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = 0;
+           partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = 0;
+            console.log("Ant casilla:"+ partidas[indicePartidaActual].jugadores[indiceJugadorActual].casilla);
+            console.log("Ant moverse a:"+ partidas[indicePartidaActual].jugadores[indiceJugadorActual].moverseA);
+            partidas[indicePartidaActual].jugadores[indiceJugadorActual].casilla = partidas[indicePartidaActual].jugadores[indiceJugadorActual].moverseA;
+            console.log("Des casilla:"+ partidas[indicePartidaActual].jugadores[indiceJugadorActual].casilla);
+            console.log("Des moverse a:"+ partidas[indicePartidaActual].jugadores[indiceJugadorActual].moverseA);
             let j = partidas[indicePartidaActual].turnoJugadores.shift();
             if (this.casilla != 34) {
                 partidas[indicePartidaActual].turnoJugadores.push(j);
@@ -587,10 +592,11 @@ Character.prototype.canMoveTo = function (x, y) {
     if (x < 0 || x >= columnas || y < 0 || y >= filas) {
         return false;
     }
-    else if ([gameMap[toIndex(x, y)]] == 0) {
+    else if ([gameMap[toIndex(x, y)]] == -1) {
         return false;
     }
     else if ([gameMap[((y * columnas) + x)]] < this.casilla) {
+        console.log("x: "+x+" y: "+y+" casilla: "+this.casilla);
         return false;
     }
     return true;
@@ -643,25 +649,25 @@ Character.prototype.moveLeft = function (t) {
     this.tileTo[0] -= 1;
     this.timeMoved = t;
     this.direction = 3;
-    this.casilla += 1;
+    (this.casilla < this.moverseA) ? this.casilla += 1: 0;
 };
 Character.prototype.moveRight = function (t) {
     this.tileTo[0] += 1;
     this.timeMoved = t;
     this.direction = 1;
-    this.casilla += 1;
+    (this.casilla < this.moverseA) ? this.casilla += 1: 0;
 };
 Character.prototype.moveUp = function (t) {
     this.tileTo[1] -= 1;
     this.timeMoved = t;
     this.direction = 0;
-    this.casilla += 1;
+    (this.casilla < this.moverseA) ? this.casilla += 1: 0;
 };
 Character.prototype.moveDown = function (t) {
     this.tileTo[1] += 1;
     this.timeMoved = t;
     this.direction = 2;
-    this.casilla += 1;
+    (this.casilla < this.moverseA) ? this.casilla += 1: 0;
 };
 Character.prototype.moveDirection = function (d, t) {
     switch (d) {

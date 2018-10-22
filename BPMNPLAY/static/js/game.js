@@ -104,7 +104,9 @@ socket.on('partida', function (data) {
     preguntasUnirVoltear = data.preguntasUnirVoltear;
     for (let i = 0; i < jugadores.length; i++) {
         if (jugadores[i].idSocket == idSocketActual) {
-            numCasillasMoverse = jugadores[i].numCasillasMoverseP
+            numCasillasMoverse = jugadores[i].numCasillasMoverseP;
+            console.log("Casilla aa: "+ jugadores[i].casilla);
+            console.log("Moverser aa: "+ jugadores[i].moverseA);
         }
     }
 });
@@ -235,10 +237,10 @@ function drawGame() {
             return value.idSocket
         }).indexOf(idSocketActual)].boton == 0)) {
             desbloquearBoton();
-            numCasillasMoverse == -1;
-            jugadores[jugadores.map(function (value) {
+        /* numCasillasMoverse = -1;
+          jugadores[jugadores.map(function (value) {
                 return value.idSocket
-            }).indexOf((idSocketActual))].boton == 1;
+            }).indexOf((idSocketActual))].boton = 1;*/
         }
         mostrarJugadorActual();
 
@@ -352,14 +354,12 @@ function dibujarJugador() {
 }
 
 function dibujarLlegarA() {
-    console.log("Voy a dibujar:"+ jugadores.length);
     if (jugadores.length > 0) {
-        console.log("Mas de un jugador: "+indiceDelJugadorConTurno());
         if (indiceDelJugadorConTurno() >= 0 && jugadores[indiceDelJugadorConTurno()].moverseA > 0) {
             var moverseA = jugadores[indiceDelJugadorConTurno()].moverseA;
             console.log("Moverse: " + moverseA);
-            console.log("casilla: " +  (jugadores[indiceDelJugadorConTurno()].casilla == 'I' ? 0 : jugadores[indiceDelJugadorConTurno()].casilla));
-            if (moverseA != (jugadores[indiceDelJugadorConTurno()].casilla == 'I' ? 0 : jugadores[indiceDelJugadorConTurno()].casilla)) {
+            console.log("casilla: " +  jugadores[indiceDelJugadorConTurno()].casilla);
+            if (moverseA != jugadores[indiceDelJugadorConTurno()].casilla) {
                 var casilla = jugadores[indiceDelJugadorConTurno()].casilla;
                 patterLlegada = ctx.createPattern(llegada, "repeat");
                 for (var y = 0; y < filas; ++y) {

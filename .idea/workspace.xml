@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="78571066-be25-425c-ba1d-193279d06a6d" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/baseDatos.js" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/baseDatos.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BPMNPLAY/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BPMNPLAY/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/server.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BPMNPLAY/static/js/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/BPMNPLAY/static/js/game.js" afterDir="false" />
     </list>
@@ -96,7 +93,7 @@
     <session id="-2125056746">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="42" />
+          <entry key="project.closed" value="43" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.13" value="1" />
           <entry key="project.open.time.16" value="1" />
@@ -105,7 +102,7 @@
           <entry key="project.open.time.22" value="2" />
           <entry key="project.open.time.23" value="1" />
           <entry key="project.open.time.24" value="4" />
-          <entry key="project.open.time.25" value="5" />
+          <entry key="project.open.time.25" value="6" />
           <entry key="project.open.time.26" value="1" />
           <entry key="project.open.time.27" value="3" />
           <entry key="project.open.time.28" value="3" />
@@ -124,7 +121,7 @@
           <entry key="project.open.time.70" value="1" />
           <entry key="project.open.time.71" value="1" />
           <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="47" />
+          <entry key="project.opened" value="48" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -145,7 +142,7 @@
         <counts>
           <entry key="css" value="65" />
           <entry key="ejs" value="18550" />
-          <entry key="js" value="21508" />
+          <entry key="js" value="21788" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.js.language.service.starts" />
@@ -154,7 +151,7 @@
           <entry key="CSS" value="65" />
           <entry key="EJS" value="18550" />
           <entry key="HTML" value="2" />
-          <entry key="JavaScript" value="21506" />
+          <entry key="JavaScript" value="21786" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -165,8 +162,28 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/BPMNPLAY/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="787">
-              <caret line="280" column="43" lean-forward="true" selection-start-line="280" selection-start-column="43" selection-end-line="280" selection-end-column="43" />
+            <state relative-caret-position="322">
+              <caret line="41" column="2" lean-forward="true" selection-start-line="41" selection-start-column="2" selection-end-line="41" selection-end-column="2" />
+              <folding>
+                <element signature="e#5460#6362#0" />
+                <element signature="e#6429#8071#0" />
+                <element signature="e#8142#10497#0" />
+                <element signature="e#10540#11164#0" />
+                <element signature="e#11218#11413#0" />
+                <element signature="e#11464#11614#0" />
+                <element signature="e#12835#14489#0" />
+                <element signature="e#14542#15075#0" />
+                <element signature="e#15141#15474#0" />
+                <element signature="e#15542#15748#0" />
+                <element signature="e#15806#16909#0" />
+                <element signature="e#16970#18326#0" />
+                <element signature="e#18393#18566#0" />
+                <element signature="e#18645#18830#0" />
+                <element signature="e#18895#19066#0" />
+                <element signature="e#19116#19272#0" />
+                <element signature="e#19319#19783#0" />
+                <element signature="e#19831#19985#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -174,8 +191,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BPMNPLAY/routes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="423" column="91" lean-forward="true" selection-start-line="423" selection-start-column="91" selection-end-line="423" selection-end-column="91" />
+            <state relative-caret-position="13846">
+              <caret line="602" selection-start-line="602" selection-end-line="602" />
             </state>
           </provider>
         </entry>
@@ -192,8 +209,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/js/game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-340">
-              <caret line="46" column="23" lean-forward="true" selection-start-line="46" selection-start-column="23" selection-end-line="46" selection-end-column="23" />
+            <state relative-caret-position="333">
+              <caret line="242" column="54" selection-start-line="242" selection-start-column="54" selection-end-line="242" selection-end-column="54" />
             </state>
           </provider>
         </entry>
@@ -248,18 +265,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>inicioEst</find>
-      <find>inicioEsta</find>
-      <find>inicioP</find>
-      <find>listaPa</find>
-      <find>listaPre</find>
-      <find>lobb</find>
-      <find>preguntasOp</find>
-      <find>preguntasOpcionMul</find>
-      <find>paginas/ingreso</find>
-      <find>partida</find>
-      <find>partidaIn</find>
-      <find>paginas/res</find>
       <find>paginas/reto</find>
       <find>materia</find>
       <find>fire</find>
@@ -274,10 +279,22 @@
       <find>socket.emit</find>
       <find>consol</find>
       <find>dra</find>
-      <find>moverseA</find>
       <find>miIndiceJugador</find>
       <find>'I'</find>
+      <find>moverseA</find>
+      <find>numCasillasM</find>
+      <find>console.lo</find>
+      <find>ant</find>
       <find>casilla</find>
+      <find>console</find>
+      <find>ant</find>
+      <find>-1</find>
+      <find>moversea</find>
+      <find>this.casilla</find>
+      <find>nuevaDireccion</find>
+      <find>&lt;</find>
+      <find>from</find>
+      <find>x</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -564,12 +581,13 @@
       <workItem from="1539373419433" duration="4955000" />
       <workItem from="1539630154185" duration="10498000" />
       <workItem from="1539717907028" duration="8248000" />
-      <workItem from="1539891392800" duration="6738000" />
+      <workItem from="1539891392800" duration="7336000" />
+      <workItem from="1540236564278" duration="8424000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="465573000" />
+    <option name="totallyTimeSpent" value="474595000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -582,14 +600,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.24973656" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Structure" order="1" side_tool="true" visible="true" weight="0.24973656" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32819384" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49789253" visible="true" weight="0.34251103" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.53424656" visible="true" weight="0.32378855" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49947312" weight="0.2092511" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -598,7 +615,7 @@
       <window_info anchor="bottom" id="Messages" order="8" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.32786885" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5021075" side_tool="true" visible="true" weight="0.34251103" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.46575344" side_tool="true" visible="true" weight="0.32378855" />
       <window_info anchor="bottom" id="Terminal" order="12" weight="0.2907489" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -876,6 +893,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/baseDatos.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="166">
+          <caret line="8" column="18" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/firebase.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/BPMNPLAY/views/paginas/nuevaContrasenia.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="667">
@@ -911,34 +938,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/baseDatos.js">
+    <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/js/game.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="166">
-          <caret line="8" column="18" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="18" />
+        <state relative-caret-position="333">
+          <caret line="242" column="54" selection-start-line="242" selection-start-column="54" selection-end-line="242" selection-end-column="54" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/firebase.js">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/BPMNPLAY/routes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="423" column="91" lean-forward="true" selection-start-line="423" selection-start-column="91" selection-end-line="423" selection-end-column="91" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BPMNPLAY/static/js/game.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-340">
-          <caret line="46" column="23" lean-forward="true" selection-start-line="46" selection-start-column="23" selection-end-line="46" selection-end-column="23" />
+        <state relative-caret-position="13846">
+          <caret line="602" selection-start-line="602" selection-end-line="602" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/BPMNPLAY/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="787">
-          <caret line="280" column="43" lean-forward="true" selection-start-line="280" selection-start-column="43" selection-end-line="280" selection-end-column="43" />
+        <state relative-caret-position="322">
+          <caret line="41" column="2" lean-forward="true" selection-start-line="41" selection-start-column="2" selection-end-line="41" selection-end-column="2" />
+          <folding>
+            <element signature="e#5460#6362#0" />
+            <element signature="e#6429#8071#0" />
+            <element signature="e#8142#10497#0" />
+            <element signature="e#10540#11164#0" />
+            <element signature="e#11218#11413#0" />
+            <element signature="e#11464#11614#0" />
+            <element signature="e#12835#14489#0" />
+            <element signature="e#14542#15075#0" />
+            <element signature="e#15141#15474#0" />
+            <element signature="e#15542#15748#0" />
+            <element signature="e#15806#16909#0" />
+            <element signature="e#16970#18326#0" />
+            <element signature="e#18393#18566#0" />
+            <element signature="e#18645#18830#0" />
+            <element signature="e#18895#19066#0" />
+            <element signature="e#19116#19272#0" />
+            <element signature="e#19319#19783#0" />
+            <element signature="e#19831#19985#0" />
+          </folding>
         </state>
       </provider>
     </entry>
