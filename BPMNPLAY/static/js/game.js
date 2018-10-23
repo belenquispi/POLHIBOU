@@ -423,7 +423,9 @@ function bloquearBoton() {
 
 function lanzarDado() {
     bloquearBoton();
-    dadoRandomico();
+  //  dadoRandomico();
+    dado1 = 6;
+    dado2 = 1;
     moverDado();
     moverDado2();
     dadoAnterior1 = dado1;
