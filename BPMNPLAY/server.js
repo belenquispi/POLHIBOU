@@ -5,7 +5,6 @@ var session = require('express-session');
 var http = require('http');
 var path = require('path');
 var socketIO = require('socket.io');
-//var correo = require('./correo');
 var app = express();
 var server = http.Server(app);
 var io = socketIO(server);
@@ -54,8 +53,7 @@ function partida(nombrePartida) {
         this.colum = columnas,
         this.filas = filas,
         this.colorM = seleccionarColor(this.filas, this.colum, this.gameM),
-        this.turnoJugadores = [],
-        this.estadoJugadores = []
+        this.turnoJugadores = []
 }
 
 var partidas = [];
@@ -75,6 +73,8 @@ function Character(c, x, y, z) {
     this.moverseA = 0;
     this.listo = 0;
     this.idSocket = "";
+    this.maldicion = 0;
+
 }
 
 var directions = {
@@ -224,11 +224,9 @@ io.on('connection', function (socket) {
                                 socket.emit("nombreRol", nombreEquipo);
                                 partidas[idPartida].jugadores[idJugador].idSocket = socket.id;
                                 partidas[idPartida].turnoJugadores = [];
-                                partidas[idPartida].estadoJugadores = [];
                                 for (var i = 0; i < partidas[idPartida].jugadores.length; i++) {
                                     if (partidas[idPartida].jugadores[i].idSocket != "") {
                                         partidas[idPartida].turnoJugadores.push(partidas[idPartida].jugadores[i].idSocket);
-                                        partidas[idPartida].estadoJugadores.push(1);
                                     }
                                 }
                                 actualizarOrdenPartidas(room);
@@ -278,7 +276,7 @@ io.on('connection', function (socket) {
             io.sockets.in(room).emit('unirPartida');
         }
     });
-    socket.on('dados', function (dado1, dado2, room, dadoAnterior1, dadoAnterior2, numCasillasMoverse) {
+    socket.on('dados', function (dado1, dado2, room, dadoAnterior1, dadoAnterior2, numCasillasMoverse, misterio) {
         var idPartida = consultarIdPartida(room);
         var idJugador = consultarIdJugadorSocket(idPartida, socket.id);
         partidas[idPartida].dadoP1 = dado1;
@@ -286,6 +284,10 @@ io.on('connection', function (socket) {
         partidas[idPartida].dadoAnteriorP1 = dadoAnterior1;
         partidas[idPartida].dadoAnteriorP2 = dadoAnterior2;
         partidas[idPartida].jugadores[idJugador].numCasillasMoverseP = numCasillasMoverse;
+        if(misterio == 1)
+        {
+            partidas[idPartida].jugadores[idJugador].misterio = 0;
+        }
         partidas[idPartida].jugadores[idJugador].moverseA = partidas[idPartida].jugadores[idJugador].moverseA + numCasillasMoverse;
         ((partidas[idPartida].jugadores[idJugador].moverseA) > 34 ? partidas[idPartida].jugadores[idJugador].moverseA = 34 : "");
 
@@ -302,8 +304,6 @@ io.on('connection', function (socket) {
             if (partidas[i].nombrePartida == room) {
                 for (let j = 0; j < partidas[i].jugadores.length; j++) {
                     if (partidas[i].jugadores[j].idSocket == socket.id) {
-                        let indiceJugadorActual = partidas[i].turnoJugadores.indexOf(socket.id);
-                        if (partidas[i].estadoJugadores[indiceJugadorActual] == 1) {
                         if (!partidas[i].jugadores[j].processMovement(gameTime, room, socket.id)) {
                             if (partidas[i].jugadores[j].casilla < 34) {
                                 if (partidas[i].jugadores[j].canMoveUp()) {
@@ -324,17 +324,6 @@ io.on('connection', function (socket) {
                                     io.sockets.in(partidas[k].nombrePartida).emit('partida', partidas[k]);
                                 }
                             }
-                        }
-                    }
-                    else
-                        {
-                            let l = partidas[i].turnoJugadores.shift();
-                            let k = partidas[i].estadoJugadores.shift();
-                                partidas[i].turnoJugadores.push(l);
-                                partidas[i].estadoJugadores.push(k);
-
-                                console.log("HE perdido un turno");
-
                         }
                     }
                 }
@@ -444,8 +433,6 @@ io.on('connection', function (socket) {
         partidas[idPartida].jugadores[idJugador].moverseA = partidas[idPartida].jugadores[idJugador].casilla;
         let i = partidas[idPartida].turnoJugadores.shift();
         partidas[idPartida].turnoJugadores.push(i);
-        let j = partidas[idPartida].estadoJugadores.shift();
-        partidas[idPartida].estadoJugadores.push(j);
         actualizarOrdenPartidas(room);
     });
     socket.on('darLaVuelta', function (room) {
@@ -568,6 +555,26 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
         else {
             partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = 0;
             partidas[indicePartidaActual].jugadores[indiceJugadorActual].casilla = partidas[indicePartidaActual].jugadores[indiceJugadorActual].moverseA;
+            let casillaDeLlegada = partidas[indicePartidaActual].jugadores[indiceJugadorActual].moverseA;
+            if(casillaDeLlegada == 7 || casillaDeLlegada == 13 || casillaDeLlegada == 21 || casillaDeLlegada == 27){
+               // let misterioAsignado = Math.floor(Math.random() * 2);
+                let misterioAsignado = 0;
+                if(misterioAsignado == 1) {
+                    console.log("Buena suerte");
+                    partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = Math.floor(Math.random() * 3 + 1);
+                    io.sockets.in(partidas[indicePartidaActual].nombrePartida).emit('mensajeMisterio',1,partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP);
+                    console.log(partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP);
+                    partidas[indicePartidaActual].jugadores[indiceJugadorActual].moverseA += partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP;
+                    console.log(partidas[indicePartidaActual].jugadores[indiceJugadorActual].moverseA);
+                }else
+                {
+                    console.log("Mala suerte");
+                    io.sockets.in(partidas[indicePartidaActual].nombrePartida).emit('mensajeMisterio',0,partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP);
+                    partidas[indicePartidaActual].jugadores[indiceJugadorActual].maldicion = 1;
+
+                }
+
+            }
             switch (partidas[indicePartidaActual].jugadores[indiceJugadorActual].casilla) {
                 case 7:
                 case 13:
@@ -581,10 +588,8 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
 
             }
             let j = partidas[indicePartidaActual].turnoJugadores.shift();
-            let k = partidas[indicePartidaActual].estadoJugadores.shift();
             if (this.casilla != 34) {
                 partidas[indicePartidaActual].turnoJugadores.push(j);
-                partidas[indicePartidaActual].estadoJugadores.push(k);
             }
             else {
             }
@@ -728,12 +733,12 @@ function insertarDatosJugador(indicePartida, iconoEquipo, nombreEquipo) {
 }
 
 function mostrarDesafio(jugadorAct, numCasillasMoverse, colorM) {
-    var colorCa = -1;
-    for (var x = 0; x < filas; ++x) {
-        for (var y = 0; y < columnas; ++y) {
-            if ((gameMap[toIndex(x,y)]) == (jugadorAct.casilla + numCasillasMoverse)) {
-                colorCa = colorM[((x * columnas) + y)];
-            } else {
+    let colorCa = -1;
+    for (let x = 0; x < filas; ++x) {
+        for (let y = 0; y < columnas; ++y) {
+            if ((gameMap[((x * columnas) + y)]) == (jugadorAct.casilla + numCasillasMoverse)) {
+                colorCa = colorM[((x * columnas) + y)]
+                break;
             }
         }
     }
@@ -743,7 +748,7 @@ function mostrarDesafio(jugadorAct, numCasillasMoverse, colorM) {
 Array.prototype.memory_tile_shuffle = function () {
     var i = this.length, j, temp;
     while (--i > 0) {
-        j = Math.floor(Math.random() * (i + 1));
+        j = Math.floor(Math.random() * i + 1);
         temp = this[j];
         this[j] = this[i];
         this[i] = temp;
@@ -796,7 +801,7 @@ function desordenarTextoUnir(idPartida, arrayIndices) {
     }
     let j, x, i;
     for (i = vectorTextoUnir.length - 1; i > 0; i--) {
-        j = Math.floor(Math.random() * (i + 1));
+        j = Math.floor(Math.random() * i + 1);
         x = vectorTextoUnir[i];
         vectorTextoUnir[i] = vectorTextoUnir[j];
         vectorTextoUnir[j] = x;

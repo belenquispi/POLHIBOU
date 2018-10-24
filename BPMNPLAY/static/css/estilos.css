@@ -167,7 +167,7 @@ div#memory_boardMulti > img {
     text-align: center;
 }
 
-#snackbar, #snackbarIn {
+#snackbar, #snackbarIn, #snackbarPositivo, #snackbarNegativo{
     visibility: hidden;
     min-width: 250px;
     margin-left: -125px;
@@ -183,11 +183,11 @@ div#memory_boardMulti > img {
     font-size: 17px;
 }
 
-#snackbarIn {
+#snackbarIn, #snackbarNegativo{
     background-color: #f53f95;
 }
 
-#snackbar.show, #snackbarIn.show {
+#snackbar.show, #snackbarIn.show, #snackbarNegativo.show, #snackbarPositivo.show {
     visibility: visible;
     -webkit-animation: fadein 0.5s, fadeout 0.5s 1.5s;
     animation: fadein 0.5s, fadeout 0.5s 1.5s;
@@ -195,7 +195,6 @@ div#memory_boardMulti > img {
 
 .disabledbutton {
     pointer-events: none;
-
 }
 
 .invisible {

@@ -111,6 +111,18 @@ socket.on('partida', function (data) {
     }
 });
 
+socket.on('mensajeMisterio', function (num, casillasExtras) {
+    if(num == 1) {
+        misterioPositivo();
+    }
+    else {
+        if(num == 0){
+            misterioNegativo();
+        }
+    }
+    console.log(casillasExtras);
+});
+
 socket.on('turnoPartida', function (data) {
     turnoJugadores = data;
     console.log("hola jugadores: " + turnoJugadores);
@@ -423,15 +435,28 @@ function bloquearBoton() {
 
 function lanzarDado() {
     bloquearBoton();
-  //  dadoRandomico();
-    dado1 = 6;
-    dado2 = 1;
+    var misterio = jugadojugadores.map(function (value) {
+        return value.idSocket;
+    }).indexOf(idSocketActual)].misterio;
+    console.log("misterio");
+    console.log(misterio);
+    console.log("jugadores");
+    console.log(jugadores.toString());
+    if( misterio == 1)
+    {
+        dado1 = 1;
+        dado2 = 1;
+    }else {
+       // dadoRandomico();
+        dado1 = 5;
+        dado2 = 2;
+    }
     moverDado();
     moverDado2();
     dadoAnterior1 = dado1;
     dadoAnterior2 = dado2;
     numCasillasMoverse = dado1 + dado2;
-    socket.emit('dados', dado1, dado2, roomActual, dadoAnterior1, dadoAnterior2, numCasillasMoverse);
+    socket.emit('dados', dado1, dado2, roomActual, dadoAnterior1, dadoAnterior2, numCasillasMoverse, misterio);
 }
 
 function dadoRandomico() {
@@ -937,6 +962,12 @@ function desafioIncorrecto() {
 function desafioCorrecto() {
     mostrarMensaje("snackbar");
     respuestaCorrecta = true;
+}
+function misterioPositivo() {
+    mostrarMensaje("snackbarPositivo");
+}
+function misterioNegativo() {
+    mostrarMensaje("snackbarNegativo");
 }
 
 function mostrarMensaje(texto) {
