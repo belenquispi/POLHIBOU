@@ -435,9 +435,9 @@ function bloquearBoton() {
 
 function lanzarDado() {
     bloquearBoton();
-    var misterio = jugadojugadores.map(function (value) {
+    var misterio = jugadores[jugadores.map(function (value) {
         return value.idSocket;
-    }).indexOf(idSocketActual)].misterio;
+    }).indexOf(idSocketActual)].maldicion;
     console.log("misterio");
     console.log(misterio);
     console.log("jugadores");

@@ -1313,6 +1313,11 @@ exports.post_actualizar_contrasenia = function (req, res) {
         }
     });
 };
+exports.get_partida_finalizada = function (req, res) {
+           res.render('paginas/participante/partidaFinalizada', {
+        });
+
+};
 exports.salir = function (req, res) {
     req.session.usuario = null;
     req.session.nombre = null;

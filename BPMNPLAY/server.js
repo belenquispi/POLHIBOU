@@ -127,6 +127,7 @@ app.get('/ingresoAdministrador', routes.get_ingreso_administrador);
 app.get('/recuperarContrasenia', routes.get_recuperar_contrasenia);
 app.post('/recuperarContrasenia', routes.post_recuperar_contrasenia);
 app.post('/actualizarContrasenia', routes.post_actualizar_contrasenia);
+app.get('/partidaFinalizada', routes.get_partida_finalizada);
 
 
 // Starts the server.
@@ -263,13 +264,13 @@ io.on('connection', function (socket) {
             }
         }*/
     });
- /*   socket.on('nuevo array', function (data, room) {
-        var idPartida = consultarIdPartida(room);
-        if (idPartida >= 0) {
-            partidas[idPartida].turnoJugadores = data;
-            actualizarOrdenPartidas(room);
-        }
-    });*/
+    /*   socket.on('nuevo array', function (data, room) {
+           var idPartida = consultarIdPartida(room);
+           if (idPartida >= 0) {
+               partidas[idPartida].turnoJugadores = data;
+               actualizarOrdenPartidas(room);
+           }
+       });*/
     socket.on('iniciarPartida', function (room) {
         var idPartida = consultarIdPartida(room);
         if (idPartida >= 0) {
@@ -284,9 +285,8 @@ io.on('connection', function (socket) {
         partidas[idPartida].dadoAnteriorP1 = dadoAnterior1;
         partidas[idPartida].dadoAnteriorP2 = dadoAnterior2;
         partidas[idPartida].jugadores[idJugador].numCasillasMoverseP = numCasillasMoverse;
-        if(misterio == 1)
-        {
-            partidas[idPartida].jugadores[idJugador].misterio = 0;
+        if (misterio == 1) {
+            partidas[idPartida].jugadores[idJugador].maldicion = 0;
         }
         partidas[idPartida].jugadores[idJugador].moverseA = partidas[idPartida].jugadores[idJugador].moverseA + numCasillasMoverse;
         ((partidas[idPartida].jugadores[idJugador].moverseA) > 34 ? partidas[idPartida].jugadores[idJugador].moverseA = 34 : "");
@@ -535,10 +535,15 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
     }
     if (this.casilla == 34) {
         partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = 1;
+        console.log("La casilla es 34");
+        let j = partidas[indicePartidaActual].turnoJugadores.shift();
+        actualizarOrdenPartidas(roomActual);
         io.sockets.in(roomActual).emit('ocultarBoton', idSocket);
+
     }
     if ((t - this.timeMoved) >= this.delayMove) {
         this.placeAt(this.tileTo[0], this.tileTo[1]);
+        console.log("La casilla es 34 pero aun me muevo");
         if (partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP > 1) {
             if (this.canMoveDirection(this.direction)) {
                 this.moveDirection(this.direction, t);
@@ -556,37 +561,21 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
             partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = 0;
             partidas[indicePartidaActual].jugadores[indiceJugadorActual].casilla = partidas[indicePartidaActual].jugadores[indiceJugadorActual].moverseA;
             let casillaDeLlegada = partidas[indicePartidaActual].jugadores[indiceJugadorActual].moverseA;
-            if(casillaDeLlegada == 7 || casillaDeLlegada == 13 || casillaDeLlegada == 21 || casillaDeLlegada == 27){
-               // let misterioAsignado = Math.floor(Math.random() * 2);
+            if (casillaDeLlegada == 7 || casillaDeLlegada == 13 || casillaDeLlegada == 21 || casillaDeLlegada == 27) {
+                // let misterioAsignado = Math.floor(Math.random() * 2);
                 let misterioAsignado = 0;
-                if(misterioAsignado == 1) {
+                if (misterioAsignado == 1) {
                     console.log("Buena suerte");
                     partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = Math.floor(Math.random() * 3 + 1);
-                    io.sockets.in(partidas[indicePartidaActual].nombrePartida).emit('mensajeMisterio',1,partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP);
-                    console.log(partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP);
+                    io.sockets.in(partidas[indicePartidaActual].nombrePartida).emit('mensajeMisterio', 1, partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP);
                     partidas[indicePartidaActual].jugadores[indiceJugadorActual].moverseA += partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP;
-                    console.log(partidas[indicePartidaActual].jugadores[indiceJugadorActual].moverseA);
-                }else
-                {
+                } else {
                     console.log("Mala suerte");
-                    io.sockets.in(partidas[indicePartidaActual].nombrePartida).emit('mensajeMisterio',0,partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP);
+                    io.sockets.in(partidas[indicePartidaActual].nombrePartida).emit('mensajeMisterio', 0, partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP);
                     partidas[indicePartidaActual].jugadores[indiceJugadorActual].maldicion = 1;
-
                 }
-
             }
-            switch (partidas[indicePartidaActual].jugadores[indiceJugadorActual].casilla) {
-                case 7:
-                case 13:
-                case 21:
-                case 27:
-                    let minterioAsignado  = definirMisterio();
-                    if(minterioAsignado == 1){
-                        let numeroCasillasExtra = definirMovientosExtra();
 
-                    }
-
-            }
             let j = partidas[indicePartidaActual].turnoJugadores.shift();
             if (this.casilla != 34) {
                 partidas[indicePartidaActual].turnoJugadores.push(j);
@@ -809,12 +798,4 @@ function desordenarTextoUnir(idPartida, arrayIndices) {
     return vectorTextoUnir;
 }
 
-function  definirMisterio() {
-    // 0= pierdes un turno
-    // 1 = avanzar de 1 a 5 casillas
-    return Math.floor(Math.random() * 2);
-}
-function definirMovientosExtra() {
-  return   Math.floor(Math.random() * 5 + 1);
-}
 
