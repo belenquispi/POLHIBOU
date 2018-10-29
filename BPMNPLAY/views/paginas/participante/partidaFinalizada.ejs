@@ -10,24 +10,56 @@
 <body>
     <header style="margin-bottom: 10px">
     </header>
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <h3>Resultados de la Partida </h3>
-    </div>
-    <% let numeroEquipos = 2;
-    for(let i = 0; i < numeroEquipos; i++){%>
-    <div class="row">
-        <div class="col-md-2">
-            <img id="lugar<%=i%>" src="../../../static/imagenes/lugar<%=(i+1)%>.svg"
-            height="50" width="50">
+        <div class="col-md-2"></div>
+        <div class="col-md-10">
+            <div class="row">
+                <h3>Resultados de la Partida </h3>
+            </div>
+            <% let numeroEquipos = 2;
+            for(let i = 0; i < numeroEquipos; i++){%>
+            <div class="row" style="margin-bottom: 10px">
+                <div class="col-md-4">
+                    <div class="equipo<%=(i+1)%> el">
+                        <img id="lugar<%=i%>" src="../../../static/imagenes/lugar<%=(i+1)%>.svg"
+                             height="150" width="150">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <img id="lugar<%=i%>"  src="../../../static/imagenes/<%=i%>.png"
+                         height="150" width="150">
+                </div>
+                <div class="col-md-4">
+                    <h3>Hola <%=i%></h3>
+                </div>
+            </div>
+            <%}%>
         </div>
-        <div class="col-md-5">
-            <img id="lugar<%=i%>" src="../../../static/imagenes/<%=i%>.png"
-                 height="50" width="50">
-        </div>
-        <div class="col-md-5"></div>
+        <div class="col-md-2"></div>
     </div>
-    <%}%>
-</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"></script>
+    <script>
+    var basicTimeline = anime.timeline();
+    basicTimeline
+        .add({
+            targets: '.equipo1.el',
+            translateX: 250,
+            easing: 'easeOutExpo'
+        })
+        .add({
+            targets: '.equipo2.el',
+            translateX: 250,
+            easing: 'easeOutExpo'
+        })
+        .add({
+            targets: '#basicTimeline .triangle.el',
+            translateX: 250,
+            easing: 'easeOutExpo'
+        });
+
+
+</script>
 </body>
 </html>
