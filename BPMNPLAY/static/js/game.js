@@ -200,7 +200,11 @@ socket.on('enviandoDarLaVuelta', function (idSocketN) {
         darLaVuelta();
     }
 });
-
+socket.on('partidaFinalizada', function (idSocketN) {
+    if (idSocketN != idSocketActual) {
+      console.log("LA partida ha finalizado")
+    }
+});
 function agregarNumerosCasilla() {
     for (var y = 0; y < filas; ++y) {
         for (var x = 0; x < columnas; ++x) {
@@ -369,8 +373,6 @@ function dibujarLlegarA() {
     if (jugadores.length > 0) {
         if (indiceDelJugadorConTurno() >= 0 && jugadores[indiceDelJugadorConTurno()].moverseA > 0) {
             var moverseA = jugadores[indiceDelJugadorConTurno()].moverseA;
-            console.log("Moverse: " + moverseA);
-            console.log("casilla: " +  jugadores[indiceDelJugadorConTurno()].casilla);
             if (moverseA != jugadores[indiceDelJugadorConTurno()].casilla) {
                 var casilla = jugadores[indiceDelJugadorConTurno()].casilla;
                 patterLlegada = ctx.createPattern(llegada, "repeat");
@@ -380,7 +382,6 @@ function dibujarLlegarA() {
                         switch (true) {
                             case (caso == casilla):
                             case (caso == moverseA):
-                                console.log("Caso: "+caso);
                                 /*ctx.fillStyle = patterLlegada;
                                 ctx.fillRect((x * anchoCasilla)+anchoCasilla/4, (y * altoCasilla)+altoCasilla/4, anchoCasilla/2, altoCasilla/2);
                                 y = filas;
@@ -438,18 +439,14 @@ function lanzarDado() {
     var misterio = jugadores[jugadores.map(function (value) {
         return value.idSocket;
     }).indexOf(idSocketActual)].maldicion;
-    console.log("misterio");
-    console.log(misterio);
-    console.log("jugadores");
-    console.log(jugadores.toString());
     if( misterio == 1)
     {
         dado1 = 1;
         dado2 = 1;
     }else {
        // dadoRandomico();
-        dado1 = 5;
-        dado2 = 2;
+        dado1 = 6;
+        dado2 = 6;
     }
     moverDado();
     moverDado2();
@@ -631,7 +628,6 @@ function mostrarDesafio(colorCa, idSocket) {
 }
 
 function newBoard() {
-    console.log(memory_array.length)
     tiles_flipped = 0;
     var output = '';
     for (var i = 0; i < memory_array.length; i++) {

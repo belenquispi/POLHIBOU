@@ -14,9 +14,7 @@
         <li class="breadcrumb-item"><a href="/ingresoEstudiante">Inicio</a></li>
     </ol>
 </nav>
-
 <div class="container">
-
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
@@ -42,7 +40,7 @@
                             <div class="col-md-8 bg-dark text-white rounded">
                                     <div class="container ">
                                         <h1 class="text-center font-weight-bold"><%= codigoPartida %></h1>
-                                        <input type="text" hidden name="idPartida" id="codigoPartida" value="<%= codigoPartida %>">
+                                        <input type="text" hidden name="idPartida" id="codigoPartida" value="<%=codigoPartida %>">
                                         <input type="text" hidden name="nombreEquipo" id="nombreEquipo" value="<%= nombreEquipo %>">
                                         <input type="text" hidden name="rol" id="tipoIngreso" value="<%= tipoIngreso %>">
                                     </div>

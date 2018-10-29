@@ -372,8 +372,6 @@ exports.post_tablero = function (req, res) {
         });
     }
     else {
-
-
         res.render('paginas/participante/tablero', {
             idPartida: req.body.idPartida,
             rol: req.body.rol,
@@ -587,10 +585,11 @@ exports.post_lobby = function (req, res) {
     }
 };
 exports.post_lobby_pariticipante = function (req, res) {
-    if (req.body.tipoIngreso == "jugador" || req.body.tipoIngredo == "espectador") {
+    if (req.body.tipoIngreso == "jugador" || req.body.tipoIngreso == "espectador") {
         var nombre = ((req.session.nombre == null) ? "Participante" : req.session.nombre);
+        var nombreEquipo = ((req.body.nombreEquipo == "ninguno") ? "Espectador" : req.body.nombreEquipo);
         res.render('paginas/participante/lobbyParticipante', {
-            nombreEquipo: req.body.nombreEquipo,
+            nombreEquipo: nombreEquipo,
             codigoPartida: req.body.codigoPartida,
             tipoIngreso: req.body.tipoIngreso,
             nombre: nombre

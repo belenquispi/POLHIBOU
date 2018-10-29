@@ -10,7 +10,7 @@
 <body>
     <header style="margin-bottom: 10px">
     </header>
-<div class="container-fluid">
+<div class="container">
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-10">
@@ -27,13 +27,17 @@
                     </div>
                 </div>
                 <div class="col-md-4">
+                    <div class="icono<%=(i+1)%> el">
                     <img id="lugar<%=i%>"  src="../../../static/imagenes/<%=i%>.png"
                          height="150" width="150">
+                    </div>
                 </div>
                 <div class="col-md-4">
+                    <div class="nombre<%=(i+1)%> el">
                     <h3>Hola <%=i%></h3>
+                    </div>
                 </div>
-            </div>
+                </div>
             <%}%>
         </div>
         <div class="col-md-2"></div>
@@ -45,20 +49,34 @@
     basicTimeline
         .add({
             targets: '.equipo1.el',
-            translateX: 250,
+            translateX: 50,
+        easing: 'easeOutExpo'
+    })
+    .add({
+        targets: '.icono1',
+        translateX: 50,
+        easing: 'easeOutExpo'
+    })
+        .add({
+            targets: '.nombre1',
+            translateX: 50,
             easing: 'easeOutExpo'
         })
         .add({
             targets: '.equipo2.el',
-            translateX: 250,
+            translateX: 50,
             easing: 'easeOutExpo'
         })
         .add({
-            targets: '#basicTimeline .triangle.el',
-            translateX: 250,
+            targets: '.icono2',
+            translateX: 50,
+            easing: 'easeOutExpo'
+        })
+        .add({
+            targets: '.nombre2',
+            translateX: 50,
             easing: 'easeOutExpo'
         });
-
 
 </script>
 </body>

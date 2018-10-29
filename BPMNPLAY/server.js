@@ -53,7 +53,8 @@ function partida(nombrePartida) {
         this.colum = columnas,
         this.filas = filas,
         this.colorM = seleccionarColor(this.filas, this.colum, this.gameM),
-        this.turnoJugadores = []
+        this.turnoJugadores = [],
+        this.lugaresJugadores = []
 }
 
 var partidas = [];
@@ -182,7 +183,6 @@ io.on('connection', function (socket) {
                         }).indexOf(nombreEquipo);
                         if (idJugador >= 0) {
                             partidas[idPartida].jugadores[idJugador].listo = 1;
-                            actualizarJugadoresIngresados(room);
                         }
                         else {
                             socket.emit("error", "El equipo: " + nombreEquipo + " ya se ha conectado");
@@ -192,13 +192,13 @@ io.on('connection', function (socket) {
                         console.log("El nombre de equipo ingresado no es válido" + nombreEquipo);
                     }
                 }
-
             }
+            actualizarJugadoresIngresados(room);
         } else {
             console.log("El código de partida ingresada no es válido" + room);
         }
-
     });
+
     socket.on('new player', function (room, rol, nombreEquipoJugar) {
         var idPartida = partidas.map(function (e) {
             return e.nombrePartida
@@ -305,7 +305,7 @@ io.on('connection', function (socket) {
                 for (let j = 0; j < partidas[i].jugadores.length; j++) {
                     if (partidas[i].jugadores[j].idSocket == socket.id) {
                         if (!partidas[i].jugadores[j].processMovement(gameTime, room, socket.id)) {
-                            if (partidas[i].jugadores[j].casilla < 34) {
+                            if (partidas[i].jugadores[j].casilla < 35) {
                                 if (partidas[i].jugadores[j].canMoveUp()) {
                                     partidas[i].jugadores[j].moveUp(gameTime);
                                 }
@@ -320,7 +320,7 @@ io.on('connection', function (socket) {
                                 }
                             }
                             else {
-                                for (var k = 0; k < partidas.length; k++) {
+                                for (let k = 0; k < partidas.length; k++) {
                                     io.sockets.in(partidas[k].nombrePartida).emit('partida', partidas[k]);
                                 }
                             }
@@ -340,11 +340,8 @@ io.on('connection', function (socket) {
                     arrayJugadores.push(partidas[idPartida].jugadores[i])
                 }
             }
-            socket.emit('confirmacionPartida', arrayJugadores)
         }
-        else {
-            socket.emit('confirmacionPartida', arrayJugadores);
-        }
+        socket.emit('confirmacionPartida', arrayJugadores, idPartida);
     });
     socket.on('verificarEquipo', function (room, nombreEquipo) {
         var idPartida = consultarIdPartida(room);
@@ -534,11 +531,19 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
         return false;
     }
     if (this.casilla == 34) {
-        partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = 1;
         console.log("La casilla es 34");
-        let j = partidas[indicePartidaActual].turnoJugadores.shift();
+        partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = 1;
+        if( partidas[indicePartidaActual].lugaresJugadores.indexOf(this.idSocket)==-1){
+            partidas[indicePartidaActual].lugaresJugadores.push(this.idSocket);
+            console.log("El jugador "+this.idSocket+" se ha agregado en el array de lugares "+ partidas[indicePartidaActual].lugaresJugadores);
+        }
+        partidas[indicePartidaActual].turnoJugadores.shift();
         actualizarOrdenPartidas(roomActual);
         io.sockets.in(roomActual).emit('ocultarBoton', idSocket);
+        if(partidas[indicePartidaActual].lugaresJugadores.length == partidas[indicePartidaActual].jugadores){
+            console.log("Partida finalizada")
+            io.sockets.in(roomActual).emit('partidaFinalizada', idSocket);
+        }
 
     }
     if ((t - this.timeMoved) >= this.delayMove) {
@@ -553,6 +558,9 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
                 this.moveDirection(this.direction, t);
             }
             partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP - 1;
+            if (this.casilla < this.moverseA) {
+                this.casilla += 1;
+            }
             for (let i = 0; i < partidas.length; i++) {
                 io.sockets.in(partidas[i].nombrePartida).emit('partida', partidas[i]);
             }
@@ -670,33 +678,25 @@ Character.prototype.moveLeft = function (t) {
     this.tileTo[0] -= 1;
     this.timeMoved = t;
     this.direction = 3;
-    if (this.casilla < this.moverseA) {
-        this.casilla += 1;
-    }
+
 };
 Character.prototype.moveRight = function (t) {
     this.tileTo[0] += 1;
     this.timeMoved = t;
     this.direction = 1;
-    if (this.casilla < this.moverseA) {
-        this.casilla += 1;
-    }
+
 };
 Character.prototype.moveUp = function (t) {
     this.tileTo[1] -= 1;
     this.timeMoved = t;
     this.direction = 0;
-    if (this.casilla < this.moverseA) {
-        this.casilla += 1;
-    }
+
 };
 Character.prototype.moveDown = function (t) {
     this.tileTo[1] += 1;
     this.timeMoved = t;
     this.direction = 2;
-    if (this.casilla < this.moverseA) {
-        this.casilla += 1;
-    }
+
 };
 Character.prototype.moveDirection = function (d, t) {
     switch (d) {
