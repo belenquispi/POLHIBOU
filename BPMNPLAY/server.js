@@ -305,7 +305,7 @@ io.on('connection', function (socket) {
                 for (let j = 0; j < partidas[i].jugadores.length; j++) {
                     if (partidas[i].jugadores[j].idSocket == socket.id) {
                         if (!partidas[i].jugadores[j].processMovement(gameTime, room, socket.id)) {
-                            if (partidas[i].jugadores[j].casilla < 35) {
+                            if (partidas[i].jugadores[j].casilla < 34) {
                                 if (partidas[i].jugadores[j].canMoveUp()) {
                                     partidas[i].jugadores[j].moveUp(gameTime);
                                 }
@@ -530,20 +530,22 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
     if (this.tileFrom[0] == this.tileTo[0] && this.tileFrom[1] == this.tileTo[1]) {
         return false;
     }
-    if (this.casilla == 34) {
+    if (partidas[indicePartidaActual].jugadores[indiceJugadorActual].casilla == 34) {
         console.log("La casilla es 34");
-        partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = 1;
-        if( partidas[indicePartidaActual].lugaresJugadores.indexOf(this.idSocket)==-1){
+        partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = 0;
+        if( partidas[indicePartidaActual].lugaresJugadores.indexOf(this.idSocket) == -1){
             partidas[indicePartidaActual].lugaresJugadores.push(this.idSocket);
             console.log("El jugador "+this.idSocket+" se ha agregado en el array de lugares "+ partidas[indicePartidaActual].lugaresJugadores);
         }
-        partidas[indicePartidaActual].turnoJugadores.shift();
-        actualizarOrdenPartidas(roomActual);
+
+        partidas[indicePartidaActual].turnoJugadores.splice(partidas[indicePartidaActual].turnoJugadores.indexOf(this.idSocket), 1);
         io.sockets.in(roomActual).emit('ocultarBoton', idSocket);
-        if(partidas[indicePartidaActual].lugaresJugadores.length == partidas[indicePartidaActual].jugadores){
-            console.log("Partida finalizada")
-            io.sockets.in(roomActual).emit('partidaFinalizada', idSocket);
+        if(partidas[indicePartidaActual].lugaresJugadores.length == partidas[indicePartidaActual].jugadores.length){
+            console.log("Partida finalizada desde server")
+            io.sockets.in(roomActual).emit('partidaFinalizada');
         }
+        actualizarOrdenPartidas(roomActual);
+
 
     }
     if ((t - this.timeMoved) >= this.delayMove) {
@@ -561,9 +563,7 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
             if (this.casilla < this.moverseA) {
                 this.casilla += 1;
             }
-            for (let i = 0; i < partidas.length; i++) {
-                io.sockets.in(partidas[i].nombrePartida).emit('partida', partidas[i]);
-            }
+                io.sockets.in(partidas[indicePartidaActual].nombrePartida).emit('partida', partidas[indicePartidaActual]);
         }
         else {
             partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = 0;
@@ -584,13 +584,11 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
                 }
             }
 
-            let j = partidas[indicePartidaActual].turnoJugadores.shift();
             if (this.casilla != 34) {
+                let j = partidas[indicePartidaActual].turnoJugadores.shift();
                 partidas[indicePartidaActual].turnoJugadores.push(j);
+                actualizarOrdenPartidas(roomActual);
             }
-            else {
-            }
-            actualizarOrdenPartidas(roomActual);
 
             if (partidas[indicePartidaActual].turnoJugadores.length != 0) {
                 partidas[indicePartidaActual].jugadores[partidas[indicePartidaActual].jugadores.map(function (value) {

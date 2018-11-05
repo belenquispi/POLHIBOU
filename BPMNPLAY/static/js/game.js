@@ -105,8 +105,6 @@ socket.on('partida', function (data) {
     for (let i = 0; i < jugadores.length; i++) {
         if (jugadores[i].idSocket == idSocketActual) {
             numCasillasMoverse = jugadores[i].numCasillasMoverseP;
-            console.log("Casilla aa: "+ jugadores[i].casilla);
-            console.log("Moverser aa: "+ jugadores[i].moverseA);
         }
     }
 });
@@ -200,10 +198,8 @@ socket.on('enviandoDarLaVuelta', function (idSocketN) {
         darLaVuelta();
     }
 });
-socket.on('partidaFinalizada', function (idSocketN) {
-    if (idSocketN != idSocketActual) {
-      console.log("LA partida ha finalizado")
-    }
+socket.on('partidaFinalizada', function () {
+      console.log("LA partida ha finalizado");
 });
 function agregarNumerosCasilla() {
     for (var y = 0; y < filas; ++y) {
@@ -234,16 +230,6 @@ function drawGame() {
     if (ctx == null) {
         return;
     }
-   /* var sec = Math.floor(Date.now() / 500);
-        if (sec != currentSecond) {
-            currentSecond = sec;
-            framesLastSecond = frameCount;
-            frameCount = 1;
-        }
-        else {
-            frameCount++;
-        }
-*/
     if (numCasillasMoverse > 0 && (turnoJugadores[0] == idSocketActual) && respuestaCorrecta == true) {
         socket.emit('moverJugador', roomActual);
     } else {
