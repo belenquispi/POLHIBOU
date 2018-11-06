@@ -136,7 +136,7 @@ exports.post_creacion_cuenta = function (req, res) {
         nombre: req.body.nombre,
         usuario: req.body.usuario,
         contrasenia: req.body.contrasenia,
-        contrasenia_confirmada: req.body.contrasenia_confirmada,
+        contraseniaTemporal: 0,
         codigoVerificacion: generarNombre(),
         fechaUltimaConexion: ""
     });

@@ -530,23 +530,24 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
     if (this.tileFrom[0] == this.tileTo[0] && this.tileFrom[1] == this.tileTo[1]) {
         return false;
     }
-    if (partidas[indicePartidaActual].jugadores[indiceJugadorActual].casilla == 34) {
+    console.log(this.casilla);
+    if (this.casilla == 34) {
+        console.log(this.casilla);
         console.log("La casilla es 34");
+        console.log("id Jugador:"+ partidas[indicePartidaActual].jugadores[indiceJugadorActual].idSocket);
         partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = 0;
         if( partidas[indicePartidaActual].lugaresJugadores.indexOf(this.idSocket) == -1){
             partidas[indicePartidaActual].lugaresJugadores.push(this.idSocket);
             console.log("El jugador "+this.idSocket+" se ha agregado en el array de lugares "+ partidas[indicePartidaActual].lugaresJugadores);
+            partidas[indicePartidaActual].turnoJugadores.splice(partidas[indicePartidaActual].turnoJugadores.indexOf(this.idSocket), 1);
+            io.sockets.in(roomActual).emit('ocultarBoton', idSocket);
         }
-
-        partidas[indicePartidaActual].turnoJugadores.splice(partidas[indicePartidaActual].turnoJugadores.indexOf(this.idSocket), 1);
-        io.sockets.in(roomActual).emit('ocultarBoton', idSocket);
+        console.log("kkk: " + this.casilla);
+        actualizarOrdenPartidas(roomActual);
         if(partidas[indicePartidaActual].lugaresJugadores.length == partidas[indicePartidaActual].jugadores.length){
             console.log("Partida finalizada desde server")
             io.sockets.in(roomActual).emit('partidaFinalizada');
         }
-        actualizarOrdenPartidas(roomActual);
-
-
     }
     if ((t - this.timeMoved) >= this.delayMove) {
         this.placeAt(this.tileTo[0], this.tileTo[1]);
@@ -584,8 +585,9 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
                 }
             }
 
-            if (this.casilla != 34) {
+            if (this.casilla != 34 ) {
                 let j = partidas[indicePartidaActual].turnoJugadores.shift();
+                console.log("JJJJ: "+j)
                 partidas[indicePartidaActual].turnoJugadores.push(j);
                 actualizarOrdenPartidas(roomActual);
             }
