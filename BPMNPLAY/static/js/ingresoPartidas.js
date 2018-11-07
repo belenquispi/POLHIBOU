@@ -41,7 +41,7 @@ function verificarPartida() {
 }
 
 function habilitarNombreEquipo() {
-    if (document.getElementById("tipoIngreso").value == "jugador") {
+    if (document.getElementById("tipoIngreso").value == "participante") {
         verificarPartida();
         document.getElementById("divNombreEquipo").removeAttribute("hidden");
         document.getElementById("botonUnir").removeAttribute("hidden");
@@ -66,7 +66,7 @@ function unirsePartida() {
         //document.getElementById('unirPartida').click();
     }
     else {
-        if (document.getElementById('tipoIngreso').value == "jugador") {
+        if (document.getElementById('tipoIngreso').value == "participantes") {
             if (document.getElementById('nombreEquipo').value == "ninguno") {
                 alert("Seleccione un nombre de equipo.")
             }
@@ -78,7 +78,7 @@ function unirsePartida() {
                 }
                 else {
                     document.getElementById("imagenE").setAttribute("hidden", "");
-                    alert("El equipo con el cual desea ingresar ya se encuentra conectado. Se sugiere ingresar con el nombre de otro jugador o como de espectador");
+                    alert("El equipo con el cual desea ingresar ya se encuentra conectado. Se sugiere ingresar con el nombre de otro participante o como de espectador");
                 }
             }
         }

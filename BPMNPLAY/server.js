@@ -161,6 +161,7 @@ io.on('connection', function (socket) {
         }
     });
     socket.on('inicio', function (room, rol, nombreEquipoJugar) {
+        console.log("Se realizo uno emit de inicio");
         var idPartida = partidas.map(function (e) {
             return e.nombrePartida
         }).indexOf(room);
@@ -169,15 +170,17 @@ io.on('connection', function (socket) {
                 socket.join(room);
                 socket.emit("nombreRol", "Espectador");
             } else {
-                if (rol == "profesor") {
+                if (rol == "facilitador") {
+                    console.log("Inicio el profesor");
                     socket.join(room);
                     socket.emit("nombreRol", "Profesor");
                 }
                 else {
-                    if (rol == "jugador") {
+                    if (rol == "participante") {
                         socket.join(room);
-                        console.log("333room: " + room + " rol: " + rol + " nombreEquipoJugar: " + nombreEquipoJugar);
+                        console.log("Inicio el jugador : " + room + " rol: " + rol + " nombreEquipoJugar: " + nombreEquipoJugar);
                         var nombreEquipo = nombreEquipoJugar.replace("+", " ");
+                        console.log("Inicio el jugador2 : " + room + " rol: " + rol + " nombreEquipoJugar: " + nombreEquipoJugar);
                         var idJugador = partidas[idPartida].jugadores.map(function (e) {
                             return e.nombreEquipo
                         }).indexOf(nombreEquipo);
@@ -189,7 +192,7 @@ io.on('connection', function (socket) {
                         }
                     }
                     else {
-                        console.log("El nombre de equipo ingresado no es válido" + nombreEquipo);
+                        console.log("El nombre de equipo ingresado no es válido" + nombreEquipoJugar);
                     }
                 }
             }
@@ -213,7 +216,7 @@ io.on('connection', function (socket) {
                     socket.emit("nombreRol", "Facilitador");
                 }
                 else {
-                    if (rol == "jugador") {
+                    if (rol == "participante") {
                         var nombreEquipo = nombreEquipoJugar.replace("+", " ");
                         var idJugador = partidas[idPartida].jugadores.map(function (e) {
                             return e.nombreEquipo

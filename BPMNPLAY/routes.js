@@ -585,7 +585,7 @@ exports.post_lobby = function (req, res) {
     }
 };
 exports.post_lobby_pariticipante = function (req, res) {
-    if (req.body.tipoIngreso == "jugador" || req.body.tipoIngreso == "espectador") {
+    if (req.body.tipoIngreso == "participante" || req.body.tipoIngreso == "espectador") {
         var nombre = ((req.session.nombre == null) ? "Participante" : req.session.nombre);
         var nombreEquipo = ((req.body.nombreEquipo == "ninguno") ? "Espectador" : req.body.nombreEquipo);
         res.render('paginas/participante/lobbyParticipante', {

@@ -57,6 +57,6 @@ function actualizacion() {
 }
 function empezarPartida() {
     console.log("Hice clic ");
-    socket.emit("iniciarPartida", document.getElementById('idPartida').value );
+    socket.emit("iniciarPartida", document.getElementById('idPartida').value);
     document.getElementById('botonIniciar').click();
 }
