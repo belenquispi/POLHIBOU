@@ -41,7 +41,17 @@
                                        class="form-control is-invalid " required placeholder="Contraseña">
                                 <div class="invalid-feedback">Las credenciales no son válidas.</div>
                             </div>
-                            <% }else { %>
+                            <% }else {
+                            switch (tipo) {
+                            case 1: %>
+                            <label>Por favor, revisa tu correo e inicia con la clave temporal enviada.</label>
+                            <% break;
+                            case 2: %>
+                            <label>Tu contraseña ha sido actualizada. Por favor, inicia sesión nuevamente.</label>
+                            <% break;
+                            case 3: %>
+                            <label>Por favor, inicia sesión con tus credenciales.</label>
+                            <%}%>
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="fas fa-user"></i></div>

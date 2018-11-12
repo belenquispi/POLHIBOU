@@ -17,7 +17,7 @@ exports.get_inicio = function (req, res) {
 };
 exports.get_inicio_sesion = function (req, res) {
     var usuario = "";
-    res.render('paginas/inicioSesion', {usuario: usuario});
+    res.render('paginas/inicioSesion', {usuario: usuario, tipo: 0});
 };
 exports.post_inicio_sesion = function (req, res) {
     if (req.body.usuario == 'administrador') {
@@ -32,7 +32,7 @@ exports.post_inicio_sesion = function (req, res) {
             if (doc.codigoVerificacion == 0) {
                 if(doc.contraseniaTemporal == 0) {
                     if (req.body.contrasenia != doc.contrasenia) {
-                        res.render('paginas/inicioSesion', {usuario: doc.usuario});
+                        res.render('paginas/inicioSesion', {usuario: doc.usuario, tipo: 0});
                     } else {
                         req.session.nombre = doc.nombre;
                         req.session.usuario = doc.usuario;
@@ -65,7 +65,7 @@ exports.post_inicio_sesion = function (req, res) {
             }
         }
         else {
-            res.render('paginas/inicioSesion', {usuario: req.body.usuario});
+            res.render('paginas/inicioSesion', {usuario: req.body.usuario, tipo: 0});
         }
     })
 };
@@ -132,43 +132,55 @@ exports.get_ingreso_estudiante = function (req, res) {
     }
 };
 exports.post_creacion_cuenta = function (req, res) {
-    var usuario = new Usuario({
-        nombre: req.body.nombre,
-        usuario: req.body.usuario,
-        contrasenia: req.body.contrasenia,
-        contraseniaTemporal: 0,
-        codigoVerificacion: generarNombre(),
-        fechaUltimaConexion: ""
-    });
-    req.session.usuarioTemporal = req.body.usuario;
-    usuario.save(function (err) {
-        if (err) {
-            console.log("Error al crear: " + err)
-            res.render('paginas/error');
+    Usuario.findOne({usuario: req.body.usuario}, function (error, doc) {
+        if (error) {
+            console.log("Error en la busqueda del usuario: " + error);
         }
         else {
-            correo.enviarCorreo(req.body.usuario, usuario.codigoVerificacion);
-            var profesor = new Profesor({
-                usuario: req.body.usuario,
-                nombre: req.body.nombre
-            });
-            profesor.save(function (error) {
-                if (error) {
-                    console.log("Error al crear facilitador: " + error)
-                }
-            });
-            var estudiante = new Estudiante({
-                usuario: req.body.usuario,
-                nombre: req.body.nombre
-            });
-            estudiante.save(function (error) {
-                if (error) {
-                    console.log("Error al crear participante: " + error)
-                }
-            });
-            res.redirect('/validarCuenta');
+            if (doc != null) {
+                res.render('paginas/error', {mensaje: "El usuario ya se encuentra registrado", direccion: "/inicioSesion"});
+            } else {
+                let usuario = new Usuario({
+                    nombre: req.body.nombre,
+                    usuario: req.body.usuario,
+                    contrasenia: req.body.contrasenia,
+                    contraseniaTemporal: 0,
+                    codigoVerificacion: generarNombre(),
+                    fechaUltimaConexion: ""
+                });
+                req.session.usuarioTemporal = req.body.usuario;
+                usuario.save(function (err) {
+                    if (err) {
+                        console.log("Error al crear: " + err)
+                        res.render('paginas/error', {mensaje: err, direccion: "/"});
+                    }
+                    else {
+                        correo.enviarCorreo(req.body.usuario, usuario.codigoVerificacion);
+                        var profesor = new Profesor({
+                            usuario: req.body.usuario,
+                            nombre: req.body.nombre
+                        });
+                        profesor.save(function (error) {
+                            if (error) {
+                                console.log("Error al crear facilitador: " + error)
+                            }
+                        });
+                        var estudiante = new Estudiante({
+                            usuario: req.body.usuario,
+                            nombre: req.body.nombre
+                        });
+                        estudiante.save(function (error) {
+                            if (error) {
+                                console.log("Error al crear participante: " + error)
+                            }
+                        });
+                        res.redirect('/validarCuenta');
+                    }
+                });
+            }
         }
-    });
+        });
+
 };
 exports.post_ingreso_materia = function (req, res) {
     Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
@@ -595,7 +607,7 @@ exports.post_lobby_pariticipante = function (req, res) {
             nombre: nombre
         });
     } else {
-        res.send("Lo siento estas accediendo a un lugar donde no tienes acceso");
+        res.render('paginas/error', {mensaje:"Estas accediendo a un lugar donde no tienes acceso", direccion: "/"});
     }
 
 };
@@ -672,7 +684,7 @@ exports.post_confirmar_cuenta = function (req, res) {
                     doc.codigoVerificacion = 0;
                     doc.save(function (err, docActualizado) {
                         if (err) return console.log(err);
-                        res.redirect('/inicioSesion');
+                        res.render('paginas/inicioSesion', {});
                     });
 
                 } else {
@@ -1283,14 +1295,22 @@ exports.post_recuperar_contrasenia = function (req, res) {
             console.log("Error en la busqueda del usuario: " + error);
         }
         else {
-            var contraseniaTemporal = generarNombre();
-            doc.contraseniaTemporal = contraseniaTemporal;
-            console.log("Con Contrasenia Temporal: "+doc)
-            doc.save(function (err, docActualizado) {
-                if (err) return console.log(err);
-                correo.enviarCorreo(doc.usuario, doc.contraseniaTemporal);
-                res.render('paginas/inicioSesion', {usuario: ""});
-            })
+            if(doc != null)
+            {
+                var contraseniaTemporal = generarNombre();
+                doc.contraseniaTemporal = contraseniaTemporal;
+                console.log("Con Contrasenia Temporal: "+doc)
+                doc.save(function (err, docActualizado) {
+                    if (err) {
+                        res.render('paginas/error', {mensaje: err, direccion:"/recuperarContrasenia"})
+                    }
+                    correo.enviarCorreo(doc.usuario, doc.contraseniaTemporal);
+                    res.render('paginas/inicioSesion', {usuario: "", tipo : 1});
+                })
+            }
+            else {
+                res.render('paginas/error', {mensaje:"El usuario ingresado no se encuentra registrado.", direccion : "/"});
+            }
         }
     });
 };
@@ -1307,7 +1327,7 @@ exports.post_actualizar_contrasenia = function (req, res) {
             doc.contraseniaTemporal = 0;
             doc.save(function (err, docActualizado) {
                 if (err) return console.log(err);
-                res.render('paginas/inicioSesion', {usuario: ""});
+                res.render('paginas/inicioSesion', {usuario: "", tipo : 2});
             })
         }
     });
@@ -1324,7 +1344,7 @@ exports.salir = function (req, res) {
 };
 
 function generarNombre() {
-    return Math.floor((1 + Math.random()) * 0x10000)
+    return Math.floor((1 + Math.random()) * 0x1000000)
         .toString(16)
         .substring(2);
 }

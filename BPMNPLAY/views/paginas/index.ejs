@@ -27,7 +27,7 @@
         </div>
         <div class="col-md-6">
             <h3 class="display-8">Crear Cuenta</h3>
-            <form action="/creacionCuenta" method="post">
+            <form action="/creacionCuenta" name="formulario" method="post">
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputNombre">Nombres completos</label>
@@ -49,14 +49,14 @@
                     <div class="form-group col-md-6">
                         <label for="inputContraseniaConfirmada">Confirmar Contraseña</label>
                         <input type="password" class="form-control" id="inputContraseniaConfirmada"
-                               name="contrasenia_confirmada" required placeholder="Confirmar contraseña">
+                               name="contraseniaConfirmada" required placeholder="Confirmar contraseña" onkeyup="confirmarContrasenia()">
                     </div>
                 </div>
                 <div class="form-row text-center">
                     <div class="form-group col-md-4">
                     </div>
                     <div class="form-group col-md-4">
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-user-plus"></i> Crear Cuenta
+                        <button type="submit" id="crearCuenta" disabled class="btn btn-primary"><i class="fas fa-user-plus"></i> Crear Cuenta
                         </button>
                     </div>
                     <div class="form-group col-md-4">
@@ -67,5 +67,20 @@
         </div>
     </div>
 </div>
+<script>
+    function confirmarContrasenia() {
+        let contrasenia = formulario.contrasenia.value;
+        let contraseniaConfirmada = formulario.contraseniaConfirmada.value;
+
+        if(contrasenia == contraseniaConfirmada){
+            document.getElementById("crearCuenta").removeAttribute("disabled");
+        }else{
+            document.getElementById("crearCuenta").setAttribute("disabled","");
+
+        }
+
+    }
+
+</script>
 </body>
 </html>
