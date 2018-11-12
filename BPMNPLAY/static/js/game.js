@@ -523,7 +523,7 @@ function mostrarJugadorActual() {
     for (var i = 0; i < jugadores.length; i++) {
         document.getElementById("tablajug" + (i + 1)).style.border = "thick grey";
         document.getElementById("tablajug" + (i + 1)).style.background = "#FFFFFF";
-        document.getElementById("turno" + (i + 1)).setAttribute("hidden", "");
+        //document.getElementById("turno" + (i + 1)).setAttribute("hidden", "");
     }
 
     for (var j = 0; j < jugadores.length; j++) {
@@ -544,7 +544,7 @@ function mostrarJugadorActual() {
         if (document.getElementById("tablajug" + (indiceJugadorActual + 1))) {
             document.getElementById("tablajug" + (indiceJugadorActual + 1)).style.background = "#A9BCF5";
             document.getElementById("turno" + (indiceJugadorActual + 1)).removeAttribute("hidden");
-            //  document.getElementById("tablajug" + (indiceJugadorActual + 1)).classList.add('miTurno');
+            document.getElementById("tablajug" + (indiceJugadorActual + 1)).classList.add('miTurno');
             cambiarImagen(indiceJugadorActual);
         }
     }
@@ -615,8 +615,8 @@ function mostrarDesafio(colorCa, idSocket) {
 
 function newBoard() {
     tiles_flipped = 0;
-    var output = '';
-    for (var i = 0; i < memory_array.length; i++) {
+    let output = '';
+    for (let i = 0; i < memory_array.length; i++) {
         if (idSocketActual == turnoJugadores[0]) {
             output += '<img id="tile_' + i + '" alt="" onclick="memoryFlipTile(this,\'' + memory_array[i] + '\')">';
         }
@@ -624,6 +624,9 @@ function newBoard() {
             output += '<img id="tile_' + i + '"  class = "disabledbutton" alt="" onclick="memoryFlipTile(this,\'' + memory_array[i] + '\')">';
         }
     }
+    output += '<img id="ultimoPar2" class = "disabledbutton" >';
+    output += '<img id="ultimoPar"  class = "disabledbutton" >';
+    output += '<label id="ultimoNombre" >Ultimo</label>';
     document.getElementById('memory_boardMulti').innerHTML = output;
 }
 
@@ -869,12 +872,12 @@ function mostrarMensajeParEncontrado(url) {
         return e.imagen
     }).indexOf(url);
     if (indicePreguntaUnir >= 0) {
-        document.getElementById("mensajeVoltear").removeAttribute("hidden");
-        document.getElementById("nombreParEncontrado").innerHTML = preguntasUnirVoltear[indicePreguntaUnir].texto;
+     //   document.getElementById("mensajeVoltear").removeAttribute("hidden");
+       // document.getElementById("nombreParEncontrado").innerHTML = preguntasUnirVoltear[indicePreguntaUnir].texto;
 
         setTimeout(function () {
-            document.getElementById("mensajeVoltear").setAttribute("hidden", "");
-            document.getElementById("nombreParEncontrado").innerHTML = "";
+           // document.getElementById("mensajeVoltear").setAttribute("hidden", "");
+            //document.getElementById("nombreParEncontrado").innerHTML = "";
         }, 2000);
     }
 

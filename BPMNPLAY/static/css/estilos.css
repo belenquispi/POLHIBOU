@@ -129,8 +129,6 @@ canvas {
     background-size: auto 100%;
 }
 
-
-
 div#memory_board {
     width: 350px;
     height: 350px;
@@ -153,6 +151,17 @@ div#memory_boardMulti > img {
     float: left;
     margin: 13px;
     cursor: pointer;
+    text-align: center;
+}
+img#ultimoPar {
+    background: url(vacio.png) no-repeat;
+}
+img#ultimoPar2 {
+    background: url(../imagenes/0.png) no-repeat;
+}
+div#memory_boardMulti > label {
+    float: left;
+    margin: 13px;
     text-align: center;
 }
 
@@ -201,11 +210,11 @@ div#memory_boardMulti > img {
     visibility: hidden;
 }
 
-.flip3D{ width:450px; height:480px; margin:10px; float:left; }
+.flip3D{ width:425px; height:480px; margin:10px;}
 .flip3D > .front{
     position:absolute;
     transform: perspective( 600px ) rotateY( 0deg );
-    background: #bdffbf; width:450px; height:480px; border-radius: 7px;
+    background: #bdffbf; width:425px; height:480px; border-radius: 7px;
     border-color: black;
     border-style: solid;
     border-width: thick;
@@ -215,7 +224,7 @@ div#memory_boardMulti > img {
 .flip3D > .back{
     position:absolute;
     transform: perspective( 600px ) rotateY( 180deg );
-    background: #bdffbf; width:450px; height:480px; border-radius: 7px;
+    background: #bdffbf; width:425px; height:480px; border-radius: 7px;
     border-color: black;
     border-style: solid;
     border-width: thick;

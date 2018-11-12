@@ -61,18 +61,19 @@ for (var i = 0; i < dificultades.length; i++) {
                 </div>
             </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="row">
                 <div class="col-md-10">
                     <h2>Preguntas Unir Voltear de <%= materia %>
                     </h2></div>
-                <div class="col-md-2"><a href="/unirVoltear/<%= materia %>" class="btn btn-info"
-                                         style="margin-bottom: 10px">Agregar Varias Preguntas</a>
+                <div class="col-md-2"><a href="/unirVoltear/<%= materia %>" class="btn btn-info" style="margin-bottom: 10px">Agregar Varias Preguntas</a>
                 </div>
 
             </div>
             <div class="row">
-                <div class="card-columns">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
                     <div class="card text-white bg-dark mb-3">
                         <h5 class="card-header">Agregar Pregunta</h5>
                         <div class="card-body">
@@ -122,9 +123,13 @@ for (var i = 0; i < dificultades.length; i++) {
                             </form>
                         </div>
                     </div>
-                    <%
-                    for(var i = 0; i < textoPreguntas.length; i++) { %>
-                    <div class="card">
+                </div>
+                <div class="col-md-4">
+                </div>
+                <%
+                    for(let i = 0; i < textoPreguntas.length; i++) { %>
+                <div class="col-md-4">
+                <div class="card" style="margin-bottom: 10px">
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-md-9">
@@ -146,17 +151,22 @@ for (var i = 0; i < dificultades.length; i++) {
                             <br>
                         </div>
                     </div>
+                </div>
                     <% } %>
-                    <div class="card text-center"
-                         style="width:408px; height:155px; background: url('../../../static/imagenes/iconoPeque.png') no-repeat center ;">
+                <div class="col-md-4">
+                    <div class="card" style=" border-style: dashed; margin-bottom: 10px; height: 155px">
+                        <div class="row">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6 text-center">
+                                <img src="../../static/imagenes/iconoPeque.png" height="150" width="150" alt="Card image">
+                            </div>
+                            <div class="col-md-3"></div>
+                        </div>
                     </div>
+                </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-2">
-
-        </div>
-    </div>
 </div>
 <script src="/static/js/preguntasUnirVoltear.js"></script>
 </body>

@@ -65,11 +65,10 @@ for (var i = 0; i < dificultades.length; i++) {
         <div class="col-md-10">
             <div class="row">
                 <h2>Preguntas Opción Múltiple de <%= materia %></h2>
-
             </div>
             <div class="row">
-                <div class="card-columns">
-                    <div class="card text-white bg-dark">
+                <div class="col-md-4">
+                    <div class="card text-white bg-dark" style="margin-top: 10px">
                         <h5 class="card-header">Agregar Pregunta</h5>
                         <div class="card-body">
                             <div class="input-group mb-2 col-md-12">
@@ -80,10 +79,12 @@ for (var i = 0; i < dificultades.length; i++) {
 
                         </div>
                     </div>
-                    <%
-                    console.log("hola1: " + nombre);
-                    for(var i = 0; i < enunciadoPreguntas.length; i++) { %>
-                        <div class="card">
+                </div>
+                <%
+                console.log("hola1: " + nombre);
+                for(let i = 0; i < enunciadoPreguntas.length; i++) { %>
+                    <div class="col-md-4">
+                        <div class="card" style="margin-top: 10px">
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -107,9 +108,17 @@ for (var i = 0; i < dificultades.length; i++) {
                                 </div>
                             </div>
                         </div>
-                    <% } %>
-                    <div class="card text-center"
-                         style="width:366.66px; border-style: dashed;  height:148px; background: url('../../../static/imagenes/iconoPeque.png') no-repeat center ;">
+                    </div>
+                <% } %>
+                <div class="col-md-4">
+                    <div class="card" style=" border-style: dashed; margin-top: 10px; height: 180px">
+                        <div class="row">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6 text-center">
+                                <img src="../../static/imagenes/iconoPeque.png" height="150" width="150" alt="Card image">
+                            </div>
+                            <div class="col-md-3"></div>
+                        </div>
                     </div>
                 </div>
             </div>
