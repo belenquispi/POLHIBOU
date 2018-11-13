@@ -1332,7 +1332,7 @@ exports.post_actualizar_contrasenia = function (req, res) {
         }
     });
 };
-exports.get_partida_finalizada = function (req, res) {
+exports.post_partida_finalizada = function (req, res) {
            res.render('paginas/participante/partidaFinalizada', {
         });
 

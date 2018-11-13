@@ -57,7 +57,7 @@ function partida(nombrePartida) {
         this.lugaresJugadores = []
 }
 
-var partidas = [];
+let partidas = [];
 
 function Character(c, x, y, z) {
     this.nombreEquipo = z;
@@ -78,7 +78,7 @@ function Character(c, x, y, z) {
 
 }
 
-var directions = {
+let directions = {
     up: 0,
     right: 1,
     down: 2,
@@ -128,7 +128,7 @@ app.get('/ingresoAdministrador', routes.get_ingreso_administrador);
 app.get('/recuperarContrasenia', routes.get_recuperar_contrasenia);
 app.post('/recuperarContrasenia', routes.post_recuperar_contrasenia);
 app.post('/actualizarContrasenia', routes.post_actualizar_contrasenia);
-app.get('/partidaFinalizada', routes.get_partida_finalizada);
+app.post('/partidaFinalizada', routes.post_partida_finalizada);
 
 
 // Starts the server.
@@ -457,12 +457,12 @@ function seleccionarColor(filasN, columnasN, gameMapN,) {
                     indice++;
                     break;
                 default:
-                    // var colorA = Math.floor(Math.random() * 3);
+                     let colorA = Math.floor(Math.random() * 3);
                     // 0 = Unir voltear - amarillo
                     // 1 = Emparejar - rosado
                     // 2 = Opción múltiple - azul
-                    var colorA = 0;
-                    var colorAnterior = -1;
+                   // var colorA = 1;
+                    let colorAnterior = -1;
                     while (colorA == colorAnterior) {
                         colorA = Math.floor(Math.random() * 3);
                     }

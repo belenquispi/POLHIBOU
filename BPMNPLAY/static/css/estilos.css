@@ -153,12 +153,7 @@ div#memory_boardMulti > img {
     cursor: pointer;
     text-align: center;
 }
-img#ultimoPar {
-    background: url(vacio.png) no-repeat;
-}
-img#ultimoPar2 {
-    background: url(../imagenes/0.png) no-repeat;
-}
+
 div#memory_boardMulti > label {
     float: left;
     margin: 13px;
@@ -253,4 +248,7 @@ div#memory_boardMulti > label {
 }
 #canvas {
     background-color: rgba(255,255,255,0.8)
+}
+.textoUnir {
+    white-space: pre-line;
 }

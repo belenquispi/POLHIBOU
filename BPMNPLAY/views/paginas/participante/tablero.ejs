@@ -11,10 +11,14 @@
 <header style="margin-bottom: 10px">
     <% include ../../parciales/headerTablero %>
 </header>
-<input type="text" hidden name="idPartida" id="idPartida" value="<%= idPartida %>">
-<input type="text" hidden name="rol" id="rol" value="<%= rol %>">
-<input type="text" hidden name="nombreEquipo" id="nombreEquipo" value="<%= nombreEquipo %>">
-<input type="text" hidden name="nombreEquipo" id="sesion" value="<%= nombreEquipo %>">
+<form name = "formulario" hidden method="post" action="/partidaFinalizada">
+    <input type="text" hidden name="idPartida" id="idPartida" value="<%= idPartida %>">
+    <input type="text" hidden name="rol" id="rol" value="<%= rol %>">
+    <input type="text" hidden name="nombreEquipo" id="nombreEquipo" value="<%= nombreEquipo %>">
+    <input type="text" hidden name="nombreEquipo" id="sesion" value="<%= nombreEquipo %>">
+    <button type="submit" id="botonFinalizacion" hidden disabled></button>
+</form>
+
 <div class="container-fluid text-center">
     <div class="row text-center">
         <div class="col-md-auto text-center">
@@ -25,7 +29,7 @@
                  <table class="table">
                     <thead>
                     <tr>
-                        <!--<th></th>-->
+                        <th></th>
                         <th>Jugador</th>
                         <th>Nombre</th>
                     </tr>
@@ -145,82 +149,83 @@
                     </div>
                     <div id="unir" class="row" hidden onmouseover="verificarCompletoUnir()">
                         <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-6">
+                            <div class="row text-left">
+                                <div class="col-md-4">
                                     <button id="reiniciarUnir" class="btn btn-info" onclick="reiniciarUnir();">
                                         Reiniciar
                                     </button>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-8">
                                     <button id="enviarUnir" class="btn btn-success" disabled="disabled"
                                             onclick="verificarRespuestaUnir()">Enviar Respuesta
                                     </button>
                                 </div>
                             </div>
                             <div class="row unir">
-                                <div class="col-md-5">
+                                <div class="col-md-4">
                                     <button id="botonImagenAUnir1" onclick="obtenerId(this);">
                                         <img id="imagenAUnir1" src="static/imagenes/vacio.png" class="img-thumbnail"
                                              style="border:2px solid black" height="50" width="50">
                                     </button>
                                 </div>
-                                <div class="col-md-2">
-                                    <label id="textoCorrecto1"></label>
-                                </div>
-                                <div class="col-md-5">
-                                    <button id="textoAUnir1" class="btn" disabled onclick="obtenerId(this);">Texto 1
+                                <div class="col-md-8">
+                                    <button id="textoAUnir1" class="btn textoUnir" disabled onclick="obtenerId(this);">Texto 1
                                     </button>
                                 </div>
                             </div>
                             <div class="row unir">
-                                <div class="col-md-5">
+                                <div class="col-md-4">
                                     <button id="botonImagenAUnir2" onclick="obtenerId(this);">
                                         <img id="imagenAUnir2" src="static/imagenes/vacio.png" class="img-thumbnail"
                                              style="border:2px solid black" height="50" width="50">
                                     </button>
                                 </div>
-                                <div class="col-md-2">
-                                    <label id="textoCorrecto2"></label>
-                                </div>
-                                <div class="col-md-5">
-                                    <button id="textoAUnir2" class="btn " disabled onclick="obtenerId(this);">Texto
+                                <div class="col-md-8">
+                                    <button id="textoAUnir2" class="btn textoUnir" disabled onclick="obtenerId(this);">Texto
                                         2
                                     </button>
                                 </div>
                             </div>
                             <div class="row unir">
-                                <div class="col-md-5">
+                                <div class="col-md-4">
                                     <button id="botonImagenAUnir3" onclick="obtenerId(this);">
                                         <img id="imagenAUnir3" src="static/imagenes/vacio.png" class="img-thumbnail"
                                              style="border:2px solid black" height="50" width="50">
                                     </button>
                                 </div>
-                                <div class="col-md-2">
-                                    <label id="textoCorrecto3"></label>
-                                </div>
-                                <div class="col-md-5">
-                                    <button id="textoAUnir3" class="btn" disabled onclick="obtenerId(this);">Texto 3
+                                <div class="col-md-8">
+                                    <button id="textoAUnir3" class="btn textoUnir" disabled onclick="obtenerId(this);">Texto 3
                                     </button>
                                 </div>
                             </div>
                             <div class="row unir">
-                                <div class="col-md-5">
+                                <div class="col-md-4">
                                     <button id="botonImagenAUnir4" onclick="obtenerId(this);">
                                         <img id="imagenAUnir4" src="static/imagenes/vacio.png" class="img-thumbnail"
                                              style="border:2px solid black" height="50" width="50">
                                     </button>
                                 </div>
-                                <div class="col-md-2">
-                                    <label id="textoCorrecto4"></label>
-                                </div>
-                                <div class="col-md-5">
-                                    <button id="textoAUnir4" class="btn" disabled onclick="obtenerId(this);">Texto 4
+                                <div class="col-md-8">
+                                    <button id="textoAUnir4" class="btn textoUnir" disabled onclick="obtenerId(this);">Texto 4
                                     </button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div id="memory_boardMulti" hidden> </div>
+                    <div id="memory_boardMulti" hidden>
+                    </div>
+                    <div id="respuestaUnirVoltear" hidden style="border: solid">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <label>Último par encontrado: </label>
+                            </div>
+                            <div class="col-md-7 text-left" style="margin-top: 5px">
+                                <img id="ultimoPar" class="disabledbutton" src="../../../static/imagenes/0.png" height="50px" width="50px" style="background: transparent">
+                                <label id="ultimoNombre"></label>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
