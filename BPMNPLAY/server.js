@@ -457,11 +457,11 @@ function seleccionarColor(filasN, columnasN, gameMapN,) {
                     indice++;
                     break;
                 default:
-                     let colorA = Math.floor(Math.random() * 3);
+                     //let colorA = Math.floor(Math.random() * 3);
                     // 0 = Unir voltear - amarillo
                     // 1 = Emparejar - rosado
                     // 2 = Opción múltiple - azul
-                   // var colorA = 1;
+                    var colorA = 1;
                     let colorAnterior = -1;
                     while (colorA == colorAnterior) {
                         colorA = Math.floor(Math.random() * 3);

@@ -11,7 +11,7 @@
 <header style="margin-bottom: 10px">
     <% include ../../parciales/headerTablero %>
 </header>
-<form name = "formulario" hidden method="post" action="/partidaFinalizada">
+<form name="formulario" hidden method="post" action="/partidaFinalizada">
     <input type="text" hidden name="idPartida" id="idPartida" value="<%= idPartida %>">
     <input type="text" hidden name="rol" id="rol" value="<%= rol %>">
     <input type="text" hidden name="nombreEquipo" id="nombreEquipo" value="<%= nombreEquipo %>">
@@ -26,7 +26,7 @@
         </div>
         <div class="col-md-auto text-center">
             <div class="row text-center">
-                 <table class="table">
+                <table class="table">
                     <thead>
                     <tr>
                         <th></th>
@@ -148,8 +148,8 @@
                         </div>
                     </div>
                     <div id="unir" class="row" hidden onmouseover="verificarCompletoUnir()">
-                        <div class="container-fluid">
-                            <div class="row text-left">
+                        <div class="container-fluid text-left">
+                            <div class="row">
                                 <div class="col-md-4">
                                     <button id="reiniciarUnir" class="btn btn-info" onclick="reiniciarUnir();">
                                         Reiniciar
@@ -169,7 +169,8 @@
                                     </button>
                                 </div>
                                 <div class="col-md-8">
-                                    <button id="textoAUnir1" class="btn textoUnir" disabled onclick="obtenerId(this);">Texto 1
+                                    <button id="textoAUnir1" class="btn textoUnir" disabled onclick="obtenerId(this);">
+                                        Texto 1
                                     </button>
                                 </div>
                             </div>
@@ -181,7 +182,8 @@
                                     </button>
                                 </div>
                                 <div class="col-md-8">
-                                    <button id="textoAUnir2" class="btn textoUnir" disabled onclick="obtenerId(this);">Texto
+                                    <button id="textoAUnir2" class="btn textoUnir" disabled onclick="obtenerId(this);">
+                                        Texto
                                         2
                                     </button>
                                 </div>
@@ -194,7 +196,8 @@
                                     </button>
                                 </div>
                                 <div class="col-md-8">
-                                    <button id="textoAUnir3" class="btn textoUnir" disabled onclick="obtenerId(this);">Texto 3
+                                    <button id="textoAUnir3" class="btn textoUnir" disabled onclick="obtenerId(this);">
+                                        Texto 3
                                     </button>
                                 </div>
                             </div>
@@ -206,10 +209,94 @@
                                     </button>
                                 </div>
                                 <div class="col-md-8">
-                                    <button id="textoAUnir4" class="btn textoUnir" disabled onclick="obtenerId(this);">Texto 4
+                                    <button id="textoAUnir4" class="btn textoUnir" disabled onclick="obtenerId(this);">
+                                        Texto 4
                                     </button>
                                 </div>
                             </div>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            <button id="reiniciarUnir" class="btn btn-info" onclick="reiniciarUnir();">
+                                                Reiniciar
+                                            </button>
+                                        </th>
+                                        <th scope="col">
+                                            <button id="enviarUnir" class="btn btn-success" disabled="disabled"
+                                                    onclick="verificarRespuestaUnir()">Enviar Respuesta
+                                            </button>
+                                        </th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <button id="botonImagenAUnir1" onclick="obtenerId(this);">
+                                                <img id="imagenAUnir1" src="static/imagenes/vacio.png"
+                                                     class="img-thumbnail"
+                                                     style="border:2px solid black" height="50" width="50">
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button id="textoAUnir1" class="btn textoUnir" disabled
+                                                    onclick="obtenerId(this);">Texto 1
+                                            </button>
+                                        </td>
+                                        <td>Cell</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button id="botonImagenAUnir2" onclick="obtenerId(this);">
+                                                <img id="imagenAUnir2" src="static/imagenes/vacio.png"
+                                                     class="img-thumbnail"
+                                                     style="border:2px solid black" height="50" width="50">
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button id="textoAUnir2" class="btn textoUnir" disabled
+                                                    onclick="obtenerId(this);">Texto
+                                                2
+                                            </button>
+                                        </td>
+                                        <td>Cell</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button id="botonImagenAUnir3" onclick="obtenerId(this);">
+                                                <img id="imagenAUnir3" src="static/imagenes/vacio.png"
+                                                     class="img-thumbnail"
+                                                     style="border:2px solid black" height="50" width="50">
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button id="textoAUnir3" class="btn textoUnir" disabled
+                                                    onclick="obtenerId(this);">Texto 3
+                                            </button>
+                                        </td>
+                                        <td>Cell</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button id="botonImagenAUnir4" onclick="obtenerId(this);">
+                                                <img id="imagenAUnir4" src="static/imagenes/vacio.png"
+                                                     class="img-thumbnail"
+                                                     style="border:2px solid black" height="50" width="50">
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button id="textoAUnir4" class="btn textoUnir" disabled
+                                                    onclick="obtenerId(this);">Texto 4
+                                            </button>
+                                        </td>
+                                        <td>Cell</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
                         </div>
                     </div>
                     <div id="memory_boardMulti" hidden>
@@ -220,7 +307,8 @@
                                 <label>Último par encontrado: </label>
                             </div>
                             <div class="col-md-7 text-left" style="margin-top: 5px">
-                                <img id="ultimoPar" class="disabledbutton" src="../../../static/imagenes/0.png" height="50px" width="50px" style="background: transparent">
+                                <img id="ultimoPar" class="disabledbutton" src="../../../static/imagenes/0.png"
+                                     height="50px" width="50px" style="background: transparent">
                                 <label id="ultimoNombre"></label>
                             </div>
                         </div>
