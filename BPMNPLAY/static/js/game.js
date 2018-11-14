@@ -792,20 +792,24 @@ function cargarPreguntaUnirVoltear(indicePregunta, texto, a) {
 }
 
 function obtenerId(e) {
-    var id = e.id;
+    let id = e.id;
     switch (true) {
 
         case respuestaUnir.length < 2:
-            document.getElementById(id).style.border = "thick solid blue";
+            document.getElementById(id).style.border = "thick solid #B78E4C";
+            document.getElementById(id).style.background = "#B78E4C";
             break;
         case respuestaUnir.length < 4:
-            document.getElementById(id).style.border = "thick solid orange";
+            document.getElementById(id).style.border = "thick solid #4CB0B7";
+            document.getElementById(id).style.background = "#4CB0B7";
             break;
         case respuestaUnir.length < 6:
-            document.getElementById(id).style.border = "thick solid black";
+            document.getElementById(id).style.border = "thick solid #864CB7";
+            document.getElementById(id).style.background = "#864CB7";
             break;
         case respuestaUnir.length < 8:
-            document.getElementById(id).style.border = "thick solid yellow";
+            document.getElementById(id).style.border = "thick solid #F9B052";
+            document.getElementById(id).style.background = "#F9B052";
             break;
 
     }
@@ -816,10 +820,10 @@ function obtenerId(e) {
     }
 
     if (imagenUnir.indexOf(id) >= 0) {
-        for (var i = 0; i < imagenUnir.length; i++) {
+        for (let i = 0; i < imagenUnir.length; i++) {
             document.getElementById(imagenUnir[i]).setAttribute("disabled", "");
         }
-        for (var j = 0; j < textoUnir.length; j++) {
+        for (let j = 0; j < textoUnir.length; j++) {
             if (respuestaUnir.indexOf(textoUnir[j]) > 0) {
                 document.getElementById(textoUnir[j]).setAttribute("disabled", "");
             } else {
@@ -827,15 +831,15 @@ function obtenerId(e) {
             }
         }
     } else if (textoUnir.indexOf(id) >= 0) {
-        for (var i = 0; i < textoUnir.length; i++) {
-            document.getElementById(textoUnir[i]).setAttribute("disabled", "");
+        for (let k = 0; k < textoUnir.length; k++) {
+            document.getElementById(textoUnir[k]).setAttribute("disabled", "");
         }
 
-        for (var j = 0; j < imagenUnir.length; j++) {
-            if (respuestaUnir.indexOf(imagenUnir[j]) >= 0) {
-                document.getElementById(imagenUnir[j]).setAttribute("disabled", "");
+        for (let l = 0; l < imagenUnir.length; l++) {
+            if (respuestaUnir.indexOf(imagenUnir[l]) >= 0) {
+                document.getElementById(imagenUnir[l]).setAttribute("disabled", "");
             } else {
-                document.getElementById(imagenUnir[j]).removeAttribute("disabled");
+                document.getElementById(imagenUnir[l]).removeAttribute("disabled");
             }
         }
     }
@@ -851,14 +855,15 @@ function verificarCompletoUnir() {
 }
 
 function reiniciarUnir() {
-    for (var i = 0; i < respuestaUnir.length; i++) {
+    for (let i = 0; i < respuestaUnir.length; i++) {
         document.getElementById(respuestaUnir[i]).style.border = "gray";
+        document.getElementById(respuestaUnir[i]).style.background = "gray";
         if (imagenUnir.indexOf(respuestaUnir[i]) >= 0) {
             document.getElementById(respuestaUnir[i]).removeAttribute("disabled");
         }
     }
 
-    for (var i = respuestaUnir.length; i > 0; i--) {
+    for (let j = respuestaUnir.length; j > 0; j--) {
         respuestaUnir.pop();
     }
     if (turnoJugadores[0] == idSocketActual) {
@@ -906,7 +911,9 @@ function verificarRespuestaUnir() {
         for (let k = 0; k < respuestaCorrectaUnir.length - 1; k++) {
             let idBoton1 = respuestaUnir[j];
             let idBoton2 = respuestaUnir[j + 1];
-            if (document.getElementById(idBoton1).getAttribute("nombre") == respuestaCorrectaUnir[k] && document.getElementById(idBoton2).textContent == respuestaCorrectaUnir[k + 1]) {
+            console.log("Color: "+document.getElementById(idBoton2).style.background);
+            if (document.getElementById(idBoton1).getAttribute("nombre") == respuestaCorrectaUnir[k]
+                && document.getElementById(idBoton2).textContent == respuestaCorrectaUnir[k + 1]) {
                 contadorRespuestas++;
                 j++;
                 k = respuestaUnir.length

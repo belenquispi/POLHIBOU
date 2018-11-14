@@ -13,6 +13,7 @@ var bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser');
 var Profesor = require("./models/profesor").Profesor;
 var Estudiante = require("./models/estudiante").Estudiante;
+var Partida = require("./models/partida").Partida;
 
 app.set('port', 5000);
 // set the view engine to ejs
@@ -141,12 +142,12 @@ io.on('connection', function (socket) {
     io.sockets.emit('parametrosJuego');
     socket.on('nuevaPartida', function (room, rol, nombreIconoEquipos, usuario, idMateria) {
         socket.join(room);
-        var idPartida = partidas.map(function (e) {
+        let idPartida = partidas.map(function (e) {
             return e.nombrePartida
         }).indexOf(room);
         if (idPartida >= 0) {
             if (partidas[idPartida].jugadores.length < 4) {
-                for (var i = 0; i < nombreIconoEquipos.length; i++) {
+                for (let i = 0; i < nombreIconoEquipos.length; i++) {
                     insertarDatosJugador(idPartida, nombreIconoEquipos[i].iconoEquipo, nombreIconoEquipos[i].nombreEquipo);
                     descargarPreguntas(idPartida, usuario, idMateria);
                 }
@@ -154,7 +155,7 @@ io.on('connection', function (socket) {
         }
         else {
             partidas.push(new partida(room));
-            for (var j = 0; j < nombreIconoEquipos.length; j++) {
+            for (let j = 0; j < nombreIconoEquipos.length; j++) {
                 insertarDatosJugador(partidas.length - 1, nombreIconoEquipos[j].iconoEquipo, nombreIconoEquipos[j].nombreEquipo);
                 descargarPreguntas(partidas.length - 1, usuario, idMateria);
             }
@@ -548,6 +549,33 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
         console.log("kkk: " + this.casilla);
         actualizarOrdenPartidas(roomActual);
         if(partidas[indicePartidaActual].lugaresJugadores.length == partidas[indicePartidaActual].jugadores.length){
+            Partida.findOne({idPartida: partidas[indicePartidaActual].nombrePartida}, function (error, doc) {
+                if (error) {
+                    console.log("Error en la busqueda de la partida en la BDD: " + error);
+                }
+                else {
+                    if(doc != null){
+                        let partidaF = {
+                            idPartida: partidas[indicePartidaActual].nombrePartida,
+                            jugadores: [],
+                            turnoJugadores: partidas[indicePartidaActual].lugaresJugadores
+                        };
+                        for(let x = 0; x < partidas[indicePartidaActual].jugadores.length; x++ ){
+                            let jugadorF = {
+                                idSocket: partidas[indicePartidaActual].jugadores[x].idSocket,
+                                nombre: partidas[indicePartidaActual].jugadores[x].nombreEquipo,
+                                iconoEquipo: partidas[indicePartidaActual].jugadores[x].iconoEquipo
+                            };
+                            partidaF.jugadores.push(jugadorF);
+                        }
+                        partidaF.save(function (err, partidaF) {
+                            if (err) return console.log(err);
+                            console.log("Jugadores guardados");
+                        })
+                    }
+
+                }
+            });
             console.log("Partida finalizada desde server")
             io.sockets.in(roomActual).emit('partidaFinalizada');
         }
