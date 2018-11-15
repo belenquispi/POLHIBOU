@@ -3,82 +3,92 @@
 <head>
     <% include ../../parciales/head %>
     <meta http-equiv="Content-Type" content="text/html"/>
-    <link rel="stylesheet" type="text/css" href="static/css/estilos.css">
     <title>Tablero</title>
     <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
-<header>
-    <% include ../../parciales/header %>
+<header style="margin-bottom: 10px">
+    <% include ../../parciales/headerProfesor %>
 </header>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/ingresoFacilitador">Inicio</a></li>
+    </ol>
+</nav>
 <div class="container">
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-10">
             <div class="row">
-                <h3>Resultados de la Partida </h3>
+                <h3>Resultados de la Partida <%= idPartida %></h3>
             </div>
-            <% let numeroEquipos = 2;
-            for(let i = 0; i < numeroEquipos; i++){%>
-            <div class="row" style="margin-bottom: 10px">
-                <div class="col-md-4">
-                    <div class="equipo<%=(i+1)%> el">
-                        <img id="lugar<%=i%>" src="../../../static/imagenes/lugar<%=(i+1)%>.svg"
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Lugar</th>
+                    <th scope="col">Icono</th>
+                    <th scope="col">Equipo</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <% for(let i = 0; i < equipos.length; i++){ %>
+                <tr>
+                    <td>
+                        <img id="lugar<%= i %>" src="../../../static/imagenes/lugar<%= (i + 1) %>.svg"
                              height="150" width="150">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="icono<%=(i+1)%> el">
-                    <img id="lugar<%=i%>"  src="../../../static/buho<%=(i+1)%>.gif"
-                         height="150" width="150">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="nombre<%=(i+1)%> el">
-                    <h3>Equipo <%=(i+1)%></h3>
-                    </div>
-                </div>
-                </div>
-            <%}%>
+                    </td>
+                    <td>
+                        <img id="lugar<%= i %>" src="../../../static/buho<%= (equipos[i].icono) %>.gif"
+                             height="150" width="150">
+                    </td>
+                    <td><h3><%= equipos[i].nombre %></h3>
+                    </td>
+                </tr>
+
+                <% } %>
+
+                </tbody>
+            </table>
         </div>
         <div class="col-md-2"></div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"></script>
     <script>
-  /*  var basicTimeline = anime.timeline();
-    basicTimeline
-        .add({
-            targets: '.equipo1.el',
-            translateX: 50,
-        easing: 'easeOutExpo'
-    })
-    .add({
-        targets: '.icono1',
-        translateX: 50,
-        easing: 'easeOutExpo'
-    })
-        .add({
-            targets: '.nombre1',
-            translateX: 50,
-            easing: 'easeOutExpo'
-        })
-        .add({
-            targets: '.equipo2.el',
-            translateX: 50,
-            easing: 'easeOutExpo'
-        })
-        .add({
-            targets: '.icono2',
-            translateX: 50,
-            easing: 'easeOutExpo'
-        })
-        .add({
-            targets: '.nombre2',
-            translateX: 50,
-            easing: 'easeOutExpo'
-        });*/
+        /*  var basicTimeline = anime.timeline();
+          basicTimeline
+              .add({
+                  targets: '.equipo1.el',
+                  translateX: 50,
+              easing: 'easeOutExpo'
+          })
+          .add({
+              targets: '.icono1',
+              translateX: 50,
+              easing: 'easeOutExpo'
+          })
+              .add({
+                  targets: '.nombre1',
+                  translateX: 50,
+                  easing: 'easeOutExpo'
+              })
+              .add({
+                  targets: '.equipo2.el',
+                  translateX: 50,
+                  easing: 'easeOutExpo'
+              })
+              .add({
+                  targets: '.icono2',
+                  translateX: 50,
+                  easing: 'easeOutExpo'
+              })
+              .add({
+                  targets: '.nombre2',
+                  translateX: 50,
+                  easing: 'easeOutExpo'
+              });*/
 
-</script>
+    </script>
 </body>
 </html>

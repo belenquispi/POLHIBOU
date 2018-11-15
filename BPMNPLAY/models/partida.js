@@ -5,7 +5,7 @@ let Schema = mongoose.Schema;
 mongoose.connect('mongodb://localhost:27017/polibou', { useNewUrlParser: true });
 
 // Creacion del esquema
-let partidaSchema = new Schema({
+var partidaSchema = new Schema({
     idPartida: String,
     jugadores: [
         {
@@ -17,5 +17,5 @@ let partidaSchema = new Schema({
     turnoJugadores: Array
 });
 //Creacion del modelo
-let Partida = mongoose.model("Partida", partidaSchema);
+var Partida = mongoose.model("Partida", partidaSchema);
 module.exports.Partida = Partida;

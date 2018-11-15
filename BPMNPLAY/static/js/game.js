@@ -18,7 +18,8 @@ var per4 = new Image();
 var filas, columnas, anchoCasilla, altoCasilla;
 var gameMap = [];
 var colorMap = [];
-var patterColor1, patterColor2, patterColor3, patterLlegada, patterInicio, patterIncierto, patterFin, patterB, patterP, patterM, patterN, patterPlay;
+var patterColor1, patterColor2, patterColor3, patterLlegada, patterInicio, patterIncierto, patterFin, patterB, patterP,
+    patterM, patterN, patterPlay;
 var socket = io();
 var jugadores = [];
 var turnoJugadores = [];
@@ -110,11 +111,11 @@ socket.on('partida', function (data) {
 });
 
 socket.on('mensajeMisterio', function (num, casillasExtras) {
-    if(num == 1) {
+    if (num == 1) {
         misterioPositivo();
     }
     else {
-        if(num == 0){
+        if (num == 0) {
             misterioNegativo();
         }
     }
@@ -152,8 +153,8 @@ socket.on('respondiendoIndicePreguntaOpcionMultiple', function (indicePregunta) 
 
 socket.on('respondiendoIndicePreguntaUnir', function (arrayIndices, arrayTexto) {
     respuestaCorrectaUnir = [];
-    for (var i = 0; i < arrayIndices.length; i++) {
-        respuestaCorrectaUnir.push(preguntasUnirVoltear[arrayIndices[i]].imagen);
+    for (let i = 0; i < arrayIndices.length; i++) {
+        respuestaCorrectaUnir.push("botonImagenAUnir" + (i + 1));
         respuestaCorrectaUnir.push(preguntasUnirVoltear[arrayIndices[i]].texto);
         cargarPreguntaUnirVoltear(arrayIndices[i], arrayTexto[i], (i + 1));
     }
@@ -199,9 +200,10 @@ socket.on('enviandoDarLaVuelta', function (idSocketN) {
     }
 });
 socket.on('partidaFinalizada', function () {
-      document.getElementById("botonFinalizacion").removeAttribute("disabled");
-      document.getElementById("botonFinalizacion").click();
+    document.getElementById("botonFinalizacion").removeAttribute("disabled");
+    document.getElementById("botonFinalizacion").click();
 });
+
 function agregarNumerosCasilla() {
     for (var y = 0; y < filas; ++y) {
         for (var x = 0; x < columnas; ++x) {
@@ -227,6 +229,7 @@ function agregarNumerosCasilla() {
         }
     }
 }
+
 function drawGame() {
     if (ctx == null) {
         return;
@@ -240,10 +243,10 @@ function drawGame() {
             return value.idSocket
         }).indexOf(idSocketActual)].boton == 0)) {
             desbloquearBoton();
-        /* numCasillasMoverse = -1;
-          jugadores[jugadores.map(function (value) {
-                return value.idSocket
-            }).indexOf((idSocketActual))].boton = 1;*/
+            /* numCasillasMoverse = -1;
+              jugadores[jugadores.map(function (value) {
+                    return value.idSocket
+                }).indexOf((idSocketActual))].boton = 1;*/
         }
         mostrarJugadorActual();
 
@@ -394,7 +397,7 @@ function indiceDelJugadorConTurno() {
         indice = jugadores.map(function (value) {
             return value.idSocket;
         }).indexOf(turnoJugadores[0]);
-       } else {
+    } else {
         indice = -1;
     }
     return indice;
@@ -426,12 +429,11 @@ function lanzarDado() {
     var misterio = jugadores[jugadores.map(function (value) {
         return value.idSocket;
     }).indexOf(idSocketActual)].maldicion;
-    if( misterio == 1)
-    {
+    if (misterio == 1) {
         dado1 = 1;
         dado2 = 1;
-    }else {
-       // dadoRandomico();
+    } else {
+        // dadoRandomico();
         dado1 = 6;
         dado2 = 6;
     }
@@ -583,8 +585,8 @@ function mostrarDesafio(colorCa, idSocket) {
             document.getElementById("desafios").removeAttribute("hidden");
             document.getElementById("memory_boardMulti").removeAttribute("hidden");
             document.getElementById("respuestaUnirVoltear").removeAttribute("hidden");
-            document.getElementById("ultimoPar").setAttribute("src","../../../static/imagenes/0.png");
-            document.getElementById("ultimoNombre").innerHTML="";
+            document.getElementById("ultimoPar").setAttribute("src", "../../../static/imagenes/0.png");
+            document.getElementById("ultimoNombre").innerHTML = "";
             document.getElementById("unir").setAttribute("hidden", "");
             document.getElementById("opcionMultiple").setAttribute("hidden", "");
             break;
@@ -798,18 +800,25 @@ function obtenerId(e) {
         case respuestaUnir.length < 2:
             document.getElementById(id).style.border = "thick solid #B78E4C";
             document.getElementById(id).style.background = "#B78E4C";
+            document.getElementById(id).style.color = "black";
             break;
         case respuestaUnir.length < 4:
             document.getElementById(id).style.border = "thick solid #4CB0B7";
             document.getElementById(id).style.background = "#4CB0B7";
+            document.getElementById(id).style.color = "black";
+
             break;
         case respuestaUnir.length < 6:
             document.getElementById(id).style.border = "thick solid #864CB7";
             document.getElementById(id).style.background = "#864CB7";
+            document.getElementById(id).style.color = "black";
+
             break;
         case respuestaUnir.length < 8:
             document.getElementById(id).style.border = "thick solid #F9B052";
             document.getElementById(id).style.background = "#F9B052";
+            document.getElementById(id).style.color = "black";
+
             break;
 
     }
@@ -856,8 +865,8 @@ function verificarCompletoUnir() {
 
 function reiniciarUnir() {
     for (let i = 0; i < respuestaUnir.length; i++) {
+        document.getElementById(respuestaUnir[i]).removeAttribute("style");
         document.getElementById(respuestaUnir[i]).style.border = "gray";
-        document.getElementById(respuestaUnir[i]).style.background = "gray";
         if (imagenUnir.indexOf(respuestaUnir[i]) >= 0) {
             document.getElementById(respuestaUnir[i]).removeAttribute("disabled");
         }
@@ -876,8 +885,8 @@ function mostrarMensajeParEncontrado(url) {
         return e.imagen
     }).indexOf(url);
     if (indicePreguntaUnir >= 0) {
-         document.getElementById("ultimoPar").setAttribute("src", url);
-         document.getElementById("ultimoNombre").innerHTML = preguntasUnirVoltear[indicePreguntaUnir].texto;
+        document.getElementById("ultimoPar").setAttribute("src", url);
+        document.getElementById("ultimoNombre").innerHTML = preguntasUnirVoltear[indicePreguntaUnir].texto;
     }
 
 }
@@ -907,18 +916,38 @@ function verificarRespuestaUnir() {
         socket.emit('verificarUnir', roomActual);
     }
     let contadorRespuestas = 0;
-    for (let j = 0; j < respuestaUnir.length - 1; j++) {
+    for (let j = 0; j < respuestaUnir.length - 1; j = j + 2) {
         for (let k = 0; k < respuestaCorrectaUnir.length - 1; k++) {
             let idBoton1 = respuestaUnir[j];
             let idBoton2 = respuestaUnir[j + 1];
-            console.log("Color: "+document.getElementById(idBoton2).style.background);
-            if (document.getElementById(idBoton1).getAttribute("nombre") == respuestaCorrectaUnir[k]
+            if (idBoton1 == respuestaCorrectaUnir[k]
                 && document.getElementById(idBoton2).textContent == respuestaCorrectaUnir[k + 1]) {
                 contadorRespuestas++;
-                j++;
-                k = respuestaUnir.length
+                k = respuestaUnir.length;
             }
-
+            else {
+                k++;
+            }
+        }
+    }
+    let texto = [];
+    for (let a = 0; a < respuestaUnir.length - 1; a = a + 2) {
+        texto.push(document.getElementById(respuestaUnir[a + 1]).textContent);
+    }
+    for (let x = 0; x < respuestaCorrectaUnir.length - 1; x = x + 2) {
+        for (let y = 0; y < respuestaUnir.length - 1; y = y + 2) {
+            if (respuestaCorrectaUnir[x] == respuestaUnir[y]) {
+                document.getElementById("textoAUnir" + ((x / 2) + 1)).textContent = texto[y / 2];
+                y = respuestaUnir.length;
+            }
+        }
+    }
+    for (let c = 0; c < respuestaCorrectaUnir.length - 1; c = c + 2) {
+        for (let d = 1; d < 5; d++) {
+            if (respuestaCorrectaUnir[c + 1] == document.getElementById("textoAUnir" +d).textContent) {
+                document.getElementById("textoAUnir" + (d)).style.background = document.getElementById(respuestaCorrectaUnir[c]).style.background;
+                d = 5;
+            }
         }
     }
 
@@ -949,9 +978,11 @@ function desafioCorrecto() {
     mostrarMensaje("snackbar");
     respuestaCorrecta = true;
 }
+
 function misterioPositivo() {
     mostrarMensaje("snackbarPositivo");
 }
+
 function misterioNegativo() {
     mostrarMensaje("snackbarNegativo");
 }
@@ -968,15 +999,12 @@ function mostrarRespuestaCorrectaUnir() {
     console.log("Respuesta unir ");
     for (let i = 0; i < 4; i++) {
         console.log(document.getElementById("textoAUnir" + (i + 1)).textContent);
-
-        if( document.getElementById("textoAUnir" + (i + 1)).textContent == respuestaCorrectaUnir[(i * 2) + 1]){
+        if (document.getElementById("textoAUnir" + (i + 1)).textContent == respuestaCorrectaUnir[(i * 2) + 1]) {
             document.getElementById("textoAUnir" + (i + 1)).style.border = "thick solid green";
             document.getElementById("botonImagenAUnir" + (i + 1)).style.border = "thick solid green";
-        }else
-        {
+        } else {
             document.getElementById("textoAUnir" + (i + 1)).style.border = "thick solid red";
             document.getElementById("botonImagenAUnir" + (i + 1)).style.border = "thick solid red";
-            document.getElementById("textoAUnir" + (i + 1)).textContent = respuestaCorrectaUnir[(i * 2) + 1];
         }
     }
 }

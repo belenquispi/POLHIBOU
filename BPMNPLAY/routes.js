@@ -1,6 +1,7 @@
 var Profesor = require("./models/profesor").Profesor;
 var Estudiante = require("./models/estudiante").Estudiante;
 var Usuario = require("./models/usuario").Usuario;
+var Partida = require("./models/partida").Partida;
 var correo = require("./correo");
 
 exports.get_inicio = function (req, res) {
@@ -30,7 +31,7 @@ exports.post_inicio_sesion = function (req, res) {
         let now = new Date();
         if (doc != null) {
             if (doc.codigoVerificacion == 0) {
-                if(doc.contraseniaTemporal == 0) {
+                if (doc.contraseniaTemporal == 0) {
                     if (req.body.contrasenia != doc.contrasenia) {
                         res.render('paginas/inicioSesion', {usuario: doc.usuario, tipo: 0});
                     } else {
@@ -48,10 +49,10 @@ exports.post_inicio_sesion = function (req, res) {
                             }
                         })
                     }
-                }else{
-                    if(req.body.contrasenia == doc.contraseniaTemporal) {
+                } else {
+                    if (req.body.contrasenia == doc.contraseniaTemporal) {
                         res.render('paginas/nuevaContrasenia', {nombre: doc.nombre, usuario: req.body.usuario});
-                    } else{
+                    } else {
                         res.redirect('/inicioSesion');
                     }
                 }
@@ -89,7 +90,7 @@ exports.get_ingreso_profesor = function (req, res) {
 
             }
             req.session.rol = "facilitador";
-            console.log("Holaaaaa: "+ req.session.rol);
+            console.log("Holaaaaa: " + req.session.rol);
             res.render('paginas/facilitador/inicioProfesor', {
                 nombre: req.session.nombre,
                 usuario: req.session.usuario,
@@ -138,7 +139,10 @@ exports.post_creacion_cuenta = function (req, res) {
         }
         else {
             if (doc != null) {
-                res.render('paginas/error', {mensaje: "El usuario ya se encuentra registrado", direccion: "/inicioSesion"});
+                res.render('paginas/error', {
+                    mensaje: "El usuario ya se encuentra registrado",
+                    direccion: "/inicioSesion"
+                });
             } else {
                 let usuario = new Usuario({
                     nombre: req.body.nombre,
@@ -179,7 +183,7 @@ exports.post_creacion_cuenta = function (req, res) {
                 });
             }
         }
-        });
+    });
 
 };
 exports.post_ingreso_materia = function (req, res) {
@@ -361,7 +365,10 @@ exports.post_detalle_opcion_multiple = function (req, res) {
 exports.get_creacion_partida = function (req, res) {
     if (req.session.usuario && req.params.materia) {
         if (req.session.rol == "facilitador") {
-            res.render('paginas/facilitador/creacionPartida', {nombre: req.session.nombre, materia: req.params.materia});
+            res.render('paginas/facilitador/creacionPartida', {
+                nombre: req.session.nombre,
+                materia: req.params.materia
+            });
         } else {
             if (req.session.rol == "partipante") {
                 res.redirect('/inicioEstudiante');
@@ -394,14 +401,20 @@ exports.post_tablero = function (req, res) {
 };
 exports.get_opcion_multiple = function (req, res) {
     if (req.session.usuario) {
-        res.render('paginas/facilitador/preguntasOpcionMultiple', {nombre: req.session.nombre, materia: req.params.materia});
+        res.render('paginas/facilitador/preguntasOpcionMultiple', {
+            nombre: req.session.nombre,
+            materia: req.params.materia
+        });
     } else {
         res.redirect('/inicioSesion');
     }
 };
 exports.get_unir_voltear = function (req, res) {
     if (req.session.usuario) {
-        res.render('paginas/facilitador/preguntasUnirVoltear', {nombre: req.session.nombre, materia: req.params.materia});
+        res.render('paginas/facilitador/preguntasUnirVoltear', {
+            nombre: req.session.nombre,
+            materia: req.params.materia
+        });
     } else {
         res.redirect('/inicioSesion');
     }
@@ -607,7 +620,7 @@ exports.post_lobby_pariticipante = function (req, res) {
             nombre: nombre
         });
     } else {
-        res.render('paginas/error', {mensaje:"Estas accediendo a un lugar donde no tienes acceso", direccion: "/"});
+        res.render('paginas/error', {mensaje: "Estas accediendo a un lugar donde no tienes acceso", direccion: "/"});
     }
 
 };
@@ -1295,21 +1308,23 @@ exports.post_recuperar_contrasenia = function (req, res) {
             console.log("Error en la busqueda del usuario: " + error);
         }
         else {
-            if(doc != null)
-            {
+            if (doc != null) {
                 var contraseniaTemporal = generarNombre();
                 doc.contraseniaTemporal = contraseniaTemporal;
-                console.log("Con Contrasenia Temporal: "+doc)
+                console.log("Con Contrasenia Temporal: " + doc)
                 doc.save(function (err, docActualizado) {
                     if (err) {
-                        res.render('paginas/error', {mensaje: err, direccion:"/recuperarContrasenia"})
+                        res.render('paginas/error', {mensaje: err, direccion: "/recuperarContrasenia"})
                     }
                     correo.enviarCorreo(doc.usuario, doc.contraseniaTemporal);
-                    res.render('paginas/inicioSesion', {usuario: "", tipo : 1});
+                    res.render('paginas/inicioSesion', {usuario: "", tipo: 1});
                 })
             }
             else {
-                res.render('paginas/error', {mensaje:"El usuario ingresado no se encuentra registrado.", direccion : "/"});
+                res.render('paginas/error', {
+                    mensaje: "El usuario ingresado no se encuentra registrado.",
+                    direccion: "/"
+                });
             }
         }
     });
@@ -1327,14 +1342,68 @@ exports.post_actualizar_contrasenia = function (req, res) {
             doc.contraseniaTemporal = 0;
             doc.save(function (err, docActualizado) {
                 if (err) return console.log(err);
-                res.render('paginas/inicioSesion', {usuario: "", tipo : 2});
+                res.render('paginas/inicioSesion', {usuario: "", tipo: 2});
             })
         }
     });
 };
 exports.post_partida_finalizada = function (req, res) {
-           res.render('paginas/participante/partidaFinalizada', {
+    console.log("Ingrese a la finalizaci{on de la partida");
+    if (req.body.idPartida != null) {
+        Partida.findOne({idPartida: req.body.idPartida}, function (error, partida) {
+            if (error) {
+                console.log("Erororor: " + error);
+                res.render('paginas/error', {
+                    mensaje: "Se ha presentado un error en el servidor. Favor contactarse con el administrador",
+                    direccion: "/"
+                });
+            } else {
+                if (partida != null) {
+                    console.log("Si existe la partida");
+                    let equipos = [];
+                    for (let i = 0; i < partida.jugadores.length; i++) {
+                        for (let j = 0; j < partida.jugadores.length; j++) {
+                            if (partida.turnoJugadores[i] == partida.jugadores[j].idSocket) {
+                                let equipo = {
+                                    nombre: partida.jugadores[j].nombre,
+                                    icono: partida.jugadores[j].iconoEquipo
+                                };
+                                equipos.push(equipo);
+                                j = partida.jugadores.length;
+                            }
+                        }
+                    }
+                    console.log("Rol: " + req.session.rol);
+                    if (req.session.rol == "facilitador") {
+                        res.render('paginas/participante/partidaFinalizada', {
+                            idPartida: req.body.idPartida,
+                            rol: req.body.rol,
+                            nombreEquipo: req.body.nombreEquipo,
+                            nombre: req.session.nombre, equipos: equipos
+                        });
+                    }
+                    else {
+                        res.render('paginas/participante/partidaFinalizada', {
+                            idPartida: req.body.idPartida,
+                            rol: req.body.rol,
+                            nombreEquipo: req.body.nombreEquipo,
+                            nombre: req.body.nombreEquipo,
+                            nombre: req.session.nombre, equipos: equipos
+                        });
+                    }
+
+                } else {
+                    console.log("Idpartida: " + req.body.idPartida);
+                    res.render('paginas/error', {
+                        mensaje: "No existe la partida con la que se accedio",
+                        direccion: "/"
+                    });
+                }
+            }
         });
+    } else {
+        res.render('paginas/error', {mensaje: "Estas accediendo a un lugar donde no tienes acceso", direccion: "/"});
+    }
 
 };
 exports.salir = function (req, res) {
@@ -1342,6 +1411,10 @@ exports.salir = function (req, res) {
     req.session.nombre = null;
     res.redirect('/');
 };
+
+exports.error = function (req, res) {
+    res.render('paginas/error', {mensaje: "Estas accediendo a un lugar donde no tienes acceso", direccion: "/"});
+}
 
 function generarNombre() {
     return Math.floor((1 + Math.random()) * 0x1000000)

@@ -94,7 +94,10 @@ app.post('/ingreso', routes.post_inicio_sesion);
 app.get('/ingresoFacilitador', routes.get_ingreso_profesor);
 app.get('/ingresoParticipante', routes.get_ingreso_estudiante);
 app.get('/salir', routes.salir);
-app.post('/tablero', routes.post_tablero);
+app.route('/tablero')
+    .get(routes.error)
+    .post(routes.post_tablero)
+    .put(routes.error);
 app.get('/ingresoFacilitador/preguntasOpcionMultiple/:materia/ingresoOpcionMultiple/:materia', routes.get_opcion_multiple);
 app.get('/unirVoltear/:materia', routes.get_unir_voltear);
 app.get('/ingresoFacilitador/creacionPartida/:materia', routes.get_creacion_partida);
@@ -126,9 +129,14 @@ app.get('/estadisticaParticipante/:materia', routes.get_estadistica_participante
 app.get('/estadisticaPregunta/:materia', routes.get_estadistica_preguntas);
 app.post('/detalleParticipante', routes.post_detalle_participante);
 app.get('/ingresoAdministrador', routes.get_ingreso_administrador);
-app.get('/recuperarContrasenia', routes.get_recuperar_contrasenia);
-app.post('/recuperarContrasenia', routes.post_recuperar_contrasenia);
-app.post('/actualizarContrasenia', routes.post_actualizar_contrasenia);
+app.route('/recuperarContrasenia')
+    .get(routes.get_recuperar_contrasenia)
+    .post(routes.post_recuperar_contrasenia)
+    .put(routes.error);
+app.route('/actualizarContrasenia')
+    .get(routes.error)
+    .post(routes.post_actualizar_contrasenia)
+    .put(routes.error);
 app.post('/partidaFinalizada', routes.post_partida_finalizada);
 
 
@@ -234,6 +242,30 @@ io.on('connection', function (socket) {
                                         partidas[idPartida].turnoJugadores.push(partidas[idPartida].jugadores[i].idSocket);
                                     }
                                 }
+                                Partida.findOne({idPartida: partidas[idPartida].nombrePartida}, function (error, doc) {
+                                    if(error){
+                                        console.log("Error3 en consultar la partida desde la BDD: "+error)
+                                    }
+                                    if(doc != null){
+                                        doc.jugadores = [];
+                                        for(let x = 0; x < partidas[idPartida].jugadores.length; x++ ){
+                                            let jugadorF = {
+                                                idSocket: partidas[idPartida].jugadores[x].idSocket,
+                                                nombre: partidas[idPartida].jugadores[x].nombreEquipo,
+                                                iconoEquipo: partidas[idPartida].jugadores[x].iconoEquipo
+                                            };
+                                            doc.jugadores.push(jugadorF);
+                                        }
+                                        doc.save(function (err) {
+                                            if(err){
+                                                console.log("Error al guardar los cambios");
+                                            }else{
+                                                console.log("Se han actualizado correctamente los datos");
+                                            }
+                                        });
+                                    }
+
+                                });
                                 actualizarOrdenPartidas(room);
                             }
                             else {
@@ -276,8 +308,26 @@ io.on('connection', function (socket) {
            }
        });*/
     socket.on('iniciarPartida', function (room) {
-        var idPartida = consultarIdPartida(room);
+        let idPartida = consultarIdPartida(room);
         if (idPartida >= 0) {
+            Partida.findOne({idPartida: partidas[idPartida].nombrePartida}, function (error, doc) {
+                if (error) {
+                    console.log("Error en la busqueda de la partida en la BDD: " + error);
+                }
+                else {
+                    if(doc == null){
+                        let partida = new Partida({
+                            idPartida: partidas[idPartida].nombrePartida,
+                            jugadores: [],
+                            turnoJugadores: []
+                        });
+                        partida.save(function (err) {
+                            if (err) return console.log(err);
+                            console.log("La partida se ha guardado en la BD");
+                        })
+                    }
+                }
+            });
             io.sockets.in(room).emit('unirPartida');
         }
     });
@@ -546,7 +596,6 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
             partidas[indicePartidaActual].turnoJugadores.splice(partidas[indicePartidaActual].turnoJugadores.indexOf(this.idSocket), 1);
             io.sockets.in(roomActual).emit('ocultarBoton', idSocket);
         }
-        console.log("kkk: " + this.casilla);
         actualizarOrdenPartidas(roomActual);
         if(partidas[indicePartidaActual].lugaresJugadores.length == partidas[indicePartidaActual].jugadores.length){
             Partida.findOne({idPartida: partidas[indicePartidaActual].nombrePartida}, function (error, doc) {
@@ -555,29 +604,19 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
                 }
                 else {
                     if(doc != null){
-                        let partidaF = {
-                            idPartida: partidas[indicePartidaActual].nombrePartida,
-                            jugadores: [],
-                            turnoJugadores: partidas[indicePartidaActual].lugaresJugadores
-                        };
-                        for(let x = 0; x < partidas[indicePartidaActual].jugadores.length; x++ ){
-                            let jugadorF = {
-                                idSocket: partidas[indicePartidaActual].jugadores[x].idSocket,
-                                nombre: partidas[indicePartidaActual].jugadores[x].nombreEquipo,
-                                iconoEquipo: partidas[indicePartidaActual].jugadores[x].iconoEquipo
-                            };
-                            partidaF.jugadores.push(jugadorF);
-                        }
-                        partidaF.save(function (err, partidaF) {
+                           doc.turnoJugadores = partidas[indicePartidaActual].lugaresJugadores;
+                        doc.save(function (err, partidaF) {
                             if (err) return console.log(err);
-                            console.log("Jugadores guardados");
+                            console.log("Se ha almacenado en la BD el lugar de los jugadores");
+                            console.log("Partida finalizada desde server");
+                            io.sockets.in(roomActual).emit('partidaFinalizada');
                         })
                     }
-
+                    else {
+                        console.log("La partida no se encuentra en la BD");
+                    }
                 }
             });
-            console.log("Partida finalizada desde server")
-            io.sockets.in(roomActual).emit('partidaFinalizada');
         }
     }
     if ((t - this.timeMoved) >= this.delayMove) {
@@ -602,8 +641,7 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
             partidas[indicePartidaActual].jugadores[indiceJugadorActual].casilla = partidas[indicePartidaActual].jugadores[indiceJugadorActual].moverseA;
             let casillaDeLlegada = partidas[indicePartidaActual].jugadores[indiceJugadorActual].moverseA;
             if (casillaDeLlegada == 7 || casillaDeLlegada == 13 || casillaDeLlegada == 21 || casillaDeLlegada == 27) {
-                // let misterioAsignado = Math.floor(Math.random() * 2);
-                let misterioAsignado = 0;
+                let misterioAsignado = Math.floor(Math.random() * 2);
                 if (misterioAsignado == 1) {
                     console.log("Buena suerte");
                     partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = Math.floor(Math.random() * 3 + 1);
