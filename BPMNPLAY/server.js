@@ -133,9 +133,9 @@ app.route('/recuperarContrasenia')
     .get(routes.get_recuperar_contrasenia)
     .post(routes.post_recuperar_contrasenia)
     .put(routes.error);
-app.route('/actualizarContrasenia')
-    .get(routes.error)
-    .post(routes.post_actualizar_contrasenia)
+app.route('/cambiarContrasenia')
+    .get(routes.get_cambiar_contrasenia)
+    .post(routes.post_cambiar_contrasenia)
     .put(routes.error);
 app.post('/partidaFinalizada', routes.post_partida_finalizada);
 
@@ -261,12 +261,12 @@ io.on('connection', function (socket) {
                                                 console.log("Error al guardar los cambios");
                                             }else{
                                                 console.log("Se han actualizado correctamente los datos");
+                                                actualizarOrdenPartidas(room);
                                             }
                                         });
                                     }
 
                                 });
-                                actualizarOrdenPartidas(room);
                             }
                             else {
                                 socket.emit("error", "El equipo: " + nombreEquipo + " ya se ha conectado");

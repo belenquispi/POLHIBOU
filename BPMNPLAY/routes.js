@@ -70,6 +70,17 @@ exports.post_inicio_sesion = function (req, res) {
         }
     })
 };
+exports.get_cambiar_contrasenia = function (req, res) {
+
+    if(req.session.nombre != "")
+    {
+        res.render('paginas/nuevaContrasenia', {nombre: req.session.nombre, usuario: req.session.usuario});
+    }
+    else {
+        res.redirect('/inicioSesion');
+    }
+};
+
 exports.get_ingreso_profesor = function (req, res) {
     if (req.session.nombre) {
         Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
@@ -1329,7 +1340,7 @@ exports.post_recuperar_contrasenia = function (req, res) {
         }
     });
 };
-exports.post_actualizar_contrasenia = function (req, res) {
+exports.post_cambiar_contrasenia = function (req, res) {
     if (req.body.usuario == 'administrador') {
         req.body.usuario = 'polhibou@gmail.com';
     }
