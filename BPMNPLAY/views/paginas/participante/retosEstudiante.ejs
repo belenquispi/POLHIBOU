@@ -197,6 +197,124 @@
                     </div>
                 </div>
             </div>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Nivel 1</th>
+                    <th scope="col">Nivel 2</th>
+                    <th scope="col">Nivel 3</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">Opción Múltiple
+                    </th>
+                    <% for(let i = 0; i < 3; i++)
+                    {
+                    %>
+                        <td>
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        Desafío <%= i + 1 %>
+                                        <% for(let j = 0; j < opcionMutiple[(i * 2) + 1]; j++){
+                                        %>
+                                            <i class="fas fa-star fa-sm fa-spin " style="color:gold"></i>
+                                        <% } %>
+                                        <% if(opcionMutiple[(i * 2) + 1] < 5){
+                                        for(let a = opcionMutiple[(i * 2) + 1] ; a < 5; a++){
+                                        %>
+                                            <i class="fas fa-star fa-sm " style="color:gainsboro"></i>
+                                        <% }
+                                        } %>
+
+                                    </h5>
+                                    <form action="/mostrarOpcionMultiple" method="post">
+                                        <input type="text" name="facilitador" value="<%= facilitador %>" hidden>
+                                        <input type="text" name="materia" value="<%= materia %>" hidden>
+                                        <input type="text" name="contadorPreguntas" value=-1 hidden>
+                                        <% switch (i)
+                                        {
+                                        case 0: %>
+                                        <input type="text" name="dificultad" value="Fácil" hidden>
+                                        <%
+                                            break;
+                                        case 1: %>
+                                        <input type="text" name="dificultad" value="Medio" hidden>
+                                        <%
+                                            break;
+                                        case 2: %>
+                                        <input type="text" name="dificultad" value="Difícil" hidden>
+                                        <% break;
+                                        } %>
+                                        <button type="submit" class="btn btn-primary"><i class="fas fa-gamepad"></i>
+                                            Jugar
+                                        </button>
+                                    </form>
+                                    <p class="card-text">Puntaje máximo: <%= opcionMutiple[(i * 2) + 1] %></p>
+                                    <p class="card-text">Número de intentos: <%= opcionMutiple[(i * 2)] %></p>
+                                </div>
+                            </div>
+                        </td>
+                    <% } %>
+                </tr>
+                <tr>
+                    <th scope="row">Unir Voltear</th>
+                    <% for(var m = 0; m < 3; m++)
+                    {
+                    %>
+                      <td>
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        Desafío <%= m + 1 %>
+                                        <% for(var n = 0; n < unirVoltear[(m * 2) + 1]; n++){
+                                        %>
+                                            <i class="fas fa-star fa-sm fa-spin " style="color:gold"></i>
+                                        <% } %>
+                                        <% if(unirVoltear[(m * 2) + 1] < 5){
+                                        for(var c = unirVoltear[(m * 2) + 1] ; c < 5; c++){
+                                        %>
+                                            <i class="fas fa-star fa-sm " style="color:gainsboro"></i>
+                                        <% }
+                                        } %>
+                                    </h5>
+                                    <form action="/mostrarUnirVoltear" method="post">
+                                        <input type="text" name="facilitador" value="<%= facilitador %>" hidden>
+                                        <input type="text" name="materia" value="<%= materia %>" hidden>
+                                        <% switch (m)
+                                        {
+                                        case 0: %>
+                                        <input type="text" name="dificultad" value="Fácil" hidden>
+                                        <%
+                                            break;
+                                        case 1: %>
+                                        <input type="text" name="dificultad" value="Medio" hidden>
+                                        <%
+                                            break;
+                                        case 2: %>
+                                        <input type="text" name="dificultad" value="Difícil" hidden>
+                                        <% break;
+                                        } %>
+                                        <button type="submit" class="btn btn-primary"><i class="fas fa-gamepad"></i>
+                                            Jugar
+                                        </button>
+                                    </form>
+                                    <p class="card-text">Puntaje máximo: <%= unirVoltear[(m * 2) + 1] %></p>
+                                    <p class="card-text">Número de intentos: <%= unirVoltear[(m * 2)] %></p>
+                                </div>
+                            </div>
+                        </td>
+                    <% } %>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">Larry the Bird</td>
+                    <td>@twitter</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
