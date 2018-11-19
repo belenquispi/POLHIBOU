@@ -3,24 +3,24 @@
 <head>
     <% include ../../parciales/head %>
     <meta http-equiv="Content-Type" content="text/html"/>
-    <title>Tablero</title>
+    <title>Resultados Partida</title>
     <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
-<header style="margin-bottom: 10px">
+<header>
     <% include ../../parciales/headerProfesor %>
 </header>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/ingresoFacilitador">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="/">Inicio</a></li>
     </ol>
 </nav>
 <div class="container">
     <div class="row">
-        <div class="col-md-2"></div>
+        <div class="col-md-1"></div>
         <div class="col-md-10">
             <div class="row">
-                <h3>Resultados de la Partida <%= idPartida %></h3>
+                <h3>Resultados de la partida <%= idPartida %></h3>
             </div>
             <table class="table table-striped">
                 <thead>
@@ -51,44 +51,9 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-md-2"></div>
+        <div class="col-md-3"></div>
     </div>
-
+</div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"></script>
-    <script>
-        /*  var basicTimeline = anime.timeline();
-          basicTimeline
-              .add({
-                  targets: '.equipo1.el',
-                  translateX: 50,
-              easing: 'easeOutExpo'
-          })
-          .add({
-              targets: '.icono1',
-              translateX: 50,
-              easing: 'easeOutExpo'
-          })
-              .add({
-                  targets: '.nombre1',
-                  translateX: 50,
-                  easing: 'easeOutExpo'
-              })
-              .add({
-                  targets: '.equipo2.el',
-                  translateX: 50,
-                  easing: 'easeOutExpo'
-              })
-              .add({
-                  targets: '.icono2',
-                  translateX: 50,
-                  easing: 'easeOutExpo'
-              })
-              .add({
-                  targets: '.nombre2',
-                  translateX: 50,
-                  easing: 'easeOutExpo'
-              });*/
-
-    </script>
 </body>
 </html>

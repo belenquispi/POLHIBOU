@@ -7,12 +7,14 @@
 </head>
 <body>
 <header>
-    <% include ../../parciales/header %>
+    <% include ../../parciales/headerProfesor %>
     <link rel="stylesheet" type="text/css" href="static/css/estilos.css">
 </header>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/ingresoParticipante">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoParticipante">Temáticas</a></li>
+        <li class="breadcrumb-item"><a href="/retosMateria?facilitador=<%=facilitador%>&materia=<%=materia%>">Desafíos</a></li>
     </ol>
 </nav>
 <div class="container">
@@ -107,13 +109,13 @@
 </div>
 </body>
 <script>
-    var tiles_flipped =0;
-    var memory_values = [];
-    var memory_tile_ids = [];
-    var memory_array = document.getElementById('tamanioArray').value
-    var preguntas_array = document.getElementById('stringPreguntas').value.split('@')
-    var respuestas = [];
-
+    let tiles_flipped =0;
+    let memory_values = [];
+    let memory_tile_ids = [];
+    let memory_array = document.getElementById('tamanioArray').value
+    let preguntas_array = document.getElementById('stringPreguntas').value.split('@')
+    let respuestas = [];
+    let i = 100;
     function memoryFlipTile(tile, val) {
         if (tile.alt == "" && memory_values.length < 2) {
             //tile.style.background = '#FFF';
@@ -147,8 +149,8 @@
                 } else {
                     function flip2Back() {
                         // Flip the 2 tiles back over
-                        var tile_1 = document.getElementById(memory_tile_ids[0]);
-                        var tile_2 = document.getElementById(memory_tile_ids[1]);
+                        let tile_1 = document.getElementById(memory_tile_ids[0]);
+                        let tile_2 = document.getElementById(memory_tile_ids[1]);
                         // tile_1.style.background = 'url(corona.png) no-repeat';
                         tile_1.src = "corona.png";
                         tile_1.alt = "";
@@ -166,28 +168,21 @@
             }
         }
     }
-
-    var i = 100;
-
-    var counterBack = setInterval(function(){
+    let temporizador = setInterval(function(){
         i--;
         if(i>0){
             document.getElementById("progreso").style.width = i-2+"%";
-            //document.getElementById("progreso").innerHTML = i-1+"%";
         } else {
-            clearTimeout(counterBack);
+            clearTimeout(temporizador);
             document.getElementById("respuestas").value = respuestas;
             document.getElementById("enviarUnir").click();
         }
 
-    }, 300);
+    }, 200);
 
     function mostrarParEncontrado(imagen)
     {
-        console.log("par encontrado")
-        var indice = preguntas_array.indexOf(imagen);
-        console.log(preguntas_array)
-        console.log(indice)
+        let indice = preguntas_array.indexOf(imagen);
         if(indice >=0)
         {
             document.getElementById("parImagen"+tiles_flipped).src= imagen;
@@ -195,8 +190,6 @@
             document.getElementById("parImagen"+tiles_flipped).removeAttribute("hidden")
             document.getElementById("parTexto"+tiles_flipped).removeAttribute("hidden")
             respuestas.push(preguntas_array[indice+1]);
-            console.log(respuestas)
-
         }
     }
 </script>

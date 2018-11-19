@@ -117,14 +117,34 @@ app.post('/cambiarTipoMateria', routes.post_cambiar_tipo_materia);
 app.post('/eliminarMateria', routes.post_eliminar_materia);
 app.get('/validarCuenta', routes.get_validar_cuenta);
 app.post('/confirmarCuenta', routes.post_confirmar_cuenta);
-app.get('/retosMateria/:materia', routes.get_retos_materia);
-app.post('/retosMateria', routes.post_retos_materia);
-app.post('/mostrarOpcionMultiple', routes.post_mostrar_opcion);
-app.post('/mostrarEmparejar', routes.post_mostrar_emparejar);
-app.post('/mostrarUnirVoltear', routes.post_mostrar_unir);
-app.post('/resultadosEmparejar', routes.post_resultados_emparejar);
-app.post('/resultadosUnir', routes.post_resultados_unir);
-app.get('/estadisticas', routes.get_estadisticas);
+app.route('/retosMateria')
+    .get(routes.get_retos_materia)
+    .post(routes.post_retos_materia)
+    .put(routes.error);
+app.route('/retoOpcionMultiple')
+    .get(routes.error)
+    .post(routes.post_mostrar_opcion)
+    .put(routes.error);
+app.route('/retoEmparejar')
+    .get(routes.error)
+    .post(routes.post_mostrar_emparejar)
+    .put(routes.error);
+app.route('/retoUnirVoltear')
+    .get(routes.error)
+    .post(routes.post_mostrar_unir)
+    .put(routes.error);
+app.route('/resultadosEmparejar')
+    .get(routes.error)
+    .post(routes.post_resultados_emparejar)
+    .put(routes.error);
+app.route('/resultadosUnir')
+    .get(routes.error)
+    .post(routes.post_resultados_unir)
+    .put(routes.error);
+app.route('/estadisticas')
+    .get(routes.get_estadisticas)
+    .post(routes.error)
+    .put(routes.error);
 app.get('/estadisticaParticipante/:materia', routes.get_estadistica_participante);
 app.get('/estadisticaPregunta/:materia', routes.get_estadistica_preguntas);
 app.post('/detalleParticipante', routes.post_detalle_participante);
@@ -498,10 +518,10 @@ setInterval(function () {
 }, 1000 / 30);
 
 function seleccionarColor(filasN, columnasN, gameMapN,) {
-    var indice = 0;
-    var colorMapN = [];
-    for (var y = 0; y < filasN; ++y) {
-        for (var x = 0; x < columnasN; ++x) {
+    let indice = 0;
+    let colorMapN = [];
+    for (let y = 0; y < filasN; ++y) {
+        for (let x = 0; x < columnasN; ++x) {
             switch (gameMapN[((y * columnasN) + x)]) {
                 case -1:
                     colorMapN[indice] = -1;
@@ -512,7 +532,7 @@ function seleccionarColor(filasN, columnasN, gameMapN,) {
                     // 0 = Unir voltear - amarillo
                     // 1 = Emparejar - rosado
                     // 2 = Opción múltiple - azul
-                    var colorA = 1;
+                    let colorA = 0;
                     let colorAnterior = -1;
                     while (colorA == colorAnterior) {
                         colorA = Math.floor(Math.random() * 3);
@@ -540,7 +560,7 @@ function seleccionarColor(filasN, columnasN, gameMapN,) {
 }
 
 function actualizarOrdenPartidas(room) {
-    var idPartida = consultarIdPartida(room);
+    let idPartida = consultarIdPartida(room);
     io.sockets.in(room).emit('turnoPartida', partidas[idPartida].turnoJugadores);
 }
 

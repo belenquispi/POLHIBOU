@@ -812,6 +812,7 @@ exports.post_mostrar_opcion = function (req, res) {
                             res.render('paginas/participante/retosOpcionMultiple', {
                                 nombre: req.session.nombre,
                                 materia: req.body.materia,
+                                facilitador: req.body.facilitador,
                                 preguntas: preguntas,
                                 contadorPreguntas: contadorPreguntas,
                                 idIntento: intento.idIntento
@@ -844,6 +845,7 @@ exports.post_mostrar_opcion = function (req, res) {
                                 res.render('paginas/participante/retosOpcionMultiple', {
                                     nombre: req.session.nombre,
                                     materia: req.body.materia,
+                                    facilitador: req.body.facilitador,
                                     preguntas: preguntas,
                                     contadorPreguntas: contadorPreguntas,
                                     idIntento: req.body.idIntento
@@ -853,6 +855,7 @@ exports.post_mostrar_opcion = function (req, res) {
                                 res.render('paginas/participante/resultadosOpcionMultiple', {
                                     nombre: req.session.nombre,
                                     materia: req.body.materia,
+                                    facilitador: req.body.facilitador,
                                     preguntas: doc.intentos[indice].preguntas,
                                     puntaje: puntaje,
                                     facilitador: doc.intentos[indice].profesor
@@ -923,6 +926,7 @@ exports.post_mostrar_emparejar = function (req, res) {
                     res.render('paginas/participante/retosEmparejar', {
                         nombre: req.session.nombre,
                         materia: req.body.materia,
+                        facilitador: req.body.facilitador,
                         preguntas: preguntasEmparejar,
                         idIntento: intento.idIntento,
                         textoDesordenado: textoDesordenado,
@@ -1038,6 +1042,7 @@ exports.post_mostrar_unir = function (req, res) {
                     res.render('paginas/participante/retosUnir', {
                         nombre: req.session.nombre,
                         materia: req.body.materia,
+                        facilitador: req.body.facilitador,
                         preguntas: stringPreguntaUnir,
                         idIntento: intento.idIntento,
                         facilitador: req.body.facilitador,
@@ -1093,22 +1098,34 @@ exports.post_resultados_unir = function (req, res) {
     }
 };
 exports.get_retos_materia = function (req, res) {
-    if (req.session.usuario) {
-        if (req.session.rol == "facilitador") {
-            res.redirect('/ingresoFacilitador');
-        }
-        else {
-            if (req.session.rol == "participante") {
-                if (req.body.materia != "") {
-                    res.render()
+    let opcionMultiple = [];
+    let emparejar = [];
+    let unirVoltear = [];
+    let intentosMateria = [];
+    if (req.session.usuario && req.query.materia) {
+            Estudiante.findOne({
+                usuario: req.session.usuario
+            }, function (error, doc) {
+                for (let i = 0; i < doc.intentos.length; i++) {
+                    if (doc.intentos[i].materia == req.query.materia && doc.intentos[i].profesor == req.query.facilitador) {
+                        intentosMateria.push(doc.intentos[i])
+                    }
                 }
+                opcionMultiple = obtenerPuntaje(intentosMateria, "opcionMultiple");
+                emparejar = obtenerPuntaje(intentosMateria, "emparejar");
+                unirVoltear = obtenerPuntaje(intentosMateria, "unir");
+                res.render('paginas/participante/retosEstudiante', {
+                    nombre: req.session.nombre,
+                    facilitador: req.query.facilitador,
+                    materia: req.query.materia,
+                    opcionMutiple: opcionMultiple,
+                    emparejar: emparejar,
+                    unirVoltear: unirVoltear
+                })
+            });
 
-            } else {
-                res.render('paginas/index');
-            }
-        }
     } else {
-        res.render('paginas/index');
+        res.redirect('/');
     }
 };
 exports.get_estadisticas = function (req, res) {
@@ -1148,18 +1165,28 @@ exports.get_estadisticas = function (req, res) {
 exports.get_estadistica_participante = function (req, res) {
     if (req.session.nombre) {
         Estudiante.find({}, function (error, doc) {
-            var participantes = [];
+            let participantes = [];
             doc.forEach(function (participante) {
-                var participante = {
-                    usuario: participante.usuario,
-                    nombre: participante.nombre
-                };
-                participantes.push(participante);
+                let intentosMateria = 0;
+                participante.intentos.forEach(function (intento) {
+                    if(intento.profesor == req.session.nombre && intento.materia == req.params.materia){
+                        intentosMateria++;
+                    }
+                });
+                if(intentosMateria > 0)
+                {
+                    let participanteN = {
+                        usuario: participante.usuario,
+                        nombre: participante.nombre
+                    };
+                    participantes.push(participanteN);
+                }
+
             });
             res.render('paginas/facilitador/listaParticipantes', {
                 nombre: req.session.nombre,
                 usuario: req.session.usuario,
-                asignatura: req.params.materia,
+                tematica: req.params.materia,
                 participantes: participantes
 
             });

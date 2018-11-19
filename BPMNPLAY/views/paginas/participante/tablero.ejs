@@ -214,96 +214,16 @@
                                     </button>
                                 </div>
                             </div>
-                           <!-- <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                    <tr>
-                                        <th scope="col">
-                                            <button id="reiniciarUnir" class="btn btn-info" onclick="reiniciarUnir();">
-                                                Reiniciar
-                                            </button>
-                                        </th>
-                                        <th scope="col">
-                                            <button id="enviarUnir" class="btn btn-success" disabled="disabled"
-                                                    onclick="verificarRespuestaUnir()">Enviar Respuesta
-                                            </button>
-                                        </th>
-                                        <th scope="col"></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>
-                                            <button id="botonImagenAUnir1" onclick="obtenerId(this);">
-                                                <img id="imagenAUnir1" src="static/imagenes/vacio.png"
-                                                     class="img-thumbnail"
-                                                     style="border:2px solid black" height="50" width="50">
-                                            </button>
-                                        </td>
-                                        <td>
-                                            <button id="textoAUnir1" class="btn textoUnir" disabled
-                                                    onclick="obtenerId(this);">Texto 1
-                                            </button>
-                                        </td>
-                                        <td>
-                                            <button id="respuestaAUnir1" class="btn textoUnir" disable hidden>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <button id="botonImagenAUnir2" onclick="obtenerId(this);">
-                                                <img id="imagenAUnir2" src="static/imagenes/vacio.png"
-                                                     class="img-thumbnail"
-                                                     style="border:2px solid black" height="50" width="50">
-                                            </button>
-                                        </td>
-                                        <td>
-                                            <button id="textoAUnir2" class="btn textoUnir" disabled
-                                                    onclick="obtenerId(this);">Texto
-                                                2
-                                            </button>
-                                        </td>
-                                        <td>                                            <button id="respuestaAUnir2" class="btn textoUnir" disable hidden>
-                                            </button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <button id="botonImagenAUnir3" onclick="obtenerId(this);">
-                                                <img id="imagenAUnir3" src="static/imagenes/vacio.png"
-                                                     class="img-thumbnail"
-                                                     style="border:2px solid black" height="50" width="50">
-                                            </button>
-                                        </td>
-                                        <td>
-                                            <button id="textoAUnir3" class="btn textoUnir" disabled
-                                                    onclick="obtenerId(this);">Texto 3
-                                            </button>
-                                        </td>
-                                        <td>                                            <button id="respuestaAUnir3" class="btn textoUnir" disable hidden>
-                                            </button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <button id="botonImagenAUnir4" onclick="obtenerId(this);">
-                                                <img id="imagenAUnir4" src="static/imagenes/vacio.png"
-                                                     class="img-thumbnail"
-                                                     style="border:2px solid black" height="50" width="50">
-                                            </button>
-                                        </td>
-                                        <td>
-                                            <button id="textoAUnir4" class="btn textoUnir" disabled
-                                                    onclick="obtenerId(this);">Texto 4
-                                            </button>
-                                        </td>
-                                        <td>                                            <button id="respuestaAUnir4" class="btn textoUnir" disable hidden>
-                                            </button></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>-->
-
                         </div>
+                    </div>
+                    <div id="barraTiempoUnir" class="row" hidden>
+                        <div class="col-md-1" ></div>
+                        <div class="col-md-10">
+                            <div class="progress">
+                                <div id="progreso" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-1" ></div>
                     </div>
                     <div id="memory_boardMulti" hidden>
                     </div>
@@ -312,9 +232,9 @@
                             <div class="col-md-5">
                                 <label>Último par encontrado: </label>
                             </div>
-                            <div class="col-md-7 text-left" style="margin-top: 5px">
+                            <div class="col-md-7 text-left" >
                                 <img id="ultimoPar" class="disabledbutton" src="../../../static/imagenes/0.png"
-                                     height="50px" width="50px" style="background: transparent">
+                                     height="50px" width="50px" style="background: transparent" style="margin: 5px">
                                 <label id="ultimoNombre"></label>
                             </div>
                         </div>

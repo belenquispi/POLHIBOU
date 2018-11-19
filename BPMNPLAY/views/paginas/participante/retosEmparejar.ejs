@@ -7,18 +7,20 @@
 </head>
 <body>
 <header>
-    <% include ../../parciales/header %>
+    <% include ../../parciales/headerProfesor %>
 </header>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/ingresoParticipante">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoParticipante">Temáticas</a></li>
+        <li class="breadcrumb-item"><a href="/retosMateria?facilitador=<%=facilitador%>&materia=<%=materia%>">Desafíos</a></li>
     </ol>
 </nav>
 <div class="container">
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
-            <h1 id="tipoJuego">Reto de Emparejar</h1>
+            <h2 id="tipoJuego">Reto de Emparejar</h2>
         </div>
 
         <div class="col-md-3"></div>
@@ -48,7 +50,7 @@
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-3">
-                    <button id="reiniciarUnir" type="button" class="btn btn-info" onclick="reiniciarUnir();">Reiniciar
+                    <button id="reiniciarUnir" type="button" class="btn btn-info" onclick="reiniciarUnir();"><i class="fas fa-redo"></i> Reiniciar
                     </button>
                 </div>
                 <div class="col-md-3 text-center">
@@ -57,7 +59,7 @@
                     <input type="text" id="respuestas" name="respuestas" hidden>
                     <input type="text" id="idIntento" name="idIntento" value="<%=idIntento%>"hidden>
                     <input type="text" id="facilitador" name="facilitador" value="<%=facilitador%>"hidden>
-                    <button class="btn" style="background: darkcyan; color: white" id="enviarUnir" type="submit" disabled>Verificar respuesta</button>
+                    <button class="btn" style="background: darkcyan; color: white" id="enviarUnir" type="submit" disabled><i class="fas fa-check"></i> Verificar respuesta</button>
                     </form>
                 </div>
                 <div class="col-md-3"></div>

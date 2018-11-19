@@ -41,7 +41,8 @@ var imagenUnir = ['botonImagenAUnir1', 'botonImagenAUnir2', 'botonImagenAUnir3',
 var textoUnir = ['textoAUnir1', 'textoAUnir2', 'textoAUnir3', 'textoAUnir4'];
 var respuestaCorrectaUnir = [];
 var fps = 30;
-
+let tiempoVoltear = 0;
+let respuestaVoltearATiempo = -1;
 function dados(nombrePartida) {
     this.nombrePartida = nombrePartida;
     this.dado1 = dado1;
@@ -252,8 +253,8 @@ function drawGame() {
 
     }
 
-    for (var y = 0; y < filas; ++y) {
-        for (var x = 0; x < columnas; ++x) {
+    for (let y = 0; y < filas; ++y) {
+        for (let x = 0; x < columnas; ++x) {
 
             patterColor1 = ctx.createPattern(color1, "repeat");
             patterColor2 = ctx.createPattern(color2, "repeat");
@@ -328,6 +329,20 @@ function drawGame() {
     let lastFrameTime = currentFrameTime;*/
     requestAnimationFrame(drawGame);
 }
+function controlarTiempo() {
+    let temporizador = setInterval(function () {
+        tiempoVoltear--;
+        if (tiempoVoltear > 0) {
+            document.getElementById("progreso").style.width = tiempoVoltear - 2 + "%";
+        } else {
+            clearTimeout(temporizador);
+            if(respuestaVoltearATiempo == 0){
+                desafioIncorrecto();
+                voltearTarjeta(2000);
+            }
+        }
+    }, 400);
+}
 
 function dibujarJugador() {
     for (let i = 0; i < jugadores.length; i++) {
@@ -342,7 +357,6 @@ function dibujarJugador() {
             switch (i) {
                 case 0:
                     ctx.drawImage(per1, jugadores[i].position[0], jugadores[i].position[1], (jugadores[i].dimensions[0] / 2), (jugadores[i].dimensions[1] / 2));
-                    // ctx.fillRect(jugadores[i].position[0], jugadores[i].position[1], (jugadores[i].dimensions[0] / 2), (jugadores[i].dimensions[1] / 2));
                     break;
                 case 1:
                     ctx.drawImage(per2, jugadores[i].position[0] + jugadores[i].dimensions[1] / 2, jugadores[i].position[1], jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[1] / 2);
@@ -529,9 +543,9 @@ function mostrarJugadorActual() {
         document.getElementById("turno" + (i + 1)).setAttribute("hidden", "");
     }
 
-    for (var j = 0; j < jugadores.length; j++) {
+    for (let j = 0; j < jugadores.length; j++) {
         if (!document.getElementById("imagenJugador" + (j + 1)) && jugadores[j].idSocket != "") {
-            var images = document.createElement("IMG");
+            let images = document.createElement("IMG");
             images.setAttribute("src", "static/buhoInicial" + (jugadores[j].iconoEquipo) + ".gif");
             images.setAttribute("id", "imagenJugador" + (j + 1));
             images.setAttribute("height", "50");
@@ -584,11 +598,13 @@ function mostrarDesafio(colorCa, idSocket) {
             document.getElementById("tipoJuego").innerHTML = "Voltear";
             document.getElementById("desafios").removeAttribute("hidden");
             document.getElementById("memory_boardMulti").removeAttribute("hidden");
+            document.getElementById("barraTiempoUnir").removeAttribute("hidden");
             document.getElementById("respuestaUnirVoltear").removeAttribute("hidden");
             document.getElementById("ultimoPar").setAttribute("src", "../../../static/imagenes/0.png");
             document.getElementById("ultimoNombre").innerHTML = "";
             document.getElementById("unir").setAttribute("hidden", "");
             document.getElementById("opcionMultiple").setAttribute("hidden", "");
+            respuestaVoltearATiempo = 0;
             break;
         case 1:
             document.getElementById('tarjeta').style.backgroundColor = "#F6CED8";
@@ -601,6 +617,7 @@ function mostrarDesafio(colorCa, idSocket) {
             document.getElementById("desafios").removeAttribute("hidden");
             document.getElementById("unir").removeAttribute("hidden");
             document.getElementById("memory_boardMulti").setAttribute("hidden", "");
+            document.getElementById("barraTiempoUnir").setAttribute("hidden", "");
             document.getElementById("respuestaUnirVoltear").setAttribute("hidden", "");
             document.getElementById("opcionMultiple").setAttribute("hidden", "");
             break;
@@ -615,6 +632,7 @@ function mostrarDesafio(colorCa, idSocket) {
             document.getElementById("opcionMultiple").removeAttribute("hidden");
             document.getElementById("unir").setAttribute("hidden", "");
             document.getElementById("memory_boardMulti").setAttribute("hidden", "");
+            document.getElementById("barraTiempoUnir").setAttribute("hidden", "");
             document.getElementById("respuestaUnirVoltear").setAttribute("hidden", "");
             break;
         default:
@@ -660,6 +678,7 @@ function memoryFlipTile(tile, val) {
                 // Check to see if the whole board is cleared
                 if (tiles_flipped == memory_array.length) {
                     // alert("Board cleared... generating new board");
+                    respuestaVoltearATiempo = 1;
                     desafioCorrecto();
                     voltearTarjeta(2000);
                 }
@@ -1014,6 +1033,10 @@ function darLaVuelta() {
     document.getElementById("desafios").style.transform = "perspective( 600px ) rotateY( 0deg )";
     if (turnoJugadores[0] == idSocketActual) {
         socket.emit('darLaVuelta', roomActual);
+    }
+    if(respuestaVoltearATiempo== 0){
+        tiempoVoltear = 100;
+        controlarTiempo();
     }
 }
 

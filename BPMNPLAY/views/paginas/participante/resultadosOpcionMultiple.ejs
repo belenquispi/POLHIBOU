@@ -7,17 +7,23 @@
 </head>
 <body>
 <header>
-    <% include ../../parciales/headerEstudiante %>
+    <% include ../../parciales/headerProfesor %>
 </header>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/ingresoParticipante">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoParticipante">Temáticas</a></li>
+        <li class="breadcrumb-item"><a href="/retosMateria?facilitador=<%= facilitador %>&materia=<%= materia %>">Desafíos</a>
+        </li>
     </ol>
 </nav>
 <div class="container">
     <div class="row" style="margin-bottom: 10px">
+        <div class="col-md-12 text-center">
+            <h3>Desafío de Opción Múltiple Finalizado</h3>
+        </div>
         <div class="col-md-6">
-            <h2>Puntaje: <%= puntaje %></h2>
+            <h4>Puntaje obtenido: <%= puntaje %></h4>
         </div>
         <div class="col-md-6">
             <% for(var i = 0; i < puntaje; i++)
@@ -59,7 +65,7 @@
             <form action="/retosMateria" method="post">
                 <input type="text" name="facilitador" hidden value="<%= facilitador %>">
                 <input type="text" name="materia" hidden value="<%= materia %>">
-            <button  class="btn btn-info" type="submit">Regresar a desafíos</button>
+            <button  class="btn btn-info" type="submit"><i class="fas fa-undo-alt"></i> Regresar a desafíos </button>
             </form>
         </div>
         <div class="col-md-4"> </div>
