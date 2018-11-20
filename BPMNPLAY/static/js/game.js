@@ -120,7 +120,6 @@ socket.on('mensajeMisterio', function (num, casillasExtras) {
             misterioNegativo();
         }
     }
-    console.log(casillasExtras);
 });
 
 socket.on('turnoPartida', function (data) {
@@ -537,7 +536,7 @@ function habilitarTablaJugador() {
 }
 
 function mostrarJugadorActual() {
-    for (var i = 0; i < jugadores.length; i++) {
+    for (let i = 0; i < jugadores.length; i++) {
         document.getElementById("tablajug" + (i + 1)).style.border = "thick grey";
         document.getElementById("tablajug" + (i + 1)).style.background = "#FFFFFF";
         document.getElementById("turno" + (i + 1)).setAttribute("hidden", "");
@@ -1007,7 +1006,7 @@ function misterioNegativo() {
 }
 
 function mostrarMensaje(texto) {
-    var x = document.getElementById(texto);
+    let x = document.getElementById(texto);
     x.className = "show";
     setTimeout(function () {
         x.className = x.className.replace("show", "");
@@ -1015,9 +1014,7 @@ function mostrarMensaje(texto) {
 }
 
 function mostrarRespuestaCorrectaUnir() {
-    console.log("Respuesta unir ");
     for (let i = 0; i < 4; i++) {
-        console.log(document.getElementById("textoAUnir" + (i + 1)).textContent);
         if (document.getElementById("textoAUnir" + (i + 1)).textContent == respuestaCorrectaUnir[(i * 2) + 1]) {
             document.getElementById("textoAUnir" + (i + 1)).style.border = "thick solid green";
             document.getElementById("botonImagenAUnir" + (i + 1)).style.border = "thick solid green";
