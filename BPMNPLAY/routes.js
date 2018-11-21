@@ -51,7 +51,7 @@ exports.post_inicio_sesion = function (req, res) {
                     }
                 } else {
                     if (req.body.contrasenia == doc.contraseniaTemporal) {
-                        res.render('paginas/nuevaContrasenia', {nombre: doc.nombre, usuario: req.body.usuario});
+                        res.render('paginas/nuevaContrasenia', {nombre: doc.nombre, usuario: req.body.usuario, sesionIniciada: 0, contraseniaAnterior: 0});
                     } else {
                         res.redirect('/inicioSesion');
                     }
@@ -74,7 +74,7 @@ exports.get_cambiar_contrasenia = function (req, res) {
 
     if(req.session.nombre != "")
     {
-        res.render('paginas/nuevaContrasenia', {nombre: req.session.nombre, usuario: req.session.usuario});
+        res.render('paginas/nuevaContrasenia', {nombre: req.session.nombre, usuario: req.session.usuario, sesionIniciada : 1, contraseniaAnterior: 0});
     }
     else {
         res.redirect('/inicioSesion');
@@ -1376,12 +1376,31 @@ exports.post_cambiar_contrasenia = function (req, res) {
             console.log("Error en la busqueda del usuario: " + error);
         }
         else {
-            doc.contrasenia = req.body.nuevaContrasenia;
-            doc.contraseniaTemporal = 0;
-            doc.save(function (err, docActualizado) {
-                if (err) return console.log(err);
-                res.render('paginas/inicioSesion', {usuario: "", tipo: 2});
-            })
+            if(doc != null)
+            {
+                if((req.body.sesionIniciada == 0) || (req.body.sesionIniciada == 1 && doc.contrasenia == req.body.contraseniaAnterior))
+                {
+                    doc.contrasenia = req.body.nuevaContrasenia;
+                    doc.contraseniaTemporal = 0;
+                    doc.save(function (err, docActualizado) {
+                        if (err){
+                            res.render('paginas/error', {
+                                mensaje: "No se pudo cambiar la contraseña del usuario. Favor intentar nuevamente",
+                                direccion: "/"
+                            });
+                        };
+                        res.render('paginas/inicioSesion', {usuario: "", tipo: 2});
+                    })
+                }else {
+                    res.render('paginas/nuevaContrasenia', {nombre: doc.nombre, usuario: req.body.usuario, sesionIniciada: 1, contraseniaAnterior: 1});
+                }
+
+            }else {
+                res.render('paginas/error', {
+                    mensaje: "No se ha encontrado el usuario especificado. Favor intentar nuevamente",
+                    direccion: "/"
+                });
+            }
         }
     });
 };

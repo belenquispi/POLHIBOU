@@ -10,7 +10,7 @@
         <% include ../parciales/header %>
 </header>
 <div class="container-fluid">
-    <div class="row">
+    <div class="row" style="margin-top: 20px">
         <div class="col-md-6">
             <div class="jumbotron">
                 <h1 class="display-4">POLHIBOU!</h1>
@@ -19,7 +19,7 @@
                 <p></p>
                 <p class="lead">
                     <a class="btn btn-primary btn-lg" href="/ingresoPartida" role="button"><i
-                                class="fas fa-sign-in-alt"></i> Ingresar a Partida</a>
+                                class="fas fa-sign-in-alt"></i> Unirse a Partida</a>
                 </p>
             </div>
         </div>
@@ -28,9 +28,9 @@
             <form action="/creacionCuenta" name="formulario" method="post">
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="inputNombre">Nombres completos</label>
+                        <label for="inputNombre">Nombres y apellidos</label>
                         <input type="text" class="form-control" id="inputNombre" name="nombre" required
-                               placeholder="Nombres completos">
+                               placeholder="Nombres y apellidos">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputUsuario">Correo electrónico</label>
@@ -45,9 +45,10 @@
                                placeholder="Contraseña">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="inputContraseniaConfirmada">Confirmar Contraseña</label>
-                        <input type="password" class="form-control" id="inputContraseniaConfirmada"
+                        <label for="inputContraseniaConfirmada">Confirmar contraseña</label>
+                        <input type="password" class="form-control " id="inputContraseniaConfirmada"
                                name="contraseniaConfirmada" required placeholder="Confirmar contraseña" onkeyup="confirmarContrasenia()">
+                        <div class="invalid-feedback">Las contraseñas no son iguales.</div>
                     </div>
                 </div>
                 <div class="form-row text-center">
@@ -67,13 +68,16 @@
 </div>
 <script>
     function confirmarContrasenia() {
-        let contrasenia = formulario.contrasenia.value;
-        let contraseniaConfirmada = formulario.contraseniaConfirmada.value;
-
-        if(contrasenia == contraseniaConfirmada){
+        if(formulario.contrasenia.value == formulario.contraseniaConfirmada.value){
             document.getElementById("crearCuenta").removeAttribute("disabled");
+            document.getElementById("inputContrasenia").classList.remove("is-invalid");
+            document.getElementById("inputContrasenia").classList.add("is-valid");
+            document.getElementById("inputContraseniaConfirmada").classList.remove("is-invalid");
+            document.getElementById("inputContraseniaConfirmada").classList.add("is-valid");
         }else{
             document.getElementById("crearCuenta").setAttribute("disabled","");
+            document.getElementById("inputContraseniaConfirmada").classList.add("is-invalid");
+            document.getElementById("inputContrasenia").classList.add("is-invalid");
 
         }
 

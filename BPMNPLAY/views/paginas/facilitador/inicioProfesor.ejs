@@ -21,14 +21,27 @@
                 <div class="col-md-12">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <a href="/ingresoFacilitador"
-                       class="nav-link active" style="margin-bottom: 10px">
+                       class="nav-link active dropdown-toggle" data-toggle="dropdown" style="margin-bottom: 10px">
                         <i class="far fa-list-alt"></i> Modo Facilitador</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/estadisticas">Estadísticas</a>
+                        </div>
                     <a href="/ingresoParticipante"
                        class="nav-link" style="margin-bottom: 10px">
                         <i class="far fa-list-alt"></i> Modo Participante</a>
-                    <a href="/estadisticas"
-                       class="nav-link" style="margin-bottom: 10px">
-                        <i class="fas fa-chart-bar"></i> Estadísticas</a>
+
+                    </div>
+                    <div class="tabbable tabs-left">
+                        <ul class="nav nav-tabs">
+                            <a href="/ingresoParticipante"
+                               class="nav-link" style="margin-bottom: 10px">
+                                <i class="far fa-list-alt"></i> Modo Participante</a>
+                        </ul>
+                        <div class="tab-content">
+                            <a href="/ingresoParticipante"
+                               class="nav-link" style="margin-bottom: 10px">
+                                <i class="far fa-list-alt"></i> Modo Participante</a>
+                        </div>
                     </div>
                 </div>
             </div>

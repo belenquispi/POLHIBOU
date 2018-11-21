@@ -24,10 +24,29 @@
                 <br>
                 <div class="row">
                     <div class="col-lg-12">
-                        <label>Ingrese su nueva contraseña</label>
+
                         <form id="login-form" name="formulario" action="/cambiarContrasenia" method="post" role="form"
                               style="display: block;">
                             <input type="text" name="usuario" hidden value="<%=usuario%>">
+                            <input type="text" name="sesionIniciada" hidden value="<%=sesionIniciada%>">
+                           <% if(sesionIniciada == 1)
+                            {%>
+                            <label>Ingrese su contraseña actual</label>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><i class="fas fa-key"></i></div>
+                                    </div>
+                                    <%if(contraseniaAnterior== 1){%>
+                                    <input type="password" name="contraseniaAnterior" id="contraseniaAnterior" tabindex="1"
+                                           class="form-control is-invalid" required placeholder="Contraseña actual">
+                                    <div class="invalid-feedback">La contraseña anterior es incorrecta.</div>
+                                    <%} else {%>
+                                        <input type="password" name="contraseniaAnterior" id="contraseniaAnterior" tabindex="1"
+                                               class="form-control" required placeholder="Contraseña actual">
+                                    <%}%>
+                                </div>
+                            <%}%>
+                            <label>Ingrese su nueva contraseña</label>
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="fas fa-key"></i></div>
@@ -41,13 +60,15 @@
                                 </div>
                                 <input type="password" name="nuevaContraseniaConfirmada" id="nuevaContraseniaConfirmada"
                                        tabindex="2" class="form-control" required
-                                       placeholder="Confirmación nueva contraseña" onkeyup="confirmarContrasenia()">
+                                       placeholder="Confirmar nueva contraseña" onkeyup="confirmarContrasenia()">
+                                <div class="invalid-feedback">Las contraseñas no son iguales.</div>
+
                             </div>
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-3"></div>
                                     <div class="col-md-6 text-center">
-                                        <button type="submit" name="login-submit" id="login-submit" tabindex="4"
+                                        <button type="submit" name="botonCambiarContrasenia" id="botonCambiarContrasenia" tabindex="4"
                                                 class="btn btn-info"><i class="fas fa-sign-in-alt"></i> Cambiar
                                             contraseña
                                         </button>
@@ -66,12 +87,19 @@
 <script>
     function confirmarContrasenia() {
         if(formulario.nuevaContrasenia.value == formulario.nuevaContraseniaConfirmada.value){
-            document.getElementById("login-submit").removeAttribute("disabled");
+            document.getElementById("botonCambiarContrasenia").removeAttribute("disabled");
+            document.getElementById("nuevaContrasenia").classList.remove("is-invalid");
+            document.getElementById("nuevaContrasenia").classList.add("is-valid");
+            document.getElementById("nuevaContraseniaConfirmada").classList.remove("is-invalid");
+            document.getElementById("nuevaContraseniaConfirmada").classList.add("is-valid");
         }
         else {
-            document.getElementById("login-submit").setAttribute("disabled","")
+            document.getElementById("botonCambiarContrasenia").setAttribute("disabled","");
+            document.getElementById("nuevaContrasenia").classList.add("is-invalid");
+            document.getElementById("nuevaContraseniaConfirmada").classList.add("is-invalid");
         }
     }
 </script>
+
 </body>
 </html>
