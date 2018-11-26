@@ -20,19 +20,28 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <a href="/ingresoFacilitador"
-                           class="nav-link active " style="margin-bottom: 10px">
-                            <i class="far fa-list-alt"></i> Modo Facilitador</a>
-                        <a href="/ingresoParticipante"
-                           class="nav-link" style="margin-bottom: 10px">
-                            <i class="far fa-list-alt"></i> Modo Participante</a>
-                        <a href="/estadisticas"
-                           class="nav-link " style="margin-bottom: 10px">
-                            <i class="fas fa-chart-bar"></i> Estadísticas</a>
-                    </div>
+            <div class="row h-100">
+                <div class="col-12 collapse d-md-flex bg-light h-100" id="sidebar">
+                    <ul class="nav flex-column flex-nowrap">
+                        <li class="nav-item">
+                            <a class="nav-link dropdown-toggle collapsed" href="/ingresoFacilitador" data-toggle="collapse" data-target="#submenu1"><i class="fas fa-chalkboard-teacher"></i> Facilitador</a>
+                            <div class="collapse show" id="submenu1" aria-expanded="false">
+                                <ul class="flex-column pl-5 nav">
+                                    <li class="nav-item"><a class="nav-link py-0" style="color: black" href="/ingresoFacilitador"><i class="fas fa-home" ></i> Inicio Facilitador</a></li>
+                                    <li class="nav-item"><a class="nav-link py-0" href="/estadisticas"><i class="fas fa-chart-bar"></i> Estadísticas</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link  dropdown-toggle collapsed" href="/ingresoParticipante" data-toggle="collapse" data-target="#submenu2"><i class="fas fa-user"></i> Participante</a>
+                            <div class="collapse" id="submenu2" aria-expanded="false">
+                                <ul class="flex-column pl-5 nav">
+                                    <li class="nav-item"><a class="nav-link py-0" href="/ingresoParticipante"><i class="fas fa-home"></i> Inicio Participante</a></li>
+                                    <li class="nav-item"><a class="nav-link py-0" href="/ingresoPartida"><i class="fas fa-sign-in-alt"></i> Unirse a Partida</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -47,7 +56,7 @@
                 <label class="col-md-3"><strong>Número de equipos:</strong></label>
                 <input class="form-control col-md-3" type="number" id="numeroEquipo" name="numeroEquipos" value="0" min="1"
                        max="4"
-                       onchange="generarDatosEquipo(this)">
+                       onchange="generarDatosEquipo(this)" onkeyup="generarDatosEquipo(this)">
             <div class="col-md-6" style="margin-bottom: 10px"></div>
             </div>
             <input type="hidden" id="rol" name="rol" value="profesor">
@@ -67,6 +76,8 @@
 </div>
 <script src="/socket.io/socket.io.js"></script>
 <script src="../../static/js/creacionPartida.js"></script>
-
+<footer>
+    <% include ../../parciales/footer.ejs %>
+</footer>
 </body>
 </html>
