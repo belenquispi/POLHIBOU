@@ -36,34 +36,43 @@ for (var i = 0; i < dificultades.length; i++) {
                 <div class="col-12 collapse d-md-flex bg-light h-100" id="sidebar">
                     <ul class="nav flex-column flex-nowrap">
                         <li class="nav-item">
-                            <a class="nav-link dropdown-toggle collapsed" href="/ingresoFacilitador" data-toggle="collapse" data-target="#submenu1"><i class="fas fa-chalkboard-teacher"></i> Facilitador</a>
+                            <a class="nav-link dropdown-toggle collapsed" href="/ingresoFacilitador"
+                               data-toggle="collapse" data-target="#submenu1"><i class="fas fa-chalkboard-teacher"></i>
+                                Facilitador</a>
                             <div class="collapse show" id="submenu1" aria-expanded="false">
                                 <ul class="flex-column pl-5 nav">
-                                    <li class="nav-item"><a class="nav-link py-0" style="color: black" href="/ingresoFacilitador"><i class="fas fa-home" ></i> Inicio Facilitador</a></li>
-                                    <li class="nav-item"><a class="nav-link py-0" href="/estadisticas"><i class="fas fa-chart-bar"></i> Estadísticas</a></li>
+                                    <li class="nav-item"><a class="nav-link py-0" style="color: black"
+                                                            href="/ingresoFacilitador"><i class="fas fa-home"></i>
+                                            Inicio Facilitador</a></li>
+                                    <li class="nav-item"><a class="nav-link py-0" href="/estadisticas"><i
+                                                    class="fas fa-chart-bar"></i> Estadísticas</a></li>
                                 </ul>
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link  dropdown-toggle collapsed" href="/ingresoParticipante" data-toggle="collapse" data-target="#submenu2"><i class="fas fa-user"></i> Participante</a>
+                            <a class="nav-link  dropdown-toggle collapsed" href="/ingresoParticipante"
+                               data-toggle="collapse" data-target="#submenu2"><i class="fas fa-user"></i>
+                                Participante</a>
                             <div class="collapse" id="submenu2" aria-expanded="false">
                                 <ul class="flex-column pl-5 nav">
-                                    <li class="nav-item"><a class="nav-link py-0" href="/ingresoParticipante"><i class="fas fa-home"></i> Inicio Participante</a></li>
-                                    <li class="nav-item"><a class="nav-link py-0" href="/ingresoPartida"><i class="fas fa-sign-in-alt"></i> Unirse a Partida</a></li>
+                                    <li class="nav-item"><a class="nav-link py-0" href="/ingresoParticipante"><i
+                                                    class="fas fa-home"></i> Inicio Participante</a></li>
+                                    <li class="nav-item"><a class="nav-link py-0" href="/ingresoPartida"><i
+                                                    class="fas fa-sign-in-alt"></i> Unirse a Partida</a></li>
                                 </ul>
                             </div>
                         </li>
                         <li style="margin-top: 20px">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title">Total de preguntas</h5>
-                                    <p>Preguntas fáciles: <%= faciles %></p>
-                                    <p>Preguntas medias: <%= medias %></p>
-                                    <p>Preguntas difíciles: <%= dificiles %></p>
+                                    <h5 class="card-title">Total de imágenes</h5>
+                                    <p>Imágenes fáciles: <%= faciles %></p>
+                                    <p>Imágenes medias: <%= medias %></p>
+                                    <p>Imágenes difíciles: <%= dificiles %></p>
                                 </div>
                                 <div class="card-footer text-muted">
-                                    Recuerde que se necesitan al menos 8 preguntas de cada dificultad para que la materia se muestre a
-                                    los participantes
+                                    Recuerde que se necesitan al menos 8 imágenes de cada dificultad para que la
+                                    temática se muestre a los participantes.
                                 </div>
                             </div>
                         </li>
@@ -74,11 +83,14 @@ for (var i = 0; i < dificultades.length; i++) {
         </div>
         <div class="col-md-10">
             <div class="row">
-                <div class="col-md-9">
-                    <h2>Preguntas Unir Voltear de <%= materia %>
+                <div class="col-md-7">
+                    <h2>Imágenes y nombres de <%= materia %>
                     </h2></div>
-                <div class="col-md-3"><a href="/unirVoltear/<%= materia %>" class="btn btn-info" style="margin-bottom: 10px"><i class="fas fa-plus"></i> Agregar Varias Preguntas</a>
-                </div>
+                <div class="col-md-3 text-right"><a href="/unirVoltear/<%= materia %>" class="btn btn-info"
+                                         style="margin-bottom: 10px"><i class="fas fa-plus"></i> Agregar varias
+                        imágenes</a></div>
+                <div class="col-md-2 text-right"><a href="/ingresoFacilitador" id="botonRegresar" class="btn btn-secondary"><i
+                                class="fas fa-undo-alt"></i></i> Regresar</a></div>
 
             </div>
             <div class="row">
@@ -86,7 +98,7 @@ for (var i = 0; i < dificultades.length; i++) {
                 </div>
                 <div class="col-md-4">
                     <div class="card text-white bg-dark mb-3">
-                        <h5 class="card-header">Agregar Pregunta</h5>
+                        <h5 class="card-header">Agregar imagen y nombre</h5>
                         <div class="card-body">
                             <form action="/agregarUnirVoltear" method="post">
                                 <div class="form-row">
@@ -127,7 +139,7 @@ for (var i = 0; i < dificultades.length; i++) {
                                             <div class="input-group-text"><i class="fas fa-plus"></i></div>
                                         </div>
                                         <input type="submit" class="btn btn-primary"
-                                               value="Agregar Pregunta">
+                                               value="Agregar imagen">
                                     </div>
                                     <div class="col-md-2"></div>
                                 </div>
@@ -138,46 +150,48 @@ for (var i = 0; i < dificultades.length; i++) {
                 <div class="col-md-4">
                 </div>
                 <%
-                    for(let i = 0; i < textoPreguntas.length; i++) { %>
-                <div class="col-md-4">
-                <div class="card" style="margin-bottom: 10px">
-                        <div class="card-header">
-                            <div class="row">
-                                <div class="col-md-9">
-                                    <h5><%= textoPreguntas[i] %></h5>
-                                </div>
-                                <div class="col-md-3">
-                                    <form action="/eliminarUnirVoltear" method="post">
-                                        <input type="text" name="idPregunta" hidden value=<%= idPreguntas[i] %>>
-                                        <input type="text" name="materia" hidden value=<%= materia %>>
-                                        <button class="btn btn-default" type="submit"><i class="fas fa-trash-alt"></i>
-                                        </button>
-                                    </form>
+                for(let i = 0; i < textoPreguntas.length; i++) { %>
+                    <div class="col-md-4">
+                        <div class="card" style="margin-bottom: 10px">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <h5><%= textoPreguntas[i] %></h5>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <form action="/eliminarUnirVoltear" method="post">
+                                            <input type="text" name="idPregunta" hidden value=<%= idPreguntas[i] %>>
+                                            <input type="text" name="materia" hidden value=<%= materia %>>
+                                            <button class="btn btn-default" type="submit"><i
+                                                        class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-body">
-                            <img id="imagen" src='<%= imagenPreguntas[i] %>' width="50" height="50"/>
-                            <span class="badge badge-light">Dificultad: <%= dificultades[i] %></span>
-                            <br>
+                            <div class="card-body">
+                                <img id="imagen" src='<%= imagenPreguntas[i] %>' width="50" height="50"/>
+                                <span class="badge badge-light">Dificultad: <%= dificultades[i] %></span>
+                                <br>
+                            </div>
                         </div>
                     </div>
-                </div>
-                    <% } %>
+                <% } %>
                 <div class="col-md-4">
                     <div class="card" style=" border-style: dashed; margin-bottom: 10px; height: 155px">
                         <div class="row">
                             <div class="col-md-3"></div>
                             <div class="col-md-6 text-center">
-                                <img src="../../static/imagenes/iconoPeque.png" height="150" width="150" alt="Card image">
+                                <img src="../../static/imagenes/iconoPeque.png" height="150" width="150"
+                                     alt="Card image">
                             </div>
                             <div class="col-md-3"></div>
                         </div>
                     </div>
                 </div>
-                </div>
             </div>
         </div>
+    </div>
 </div>
 <script src="/static/js/preguntasUnirVoltear.js"></script>
 <footer>

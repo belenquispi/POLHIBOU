@@ -66,8 +66,8 @@ function cambiar(){
     document.getElementById('info').innerHTML = pdrs;
 }
 function eliminarImagenCargada() {
-    var input = document.getElementById("botonArchivoEnunciado");
-    var  imagen = document.getElementById("imagenCargadaEnunciado");
+    let input = document.getElementById("botonArchivoEnunciado");
+    let  imagen = document.getElementById("imagenCargadaEnunciado");
 
     var imagenNueva = document.createElement("IMG");
     imagenNueva.setAttribute("id", "imagenCargadaEnunciado");

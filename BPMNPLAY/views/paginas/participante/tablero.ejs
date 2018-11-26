@@ -102,8 +102,8 @@
             <div class="row" style="margin-top: 20px">
                 <div class="col-md-2"></div>
                 <div class="col-md-8 align-self-start">
-                    <button class="btn btn-info " id="botonLanzar" onclick="lanzarDado()"><i class="fas fa-dice"></i>
-                        Lanzar Dado
+                    <button class="btn btn-info textoUnir" id="botonLanzar" onclick="lanzarDado()"><i class="fas fa-dice "></i>
+                        ¡Es tu turno! Lanza los dados
                     </button>
                 </div>
                 <div class="col-md-2"></div>
@@ -118,7 +118,11 @@
         </div>
         <div class="col-md-auto text-center">
             <div class="flip3D text-center">
-                <div id="tarjeta" class="front disabledbutton " onclick="darLaVuelta()"></div>
+                <div id="tarjeta" class="front disabledbutton " onclick="darLaVuelta()">
+
+                    <i class="far fa-hand-point-up fa-7x" style="margin-top: 35%"></i>
+                    <h2 class="textoUnir">Voltéame</h2>
+                </div>
                 <div id="desafios" class="back container-fluid col-md-12" hidden>
                     <h1 id="tipoJuego">Tipo de Juego</h1>
                     <div id="opcionMultiple" class="row" hidden>
