@@ -204,6 +204,10 @@ socket.on('partidaFinalizada', function () {
     document.getElementById("botonFinalizacion").click();
 });
 
+socket.on('partidaCancelada', function () {
+    document.getElementById("linkFinalizarPartida").click();
+});
+
 function agregarNumerosCasilla() {
     for (var y = 0; y < filas; ++y) {
         for (var x = 0; x < columnas; ++x) {
@@ -587,6 +591,7 @@ function cambiarImagen(num) {
 }
 
 function mostrarDesafio(colorCa, idSocket) {
+    document.getElementById('textoTarjeta').innerText = "Voltéame";
     switch (colorCa) {
         case 0:
             document.getElementById('tarjeta').style.backgroundColor = "#F2F5A9";
@@ -729,8 +734,8 @@ function cargarPreguntaOpcionMultiple(indicePregunta) {
             elemento.parentNode.removeChild(elemento);
         }
     }
-    for (var j = 0; j < 4; j++) {
-        var boton = document.createElement("BUTTON");
+    for (let j = 0; j < 4; j++) {
+        let boton = document.createElement("BUTTON");
         boton.setAttribute("id", "res" + (j + 1));
         boton.setAttribute("onclick", "validarRespuesta(this)");
         boton.setAttribute("class", "btn btn-block btn-outline-dark cortaPalabra");
@@ -1042,9 +1047,17 @@ function voltearTarjeta(t) {
             document.getElementById("desafios").style.transform = "perspective( 600px ) rotateY( 180deg )";
             document.getElementById('tarjeta').style.backgroundColor = "#bdffbf";
             document.getElementById("tarjeta").style.transform = "perspective( 600px ) rotateY( 0deg )";
+            document.getElementById('textoTarjeta').innerText = "Polhibou";
             setTimeout(function () {
                 document.getElementById('desafios').style.backgroundColor = "#bdffbf";
             }, 1000);
         }
         , t);
+}
+function finalizarPartida() {
+    let r = confirm("¿Está seguro de finalizar la partida?");
+    if (r == true) {
+        socket.emit('partidaCancelada', roomActual);
+        document.getElementById('linkFinalizarPartida').click();
+    }
 }

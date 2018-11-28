@@ -1463,6 +1463,17 @@ exports.post_partida_finalizada = function (req, res) {
     }
 
 };
+exports.post_salir_partida = function(req, res){
+    Partida.deleteOne({ idPartida: req.body.idPartida }, function (err) {
+        if(err){
+            console.log("No se elimino la partida: "+err)
+        }
+        else {
+            console.log("Se elimino correctamente la partida: "+err);
+            res.redirect('/')
+        }
+    });
+};
 exports.salir = function (req, res) {
     req.session.usuario = null;
     req.session.nombre = null;

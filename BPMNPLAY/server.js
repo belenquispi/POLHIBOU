@@ -158,6 +158,7 @@ app.route('/cambiarContrasenia')
     .post(routes.post_cambiar_contrasenia)
     .put(routes.error);
 app.post('/partidaFinalizada', routes.post_partida_finalizada);
+app.post('/salirPartida', routes.post_salir_partida);
 
 
 // Starts the server.
@@ -230,9 +231,8 @@ io.on('connection', function (socket) {
             console.log("El código de partida ingresada no es válido" + room);
         }
     });
-
     socket.on('new player', function (room, rol, nombreEquipoJugar) {
-        var idPartida = partidas.map(function (e) {
+        let idPartida = partidas.map(function (e) {
             return e.nombrePartida
         }).indexOf(room);
         if (idPartida >= 0) {
@@ -246,8 +246,8 @@ io.on('connection', function (socket) {
                 }
                 else {
                     if (rol == "participante") {
-                        var nombreEquipo = nombreEquipoJugar.replace("+", " ");
-                        var idJugador = partidas[idPartida].jugadores.map(function (e) {
+                        let nombreEquipo = nombreEquipoJugar.replace("+", " ");
+                        let idJugador = partidas[idPartida].jugadores.map(function (e) {
                             return e.nombreEquipo
                         }).indexOf(nombreEquipo);
 
@@ -257,28 +257,36 @@ io.on('connection', function (socket) {
                                 socket.emit("nombreRol", nombreEquipo);
                                 partidas[idPartida].jugadores[idJugador].idSocket = socket.id;
                                 partidas[idPartida].turnoJugadores = [];
-                                for (var i = 0; i < partidas[idPartida].jugadores.length; i++) {
+                                for (let i = 0; i < partidas[idPartida].jugadores.length; i++) {
                                     if (partidas[idPartida].jugadores[i].idSocket != "") {
                                         partidas[idPartida].turnoJugadores.push(partidas[idPartida].jugadores[i].idSocket);
                                     }
                                 }
-                                Partida.findOne({idPartida: partidas[idPartida].nombrePartida}, function (error, doc) {
+                                actualizarOrdenPartidas(room);
+                             /*   Partida.findOne({idPartida: partidas[idPartida].nombrePartida}, function (error, doc) {
                                     if(error){
                                         console.log("Error3 en consultar la partida desde la BDD: "+error)
                                     }
                                     if(doc != null){
-                                        doc.jugadores = [];
                                         for(let x = 0; x < partidas[idPartida].jugadores.length; x++ ){
                                             let jugadorF = {
                                                 idSocket: partidas[idPartida].jugadores[x].idSocket,
                                                 nombre: partidas[idPartida].jugadores[x].nombreEquipo,
                                                 iconoEquipo: partidas[idPartida].jugadores[x].iconoEquipo
                                             };
-                                            doc.jugadores.push(jugadorF);
+                                            if(doc.jugadores.map(function (jugador){
+                                                return jugador.idSocket
+                                            }).indexOf(partidas[idPartida].jugadores[x].idSocket) < 0)
+                                            {
+                                                console.log("El id es: "+doc.jugadores.map(function (jugador){
+                                                    return jugador.idSocket
+                                                }).indexOf(partidas[idPartida].jugadores[x].idSocket));
+                                                doc.jugadores.push(jugadorF);
+                                            }
                                         }
                                         doc.save(function (err) {
                                             if(err){
-                                                console.log("Error al guardar los cambios");
+                                                console.log("Error al guardar los cambios: "+err);
                                             }else{
                                                 console.log("Se han actualizado correctamente los datos");
                                                 actualizarOrdenPartidas(room);
@@ -286,7 +294,7 @@ io.on('connection', function (socket) {
                                         });
                                     }
 
-                                });
+                                });*/
                             }
                             else {
                                 socket.emit("error", "El equipo: " + nombreEquipo + " ya se ha conectado");
@@ -507,8 +515,20 @@ io.on('connection', function (socket) {
         actualizarOrdenPartidas(room);
     });
     socket.on('darLaVuelta', function (room) {
-        var idPartida = consultarIdPartida(room);
+        let idPartida = consultarIdPartida(room);
         io.sockets.in(partidas[idPartida].nombrePartida).emit('enviandoDarLaVuelta', socket.id);
+    });
+    socket.on('partidaCancelada', function (room) {
+        Partida.deleteOne({ idPartida: room }, function (err) {
+            if(err){
+                console.log("No se elimino la partida: "+err)
+            }
+            else {
+                console.log("Se elimino correctamente la partida: "+err)
+
+            }
+        });
+        io.sockets.in(partidas[consultarIdPartida(room)].nombrePartida).emit('partidaCancelada', socket.id);
     })
 });
 setInterval(function () {

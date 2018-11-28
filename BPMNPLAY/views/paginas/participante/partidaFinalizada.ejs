@@ -50,6 +50,12 @@
 
                 </tbody>
             </table>
+            <div class="row text-center">
+                <form name="formulario" hidden method="post" action="/salirPartida">
+                    <input type="text" hidden name="idPartida" id="idPartida" value="<%= idPartida %>">
+                    <button type="submit" class="btn btn-danger" id="botonFinalizacion"> Salir de partida</button>
+                </form>
+            </div>
         </div>
         <div class="col-md-3"></div>
     </div>
