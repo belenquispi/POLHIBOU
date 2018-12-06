@@ -2,6 +2,7 @@ body {
     color: #333;
     font-family: Arial, serif;
     background: url('../imagenes/EPN_Basic_Formation_Department.jpg') no-repeat fixed center;
+    bgcolor:aqua;
 }
 
 canvas {

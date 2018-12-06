@@ -351,7 +351,7 @@ function dibujarJugador() {
     for (let i = 0; i < jugadores.length; i++) {
         if (jugadores[i].idSocket != "") {
             ctx.fillStyle = jugadores[i].colorP;
-            per1.src = 'static/imagenes/trebol.png';
+            per1.src = 'static/imagenes/arbol.svg';
             //per1.src = 'static/imagenes/flor.jpg';
             per2.src = 'static/imagenes/star.png';
             per3.src = 'static/imagenes/mal.png';
