@@ -708,7 +708,7 @@ exports.post_confirmar_cuenta = function (req, res) {
                     doc.codigoVerificacion = 0;
                     doc.save(function (err, docActualizado) {
                         if (err) return console.log(err);
-                        res.render('paginas/inicioSesion', {});
+                        res.render('paginas/inicioSesion', {usuario: "", tipo: 3});
                     });
 
                 } else {

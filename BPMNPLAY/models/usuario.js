@@ -1,11 +1,11 @@
- var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+let mongoose = require('mongoose');
+let Schema = mongoose.Schema;
 
 //Conexion al servidor
-mongoose.connect('mongodb://localhost:27017/polibou', { useNewUrlParser: true });
+mongoose.connect('mongodb://localhost:27017/polhibou', { useNewUrlParser: true });
 
-var rol = ["facilitador", "participante","administrador"];
-var validacion_contrasenia = {
+let rol = ["facilitador", "participante","administrador"];
+let validacion_contrasenia = {
     validator: function (p) {
         return this.contrasenia_confirmada == p;
     },
@@ -13,7 +13,7 @@ var validacion_contrasenia = {
 }
 
 // Creacion del esquema
-var usuarioSchema = new Schema({
+let usuarioSchema = new Schema({
     usuario: {type : String, required : true},
     nombre: {type :String, required : true},
     contrasenia: { type :String},
@@ -31,6 +31,6 @@ usuarioSchema.virtual("confirmacion_contrasenia").get(function () {
 
 //Creacion del modelo
 
-var Usuario = mongoose.model("Usuario", usuarioSchema);
+let Usuario = mongoose.model("Usuario", usuarioSchema);
 
 module.exports.Usuario = Usuario;
