@@ -1,22 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:padding-l="http://www.w3.org/1999/xhtml" xmlns:padding="http://www.w3.org/1999/xhtml">
+<html lang="es">
 <head>
+    <% include ../../parciales/head %>
+    <meta http-equiv="Content-Type" content="text/html"/>
     <title>Ingreso a partida</title>
-    <% include ../parciales/head %>
-
 </head>
 <body>
 <header>
-    <% include ../parciales/headerEstudiante %>
+    <% include ../../parciales/header %>
 </header>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/ingresoEstudiante">Inicio</a></li>
     </ol>
 </nav>
-
 <div class="container">
-
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
@@ -42,9 +40,9 @@
                             <div class="col-md-8 bg-dark text-white rounded">
                                     <div class="container ">
                                         <h1 class="text-center font-weight-bold"><%= codigoPartida %></h1>
-                                        <input type="text" hidden name="idPartida" id="codigoPartida" value="<%= codigoPartida %>">
-                                        <input type="text" hidden name="nombreEquipo" id="nombreEquipo" value="<%= nombreEquipo %>">
-                                        <input type="text" hidden name="rol" id="tipoIngreso" value="<%= tipoIngreso %>">
+                                        <input type="text" hidden name="idPartida" id="codigoPartida" value="<%=codigoPartida %>">
+                                        <input type="text" hidden name="nombreEquipo" id="nombreEquipo" value="<%=nombreEquipo %>">
+                                        <input type="text" hidden name="rol" id="tipoIngreso" value="<%=tipoIngreso %>">
                                     </div>
                             </div>
                             <div class="col-md-2"></div>

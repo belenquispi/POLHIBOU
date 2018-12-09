@@ -2,15 +2,13 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html"/>
-    <link rel="stylesheet" type="text/css" href="static/css/estilos.css">
-    <% include ../parciales/head %>
+    <% include ../../parciales/head %>
     <title>Title</title>
-    <script src="/socket.io/socket.io.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 </head>
 <body>
 <header>
-    <% include ../parciales/headerProfesor %>
+    <% include ../../parciales/headerProfesor %>
 </header>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -44,7 +42,9 @@
                 </div>
             </div>
             <input type="text" id="numPreguntas" hidden value="<%= preguntas.length %>">
-            <% for(var i = 0; i < preguntas.length; i++ ) { %>
+            <%if(preguntas.length == 0){%>
+            <label>** No se han cargado preguntas para está temática.</label>
+            <% } for(let i = 0; i < preguntas.length; i++ ) { %>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card" style="margin-top: 10px">
@@ -158,7 +158,7 @@
     }
 
     window.onload = function () {
-        for (var i = 0; i < document.getElementById("numPreguntas").value; i++) {
+        for (let i = 0; i < document.getElementById("numPreguntas").value; i++) {
             document.getElementById("myChart" + (i + 1)).click();
         }
 

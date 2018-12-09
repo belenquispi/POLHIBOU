@@ -2,50 +2,94 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <% include ../parciales/head %>
+    <% include ../../parciales/head %>
     <title>Preguntas de Unir Voltear</title>
 </head>
 <body>
 <header>
-    <% include ../parciales/headerProfesor %>
+    <% include ../../parciales/headerProfesor %>
 </header>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/ingresoFacilitador">Inicio</a></li>
-        <li class="breadcrumb-item"><a href="/ingresoFacilitador/">Materias</a></li>
-        <li class="breadcrumb-item"><a href="/ingresoFacilitador/preguntasUnirVoltear/<%= materia %>">Preguntas</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoFacilitador/">Temáticas</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoFacilitador/preguntasUnirVoltear/<%= materia %>">Imágenes</a></li>
     </ol>
 </nav>
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <h2>Ingreso de Preguntas Unir Voltear </h2>
-    </div>
-    <div class="col-md-3"></div>
-    <div class="col-md-6">
-        <label for="numeroPreguntas">Número de preguntas: </label>
-        <input class="form-control" type="number" id="numeroDePreguntas" value="0" min="2" max="50" required onchange="generarDatosPregunta(this)">
-    </div>
-    <div class="col-md-3"></div>
-
-    <form action="/agregarVariasUnirVoltear" method="post" >
-        <input type="text" name="materia" value="<%= materia %>" hidden>
-        <input type="text" name="numeroPreguntas" id="numeroPreguntas" hidden>
-        <div class="form-row" id="divPreguntas">
-
-        </div>
-        <div id ="divBotonGuardar" class="form-group" >
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <button type="submit" id="botonGuardarUnirVoltear"  class="btn btn-info" hidden>Guardar</button>
+        <div class="col-md-2">
+            <div class="row h-100">
+                <div class="col-12 collapse d-md-flex bg-light h-100" id="sidebar">
+                    <ul class="nav flex-column flex-nowrap">
+                        <li class="nav-item">
+                            <a class="nav-link dropdown-toggle collapsed" href="/ingresoFacilitador"
+                               data-toggle="collapse" data-target="#submenu1"><i class="fas fa-chalkboard-teacher"></i>
+                                Facilitador</a>
+                            <div class="collapse show" id="submenu1" aria-expanded="false">
+                                <ul class="flex-column pl-5 nav">
+                                    <li class="nav-item"><a class="nav-link py-0" style="color: black"
+                                                            href="/ingresoFacilitador"><i class="fas fa-home"></i>
+                                            Inicio Facilitador</a></li>
+                                    <li class="nav-item"><a class="nav-link py-0" href="/estadisticas"><i
+                                                    class="fas fa-chart-bar"></i> Estadísticas</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link  dropdown-toggle collapsed" href="/ingresoParticipante"
+                               data-toggle="collapse" data-target="#submenu2"><i class="fas fa-user"></i>
+                                Participante</a>
+                            <div class="collapse" id="submenu2" aria-expanded="false">
+                                <ul class="flex-column pl-5 nav">
+                                    <li class="nav-item"><a class="nav-link py-0" href="/ingresoParticipante"><i
+                                                    class="fas fa-home"></i> Inicio Participante</a></li>
+                                    <li class="nav-item"><a class="nav-link py-0" href="/ingresoPartida"><i
+                                                    class="fas fa-sign-in-alt"></i> Unirse a Partida</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="col-md-2"></div>
         </div>
-    </form>
+        <div class="col-md-10">
+            <div class="row">
+                    <div class="col-md-9">
+                        <h2>Ingreso de varias imágenes </h2>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <a href="/ingresoFacilitador/preguntasUnirVoltear/<%= materia %>" id="botonRegresar" class="btn btn-secondary"><i class="fas fa-undo-alt"></i> Regresar</a>
+                    </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="numeroPreguntas">Número de imágenes: </label>
+                    <input class="form-control" type="number" id="numeroDePreguntas" value="0" min="2" max="50" required
+                           onchange="generarDatosPregunta(this)" onkeyup="generarDatosPregunta(this)">
+                </div>
+                <div class="col-md-6"></div>
+                <form action="/agregarVariasUnirVoltear" method="post">
+                    <input type="text" name="materia" value="<%= materia %>" hidden>
+                    <input type="text" name="numeroPreguntas" id="numeroPreguntas" hidden>
+                    <div class="form-row" id="divPreguntas" style="margin-top: 10px; margin-left: 10px ">
+                    </div>
+                    <div id="divBotonGuardar" class="row form-group">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8 text-center">
+                            <button type="submit" id="botonGuardarUnirVoltear" class="btn btn-info" hidden><i class="fas fa-save"></i> Guardar</button>
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
 </div>
 <script type="text/javascript" src="../../static/js/preguntasUnirVoltear.js"></script>
 <footer>
-
+    <% include ../../parciales/footer %>
 </footer>
 </body>
-<% include ../parciales/footer%>
 </html>

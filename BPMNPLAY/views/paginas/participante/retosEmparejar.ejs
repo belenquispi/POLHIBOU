@@ -1,25 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
+    <% include ../../parciales/head %>
     <meta http-equiv="Content-Type" content="text/html"/>
-    <% include ../parciales/head %>
-
-    <title>Desafío Emparejar</title>
+    <title>Reto Emparejar</title>
 </head>
 <body>
 <header>
-    <% include ../parciales/headerEstudiante %>
+    <% include ../../parciales/headerProfesor %>
 </header>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/ingresoParticipante">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoParticipante">Temáticas</a></li>
+        <li class="breadcrumb-item"><a href="/retosMateria?facilitador=<%=facilitador%>&materia=<%=materia%>">Desafíos</a></li>
     </ol>
 </nav>
 <div class="container">
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
-            <h1 id="tipoJuego">Reto de Emparejar</h1>
+            <h2 id="tipoJuego">Reto de Emparejar</h2>
         </div>
 
         <div class="col-md-3"></div>
@@ -49,7 +50,7 @@
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-3">
-                    <button id="reiniciarUnir" type="button" class="btn btn-info" onclick="reiniciarUnir();">Reiniciar
+                    <button id="reiniciarUnir" type="button" class="btn btn-info" onclick="reiniciarUnir();"><i class="fas fa-redo"></i> Reiniciar
                     </button>
                 </div>
                 <div class="col-md-3 text-center">
@@ -58,7 +59,7 @@
                     <input type="text" id="respuestas" name="respuestas" hidden>
                     <input type="text" id="idIntento" name="idIntento" value="<%=idIntento%>"hidden>
                     <input type="text" id="facilitador" name="facilitador" value="<%=facilitador%>"hidden>
-                    <button class="btn" style="background: darkcyan; color: white" id="enviarUnir" type="submit" disabled>Verificar respuesta</button>
+                    <button class="btn" style="background: darkcyan; color: white" id="enviarUnir" type="submit" disabled><i class="fas fa-check"></i> Verificar respuesta</button>
                     </form>
                 </div>
                 <div class="col-md-3"></div>
@@ -102,10 +103,10 @@
         respuestaUnirId.push(id);
 
         if(imagenUnirId.indexOf(id) >= 0) {
-            for(var i = 0; i<imagenUnirId.length; i++){
-                document.getElementById(imagenUnirId[i]).setAttribute("disabled","");
+            for(let k = 0; k<imagenUnirId.length; k++){
+                document.getElementById(imagenUnirId[k]).setAttribute("disabled","");
             }
-            for(var j = 0 ; j < textoUnirId.length; j++){
+            for(let j = 0 ; j < textoUnirId.length; j++){
                 if(respuestaUnirId.indexOf(textoUnirId[j])>0)
                 {
                     document.getElementById(textoUnirId[j]).setAttribute("disabled","");
@@ -114,15 +115,15 @@
                 }
             }
         } else if (textoUnirId.indexOf(id) >=0){
-            for(var i = 0; i<textoUnirId.length; i++) {
-                document.getElementById(textoUnirId[i]).setAttribute("disabled", "");
+            for(let l = 0; l<textoUnirId.length; l++) {
+                document.getElementById(textoUnirId[l]).setAttribute("disabled", "");
             }
-            for(var j = 0 ; j < imagenUnirId.length; j++){
-                if(respuestaUnirId.indexOf(imagenUnir[j])>=0)
+            for(var m = 0 ; m < imagenUnirId.length; m++){
+                if(respuestaUnirId.indexOf(imagenUnir[m])>=0)
                 {
-                    document.getElementById(imagenUnirId[j]).setAttribute("disabled","");
+                    document.getElementById(imagenUnirId[m]).setAttribute("disabled","");
                 }else {
-                    document.getElementById(imagenUnirId[j]).removeAttribute("disabled");
+                    document.getElementById(imagenUnirId[m]).removeAttribute("disabled");
                 }
             }
         }
@@ -139,19 +140,17 @@
     }
 
     function reiniciarUnir() {
-        for (var i =0; i < respuestaUnirId.length; i++){
-            document.getElementById(respuestaUnirId[i]).style.border = "";
-            if(imagenUnirId.indexOf(respuestaUnirId[i])>=0) {
-                document.getElementById(respuestaUnirId[i]).removeAttribute("disabled");
+        for (let n =0; n < respuestaUnirId.length; n++){
+            document.getElementById(respuestaUnirId[n]).style.border = "";
+            if(imagenUnirId.indexOf(respuestaUnirId[n])>=0) {
+                document.getElementById(respuestaUnirId[n]).removeAttribute("disabled");
             }
         }
 
-        for(var i = respuestaUnirId.length; i > 0 ; i--) {
+        for(let o = respuestaUnirId.length; o > 0 ; o--) {
             respuestaUnir.pop();
             respuestaUnirId.pop();
         }
     }
-
-
 </script>
 </html>

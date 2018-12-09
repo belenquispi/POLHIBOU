@@ -1,15 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta http-equiv="Content-Type" content="text/html"/>
-    <link rel="stylesheet" type="text/css" href="static/css/estilos.css">
-    <% include ../parciales/head %>
-    <title>Title</title>
-    <script src="/socket.io/socket.io.js"></script>
+    <% include ../../parciales/head %>
+    <title>Participantes</title>
 </head>
 <body>
 <header>
-    <% include ../parciales/headerProfesor %>
+    <% include ../../parciales/headerProfesor %>
 </header>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -39,11 +37,14 @@
         <div class="col-md-10">
             <div class="row">
                 <div class="col-md-12">
-                    <h2>Participantes de la temática <%=asignatura%></h2>
+                    <h2>Participantes de la temática <%=tematica%></h2>
                 </div>
             </div>
             <div class="row">
-                <%for(var i = 0; i < participantes.length; i++) {
+                <%if(participantes.length == 0){%>
+                <label>** Ningún participante ha resuelto las preguntas de está temática.</label>
+                <%}
+                for(let i = 0; i < participantes.length; i++) {
                     console.log(participantes[i]) %>
                 <div class="col-md-6">
                     <div class="card" style="margin-top: 10px">
@@ -55,7 +56,7 @@
                             <div class="col-md-4">
                                 <form action="/detalleParticipante" method="post">
                                     <input type="text" name="usuario" value="<%= participantes[i].usuario %>" hidden>
-                                    <input type="text" name="asignatura" value="<%=asignatura%>" hidden>
+                                    <input type="text" name="asignatura" value="<%=tematica%>" hidden>
                                     <input type="text" name="facilitador" value="<%=nombre%>" hidden>
                                     <button class="btn btn-info" type="submit" data-toggle="tooltip"
                                             data-placement="right" title="Privada"
@@ -67,7 +68,6 @@
                     </div>
                 </div>
                 <% } %>
-
             </div>
         </div>
     </div>

@@ -8,32 +8,31 @@ socket.on('confirmacionEquipo', function (data) {
         return true;
     }
 });
-socket.on('confirmacionPartida', function (data) {
-    if (data.length > 0) {
+socket.on('confirmacionPartida', function (data, idPartida) {
+    if (idPartida > -1) {
         if (document.getElementById("codigoPartida").value != "") {
             document.getElementById("divTipoEquipo").removeAttribute("hidden");
-            document.getElementById("nombreEquipo").innerHTML = "";
-            var option1 = document.createElement("OPTION");
-            option1.setAttribute("value", "ninguno");
-            var nombre1 = document.createTextNode("Selecciona el equipo que representas");
-            option1.appendChild(nombre1);
-            document.getElementById("nombreEquipo").appendChild(option1);
-            for (var i = 0; i < data.length; i++) {
-                var option = document.createElement("OPTION");
-                option.setAttribute("value", data[i].nombreEquipo);
-                var nombre = document.createTextNode(data[i].nombreEquipo);
-                option.appendChild(nombre);
-                document.getElementById("nombreEquipo").appendChild(option);
+            if (data.length > 0) {
+                document.getElementById("nombreEquipo").innerHTML = "";
+                var option1 = document.createElement("OPTION");
+                option1.setAttribute("value", "ninguno");
+                var nombre1 = document.createTextNode("Selecciona el equipo que representas");
+                option1.appendChild(nombre1);
+                document.getElementById("nombreEquipo").appendChild(option1);
+                for (var i = 0; i < data.length; i++) {
+                    var option = document.createElement("OPTION");
+                    option.setAttribute("value", data[i].nombreEquipo);
+                    var nombre = document.createTextNode(data[i].nombreEquipo);
+                    option.appendChild(nombre);
+                    document.getElementById("nombreEquipo").appendChild(option);
+                }
             }
-
         } else {
             document.getElementById("divTipoEquipo").setAttribute("hidden", "");
         }
-
     }
     else {
         alert("La partida ingresada no es válida");
-
     }
 });
 
@@ -42,17 +41,17 @@ function verificarPartida() {
 }
 
 function habilitarNombreEquipo() {
-    if (document.getElementById("tipoIngreso").value == "jugador") {
+    if (document.getElementById("tipoIngreso").value == "participante") {
         verificarPartida();
         document.getElementById("divNombreEquipo").removeAttribute("hidden");
         document.getElementById("botonUnir").removeAttribute("hidden");
 
     } else {
         document.getElementById("divNombreEquipo").setAttribute("hidden", "");
-        if (document.getElementById("tipoIngreso").value == "espectador"){
+        if (document.getElementById("tipoIngreso").value == "espectador") {
             document.getElementById("botonUnir").removeAttribute("hidden");
 
-        }else {
+        } else {
             document.getElementById("botonUnir").setAttribute("hidden", "");
         }
     }
@@ -67,7 +66,7 @@ function unirsePartida() {
         //document.getElementById('unirPartida').click();
     }
     else {
-        if (document.getElementById('tipoIngreso').value == "jugador") {
+        if (document.getElementById('tipoIngreso').value == "participantes") {
             if (document.getElementById('nombreEquipo').value == "ninguno") {
                 alert("Seleccione un nombre de equipo.")
             }
@@ -79,12 +78,11 @@ function unirsePartida() {
                 }
                 else {
                     document.getElementById("imagenE").setAttribute("hidden", "");
-                    alert("El equipo con el cual desea ingresar ya se encuentra conectado. Se sugiere ingresar con el nombre de otro jugador o como de espectador");
+                    alert("El equipo con el cual desea ingresar ya se encuentra conectado. Se sugiere ingresar con el nombre de otro participante o como de espectador");
                 }
             }
         }
-        else
-        {
+        else {
             if (document.getElementById('tipoIngreso').value == "ninguno") {
                 alert("Seleccione un tipo de ingreso a la partida");
             }

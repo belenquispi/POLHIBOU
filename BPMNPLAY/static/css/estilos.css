@@ -1,25 +1,31 @@
 body {
     color: #333;
-    font-family: Arial;
+    font-family: Arial, serif;
+    background: url('../imagenes/EPN_Basic_Formation_Department.jpg') no-repeat fixed center;
+    bgcolor:aqua;
 }
+
 canvas {
     border: 5px solid black;
 }
 
-.unir{
+.unir {
     margin-top: 20px;
 }
+
 .separator {
     margin-top: 20px;
 }
+
 /* 3D Cube */
-.space3d, .space3d-2  {
+.space3d, .space3d-2 {
     perspective: 700px;
     width: 20px;
     height: 20px;
     text-align: center;
     display: inline-block;
 }
+
 ._3dbox, ._3dbox-2 {
     display: inline-block;
     transition: all 0.85s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -30,6 +36,7 @@ canvas {
     transform-style: preserve-3d;
     transform: rotateX(-15deg) rotateY(15deg);
 }
+
 ._3dface, ._3dface-2 {
     overflow: hidden;
     position: absolute;
@@ -40,28 +47,33 @@ canvas {
     line-height: 40px;
     opacity: 0.8;
 }
+
 ._3dface--uno, ._3dface--uno-2 {
     width: 40px;
     height: 40px;
     transform: translate3d(0, 0, 20px);
 }
+
 ._3dface--top, ._3dface--top-2 {
     width: 40px;
     height: 40px;
     transform: rotateX(90deg) translate3d(0, 0, 20px);
 }
+
 ._3dface--bottom, ._3dface--bottom-2 {
     width: 40px;
     height: 40px;
     transform: rotateX(-90deg) translate3d(0, 0, 20px);
 }
-._3dface--dos, ._3dface--dos-2  {
+
+._3dface--dos, ._3dface--dos-2 {
     width: 40px;
     height: 40px;
     left: 50%;
     margin-left: -15px;
     transform: rotateY(-90deg) translate3d(0, 0, 14px);
 }
+
 ._3dface--tres, ._3dface--tres-2 {
     width: 40px;
     height: 40px;
@@ -69,67 +81,82 @@ canvas {
     margin-left: -15px;
     transform: rotateY(90deg) translate3d(0, 0, 20px);
 }
+
 ._3dface--back, ._3dface--back-2 {
     width: 40px;
     height: 40px;
     transform: rotateY(180deg) translate3d(0, 0, 20px);
 }
+
 #radio-dos:checked ~ .space3d ._3dbox {
     transform: rotateY(90deg);
 }
+
 #radio-tres:checked ~ .space3d ._3dbox {
     transform: rotateY(-90deg);
 }
+
 #radio-bottom:checked ~ .space3d ._3dbox {
     transform: rotateX(90deg);
 }
+
 #radio-top:checked ~ .space3d ._3dbox {
     transform: rotateX(-90deg);
 }
+
 #radio-back:checked ~ .space3d ._3dbox {
     transform: rotateY(180deg);
 }
+
 #radio-dos-2:checked ~ .space3d-2 ._3dbox-2 {
     transform: rotateY(90deg);
 }
+
 #radio-tres-2:checked ~ .space3d-2 ._3dbox-2 {
     transform: rotateY(-90deg);
 }
+
 #radio-bottom-2:checked ~ .space3d-2 ._3dbox-2 {
     transform: rotateX(90deg);
 }
+
 #radio-top-2:checked ~ .space3d-2 ._3dbox-2 {
     transform: rotateX(-90deg);
 }
+
 #radio-back-2:checked ~ .space3d-2 ._3dbox-2 {
     transform: rotateY(180deg);
 }
+
 ._3dface--uno, ._3dface--uno-2 {
     background: url(dado1.png);
     background-size: 100%;
 }
+
 ._3dface--dos, ._3dface--dos-2 {
     background: url(dado2.png);
     background-size: auto 100%;
 }
+
 ._3dface--tres, ._3dface--tres-2 {
     background: url(dado3.png);
     background-size: auto 100%;
 }
+
 ._3dface--top, ._3dface--top-2 {
     background: url(dado4.png);
     background-size: auto 100%;
 }
+
 ._3dface--bottom, ._3dface--bottom-2 {
     background: url(dado5.png);
     background-size: auto 100%;
 }
+
 ._3dface--back, ._3dface--back-2 {
     background: url(dado6.png);
     background-size: auto 100%;
 }
-
-
 
 div#memory_board {
     width: 350px;
@@ -139,20 +166,26 @@ div#memory_board {
 }
 
 div#memory_boardMulti {
-    width: 350px;
-    height: 350px;
-    padding: 20px;
+    width: 330px;
+    height: 330px;
+    padding: 5px;
     margin: 0px auto;
 }
 
 div#memory_boardMulti > img {
     background: url(corona.png) no-repeat;
-    border: #000 1px solid;
+    border: #000000 1px solid;
     width: 50px;
     height: 50px;
     float: left;
-    margin: 13px;
+    margin: 15px;
     cursor: pointer;
+    text-align: center;
+}
+
+div#memory_boardMulti > label {
+    float: left;
+    margin: 13px;
     text-align: center;
 }
 
@@ -167,7 +200,7 @@ div#memory_boardMulti > img {
     text-align: center;
 }
 
-#snackbar, #snackbarIn {
+#snackbar, #snackbarIn, #snackbarPositivo, #snackbarNegativo {
     visibility: hidden;
     min-width: 250px;
     margin-left: -125px;
@@ -183,11 +216,11 @@ div#memory_boardMulti > img {
     font-size: 17px;
 }
 
-#snackbarIn {
+#snackbarIn, #snackbarNegativo {
     background-color: #f53f95;
 }
 
-#snackbar.show, #snackbarIn.show {
+#snackbar.show, #snackbarIn.show, #snackbarNegativo.show, #snackbarPositivo.show {
     visibility: visible;
     -webkit-animation: fadein 0.5s, fadeout 0.5s 1.5s;
     animation: fadein 0.5s, fadeout 0.5s 1.5s;
@@ -195,28 +228,25 @@ div#memory_boardMulti > img {
 
 .disabledbutton {
     pointer-events: none;
-
 }
 
 .invisible {
     visibility: hidden;
 }
 
-.flip3D{ width:450px; height:480px; margin:10px; float:left; }
-.flip3D > .front{
-    position:absolute;
-    transform: perspective( 600px ) rotateY( 0deg );
-    background: #bdffbf; width:450px; height:480px; border-radius: 7px;
-    border-color: black;
-    border-style: solid;
-    border-width: thick;
-    backface-visibility: hidden;
-    transition: transform .5s linear 0s;
+.flip3D {
+    width: 425px;
+    height: 480px;
+    margin: 10px;
 }
-.flip3D > .back{
-    position:absolute;
-    transform: perspective( 600px ) rotateY( 180deg );
-    background: #bdffbf; width:450px; height:480px; border-radius: 7px;
+
+.flip3D > .front {
+    position: absolute;
+    transform: perspective(600px) rotateY(0deg);
+    background: #bdffbf;
+    width: 425px;
+    height: 480px;
+    border-radius: 7px;
     border-color: black;
     border-style: solid;
     border-width: thick;
@@ -224,11 +254,25 @@ div#memory_boardMulti > img {
     transition: transform .5s linear 0s;
 }
 
-.miTurno
-{
+.flip3D > .back {
+    position: absolute;
+    transform: perspective(600px) rotateY(180deg);
+    background: #bdffbf;
+    width: 425px;
+    height: 480px;
+    border-radius: 7px;
+    border-color: black;
+    border-style: solid;
+    border-width: thick;
+    backface-visibility: hidden;
+    transition: transform .5s linear 0s;
+}
+
+.miTurno {
     width: 150%;
     height: 150%;
 }
+
 /*.flip3D:hover > .front{
     transform: perspective( 600px ) rotateY( -180deg );
 }
@@ -236,13 +280,29 @@ div#memory_boardMulti > img {
     transform: perspective( 600px ) rotateY( 0deg );
 }*/
 
-.cortaPalabra{
+.cortaPalabra {
     width: 150px;
     height: 100px;
     margin: inherit;
     white-space: normal;
     word-wrap: break-word;
 }
+
 #canvas {
-    background-color: rgba(255,255,255,0.8)
+    background-color: rgba(255, 255, 255, 0.8)
+}
+
+.textoUnir {
+    white-space: pre-line;
+}
+
+.degradoBoton {
+    background: linear-gradient(to right, #4795E1, #DFECF8);
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    text-transform: uppercase;
+}
+
+.textoBlanco{
+    color: white;
 }

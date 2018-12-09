@@ -6,6 +6,7 @@ window.onload = function () {
     var tipoIngreso = document.getElementById("tipoIngreso").value;
     var nombreEquipo = document.getElementById("nombreEquipo").value;
     console.log("emit");
+    console.log(nombreEquipo);
     socket.emit('inicio', codigoPartida, tipoIngreso, nombreEquipo);
 };
 

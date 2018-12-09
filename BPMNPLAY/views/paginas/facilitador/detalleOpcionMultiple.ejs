@@ -2,142 +2,154 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <% include ../parciales/head %>
+    <% include ../../parciales/head %>
     <title>Preguntas de Opción Múltiple</title>
 </head>
 <body>
 <header>
-    <% include ../parciales/headerProfesor %>
+    <% include ../../parciales/headerProfesor %>
 </header>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/ingresoFacilitador">Inicio</a></li>
-        <li class="breadcrumb-item"><a href="/ingresoFacilitador">Materias</a></li>
-        <li class="breadcrumb-item"><a href="/ingresoFacilitador/preguntasOpcionMultiple/<%= materia %>">Preguntas</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoFacilitador">Temáticas</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoFacilitador/preguntasOpcionMultiple/<%= materia %>">Preguntas</a>
+        </li>
     </ol>
 </nav>
 <div class="container">
     <div class="row">
-        <h2>Detalle de Pregunta Opción Múltiple </h2>
+        <div class="col-md-8"><h2>Detalle de Pregunta Opción Múltiple </h2>
+        </div>
+        <div class="col-md-4 text-right"><a href="/ingresoFacilitador/preguntasOpcionMultiple/<%= materia %>"
+                                            id="botonRegresar" class="btn btn-secondary"><i
+                        class="fas fa-undo-alt"></i></i> Regresar</a>
+        </div>
     </div>
-    <form action="/ingresoFacilitador/preguntasOpcionMultiple" method="post" >
+    <form action="/ingresoFacilitador/preguntasOpcionMultiple" method="post">
         <div class="form-row" id="rowEnunciado">
             <input type="text" name="materia" value="<%= materia %>" hidden>
             <div class="form-group col-md-6 ">
                 <label for="enunciado">Enunciado:</label>
-                <input type="text" hidden id="idOpcionMultiple" name="idOpcionMultiple" value="<%=preguntaOpcionMultiple.idOpcionMultiple%>">
-                <%console.log(preguntaOpcionMultiple.enunciado)%>
-                <input type="text" class="form-control" id="enunciado" placeholder="Ingrese el enunciado de la pregunta" name="enunciado" value="<%=preguntaOpcionMultiple.enunciado%>">
-                <%console.log(preguntaOpcionMultiple.enunciado)%>
+                <input type="text" hidden id="idOpcionMultiple" name="idOpcionMultiple"
+                       value="<%= preguntaOpcionMultiple.idOpcionMultiple %>">
+                <input type="text" class="form-control" id="enunciado" placeholder="Ingrese el enunciado de la pregunta"
+                       name="enunciado" value="<%= preguntaOpcionMultiple.enunciado %>">
             </div>
-            <% if (preguntaOpcionMultiple.imagenEnunciado == undefined){%>
-            <div class="form-group col-md-4 " id="cargaImagenEnunciado">
-                <label for="botonArchivoEnunciado">Cargar imagen (opcional):</label>
-                <input type="file" class="form-control-file" id="botonArchivoEnunciado" value="uploadEnunciado"
-                       accept=".png, .jpg, .jpeg"
-                       onchange="mostrarVistaPreviaImagen(event, 'imagenCargadaEnunciado'), encodeImageFileAsURL(this)">
-                <input type="text" hidden id="imagenEnunciado" name="imagenEnunciado">
-            </div>
-            <div class="form-group col-md-1" id="vistaImagenEnunciado">
-                <br>
-                <img id="imagenCargadaEnunciado" width="50" height="50"/>
-            </div>
-            <div class="form-group col-md-1">
-                <br>
-                <button type="button" id="eliminarImagen" class="btn btn-light" hidden onclick="eliminarImagenCargada()"> <i class = "far fa-times-circle fa-2x" style="color: red"></i></button>
-            </div>
+            <% if (preguntaOpcionMultiple.imagenEnunciado == undefined){ %>
+                <div class="form-group col-md-4 " id="cargaImagenEnunciado">
+                    <label for="botonArchivoEnunciado">Cargar imagen (opcional):</label>
+                    <input type="file" class="form-control-file" id="botonArchivoEnunciado" value="uploadEnunciado"
+                           accept=".png, .jpg, .jpeg"
+                           onchange="mostrarVistaPreviaImagen(event, 'imagenCargadaEnunciado'); encodeImageFileAsURL(this)">
+                    <input type="text" hidden id="imagenEnunciado" name="imagenEnunciado">
+                </div>
+                <div class="form-group col-md-1" id="vistaImagenEnunciado">
+                    <br>
+                    <img id="imagenCargadaEnunciado" width="50" height="50"/>
+                </div>
+                <div class="form-group col-md-1">
+                    <br>
+                    <button type="button" id="eliminarImagen" class="btn btn-light" hidden
+                            onclick="eliminarImagenCargada()"><i class="far fa-times-circle fa-2x"
+                                                                 style="color: red"></i></button>
+                </div>
             <% } else { %>
             <div class="form-group col-md-6" id="vistaImagenBase">
                 <br>
-                <img id="imagenCargadaEnunciado" src='<%=preguntaOpcionMultiple.imagenEnunciado%>' width="50" height="50"  />
-                <input type="text" hidden id="imagenEnunciado" name="imagenEnunciado" value="<%=preguntaOpcionMultiple.imagenEnunciado%>">
-                <button type="button" class="btn btn-primary" id="nuevaImagenEnunciado" onclick="cambiarImagen(this)"> <i class="fas fa-exchange-alt"></i>  Cambiar Imagen </button>
+                <img id="imagenCargadaEnunciado" src='<%= preguntaOpcionMultiple.imagenEnunciado %>' width="50"
+                     height="50"/>
+                <input type="text" hidden id="imagenEnunciado" name="imagenEnunciado"
+                       value="<%= preguntaOpcionMultiple.imagenEnunciado %>">
+                <button type="button" class="btn btn-primary" id="nuevaImagenEnunciado" onclick="cambiarImagen(this)"><i
+                            class="fas fa-exchange-alt"></i> Cambiar Imagen
+                </button>
             </div>
-            <%}%>
-
+            <% } %>
         </div>
-
-        <%if(preguntaOpcionMultiple.imagenRes1 == undefined) {
+        <% if(preguntaOpcionMultiple.imagenRes1 == undefined) {
         %>
-        <div class="form-row" id="divRespuestasTexto" >
-            <% var respuesta =[preguntaOpcionMultiple.res1,preguntaOpcionMultiple.res2,preguntaOpcionMultiple.res3,preguntaOpcionMultiple.res4];
-            for (var i = 0 ; i <4 ; i++) {%>
-            <div class="form-group col-md-6">
-                <label for="res<%=(i+1)%>" >Respuesta <%=(i+1)%>:</label>
-                <input type="text" class="form-control" id="res<%=(i+1)%>" placeholder="Ingrese la respuesta <%=(i+1)%>"
-                       name="res<%=(i+1)%>" value="<%=respuesta[i]%>">
+            <div class="form-row" id="divRespuestasTexto">
+                <% let respuesta = [preguntaOpcionMultiple.res1, preguntaOpcionMultiple.res2, preguntaOpcionMultiple.res3, preguntaOpcionMultiple.res4];
+                for (let i = 0 ; i < 4 ; i++) { %>
+                <div class="form-group col-md-6">
+                    <label for="res<%= (i + 1) %>">Respuesta <%= (i + 1) %>:</label>
+                    <input type="text" class="form-control" id="res<%= (i + 1) %>"
+                           placeholder="Ingrese la respuesta <%= (i + 1) %>"
+                           name="res<%= (i + 1) %>" value="<%= respuesta[i] %>">
+                </div>
+                <% } %>
             </div>
-            <%}%>
-        </div>
         <% } else { %>
-        <div class="form-row" id="divRespuestasImagenes" >
-            <% var respuesta = [preguntaOpcionMultiple.imagenRes1,preguntaOpcionMultiple.imagenRes2,preguntaOpcionMultiple.imagenRes3,preguntaOpcionMultiple.imagenRes4];
-            for (var i = 1 ; i <5 ; i++) {%>
-            <div class="form-group col-md-6" id="cardimagenRes<%=i%>">
-                <label for="imagenCargadaRespuesta<%=i%>">Respuesta <%=i%>:</label>
-                <br>
-                <img id="imagenCargadaRespuesta<%=i%>" src='<%=respuesta[i-1]%>' width="50" height="50"/>
-                <input type="text" hidden id="imagenRes<%=i%>" name="imagenRes<%=i%>" value="<%=respuesta[i-1]%>">
-                <button type="button" class="btn btn-primary" id="imagenRes<%=i%>"onclick="cambiarImagen(this)"> <i class="fas fa-exchange-alt"></i> Cambiar Imagen </button>
+            <div class="form-row" id="divRespuestasImagenes">
+                <% let respuesta = [preguntaOpcionMultiple.imagenRes1, preguntaOpcionMultiple.imagenRes2, preguntaOpcionMultiple.imagenRes3, preguntaOpcionMultiple.imagenRes4];
+                for (let i = 1 ; i < 5 ; i++) { %>
+                <div class="form-group col-md-6" id="cardimagenRes<%= i %>">
+                    <label for="imagenCargadaRespuesta<%= i %>">Respuesta <%= i %>:</label>
+                    <br>
+                    <img id="imagenCargadaRespuesta<%= i %>" src='<%= respuesta[i - 1] %>' width="50" height="50"/>
+                    <input type="text" hidden id="imagenRes<%= i %>" name="imagenRes<%= i %>"
+                           value="<%= respuesta[i - 1] %>">
+                    <button type="button" class="btn btn-primary" id="imagenRes<%= i %>" onclick="cambiarImagen(this)">
+                        <i class="fas fa-exchange-alt"></i> Cambiar Imagen
+                    </button>
+                </div>
+                <% } %>
             </div>
-            <%}%>
-        </div>
-        <%}%>
+        <% } %>
         <div class="form-row" id="divRespuestas">
             <div class="form-group col-md-6">
-                <label for="dificultad" >Dificultad:</label>
+                <label for="dificultad">Dificultad:</label>
                 <select id="dificultad" name="dificultad" class="form-control">
                     <% switch(preguntaOpcionMultiple.dificultad){
-                    case "Fácil":%>
-                    <option  value="Fácil" selected>Fácil </option>
-                    <option  value="Medio" >Medio </option>
-                    <option  value="Difícil" >Difícil </option>
+                    case "Fácil": %>
+                    <option value="Fácil" selected>Fácil</option>
+                    <option value="Medio">Medio</option>
+                    <option value="Difícil">Difícil</option>
                     <%
                         break;
                     case "Medio":
-                        %>
-                    <option  value="Fácil" >Fácil </option>
-                    <option  value="Medio" selected >Medio </option>
-                    <option  value="Difícil" >Difícil </option>
+                    %>
+                    <option value="Fácil">Fácil</option>
+                    <option value="Medio" selected>Medio</option>
+                    <option value="Difícil">Difícil</option>
                     <%
                         break;
                     case "Difícil":
                     %>
-                    <option  value="Fácil" >Fácil </option>
-                    <option  value="Medio" >Medio </option>
-                    <option  value="Difícil" selected >Difícil </option>
+                    <option value="Fácil">Fácil</option>
+                    <option value="Medio">Medio</option>
+                    <option value="Difícil" selected>Difícil</option>
                     <% break;
                     }
                     %>
                 </select>
             </div>
             <div class="form-group col-md-6">
-                <label for="resCorrecta" >Respuesta correcta:</label>
+                <label for="resCorrecta">Respuesta correcta:</label>
                 <select id="resCorrecta" name="respuestaCorrecta" class="form-control">
-                    <% for (var i = 1; i<5; i++){
-                    if(preguntaOpcionMultiple.respuestaCorrecta == "res"+(i)){ %>
-                    <option  value="res<%=(i)%>" selected>Respuesta <%=(i)%> </option>
-                    <% } else {%>
-                    <option  value="res<%=(i)%>">Respuesta <%=(i)%></option>
-                    <%}}%>
+                    <% for (let i = 1; i < 5; i++){
+                    if(preguntaOpcionMultiple.respuestaCorrecta == "res" + (i)){ %>
+                    <option value="res<%= (i) %>" selected>Respuesta <%= (i) %> </option>
+                    <% } else { %>
+                    <option value="res<%= (i) %>">Respuesta <%= (i) %></option>
+                    <% }} %>
                 </select>
             </div>
             <div class="form-group col-md-3"></div>
-            <div class="form-group col-md-6">
-                <button type="submit" id="botonActualizar" class="btn btn-info" ><i class="fas fa-sync-alt"></i> Actualizar</button>
-                <a href="/ingresoFacilitador/eliminarPreguntaOpcionMultiple/<%=materia%>&<%=preguntaOpcionMultiple.idOpcionMultiple%>" id="botonEliminar" class="btn btn-danger" ><i class="fas fa-trash-alt"></i> Eliminar</a>
+            <div class="form-group col-md-6 text-center">
+                <button type="submit" id="botonActualizar" class="btn btn-info"><i class="fas fa-sync-alt"></i>
+                    Actualizar
+                </button>
+                <a href="/ingresoFacilitador/eliminarPreguntaOpcionMultiple/<%= materia %>&<%= preguntaOpcionMultiple.idOpcionMultiple %>"
+                   id="botonEliminar" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Eliminar</a>
             </div>
             <div class="form-group col-md-3"></div>
 
         </div>
     </form>
 </div>
-
-</div>
-
 <script type="text/javascript" src="/socket.io/socket.io.js"></script>
 <script src="/static/js/detalleOpcionMultiple.js"></script>
-
-
 </body>
 </html>

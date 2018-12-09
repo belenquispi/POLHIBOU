@@ -14,9 +14,7 @@ exports.obtenerPreguntasOpcionMultiple = function (usuarioP, materiaP) {
         for (var i = 0; i < doc.materias[indice].preguntasOpcionMultiple.length; i++) {
             preguntasOpcionMultiple.push(doc.materias[indice].preguntasOpcionMultiple[i]);
             preguntasOpcionMultiple[preguntasOpcionMultiple.length - 1].usada = false;
-            console.log(preguntasOpcionMultiple[preguntasOpcionMultiple.length - 1].usada);
         }
-        console.log(preguntasOpcionMultiple)
     });
         return preguntasOpcionMultiple;
 };
@@ -33,9 +31,7 @@ exports.obtenerPreguntasUnir = function (usuarioP, materiaP) {
         for (var i = 0; i < doc.materias[indice].preguntasUnirVoltear.length; i++) {
             preguntasUnirVoltear.push(doc.materias[indice].preguntasUnirVoltear[i]);
             preguntasUnirVoltear[preguntasUnirVoltear.length - 1].usada = false;
-            console.log(preguntasUnirVoltear[preguntasUnirVoltear.length - 1].usada);
         }
-        console.log(preguntasUnirVoltear)
     });
     return preguntasUnirVoltear;
 };

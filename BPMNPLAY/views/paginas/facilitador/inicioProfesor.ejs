@@ -1,36 +1,45 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <% include ../parciales/head %>
+    <% include ../../parciales/head%>
     <meta http-equiv="Content-Type" content="text/html"/>
     <title>Inicio Facilitador</title>
 </head>
 <body>
 <header>
-    <% include ../parciales/headerProfesor %>
+    <% include ../../parciales/headerProfesor %>
 </header>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/ingresoFacilitador">Inicio</a></li>
     </ol>
 </nav>
-<div class="container-fluid">
+<div class="container-fluid ">
     <div class="row">
         <div class="col-md-2">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <a href="/ingresoFacilitador"
-                       class="nav-link active" style="margin-bottom: 10px">
-                        <i class="far fa-list-alt"></i> Modo Facilitador</a>
-                    <a href="/ingresoParticipante"
-                       class="nav-link" style="margin-bottom: 10px">
-                        <i class="far fa-list-alt"></i> Modo Participante</a>
-                    <a href="/estadisticas"
-                       class="nav-link" style="margin-bottom: 10px">
-                        <i class="fas fa-chart-bar"></i> Estadísticas</a>
+            <div class="row h-100">
+                    <div class="col-12 collapse d-md-flex bg-light h-100" id="sidebar">
+                        <ul class="nav flex-column flex-nowrap">
+                            <li class="nav-item">
+                                <a class="nav-link dropdown-toggle collapsed" href="/ingresoFacilitador" data-toggle="collapse" data-target="#submenu1"><i class="fas fa-chalkboard-teacher"></i> Facilitador</a>
+                                <div class="collapse show" id="submenu1" aria-expanded="false">
+                                    <ul class="flex-column pl-5 nav">
+                                        <li class="nav-item"><a class="nav-link py-0" style="color: black" href="/ingresoFacilitador"><i class="fas fa-home" ></i> Inicio Facilitador</a></li>
+                                        <li class="nav-item"><a class="nav-link py-0" href="/estadisticas"><i class="fas fa-chart-bar"></i> Estadísticas</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link  dropdown-toggle collapsed" href="/ingresoParticipante" data-toggle="collapse" data-target="#submenu2"><i class="fas fa-user"></i> Participante</a>
+                                <div class="collapse" id="submenu2" aria-expanded="false">
+                                    <ul class="flex-column pl-5 nav">
+                                        <li class="nav-item"><a class="nav-link py-0" href="/ingresoParticipante"><i class="fas fa-home"></i> Inicio Participante</a></li>
+                                        <li class="nav-item" ><a class="nav-link py-0" href="/ingresoPartida"><i class="fas fa-sign-in-alt"></i> Unirse a Partida</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
-                </div>
             </div>
         </div>
         <div class="col-md-10">
@@ -85,8 +94,7 @@
                     </div>
                 </div>
                 <%
-                for(var i = 0; i < materias.length; i++) {
-                    console.log(materias[i]) %>
+                for(let i = 0; i < materias.length; i++) { %>
 
                 <div class="col-md-4">
                     <div class="card" style="margin-top: 10px">
@@ -123,9 +131,8 @@
                                         <input type="text" name="materia" value="<%= materias[i].nombre %>"
                                                hidden>
                                         <button class="btn btn-default" type="button" data-toggle="tooltip"
-                                                data-placement="right" title="Eliminar Materia"><i
-                                                    class="fas fa-trash-alt"
-                                                    onclick="eliminarMateria('<%= materias[i].nombre %>')"></i>
+                                                data-placement="right" title="Eliminar Temática"  onclick="eliminarMateria('<%= materias[i].nombre %>')"><i
+                                                    class="fas fa-trash-alt"></i>
                                         </button>
                                         <button id="botonEliminar<%= materias[i].nombre %>" type="submit"
                                                 hidden></button>
@@ -157,7 +164,7 @@
                                 <div class="col-md-10">
                                     <a href="/ingresoFacilitador/preguntasUnirVoltear/<%= materias[i].nombre %>"
                                        class="btn btn-info" style="margin-bottom: 10px">
-                                        <i class="fas fa-th"></i> Preguntas Unir Voltear <span
+                                        <i class="fas fa-th"></i> Imágenes y nombres <span
                                                 class="badge badge-light"><%= materias[i].numUnirVoltear %></span></a>
                                 </div>
                                 <div class="col-md-2">
@@ -196,11 +203,11 @@
                 </div>
                 <% } %>
                 <div class="col-md-4">
-                    <div class="card" style=" border-style: dashed; margin-top: 10px; height: 240px">
+                    <div class="card" style=" border-style: dashed; margin-top: 10px; height: 248px">
                         <div class="row">
                             <div class="col-md-3"></div>
                             <div class="col-md-6">
-                                <img src="../../static/imagenes/iconoMas.png" height="200" width="200" alt="Card image">
+                                <img src="../../static/imagenes/iconoMas.png" height="210" width="200" alt="Card image">
                             </div>
                             <div class="col-md-3"></div>
                         </div>
@@ -210,19 +217,9 @@
         </div>
     </div>
 </div>
-<script
-        src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
-<script>
-    $(document).ready(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-    });
-</script>
 <script src="/static/js/profesor.js"></script>
 <footer>
-    <% include ../parciales/footer.ejs %>
+    <% include ../../parciales/footer.ejs %>
 </footer>
-
 </body>
 </html>

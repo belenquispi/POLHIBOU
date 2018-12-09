@@ -9,19 +9,20 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.2.0",
+    "@fortawesome/fontawesome-free": "^5.4.2",
     "@google-cloud/storage": "^1.7.0",
+    "animejs": "^2.2.0",
     "body-parser": "^1.18.3",
-    "chart.js": "^2.7.2",
+    "chart.js": "^2.7.3",
     "cookie-parser": "^1.4.3",
     "ejs": "^2.6.1",
-    "express": "^4.16.3",
-    "express-ejs-layouts": "^2.4.0",
+    "express": "^4.16.4",
+    "express-ejs-layouts": "^2.5.0",
     "express-session": "^1.15.6",
-    "firebase-admin": "^5.12.1",
-    "mongoose": "^5.2.4",
-    "nodemailer": "^4.6.7",
-    "npm": "^6.2.0",
+    "firebase-admin": "^5.13.1",
+    "mongoose": "^5.3.7",
+    "nodemailer": "^4.6.8",
+    "npm": "^6.4.1",
     "socket.io": "^2.1.1"
   }
 }

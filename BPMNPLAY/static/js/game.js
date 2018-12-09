@@ -18,13 +18,13 @@ var per4 = new Image();
 var filas, columnas, anchoCasilla, altoCasilla;
 var gameMap = [];
 var colorMap = [];
-var patterColor1, patterColor2, patterColor3, patterLlegada, patterInicio, patterIncierto, patterFin, patterB, patterP, patterM, patterN, patterPlay;
+var patterColor1, patterColor2, patterColor3, patterLlegada, patterInicio, patterIncierto, patterFin, patterB, patterP,
+    patterM, patterN, patterPlay;
 var socket = io();
 var jugadores = [];
 var turnoJugadores = [];
 var respuestaCorrecta = false;
 var turnoFinalizado = true;
-var miIndiceJugador = -1;
 var idSocketActual;
 var roomActual, rol, nombreEquipo;
 var dado1 = -1, dado2 = -1, dadoAnterior1 = 1, dadoAnterior2 = 1;
@@ -41,7 +41,8 @@ var imagenUnir = ['botonImagenAUnir1', 'botonImagenAUnir2', 'botonImagenAUnir3',
 var textoUnir = ['textoAUnir1', 'textoAUnir2', 'textoAUnir3', 'textoAUnir4'];
 var respuestaCorrectaUnir = [];
 var fps = 30;
-
+let tiempoVoltear = 0;
+let respuestaVoltearATiempo = -1;
 function dados(nombrePartida) {
     this.nombrePartida = nombrePartida;
     this.dado1 = dado1;
@@ -89,12 +90,6 @@ socket.on('error', function (nombre) {
 });
 
 socket.on('parametrosJuego', function () {
-    /* filas = data.filas;
-     columnas = data.colum;
-     anchoCasilla = data.anchoCas;
-     altoCasilla = data.altoCas;
-     gameMap = data.gameM;
-     colorMap = data.colorM;*/
     idSocketActual = socket.io.engine.id;
     console.log("Mi socket: " + idSocketActual)
 });
@@ -109,10 +104,20 @@ socket.on('partida', function (data) {
     jugadores = data.jugadores;
     preguntasOpcionMultiple = data.preguntasOpcionMultiple;
     preguntasUnirVoltear = data.preguntasUnirVoltear;
-    for (var i = 0; i < jugadores.length; i++) {
+    for (let i = 0; i < jugadores.length; i++) {
         if (jugadores[i].idSocket == idSocketActual) {
-            miIndiceJugador = i;
-            numCasillasMoverse = jugadores[i].numCasillasMoverseP
+            numCasillasMoverse = jugadores[i].numCasillasMoverseP;
+        }
+    }
+});
+
+socket.on('mensajeMisterio', function (num, casillasExtras) {
+    if (num == 1) {
+        misterioPositivo();
+    }
+    else {
+        if (num == 0) {
+            misterioNegativo();
         }
     }
 });
@@ -148,8 +153,8 @@ socket.on('respondiendoIndicePreguntaOpcionMultiple', function (indicePregunta) 
 
 socket.on('respondiendoIndicePreguntaUnir', function (arrayIndices, arrayTexto) {
     respuestaCorrectaUnir = [];
-    for (var i = 0; i < arrayIndices.length; i++) {
-        respuestaCorrectaUnir.push(preguntasUnirVoltear[arrayIndices[i]].imagen);
+    for (let i = 0; i < arrayIndices.length; i++) {
+        respuestaCorrectaUnir.push("botonImagenAUnir" + (i + 1));
         respuestaCorrectaUnir.push(preguntasUnirVoltear[arrayIndices[i]].texto);
         cargarPreguntaUnirVoltear(arrayIndices[i], arrayTexto[i], (i + 1));
     }
@@ -194,13 +199,21 @@ socket.on('enviandoDarLaVuelta', function (idSocketN) {
         darLaVuelta();
     }
 });
+socket.on('partidaFinalizada', function () {
+    document.getElementById("botonFinalizacion").removeAttribute("disabled");
+    document.getElementById("botonFinalizacion").click();
+});
+
+socket.on('partidaCancelada', function () {
+    document.getElementById("linkFinalizarPartida").click();
+});
 
 function agregarNumerosCasilla() {
     for (var y = 0; y < filas; ++y) {
         for (var x = 0; x < columnas; ++x) {
             switch (gameMap[((y * columnas) + x)]) {
-                case 0:
-                case 'I':
+                case -1:
+                case 0 :
                 case 34:
                 case 7:
                 case 13:
@@ -225,16 +238,6 @@ function drawGame() {
     if (ctx == null) {
         return;
     }
-    /*    var sec = Math.floor(Date.now() / 500);
-        if (sec != currentSecond) {
-            currentSecond = sec;
-            framesLastSecond = frameCount;
-            frameCount = 1;
-        }
-        else {
-            frameCount++;
-        }*/
-
     if (numCasillasMoverse > 0 && (turnoJugadores[0] == idSocketActual) && respuestaCorrecta == true) {
         socket.emit('moverJugador', roomActual);
     } else {
@@ -244,17 +247,17 @@ function drawGame() {
             return value.idSocket
         }).indexOf(idSocketActual)].boton == 0)) {
             desbloquearBoton();
-            numCasillasMoverse == -1;
-            jugadores[jugadores.map(function (value) {
-                return value.idSocket
-            }).indexOf((idSocketActual))].boton == 1;
+            /* numCasillasMoverse = -1;
+              jugadores[jugadores.map(function (value) {
+                    return value.idSocket
+                }).indexOf((idSocketActual))].boton = 1;*/
         }
         mostrarJugadorActual();
 
     }
 
-    for (var y = 0; y < filas; ++y) {
-        for (var x = 0; x < columnas; ++x) {
+    for (let y = 0; y < filas; ++y) {
+        for (let x = 0; x < columnas; ++x) {
 
             patterColor1 = ctx.createPattern(color1, "repeat");
             patterColor2 = ctx.createPattern(color2, "repeat");
@@ -269,12 +272,12 @@ function drawGame() {
             patterPlay = ctx.createPattern(casillaPlay, "repeat");
 
             switch (gameMap[((y * columnas) + x)]) {
-                case 0:
+                case -1:
                     //ctx.fillStyle = "#6A0888";
                     ctx.fillStyle = "#0B610B";
 
                     break;
-                case 'I':
+                case 0:
                     ctx.fillStyle = patterInicio;
                     break;
                 case 7:
@@ -324,18 +327,31 @@ function drawGame() {
     dibujarJugador();
     dibujarLlegarA();
     habilitarTablaJugador();
-    // ctx.fillStyle = "#ff0000";
-    // ctx.fillText("FPS: " + framesLastSecond, 10, 20);
-    //
-    //lastFrameTime = currentFrameTime;
+    /*ctx.fillStyle = "#ff0000";
+    ctx.fillText("FPS: " + framesLastSecond, 10, 20);
+    let lastFrameTime = currentFrameTime;*/
     requestAnimationFrame(drawGame);
+}
+function controlarTiempo() {
+    let temporizador = setInterval(function () {
+        tiempoVoltear--;
+        if (tiempoVoltear > 0) {
+            document.getElementById("progreso").style.width = tiempoVoltear - 2 + "%";
+        } else {
+            clearTimeout(temporizador);
+            if(respuestaVoltearATiempo == 0){
+                desafioIncorrecto();
+                voltearTarjeta(2000);
+            }
+        }
+    }, 400);
 }
 
 function dibujarJugador() {
-    for (var i = 0; i < jugadores.length; i++) {
+    for (let i = 0; i < jugadores.length; i++) {
         if (jugadores[i].idSocket != "") {
             ctx.fillStyle = jugadores[i].colorP;
-            per1.src = 'static/imagenes/trebol.png';
+            per1.src = 'static/imagenes/arbol.svg';
             //per1.src = 'static/imagenes/flor.jpg';
             per2.src = 'static/imagenes/star.png';
             per3.src = 'static/imagenes/mal.png';
@@ -344,7 +360,6 @@ function dibujarJugador() {
             switch (i) {
                 case 0:
                     ctx.drawImage(per1, jugadores[i].position[0], jugadores[i].position[1], (jugadores[i].dimensions[0] / 2), (jugadores[i].dimensions[1] / 2));
-                    // ctx.fillRect(jugadores[i].position[0], jugadores[i].position[1], (jugadores[i].dimensions[0] / 2), (jugadores[i].dimensions[1] / 2));
                     break;
                 case 1:
                     ctx.drawImage(per2, jugadores[i].position[0] + jugadores[i].dimensions[1] / 2, jugadores[i].position[1], jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[1] / 2);
@@ -362,16 +377,11 @@ function dibujarJugador() {
 }
 
 function dibujarLlegarA() {
-    console.log("Voy a dibujar");
-
     if (jugadores.length > 0) {
-        console.log("Mas de un jugador: "+indiceJugadorActualF());
-        if (indiceJugadorActualF() >= 0 && jugadores[indiceJugadorActualF()].moverseA> 0) {
-            var moverseA = jugadores[indiceJugadorActualF()].moverseA;
-            console.log("Moverse: " + moverseA);
-            console.log("casilla: " +  (jugadores[indiceJugadorActualF()].casilla == 'I' ? 0 : jugadores[indiceJugadorActualF()].casilla));
-            if (moverseA != (jugadores[indiceJugadorActualF()].casilla == 'I' ? 0 : jugadores[indiceJugadorActualF()].casilla)) {
-                var casilla = jugadores[indiceJugadorActualF()].casilla;
+        if (indiceDelJugadorConTurno() >= 0 && jugadores[indiceDelJugadorConTurno()].moverseA > 0) {
+            var moverseA = jugadores[indiceDelJugadorConTurno()].moverseA;
+            if (moverseA != jugadores[indiceDelJugadorConTurno()].casilla) {
+                var casilla = jugadores[indiceDelJugadorConTurno()].casilla;
                 patterLlegada = ctx.createPattern(llegada, "repeat");
                 for (var y = 0; y < filas; ++y) {
                     for (var x = 0; x < columnas; ++x) {
@@ -379,14 +389,12 @@ function dibujarLlegarA() {
                         switch (true) {
                             case (caso == casilla):
                             case (caso == moverseA):
-                                console.log("Caso: "+caso);
                                 /*ctx.fillStyle = patterLlegada;
                                 ctx.fillRect((x * anchoCasilla)+anchoCasilla/4, (y * altoCasilla)+altoCasilla/4, anchoCasilla/2, altoCasilla/2);
                                 y = filas;
                                 x = columnas;*/
                                 break;
-                            case (caso > 0 && caso < 35):
-                            case (caso == 'I' && caso != casilla):
+                            case (caso >= 0 && caso < 35):
                                 ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
                                 ctx.fillRect(x * anchoCasilla, y * altoCasilla, anchoCasilla, altoCasilla);
                                 break;
@@ -400,16 +408,12 @@ function dibujarLlegarA() {
     }
 }
 
-function indiceJugadorActualF() {
+function indiceDelJugadorConTurno() {
     var indice = -1;
     if (jugadores.length > 0) {
-        console.log('Hay uno adicional')
         indice = jugadores.map(function (value) {
-            console.log("id: Soc: "+value.idSocket);
             return value.idSocket;
         }).indexOf(turnoJugadores[0]);
-        console.log('iiii: '+indice)
-
     } else {
         indice = -1;
     }
@@ -439,13 +443,23 @@ function bloquearBoton() {
 
 function lanzarDado() {
     bloquearBoton();
-    dadoRandomico();
+    var misterio = jugadores[jugadores.map(function (value) {
+        return value.idSocket;
+    }).indexOf(idSocketActual)].maldicion;
+    if (misterio == 1) {
+        dado1 = 1;
+        dado2 = 1;
+    } else {
+        // dadoRandomico();
+        dado1 = 6;
+        dado2 = 6;
+    }
     moverDado();
     moverDado2();
     dadoAnterior1 = dado1;
     dadoAnterior2 = dado2;
     numCasillasMoverse = dado1 + dado2;
-    socket.emit('dados', dado1, dado2, roomActual, dadoAnterior1, dadoAnterior2, numCasillasMoverse);
+    socket.emit('dados', dado1, dado2, roomActual, dadoAnterior1, dadoAnterior2, numCasillasMoverse, misterio);
 }
 
 function dadoRandomico() {
@@ -526,15 +540,15 @@ function habilitarTablaJugador() {
 }
 
 function mostrarJugadorActual() {
-    for (var i = 0; i < jugadores.length; i++) {
+    for (let i = 0; i < jugadores.length; i++) {
         document.getElementById("tablajug" + (i + 1)).style.border = "thick grey";
         document.getElementById("tablajug" + (i + 1)).style.background = "#FFFFFF";
         document.getElementById("turno" + (i + 1)).setAttribute("hidden", "");
     }
 
-    for (var j = 0; j < jugadores.length; j++) {
+    for (let j = 0; j < jugadores.length; j++) {
         if (!document.getElementById("imagenJugador" + (j + 1)) && jugadores[j].idSocket != "") {
-            var images = document.createElement("IMG");
+            let images = document.createElement("IMG");
             images.setAttribute("src", "static/buhoInicial" + (jugadores[j].iconoEquipo) + ".gif");
             images.setAttribute("id", "imagenJugador" + (j + 1));
             images.setAttribute("height", "50");
@@ -543,14 +557,14 @@ function mostrarJugadorActual() {
             document.getElementById("nombreEquipo" + (j + 1)).innerHTML = jugadores[j].nombreEquipo;
         }
     }
-    var indiceJugadorActual = indiceJugadorActualF();
+    var indiceJugadorActual = indiceDelJugadorConTurno();
 
     if (indiceJugadorActual >= 0 && turnoJugadores.length > 0) {
         //  document.getElementById("nombreEquipoActual").innerHTML = jugadores[indiceJugadorActual].nombreEquipo;
         if (document.getElementById("tablajug" + (indiceJugadorActual + 1))) {
             document.getElementById("tablajug" + (indiceJugadorActual + 1)).style.background = "#A9BCF5";
             document.getElementById("turno" + (indiceJugadorActual + 1)).removeAttribute("hidden");
-            //  document.getElementById("tablajug" + (indiceJugadorActual + 1)).classList.add('miTurno');
+            document.getElementById("tablajug" + (indiceJugadorActual + 1)).classList.add('miTurno');
             cambiarImagen(indiceJugadorActual);
         }
     }
@@ -577,6 +591,7 @@ function cambiarImagen(num) {
 }
 
 function mostrarDesafio(colorCa, idSocket) {
+    document.getElementById('textoTarjeta').innerText = "Voltéame";
     switch (colorCa) {
         case 0:
             document.getElementById('tarjeta').style.backgroundColor = "#F2F5A9";
@@ -587,8 +602,13 @@ function mostrarDesafio(colorCa, idSocket) {
             document.getElementById("tipoJuego").innerHTML = "Voltear";
             document.getElementById("desafios").removeAttribute("hidden");
             document.getElementById("memory_boardMulti").removeAttribute("hidden");
+            document.getElementById("barraTiempoUnir").removeAttribute("hidden");
+            document.getElementById("respuestaUnirVoltear").removeAttribute("hidden");
+            document.getElementById("ultimoPar").setAttribute("src", "../../../static/imagenes/0.png");
+            document.getElementById("ultimoNombre").innerHTML = "";
             document.getElementById("unir").setAttribute("hidden", "");
             document.getElementById("opcionMultiple").setAttribute("hidden", "");
+            respuestaVoltearATiempo = 0;
             break;
         case 1:
             document.getElementById('tarjeta').style.backgroundColor = "#F6CED8";
@@ -601,6 +621,8 @@ function mostrarDesafio(colorCa, idSocket) {
             document.getElementById("desafios").removeAttribute("hidden");
             document.getElementById("unir").removeAttribute("hidden");
             document.getElementById("memory_boardMulti").setAttribute("hidden", "");
+            document.getElementById("barraTiempoUnir").setAttribute("hidden", "");
+            document.getElementById("respuestaUnirVoltear").setAttribute("hidden", "");
             document.getElementById("opcionMultiple").setAttribute("hidden", "");
             break;
         case 2:
@@ -614,16 +636,17 @@ function mostrarDesafio(colorCa, idSocket) {
             document.getElementById("opcionMultiple").removeAttribute("hidden");
             document.getElementById("unir").setAttribute("hidden", "");
             document.getElementById("memory_boardMulti").setAttribute("hidden", "");
+            document.getElementById("barraTiempoUnir").setAttribute("hidden", "");
+            document.getElementById("respuestaUnirVoltear").setAttribute("hidden", "");
             break;
         default:
     }
 }
 
 function newBoard() {
-    console.log(memory_array.length)
     tiles_flipped = 0;
-    var output = '';
-    for (var i = 0; i < memory_array.length; i++) {
+    let output = '';
+    for (let i = 0; i < memory_array.length; i++) {
         if (idSocketActual == turnoJugadores[0]) {
             output += '<img id="tile_' + i + '" alt="" onclick="memoryFlipTile(this,\'' + memory_array[i] + '\')">';
         }
@@ -659,6 +682,7 @@ function memoryFlipTile(tile, val) {
                 // Check to see if the whole board is cleared
                 if (tiles_flipped == memory_array.length) {
                     // alert("Board cleared... generating new board");
+                    respuestaVoltearATiempo = 1;
                     desafioCorrecto();
                     voltearTarjeta(2000);
                 }
@@ -710,8 +734,8 @@ function cargarPreguntaOpcionMultiple(indicePregunta) {
             elemento.parentNode.removeChild(elemento);
         }
     }
-    for (var j = 0; j < 4; j++) {
-        var boton = document.createElement("BUTTON");
+    for (let j = 0; j < 4; j++) {
+        let boton = document.createElement("BUTTON");
         boton.setAttribute("id", "res" + (j + 1));
         boton.setAttribute("onclick", "validarRespuesta(this)");
         boton.setAttribute("class", "btn btn-block btn-outline-dark cortaPalabra");
@@ -793,20 +817,31 @@ function cargarPreguntaUnirVoltear(indicePregunta, texto, a) {
 }
 
 function obtenerId(e) {
-    var id = e.id;
+    let id = e.id;
     switch (true) {
 
         case respuestaUnir.length < 2:
-            document.getElementById(id).style.border = "thick solid green";
+            document.getElementById(id).style.border = "thick solid #B78E4C";
+            document.getElementById(id).style.background = "#B78E4C";
+            document.getElementById(id).style.color = "black";
             break;
         case respuestaUnir.length < 4:
-            document.getElementById(id).style.border = "thick solid red";
+            document.getElementById(id).style.border = "thick solid #4CB0B7";
+            document.getElementById(id).style.background = "#4CB0B7";
+            document.getElementById(id).style.color = "black";
+
             break;
         case respuestaUnir.length < 6:
-            document.getElementById(id).style.border = "thick solid black";
+            document.getElementById(id).style.border = "thick solid #864CB7";
+            document.getElementById(id).style.background = "#864CB7";
+            document.getElementById(id).style.color = "black";
+
             break;
         case respuestaUnir.length < 8:
-            document.getElementById(id).style.border = "thick solid yellow";
+            document.getElementById(id).style.border = "thick solid #F9B052";
+            document.getElementById(id).style.background = "#F9B052";
+            document.getElementById(id).style.color = "black";
+
             break;
 
     }
@@ -817,10 +852,10 @@ function obtenerId(e) {
     }
 
     if (imagenUnir.indexOf(id) >= 0) {
-        for (var i = 0; i < imagenUnir.length; i++) {
+        for (let i = 0; i < imagenUnir.length; i++) {
             document.getElementById(imagenUnir[i]).setAttribute("disabled", "");
         }
-        for (var j = 0; j < textoUnir.length; j++) {
+        for (let j = 0; j < textoUnir.length; j++) {
             if (respuestaUnir.indexOf(textoUnir[j]) > 0) {
                 document.getElementById(textoUnir[j]).setAttribute("disabled", "");
             } else {
@@ -828,15 +863,15 @@ function obtenerId(e) {
             }
         }
     } else if (textoUnir.indexOf(id) >= 0) {
-        for (var i = 0; i < textoUnir.length; i++) {
-            document.getElementById(textoUnir[i]).setAttribute("disabled", "");
+        for (let k = 0; k < textoUnir.length; k++) {
+            document.getElementById(textoUnir[k]).setAttribute("disabled", "");
         }
 
-        for (var j = 0; j < imagenUnir.length; j++) {
-            if (respuestaUnir.indexOf(imagenUnir[j]) >= 0) {
-                document.getElementById(imagenUnir[j]).setAttribute("disabled", "");
+        for (let l = 0; l < imagenUnir.length; l++) {
+            if (respuestaUnir.indexOf(imagenUnir[l]) >= 0) {
+                document.getElementById(imagenUnir[l]).setAttribute("disabled", "");
             } else {
-                document.getElementById(imagenUnir[j]).removeAttribute("disabled");
+                document.getElementById(imagenUnir[l]).removeAttribute("disabled");
             }
         }
     }
@@ -852,18 +887,15 @@ function verificarCompletoUnir() {
 }
 
 function reiniciarUnir() {
-    for (var i = 0; i < respuestaUnir.length; i++) {
+    for (let i = 0; i < respuestaUnir.length; i++) {
+        document.getElementById(respuestaUnir[i]).removeAttribute("style");
         document.getElementById(respuestaUnir[i]).style.border = "gray";
         if (imagenUnir.indexOf(respuestaUnir[i]) >= 0) {
             document.getElementById(respuestaUnir[i]).removeAttribute("disabled");
         }
-
-        if (i < 4 && document.getElementById("textoCorrecto" + (i + 1)).innerHTML != "") {
-            document.getElementById("textoCorrecto" + (i + 1)).innerHTML = "";
-        }
     }
 
-    for (var i = respuestaUnir.length; i > 0; i--) {
+    for (let j = respuestaUnir.length; j > 0; j--) {
         respuestaUnir.pop();
     }
     if (turnoJugadores[0] == idSocketActual) {
@@ -872,17 +904,12 @@ function reiniciarUnir() {
 }
 
 function mostrarMensajeParEncontrado(url) {
-    var indicePreguntaUnir = preguntasUnirVoltear.map(function (e) {
+    let indicePreguntaUnir = preguntasUnirVoltear.map(function (e) {
         return e.imagen
     }).indexOf(url);
     if (indicePreguntaUnir >= 0) {
-        document.getElementById("mensajeVoltear").removeAttribute("hidden");
-        document.getElementById("nombreParEncontrado").innerHTML = preguntasUnirVoltear[indicePreguntaUnir].texto;
-
-        setTimeout(function () {
-            document.getElementById("mensajeVoltear").setAttribute("hidden", "");
-            document.getElementById("nombreParEncontrado").innerHTML = "";
-        }, 2000);
+        document.getElementById("ultimoPar").setAttribute("src", url);
+        document.getElementById("ultimoNombre").innerHTML = preguntasUnirVoltear[indicePreguntaUnir].texto;
     }
 
 }
@@ -911,17 +938,39 @@ function verificarRespuestaUnir() {
     if (turnoJugadores[0] == idSocketActual) {
         socket.emit('verificarUnir', roomActual);
     }
-    var contadorRespuestas = 0;
-    for (var j = 0; j < respuestaUnir.length - 1; j++) {
-        for (var k = 0; k < respuestaCorrectaUnir.length - 1; k++) {
-            var idBoton1 = respuestaUnir[j];
-            var idBoton2 = respuestaUnir[j + 1];
-            if (document.getElementById(idBoton1).getAttribute("nombre") == respuestaCorrectaUnir[k] && document.getElementById(idBoton2).textContent == respuestaCorrectaUnir[k + 1]) {
+    let contadorRespuestas = 0;
+    for (let j = 0; j < respuestaUnir.length - 1; j = j + 2) {
+        for (let k = 0; k < respuestaCorrectaUnir.length - 1; k++) {
+            let idBoton1 = respuestaUnir[j];
+            let idBoton2 = respuestaUnir[j + 1];
+            if (idBoton1 == respuestaCorrectaUnir[k]
+                && document.getElementById(idBoton2).textContent == respuestaCorrectaUnir[k + 1]) {
                 contadorRespuestas++;
-                j++;
-                k = respuestaUnir.length
+                k = respuestaUnir.length;
             }
-
+            else {
+                k++;
+            }
+        }
+    }
+    let texto = [];
+    for (let a = 0; a < respuestaUnir.length - 1; a = a + 2) {
+        texto.push(document.getElementById(respuestaUnir[a + 1]).textContent);
+    }
+    for (let x = 0; x < respuestaCorrectaUnir.length - 1; x = x + 2) {
+        for (let y = 0; y < respuestaUnir.length - 1; y = y + 2) {
+            if (respuestaCorrectaUnir[x] == respuestaUnir[y]) {
+                document.getElementById("textoAUnir" + ((x / 2) + 1)).textContent = texto[y / 2];
+                y = respuestaUnir.length;
+            }
+        }
+    }
+    for (let c = 0; c < respuestaCorrectaUnir.length - 1; c = c + 2) {
+        for (let d = 1; d < 5; d++) {
+            if (respuestaCorrectaUnir[c + 1] == document.getElementById("textoAUnir" +d).textContent) {
+                document.getElementById("textoAUnir" + (d)).style.background = document.getElementById(respuestaCorrectaUnir[c]).style.background;
+                d = 5;
+            }
         }
     }
 
@@ -934,10 +983,10 @@ function verificarRespuestaUnir() {
     }
     document.getElementById("botonLanzar").classList.add("disabledbutton");
     document.getElementById("botonLanzar").classList.add("invible");
-    voltearTarjeta(10000);
+    voltearTarjeta(2000);
     setTimeout(function () {
         reiniciarUnir();
-    }, 10000)
+    }, 2000)
 }
 
 function desafioIncorrecto() {
@@ -953,8 +1002,16 @@ function desafioCorrecto() {
     respuestaCorrecta = true;
 }
 
+function misterioPositivo() {
+    mostrarMensaje("snackbarPositivo");
+}
+
+function misterioNegativo() {
+    mostrarMensaje("snackbarNegativo");
+}
+
 function mostrarMensaje(texto) {
-    var x = document.getElementById(texto);
+    let x = document.getElementById(texto);
     x.className = "show";
     setTimeout(function () {
         x.className = x.className.replace("show", "");
@@ -962,8 +1019,14 @@ function mostrarMensaje(texto) {
 }
 
 function mostrarRespuestaCorrectaUnir() {
-    for (var i = 0; i < 4; i++) {
-        document.getElementById("textoCorrecto" + (i + 1)).innerHTML = respuestaCorrectaUnir[(i * 2) + 1];
+    for (let i = 0; i < 4; i++) {
+        if (document.getElementById("textoAUnir" + (i + 1)).textContent == respuestaCorrectaUnir[(i * 2) + 1]) {
+            document.getElementById("textoAUnir" + (i + 1)).style.border = "thick solid green";
+            document.getElementById("botonImagenAUnir" + (i + 1)).style.border = "thick solid green";
+        } else {
+            document.getElementById("textoAUnir" + (i + 1)).style.border = "thick solid red";
+            document.getElementById("botonImagenAUnir" + (i + 1)).style.border = "thick solid red";
+        }
     }
 }
 
@@ -973,6 +1036,10 @@ function darLaVuelta() {
     if (turnoJugadores[0] == idSocketActual) {
         socket.emit('darLaVuelta', roomActual);
     }
+    if(respuestaVoltearATiempo== 0){
+        tiempoVoltear = 100;
+        controlarTiempo();
+    }
 }
 
 function voltearTarjeta(t) {
@@ -980,9 +1047,17 @@ function voltearTarjeta(t) {
             document.getElementById("desafios").style.transform = "perspective( 600px ) rotateY( 180deg )";
             document.getElementById('tarjeta').style.backgroundColor = "#bdffbf";
             document.getElementById("tarjeta").style.transform = "perspective( 600px ) rotateY( 0deg )";
+            document.getElementById('textoTarjeta').innerText = "Polhibou";
             setTimeout(function () {
                 document.getElementById('desafios').style.backgroundColor = "#bdffbf";
             }, 1000);
         }
         , t);
+}
+function finalizarPartida() {
+    let r = confirm("¿Está seguro de finalizar la partida?");
+    if (r == true) {
+        socket.emit('partidaCancelada', roomActual);
+        document.getElementById('linkFinalizarPartida').click();
+    }
 }
