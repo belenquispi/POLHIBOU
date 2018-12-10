@@ -10,37 +10,42 @@
     <% include ../parciales/header %>
 </header>
 <div class="container">
-    <div class="row">
+    <div class="row" style="margin: 30px">
         <div class="col-md-3"></div>
-        <div class="col-md-6 col-md-offset-3">
+        <div class="col-md-6 col-md-offset-3 opaco">
             <div class="panel panel-login">
-                <div class="row">
-                    <div class="col-md-12">
+                <div class="row" style="margin: 30px">
+                    <div class="col-md-12 " >
                         <img class="rounded mx-auto d-block"
                              src="https://cem.epn.edu.ec/imagenes/logos_institucionales/big_jpg/BUHO_ABSTRACCION_EPN_big.jpg"
                              height="100" width="100">
                     </div>
                 </div>
-                <br>
+                <hr>
                 <div class="row">
                     <div class="col-lg-12">
+                        <h3 class="display-8 text-center textoBlanco">INICIAR SESIÓN</h3>
                         <form id="login-form" action="/ingreso" method="post" role="form" style="display: block;">
                             <% if(usuario != ""){ %>
-                             <div class="input-group mb-2">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text"><i class="fas fa-user"></i></div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 text-right">
+                                        <label for="usuario" class="textoBlanco">USUARIO</label>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="text" name="usuario" id="usuario" tabindex="1"
+                                               class="form-control is-invalid" required placeholder="Usuario">
+                                    </div>
                                 </div>
-                                <input type="text" name="usuario" id="usuario" tabindex="1"
-                                       class="form-control is-invalid" required placeholder="Usuario">
-                            </div>
-                           <div class="input-group mb-2">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text"><i class="fas fa-key"></i></div>
-                            </div>
-                                <input type="password" name="contrasenia" id="contrasenia" tabindex="2"
-                                       class="form-control is-invalid " required placeholder="Contraseña">
-                                <div class="invalid-feedback">Las credenciales no son válidas.</div>
-                            </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 text-right">
+                                        <label for="contrasenia" class="textoBlanco">CONTRASEÑA</label>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="password" name="contrasenia" id="contrasenia" tabindex="2"
+                                               class="form-control is-invalid " required placeholder="Contraseña">
+                                        <div class="invalid-feedback">Las credenciales no son válidas.</div>
+                                    </div>
+                                </div>
                             <% }else {
                             switch (tipo) {
                             case 1: %>
@@ -52,26 +57,30 @@
                             case 3: %>
                             <label>Por favor, inicia sesión con tus credenciales.</label>
                             <%}%>
-                            <div class="input-group mb-2">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text"><i class="fas fa-user"></i></div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 text-right">
+                                        <label for="usuario" class="textoBlanco">USUARIO</label>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="text" name="usuario" id="usuario" tabindex="1" class="form-control"
+                                               required placeholder="Usuario" value="">
+                                    </div>
                                 </div>
-                                <input type="text" name="usuario" id="usuario" tabindex="1" class="form-control"
-                                       required placeholder="Usuario" value="">
-                            </div>
-                            <div class="input-group mb-2">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text"><i class="fas fa-key"></i></div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 text-right">
+                                        <label for="contrasenia" class="textoBlanco">CONTRASEÑA</label>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="password" name="contrasenia" id="contrasenia" tabindex="2"
+                                               class="form-control" required placeholder="Contraseña">
+                                    </div>
                                 </div>
-                                <input type="password" name="contrasenia" id="contrasenia" tabindex="2"
-                                       class="form-control" required placeholder="Contraseña">
-                            </div>
                             <% } %>
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-3"></div>
                                         <div class="col-md-6 text-center">
-                                            <a href="/recuperarContrasenia">Olvidé mi contraseña</a>
+                                            <a href="/recuperarContrasenia" class="textoBlanco">Olvidé mi contraseña</a>
                                         </div>
                                         <div class="col-md-3"></div>
                                     </div>
@@ -81,7 +90,7 @@
                                     <div class="col-md-3"></div>
                                     <div class="col-md-6 text-center">
                                         <button type="submit" name="login-submit" id="login-submit" tabindex="4"
-                                                class="btn btn-info"><i class="fas fa-sign-in-alt"></i> Iniciar sesión
+                                                class="btn btn-primary btn-block degradoBoton"><i class="fas fa-sign-in-alt"></i> Iniciar sesión
                                         </button>
                                     </div>
                                     <div class="col-md-3"></div>
@@ -90,6 +99,7 @@
                         </form>
                     </div>
                 </div>
+                <hr>
             </div>
         </div>
         <div class="col-md-3"></div>

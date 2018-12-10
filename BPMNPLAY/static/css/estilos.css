@@ -1,10 +1,16 @@
 body {
-    color: #333;
+    color: rgba(52, 166, 214, 0.4);
     font-family: Arial, serif;
-    background: url('../imagenes/EPN_Basic_Formation_Department.jpg') no-repeat fixed center;
-    bgcolor:aqua;
-}
+    background: rgba(52,56,56,0.9) url("../imagenes/EPN_Basic_Formation_Department.jpg") no-repeat center;
 
+}
+hr {
+    height: 1px;
+    background-color: white;
+}
+.opaco {
+    background-color: rgba(194, 196, 197, 0.5);
+}
 canvas {
     border: 5px solid black;
 }
@@ -297,7 +303,7 @@ div#memory_boardMulti > label {
 }
 
 .degradoBoton {
-    background: linear-gradient(to right, #4795E1, #DFECF8);
+    background: linear-gradient(to right, #007bff, #E6F2FB);
     border-top-right-radius: 50px;
     border-bottom-right-radius: 50px;
     text-transform: uppercase;
