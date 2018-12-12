@@ -2,6 +2,11 @@ let mostrarVistaPreviaImagen = function (event, imagen) {
     let output = document.getElementById(imagen);
     console.log("URL");
     console.log(event.target.files[0]);
+    if(event.target.files[0].size > 10000){
+      console.log("El tamaño es muy grande");
+      console.log(event.target.files[0].size);
+
+    }
     if(event.target.files[0] != undefined) {
         output.src = URL.createObjectURL(event.target.files[0]);
     } else {

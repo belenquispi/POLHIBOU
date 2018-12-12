@@ -97,7 +97,7 @@ function generarDatosEquipo(numero) {
             document.getElementById("form-group" + (i + 1)).appendChild(boton);
             var images = document.createElement("IMG");
             //images.setAttribute("src", "../../static/buhoInicial" + (j + 1) + ".gif");
-            images.setAttribute("src", "../../static/imagenes/arbol.svg");
+            images.setAttribute("src", "../../static/imagenes/equipo"+ (j + 1)+".svg");
             images.setAttribute("id", "buhoInicial" + (j + 1) + "Equipo" + (i + 1));
             images.setAttribute("class", "img-thumbnail");
             images.setAttribute("height", "50");

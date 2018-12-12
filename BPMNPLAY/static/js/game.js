@@ -351,7 +351,7 @@ function dibujarJugador() {
     for (let i = 0; i < jugadores.length; i++) {
         if (jugadores[i].idSocket != "") {
             ctx.fillStyle = jugadores[i].colorP;
-            per1.src = 'static/imagenes/arbol.svg';
+            per1.src = 'static/imagenes/equipo'+jugadores[i].iconoEquipo+'.svg';
             //per1.src = 'static/imagenes/flor.jpg';
             per2.src = 'static/imagenes/star.png';
             per3.src = 'static/imagenes/mal.png';
@@ -549,7 +549,7 @@ function mostrarJugadorActual() {
     for (let j = 0; j < jugadores.length; j++) {
         if (!document.getElementById("imagenJugador" + (j + 1)) && jugadores[j].idSocket != "") {
             let images = document.createElement("IMG");
-            images.setAttribute("src", "static/buhoInicial" + (jugadores[j].iconoEquipo) + ".gif");
+            images.setAttribute("src", "static/imagenes/equipo" + (jugadores[j].iconoEquipo) + ".svg");
             images.setAttribute("id", "imagenJugador" + (j + 1));
             images.setAttribute("height", "50");
             images.setAttribute("width", "50");
@@ -581,10 +581,10 @@ function mostrarJugadorActual() {
 function cambiarImagen(num) {
     for (var j = 0; j < turnoJugadores.length; j++) {
         if (j == num) {
-            document.getElementById("imagenJugador" + (j + 1)).src = "static/buho" + jugadores[j].iconoEquipo + ".gif";
+            document.getElementById("imagenJugador" + (j + 1)).src = "static/imagenes/equipo" + jugadores[j].iconoEquipo + ".svg";
         } else {
             if (document.getElementById("imagenJugador" + (j + 1))) {
-                document.getElementById("imagenJugador" + (j + 1)).src = "static/buhoInicial" + jugadores[j].iconoEquipo + ".gif";
+                document.getElementById("imagenJugador" + (j + 1)).src = "static/imagenes/equipo" + jugadores[j].iconoEquipo + ".svg";
             }
         }
     }
