@@ -6,15 +6,16 @@
     <title>Inicio Facilitador</title>
 </head>
 <body>
+<div class="opaco">
 <header>
     <% include ../../parciales/headerProfesor %>
 </header>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/ingresoFacilitador">Inicio</a></li>
+        <li class="breadcrumb-item textoBlanco"><a href="/ingresoFacilitador">Inicio</a></li>
     </ol>
 </nav>
-<div class="container-fluid ">
+<div class="container-fluid">
     <div class="row">
         <div class="col-md-2">
             <div class="row h-100">
@@ -45,14 +46,14 @@
         <div class="col-md-10">
             <div class="row">
                 <div class="col-md-12" >
-                <h2>Temáticas</h2>
+                <h2 class="textoBlanco">TEMÁTICAS</h2>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <div class="card text-white bg-dark" style="margin-top: 10px">
-                        <h5 class="card-header">Agregar Temática</h5>
-                        <div class="card-body">
+                    <div class="card" style="margin-top: 10px">
+                        <h5 class="card-header bg-white" style="color: black">AGREGAR TEMÁTICA</h5>
+                        <div class="card-body" style="background: transparent">
                             <form action="/ingresoMateria" method="post">
                                 <div class="row">
                                     <div class="input-group mb-2">
@@ -101,7 +102,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-md-8">
-                                    <h5><%= materias[i].nombre %></h5>
+                                    <h5 style="color: black"><%= materias[i].nombre %></h5>
                                 </div>
                                 <div class="col-md-2">
                                     <form action="/cambiarTipoMateria" method="post">
@@ -144,7 +145,7 @@
                             <div class="row">
                                 <div class="col-md-10">
                                     <a href="/ingresoFacilitador/preguntasOpcionMultiple/<%= materias[i].nombre %>"
-                                       class="btn btn-primary" style="margin-bottom: 10px"
+                                       class="btn btn-white" style="margin-bottom: 10px"
                                        id=<%= materias[i] %>>
                                         <i class="far fa-list-alt"></i> Preguntas Opción Multiple <span
                                                 class="badge badge-light"><%= materias[i].numOpcionMultiple %></span></a>
@@ -163,7 +164,7 @@
                             <div class="row">
                                 <div class="col-md-10">
                                     <a href="/ingresoFacilitador/preguntasUnirVoltear/<%= materias[i].nombre %>"
-                                       class="btn btn-info" style="margin-bottom: 10px">
+                                       class="btn btn-white" style="margin-bottom: 10px">
                                         <i class="fas fa-th"></i> Imágenes y nombres <span
                                                 class="badge badge-light"><%= materias[i].numUnirVoltear %></span></a>
                                 </div>
@@ -221,5 +222,6 @@
 <footer>
     <% include ../../parciales/footer.ejs %>
 </footer>
+</div>
 </body>
 </html>

@@ -258,7 +258,6 @@ function drawGame() {
 
     for (let y = 0; y < filas; ++y) {
         for (let x = 0; x < columnas; ++x) {
-
             patterColor1 = ctx.createPattern(color1, "repeat");
             patterColor2 = ctx.createPattern(color2, "repeat");
             patterColor3 = ctx.createPattern(color3, "repeat");
@@ -351,23 +350,21 @@ function dibujarJugador() {
     for (let i = 0; i < jugadores.length; i++) {
         if (jugadores[i].idSocket != "") {
             ctx.fillStyle = jugadores[i].colorP;
-            per1.src = 'static/imagenes/equipo'+jugadores[i].iconoEquipo+'.svg';
-            //per1.src = 'static/imagenes/flor.jpg';
-            per2.src = 'static/imagenes/star.png';
-            per3.src = 'static/imagenes/mal.png';
-            per4.src = 'static/imagenes/pintura.png';
-
             switch (i) {
                 case 0:
+                    per1.src = 'static/imagenes/equipo'+jugadores[i].iconoEquipo+'.svg';
                     ctx.drawImage(per1, jugadores[i].position[0], jugadores[i].position[1], (jugadores[i].dimensions[0] / 2), (jugadores[i].dimensions[1] / 2));
                     break;
                 case 1:
+                    per2.src = 'static/imagenes/equipo'+jugadores[i].iconoEquipo+'.svg';
                     ctx.drawImage(per2, jugadores[i].position[0] + jugadores[i].dimensions[1] / 2, jugadores[i].position[1], jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[1] / 2);
                     break;
                 case 2:
+                    per3.src = 'static/imagenes/equipo'+jugadores[i].iconoEquipo+'.svg';
                     ctx.drawImage(per3, jugadores[i].position[0], jugadores[i].position[1] + jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[1] / 2);
                     break;
                 case 3:
+                    per4.src = 'static/imagenes/equipo'+jugadores[i].iconoEquipo+'.svg';
                     ctx.drawImage(per4, jugadores[i].position[0] + jugadores[i].dimensions[0] / 2, jugadores[i].position[1] + jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[1] / 2);
                     break;
                 default:
@@ -379,20 +376,16 @@ function dibujarJugador() {
 function dibujarLlegarA() {
     if (jugadores.length > 0) {
         if (indiceDelJugadorConTurno() >= 0 && jugadores[indiceDelJugadorConTurno()].moverseA > 0) {
-            var moverseA = jugadores[indiceDelJugadorConTurno()].moverseA;
+            let moverseA = jugadores[indiceDelJugadorConTurno()].moverseA;
             if (moverseA != jugadores[indiceDelJugadorConTurno()].casilla) {
-                var casilla = jugadores[indiceDelJugadorConTurno()].casilla;
+                let casilla = jugadores[indiceDelJugadorConTurno()].casilla;
                 patterLlegada = ctx.createPattern(llegada, "repeat");
-                for (var y = 0; y < filas; ++y) {
-                    for (var x = 0; x < columnas; ++x) {
-                        var caso = gameMap[((y * columnas) + x)];
+                for (let y = 0; y < filas; ++y) {
+                    for (let x = 0; x < columnas; ++x) {
+                        let caso = gameMap[((y * columnas) + x)];
                         switch (true) {
                             case (caso == casilla):
                             case (caso == moverseA):
-                                /*ctx.fillStyle = patterLlegada;
-                                ctx.fillRect((x * anchoCasilla)+anchoCasilla/4, (y * altoCasilla)+altoCasilla/4, anchoCasilla/2, altoCasilla/2);
-                                y = filas;
-                                x = columnas;*/
                                 break;
                             case (caso >= 0 && caso < 35):
                                 ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
@@ -409,7 +402,7 @@ function dibujarLlegarA() {
 }
 
 function indiceDelJugadorConTurno() {
-    var indice = -1;
+    let indice = -1;
     if (jugadores.length > 0) {
         indice = jugadores.map(function (value) {
             return value.idSocket;

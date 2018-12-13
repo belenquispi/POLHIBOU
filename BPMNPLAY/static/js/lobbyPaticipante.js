@@ -38,7 +38,7 @@ function actualizacion() {
         document.getElementById("card"+(i+1)).appendChild(divCard2);
         var img = document.createElement("IMG");
         img.setAttribute("id", "imagen"+(i+1));
-        img.setAttribute("src", "static/buho" + (jugadoresConectados[i].iconoEquipo) + ".gif");
+        img.setAttribute("src", "static/imagenes/equipo" + (jugadoresConectados[i].iconoEquipo) + ".svg");
         img.setAttribute("class", "rounded mx-auto d-block");
         img.setAttribute("width", "50px");
         img.setAttribute("height", "50px");
