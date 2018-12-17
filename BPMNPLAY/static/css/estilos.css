@@ -1,7 +1,7 @@
 body {
     color: rgba(52, 166, 214, 0.4);
     font-family: Arial, serif;
-    background: rgba(52,56,56,0.9) url("../imagenes/EPN_Basic_Formation_Department.jpg") no-repeat center;
+    background: url("../imagenes/EPN.jpg") no-repeat center;
 
 }
 hr {
@@ -10,6 +10,10 @@ hr {
 }
 .opaco {
     background-color: rgba(194, 196, 197, 0.5);
+}
+.opacoCard {
+    background-color: rgba(0, 0, 0, 0);
+    border-color: white;
 }
 canvas {
     border: 5px solid black;
