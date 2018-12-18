@@ -25,7 +25,7 @@
                                 <a class="nav-link dropdown-toggle collapsed textoBlanco" href="/ingresoFacilitador" data-toggle="collapse" data-target="#submenu1"><i class="fas fa-chalkboard-teacher"></i> Facilitador</a>
                                 <div class="collapse show" id="submenu1" aria-expanded="false">
                                     <ul class="flex-column pl-5 nav">
-                                        <li class="nav-item"><a class="nav-link py-0 textoBlanco" href="/ingresoFacilitador"><i class="fas fa-home" ></i> Inicio Facilitador</a></li>
+                                        <li class="nav-item"><a class="nav-link py-0 btn-primary degradoMenu" href="/ingresoFacilitador"><i class="fas fa-home" ></i> Inicio Facilitador</a></li>
                                         <li class="nav-item"><a class="nav-link py-0 textoBlanco" href="/estadisticas"><i class="fas fa-chart-bar"></i> Estadísticas</a></li>
                                     </ul>
                                 </div>
@@ -49,7 +49,7 @@
                 <h2 class="textoBlanco">TEMÁTICAS</h2>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" style="margin-bottom: 20px">
                 <div class="col-md-4">
                     <div class="card opacoCard" style="margin-top: 10px">
                         <h5 class="card-header bg-white" style="color: black">AGREGAR TEMÁTICA</h5>
@@ -143,7 +143,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-10">
-                                    <a href="/preguntasOpcionMultiple/<%= materias[i].nombre %>"
+                                    <a href="/ingresoFacilitador/preguntasOpcionMultiple/<%= materias[i].nombre %>"
                                        class="btn bg-white" style="margin-bottom: 10px"
                                        id=<%= materias[i] %>>
                                         <i class="far fa-list-alt"></i> Preguntas Opción Multiple <span
@@ -203,11 +203,11 @@
                 </div>
                 <% } %>
                 <div class="col-md-4">
-                    <div class="card opaco" style=" border-style: dashed; margin-top: 10px; height: 248px">
+                    <div class="card opacoCard" style=" border-style: dashed; margin-top: 10px; height: 248px">
                         <div class="row">
                             <div class="col-md-3"></div>
                             <div class="col-md-6">
-                                <img src="../../static/imagenes/iconoMas.png" height="210" width="200" alt="Card image">
+                                <img src="../../static/imagenes/iconoMas1.png" height="210" width="200" alt="Card image" style="margin: 20px">
                             </div>
                             <div class="col-md-3"></div>
                         </div>
