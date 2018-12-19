@@ -1,5 +1,34 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/">Polhibou</a>
+<div class="navbar navbar-expand-lg navbar-dark opaco">
+    <div class="row">
+    <div class="col-md-4"> <a class="navbar-brand" href="/">
+            <div class="row" >
+                <div class="col-md-2"></div>
+                <div class="col-md-8 text-center">
+                    <img src="../../static/imagenes/iconoPolhibou1.png"
+                         height="84" width="288">
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </a></div>
+    <div class="col-md-4">   <a class="navbar-brand" href="/">
+            <div class="row" >
+                <div class="col-md-12 text-center">
+                    <img src="../../static/imagenes/iconoEPN.png"
+                         width="75%" height="75%">
+                </div>
+            </div>
+        </a></div>
+    <div class="col-md-4"></div>
+</div>
+
+    <a class="navbar-brand" href="/">
+        <div class="row" >
+            <div class="col-md-12 text-center">
+                <img src="../../static/imagenes/iconoEPN.png"
+                     width="75%" height="75%">
+            </div>
+        </div>
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -10,8 +39,8 @@
                 Bienvenido : <%=nombre%>
              </span>
         <br>
-        <a class="btn btn-outline-light ml-2" href="/cambiarContrasenia">Cambiar Contraseña</a>
-        <a class="btn btn-outline-light ml-2" href="/salir">Cerrar Sesión</a>
+        <a class="btn btn-primary degradoMenu" href="/cambiarContrasenia" style="margin-left: 10px">Cambiar Contraseña</a>
+        <a class="btn btn-primary degradoMenu" href="/salir" style="margin-left: 10px">Cerrar Sesión</a>
     </div>
 </nav>
 
