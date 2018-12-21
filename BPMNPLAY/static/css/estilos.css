@@ -2,7 +2,6 @@ body {
     color: rgba(52, 166, 214, 0.4);
     font-family: Arial, serif;
     background: url("../imagenes/EPN.jpg") no-repeat center;
-
 }
 hr {
     height: 1px;
@@ -307,13 +306,13 @@ div#memory_boardMulti > label {
 }
 
 .degradoBoton {
-    background: linear-gradient(to right, #007bff, #E6F2FB);
+    background: linear-gradient(to right, #007bff, #B6BEC2);
     border-top-right-radius: 50px;
     border-bottom-right-radius: 50px;
     text-transform: uppercase;
 }
  .degradoMenu {
-    background: linear-gradient(to right, #007bff, #E6F2FB);
+    background: linear-gradient(to right, #007bff, #B6BEC2);
 }
 
 .textoBlanco{

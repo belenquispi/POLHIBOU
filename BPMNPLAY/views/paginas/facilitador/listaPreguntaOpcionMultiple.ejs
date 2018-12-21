@@ -6,13 +6,15 @@
     <title>Preguntas Opción Múltiple</title>
 </head>
 <body>
+<div class="opaco">
 <header>
     <% include ../../parciales/headerProfesor %>
 </header>
+    <hr>
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/ingresoFacilitador">Inicio</a></li>
-        <li class="breadcrumb-item"><a href="/ingresoFacilitador">Temáticas</a></li>
+    <ol class="breadcrumb opacoCard">
+        <li class="breadcrumb-item"><a href="/ingresoFacilitador" class="textoBlanco">INICIO</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoFacilitador" class="textoBlanco">TEMÁTICAS</a></li>
     </ol>
 </nav>
 <% var faciles = 0, medias = 0, dificiles = 0;
@@ -29,7 +31,7 @@ for (var i = 0; i < dificultades.length; i++) {
             break;
     }
 } %>
-<div class="container-fluid opaco" >
+<div class="container-fluid" >
     <div class="row">
         <div class="col-md-2 opacoCard" style="margin-bottom: 20px">
             <div class="row h-100">
@@ -158,5 +160,6 @@ for (var i = 0; i < dificultades.length; i++) {
 <footer>
     <% include ../../parciales/footer.ejs %>
 </footer>
+</div>
 </body>
 </html>

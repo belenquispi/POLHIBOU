@@ -6,24 +6,26 @@
     <title>Preguntas de Opción Múltiple</title>
 </head>
 <body>
+<div class="opaco">
 <header>
     <% include ../../parciales/headerProfesor %>
 </header>
+    <hr>
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/ingresoFacilitador">Inicio</a></li>
-        <li class="breadcrumb-item"><a href="/ingresoFacilitador">Temáticas</a></li>
-        <li class="breadcrumb-item"><a href="/ingresoFacilitador/preguntasOpcionMultiple/<%= materia %>">Preguntas</a>
+    <ol class="breadcrumb opacoCard">
+        <li class="breadcrumb-item"><a href="/ingresoFacilitador" class="textoBlanco">INICIO</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoFacilitador" class="textoBlanco">TEMÁTICAS</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoFacilitador/preguntasOpcionMultiple/<%= materia %>" class="textoBlanco">PREGUNTAS</a>
         </li>
     </ol>
 </nav>
-<div class="container opaco">
+<div class="container">
     <div class="row">
         <div class="col-md-8" style="margin-top: 20px"><h2 class="textoBlanco">DETALLE DE PREGUNTA OPCIÓN MULTIPLE</h2>
         </div>
         <div class="col-md-4 text-right " style="margin-top: 20px"><a href="/ingresoFacilitador/preguntasOpcionMultiple/<%= materia %>"
                                             id="botonRegresar" class="btn btn-primary degradoBoton"><i
-                        class="fas fa-undo-alt"></i></i> Regresar</a>
+                        class="fas fa-undo-alt"></i></i> REGRESAR</a>
         </div>
     </div>
     <form action="/ingresoFacilitador/preguntasOpcionMultiple" method="post">
@@ -151,5 +153,6 @@
 </div>
 <script type="text/javascript" src="/socket.io/socket.io.js"></script>
 <script src="/static/js/detalleOpcionMultiple.js"></script>
+</div>
 </body>
 </html>

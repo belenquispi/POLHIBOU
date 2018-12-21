@@ -1,46 +1,45 @@
-<div class="navbar navbar-expand-lg navbar-dark opaco">
+<div class="navbar navbar-expand-lg opacoCard">
     <div class="row">
-    <div class="col-md-4"> <a class="navbar-brand" href="/">
-            <div class="row" >
-                <div class="col-md-2"></div>
-                <div class="col-md-8 text-center">
-                    <img src="../../static/imagenes/iconoPolhibou1.png"
-                         height="84" width="288">
+        <div class="col-md-12"><a class="navbar-brand" href="/">
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8 text-center">
+                        <img src="../../static/imagenes/iconoPolhibou.svg"
+                             height="100%" width="100%">
+                    </div>
+                    <div class="col-md-2"></div>
                 </div>
-                <div class="col-md-2"></div>
-            </div>
-        </a></div>
-    <div class="col-md-4">   <a class="navbar-brand" href="/">
-            <div class="row" >
-                <div class="col-md-12 text-center">
-                    <img src="../../static/imagenes/iconoEPN.png"
-                         width="75%" height="75%">
-                </div>
-            </div>
-        </a></div>
-    <div class="col-md-4"></div>
-</div>
-
-    <a class="navbar-brand" href="/">
-        <div class="row" >
-            <div class="col-md-12 text-center">
-                <img src="../../static/imagenes/iconoEPN.png"
-                     width="75%" height="75%">
-            </div>
-        </div>
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+            </a></div>
+    </div>
+    <button class="navbar-toggler navbar-dark bg-dark" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon white"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         </ul>
-        <span class="navbar-text ml-2">
-                Bienvenido : <%=nombre%>
-             </span>
-        <br>
-        <a class="btn btn-primary degradoMenu" href="/cambiarContrasenia" style="margin-left: 10px">Cambiar Contraseña</a>
-        <a class="btn btn-primary degradoMenu" href="/salir" style="margin-left: 10px">Cerrar Sesión</a>
+        <div class="col-md-3"></div>
+        <div class="col-md-3"><a class="navbar-brand" href="/">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <img src="../../static/imagenes/IconoEPN.svg"
+                             width="100%" height="100%">
+                    </div>
+                </div>
+            </a></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3">
+            <div class="row">
+                <h5 class="navbar-text ml-2 textoBlanco">
+                    Bienvenido : <%= nombre %>
+                </h5>
+            </div>
+            <div class="row">
+                <a class="btn btn-primary degradoMenu" href="/cambiarContrasenia" style="margin-left: 10px"><i
+                            class="fas fa-exchange-alt"></i> Cambiar Contraseña</a>
+                <a class="btn btn-primary degradoMenu" href="/salir" style="margin-left: 10px"><i
+                            class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+            </div>
+        </div>
     </div>
-</nav>
-
+</div>

@@ -6,13 +6,15 @@
     <title>Preguntas Unir Voltear</title>
 </head>
 <body>
+<div class="opaco">
 <header>
     <% include ../../parciales/headerProfesor %>
 </header>
+    <hr>
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/ingresoFacilitador">Inicio</a></li>
-        <li class="breadcrumb-item"><a href="/ingresoFacilitador/">Temáticas</a></li>
+    <ol class="breadcrumb opacoCard">
+        <li class="breadcrumb-item"><a href="/ingresoFacilitador" class="textoBlanco">INICIO</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoFacilitador/" class="textoBlanco">TEMÁTICAS</a></li>
     </ol>
 </nav>
 <% var faciles = 0, medias = 0, dificiles = 0;
@@ -31,48 +33,49 @@ for (var i = 0; i < dificultades.length; i++) {
 } %>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-2 opacoCard" style="margin-bottom: 20px">
             <div class="row h-100">
-                <div class="col-12 collapse d-md-flex bg-light h-100" id="sidebar">
+                <div class="col-12 collapse d-md-flex h-100" id="sidebar">
                     <ul class="nav flex-column flex-nowrap">
                         <li class="nav-item">
-                            <a class="nav-link dropdown-toggle collapsed" href="/ingresoFacilitador"
+                            <a class="nav-link dropdown-toggle collapsed textoBlanco" href="/ingresoFacilitador"
                                data-toggle="collapse" data-target="#submenu1"><i class="fas fa-chalkboard-teacher"></i>
-                                Facilitador</a>
+                                FACILITADOR</a>
                             <div class="collapse show" id="submenu1" aria-expanded="false">
                                 <ul class="flex-column pl-5 nav">
-                                    <li class="nav-item"><a class="nav-link py-0" style="color: black"
+                                    <li class="nav-item"><a class="nav-link py-0 btn-primary degradoBoton" style="color: black"
                                                             href="/ingresoFacilitador"><i class="fas fa-home"></i>
-                                            Inicio Facilitador</a></li>
-                                    <li class="nav-item"><a class="nav-link py-0" href="/estadisticas"><i
-                                                    class="fas fa-chart-bar"></i> Estadísticas</a></li>
+                                            INICIO FACILITADOR</a></li>
+                                    <li class="nav-item"><a class="nav-link py-0 textoBlanco" href="/estadisticas"><i
+                                                    class="fas fa-chart-bar"></i> ESTADÍSTICAS</a></li>
                                 </ul>
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link  dropdown-toggle collapsed" href="/ingresoParticipante"
+                            <a class="nav-link  dropdown-toggle collapsed textoBlanco" href="/ingresoParticipante"
                                data-toggle="collapse" data-target="#submenu2"><i class="fas fa-user"></i>
-                                Participante</a>
+                                PARTICIPANTE</a>
                             <div class="collapse" id="submenu2" aria-expanded="false">
                                 <ul class="flex-column pl-5 nav">
-                                    <li class="nav-item"><a class="nav-link py-0" href="/ingresoParticipante"><i
-                                                    class="fas fa-home"></i> Inicio Participante</a></li>
-                                    <li class="nav-item"><a class="nav-link py-0" href="/ingresoPartida"><i
-                                                    class="fas fa-sign-in-alt"></i> Unirse a Partida</a></li>
+                                    <li class="nav-item"><a class="nav-link py-0 textoBlanco" href="/ingresoParticipante"><i
+                                                    class="fas fa-home"></i> INICIO PARTICIPANTE</a></li>
+                                    <li class="nav-item"><a class="nav-link py-0 textoBlanco" href="/ingresoPartida"><i
+                                                    class="fas fa-sign-in-alt"></i> UNIRSE A PARTIDA</a></li>
                                 </ul>
                             </div>
                         </li>
                         <li style="margin-top: 20px">
-                            <div class="card">
+                            <div class="card opacoCard">
                                 <div class="card-body">
-                                    <h5 class="card-title">Total de imágenes</h5>
-                                    <p>Imágenes fáciles: <%= faciles %></p>
-                                    <p>Imágenes medias: <%= medias %></p>
-                                    <p>Imágenes difíciles: <%= dificiles %></p>
+                                    <h5 class="card-title textoBlanco">TOTAL DE IMÁGENES</h5>
+                                    <p class="textoBlanco">Imágenes fáciles: <%= faciles %></p>
+                                    <p class="textoBlanco">Imágenes medias: <%= medias %></p>
+                                    <p class="textoBlanco">Imágenes difíciles: <%= dificiles %></p>
                                 </div>
-                                <div class="card-footer text-muted">
-                                    Recuerde que se necesitan al menos 8 imágenes de cada dificultad para que la
+                                <div class="card-footer text-muted opacoCard" >
+                                    <p class="textoBlanco">Recuerde que se necesitan al menos 8 imágenes de cada dificultad para que la
                                     temática se muestre a los participantes.
+                                    </p>
                                 </div>
                             </div>
                         </li>
@@ -84,12 +87,12 @@ for (var i = 0; i < dificultades.length; i++) {
         <div class="col-md-10">
             <div class="row">
                 <div class="col-md-7">
-                    <h2>Imágenes y nombres de <%= materia %>
+                    <h2 CLASS="textoBlanco">IMÁGENES Y NOMBRES DE <%= materia %>
                     </h2></div>
-                <div class="col-md-3 text-right"><a href="/unirVoltear/<%= materia %>" class="btn btn-info"
+                <div class="col-md-3 text-right"><a href="/unirVoltear/<%= materia %>" class="btn btn-primary degradoBoton"
                                          style="margin-bottom: 10px"><i class="fas fa-plus"></i> Agregar varias
                         imágenes</a></div>
-                <div class="col-md-2 text-right"><a href="/ingresoFacilitador" id="botonRegresar" class="btn btn-secondary"><i
+                <div class="col-md-2 text-right"><a href="/ingresoFacilitador" id="botonRegresar" class="btn btn-primary degradoBoton"><i
                                 class="fas fa-undo-alt"></i></i> Regresar</a></div>
 
             </div>
@@ -182,7 +185,7 @@ for (var i = 0; i < dificultades.length; i++) {
                         <div class="row">
                             <div class="col-md-3"></div>
                             <div class="col-md-6 text-center">
-                                <img src="../../static/imagenes/iconoPeque.png" height="150" width="150"
+                                <img src="../../static/imagenes/iconoMas1.svg" height="150" width="150"
                                      alt="Card image">
                             </div>
                             <div class="col-md-3"></div>

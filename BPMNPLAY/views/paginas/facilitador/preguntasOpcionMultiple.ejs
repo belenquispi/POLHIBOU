@@ -6,17 +6,19 @@
     <title>Preguntas de Opción Múltiple</title>
 </head>
 <body>
+<div class="opaco">
 <header>
     <% include ../../parciales/headerProfesor %>
 </header>
+    <hr>
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/ingresoFacilitador">Inicio</a></li>
-        <li class="breadcrumb-item"><a href="/ingresoFacilitador/">Materias</a></li>
-        <li class="breadcrumb-item"><a href="/ingresoFacilitador/preguntasOpcionMultiple/<%= materia %>">Preguntas</a></li>
+    <ol class="breadcrumb opacoCard">
+        <li class="breadcrumb-item"><a href="/ingresoFacilitador" class="textoBlanco">INICIO</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoFacilitador/" class="textoBlanco">MATERIAS</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoFacilitador/preguntasOpcionMultiple/<%= materia %>" class="textoBlanco">PREGUNTAS</a></li>
     </ol>
 </nav>
-<div class="container opaco">
+<div class="container">
     <div class="row" style="margin-top: 20px">
         <h2 class="textoBlanco">INGRESO DE PREGUNTA OPCIÓN MÚLTIPLE</h2>
     </div >
@@ -101,5 +103,6 @@
     </form>
 </div>
 <script type="text/javascript" src="/static/js/preguntasOpcionMultiple.js"></script>
+</div>
 </body>
 </html>
