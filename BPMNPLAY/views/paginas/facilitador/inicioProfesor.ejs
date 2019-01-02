@@ -11,11 +11,12 @@
     <% include ../../parciales/headerProfesor %>
 </header>
     <hr>
-<nav aria-label="breadcrumb">
+<nav aria-label="breadcrumb" style="color: white">
     <ol class="breadcrumb opacoCard">
         <li class="breadcrumb-item"><a href="/ingresoFacilitador" class="textoBlanco">INICIO</a></li>
     </ol>
 </nav>
+    <hr>
 <div class="container-fluid"  >
     <div class="row" >
         <div class="col-md-2">
@@ -145,7 +146,7 @@
                             <div class="row">
                                 <div class="col-md-10">
                                     <a href="/ingresoFacilitador/preguntasOpcionMultiple/<%= materias[i].nombre %>"
-                                       class="btn bg-white" style="margin-bottom: 10px"
+                                       class="btn bg-white" style="margin-bottom: 10px; color: black"
                                        id=<%= materias[i] %>>
                                         <i class="far fa-list-alt"></i> Preguntas Opción Multiple <span
                                                 class="badge badge-light"><%= materias[i].numOpcionMultiple %></span></a>
@@ -164,7 +165,7 @@
                             <div class="row">
                                 <div class="col-md-10">
                                     <a href="/ingresoFacilitador/preguntasUnirVoltear/<%= materias[i].nombre %>"
-                                       class="btn bg-white" style="margin-bottom: 10px">
+                                       class="btn bg-white" style="margin-bottom: 10px; color: black">
                                         <i class="fas fa-th"></i> Imágenes y Nombres <span
                                                 class="badge badge-light"><%= materias[i].numUnirVoltear %></span></a>
                                 </div>

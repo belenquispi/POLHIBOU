@@ -17,6 +17,7 @@
         <li class="breadcrumb-item"><a href="/ingresoFacilitador" class="textoBlanco">TEMÁTICAS</a></li>
     </ol>
 </nav>
+    <hr>
 <% var faciles = 0, medias = 0, dificiles = 0;
 for (var i = 0; i < dificultades.length; i++) {
     switch (dificultades[i]) {
@@ -145,8 +146,10 @@ for (var i = 0; i < dificultades.length; i++) {
                         <div class="row">
                             <div class="col-md-3"></div>
                             <div class="col-md-6 text-center">
+                                <a href="/preguntasOpcionMultiple/ingresoOpcionMultiple/<%= materia %>">
                                 <img src="../../static/imagenes/iconoMas1.png" height="120" width="120"
                                      alt="Card image" style="margin: 10px">
+                                </a>
                             </div>
                             <div class="col-md-3"></div>
                         </div>
