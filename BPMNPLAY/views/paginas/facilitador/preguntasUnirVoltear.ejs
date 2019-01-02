@@ -1,70 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <% include ../../parciales/head %>
-    <title>Preguntas de Unir Voltear</title>
+    <title>Imágenes Unir Voltear</title>
 </head>
 <body>
+<div class="opaco">
 <header>
     <% include ../../parciales/headerProfesor %>
 </header>
+    <hr>
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/ingresoFacilitador">Inicio</a></li>
-        <li class="breadcrumb-item"><a href="/ingresoFacilitador/">Temáticas</a></li>
-        <li class="breadcrumb-item"><a href="/ingresoFacilitador/preguntasUnirVoltear/<%= materia %>">Imágenes</a></li>
+    <ol class="breadcrumb opacoCard">
+        <li class="breadcrumb-item"><a href="/ingresoFacilitador" class="textoBlanco">INICIO</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoFacilitador/" class="textoBlanco">TEMÁTICAS</a></li>
+        <li class="breadcrumb-item "><a href="/ingresoFacilitador/preguntasUnirVoltear/<%= materia %>" class="textoBlanco">IMÁGENES</a></li>
     </ol>
 </nav>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2">
             <div class="row h-100">
-                <div class="col-12 collapse d-md-flex bg-light h-100" id="sidebar">
+                <div class="col-12 collapse d-md-flex h-100 opacoCard" id="sidebar">
                     <ul class="nav flex-column flex-nowrap">
                         <li class="nav-item">
-                            <a class="nav-link dropdown-toggle collapsed" href="/ingresoFacilitador"
-                               data-toggle="collapse" data-target="#submenu1"><i class="fas fa-chalkboard-teacher"></i>
-                                Facilitador</a>
+                            <a class="nav-link dropdown-toggle collapsed textoBlanco" href="/ingresoFacilitador" data-toggle="collapse" data-target="#submenu1"><i class="fas fa-chalkboard-teacher"></i> FACILITADOR</a>
                             <div class="collapse show" id="submenu1" aria-expanded="false">
                                 <ul class="flex-column pl-5 nav">
-                                    <li class="nav-item"><a class="nav-link py-0" style="color: black"
-                                                            href="/ingresoFacilitador"><i class="fas fa-home"></i>
-                                            Inicio Facilitador</a></li>
-                                    <li class="nav-item"><a class="nav-link py-0" href="/estadisticas"><i
-                                                    class="fas fa-chart-bar"></i> Estadísticas</a></li>
+                                    <li class="nav-item"><a class="nav-link py-0 btn-primary degradoBoton" href="/ingresoFacilitador"><i class="fas fa-home" ></i> INICIO FACILITADOR </a></li>
+                                    <li class="nav-item"><a class="nav-link py-0 textoBlanco" href="/estadisticas"><i class="fas fa-chart-bar"></i> ESTADÍSTICAS</a></li>
                                 </ul>
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link  dropdown-toggle collapsed" href="/ingresoParticipante"
-                               data-toggle="collapse" data-target="#submenu2"><i class="fas fa-user"></i>
-                                Participante</a>
+                            <a class="nav-link  dropdown-toggle collapsed textoBlanco" href="/ingresoParticipante" data-toggle="collapse" data-target="#submenu2"><i class="fas fa-user"></i> PARTICIPANTE</a>
                             <div class="collapse" id="submenu2" aria-expanded="false">
                                 <ul class="flex-column pl-5 nav">
-                                    <li class="nav-item"><a class="nav-link py-0" href="/ingresoParticipante"><i
-                                                    class="fas fa-home"></i> Inicio Participante</a></li>
-                                    <li class="nav-item"><a class="nav-link py-0" href="/ingresoPartida"><i
-                                                    class="fas fa-sign-in-alt"></i> Unirse a Partida</a></li>
+                                    <li class="nav-item"><a class="nav-link py-0 textoBlanco" href="/ingresoParticipante"><i class="fas fa-home"></i> INICIO PARTICIPANTE</a></li>
+                                    <li class="nav-item" ><a class="nav-link py-0 textoBlanco" href="/ingresoPartida"><i class="fas fa-sign-in-alt"></i> UNIRSE A PARTIDA</a></li>
                                 </ul>
                             </div>
                         </li>
                     </ul>
                 </div>
+
             </div>
         </div>
         <div class="col-md-10">
             <div class="row">
                     <div class="col-md-9">
-                        <h2>Ingreso de varias imágenes </h2>
+                        <h2 class="textoBlanco">INGRESO DE VARIAS IMÁGENES</h2>
                     </div>
                     <div class="col-md-3 text-right">
-                        <a href="/ingresoFacilitador/preguntasUnirVoltear/<%= materia %>" id="botonRegresar" class="btn btn-secondary"><i class="fas fa-undo-alt"></i> Regresar</a>
+                        <a href="/ingresoFacilitador/preguntasUnirVoltear/<%= materia %>" id="botonRegresar" class="btn btn-primary degradoBoton"><i class="fas fa-undo-alt"></i> Regresar</a>
                     </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <label for="numeroPreguntas">Número de imágenes: </label>
+                    <label for="numeroPreguntas" class="textoBlanco">NÚMERO DE IMÁGENES: </label>
                     <input class="form-control" type="number" id="numeroDePreguntas" value="0" min="2" max="50" required
                            onchange="generarDatosPregunta(this)" onkeyup="generarDatosPregunta(this)">
                 </div>
@@ -77,7 +71,7 @@
                     <div id="divBotonGuardar" class="row form-group">
                         <div class="col-md-2"></div>
                         <div class="col-md-8 text-center">
-                            <button type="submit" id="botonGuardarUnirVoltear" class="btn btn-info" hidden><i class="fas fa-save"></i> Guardar</button>
+                            <button type="submit" id="botonGuardarUnirVoltear" class="btn btn-primary degradoBoton " hidden><i class="fas fa-save"></i> Guardar</button>
                         </div>
                         <div class="col-md-2"></div>
                     </div>
@@ -91,5 +85,6 @@
 <footer>
     <% include ../../parciales/footer %>
 </footer>
+</div>
 </body>
 </html>

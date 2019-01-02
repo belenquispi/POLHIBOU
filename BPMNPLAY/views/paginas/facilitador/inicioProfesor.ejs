@@ -13,7 +13,7 @@
     <hr>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb opacoCard">
-        <li class="breadcrumb-item textoBlanco"><a href="/ingresoFacilitador" class="textoBlanco">INICIO</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoFacilitador" class="textoBlanco">INICIO</a></li>
     </ol>
 </nav>
 <div class="container-fluid"  >
@@ -111,7 +111,7 @@
                                         <% if(materias[i].tipo == "privada")
                                         {
                                         %>
-                                            <button class="btn btn-default" type="submit" data-toggle="tooltip"
+                                            <button class="btn btn-primary degradoMenu" type="submit" data-toggle="tooltip"
                                                     data-placement="right" title="Privada"
                                                     id="boton<%= materias[i].nombre %>"><i
                                                         class="fas fa-lock"></i></button>
@@ -119,7 +119,7 @@
                                         }
                                         else
                                         { %>
-                                            <button class="btn btn-default" type="submit" data-toggle="tooltip"
+                                            <button class="btn btn-primary degradoMenu" type="submit" data-toggle="tooltip"
                                                     data-placement="right" title="Pública"
                                                     id="boton<%= materias[i].nombre %>"><i
                                                         class="fas fa-unlock"></i></button>
@@ -131,7 +131,7 @@
                                     <form action="/eliminarMateria" method="post">
                                         <input type="text" name="materia" value="<%= materias[i].nombre %>"
                                                hidden>
-                                        <button class="btn btn-default" type="button" data-toggle="tooltip"
+                                        <button class="btn btn-primary degradoMenu" type="button" data-toggle="tooltip"
                                                 data-placement="right" title="Eliminar Temática"  onclick="eliminarMateria('<%= materias[i].nombre %>')"><i
                                                     class="fas fa-trash-alt"></i>
                                         </button>
@@ -165,7 +165,7 @@
                                 <div class="col-md-10">
                                     <a href="/ingresoFacilitador/preguntasUnirVoltear/<%= materias[i].nombre %>"
                                        class="btn bg-white" style="margin-bottom: 10px">
-                                        <i class="fas fa-th"></i> Imágenes y nombres <span
+                                        <i class="fas fa-th"></i> Imágenes y Nombres <span
                                                 class="badge badge-light"><%= materias[i].numUnirVoltear %></span></a>
                                 </div>
                                 <div class="col-md-2">

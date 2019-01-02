@@ -24,7 +24,7 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
-app.use('/static', express.static(__dirname + '/static' + ''));
+app.use('/static', express.static(__dirname + '/static/' + ''));
 // create application/json parser
 app.use(bodyParser.json());
 // create application/x-www-form-urlencoded parser
@@ -98,7 +98,8 @@ app.route('/tablero')
     .get(routes.error)
     .post(routes.post_tablero)
     .put(routes.error);
-app.get('/ingresoFacilitador/preguntasOpcionMultiple/:materia/ingresoOpcionMultiple/:materia', routes.get_opcion_multiple);
+//app.get('/ingresoFacilitador/preguntasOpcionMultiple/:materia/ingresoOpcionMultiple/:materia', routes.get_opcion_multiple);
+app.get('/preguntasOpcionMultiple/ingresoOpcionMultiple/:materia', routes.get_opcion_multiple);
 app.get('/unirVoltear/:materia', routes.get_unir_voltear);
 app.get('/ingresoFacilitador/creacionPartida/:materia', routes.get_creacion_partida);
 app.post('/ingresoMateria', routes.post_ingreso_materia);

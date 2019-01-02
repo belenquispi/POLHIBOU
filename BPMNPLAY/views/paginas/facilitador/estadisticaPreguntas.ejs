@@ -1,57 +1,77 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta http-equiv="Content-Type" content="text/html"/>
     <% include ../../parciales/head %>
-    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html"/>
+    <title>Preguntas</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 </head>
 <body>
+<div class="opaco">
 <header>
     <% include ../../parciales/headerProfesor %>
 </header>
+    <hr>
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/ingresoFacilitador">Inicio</a></li>
-        <li class="breadcrumb-item"><a href="/estadisticas">Estadísticas</a></li>
+    <ol class="breadcrumb opacoCard">
+        <li class="breadcrumb-item"><a href="/ingresoFacilitador" class="textoBlanco">INICIO</a></li>
+        <li class="breadcrumb-item"><a href="/estadisticas" class="textoBlanco">ESTADÍSTICAS</a></li>
     </ol>
 </nav>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-2">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <a href="/ingresoFacilitador"
-                           class="nav-link " style="margin-bottom: 10px">
-                            <i class="far fa-list-alt"></i> Modo Facilitador</a>
-                        <a href="/ingresoParticipante"
-                           class="nav-link" style="margin-bottom: 10px">
-                            <i class="far fa-list-alt"></i> Modo Participante</a>
-                        <a href="/estadisticas"
-                           class="nav-link active" style="margin-bottom: 10px">
-                            <i class="fas fa-chart-bar"></i> Estadísticas</a>
-                    </div>
+        <div class="col-md-2 opacoCard" style="margin-bottom: 20px">
+            <div class="row h-100">
+                <div class="col-12 collapse d-md-flex h-100" id="sidebar">
+                    <ul class="nav flex-column flex-nowrap">
+                        <li class="nav-item">
+                            <a class="nav-link dropdown-toggle collapsed textoBlanco" href="/ingresoFacilitador"
+                               data-toggle="collapse" data-target="#submenu1"><i class="fas fa-chalkboard-teacher"></i>
+                                FACILITADOR</a>
+                            <div class="collapse show" id="submenu1" aria-expanded="false">
+                                <ul class="flex-column pl-5 nav">
+                                    <li class="nav-item"><a class="nav-link py-0 textoBlanco "
+                                                            href="/ingresoFacilitador"><i class="fas fa-home"></i>
+                                            INICIO FACILITADOR</a></li>
+                                    <li class="nav-item"><a class="nav-link py-0  btn-primary degradoBoton" href="/estadisticas"><i
+                                                    class="fas fa-chart-bar"></i> ESTADÍSTICAS</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link  dropdown-toggle collapsed textoBlanco" href="/ingresoParticipante"
+                               data-toggle="collapse" data-target="#submenu2"><i class="fas fa-user"></i>
+                                PARTICIPANTE</a>
+                            <div class="collapse" id="submenu2" aria-expanded="false">
+                                <ul class="flex-column pl-5 nav">
+                                    <li class="nav-item"><a class="nav-link py-0 textoBlanco" href="/ingresoParticipante"><i
+                                                    class="fas fa-home"></i> INICIO PARTICIPANTE </a></li>
+                                    <li class="nav-item"><a class="nav-link py-0 textoBlanco" href="/ingresoPartida"><i
+                                                    class="fas fa-sign-in-alt"></i> UNISE A PARTIDA</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
         <div class="col-md-10">
             <div class="row">
                 <div class="col-md-12">
-                    <h2>Preguntas de la temática <%= asignatura %></h2>
+                    <h2 class="textoBlanco">PREGUNTAS DE LA TEMÁTICA <%= asignatura %></h2>
                 </div>
             </div>
             <input type="text" id="numPreguntas" hidden value="<%= preguntas.length %>">
             <%if(preguntas.length == 0){%>
-            <label>** No se han cargado preguntas para está temática.</label>
+            <label class="textoBlanco">** No se han cargado preguntas para está temática.</label>
             <% } for(let i = 0; i < preguntas.length; i++ ) { %>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="card" style="margin-top: 10px">
-                            <div class="card-header">
+                        <div class="card opacoCard" style="margin-top: 10px; margin-bottom: 20px">
+                            <div class="card-header bg-white">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h5>Pregunta: <%= (i + 1) %></h5>
+                                        <h5 style="color: black">PREGUNTA: <%= (i + 1) %></h5>
                                     </div>
                                 </div>
                             </div>
@@ -59,11 +79,11 @@
                                 <div class="row">
                                     <div class="col-md-8">
 
-                                        <p><%=preguntas[i].enunciado %></p>
+                                        <p class="textoBlanco"><%=preguntas[i].enunciado %></p>
                                         <canvas id="myChart<%= (i + 1) %>" width="1000" height="150"
                                                 class="chartjs-render-monitor"
                                                 style="display: block; width: 1000px; height: 150px;"
-                                                onclick="llenarDatos('myChart<%= (i + 1) %>',<%= preguntas[i].resCorrecta %>, <%= preguntas[i].resIncorrecta %>, <%= i %> )"></canvas>
+                                                onclick="llenarDatos('myChart<%= (i + 1) %>',<%=preguntas[i].resCorrecta %>, <%= preguntas[i].resIncorrecta %>, <%= i %> )"></canvas>
                                     </div>
                                     <div class="col-md-2">
                                         <% if(preguntas[i].imagenEnunciado != undefined) { %>
@@ -82,7 +102,7 @@
                                                 <input type="text" name="materia" hidden value=<%= asignatura %>>
                                                 <br>
                                                 <br>
-                                                <button class="btn btn-default" type="submit"><i class="fas fa-trash-alt"></i>
+                                                <button class="btn btn-primary degradoMenu" type="submit"><i class="fas fa-trash-alt"></i>
                                                 </button>
                                             </form>
                                         <% } else {%>
@@ -92,8 +112,8 @@
                                             <input type="text" name="materia" hidden value=<%= asignatura %>>
                                             <br>
                                             <br>
-                                            <button type="submit" class="btn btn-info" style="margin-bottom:10px"><i
-                                                        class="fas fa-info-circle"></i> Ver Detalles
+                                            <button type="submit" class="btn btn-primary degradoBoton" style="margin-bottom:10px"><i
+                                                        class="fas fa-info-circle"></i> VER DETALLES
                                             </button>
                                         </form>
                                         <%}%>
@@ -164,5 +184,6 @@
 
     }
 </script>
+</div>
 </body>
 </html>

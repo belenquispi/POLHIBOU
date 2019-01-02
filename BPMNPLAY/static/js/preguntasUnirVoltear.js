@@ -21,7 +21,7 @@ function encodeImageFileAsURL(element) {
     console.log("id: "+id);
     console.log("file: "+file);
     reader.onloadend = function () {
-        console.log('RESULT', reader.result)
+        console.log('RESULT', reader.result);
         document.getElementById("imagenUnir"+id).value = reader.result;
     };
     if(file != undefined){
@@ -44,9 +44,10 @@ function generarDatosPregunta (numero) {
 
         let labelImagen = document.createElement("LABEL");
         labelImagen.setAttribute("for", "botonImagenUnir" + (i + 1));
-        labelImagen.setAttribute("id","labelImagen"+(i+1))
+        labelImagen.setAttribute("id","labelImagen"+(i+1));
+        labelImagen.setAttribute("class","textoBlanco");
         document.getElementById("form-group-img-" + (i + 1)).appendChild(labelImagen);
-        document.getElementById('labelImagen' + (i + 1)).innerHTML = "Imagen " + (i + 1);
+        document.getElementById('labelImagen' + (i + 1)).innerHTML = "IMAGEN " + (i + 1);
 
         let inputImagen = document.createElement("INPUT");
         inputImagen.setAttribute("type", "file");
@@ -87,9 +88,10 @@ function generarDatosPregunta (numero) {
 
         let labelTexto = document.createElement("LABEL");
         labelTexto.setAttribute("for", "textoUnir" + (i + 1));
-        labelTexto.setAttribute("id","labelTexto"+(i+1))
+        labelTexto.setAttribute("id","labelTexto"+(i+1));
+        labelTexto.setAttribute("class","textoBlanco");
         document.getElementById("form-group" + (i + 1)).appendChild(labelTexto);
-        document.getElementById('labelTexto' + (i + 1)).innerHTML = "Texto " + (i + 1);
+        document.getElementById('labelTexto' + (i + 1)).innerHTML = "TEXTO " + (i + 1);
 
         let inputTexto = document.createElement("INPUT");
         inputTexto.setAttribute("type", "text");
@@ -110,8 +112,9 @@ function generarDatosPregunta (numero) {
         let labelDificultad = document.createElement("LABEL");
         labelDificultad.setAttribute("for", "dificultad" + (i + 1));
         labelDificultad.setAttribute("id","labelDificultad"+(i+1));
+        labelDificultad.setAttribute("class","textoBlanco");
         document.getElementById("form-group-dif-" + (i + 1)).appendChild(labelDificultad);
-        document.getElementById('labelDificultad' + (i + 1)).innerHTML = "Dificultad "+ (i + 1);
+        document.getElementById('labelDificultad' + (i + 1)).innerHTML = "DIFICULTAD "+ (i + 1);
 
         let selectDificultad = document.createElement("SELECT");
         selectDificultad.setAttribute("id", "dificultad"+ (i + 1));

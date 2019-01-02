@@ -1,7 +1,11 @@
 body {
     color: rgba(52, 166, 214, 0.4);
     font-family: Arial, serif;
-    background: url("../imagenes/EPN.jpg") no-repeat center;
+    background: url("../imagenes/EPN.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 hr {
     height: 1px;
@@ -313,6 +317,7 @@ div#memory_boardMulti > label {
 }
  .degradoMenu {
     background: linear-gradient(to right, #007bff, #B6BEC2);
+     text-transform: uppercase;
 }
 
 .textoBlanco{
