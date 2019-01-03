@@ -95,22 +95,16 @@ exports.get_ingreso_profesor = function (req, res) {
                     numUnirVoltear: doc.materias[i].preguntasUnirVoltear.length,
                     boolOpcion: boolOpcion,
                     boolUnir: boolUnir
-
                 };
                 materias.push(materia);
-
             }
             req.session.rol = "facilitador";
-            console.log("Holaaaaa: " + req.session.rol);
             res.render('paginas/facilitador/inicioProfesor', {
                 nombre: req.session.nombre,
                 usuario: req.session.usuario,
                 materias: materias
-
             });
-
         });
-
     }
     else {
         res.redirect('/inicioSesion');
@@ -548,7 +542,7 @@ exports.post_agregar_varias_unir_voltear = function (req, res) {
                 var preguntaU = [];
                 preguntaU.push("imagen" + i);
                 preguntaU.push("textoUnir" + i);
-                preguntaU.push("dificultad" + i)
+                preguntaU.push("dificultad" + i);
 
                 var preguntaUnir = {
                     idPregunta: generarNombre(),
@@ -559,12 +553,14 @@ exports.post_agregar_varias_unir_voltear = function (req, res) {
 
                 if (indice >= 0) {
                     doc.materias[indice].preguntasUnirVoltear.push(preguntaUnir);
-
-                    doc.save(function (err, docActualizado) {
-                        if (err) return console.log(err);
-                    });
                 }
             }
+            doc.save(function (err, docActualizado) {
+                if (err) {
+                    res.render('paginas/error', {mensaje: "No se guardaron las imagenes con sus nombres. Vuelve a intentar nuevamente por favor.", direccion: "/"});
+
+                };
+            });
             res.redirect('/ingresoFacilitador/preguntasUnirVoltear/' + req.body.materia);
 
         });

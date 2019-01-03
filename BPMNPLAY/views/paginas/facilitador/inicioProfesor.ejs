@@ -49,6 +49,7 @@
             <div class="row">
                 <div class="col-md-12" >
                 <h2 class="textoBlanco">TEMÁTICAS</h2>
+                    <input type="text" name="numeroMaterias" id="numeroMaterias" value="<%= materias.length%>" hidden>
                 </div>
             </div>
             <div class="row">
@@ -63,7 +64,7 @@
                                             <div class="input-group-text"><i class="fas fa-book"></i></div>
                                         </div>
                                         <input type="text" class="form-control"
-                                               placeholder="Nombre de la temática" name="nombreMateria" required>
+                                               placeholder="Nombre de la temática" name="nombreMateria" id="nombreNuevaMateria" onsubmit="verificarMateria()" required>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -97,17 +98,16 @@
                 </div>
                 <%
                 for(let i = 0; i < materias.length; i++) { %>
-
                 <div class="col-md-4">
                     <div class="card opacoCard" style="margin-top: 10px">
                         <div class="card-header bg-white">
                             <div class="row">
                                 <div class="col-md-8">
-                                    <h5 style="color: black"><%= materias[i].nombre %></h5>
+                                    <h5 style="color: black" ><%= materias[i].nombre %></h5>
                                 </div>
                                 <div class="col-md-2">
                                     <form action="/cambiarTipoMateria" method="post">
-                                        <input type="text" name="materia" value="<%= materias[i].nombre %>"
+                                        <input type="text" name="materia" id="materia<%=i%>" value="<%= materias[i].nombre %>"
                                                hidden>
                                         <% if(materias[i].tipo == "privada")
                                         {
