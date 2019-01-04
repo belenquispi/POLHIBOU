@@ -10,13 +10,11 @@
 <header>
     <% include ../../parciales/headerProfesor %>
 </header>
-    <hr>
-<nav aria-label="breadcrumb" style="color: white">
-    <ol class="breadcrumb opacoCard">
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb opacoCard" style=" border-bottom: solid; border-top: solid; border-color: white;">
         <li class="breadcrumb-item"><a href="/ingresoFacilitador" class="textoBlanco">INICIO</a></li>
     </ol>
 </nav>
-    <hr>
 <div class="container-fluid"  >
     <div class="row" >
         <div class="col-md-2">
@@ -64,7 +62,7 @@
                                             <div class="input-group-text"><i class="fas fa-book"></i></div>
                                         </div>
                                         <input type="text" class="form-control"
-                                               placeholder="Nombre de la temática" name="nombreMateria" id="nombreNuevaMateria" onsubmit="verificarMateria()" required>
+                                               placeholder="Nombre de la temática" name="nombreMateria" id="nombreNuevaMateria"  required  onchange="verificarMateria()">
                                     </div>
                                 </div>
                                 <div class="row">

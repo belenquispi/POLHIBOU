@@ -74,9 +74,18 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label for="numeroPreguntas" class="textoBlanco">NÚMERO DE IMÁGENES: </label>
-                        <input class="form-control" type="number" id="numeroDePreguntas" value="0" min="2" max="50"
-                               required
-                               onchange="generarDatosPregunta(this)" onkeyup="generarDatosPregunta(this)">
+
+                        <select class="form-control" id="numeroDePreguntas" required
+                                onchange="generarDatosPregunta(this)" onkeyup="generarDatosPregunta(this)" oncanplay="generarDatosPregunta(this)">
+                            <option>0</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                        </select>
                     </div>
                     <div class="col-md-6"></div>
                     <form action="/agregarVariasUnirVoltear" method="post">

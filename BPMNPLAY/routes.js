@@ -529,27 +529,27 @@ exports.post_agregar_varias_unir_voltear = function (req, res) {
     if (req.session.nombre) {
         Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
             if (error) {
-                console.log("Error: " + error)
+                res.render('paginas/error', {mensaje: "No se encontro el usuario facilitador con el que se esta logeado. No se guardaron las imagenes con sus nombres. Vuelve a intentar nuevamente por favor.", direccion: "/"});
             }
 
-            var indice = doc.materias.map(function (e) {
+            let indice = doc.materias.map(function (e) {
                 return e.nombre
             }).indexOf(req.body.materia);
 
-            var numeroPreguntas = req.body.numeroPreguntas;
+            let numeroPreguntas = req.body.numeroPreguntas;
 
-            for (var i = 1; i <= numeroPreguntas; i++) {
-                var preguntaU = [];
+            for (let i = 1; i <= numeroPreguntas; i++) {
+                let preguntaU = [];
                 preguntaU.push("imagen" + i);
                 preguntaU.push("textoUnir" + i);
                 preguntaU.push("dificultad" + i);
 
-                var preguntaUnir = {
+                let preguntaUnir = {
                     idPregunta: generarNombre(),
                     imagen: req.body[preguntaU[0]],
                     texto: req.body[preguntaU[1]],
                     dificultad: req.body[preguntaU[2]]
-                }
+                };
 
                 if (indice >= 0) {
                     doc.materias[indice].preguntasUnirVoltear.push(preguntaUnir);
@@ -559,10 +559,11 @@ exports.post_agregar_varias_unir_voltear = function (req, res) {
                 if (err) {
                     res.render('paginas/error', {mensaje: "No se guardaron las imagenes con sus nombres. Vuelve a intentar nuevamente por favor.", direccion: "/"});
 
-                };
+                }
+                else {
+                    res.redirect('/ingresoFacilitador/preguntasUnirVoltear/' + req.body.materia);
+                }
             });
-            res.redirect('/ingresoFacilitador/preguntasUnirVoltear/' + req.body.materia);
-
         });
     }
     else {
