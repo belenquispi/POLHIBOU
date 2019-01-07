@@ -6,24 +6,26 @@
     <title>Resultados Opción Múltiple</title>
 </head>
 <body>
+<div class="opaco" style="margin-bottom: 10px">
 <header>
     <% include ../../parciales/headerProfesor %>
 </header>
+    <hr>
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/ingresoParticipante">Inicio</a></li>
-        <li class="breadcrumb-item"><a href="/ingresoParticipante">Temáticas</a></li>
-        <li class="breadcrumb-item"><a href="/retosMateria?facilitador=<%= facilitador %>&materia=<%= materia %>">Desafíos</a>
+    <ol class="breadcrumb opacoCard">
+        <li class="breadcrumb-item"><a href="/ingresoParticipante" class="textoBlanco" style="text-transform: uppercase;">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoParticipante" class="textoBlanco" style="text-transform: uppercase;">Temáticas</a></li>
+        <li class="breadcrumb-item"><a href="/retosMateria?facilitador=<%= facilitador %>&materia=<%= materia %>" class="textoBlanco" style="text-transform: uppercase;">Desafíos</a>
         </li>
     </ol>
 </nav>
 <div class="container">
     <div class="row" style="margin-bottom: 10px">
         <div class="col-md-12 text-center">
-            <h3>Desafío de Opción Múltiple Finalizado</h3>
+            <h3 class="textoBlanco" style="text-transform: uppercase;">Desafío de Opción Múltiple Finalizado</h3>
         </div>
         <div class="col-md-6">
-            <h4>Puntaje obtenido: <%= puntaje %></h4>
+            <h4 class="textoBlanco" style="text-transform: uppercase;">Puntaje obtenido: <%= puntaje %></h4>
         </div>
         <div class="col-md-6">
             <% for(var i = 0; i < puntaje; i++)
@@ -34,11 +36,11 @@
     </div>
     <% for(var i = 0; i < preguntas.length; i++)
     { %>
-    <div class="row border border-info rounded" style="margin-bottom: 10px">
+    <div class="row border border-white rounded" style="margin-bottom: 10px">
         <div class="col-md-8">
-            <label><strong>Pregunta <%=i+1%></strong></label>
+            <label ><strong class="textoBlanco" style="text-transform: uppercase;">Pregunta <%=i+1%></strong></label>
             <br>
-            <label><%=preguntas[i].enunciado%></label>
+            <label class="textoBlanco" style="text-transform: uppercase;"><%=preguntas[i].enunciado%></label>
         </div>
         <div class="col-md-2" >
             <% if(preguntas[i].imagenEnunciado != undefined)
@@ -65,10 +67,11 @@
             <form action="/retosMateria" method="post">
                 <input type="text" name="facilitador" hidden value="<%= facilitador %>">
                 <input type="text" name="materia" hidden value="<%= materia %>">
-            <button  class="btn btn-info" type="submit"><i class="fas fa-undo-alt"></i> Regresar a desafíos </button>
+            <button  class="btn btn-primary degradoBoton" type="submit"><i class="fas fa-undo-alt"></i> Regresar a desafíos </button>
             </form>
         </div>
         <div class="col-md-4"> </div>
+</div>
 </div>
 </div>
 </body>

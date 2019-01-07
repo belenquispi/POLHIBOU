@@ -7,24 +7,26 @@
     <title>Resultados de Emparejar</title>
 </head>
 <body>
+<div class="opaco" style="margin-bottom: 10px">
 <header>
     <% include ../../parciales/headerProfesor %>
 </header>
+    <hr>
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/ingresoParticipante">Inicio</a></li>
-        <li class="breadcrumb-item"><a href="/ingresoParticipante">Temáticas</a></li>
-        <li class="breadcrumb-item"><a href="/retosMateria?facilitador=<%= facilitador %>&materia=<%= materia %>">Desafíos</a>
+    <ol class="breadcrumb opacoCard">
+        <li class="breadcrumb-item"><a href="/ingresoParticipante" class="textoBlanco" style="text-transform: uppercase;">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoParticipante" class="textoBlanco" style="text-transform: uppercase;">Temáticas</a></li>
+        <li class="breadcrumb-item"><a href="/retosMateria?facilitador=<%= facilitador %>&materia=<%= materia %>" class="textoBlanco" style="text-transform: uppercase;">Desafíos</a>
         </li>
     </ol>
 </nav>
 <div class="container">
     <div class="row" style="margin-bottom: 10px">
         <div class="col-md-12 text-center">
-            <h3>Desafío de Emparejar Finalizado</h3>
+            <h3 class="textoBlanco" style="text-transform: uppercase;">Desafío de Emparejar Finalizado</h3>
         </div>
         <div class="col-md-6">
-            <h4>Puntaje obtenido: <%= puntaje %></h4>
+            <h4 class="textoBlanco" style="text-transform: uppercase;">Puntaje obtenido: <%= puntaje %></h4>
         </div>
         <div class="col-md-6">
             <% for(let i = 0; i < puntaje; i++)
@@ -35,16 +37,16 @@
     </div>
     <div class="row ">
         <div class="col-md-6" style="margin: 10px">
-            <div class="row border border-info rounded">
-                <h3 style="margin: 10px">Tus respuestas</h3>
+            <div class="row border border-white rounded">
+                <h3 class="textoBlanco" style="text-transform: uppercase;" style="margin: 10px">Tus respuestas</h3>
             </div>
-            <div class="row border border-info rounded" style="margin-top: 10px">
+            <div class="row border border-white rounded" style="margin-top: 10px">
                     <% for(let i = 0; i < preguntas.length; i++)
                     { %>
                         <div class="col-md-12 " style="margin: 10px">
                         <div class="row">
                         <div class="col-md-3">
-                            <button id="<%= preguntas[i].idPregunta %>" class="btn btn-outline-secondary" disabled
+                            <button id="<%= preguntas[i].idPregunta %>" class="btn btn-outline-light" disabled
                                     onclick="obtenerId(this);">
                                 <img id="imagenAUnir<%= (i + 1) %>" src="<%= preguntas[i].imagen %>"
                                      height="50" width="50">
@@ -57,7 +59,7 @@
                                 console.log(indice);
                             %>
 
-                            <button id="<%= respuestas[indice + 1] %>" class="btn btn-outline-secondary btn-block"
+                            <button id="<%= respuestas[indice + 1] %>" class="btn btn-outline-light btn-block textoBlanco"
                                     disabled
                                     onclick="obtenerId(this);"><%= respuestas[indice + 1] %>
                             </button>
@@ -78,23 +80,23 @@
                 </div>
         </div>
         <div class="col-md-5" style="margin: 10px">
-            <div class="row border border-info rounded">
-                <h3 style="margin: 10px">Respuestas correctas</h3>
+            <div class="row border border-white rounded">
+                <h3 class="textoBlanco" style="text-transform: uppercase;" style="margin: 10px">Respuestas correctas</h3>
             </div>
-            <div class="row border border-info rounded" style="margin-top: 10px">
+            <div class="row border border-white rounded" style="margin-top: 10px">
                 <% for(let i = 0; i < preguntas.length; i++)
                 { %>
                 <div class="col-md-12 " style="margin: 10px">
                     <div class="row">
                     <div class="col-md-6">
-                        <button id="<%= preguntas[i].idPregunta %>" class="btn btn-outline-secondary" disabled
+                        <button id="<%= preguntas[i].idPregunta %>" class="btn btn-outline-light" disabled
                                 onclick="obtenerId(this);">
                             <img id="imagenAUnir<%= (i + 1) %>" src="<%= preguntas[i].imagen %>"
                                  height="50" width="50">
                         </button>
                     </div>
                     <div class="col-md-6">
-                        <button id="<%= preguntas[i].texto %>" class="btn btn-outline-secondary btn-block" disabled
+                        <button id="<%= preguntas[i].texto %>" class="btn btn-outline-light textoUnir btn-block" disabled
                                 onclick="obtenerId(this);"><%= preguntas[i].texto %>
                         </button>
                     </div>
@@ -110,11 +112,12 @@
             <form action="/retosMateria" method="post">
                 <input type="text" name="facilitador" hidden value="<%= facilitador %>">
                 <input type="text" name="materia" hidden value="<%= materia %>">
-                <button class="btn btn-info" type="submit"><i class="fas fa-undo-alt"></i> Regresar a desafíos</button>
+                <button class="btn btn-primary degradoBoton" type="submit"><i class="fas fa-undo-alt"></i> Regresar a desafíos</button>
             </form>
         </div>
         <div class="col-md-4"></div>
     </div>
+</div>
 </div>
 </body>
 </html>

@@ -199,6 +199,11 @@ socket.on('enviandoDarLaVuelta', function (idSocketN) {
         darLaVuelta();
     }
 });
+socket.on('avisoTiempoTerminado', function (idSocketN) {
+    if (idSocketN != idSocketActual) {
+        tiempoVoltear = 0;
+    }
+});
 socket.on('partidaFinalizada', function () {
     document.getElementById("botonFinalizacion").removeAttribute("disabled");
     document.getElementById("botonFinalizacion").click();
@@ -339,6 +344,10 @@ function controlarTiempo() {
         } else {
             clearTimeout(temporizador);
             if(respuestaVoltearATiempo == 0){
+                if (turnoJugadores[0] == idSocketActual) {
+                    socket.emit('tiempoTerminado', roomActual);
+                }
+                tiempoVoltear = 0;
                 desafioIncorrecto();
                 voltearTarjeta(2000);
             }
@@ -677,6 +686,7 @@ function memoryFlipTile(tile, val) {
                 if (tiles_flipped == memory_array.length) {
                     // alert("Board cleared... generating new board");
                     respuestaVoltearATiempo = 1;
+                    tiempoVoltear = 0;
                     desafioCorrecto();
                     voltearTarjeta(2000);
                 }

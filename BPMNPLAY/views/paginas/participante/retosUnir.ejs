@@ -6,22 +6,24 @@
     <title>Desafío Unir Voltear</title>
 </head>
 <body>
+<div class="opaco" style="margin-bottom: 10px">
 <header>
     <% include ../../parciales/headerProfesor %>
     <link rel="stylesheet" type="text/css" href="static/css/estilos.css">
 </header>
+    <hr>
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/ingresoParticipante">Inicio</a></li>
-        <li class="breadcrumb-item"><a href="/ingresoParticipante">Temáticas</a></li>
-        <li class="breadcrumb-item"><a href="/retosMateria?facilitador=<%=facilitador%>&materia=<%=materia%>">Desafíos</a></li>
+    <ol class="breadcrumb opacoCard">
+        <li class="breadcrumb-item"><a href="/ingresoParticipante" class="textoBlanco" style="text-transform: uppercase;">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoParticipante" class="textoBlanco" style="text-transform: uppercase;">Temáticas</a></li>
+        <li class="breadcrumb-item"><a href="/retosMateria?facilitador=<%=facilitador%>&materia=<%=materia%>" class="textoBlanco" style="text-transform: uppercase;">Desafíos</a></li>
     </ol>
 </nav>
 <div class="container">
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6 text-center" >
-            <h1 id="tipoJuego">Reto de Unir Voltear</h1>
+            <h1 id="tipoJuego" class="textoBlanco" style="text-transform: uppercase;">Reto de Unir Voltear</h1>
         </div>
         <div class="col-md-3"></div>
     </div>
@@ -66,8 +68,8 @@
         </div>
     <div class="row ">
         <div class="col-md-12">
-            <h3>Pares encontrados</h3>
-            <div class="row border border-warning rounded " style="margin-bottom: 20px;" >
+            <h3 class="textoBlanco" style="text-transform: uppercase;">Pares encontrados</h3>
+            <div class="row border border-white rounded " style="margin-bottom: 20px;" >
                 <%for (var i = 2; i<7; i+=2)
                 {%>
                 <div class="col-md-1">
@@ -78,7 +80,7 @@
                 </div>
                 <% }%>
             </div>
-                <div class="row border border-warning rounded">
+                <div class="row border border-white rounded">
                     <%for (var j = 8; j<13; j+=2)
                     {%>
                         <div class="col-md-1">
@@ -106,6 +108,7 @@
         </div>
         <div class="col-md-3"></div>
     </div>
+</div>
 </div>
 </body>
 <script>

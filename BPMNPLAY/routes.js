@@ -387,22 +387,27 @@ exports.get_creacion_partida = function (req, res) {
     }
 };
 exports.post_tablero = function (req, res) {
-    if (req.session.rol == "facilitador") {
-        res.render('paginas/participante/tablero', {
-            idPartida: req.body.idPartida,
-            rol: req.body.rol,
-            nombreEquipo: req.body.nombreEquipo,
-            nombre: req.session.nombre
-        });
-    }
-    else {
-        res.render('paginas/participante/tablero', {
-            idPartida: req.body.idPartida,
-            rol: req.body.rol,
-            nombreEquipo: req.body.nombreEquipo,
-            nombre: req.body.nombreEquipo
-        });
-    }
+        if (req.session.rol == "facilitador") {
+            res.render('paginas/participante/tablero', {
+                idPartida: req.body.idPartida,
+                rol: req.body.rol,
+                nombreEquipo: req.body.nombreEquipo,
+                nombre: req.session.nombre
+            });
+        }
+        else {
+            if (req.session.rol == "participante") {
+                res.render('paginas/participante/tablero', {
+                    idPartida: req.body.idPartida,
+                    rol: req.body.rol,
+                    nombreEquipo: req.body.nombreEquipo,
+                    nombre: req.body.nombreEquipo
+                });
+            }
+            else {
+                res.redirect('/inicioSesion');
+            }
+        }
 };
 exports.get_opcion_multiple = function (req, res) {
     if (req.session.usuario) {
@@ -579,7 +584,8 @@ exports.post_lobby = function (req, res) {
                 res.render('paginas/facilitador/lobby', {
                     nombre: req.session.nombre,
                     materia: req.body.materia,
-                    idPartida: req.body.idPartida
+                    idPartida: req.body.idPartida,
+                    rol: req.session.rol
                 });
             } else {
                 var idPartida = req.body.materia + Math.floor((1 + Math.random()) * 0x1000).toString(5).substring(1);
