@@ -6,99 +6,130 @@
     <title>Lobby</title>
 </head>
 <body>
-<header>
-    <% include ../../parciales/headerProfesor %>
-</header>
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/ingreso">Inicio</a></li>
-        <li class="breadcrumb-item"><a href="/ingreso">Temáticas</a></li>
-    </ol>
-</nav>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-2">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <a href="/ingresoFacilitador"
-                           class="nav-link active" style="margin-bottom: 10px">
-                            <i class="far fa-list-alt "></i> Modo Facilitador</a>
-                        <a href="/ingresoParticipante"
-                           class="nav-link" style="margin-bottom: 10px">
-                            <i class="far fa-list-alt"></i> Modo Participante</a>
-                        <a href="/estadisticas"
-                           class="nav-link " style="margin-bottom: 10px">
-                            <i class="fas fa-chart-bar"></i> Estadísticas</a>
+<div class="opaco" style="margin-bottom: 20px">
+    <header>
+        <% include ../../parciales/headerProfesor %>
+    </header>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb opacoCard">
+            <li class="breadcrumb-item"><a href="/ingreso" class="textoBlanco">INICIO</a></li>
+            <li class="breadcrumb-item"><a href="/ingreso" class="textoBlanco">TEMÁTICAS</a></li>
+        </ol>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="row h-100">
+                    <div class="col-12 collapse d-md-flex h-100 opacoCard" id="sidebar">
+                        <ul class="nav flex-column flex-nowrap">
+                            <li class="nav-item">
+                                <a class="nav-link dropdown-toggle collapsed textoBlanco" href="/ingresoFacilitador"
+                                   data-toggle="collapse" data-target="#submenu1"><i
+                                            class="fas fa-chalkboard-teacher"></i> FACILITADOR</a>
+                                <div class="collapse show" id="submenu1" aria-expanded="false">
+                                    <ul class="flex-column pl-5 nav">
+                                        <li class="nav-item"><a class="nav-link py-0 btn-primary degradoBoton"
+                                                                href="/ingresoFacilitador"><i class="fas fa-home"></i>
+                                                INICIO FACILITADOR </a></li>
+                                        <li class="nav-item"><a class="nav-link py-0 textoBlanco"
+                                                                href="/estadisticas"><i class="fas fa-chart-bar"></i>
+                                                ESTADÍSTICAS</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link  dropdown-toggle collapsed textoBlanco" href="/ingresoParticipante"
+                                   data-toggle="collapse" data-target="#submenu2"><i class="fas fa-user"></i>
+                                    PARTICIPANTE</a>
+                                <div class="collapse" id="submenu2" aria-expanded="false">
+                                    <ul class="flex-column pl-5 nav">
+                                        <li class="nav-item"><a class="nav-link py-0 textoBlanco"
+                                                                href="/ingresoParticipante"><i class="fas fa-home"></i>
+                                                INICIO PARTICIPANTE</a></li>
+                                        <li class="nav-item"><a class="nav-link py-0 textoBlanco"
+                                                                href="/ingresoPartida"><i
+                                                        class="fas fa-sign-in-alt"></i> UNIRSE A PARTIDA</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-8">
-            <input type="text" hidden id="usuario" value="<%= usuario %>">
-            <input type="text" hidden id="materia" value="<%= materia %>">
-            <input type="text" hidden id="numeroEquipos" value="<%= numeroEquipos %>">
-            <% for(var i = 0; i < numeroEquipos; i++){ %>
+            <div class="col-md-8">
+                <input type="text" hidden id="usuario" value="<%= usuario %>">
+                <input type="text" hidden id="materia" value="<%= materia %>">
+                <input type="text" hidden id="numeroEquipos" value="<%= numeroEquipos %>">
+                <% for(var i = 0; i < numeroEquipos; i++){ %>
                 <input type="text" hidden id="nombreEquipo<%= i %>" value="<%= informacionJugadores[i].nombreEquipo %>">
                 <input type="text" hidden id="imagenEquipo<%= i %>" value="<%= informacionJugadores[i].imagenEquipo %>">
-            <% } %>
-            <div class="row">
-                <div class="col-md-3"></div>
-                <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <img class="rounded mx-auto d-block"
-                                 src="https://cem.epn.edu.ec/imagenes/logos_institucionales/big_jpg/BUHO_ABSTRACCION_EPN_big.jpg"
-                                 height="100" width="100">
+                <% } %>
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <a href="/"><img class="rounded mx-auto d-block"
+                                     src="../../static/imagenes/iconoPolhibou.svg"
+                                     height="55%" width="55%">
+                                </a>
+                            </div>
                         </div>
                     </div>
+                    <div class="col-md-3"></div>
                 </div>
-                <div class="col-md-3"></div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-md-3"></div>
-                <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <form id="login-form" action="/tablero" method="post" role="form" style="display: block;">
-                                <div class="row">
-                                    <div class="col-md-2"></div>
-                                    <div class="col-md-8 bg-dark text-white rounded">
-                                        <div class="container ">
-                                            <h1 class="text-center font-weight-bold"><%= idPartida %></h1>
-                                            <input type="text" hidden name="idPartida" id="idPartida"
-                                                   value="<%= idPartida %>">
-                                            <input type="text" hidden name="rol" id="rol" value="<%= rol %>">
-                                            <input type="text" hidden name="nombreEquipo" id="nombreEquipo">
+                <br>
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form id="login-form" action="/tablero" method="post" role="form"
+                                      style="display: block;">
+                                    <div class="row">
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-8 bg-white text-dark rounded">
+                                            <div class="container ">
+                                                <h1 class="text-center font-weight-bold"><%= idPartida %></h1>
+                                                <input type="text" hidden name="idPartida" id="idPartida"
+                                                       value="<%= idPartida %>">
+                                                <input type="text" hidden name="rol" id="rol" value="<%= rol %>">
+                                                <input type="text" hidden name="nombreEquipo" id="nombreEquipo">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 text-center">
+                                            <br>
+                                            <button type="button" id="unirPartida" class="btn btn-primary degradoBoton"
+                                                    disabled
+                                                    onclick="empezarPartida()"><i class="fas fa-play"></i> Empezar
+                                                Partida
+                                            </button>
+                                            <button id="botonIniciar" type="submit" class="btn btn-success"
+                                                    hidden></button>
                                         </div>
                                     </div>
-                                    <div class="col-md-2"></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12 text-center">
-                                        <br>
-                                        <button type="button" id="unirPartida" class="btn btn-success" disabled
-                                                onclick="empezarPartida()"><i class="fas fa-play"></i> Empezar Partida
-                                        </button>
-                                        <button id="botonIniciar" type="submit" class="btn btn-success" hidden></button>
-                                    </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
+                    <div class="col-md-3"></div>
                 </div>
-                <div class="col-md-3"></div>
+                <br>
+                <div><label class="font-weight-bold textoBlanco">EQUIPOS CONECTADOS</label></div>
+                <div class="row border border-info rounded" id="jugadoresConectados" style="height: 150px;">
+                </div>
             </div>
-            <br>
-            <div><label class="font-weight-bold">Jugadores Conectados</label></div>
-            <div class="row border border-info rounded" id="jugadoresConectados" style="height: 150px">
-            </div>
+            <div class="col-md-2"></div>
         </div>
-        <div class="col-md-2"></div>
     </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="../../../static/js/lobby.js"></script>
+    <footer>
+        <% include ../../parciales/footer.ejs %>
+    </footer>
 </div>
-<script src="/socket.io/socket.io.js"></script>
-<script src="../../../static/js/lobby.js"></script>
 </body>
 </html>

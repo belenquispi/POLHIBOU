@@ -1417,6 +1417,7 @@ exports.post_partida_finalizada = function (req, res) {
                     let equipos = [];
                     for (let i = 0; i < partida.jugadores.length; i++) {
                         for (let j = 0; j < partida.jugadores.length; j++) {
+                            console.log("Tamaño de turno jugadores: "+ partida.turnoJugadores.length);
                             if (partida.turnoJugadores[i] == partida.jugadores[j].idSocket) {
                                 let equipo = {
                                     nombre: partida.jugadores[j].nombre,
@@ -1433,7 +1434,8 @@ exports.post_partida_finalizada = function (req, res) {
                             idPartida: req.body.idPartida,
                             rol: req.body.rol,
                             nombreEquipo: req.body.nombreEquipo,
-                            nombre: req.session.nombre, equipos: equipos
+                            nombre: req.session.nombre,
+                            equipos: equipos
                         });
                     }
                     else {
@@ -1442,7 +1444,7 @@ exports.post_partida_finalizada = function (req, res) {
                             rol: req.body.rol,
                             nombreEquipo: req.body.nombreEquipo,
                             nombre: req.body.nombreEquipo,
-                            nombre: req.session.nombre, equipos: equipos
+                            equipos: equipos
                         });
                     }
 

@@ -72,7 +72,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                <h5>    <strong>Facilitador: </strong><%= materias[i].facilitador %></h5>
+                <h5 class="textoBlanco">    <strong>Facilitador: </strong><%= materias[i].facilitador %></h5>
                     <form action="/retosMateria" method="post">
                     <button type="submit" class="btn btn-success"><i class="fas fa-hourglass-start"></i> Ir a desafíos</button>
                         <input type="text" name="facilitador" value="<%= materias[i].facilitador %>" hidden >

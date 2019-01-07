@@ -14,13 +14,11 @@
             <% include ../../parciales/headerProfesor%>
         <%}%>
 </header>
-<hr>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb opacoCard">
         <li class="breadcrumb-item"><a href="/" class="textoBlanco" >INICIO</a></li>
     </ol>
 </nav>
-
 <div class="container-fluid">
     <div class="row">
         <% if(nombre != "Participante"){ %>
@@ -59,7 +57,7 @@
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-lg-12 text-center">
-                                <img src="../../static/imagenes/iconoPolhibou.svg" height="55%" width="55%">
+                                <img src="../../static/imagenes/iconoPolhibou.svg" height="50%" width="50%">
                             </div>
                         </div>
                     </div>
@@ -109,7 +107,7 @@
                                     <div class="row" id="divNombreEquipo" hidden>
                                         <div class="col-md-2"></div>
                                         <div class="col-md-8 text-center">
-                                            <label for="nombreEquipo">Nombre del Equipo:</label>
+                                            <label for="nombreEquipo" class="textoBlanco">NOMBRE DEL EQUIPO:</label>
                                             <select id="nombreEquipo" name="nombreEquipo"
                                                     class="form-control text-center"
                                                     onchange="verificarDisponibilidadEquipo()" required>
@@ -121,7 +119,7 @@
                                     <div class="row">
                                         <div class="col-md-2"></div>
                                         <div class="col-md-8 text-center">
-                                            <button type="submit" value="Unirse a partida" class="btn btn-primary"
+                                            <button type="submit" value="Unirse a partida" class="btn btn-primary degradoBoton"
                                                     hidden id="botonUnir"><i class="fas fa-sign-in-alt"></i> Unirse
                                             </button>
                                             <button type="submit" class="btn btn-primary" id="unirPartida"
@@ -130,14 +128,6 @@
                                         <div class="col-md-2"></div>
                                     </div>
                                 </form>
-                                <div class="row text-center">
-                                    <div class="col-md-2"></div>
-                                    <div class="col-md-8">
-                                        <img src="../../static/imagenes/espera.gif" id="imagenE" width="150px" hidden
-                                             height="200px">
-                                    </div>
-                                    <div class="col-md-2"></div>
-                                </div>
                             </div>
                         </div>
                     </div>

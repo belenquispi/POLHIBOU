@@ -439,13 +439,14 @@ function lanzarDado() {
     var misterio = jugadores[jugadores.map(function (value) {
         return value.idSocket;
     }).indexOf(idSocketActual)].maldicion;
+    document.getElementById('sonidoDados').play();
     if (misterio == 1) {
         dado1 = 1;
         dado2 = 1;
     } else {
-        // dadoRandomico();
-        dado1 = 6;
-        dado2 = 6;
+        dadoRandomico();
+       /* dado1 = 6;
+        dado2 = 6;*/
     }
     moverDado();
     moverDado2();
@@ -525,7 +526,7 @@ function moverDado2() {
 }
 
 function habilitarTablaJugador() {
-    for (var i = 0; i < jugadores.length; i++) {
+    for (let i = 0; i < jugadores.length; i++) {
         if (jugadores[i].idSocket != "") {
             document.getElementById("tablajug" + (i + 1)).style.visibility = 'visible';
         }
@@ -534,8 +535,8 @@ function habilitarTablaJugador() {
 
 function mostrarJugadorActual() {
     for (let i = 0; i < jugadores.length; i++) {
-        document.getElementById("tablajug" + (i + 1)).style.border = "thick grey";
-        document.getElementById("tablajug" + (i + 1)).style.background = "#FFFFFF";
+        //document.getElementById("tablajug" + (i + 1)).style.border = "thick white";
+        //document.getElementById("tablajug" + (i + 1)).style.background = "#FFFFFF";
         document.getElementById("turno" + (i + 1)).setAttribute("hidden", "");
     }
 
@@ -547,15 +548,15 @@ function mostrarJugadorActual() {
             images.setAttribute("height", "50");
             images.setAttribute("width", "50");
             document.getElementById("columna" + (j + 1)).appendChild(images);
-            document.getElementById("nombreEquipo" + (j + 1)).innerHTML = jugadores[j].nombreEquipo;
+            document.getElementById("nombreEquipo" + (j + 1)).innerHTML = (jugadores[j].nombreEquipo).toLocaleUpperCase();
         }
     }
-    var indiceJugadorActual = indiceDelJugadorConTurno();
+    let indiceJugadorActual = indiceDelJugadorConTurno();
 
     if (indiceJugadorActual >= 0 && turnoJugadores.length > 0) {
         //  document.getElementById("nombreEquipoActual").innerHTML = jugadores[indiceJugadorActual].nombreEquipo;
         if (document.getElementById("tablajug" + (indiceJugadorActual + 1))) {
-            document.getElementById("tablajug" + (indiceJugadorActual + 1)).style.background = "#A9BCF5";
+          //  document.getElementById("tablajug" + (indiceJugadorActual + 1)).style.background = "#A9BCF5";
             document.getElementById("turno" + (indiceJugadorActual + 1)).removeAttribute("hidden");
             document.getElementById("tablajug" + (indiceJugadorActual + 1)).classList.add('miTurno');
             cambiarImagen(indiceJugadorActual);
@@ -584,7 +585,7 @@ function cambiarImagen(num) {
 }
 
 function mostrarDesafio(colorCa, idSocket) {
-    document.getElementById('textoTarjeta').innerText = "Voltéame";
+    document.getElementById('textoTarjeta').innerText = "VOLTÉAME";
     switch (colorCa) {
         case 0:
             document.getElementById('tarjeta').style.backgroundColor = "#F2F5A9";
@@ -903,6 +904,7 @@ function mostrarMensajeParEncontrado(url) {
     if (indicePreguntaUnir >= 0) {
         document.getElementById("ultimoPar").setAttribute("src", url);
         document.getElementById("ultimoNombre").innerHTML = preguntasUnirVoltear[indicePreguntaUnir].texto;
+        document.getElementById("sonidoCorrecto").play();
     }
 
 }
@@ -988,19 +990,25 @@ function desafioIncorrecto() {
     if (turnoJugadores[0] == idSocketActual) {
         socket.emit('pasarTurno', roomActual);
     }
+    document.getElementById('sonidoError').play();
+
 }
 
 function desafioCorrecto() {
     mostrarMensaje("snackbar");
+    document.getElementById('sonidoCorrecto').play();
     respuestaCorrecta = true;
 }
 
 function misterioPositivo() {
     mostrarMensaje("snackbarPositivo");
+    document.getElementById('sonidoCorrecto').play();
 }
 
 function misterioNegativo() {
     mostrarMensaje("snackbarNegativo");
+    document.getElementById('sonidoError').play();
+
 }
 
 function mostrarMensaje(texto) {
@@ -1029,7 +1037,7 @@ function darLaVuelta() {
     if (turnoJugadores[0] == idSocketActual) {
         socket.emit('darLaVuelta', roomActual);
     }
-    if(respuestaVoltearATiempo== 0){
+    if(respuestaVoltearATiempo == 0){
         tiempoVoltear = 100;
         controlarTiempo();
     }

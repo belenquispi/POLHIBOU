@@ -72,15 +72,15 @@ function generarDatosEquipo(numero) {
 
         var label = document.createElement("LABEL");
         label.setAttribute("id", "labelEquipo" + (i + 1));
-        label.setAttribute("class", "col-md-3");
+        label.setAttribute("class", "col-md-3 textoBlanco");
         document.getElementById("form-group" + (i + 1)).appendChild(label);
-        document.getElementById('labelEquipo' + (i + 1)).innerHTML = "- Datos del Equipo " + (i + 1)+":";
+        document.getElementById('labelEquipo' + (i + 1)).innerHTML = "DATOS DEL EQUIPO " + (i + 1)+":";
 
         var inputs = document.createElement("INPUT");
         inputs.setAttribute("class", "form-control col-md-3");
         inputs.setAttribute("placeholder", "Nombre del equipo" + (i + 1));
         inputs.setAttribute("onkeypress", "return validarIngreso(event)");
-        inputs.setAttribute("maxlength", "10");
+        inputs.setAttribute("maxlength", "15");
         inputs.setAttribute("type", "text");
         inputs.setAttribute("required", "");
         inputs.setAttribute("name", "nombreEquipo" + (i + 1));
