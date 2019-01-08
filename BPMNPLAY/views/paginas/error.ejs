@@ -6,13 +6,14 @@
     <title>Error</title>
 </head>
 <body>
-<header>
-    <% include ../parciales/header %>
-</header>
+<div class="opaco" style="margin-bottom: 10px">
 <div class="container">
-    <h5>¡Lo siento!</h5>
-    <p><%=mensaje%></p>
-    <p>Por favor, ingresa <a href="<%=direccion%>">aquí</a></p>
+    <div class="col-md-12 text-center">
+    <h5 class="textoBlanco">¡Lo siento!</h5>
+    <p class="textoBlanco"><%=mensaje%></p>
+    <p class="textoBlanco">Por favor, ingresa <a href="<%=direccion%>">aquí</a></p>
+    </div>
+</div>
 </div>
 </body>
 </html>
