@@ -400,17 +400,13 @@ exports.post_tablero = function (req, res) {
             });
         }
         else {
-            if (req.session.rol == "participante") {
                 res.render('paginas/participante/tablero', {
                     idPartida: req.body.idPartida,
                     rol: req.body.rol,
                     nombreEquipo: req.body.nombreEquipo,
                     nombre: req.body.nombreEquipo
                 });
-            }
-            else {
-                res.redirect('/inicioSesion');
-            }
+
         }
 };
 exports.get_opcion_multiple = function (req, res) {
