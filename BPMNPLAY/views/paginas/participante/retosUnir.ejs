@@ -11,9 +11,8 @@
     <% include ../../parciales/headerProfesor %>
     <link rel="stylesheet" type="text/css" href="static/css/estilos.css">
 </header>
-    <hr>
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb opacoCard">
+    <ol class="breadcrumb opacoCard border border-white">
         <li class="breadcrumb-item"><a href="/ingresoParticipante" class="textoBlanco" style="text-transform: uppercase;">Inicio</a></li>
         <li class="breadcrumb-item"><a href="/ingresoParticipante" class="textoBlanco" style="text-transform: uppercase;">Temáticas</a></li>
         <li class="breadcrumb-item"><a href="/retosMateria?facilitador=<%=facilitador%>&materia=<%=materia%>" class="textoBlanco" style="text-transform: uppercase;">Desafíos</a></li>
@@ -76,7 +75,7 @@
                     <img width="50px" height="50px" id="parImagen<%=i%>" style="margin:10px">
                 </div>
                 <div class="col-md-3">
-                    <label hidden id="parTexto<%=i%>" style="margin:10px"></label>
+                    <label hidden id="parTexto<%=i%>" class="textoBlanco" style="text-transform: uppercase; margin:10px"></label>
                 </div>
                 <% }%>
             </div>

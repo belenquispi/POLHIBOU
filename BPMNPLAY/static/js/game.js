@@ -114,6 +114,7 @@ socket.on('partida', function (data) {
 socket.on('mensajeMisterio', function (num, casillasExtras) {
     if (num == 1) {
         misterioPositivo();
+        numCasillasMoverse = casillasExtras;
     }
     else {
         if (num == 0) {

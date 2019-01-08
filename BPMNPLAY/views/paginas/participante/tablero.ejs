@@ -20,7 +20,6 @@
         <button type="submit" id="botonFinalizacion" hidden disabled></button>
     </form>
     <a href="/" hidden id="linkFinalizarPartida"> </a>
-
     <div class="container-fluid text-center">
         <div class="row text-center">
             <div class="col-md-auto text-center">
@@ -120,7 +119,6 @@
                     <audio id="sonidoError" src="../../../static/sonidos/error.mp3" controls  hidden> </audio>
                     <audio id="sonidoCorrecto" src="../../../static/sonidos/correcto.mp3" controls autoplay hidden> </audio>
                     <audio id="sonidoDados" src="../../../static/sonidos/lanzarDados.mp3" controls autoplay hidden> </audio>
-
                 </div>
                 <div class="row">
                     <div id="snackbar">PUEDES MOVERTE</div>
@@ -249,15 +247,15 @@
                         </div>
                         <div id="memory_boardMulti" hidden>
                         </div>
-                        <div id="respuestaUnirVoltear" hidden style="border: solid">
+                        <div id="respuestaUnirVoltear" hidden style="border: solid; border-color: black;">
                             <div class="row">
                                 <div class="col-md-5">
-                                    <label class=" text-dark">ÚLTIMO PAR ENCONTRADO: </label>
+                                    <label class="text-dark">ÚLTIMO PAR ENCONTRADO: </label>
                                 </div>
                                 <div class="col-md-7 text-left">
                                     <img id="ultimoPar" class="disabledbutton" src="../../../static/imagenes/0.png"
                                          height="50px" width="50px" style="background: transparent; margin: 5px">
-                                    <label id="ultimoNombre" class=" text-dark"></label>
+                                    <label id="ultimoNombre" class="text-dark"></label>
                                 </div>
                             </div>
                         </div>

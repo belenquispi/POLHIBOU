@@ -210,12 +210,16 @@ exports.get_preguntas_opcion = function (req, res) {
             if (error) {
                 console.log("Error: " + error);
             }
+            console.log("materia: " + doc.materias);
             var indice = doc.materias.map(function (e) {
-                return e.nombre
+                return e.nombre.trim();
             }).indexOf(req.params.materia);
             var idPreguntas = [];
             var enunciadoPreguntas = [];
             var dificultadPreguntas = [];
+            console.log("indice: " + indice);
+            console.log("req.params.materia: " + req.params.materia);
+
             for (var i = 0; i < doc.materias[indice].preguntasOpcionMultiple.length; i++) {
                 idPreguntas.push(doc.materias[indice].preguntasOpcionMultiple[i].idPregunta);
                 enunciadoPreguntas.push(doc.materias[indice].preguntasOpcionMultiple[i].enunciado);
@@ -444,7 +448,7 @@ exports.get_preguntas_unir_voltear = function (req, res) {
             }
 
             var indice = doc.materias.map(function (e) {
-                return e.nombre
+                return e.nombre.trim();
             }).indexOf(req.params.materia);
             var idPreguntas = [];
             var textoPreguntas = [];

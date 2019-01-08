@@ -313,13 +313,13 @@ div#memory_boardMulti > label {
 }
 
 .degradoBoton {
-    background: linear-gradient(to right, #007bff, #B6BEC2);
+    background: linear-gradient(to right, #007bff, #C0BBBA);
     border-top-right-radius: 50px;
     border-bottom-right-radius: 50px;
     text-transform: uppercase;
 }
  .degradoMenu {
-    background: linear-gradient(to right, #007bff, #B6BEC2);
+    background: linear-gradient(to right, #007bff, #C0BBBA);
      text-transform: uppercase;
 }
 

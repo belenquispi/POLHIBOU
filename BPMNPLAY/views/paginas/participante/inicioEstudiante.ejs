@@ -10,9 +10,8 @@
 <header>
     <% include ../../parciales/headerProfesor %>
 </header>
-    <hr>
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb opacoCard">
+    <ol class="breadcrumb opacoCard border border-white">
         <li class="breadcrumb-item"><a href="/ingresoParticipante" class="textoBlanco">INICIO</a></li>
     </ol>
 </nav>
@@ -74,7 +73,7 @@
                 <div class="card-body">
                 <h5 class="textoBlanco">    <strong>Facilitador: </strong><%= materias[i].facilitador %></h5>
                     <form action="/retosMateria" method="post">
-                    <button type="submit" class="btn btn-success"><i class="fas fa-hourglass-start"></i> Ir a desafíos</button>
+                    <button type="submit" class="btn btn-primary degradoBoton"><i class="fas fa-hourglass-start"></i> Ir a desafíos</button>
                         <input type="text" name="facilitador" value="<%= materias[i].facilitador %>" hidden >
                         <input type="text" name="materia" value="<%= materias[i].nombre %>" hidden >
                     </form>

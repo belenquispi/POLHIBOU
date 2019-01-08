@@ -12,16 +12,13 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3"></div>
-        <div class="col-md-6 col-md-offset-3">
+        <div class="col-md-6 col-md-offset-3 opaco">
             <div class="panel panel-login">
                 <div class="row">
-                    <div class="col-md-12">
-                        <img class="rounded mx-auto d-block"
-                             src="https://cem.epn.edu.ec/imagenes/logos_institucionales/big_jpg/BUHO_ABSTRACCION_EPN_big.jpg"
-                             height="100" width="100">
+                    <div class="col-lg-12 text-center">
+                        <h3 class="textoBlanco"> CAMBIO DE CONTRASEÑA </h3>
                     </div>
                 </div>
-                <br>
                 <div class="row">
                     <div class="col-lg-12">
 
@@ -31,7 +28,7 @@
                             <input type="text" name="sesionIniciada" hidden value="<%=sesionIniciada%>">
                            <% if(sesionIniciada == 1)
                             {%>
-                            <label>Ingrese su contraseña actual</label>
+                            <label class="textoBlanco">Ingrese su contraseña actual</label>
                                 <div class="input-group mb-2">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="fas fa-key"></i></div>
@@ -46,7 +43,7 @@
                                     <%}%>
                                 </div>
                             <%}%>
-                            <label>Ingrese su nueva contraseña</label>
+                            <label class="textoBlanco">Ingrese su nueva contraseña</label>
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="fas fa-key"></i></div>
@@ -69,7 +66,7 @@
                                     <div class="col-md-3"></div>
                                     <div class="col-md-6 text-center">
                                         <button type="submit" name="botonCambiarContrasenia" id="botonCambiarContrasenia" tabindex="4"
-                                                class="btn btn-info"><i class="fas fa-sign-in-alt"></i> Cambiar
+                                                class="btn btn-primary degradoBoton"><i class="fas fa-sign-in-alt"></i> Cambiar
                                             contraseña
                                         </button>
                                     </div>
@@ -79,6 +76,7 @@
                         </form>
                     </div>
                 </div>
+
             </div>
         </div>
         <div class="col-md-3"></div>
