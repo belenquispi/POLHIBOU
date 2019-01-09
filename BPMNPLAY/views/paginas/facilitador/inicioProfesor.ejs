@@ -46,14 +46,14 @@
         <div class="col-md-10">
             <div class="row">
                 <div class="col-md-12" >
-                <h2 class="textoBlanco">TEMÁTICAS</h2>
+                <h4 class="textoBlanco">TEMÁTICAS</h4>
                     <input type="text" name="numeroMaterias" id="numeroMaterias" value="<%= materias.length%>" hidden>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
                     <div class="card opacoCard" style="margin-top: 10px">
-                        <h5 class="card-header bg-white" style="color: black">AGREGAR TEMÁTICA</h5>
+                        <p class="card-header bg-white" style="color: black">AGREGAR TEMÁTICA</p>
                         <div class="card-body" style="background: transparent">
                             <form action="/ingresoMateria" method="post">
                                 <div class="row">
@@ -101,7 +101,7 @@
                         <div class="card-header bg-white">
                             <div class="row">
                                 <div class="col-md-8">
-                                    <h5 style="color: black" ><%= materias[i].nombre %></h5>
+                                    <p style="color: black" ><%= materias[i].nombre %></p>
                                 </div>
                                 <div class="col-md-2">
                                     <form action="/cambiarTipoMateria" method="post">

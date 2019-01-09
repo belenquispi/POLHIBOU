@@ -66,7 +66,7 @@ for (var i = 0; i < dificultades.length; i++) {
                         <li style="margin-top: 20px">
                             <div class="card opacoCard">
                                 <div class="card-body">
-                                    <h5 class="card-title textoBlanco">TOTAL DE IMÁGENES</h5>
+                                    <p class="card-title textoBlanco">TOTAL DE IMÁGENES</p>
                                     <p class="textoBlanco">Imágenes fáciles: <%= faciles %></p>
                                     <p class="textoBlanco">Imágenes medias: <%= medias %></p>
                                     <p class="textoBlanco">Imágenes difíciles: <%= dificiles %></p>
@@ -86,8 +86,8 @@ for (var i = 0; i < dificultades.length; i++) {
         <div class="col-md-10">
             <div class="row">
                 <div class="col-md-7">
-                    <h2 CLASS="textoBlanco">IMÁGENES Y NOMBRES DE <%= materia %>
-                    </h2></div>
+                    <h4 CLASS="textoBlanco">IMÁGENES Y NOMBRES DE <%= materia %>
+                    </h4></div>
                 <div class="col-md-3 text-right"><a href="/unirVoltear/<%= materia %>" class="btn btn-primary degradoBoton"
                                          style="margin-bottom: 10px"><i class="fas fa-plus"></i> Agregar varias
                         imágenes</a></div>
@@ -100,7 +100,7 @@ for (var i = 0; i < dificultades.length; i++) {
                 </div>
                 <div class="col-md-4">
                     <div class="card text-white mb-3 opacoCard">
-                        <h5 class="card-header bg-white" style="color: black">AGREGAR IMAGEN Y NOMBRE </h5>
+                        <p class="card-header bg-white" style="color: black">AGREGAR IMAGEN Y NOMBRE </p>
                         <div class="card-body">
                             <form action="/agregarUnirVoltear" method="post">
                                 <div class="form-row">
@@ -158,7 +158,7 @@ for (var i = 0; i < dificultades.length; i++) {
                             <div class="card-header bg-white" style="color: black">
                                 <div class="row">
                                     <div class="col-md-9">
-                                        <h5><%= textoPreguntas[i] %></h5>
+                                        <p class="textoUnir">Nombre: <%= textoPreguntas[i] %></p>
                                     </div>
                                     <div class="col-md-3">
                                         <form action="/eliminarUnirVoltear" method="post">

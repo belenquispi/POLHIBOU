@@ -317,12 +317,17 @@ div#memory_boardMulti > label {
     border-top-right-radius: 50px;
     border-bottom-right-radius: 50px;
     text-transform: uppercase;
+    font-size: 80%;
 }
  .degradoMenu {
     background: linear-gradient(to right, #007bff, #C0BBBA);
      text-transform: uppercase;
+     font-size: 80%;
 }
+a{
+    font-size: 80%;
 
+}
 .textoBlanco{
     color: white;
 }

@@ -6,41 +6,53 @@
     <title>Ingreso a Partida</title>
 </head>
 <body>
+<% if(nombre != "Participante"){ %>
 <div class="opaco" style="margin-bottom: 10px">
-<header>
-    <%if(nombre == "Participante"){%>
-    <% include ../../parciales/header%>
-    <%}else{%>
-            <% include ../../parciales/headerProfesor%>
-        <%}%>
-</header>
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb opacoCard border border-white">
-        <li class="breadcrumb-item"><a href="/" class="textoBlanco" >INICIO</a></li>
-    </ol>
-</nav>
-<div class="container-fluid">
-    <div class="row">
+    <% } %>
+    <header>
         <% if(nombre != "Participante"){ %>
+        <% include ../../parciales/headerProfesor %>
+        <% } %>
+    </header>
+    <% if(nombre != "Participante"){ %>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb opacoCard border border-white">
+            <li class="breadcrumb-item"><a href="/" class="textoBlanco">INICIO</a></li>
+        </ol>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
             <div class="col-md-2">
                 <div class="row h-100">
                     <div class="col-12 collapse d-md-flex h-100 opacoCard" id="sidebar">
                         <ul class="nav flex-column flex-nowrap">
                             <li class="nav-item">
-                                <a class="nav-link dropdown-toggle collapsed textoBlanco" href="/ingresoFacilitador" data-toggle="collapse" data-target="#submenu1"><i class="fas fa-chalkboard-teacher"></i> FACILITADOR</a>
+                                <a class="nav-link dropdown-toggle collapsed textoBlanco" href="/ingresoFacilitador"
+                                   data-toggle="collapse" data-target="#submenu1"><i
+                                            class="fas fa-chalkboard-teacher"></i> FACILITADOR</a>
                                 <div class="collapse" id="submenu1" aria-expanded="false">
                                     <ul class="flex-column pl-5 nav">
-                                        <li class="nav-item"><a class="nav-link py-0 textoBlanco" href="/ingresoFacilitador"><i class="fas fa-home" ></i> INICIO FACILITADOR</a></li>
-                                        <li class="nav-item"><a class="nav-link py-0 textoBlanco" href="/estadisticas"><i class="fas fa-chart-bar"></i> ESTADÍSTICAS</a></li>
+                                        <li class="nav-item"><a class="nav-link py-0 textoBlanco"
+                                                                href="/ingresoFacilitador"><i class="fas fa-home"></i>
+                                                INICIO FACILITADOR</a></li>
+                                        <li class="nav-item"><a class="nav-link py-0 textoBlanco"
+                                                                href="/estadisticas"><i class="fas fa-chart-bar"></i>
+                                                ESTADÍSTICAS</a></li>
                                     </ul>
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link  dropdown-toggle collapsed textoBlanco" href="/ingresoParticipante" data-toggle="collapse" data-target="#submenu2"><i class="fas fa-user"></i> PARTICIPANTE</a>
+                                <a class="nav-link  dropdown-toggle collapsed textoBlanco" href="/ingresoParticipante"
+                                   data-toggle="collapse" data-target="#submenu2"><i class="fas fa-user"></i>
+                                    PARTICIPANTE</a>
                                 <div class="collapse show" id="submenu2" aria-expanded="false">
                                     <ul class="flex-column pl-5 nav">
-                                        <li class="nav-item"><a class="nav-link py-0 textoBlanco" href="/ingresoParticipante"><i class="fas fa-home"></i> INICIO PARTICIPANTE</a></li>
-                                        <li class="nav-item"><a class="nav-link py-0 btn-primary degradoBoton"  href="/ingresoPartida"><i class="fas fa-sign-in-alt"></i> UNIRSE A PARTIDA</a></li>
+                                        <li class="nav-item"><a class="nav-link py-0 textoBlanco"
+                                                                href="/ingresoParticipante"><i class="fas fa-home"></i>
+                                                INICIO PARTICIPANTE</a></li>
+                                        <li class="nav-item"><a class="nav-link py-0 btn-primary degradoBoton"
+                                                                href="/ingresoPartida"><i
+                                                        class="fas fa-sign-in-alt"></i> UNIRSE A PARTIDA</a></li>
                                     </ul>
                                 </div>
                             </li>
@@ -49,31 +61,19 @@
                 </div>
             </div>
             <div class="col-md-10">
-            <% }else{ %>
-            <div class="col-md-12">
-                <% } %>
                 <div class="row">
                     <div class="col-md-3"></div>
                     <div class="col-md-6">
                         <div class="row">
-                            <div class="col-lg-12 text-center">
-                                <img src="../../static/imagenes/iconoPolhibou.svg" height="50%" width="50%">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3"></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3"></div>
-                    <div class="col-md-6">
-                        <div class="row" >
                             <div class="col-md-12">
+                                <h4 class="display-8 text-center textoBlanco">UNIRSE A PARTIDA</h4>
                                 <form id="login-form" action="/lobbyParticipante" method="post" role="form"
-                                      style=" margin: 10px; " >
+                                      style=" margin: 10px; ">
                                     <div class="row">
                                         <div class="col-md-2"></div>
                                         <div class="col-md-8 text-center">
-                                            <label for="codigoPartida" class="textoBlanco">INGRESAR CÓDIGO DE LA PARTIDA:</label>
+                                            <label for="codigoPartida" class="textoBlanco">INGRESAR CÓDIGO DE LA
+                                                PARTIDA:</label>
                                             <input type="text"
                                                    class="form-control rounded text-center"
                                                    placeholder="Código de la partida"
@@ -84,8 +84,10 @@
                                     <br>
                                     <div class="row">
                                         <div class="col-md-12 text-center">
-                                            <button type="button" class="btn btn-primary degradoBoton" id="consultarPartida"
-                                                    onclick="verificarPartida()"><i class="fas fa-check"></i> Verificar código partida
+                                            <button type="button" class="btn btn-primary degradoBoton"
+                                                    id="consultarPartida"
+                                                    onclick="verificarPartida()"><i class="fas fa-check"></i>
+                                                Verificar código partida
                                             </button>
                                         </div>
                                     </div>
@@ -94,7 +96,8 @@
                                         <div class="col-md-2"></div>
                                         <div class="col-md-8 text-center">
                                             <label for="tipoIngreso" class="textoBlanco">TIPO DE INGRESO:</label>
-                                            <select id="tipoIngreso" name="tipoIngreso" class="form-control text-center"
+                                            <select id="tipoIngreso" name="tipoIngreso"
+                                                    class="form-control text-center"
                                                     onchange="habilitarNombreEquipo()">
                                                 <option value="ninguno">Seleccione un tipo de ingreso</option>
                                                 <option value="participante">Participante</option>
@@ -119,7 +122,8 @@
                                     <div class="row">
                                         <div class="col-md-2"></div>
                                         <div class="col-md-8 text-center">
-                                            <button type="submit" value="Unirse a partida" class="btn btn-primary degradoBoton"
+                                            <button type="submit" value="Unirse a partida"
+                                                    class="btn btn-primary degradoBoton"
                                                     hidden id="botonUnir"><i class="fas fa-sign-in-alt"></i> Unirse
                                             </button>
                                             <button type="submit" class="btn btn-primary" id="unirPartida"
@@ -136,13 +140,114 @@
             </div>
         </div>
     </div>
-</div>
-        <script src="/socket.io/socket.io.js"></script>
-        <script src="../../static/js/ingresoPartidas.js"></script>
+    <% } else { %>
+    <div class="container">
+        <div class="row" style="margin: 30px">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 col-md-offset-3 opaco">
+                <div class="panel panel-login">
+                    <div class="row" style="margin-top: 30px">
+                        <div class="col-md-12 text-center">
+                            <a href="/"><img
+                                        src="../../static/imagenes/iconoEPN.svg"
+                                        height="65%" width="65%">
+                            </a>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form id="login-form" action="/lobbyParticipante" method="post" role="form"
+                                  style=" margin: 10px; ">
+                                <div class="row">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8 text-center">
+                                        <label for="codigoPartida" class="textoBlanco">INGRESAR CÓDIGO DE LA
+                                            PARTIDA:</label>
+                                        <input type="text"
+                                               class="form-control rounded text-center"
+                                               placeholder="Código de la partida"
+                                               id="codigoPartida" name="codigoPartida">
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <button type="button" class="btn btn-primary degradoBoton"
+                                                id="consultarPartida"
+                                                onclick="verificarPartida()"><i class="fas fa-check"></i>
+                                            Verificar código partida
+                                        </button>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row" id="divTipoEquipo" hidden>
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8 text-center">
+                                        <label for="tipoIngreso" class="textoBlanco">TIPO DE INGRESO:</label>
+                                        <select id="tipoIngreso" name="tipoIngreso"
+                                                class="form-control text-center"
+                                                onchange="habilitarNombreEquipo()">
+                                            <option value="ninguno">Seleccione un tipo de ingreso</option>
+                                            <option value="participante">Participante</option>
+                                            <option value="espectador">Espectador</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                </div>
+                                <br>
+                                <div class="row" id="divNombreEquipo" hidden>
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8 text-center">
+                                        <label for="nombreEquipo" class="textoBlanco">NOMBRE DEL EQUIPO:</label>
+                                        <select id="nombreEquipo" name="nombreEquipo"
+                                                class="form-control text-center"
+                                                onchange="verificarDisponibilidadEquipo()" required>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8 text-center">
+                                        <button type="submit" value="Unirse a partida"
+                                                class="btn btn-primary degradoBoton"
+                                                hidden id="botonUnir"><i class="fas fa-sign-in-alt"></i> Unirse
+                                        </button>
+                                        <button type="submit" class="btn btn-primary" id="unirPartida"
+                                                hidden></button>
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row" style="margin-bottom: 30px">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8 text-center">
+                            <a href="/"> <img src="../../static/imagenes/iconoPolhibou.svg" width="85%" height="85%">
+                            </a>
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+    <% } %>
 
-<footer>
-    <% include ../../parciales/footer.ejs %>
-</footer>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="../../static/js/ingresoPartidas.js"></script>
+
+    <footer>
+        <% include ../../parciales/footer.ejs %>
+    </footer>
+    <% if(nombre != "Participante"){ %>
 </div>
+<% } %>
 </body>
 </html>

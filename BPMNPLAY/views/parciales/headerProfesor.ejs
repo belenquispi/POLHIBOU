@@ -5,40 +5,54 @@
                     <div class="col-md-2"></div>
                     <div class="col-md-8 text-center">
                         <img src="../../static/imagenes/iconoPolhibou.svg"
-                             height="100%" width="100%">
+                             height="85%" width="85%">
                     </div>
                     <div class="col-md-2"></div>
                 </div>
             </a></div>
     </div>
-    <button class="navbar-toggler navbar-dark bg-dark" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+    <button class="navbar-toggler navbar-dark bg-dark" type="button" data-toggle="collapse"
+            data-target="#navbarCollapse"
             aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon white"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         </ul>
-        <div class="col-md-3"></div>
-        <div class="col-md-3"><a class="navbar-brand" href="/">
+        <div class="col-md-6"><a class="navbar-brand" href="/">
                 <div class="row">
-                    <div class="col-md-12 text-center">
+                    <div class="col-md-12 text-right">
                         <img src="../../static/imagenes/IconoEPN.svg"
-                             width="100%" height="100%">
+                             width="85%" height="85%">
                     </div>
                 </div>
             </a></div>
-        <div class="col-md-3"></div>
-        <div class="col-md-3">
-            <div class="row">
-                <h5 class="navbar-text ml-2 textoBlanco" style="text-transform: uppercase">
-                    Bienvenido: <%= nombre %>
-                </h5>
+        <div class="col-md-6">
+            <div class="row ">
+                <div class="col-md-3 ">
+                </div>
+                <div class="col-md-3 ">
+                    <p class="textoBlanco " style="text-transform: uppercase">
+                        <strong> Bienvenido:</strong>
+                    </p>
+                </div>
+                <div class="col-md-6 text-left">
+                    <p class="textoBlanco textoUnir" style="text-transform: uppercase"> <%= nombre %>
+                    </p>
+                </div>
             </div>
             <div class="row">
-                <a class="btn btn-primary degradoMenu" href="/cambiarContrasenia" style="margin-left: 10px"><i
-                            class="fas fa-exchange-alt"></i> Cambiar Contraseña</a>
-                <a class="btn btn-primary degradoMenu" href="/salir" style="margin-left: 10px"><i
-                            class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-5">
+                    <a class="btn btn-primary degradoMenu" href="/cambiarContrasenia" ><i
+                                class="fas fa-exchange-alt"></i> Cambiar Contraseña</a>
+                </div>
+                <div class="col-md-4 ">
+                    <a class="btn btn-primary degradoMenu" href="/salir"><i
+                                class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+                </div>
+
             </div>
         </div>
     </div>

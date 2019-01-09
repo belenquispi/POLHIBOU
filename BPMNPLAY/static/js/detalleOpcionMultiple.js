@@ -18,33 +18,47 @@ function verificarBotonGuardar() {
 
 function encodeImageFileAsURL(element) {
     var file = element.files[0];
-    for (var i = 0; i < element.files.length; i++) {
-        console.log(element.files[i])
+    if (file != null) {
+        var reader = new FileReader();
+        reader.onloadend = function () {
+            switch (element.id) {
+                case "botonArchivoEnunciado":
+                    document.getElementById("imagenEnunciado").value = reader.result;
+                    break;
+                case "botonArchivoimagenRes1":
+                    document.getElementById("imagenRes1").value = reader.result;
+                    break;
+                case "botonArchivoimagenRes2":
+                    document.getElementById("imagenRes2").value = reader.result;
+                    break;
+                case "botonArchivoimagenRes3":
+                    document.getElementById("imagenRes3").value = reader.result;
+                    break;
+                case "botonArchivoimagenRes4":
+                    document.getElementById("imagenRes4").value = reader.result;
+                    break;
+            }
+        };
+        reader.readAsDataURL(file);
     }
-    var reader = new FileReader();
-    reader.onloadend = function () {
-        console.log('RESULT', reader.result);
-        console.log('ELEMENT', element.id);
+    else {
         switch (element.id) {
             case "botonArchivoEnunciado":
-                document.getElementById("imagenEnunciado").value = reader.result;
+                document.getElementById("imagenEnunciado").value = "";
                 break;
             case "botonArchivoimagenRes1":
-                document.getElementById("imagenRes1").value = reader.result;
+                document.getElementById("imagenRes1").value = "";
                 break;
             case "botonArchivoimagenRes2":
-                document.getElementById("imagenRes2").value = reader.result;
+                document.getElementById("imagenRes2").value = "";
                 break;
             case "botonArchivoimagenRes3":
-                document.getElementById("imagenRes3").value = reader.result;
+                document.getElementById("imagenRes3").value = "";
                 break;
             case "botonArchivoimagenRes4":
-                document.getElementById("imagenRes4").value = reader.result;
+                document.getElementById("imagenRes4").value = "";
                 break;
         }
-    }
-    if(file != undefined){
-        reader.readAsDataURL(file);
     }
 }
 
@@ -55,16 +69,17 @@ function cambiarImagen(boton) {
         document.getElementById("vistaImagenBase").innerHTML = "";
         let div = document.createElement("DIV");
         div.setAttribute("id", "cargaImagenEnunciado");
-        div.setAttribute("class", "form-group col-md-4 ");
+        div.setAttribute("class", "form-group col-md-6 ");
         document.getElementById("rowEnunciado").appendChild(div);
         let label = document.createElement("LABEL");
         label.setAttribute("for", "botonArchivoEnunciado");
-        let t = document.createTextNode("Cargar imagen (opcional):");
+        label.setAttribute("class", "textoBlanco");
+        let t = document.createTextNode("CARGAR IMAGEN (OPCIONAL):");
         label.appendChild(t);
         document.getElementById("cargaImagenEnunciado").appendChild(label);
         let input = document.createElement("INPUT");
         input.setAttribute("type", "file");
-        input.setAttribute("class", "form-control-file");
+        input.setAttribute("class", "btn btn-file btn-light");
         input.setAttribute("id", "botonArchivoEnunciado");
         input.setAttribute("value", "uploadEnunciado");
         input.setAttribute("accept", ".png, .jpg, .jpeg");
@@ -142,25 +157,23 @@ function cambiarImagen(boton) {
 
 let mostrarVistaPreviaImagen = function (event, imagen) {
     let output = document.getElementById(imagen);
-    if(event.target.files[0] != undefined)
-    {
+    if (event.target.files[0] != null) {
         output.src = URL.createObjectURL(event.target.files[0]);
         document.getElementById("eliminarImagen").removeAttribute("hidden");
     }
     else {
-        output.src = "/../../static/imagenes/blanco.png";
-        document.getElementById("eliminarImagen").setAttribute("hidden","");
-        document.getElementById("botonArchivoEnunciado").innerHTML = "";
-
+        output.src = "../../static/imagenes/imagenVacia.svg";
+        document.getElementById("eliminarImagen").setAttribute("hidden", "");
     }
 };
+
 function eliminarImagenCargada() {
     let input = document.getElementById("botonArchivoEnunciado");
-    let  imagen = document.getElementById("imagenCargadaEnunciado");
+    let imagen = document.getElementById("imagenCargadaEnunciado");
 
     let imagenNueva = document.createElement("IMG");
     imagenNueva.setAttribute("id", "imagenCargadaEnunciado");
-    imagenNueva.setAttribute("width", "50" );
+    imagenNueva.setAttribute("width", "50");
     imagenNueva.setAttribute("height", "50");
 
     let inputNuevo = document.createElement("INPUT");
@@ -171,21 +184,21 @@ function eliminarImagenCargada() {
     inputNuevo.setAttribute("value", "uploadEnunciado");
     inputNuevo.setAttribute("onchange", "mostrarVistaPreviaImagen(event, 'imagenCargadaEnunciado'), encodeImageFileAsURL(this)");
 
-    if (!imagen){
+    if (!imagen) {
         alert("El elemento selecionado no existe");
     } else {
         let padre = imagen.parentNode;
         padre.removeChild(imagen);
         padre.appendChild(imagenNueva);
     }
-    if (!input){
+    if (!input) {
         alert("El elemento selecionado no existe");
     } else {
         let padre2 = input.parentNode;
         padre2.removeChild(input);
         padre2.appendChild(inputNuevo)
     }
-    document.getElementById("eliminarImagen").setAttribute("hidden","");
+    document.getElementById("eliminarImagen").setAttribute("hidden", "");
     document.getElementById("imagenEnunciado").value = "";
 
 }
