@@ -1336,6 +1336,25 @@ exports.get_ingreso_administrador = function (req, res) {
         res.redirect('/inicioSesion');
     }
 };
+
+exports.post_eliminar_usuario = function (req, res) {
+    if (req.session.usuario) {
+        Usuario.find({usuario: req.body.usuario}, function (error, doc) {
+            if (error) {
+                console.log("Error: " + error)
+            }
+         
+            if (doc != null) {
+               
+                
+            }
+        });
+    }
+    else {
+        res.redirect('/');
+    }
+};
+
 exports.get_recuperar_contrasenia = function (req, res) {
     var usuario = "";
     res.render('paginas/recuperarContrasenia', {usuario: usuario});

@@ -87,13 +87,31 @@ let directions = {
 };
 
 /* --------------------------------------------- Routning */
-app.get('/', routes.get_inicio);
-app.get('/inicioSesion', routes.get_inicio_sesion);
-app.post('/creacionCuenta', routes.post_creacion_cuenta);
-app.post('/ingreso', routes.post_inicio_sesion);
-app.get('/ingresoFacilitador', routes.get_ingreso_profesor);
-app.get('/ingresoParticipante', routes.get_ingreso_estudiante);
-app.get('/salir', routes.salir);
+
+app.route('/')
+    .get(routes.get_inicio)
+    .post(routes.error)
+    .put(routes.error);
+app.route('/inicioSesion')
+    .get(routes.get_inicio_sesion)
+    .post(routes.post_inicio_sesion)
+    .put(routes.error);
+app.route('/creacionCuenta')
+    .get(routes.error)
+    .post(routes.post_creacion_cuenta)
+    .put(routes.error);
+app.route('/ingresoFacilitador')
+    .get(routes.get_ingreso_profesor)
+    .post(routes.error)
+    .put(routes.error);
+app.route('/ingresoParticipante')
+    .get(routes.get_ingreso_estudiante)
+    .post(routes.error)
+    .put(routes.error);
+app.route('/salir')
+    .get(routes.salir)
+    .post(routes.error)
+    .put(routes.error);
 app.route('/tablero')
     .get(routes.error)
     .post(routes.post_tablero)
@@ -149,7 +167,14 @@ app.route('/estadisticas')
 app.get('/estadisticaParticipante/:materia', routes.get_estadistica_participante);
 app.get('/estadisticaPregunta/:materia', routes.get_estadistica_preguntas);
 app.post('/detalleParticipante', routes.post_detalle_participante);
-app.get('/ingresoAdministrador', routes.get_ingreso_administrador);
+app.route('/ingresoAdministrador');
+	.get(routes.get_ingreso_administrador)
+    .post(routes.error)
+    .put(routes.error);
+app.route('/eliminarUsuario' );
+	.get(routes.error)
+    .post(routes.post_eliminar_usuario)
+    .put(routes.error);
 app.route('/recuperarContrasenia')
     .get(routes.get_recuperar_contrasenia)
     .post(routes.post_recuperar_contrasenia)
@@ -158,8 +183,14 @@ app.route('/cambiarContrasenia')
     .get(routes.get_cambiar_contrasenia)
     .post(routes.post_cambiar_contrasenia)
     .put(routes.error);
-app.post('/partidaFinalizada', routes.post_partida_finalizada);
-app.post('/salirPartida', routes.post_salir_partida);
+app.route('/partidaFinalizada')
+    .get(routes.error)
+    .post(routes.post_partida_finalizada)
+    .put(routes.error);
+app.route('/salirPartida')
+    .get(routes.error)
+    .post(routes.post_salir_partida)
+    .put(routes.error);
 
 
 // Starts the server.

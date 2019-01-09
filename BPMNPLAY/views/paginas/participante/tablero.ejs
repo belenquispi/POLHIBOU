@@ -117,14 +117,39 @@
                     </div>
                     <div class="col-md-2"></div>
                     <audio id="sonidoError" src="../../../static/sonidos/error.mp3" controls  hidden> </audio>
-                    <audio id="sonidoCorrecto" src="../../../static/sonidos/correcto.mp3" controls autoplay hidden> </audio>
-                    <audio id="sonidoDados" src="../../../static/sonidos/lanzarDados.mp3" controls autoplay hidden> </audio>
+                    <audio id="sonidoCorrecto" src="../../../static/sonidos/correcto.mp3" controls hidden> </audio>
+                    <audio id="sonidoDados" src="../../../static/sonidos/lanzarDados.mp3" controls hidden> </audio>
                 </div>
                 <div class="row">
-                    <div id="snackbar">PUEDES MOVERTE</div>
+                    <!--<div id="snackbar">PUEDES MOVERTE</div>
                     <div id="snackbarIn">NO PUEDES MOVERTE</div>
-                    <div id="snackbarPositivo">¡FELICIDADES! TE MUEVES CASILLAS EXTRAS</div>
-                    <div id="snackbarNegativo">¡OH NO! HAS RECIBIDO UNA MALDICIÓN</div>
+                     <div id="snackbarPositivo">¡FELICIDADES! TE MUEVES CASILLAS EXTRAS</div> 
+					 <div id="snackbarNegativo">¡OH NO! HAS RECIBIDO UNA MALDICIÓN</div> -->
+					<div id="snackbar" class="card" style="width: 18rem;">
+					  <div class="card-body">
+						<h5 class="card-title">¡BIEN HECHO!</h5>
+						<p class="card-text">PUEDES MOVERTE</p> <i class="far fa-check-circle fa-3x" style="color:green"></i>
+					  </div>
+					</div>
+					<div id="snackbarIn" class="card" style="width: 18rem;">
+					  <div class="card-body">
+						<h5 class="card-title">¡FALLASTE!</h5>
+						<p class="card-text">NO PUEDES MOVERTE</p> <i class="far fa-times-circle fa-3x" style="color:red"></i>
+					  </div>
+					</div>
+					<div id="snackbarPositivo" class="card" style="width: 18rem;">
+					  <div class="card-body">
+						<h5 class="card-title">¡FELICIDADES!</h5>
+						<p class="card-text">TE MUEVES CASILLAS EXTRAS</p> <i class="far fa-check-circle fa-3x" style="color:green"></i>
+					  </div>
+					</div>
+					<div id="snackbarNegativo" class="card" style="width: 18rem;">
+					  <div class="card-body">
+						<h5 class="card-title">¡OH NO!</h5>
+						<p class="card-text">HAS RECIBIDO UNA MALDICIÓN</p> <i class="far fa-times-circle fa-3x" style="color:red"></i>
+					  </div>
+					</div>
+                    
                 </div>
             </div>
             <div class="col-md-auto text-center">
@@ -142,7 +167,7 @@
                                         <h4><p id="enunciado"></p></h4>
                                     </div>
                                     <div class="col-md-3">
-                                        <img id="imagenEnunciado" src="static/imagenes/vacio.png" class="img-rounded"
+                                        <img id="imagenEnunciado" src="static/imagenes/imagenVacia.svg" class="img-rounded"
                                              height="50"
                                              width="50">
                                     </div>
@@ -165,12 +190,12 @@
                             <div class="container-fluid text-left">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <button id="reiniciarUnir" class="btn btn-info" onclick="reiniciarUnir();">
+                                        <button id="reiniciarUnir" class="btn btn-primary degradoMenu" onclick="reiniciarUnir();">
                                             Reiniciar
                                         </button>
                                     </div>
                                     <div class="col-md-8">
-                                        <button id="enviarUnir" class="btn btn-success" disabled="disabled"
+                                        <button id="enviarUnir" class="btn btn-primary degradoMenu" disabled="disabled"
                                                 onclick="verificarRespuestaUnir()">Enviar Respuesta
                                         </button>
                                     </div>
@@ -178,7 +203,7 @@
                                 <div class="row unir">
                                     <div class="col-md-4">
                                         <button id="botonImagenAUnir1" onclick="obtenerId(this);">
-                                            <img id="imagenAUnir1" src="static/imagenes/vacio.png" class="img-thumbnail"
+                                            <img id="imagenAUnir1" src="static/imagenes/imagenVacia.svg" class="img-thumbnail"
                                                  style="border:2px solid black" height="50" width="50">
                                         </button>
                                     </div>
@@ -192,7 +217,7 @@
                                 <div class="row unir">
                                     <div class="col-md-4">
                                         <button id="botonImagenAUnir2" onclick="obtenerId(this);">
-                                            <img id="imagenAUnir2" src="static/imagenes/vacio.png" class="img-thumbnail"
+                                            <img id="imagenAUnir2" src="static/imagenes/imagenVacia.svg" class="img-thumbnail"
                                                  style="border:2px solid black" height="50" width="50">
                                         </button>
                                     </div>
@@ -207,7 +232,7 @@
                                 <div class="row unir">
                                     <div class="col-md-4">
                                         <button id="botonImagenAUnir3" onclick="obtenerId(this);">
-                                            <img id="imagenAUnir3" src="static/imagenes/vacio.png" class="img-thumbnail"
+                                            <img id="imagenAUnir3" src="static/imagenes/imagenVacia.svg" class="img-thumbnail"
                                                  style="border:2px solid black" height="50" width="50">
                                         </button>
                                     </div>
@@ -221,7 +246,7 @@
                                 <div class="row unir">
                                     <div class="col-md-4">
                                         <button id="botonImagenAUnir4" onclick="obtenerId(this);">
-                                            <img id="imagenAUnir4" src="static/imagenes/vacio.png" class="img-thumbnail"
+                                            <img id="imagenAUnir4" src="static/imagenes/imagenVacia.svg" class="img-thumbnail"
                                                  style="border:2px solid black" height="50" width="50">
                                         </button>
                                     </div>
