@@ -33,12 +33,12 @@ app.use(bodyParser.urlencoded({extended: true}));
 var gameMap = [
     13, 14, 15, 16, 17, 18, 19, 20, 21,
     12, -1, -1, -1, -1, -1, -1, -1, 22,
-    11, 10, 9, -1, 'B', -1, 25, 24, 23,
-    -1, -1, 8, -1, 'P', -1, 26, -1, -1,
-    -1, -1, 7, -1, 'M', -1, 27, -1, -1,
-    4, 5, 6, -1, 'N', -1, 28, 29, 30,
-    3, -1, -1, -1, '>', -1, -1, -1, 31,
-    2, 1, 0, -1, -1, -1, 34, 33, 32
+    11, 10,  9, -1, -1, -1, 25, 24, 23,
+    -1, -1,  8, -1, -1, -1, 26, -1, -1,
+    -1, -1,  7, -1, -1, -1, 27, -1, -1,
+     4,  5,  6, -1, -1, -1, 28, 29, 30,
+     3, -1, -1, -1, -1, -1, -1, -1, 31,
+     2,  1,  0, -1, -1, -1, 34, 33, 32
 ];
 var anchoCasilla = 60, altoCasilla = 60;
 var columnas = 9, filas = 8;
@@ -167,11 +167,11 @@ app.route('/estadisticas')
 app.get('/estadisticaParticipante/:materia', routes.get_estadistica_participante);
 app.get('/estadisticaPregunta/:materia', routes.get_estadistica_preguntas);
 app.post('/detalleParticipante', routes.post_detalle_participante);
-app.route('/ingresoAdministrador');
+app.route('/ingresoAdministrador')
 	.get(routes.get_ingreso_administrador)
     .post(routes.error)
     .put(routes.error);
-app.route('/eliminarUsuario' );
+app.route('/eliminarUsuario' )
 	.get(routes.error)
     .post(routes.post_eliminar_usuario)
     .put(routes.error);

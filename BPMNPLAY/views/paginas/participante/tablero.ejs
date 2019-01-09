@@ -187,27 +187,26 @@
                             </div>
                         </div>
                         <div id="unir" class="row" hidden onmouseover="verificarCompletoUnir()">
-                            <div class="container-fluid text-left">
+                            <div class="container-fluid">
                                 <div class="row">
-                                    <div class="col-md-4">
-                                        <button id="reiniciarUnir" class="btn btn-primary degradoMenu" onclick="reiniciarUnir();">
-                                            Reiniciar
+                                    <div class="col-md-4 text-center">
+                                        <button id="reiniciarUnir" class="btn btn-primary degradoMenu" onclick="reiniciarUnir();"> <i class="fas fa-undo-alt"></i> Reiniciar
                                         </button>
                                     </div>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 text-center">
                                         <button id="enviarUnir" class="btn btn-primary degradoMenu" disabled="disabled"
-                                                onclick="verificarRespuestaUnir()">Enviar Respuesta
+                                                onclick="verificarRespuestaUnir()"> <i class="fas fa-share-square"></i> Enviar Respuesta
                                         </button>
                                     </div>
                                 </div>
                                 <div class="row unir">
-                                    <div class="col-md-4">
+                                    <div class="col-md-4 text-right">
                                         <button id="botonImagenAUnir1" onclick="obtenerId(this);">
                                             <img id="imagenAUnir1" src="static/imagenes/imagenVacia.svg" class="img-thumbnail"
                                                  style="border:2px solid black" height="50" width="50">
                                         </button>
                                     </div>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 text-left">
                                         <button id="textoAUnir1" class="btn textoUnir" disabled
                                                 onclick="obtenerId(this);">
                                             Texto 1

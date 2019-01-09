@@ -250,7 +250,7 @@ function drawGame() {
 
             switch (gameMap[((y * columnas) + x)]) {
                 case -1:
-                    ctx.fillStyle = "#0B610B";
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0)';
                     break;
                 case 0:
                     ctx.fillStyle = patterInicio;
@@ -276,7 +276,7 @@ function drawGame() {
                             ctx.fillStyle = patterColor3;
                             break;
                         default:
-                            ctx.fillStyle = "#5aa457";
+                            ctx.fillStyle = 'rgba(0, 0, 0, 0)';
                     }
             }
             ctx.fillRect(x * anchoCasilla, y * altoCasilla, anchoCasilla, altoCasilla);
@@ -665,7 +665,7 @@ function cargarPreguntaOpcionMultiple(indicePregunta) {
     if (preguntasOpcionMultiple[indicePregunta].hasOwnProperty("imagenEnunciado") && preguntasOpcionMultiple[indicePregunta].imagenEnunciado != "") {
         document.getElementById("imagenEnunciado").src = preguntasOpcionMultiple[indicePregunta].imagenEnunciado;
     } else {
-        document.getElementById("imagenEnunciado").src = "static/imagenes/vacio.png";
+        document.getElementById("imagenEnunciado").src = "static/imagenes/imagenVacia.svg";
     }
     document.getElementById("divRespuestasOpcionMultiple").removeAttribute("hidden");
 
