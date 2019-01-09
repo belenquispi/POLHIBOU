@@ -6,12 +6,13 @@
     <title>Ingreso a partida</title>
 </head>
 <body>
+<div class="opaco" style="margin-bottom: 20px">
 <header>
     <% include ../../parciales/header %>
 </header>
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/ingresoEstudiante">Inicio</a></li>
+    <ol class="breadcrumb opacoCard border border-white">
+        <li class="breadcrumb-item"><a href="/ingresoEstudiante" class="textoBlanco">INICIO</a></li>
     </ol>
 </nav>
 <div class="container">
@@ -20,9 +21,10 @@
         <div class="col-md-6">
             <div class="row">
                 <div class="col-lg-12">
-                    <img class="rounded mx-auto d-block"
-                         src="https://cem.epn.edu.ec/imagenes/logos_institucionales/big_jpg/BUHO_ABSTRACCION_EPN_big.jpg"
-                         height="100" width="100">
+                    <a href="/"><img class="rounded mx-auto d-block"
+                                     src="../../static/imagenes/iconoPolhibou.svg"
+                                     height="60%" width="60%">
+                    </a>
                 </div>
             </div>
         </div>
@@ -37,7 +39,7 @@
                     <form id="login-form" action="/tablero" method="post" role="form" style="display: block;">
                         <div class="row">
                             <div class="col-md-2"></div>
-                            <div class="col-md-8 bg-dark text-white rounded">
+                            <div class="col-md-8 bg-white text-dark rounded">
                                     <div class="container ">
                                         <h1 class="text-center font-weight-bold"><%= codigoPartida %></h1>
                                         <input type="text" hidden name="idPartida" id="codigoPartida" value="<%=codigoPartida %>">
@@ -49,7 +51,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                <p> Espera mientras se unen  todos los equipos participantes</p>
+                                <p class="textoBlanco"> ESPERA MIENTRAS SE UNEN TODOS LOS EQUIPOS</p>
                             </div>
                         </div>
                         <button type="submit" hidden id="botonUnirPartida"></button>
@@ -60,11 +62,15 @@
         <div class="col-md-3"></div>
     </div>
     <br>
-    <div><label class="font-weight-bold">Jugadores Conectados</label></div>
+    <div><label class="font-weight-bold textoBlanco">EQUIPOS CONECTADOS</label></div>
     <div class="row border border-info rounded" id="jugadoresConectados">
     </div>
 </div>
 <script src="/socket.io/socket.io.js"></script>
 <script src="../../static/js/lobbyPaticipante.js"></script>
+    <footer>
+        <% include ../../parciales/footer.ejs %>
+    </footer>
+</div>
 </body>
 </html>

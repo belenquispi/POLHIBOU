@@ -28,7 +28,7 @@ function actualizacion() {
         document.getElementById("jugadoresConectados").appendChild(div0);
         var divCard = document.createElement("DIV");
         divCard.setAttribute("id", "card"+(i+1));
-        divCard.setAttribute("class", "card text-center");
+        divCard.setAttribute("class", "card opacoCard text-center");
         document.getElementById("cardI"+(i+1)).appendChild(divCard);
         var divCard2 = document.createElement("DIV");
         divCard2.setAttribute("id", "cardB"+(i+1));
@@ -36,13 +36,14 @@ function actualizacion() {
         document.getElementById("card"+(i+1)).appendChild(divCard2);
         var img = document.createElement("IMG");
         img.setAttribute("id", "imagen"+(i+1));
-        img.setAttribute("src", "static/buho" + (jugadoresConectados[i].iconoEquipo) + ".gif");
+        img.setAttribute("src", "static/imagenes/equipo" + (jugadoresConectados[i].iconoEquipo) + ".svg");
         img.setAttribute("class", "rounded mx-auto d-block");
         img.setAttribute("width", "50px");
         img.setAttribute("height", "50px");
         document.getElementById("card"+(i+1)).appendChild(img);
         var h5 = document.createElement("H5");
-        h5.setAttribute("class", "card-title");
+        h5.setAttribute("class", "card-title textoBlanco");
+        h5.setAttribute("style", "text-transform: uppercase");
         var t = document.createTextNode(jugadoresConectados[i].nombreEquipo);
         h5.appendChild(t);
         document.getElementById("card"+(i+1)).appendChild(h5);

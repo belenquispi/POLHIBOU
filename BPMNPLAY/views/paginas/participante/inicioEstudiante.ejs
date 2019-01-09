@@ -6,35 +6,36 @@
     <title>Inicio Participante</title>
 </head>
 <body>
+<div class="opaco" style="margin-bottom: 10px">
 <header>
     <% include ../../parciales/headerProfesor %>
 </header>
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/ingresoParticipante">Inicio</a></li>
+    <ol class="breadcrumb opacoCard border border-white">
+        <li class="breadcrumb-item"><a href="/ingresoParticipante" class="textoBlanco">INICIO</a></li>
     </ol>
 </nav>
 <div class="container-fluid">
     <div class="row">
     <div class="col-md-2">
         <div class="row h-100">
-            <div class="col-12 collapse d-md-flex bg-light h-100" id="sidebar">
+            <div class="col-12 collapse d-md-flex h-100 opacoCard" id="sidebar">
                 <ul class="nav flex-column flex-nowrap">
                     <li class="nav-item">
-                        <a class="nav-link dropdown-toggle collapsed" href="/ingresoFacilitador" data-toggle="collapse" data-target="#submenu1"><i class="fas fa-chalkboard-teacher"></i> Facilitador</a>
+                        <a class="nav-link dropdown-toggle collapsed textoBlanco" href="/ingresoFacilitador" data-toggle="collapse" data-target="#submenu1"><i class="fas fa-chalkboard-teacher"></i> FACILITADOR</a>
                         <div class="collapse" id="submenu1" aria-expanded="false">
                             <ul class="flex-column pl-5 nav">
-                                <li class="nav-item"><a class="nav-link py-0" href="/ingresoFacilitador"><i class="fas fa-home" ></i> Inicio Facilitador</a></li>
-                                <li class="nav-item"><a class="nav-link py-0" href="/estadisticas"><i class="fas fa-chart-bar"></i> Estadísticas</a></li>
+                                <li class="nav-item"><a class="nav-link py-0 textoBlanco" href="/ingresoFacilitador"><i class="fas fa-home" ></i> INICIO FACILITADOR</a></li>
+                                <li class="nav-item"><a class="nav-link py-0 textoBlanco" href="/estadisticas"><i class="fas fa-chart-bar"></i> ESTADÍSTICAS</a></li>
                             </ul>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link  dropdown-toggle collapsed" href="/ingresoParticipante" data-toggle="collapse" data-target="#submenu2"><i class="fas fa-user"></i> Participante</a>
+                        <a class="nav-link  dropdown-toggle collapsed textoBlanco" href="/ingresoParticipante" data-toggle="collapse" data-target="#submenu2"><i class="fas fa-user"></i> PARTICIPANTE</a>
                         <div class="collapse show" id="submenu2" aria-expanded="false">
                             <ul class="flex-column pl-5 nav">
-                                <li class="nav-item"><a class="nav-link py-0" style="color: black" href="/ingresoParticipante"><i class="fas fa-home"></i> Inicio Participante</a></li>
-                                <li class="nav-item"><a class="nav-link py-0" href="/ingresoPartida"><i class="fas fa-sign-in-alt"></i> Unirse a Partida</a></li>
+                                <li class="nav-item"><a class="nav-link py-0 btn-primary degradoBoton" href="/ingresoParticipante"><i class="fas fa-home"></i> INICIO PARTICIPANTE</a></li>
+                                <li class="nav-item"><a class="nav-link py-0 textoBlanco" href="/ingresoPartida"><i class="fas fa-sign-in-alt"></i> UNIRSE A PARTIDA</a></li>
                             </ul>
                         </div>
                     </li>
@@ -45,32 +46,40 @@
     <div class="col-md-10" >
     <div class="row">
         <div class="col-md-12" >
-        <h2>Temáticas públicas</h2>
+            <h2 class="textoBlanco">TEMÁTICAS PÚBLICAS</h2>
         </div>
     </div>
         <div class="row">
             <div class="col-md-4">
             <%
+                if(materias.length <= 0) {
+            %>
+                <p class="textoBlanco">
+                    ** No hay temáticas públicas por el momento.
+                </p>
+                <%
+                } else {
+
             for(var i = 0; i < materias.length; i++) {
                 console.log(materias[i])%>
-            <div class="card">
-                <div class="card-header">
+            <div class="card opacoCard" style="margin-top: 10px">
+                <div class="card-header bg-white" style="color: black">
                     <div class="row">
                         <div class="col-md-12">
-                            <h5><%= materias[i].nombre %></h5>
+                            <h5 style="text-transform: uppercase;"><%= materias[i].nombre %></h5>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
-                <h5>    <strong>Facilitador: </strong><%= materias[i].facilitador %></h5>
+                <h5 class="textoBlanco">    <strong>Facilitador: </strong><%= materias[i].facilitador %></h5>
                     <form action="/retosMateria" method="post">
-                    <button type="submit" class="btn btn-success"><i class="fas fa-hourglass-start"></i> Ir a desafíos</button>
+                    <button type="submit" class="btn btn-primary degradoBoton"><i class="fas fa-hourglass-start"></i> Ir a desafíos</button>
                         <input type="text" name="facilitador" value="<%= materias[i].facilitador %>" hidden >
                         <input type="text" name="materia" value="<%= materias[i].nombre %>" hidden >
                     </form>
                 </div>
             </div>
-            <% } %>
+            <% } }%>
         </div>
     </div>
     </div>
@@ -84,5 +93,6 @@
 <footer>
     <% include ../../parciales/footer.ejs %>
 </footer>
+</div>
 </body>
 </html>

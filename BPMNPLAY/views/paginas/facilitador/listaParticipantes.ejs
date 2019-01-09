@@ -1,64 +1,87 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta http-equiv="Content-Type" content="text/html"/>
     <% include ../../parciales/head %>
+    <meta http-equiv="Content-Type" content="text/html"/>
     <title>Participantes</title>
 </head>
 <body>
+<div class="opaco">
 <header>
     <% include ../../parciales/headerProfesor %>
 </header>
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/ingresoFacilitador">Inicio</a></li>
-        <li class="breadcrumb-item"><a href="/estadisticas">Estadísticas</a></li>
+    <ol class="breadcrumb opacoCard border border-white">
+        <li class="breadcrumb-item"><a href="/ingresoFacilitador" class="textoBlanco">INICIO</a></li>
+        <li class="breadcrumb-item"><a href="/estadisticas" class="textoBlanco">ESTADÍSTICAS</a></li>
     </ol>
 </nav>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-2">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <a href="/ingresoFacilitador"
-                           class="nav-link " style="margin-bottom: 10px">
-                            <i class="far fa-list-alt"></i> Modo Facilitador</a>
-                        <a href="/ingresoParticipante"
-                           class="nav-link" style="margin-bottom: 10px">
-                            <i class="far fa-list-alt"></i> Modo Participante</a>
-                        <a href="/estadisticas"
-                           class="nav-link active" style="margin-bottom: 10px">
-                            <i class="fas fa-chart-bar"></i> Estadísticas</a>
-                    </div>
+        <div class="col-md-2 opacoCard" style="margin-bottom: 20px">
+            <div class="row h-100">
+                <div class="col-12 collapse d-md-flex h-100" id="sidebar">
+                    <ul class="nav flex-column flex-nowrap">
+                        <li class="nav-item">
+                            <a class="nav-link dropdown-toggle collapsed textoBlanco" href="/ingresoFacilitador"
+                               data-toggle="collapse" data-target="#submenu1"><i class="fas fa-chalkboard-teacher"></i>
+                                FACILITADOR</a>
+                            <div class="collapse show" id="submenu1" aria-expanded="false">
+                                <ul class="flex-column pl-5 nav">
+                                    <li class="nav-item"><a class="nav-link py-0 textoBlanco "
+                                                            href="/ingresoFacilitador"><i class="fas fa-home"></i>
+                                            INICIO FACILITADOR</a></li>
+                                    <li class="nav-item"><a class="nav-link py-0  btn-primary degradoBoton" href="/estadisticas"><i
+                                                    class="fas fa-chart-bar"></i> ESTADÍSTICAS</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link  dropdown-toggle collapsed textoBlanco" href="/ingresoParticipante"
+                               data-toggle="collapse" data-target="#submenu2"><i class="fas fa-user"></i>
+                                PARTICIPANTE</a>
+                            <div class="collapse" id="submenu2" aria-expanded="false">
+                                <ul class="flex-column pl-5 nav">
+                                    <li class="nav-item"><a class="nav-link py-0 textoBlanco" href="/ingresoParticipante"><i
+                                                    class="fas fa-home"></i> INICIO PARTICIPANTE </a></li>
+                                    <li class="nav-item"><a class="nav-link py-0 textoBlanco" href="/ingresoPartida"><i
+                                                    class="fas fa-sign-in-alt"></i> UNISE A PARTIDA</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
         <div class="col-md-10">
             <div class="row">
-                <div class="col-md-12">
-                    <h2>Participantes de la temática <%=tematica%></h2>
+                <div class="col-md-8">
+                    <h2 class="textoBlanco">PARTICIPANTES DE LA TEMÁTICA <%=tematica%></h2>
+                </div>
+                <div class="col-md-4 text-right " ><a href="/estadisticas"
+                                                                              id="botonRegresar" class="btn btn-primary degradoBoton"><i
+                                class="fas fa-undo-alt"></i> REGRESAR</a>
                 </div>
             </div>
             <div class="row">
                 <%if(participantes.length == 0){%>
-                <label>** Ningún participante ha resuelto las preguntas de está temática.</label>
+                <label class="textoBlanco">** Ningún participante ha resuelto las preguntas de está temática.</label>
                 <%}
                 for(let i = 0; i < participantes.length; i++) {
                     console.log(participantes[i]) %>
                 <div class="col-md-6">
-                    <div class="card" style="margin-top: 10px">
+                    <div class="card opacoCard" style="margin-top: 10px">
                         <div class="card-body">
                             <div class="row">
                             <div class="col-md-8">
-                                <h5><%= participantes[i].nombre%></h5>
+                                <h5 class="textoBlanco"><%= participantes[i].nombre%></h5>
                             </div>
                             <div class="col-md-4">
                                 <form action="/detalleParticipante" method="post">
                                     <input type="text" name="usuario" value="<%= participantes[i].usuario %>" hidden>
                                     <input type="text" name="asignatura" value="<%=tematica%>" hidden>
                                     <input type="text" name="facilitador" value="<%=nombre%>" hidden>
-                                    <button class="btn btn-info" type="submit" data-toggle="tooltip"
+                                    <button class="btn btn-primary degradoBoton" type="submit" data-toggle="tooltip"
                                             data-placement="right" title="Privada"
                                             id="boton<%=i%>"><i class="fas fa-caret-right"></i> Ver Detalles</button>
                                 </form>
@@ -72,6 +95,6 @@
         </div>
     </div>
 </div>
-
+</div>
 </body>
 </html>

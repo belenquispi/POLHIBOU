@@ -95,22 +95,16 @@ exports.get_ingreso_profesor = function (req, res) {
                     numUnirVoltear: doc.materias[i].preguntasUnirVoltear.length,
                     boolOpcion: boolOpcion,
                     boolUnir: boolUnir
-
                 };
                 materias.push(materia);
-
             }
             req.session.rol = "facilitador";
-            console.log("Holaaaaa: " + req.session.rol);
             res.render('paginas/facilitador/inicioProfesor', {
                 nombre: req.session.nombre,
                 usuario: req.session.usuario,
                 materias: materias
-
             });
-
         });
-
     }
     else {
         res.redirect('/inicioSesion');
@@ -216,12 +210,16 @@ exports.get_preguntas_opcion = function (req, res) {
             if (error) {
                 console.log("Error: " + error);
             }
+            console.log("materia: " + doc.materias);
             var indice = doc.materias.map(function (e) {
-                return e.nombre
+                return e.nombre.trim();
             }).indexOf(req.params.materia);
             var idPreguntas = [];
             var enunciadoPreguntas = [];
             var dificultadPreguntas = [];
+            console.log("indice: " + indice);
+            console.log("req.params.materia: " + req.params.materia);
+
             for (var i = 0; i < doc.materias[indice].preguntasOpcionMultiple.length; i++) {
                 idPreguntas.push(doc.materias[indice].preguntasOpcionMultiple[i].idPregunta);
                 enunciadoPreguntas.push(doc.materias[indice].preguntasOpcionMultiple[i].enunciado);
@@ -393,22 +391,23 @@ exports.get_creacion_partida = function (req, res) {
     }
 };
 exports.post_tablero = function (req, res) {
-    if (req.session.rol == "facilitador") {
-        res.render('paginas/participante/tablero', {
-            idPartida: req.body.idPartida,
-            rol: req.body.rol,
-            nombreEquipo: req.body.nombreEquipo,
-            nombre: req.session.nombre
-        });
-    }
-    else {
-        res.render('paginas/participante/tablero', {
-            idPartida: req.body.idPartida,
-            rol: req.body.rol,
-            nombreEquipo: req.body.nombreEquipo,
-            nombre: req.body.nombreEquipo
-        });
-    }
+        if (req.session.rol == "facilitador") {
+            res.render('paginas/participante/tablero', {
+                idPartida: req.body.idPartida,
+                rol: req.body.rol,
+                nombreEquipo: req.body.nombreEquipo,
+                nombre: req.session.nombre
+            });
+        }
+        else {
+                res.render('paginas/participante/tablero', {
+                    idPartida: req.body.idPartida,
+                    rol: req.body.rol,
+                    nombreEquipo: req.body.nombreEquipo,
+                    nombre: req.body.nombreEquipo
+                });
+
+        }
 };
 exports.get_opcion_multiple = function (req, res) {
     if (req.session.usuario) {
@@ -445,7 +444,7 @@ exports.get_preguntas_unir_voltear = function (req, res) {
             }
 
             var indice = doc.materias.map(function (e) {
-                return e.nombre
+                return e.nombre.trim();
             }).indexOf(req.params.materia);
             var idPreguntas = [];
             var textoPreguntas = [];
@@ -535,38 +534,41 @@ exports.post_agregar_varias_unir_voltear = function (req, res) {
     if (req.session.nombre) {
         Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
             if (error) {
-                console.log("Error: " + error)
+                res.render('paginas/error', {mensaje: "No se encontro el usuario facilitador con el que se esta logeado. No se guardaron las imagenes con sus nombres. Vuelve a intentar nuevamente por favor.", direccion: "/"});
             }
 
-            var indice = doc.materias.map(function (e) {
+            let indice = doc.materias.map(function (e) {
                 return e.nombre
             }).indexOf(req.body.materia);
 
-            var numeroPreguntas = req.body.numeroPreguntas;
+            let numeroPreguntas = req.body.numeroPreguntas;
 
-            for (var i = 1; i <= numeroPreguntas; i++) {
-                var preguntaU = [];
+            for (let i = 1; i <= numeroPreguntas; i++) {
+                let preguntaU = [];
                 preguntaU.push("imagen" + i);
                 preguntaU.push("textoUnir" + i);
-                preguntaU.push("dificultad" + i)
+                preguntaU.push("dificultad" + i);
 
-                var preguntaUnir = {
+                let preguntaUnir = {
                     idPregunta: generarNombre(),
                     imagen: req.body[preguntaU[0]],
                     texto: req.body[preguntaU[1]],
                     dificultad: req.body[preguntaU[2]]
-                }
+                };
 
                 if (indice >= 0) {
                     doc.materias[indice].preguntasUnirVoltear.push(preguntaUnir);
-
-                    doc.save(function (err, docActualizado) {
-                        if (err) return console.log(err);
-                    });
                 }
             }
-            res.redirect('/ingresoFacilitador/preguntasUnirVoltear/' + req.body.materia);
+            doc.save(function (err, docActualizado) {
+                if (err) {
+                    res.render('paginas/error', {mensaje: "No se guardaron las imagenes con sus nombres. Vuelve a intentar nuevamente por favor.", direccion: "/"});
 
+                }
+                else {
+                    res.redirect('/ingresoFacilitador/preguntasUnirVoltear/' + req.body.materia);
+                }
+            });
         });
     }
     else {
@@ -582,7 +584,8 @@ exports.post_lobby = function (req, res) {
                 res.render('paginas/facilitador/lobby', {
                     nombre: req.session.nombre,
                     materia: req.body.materia,
-                    idPartida: req.body.idPartida
+                    idPartida: req.body.idPartida,
+                    rol: req.session.rol
                 });
             } else {
                 var idPartida = req.body.materia + Math.floor((1 + Math.random()) * 0x1000).toString(5).substring(1);
@@ -1420,6 +1423,7 @@ exports.post_partida_finalizada = function (req, res) {
                     let equipos = [];
                     for (let i = 0; i < partida.jugadores.length; i++) {
                         for (let j = 0; j < partida.jugadores.length; j++) {
+                            console.log("Tamaño de turno jugadores: "+ partida.turnoJugadores.length);
                             if (partida.turnoJugadores[i] == partida.jugadores[j].idSocket) {
                                 let equipo = {
                                     nombre: partida.jugadores[j].nombre,
@@ -1436,7 +1440,8 @@ exports.post_partida_finalizada = function (req, res) {
                             idPartida: req.body.idPartida,
                             rol: req.body.rol,
                             nombreEquipo: req.body.nombreEquipo,
-                            nombre: req.session.nombre, equipos: equipos
+                            nombre: req.session.nombre,
+                            equipos: equipos
                         });
                     }
                     else {
@@ -1445,7 +1450,7 @@ exports.post_partida_finalizada = function (req, res) {
                             rol: req.body.rol,
                             nombreEquipo: req.body.nombreEquipo,
                             nombre: req.body.nombreEquipo,
-                            nombre: req.session.nombre, equipos: equipos
+                            equipos: equipos
                         });
                     }
 

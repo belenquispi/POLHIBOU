@@ -6,25 +6,23 @@
     <title>Recuperar Contraseña</title>
 </head>
 <body>
-<header>
-    <% include ../parciales/header %>
-</header>
 <div class="container">
     <div class="row">
         <div class="col-md-3"></div>
-        <div class="col-md-6 col-md-offset-3">
+        <div class="col-md-6 col-md-offset-3 opaco">
             <div class="panel panel-login">
                 <div class="row">
                     <div class="col-md-12">
-                        <img class="rounded mx-auto d-block"
-                             src="https://cem.epn.edu.ec/imagenes/logos_institucionales/big_jpg/BUHO_ABSTRACCION_EPN_big.jpg"
-                             height="100" width="100">
+                        <a href="/"> <img class="rounded mx-auto d-block"
+                                          src="../../static/imagenes/iconoEPN.svg"
+                                          height="200" width="200">
+                        </a>
                     </div>
                 </div>
-                <br>
+                <hr>
                 <div class="row">
                     <div class="col-lg-12">
-                        <label>Por favor, ingresa tu correo electrónico para enviarte un código de verificación para el cambio de la contraseña.</label>
+                        <label class="textoBlanco">Por favor, ingresa tu correo electrónico para enviarte un código de verificación para el cambio de la contraseña.</label>
                         <form id="login-form" action="/recuperarContrasenia" method="post" role="form" style="display: block;">
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend">
@@ -38,13 +36,22 @@
                                     <div class="col-md-3"></div>
                                     <div class="col-md-6 text-center">
                                         <button type="submit" name="login-submit" id="login-submit" tabindex="4"
-                                                class="btn btn-info"><i class="fas fa-sign-in-alt"></i> Enviar Código
+                                                class="btn btn-primary degradoBoton"><i class="fas fa-sign-in-alt"></i> Enviar Código
                                         </button>
                                     </div>
                                     <div class="col-md-3"></div>
                                 </div>
                             </div>
                         </form>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <a href="/"> <img class="rounded mx-auto d-block"
+                                          src="../../static/imagenes/iconoPolhibou.svg"
+                                          height="200" width="200">
+                        </a>
                     </div>
                 </div>
             </div>

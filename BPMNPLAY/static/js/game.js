@@ -114,6 +114,7 @@ socket.on('partida', function (data) {
 socket.on('mensajeMisterio', function (num, casillasExtras) {
     if (num == 1) {
         misterioPositivo();
+        numCasillasMoverse = casillasExtras;
     }
     else {
         if (num == 0) {
@@ -199,6 +200,11 @@ socket.on('enviandoDarLaVuelta', function (idSocketN) {
         darLaVuelta();
     }
 });
+socket.on('avisoTiempoTerminado', function (idSocketN) {
+    if (idSocketN != idSocketActual) {
+        tiempoVoltear = 0;
+    }
+});
 socket.on('partidaFinalizada', function () {
     document.getElementById("botonFinalizacion").removeAttribute("disabled");
     document.getElementById("botonFinalizacion").click();
@@ -258,7 +264,6 @@ function drawGame() {
 
     for (let y = 0; y < filas; ++y) {
         for (let x = 0; x < columnas; ++x) {
-
             patterColor1 = ctx.createPattern(color1, "repeat");
             patterColor2 = ctx.createPattern(color2, "repeat");
             patterColor3 = ctx.createPattern(color3, "repeat");
@@ -340,6 +345,10 @@ function controlarTiempo() {
         } else {
             clearTimeout(temporizador);
             if(respuestaVoltearATiempo == 0){
+                if (turnoJugadores[0] == idSocketActual) {
+                    socket.emit('tiempoTerminado', roomActual);
+                }
+                tiempoVoltear = 0;
                 desafioIncorrecto();
                 voltearTarjeta(2000);
             }
@@ -351,23 +360,21 @@ function dibujarJugador() {
     for (let i = 0; i < jugadores.length; i++) {
         if (jugadores[i].idSocket != "") {
             ctx.fillStyle = jugadores[i].colorP;
-            per1.src = 'static/imagenes/arbol.svg';
-            //per1.src = 'static/imagenes/flor.jpg';
-            per2.src = 'static/imagenes/star.png';
-            per3.src = 'static/imagenes/mal.png';
-            per4.src = 'static/imagenes/pintura.png';
-
             switch (i) {
                 case 0:
+                    per1.src = 'static/imagenes/equipo'+jugadores[i].iconoEquipo+'.svg';
                     ctx.drawImage(per1, jugadores[i].position[0], jugadores[i].position[1], (jugadores[i].dimensions[0] / 2), (jugadores[i].dimensions[1] / 2));
                     break;
                 case 1:
+                    per2.src = 'static/imagenes/equipo'+jugadores[i].iconoEquipo+'.svg';
                     ctx.drawImage(per2, jugadores[i].position[0] + jugadores[i].dimensions[1] / 2, jugadores[i].position[1], jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[1] / 2);
                     break;
                 case 2:
+                    per3.src = 'static/imagenes/equipo'+jugadores[i].iconoEquipo+'.svg';
                     ctx.drawImage(per3, jugadores[i].position[0], jugadores[i].position[1] + jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[1] / 2);
                     break;
                 case 3:
+                    per4.src = 'static/imagenes/equipo'+jugadores[i].iconoEquipo+'.svg';
                     ctx.drawImage(per4, jugadores[i].position[0] + jugadores[i].dimensions[0] / 2, jugadores[i].position[1] + jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[1] / 2);
                     break;
                 default:
@@ -379,20 +386,16 @@ function dibujarJugador() {
 function dibujarLlegarA() {
     if (jugadores.length > 0) {
         if (indiceDelJugadorConTurno() >= 0 && jugadores[indiceDelJugadorConTurno()].moverseA > 0) {
-            var moverseA = jugadores[indiceDelJugadorConTurno()].moverseA;
+            let moverseA = jugadores[indiceDelJugadorConTurno()].moverseA;
             if (moverseA != jugadores[indiceDelJugadorConTurno()].casilla) {
-                var casilla = jugadores[indiceDelJugadorConTurno()].casilla;
+                let casilla = jugadores[indiceDelJugadorConTurno()].casilla;
                 patterLlegada = ctx.createPattern(llegada, "repeat");
-                for (var y = 0; y < filas; ++y) {
-                    for (var x = 0; x < columnas; ++x) {
-                        var caso = gameMap[((y * columnas) + x)];
+                for (let y = 0; y < filas; ++y) {
+                    for (let x = 0; x < columnas; ++x) {
+                        let caso = gameMap[((y * columnas) + x)];
                         switch (true) {
                             case (caso == casilla):
                             case (caso == moverseA):
-                                /*ctx.fillStyle = patterLlegada;
-                                ctx.fillRect((x * anchoCasilla)+anchoCasilla/4, (y * altoCasilla)+altoCasilla/4, anchoCasilla/2, altoCasilla/2);
-                                y = filas;
-                                x = columnas;*/
                                 break;
                             case (caso >= 0 && caso < 35):
                                 ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
@@ -409,7 +412,7 @@ function dibujarLlegarA() {
 }
 
 function indiceDelJugadorConTurno() {
-    var indice = -1;
+    let indice = -1;
     if (jugadores.length > 0) {
         indice = jugadores.map(function (value) {
             return value.idSocket;
@@ -446,13 +449,14 @@ function lanzarDado() {
     var misterio = jugadores[jugadores.map(function (value) {
         return value.idSocket;
     }).indexOf(idSocketActual)].maldicion;
+    document.getElementById('sonidoDados').play();
     if (misterio == 1) {
         dado1 = 1;
         dado2 = 1;
     } else {
-        // dadoRandomico();
-        dado1 = 6;
-        dado2 = 6;
+        dadoRandomico();
+       /* dado1 = 6;
+        dado2 = 6;*/
     }
     moverDado();
     moverDado2();
@@ -532,7 +536,7 @@ function moverDado2() {
 }
 
 function habilitarTablaJugador() {
-    for (var i = 0; i < jugadores.length; i++) {
+    for (let i = 0; i < jugadores.length; i++) {
         if (jugadores[i].idSocket != "") {
             document.getElementById("tablajug" + (i + 1)).style.visibility = 'visible';
         }
@@ -541,28 +545,28 @@ function habilitarTablaJugador() {
 
 function mostrarJugadorActual() {
     for (let i = 0; i < jugadores.length; i++) {
-        document.getElementById("tablajug" + (i + 1)).style.border = "thick grey";
-        document.getElementById("tablajug" + (i + 1)).style.background = "#FFFFFF";
+        //document.getElementById("tablajug" + (i + 1)).style.border = "thick white";
+        //document.getElementById("tablajug" + (i + 1)).style.background = "#FFFFFF";
         document.getElementById("turno" + (i + 1)).setAttribute("hidden", "");
     }
 
     for (let j = 0; j < jugadores.length; j++) {
         if (!document.getElementById("imagenJugador" + (j + 1)) && jugadores[j].idSocket != "") {
             let images = document.createElement("IMG");
-            images.setAttribute("src", "static/buhoInicial" + (jugadores[j].iconoEquipo) + ".gif");
+            images.setAttribute("src", "static/imagenes/equipo" + (jugadores[j].iconoEquipo) + ".svg");
             images.setAttribute("id", "imagenJugador" + (j + 1));
             images.setAttribute("height", "50");
             images.setAttribute("width", "50");
             document.getElementById("columna" + (j + 1)).appendChild(images);
-            document.getElementById("nombreEquipo" + (j + 1)).innerHTML = jugadores[j].nombreEquipo;
+            document.getElementById("nombreEquipo" + (j + 1)).innerHTML = (jugadores[j].nombreEquipo).toLocaleUpperCase();
         }
     }
-    var indiceJugadorActual = indiceDelJugadorConTurno();
+    let indiceJugadorActual = indiceDelJugadorConTurno();
 
     if (indiceJugadorActual >= 0 && turnoJugadores.length > 0) {
         //  document.getElementById("nombreEquipoActual").innerHTML = jugadores[indiceJugadorActual].nombreEquipo;
         if (document.getElementById("tablajug" + (indiceJugadorActual + 1))) {
-            document.getElementById("tablajug" + (indiceJugadorActual + 1)).style.background = "#A9BCF5";
+          //  document.getElementById("tablajug" + (indiceJugadorActual + 1)).style.background = "#A9BCF5";
             document.getElementById("turno" + (indiceJugadorActual + 1)).removeAttribute("hidden");
             document.getElementById("tablajug" + (indiceJugadorActual + 1)).classList.add('miTurno');
             cambiarImagen(indiceJugadorActual);
@@ -581,17 +585,17 @@ function mostrarJugadorActual() {
 function cambiarImagen(num) {
     for (var j = 0; j < turnoJugadores.length; j++) {
         if (j == num) {
-            document.getElementById("imagenJugador" + (j + 1)).src = "static/buho" + jugadores[j].iconoEquipo + ".gif";
+            document.getElementById("imagenJugador" + (j + 1)).src = "static/imagenes/equipo" + jugadores[j].iconoEquipo + ".svg";
         } else {
             if (document.getElementById("imagenJugador" + (j + 1))) {
-                document.getElementById("imagenJugador" + (j + 1)).src = "static/buhoInicial" + jugadores[j].iconoEquipo + ".gif";
+                document.getElementById("imagenJugador" + (j + 1)).src = "static/imagenes/equipo" + jugadores[j].iconoEquipo + ".svg";
             }
         }
     }
 }
 
 function mostrarDesafio(colorCa, idSocket) {
-    document.getElementById('textoTarjeta').innerText = "Voltéame";
+    document.getElementById('textoTarjeta').innerText = "VOLTÉAME";
     switch (colorCa) {
         case 0:
             document.getElementById('tarjeta').style.backgroundColor = "#F2F5A9";
@@ -683,6 +687,7 @@ function memoryFlipTile(tile, val) {
                 if (tiles_flipped == memory_array.length) {
                     // alert("Board cleared... generating new board");
                     respuestaVoltearATiempo = 1;
+                    tiempoVoltear = 0;
                     desafioCorrecto();
                     voltearTarjeta(2000);
                 }
@@ -910,6 +915,7 @@ function mostrarMensajeParEncontrado(url) {
     if (indicePreguntaUnir >= 0) {
         document.getElementById("ultimoPar").setAttribute("src", url);
         document.getElementById("ultimoNombre").innerHTML = preguntasUnirVoltear[indicePreguntaUnir].texto;
+        document.getElementById("sonidoCorrecto").play();
     }
 
 }
@@ -995,19 +1001,25 @@ function desafioIncorrecto() {
     if (turnoJugadores[0] == idSocketActual) {
         socket.emit('pasarTurno', roomActual);
     }
+    document.getElementById('sonidoError').play();
+
 }
 
 function desafioCorrecto() {
     mostrarMensaje("snackbar");
+    document.getElementById('sonidoCorrecto').play();
     respuestaCorrecta = true;
 }
 
 function misterioPositivo() {
     mostrarMensaje("snackbarPositivo");
+    document.getElementById('sonidoCorrecto').play();
 }
 
 function misterioNegativo() {
     mostrarMensaje("snackbarNegativo");
+    document.getElementById('sonidoError').play();
+
 }
 
 function mostrarMensaje(texto) {
@@ -1036,7 +1048,7 @@ function darLaVuelta() {
     if (turnoJugadores[0] == idSocketActual) {
         socket.emit('darLaVuelta', roomActual);
     }
-    if(respuestaVoltearATiempo== 0){
+    if(respuestaVoltearATiempo == 0){
         tiempoVoltear = 100;
         controlarTiempo();
     }

@@ -1,7 +1,13 @@
 var mostrarVistaPreviaImagen = function (event, imagen) {
     var output = document.getElementById(imagen);
-    output.src = URL.createObjectURL(event.target.files[0]);
-    document.getElementById("eliminarImagen").removeAttribute("hidden");
+    if(event.target.files[0] != null) {
+        output.src = URL.createObjectURL(event.target.files[0]);
+        document.getElementById("eliminarImagen").removeAttribute("hidden");
+    }
+    else {
+        output.src = "../../static/imagenes/imagenVacia.svg";
+        document.getElementById("eliminarImagen").setAttribute("hidden", "");
+    }
 };
 
 function mostrarRespuestas(valor) {
@@ -39,27 +45,46 @@ function verificarBotonGuardar() {
 function encodeImageFileAsURL(element) {
     var file = element.files[0];
     var reader = new FileReader();
-    reader.onloadend = function () {
-        console.log('RESULT', reader.result)
+    if(file != null) {
+        reader.onloadend = function () {
+            switch (element.id) {
+                case "botonArchivoEnunciado":
+                    document.getElementById("imagenEnunciado").value = reader.result;
+                    break;
+                case "botonArchivoRes1":
+                    document.getElementById("imagenRes1").value = reader.result;
+                    break;
+                case "botonArchivoRes2":
+                    document.getElementById("imagenRes2").value = reader.result;
+                    break;
+                case "botonArchivoRes3":
+                    document.getElementById("imagenRes3").value = reader.result;
+                    break;
+                case "botonArchivoRes4":
+                    document.getElementById("imagenRes4").value = reader.result;
+                    break;
+            }
+        };
+        reader.readAsDataURL(file);
+    }else {
         switch (element.id) {
             case "botonArchivoEnunciado":
-                document.getElementById("imagenEnunciado").value = reader.result;
+                document.getElementById("imagenEnunciado").value = "";
                 break;
             case "botonArchivoRes1":
-                document.getElementById("imagenRes1").value = reader.result;
+                document.getElementById("imagenRes1").value = "";
                 break;
             case "botonArchivoRes2":
-                document.getElementById("imagenRes2").value = reader.result;
+                document.getElementById("imagenRes2").value = "";
                 break;
             case "botonArchivoRes3":
-                document.getElementById("imagenRes3").value = reader.result;
+                document.getElementById("imagenRes3").value = "";
                 break;
             case "botonArchivoRes4":
-                document.getElementById("imagenRes4").value = reader.result;
+                document.getElementById("imagenRes4").value = "";
                 break;
         }
-    };
-    reader.readAsDataURL(file);
+    }
 }
 function cambiar(){
     var pdrs = document.getElementById('file-upload').files[0].name;

@@ -6,13 +6,41 @@
     <title>Error</title>
 </head>
 <body>
-<header>
-    <% include ../parciales/header %>
-</header>
 <div class="container">
-    <h5>¡Lo siento!</h5>
-    <p><%=mensaje%></p>
-    <p>Por favor, ingresa <a href="<%=direccion%>">aquí</a></p>
+    <div class="row" style="margin: 30px">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 col-md-offset-3 opaco">
+            <div class="panel panel-login">
+                <div class="row" style="margin-top: 30px">
+                    <div class="col-md-12 text-center">
+                        <a href="/"> <img src="../../static/imagenes/iconoEPN.svg"
+                                          height="65%" width="65%">
+                        </a>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h5 class="textoBlanco">¡Lo siento!</h5>
+                        <p class="textoBlanco"><%= mensaje %></p>
+                        <p class="textoBlanco">Por favor, <a href="<%= direccion %>" class="textoBlanco" ><u>ingresa aquí.</u></a></p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row" style="margin-bottom: 20px">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8 text-center">
+                        <a href="/"> <img class="rounded mx-auto d-block"
+                                          src="../../static/imagenes/iconoPolhibou.svg"
+                                          height="85%" width="85%">
+                        </a>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
 </div>
 </body>
 </html>

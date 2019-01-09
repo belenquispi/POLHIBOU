@@ -1,60 +1,70 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta http-equiv="Content-Type" content="text/html"/>
     <% include ../../parciales/head %>
+    <meta http-equiv="Content-Type" content="text/html"/>
     <title>Retos</title>
 </head>
 <body>
+<div class="opaco" style="margin-bottom: 10px">
 <header>
     <% include ../../parciales/headerProfesor %>
 </header>
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/ingresoParticipante">Inicio</a></li>
-        <li class="breadcrumb-item"><a href="/ingresoParticipante">Temáticas</a></li>
+    <ol class="breadcrumb opacoCard border border-white">
+        <li class="breadcrumb-item"><a href="/ingresoParticipante" class="textoBlanco">INICIO</a></li>
+        <li class="breadcrumb-item"><a href="/ingresoParticipante" class="textoBlanco">TEMÁTICAS</a></li>
     </ol>
 </nav>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <a href="/ingresoFacilitador"
-                           class="nav-link " style="margin-bottom: 10px">
-                            <i class="far fa-list-alt "></i> Modo Facilitador</a>
-                        <a href="/ingresoParticipante"
-                           class="nav-link active" style="margin-bottom: 10px">
-                            <i class="far fa-list-alt"></i> Modo Participante</a>
-                        <a href="/estadisticas"
-                           class="nav-link " style="margin-bottom: 10px">
-                            <i class="fas fa-chart-bar"></i> Estadísticas</a>
-                    </div>
+            <div class="row h-100">
+                <div class="col-12 collapse d-md-flex h-100 opacoCard" id="sidebar">
+                    <ul class="nav flex-column flex-nowrap">
+                        <li class="nav-item">
+                            <a class="nav-link dropdown-toggle collapsed textoBlanco" href="/ingresoFacilitador" data-toggle="collapse" data-target="#submenu1"><i class="fas fa-chalkboard-teacher"></i> FACILITADOR</a>
+                            <div class="collapse" id="submenu1" aria-expanded="false">
+                                <ul class="flex-column pl-5 nav">
+                                    <li class="nav-item"><a class="nav-link py-0 textoBlanco" href="/ingresoFacilitador"><i class="fas fa-home" ></i> INICIO FACILITADOR</a></li>
+                                    <li class="nav-item"><a class="nav-link py-0 textoBlanco" href="/estadisticas"><i class="fas fa-chart-bar"></i> ESTADÍSTICAS</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link  dropdown-toggle collapsed textoBlanco" href="/ingresoParticipante" data-toggle="collapse" data-target="#submenu2"><i class="fas fa-user"></i> PARTICIPANTE</a>
+                            <div class="collapse show" id="submenu2" aria-expanded="false">
+                                <ul class="flex-column pl-5 nav">
+                                    <li class="nav-item"><a class="nav-link py-0 btn-primary degradoBoton " href="/ingresoParticipante"><i class="fas fa-home"></i> INICIO PARTICIPANTE</a></li>
+                                    <li class="nav-item"><a class="nav-link py-0 textoBlanco"  href="/ingresoPartida"><i class="fas fa-sign-in-alt"></i> UNIRSE A PARTIDA</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
         <div class="col-md-10">
-            <table class="table table-hover">
+            <table class="table table-hover opacoCard border border-white text-center">
                 <thead>
                 <tr>
-                    <th scope="col">Tipo</th>
-                    <th scope="col">Nivel 1</th>
-                    <th scope="col">Nivel 2</th>
-                    <th scope="col">Nivel 3</th>
+                    <th scope="col" class="textoBlanco" style="text-transform: uppercase;">TIPO</th>
+                    <th scope="col" class="textoBlanco" style="text-transform: uppercase;">NIVEL 1</th>
+                    <th scope="col" class="textoBlanco" style="text-transform: uppercase;">NIVEL 2</th>
+                    <th scope="col" class="textoBlanco" style="text-transform: uppercase;">NIVEL 3</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <th scope="row">Opción Múltiple
+                    <th scope="row" class="textoBlanco" style="text-transform: uppercase;">Opción Múltiple
                     </th>
                     <% for(let i = 0; i < 3; i++)
                     {
                     %>
                         <td>
-                            <div class="card">
+                            <div class="card opacoCard">
                                 <div class="card-body">
-                                    <h5 class="card-title">
+                                    <h5 class="card-title textoBlanco" style="text-transform: uppercase;">
                                         Desafío <%= i + 1 %>
                                         <% for(let j = 0; j < opcionMutiple[(i * 2) + 1]; j++){
                                         %>
@@ -86,26 +96,26 @@
                                         <input type="text" name="dificultad" value="Difícil" hidden>
                                         <% break;
                                         } %>
-                                        <button type="submit" class="btn btn-primary"><i class="fas fa-gamepad"></i>
+                                        <button type="submit" class="btn btn-primary degradoBoton"><i class="fas fa-gamepad"></i>
                                             Jugar
                                         </button>
                                     </form>
-                                    <p class="card-text">Puntaje máximo: <%= opcionMutiple[(i * 2) + 1] %></p>
-                                    <p class="card-text">Número de intentos: <%= opcionMutiple[(i * 2)] %></p>
+                                    <p class="card-text textoBlanco" >Puntaje máximo: <%= opcionMutiple[(i * 2) + 1] %></p>
+                                    <p class="card-text textoBlanco">Número de intentos: <%= opcionMutiple[(i * 2)] %></p>
                                 </div>
                             </div>
                         </td>
                     <% } %>
                 </tr>
                 <tr>
-                    <th scope="row">Emparejar</th>
+                    <th scope="row" class="textoBlanco" style="text-transform: uppercase;">Emparejar</th>
                     <% for(var k = 0; k < 3; k++)
                     {
                     %>
                     <td>
-                        <div class="card">
+                        <div class="card opacoCard">
                             <div class="card-body">
-                                <h5 class="card-title">
+                                <h5 class="card-title textoBlanco" style="text-transform: uppercase;">
                                     Desafío <%= k + 1 %>
                                     <% for(var l = 0; l < emparejar[(k * 2) + 1]; l++){
                                     %>
@@ -136,26 +146,26 @@
                                     <input type="text" name="dificultad" value="Difícil" hidden>
                                     <% break;
                                     } %>
-                                    <button type="submit" class="btn btn-primary"><i class="fas fa-gamepad"></i>
+                                    <button type="submit" class="btn btn-primary degradoBoton"><i class="fas fa-gamepad"></i>
                                         Jugar
                                     </button>
                                 </form>
-                                <p class="card-text">Puntaje máximo: <%= emparejar[(k * 2) + 1] %></p>
-                                <p class="card-text">Número de intentos: <%= emparejar[(k * 2)] %></p>
+                                <p class="card-text textoBlanco">Puntaje máximo: <%= emparejar[(k * 2) + 1] %></p>
+                                <p class="card-text textoBlanco">Número de intentos: <%= emparejar[(k * 2)] %></p>
                             </div>
                         </div>
                     </td>
                     <% } %>
                 </tr>
                 <tr>
-                    <th scope="row">Voltear</th>
+                    <th scope="row" class="textoBlanco" style="text-transform: uppercase;">Voltear</th>
                     <% for(var m = 0; m < 3; m++)
                     {
                     %>
                     <td>
-                        <div class="card">
+                        <div class="card opacoCard">
                             <div class="card-body">
-                                <h5 class="card-title">
+                                <h5 class="card-title textoBlanco" style="text-transform: uppercase;">
                                     Desafío <%= m + 1 %>
                                     <% for(var n = 0; n < unirVoltear[(m * 2) + 1]; n++){
                                     %>
@@ -185,12 +195,12 @@
                                     <input type="text" name="dificultad" value="Difícil" hidden>
                                     <% break;
                                     } %>
-                                    <button type="submit" class="btn btn-primary"><i class="fas fa-gamepad"></i>
+                                    <button type="submit" class="btn btn-primary degradoBoton"><i class="fas fa-gamepad"></i>
                                         Jugar
                                     </button>
                                 </form>
-                                <p class="card-text">Puntaje máximo: <%= unirVoltear[(m * 2) + 1] %></p>
-                                <p class="card-text">Número de intentos: <%= unirVoltear[(m * 2)] %></p>
+                                <p class="card-text textoBlanco">Puntaje máximo: <%= unirVoltear[(m * 2) + 1] %></p>
+                                <p class="card-text textoBlanco">Número de intentos: <%= unirVoltear[(m * 2)] %></p>
                             </div>
                         </div>
                     </td>
@@ -200,6 +210,11 @@
             </table>
         </div>
     </div>
+</div>
+
+    <footer>
+        <% include ../../parciales/footer.ejs %>
+    </footer>
 </div>
 </body>
 </html>

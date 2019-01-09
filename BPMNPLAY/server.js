@@ -24,7 +24,7 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
-app.use('/static', express.static(__dirname + '/static' + ''));
+app.use('/static', express.static(__dirname + '/static/' + ''));
 // create application/json parser
 app.use(bodyParser.json());
 // create application/x-www-form-urlencoded parser
@@ -98,7 +98,8 @@ app.route('/tablero')
     .get(routes.error)
     .post(routes.post_tablero)
     .put(routes.error);
-app.get('/ingresoFacilitador/preguntasOpcionMultiple/:materia/ingresoOpcionMultiple/:materia', routes.get_opcion_multiple);
+//app.get('/ingresoFacilitador/preguntasOpcionMultiple/:materia/ingresoOpcionMultiple/:materia', routes.get_opcion_multiple);
+app.get('/preguntasOpcionMultiple/ingresoOpcionMultiple/:materia', routes.get_opcion_multiple);
 app.get('/unirVoltear/:materia', routes.get_unir_voltear);
 app.get('/ingresoFacilitador/creacionPartida/:materia', routes.get_creacion_partida);
 app.post('/ingresoMateria', routes.post_ingreso_materia);
@@ -514,6 +515,10 @@ io.on('connection', function (socket) {
         partidas[idPartida].turnoJugadores.push(i);
         actualizarOrdenPartidas(room);
     });
+    socket.on('tiempoTerminado', function (room) {
+        let idPartida = consultarIdPartida(room);
+        io.sockets.in(partidas[idPartida].nombrePartida).emit('avisoTiempoTerminado', socket.id);
+    });
     socket.on('darLaVuelta', function (room) {
         let idPartida = consultarIdPartida(room);
         io.sockets.in(partidas[idPartida].nombrePartida).emit('enviandoDarLaVuelta', socket.id);
@@ -548,11 +553,11 @@ function seleccionarColor(filasN, columnasN, gameMapN,) {
                     indice++;
                     break;
                 default:
-                     let colorA = Math.floor(Math.random() * 3);
+                    let colorA = Math.floor(Math.random() * 3);
                     // 0 = Unir voltear - amarillo
                     // 1 = Emparejar - rosado
                     // 2 = Opción múltiple - azul
-                   // let colorA = 0;
+                    //let colorA = 0;
                     let colorAnterior = -1;
                     while (colorA == colorAnterior) {
                         colorA = Math.floor(Math.random() * 3);

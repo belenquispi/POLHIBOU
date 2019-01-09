@@ -6,35 +6,36 @@
     <title>Estadísticas</title>
 </head>
 <body>
+<div class="opaco">
 <header>
     <% include ../../parciales/headerProfesor %>
 </header>
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/ingresoFacilitador">Inicio</a></li>
+    <ol class="breadcrumb opacoCard border border-white">
+        <li class="breadcrumb-item"><a href="/ingresoFacilitador" class="textoBlanco">INICIO</a></li>
     </ol>
 </nav>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2">
             <div class="row h-100">
-                <div class="col-12 collapse d-md-flex bg-light h-100" id="sidebar">
+                <div class="col-12 collapse d-md-flex  h-100 opacoCard" id="sidebar">
                     <ul class="nav flex-column flex-nowrap">
                         <li class="nav-item">
-                            <a class="nav-link dropdown-toggle collapsed" href="/ingresoFacilitador" data-toggle="collapse" data-target="#submenu1"><i class="fas fa-chalkboard-teacher"></i> Facilitador</a>
+                            <a class="nav-link dropdown-toggle collapsed textoBlanco" href="/ingresoFacilitador" data-toggle="collapse" data-target="#submenu1"><i class="fas fa-chalkboard-teacher"></i> FACILITADOR</a>
                             <div class="collapse show" id="submenu1" aria-expanded="false">
                                 <ul class="flex-column pl-5 nav">
-                                    <li class="nav-item"><a class="nav-link py-0" href="/ingresoFacilitador"><i class="fas fa-home" ></i> Inicio Facilitador</a></li>
-                                    <li class="nav-item"><a class="nav-link py-0" style="color: black" href="/estadisticas"><i class="fas fa-chart-bar"></i> Estadísticas</a></li>
+                                    <li class="nav-item"><a class="nav-link py-0 textoBlanco" href="/ingresoFacilitador"><i class="fas fa-home" ></i> INICIO FACILITADOR</a></li>
+                                    <li class="nav-item"><a class="nav-link py-0 btn-primary degradoBoton" href="/estadisticas"><i class="fas fa-chart-bar"></i> ESTADÍSTICAS</a></li>
                                 </ul>
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link  dropdown-toggle collapsed" href="/ingresoParticipante" data-toggle="collapse" data-target="#submenu2"><i class="fas fa-user"></i> Participante</a>
+                            <a class="nav-link  dropdown-toggle collapsed textoBlanco" href="/ingresoParticipante" data-toggle="collapse" data-target="#submenu2"><i class="fas fa-user"></i> PARTICIPANTE</a>
                             <div class="collapse" id="submenu2" aria-expanded="false">
                                 <ul class="flex-column pl-5 nav">
-                                    <li class="nav-item"><a class="nav-link py-0" href="/ingresoParticipante"><i class="fas fa-home"></i> Inicio Participante</a></li>
-                                    <li class="nav-item"><a class="nav-link py-0" href="/ingresoPartida"><i class="fas fa-sign-in-alt"></i> Unirse a Partida</a></li>
+                                    <li class="nav-item"><a class="nav-link py-0 textoBlanco" href="/ingresoParticipante"><i class="fas fa-home"></i> INICIO PARTICIPANTE</a></li>
+                                    <li class="nav-item"><a class="nav-link py-0 textoBlanco" href="/ingresoPartida"><i class="fas fa-sign-in-alt"></i> UNIRSE A PARTIDA</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -45,7 +46,7 @@
         <div class="col-md-10">
             <div class="row">
                 <div class="col-md-12" >
-                    <h2>Temáticas</h2>
+                    <h2 class="textoBlanco">TEMÁTICAS</h2>
                 </div>
             </div>
             <div class="row">
@@ -53,13 +54,13 @@
                 for(var i = 0; i < materias.length; i++) {
                     console.log(materias[i]) %>
                 <div class="col-md-4">
-                    <div class="card" style="margin-top: 10px">
-                        <div class="card-header">
-                            <h5><%= materias[i].nombre %></h5>
+                    <div class="card opacoCard" style="margin-top: 10px">
+                        <div class="card-header bg-white">
+                            <h5 style="color: black"><%= materias[i].nombre %></h5>
                         </div>
                         <div class="card-body">
-                            <a href="/estadisticaParticipante/<%=materias[i].nombre%>" class="btn btn-success"> <i class="fas fa-chart-bar"></i> Por Participante</a>
-                            <a href="/estadisticaPregunta/<%=materias[i].nombre%>" class="btn btn-success"> <i class="fas fa-chart-bar"></i> Por Pregunta</a>
+                            <a href="/estadisticaParticipante/<%=materias[i].nombre%>" class="btn btn-primary degradoBoton"> <i class="fas fa-chart-bar"></i> POR PARTICIPANTE</a>
+                            <a href="/estadisticaPregunta/<%=materias[i].nombre%>" class="btn btn-primary degradoBoton"> <i class="fas fa-chart-bar"></i> POR PREGUNTA</a>
                         </div>
                     </div>
                 </div>
@@ -82,6 +83,6 @@
 <footer>
     <% include ../../parciales/footer.ejs %>
 </footer>
-
+</div>
 </body>
 </html>

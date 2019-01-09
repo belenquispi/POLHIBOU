@@ -1,10 +1,26 @@
 body {
-    color: #333;
+    color: rgba(52, 166, 214, 0.4);
     font-family: Arial, serif;
-    background: url('../imagenes/EPN_Basic_Formation_Department.jpg') no-repeat fixed center;
-    bgcolor:aqua;
+    background: url("../imagenes/EPN.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
-
+hr {
+    height: 2px;
+    background-color: white;
+}
+.opaco {
+    background-color: rgba(97, 104, 108, 0.5);
+}
+.opacoCard {
+    background-color: rgba(0, 0, 0, 0);
+    border-color: white;
+}
+.transparente {
+    background-color: rgba(0, 0, 0, 0);
+}
 canvas {
     border: 5px solid black;
 }
@@ -297,12 +313,21 @@ div#memory_boardMulti > label {
 }
 
 .degradoBoton {
-    background: linear-gradient(to right, #4795E1, #DFECF8);
+    background: linear-gradient(to right, #007bff, #C0BBBA);
     border-top-right-radius: 50px;
     border-bottom-right-radius: 50px;
     text-transform: uppercase;
+    font-size: 80%;
 }
+ .degradoMenu {
+    background: linear-gradient(to right, #007bff, #C0BBBA);
+     text-transform: uppercase;
+     font-size: 80%;
+}
+a{
+    font-size: 80%;
 
+}
 .textoBlanco{
     color: white;
 }

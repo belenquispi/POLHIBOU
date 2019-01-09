@@ -6,35 +6,36 @@
     <title>Inicio Facilitador</title>
 </head>
 <body>
+<div class="opaco" style="margin-bottom: 10px">
 <header>
     <% include ../../parciales/headerProfesor %>
 </header>
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/ingresoFacilitador">Inicio</a></li>
+    <ol class="breadcrumb opacoCard border border-white" >
+        <li class="breadcrumb-item"><a href="/ingresoFacilitador" class="textoBlanco">INICIO</a></li>
     </ol>
 </nav>
-<div class="container-fluid ">
-    <div class="row">
+<div class="container-fluid"  >
+    <div class="row" >
         <div class="col-md-2">
-            <div class="row h-100">
-                    <div class="col-12 collapse d-md-flex bg-light h-100" id="sidebar">
+            <div class="row h-100 ">
+                    <div class="col-12 collapse d-md-flex h-100 opacoCard" id="sidebar">
                         <ul class="nav flex-column flex-nowrap">
                             <li class="nav-item">
-                                <a class="nav-link dropdown-toggle collapsed" href="/ingresoFacilitador" data-toggle="collapse" data-target="#submenu1"><i class="fas fa-chalkboard-teacher"></i> Facilitador</a>
+                                <a class="nav-link dropdown-toggle collapsed textoBlanco" href="/ingresoFacilitador" data-toggle="collapse" data-target="#submenu1"><i class="fas fa-chalkboard-teacher"></i> FACILITADOR</a>
                                 <div class="collapse show" id="submenu1" aria-expanded="false">
                                     <ul class="flex-column pl-5 nav">
-                                        <li class="nav-item"><a class="nav-link py-0" style="color: black" href="/ingresoFacilitador"><i class="fas fa-home" ></i> Inicio Facilitador</a></li>
-                                        <li class="nav-item"><a class="nav-link py-0" href="/estadisticas"><i class="fas fa-chart-bar"></i> Estadísticas</a></li>
+                                        <li class="nav-item"><a class="nav-link py-0 btn-primary degradoBoton" href="/ingresoFacilitador"><i class="fas fa-home" ></i> INICIO FACILITADOR </a></li>
+                                        <li class="nav-item"><a class="nav-link py-0 textoBlanco" href="/estadisticas"><i class="fas fa-chart-bar"></i> ESTADÍSTICAS</a></li>
                                     </ul>
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link  dropdown-toggle collapsed" href="/ingresoParticipante" data-toggle="collapse" data-target="#submenu2"><i class="fas fa-user"></i> Participante</a>
+                                <a class="nav-link  dropdown-toggle collapsed textoBlanco" href="/ingresoParticipante" data-toggle="collapse" data-target="#submenu2"><i class="fas fa-user"></i> PARTICIPANTE</a>
                                 <div class="collapse" id="submenu2" aria-expanded="false">
                                     <ul class="flex-column pl-5 nav">
-                                        <li class="nav-item"><a class="nav-link py-0" href="/ingresoParticipante"><i class="fas fa-home"></i> Inicio Participante</a></li>
-                                        <li class="nav-item" ><a class="nav-link py-0" href="/ingresoPartida"><i class="fas fa-sign-in-alt"></i> Unirse a Partida</a></li>
+                                        <li class="nav-item"><a class="nav-link py-0 textoBlanco" href="/ingresoParticipante"><i class="fas fa-home"></i> INICIO PARTICIPANTE</a></li>
+                                        <li class="nav-item" ><a class="nav-link py-0 textoBlanco" href="/ingresoPartida"><i class="fas fa-sign-in-alt"></i> UNIRSE A PARTIDA</a></li>
                                     </ul>
                                 </div>
                             </li>
@@ -45,14 +46,15 @@
         <div class="col-md-10">
             <div class="row">
                 <div class="col-md-12" >
-                <h2>Temáticas</h2>
+                <h4 class="textoBlanco">TEMÁTICAS</h4>
+                    <input type="text" name="numeroMaterias" id="numeroMaterias" value="<%= materias.length%>" hidden>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <div class="card text-white bg-dark" style="margin-top: 10px">
-                        <h5 class="card-header">Agregar Temática</h5>
-                        <div class="card-body">
+                    <div class="card opacoCard" style="margin-top: 10px">
+                        <p class="card-header bg-white" style="color: black">AGREGAR TEMÁTICA</p>
+                        <div class="card-body" style="background: transparent">
                             <form action="/ingresoMateria" method="post">
                                 <div class="row">
                                     <div class="input-group mb-2">
@@ -60,7 +62,7 @@
                                             <div class="input-group-text"><i class="fas fa-book"></i></div>
                                         </div>
                                         <input type="text" class="form-control"
-                                               placeholder="Nombre de la temática" name="nombreMateria" required>
+                                               placeholder="Nombre de la temática" name="nombreMateria" id="nombreNuevaMateria"  required  onchange="verificarMateria()">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -79,11 +81,10 @@
                                 <div class="row">
                                     <div class="col-md-2"></div>
                                     <div class="input-group col-md-8">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text"><i class="fas fa-plus"></i></div>
-                                        </div>
-                                        <input type="submit" class="btn btn-primary"
-                                               value="Agregar Temática">
+                                        <button type="submit" class="btn btn-primary degradoBoton textoBlanco">
+                                            <i class="fas fa-plus"></i> Agregar Temática
+                                        </button>
+
                                     </div>
                                     <div class="col-md-2"></div>
                                 </div>
@@ -95,22 +96,21 @@
                 </div>
                 <%
                 for(let i = 0; i < materias.length; i++) { %>
-
                 <div class="col-md-4">
-                    <div class="card" style="margin-top: 10px">
-                        <div class="card-header">
+                    <div class="card opacoCard" style="margin-top: 10px">
+                        <div class="card-header bg-white">
                             <div class="row">
                                 <div class="col-md-8">
-                                    <h5><%= materias[i].nombre %></h5>
+                                    <p style="color: black" ><%= materias[i].nombre %></p>
                                 </div>
                                 <div class="col-md-2">
                                     <form action="/cambiarTipoMateria" method="post">
-                                        <input type="text" name="materia" value="<%= materias[i].nombre %>"
+                                        <input type="text" name="materia" id="materia<%=i%>" value="<%= materias[i].nombre %>"
                                                hidden>
                                         <% if(materias[i].tipo == "privada")
                                         {
                                         %>
-                                            <button class="btn btn-default" type="submit" data-toggle="tooltip"
+                                            <button class="btn btn-primary degradoMenu" type="submit" data-toggle="tooltip"
                                                     data-placement="right" title="Privada"
                                                     id="boton<%= materias[i].nombre %>"><i
                                                         class="fas fa-lock"></i></button>
@@ -118,7 +118,7 @@
                                         }
                                         else
                                         { %>
-                                            <button class="btn btn-default" type="submit" data-toggle="tooltip"
+                                            <button class="btn btn-primary degradoMenu" type="submit" data-toggle="tooltip"
                                                     data-placement="right" title="Pública"
                                                     id="boton<%= materias[i].nombre %>"><i
                                                         class="fas fa-unlock"></i></button>
@@ -130,7 +130,7 @@
                                     <form action="/eliminarMateria" method="post">
                                         <input type="text" name="materia" value="<%= materias[i].nombre %>"
                                                hidden>
-                                        <button class="btn btn-default" type="button" data-toggle="tooltip"
+                                        <button class="btn btn-primary degradoMenu" type="button" data-toggle="tooltip"
                                                 data-placement="right" title="Eliminar Temática"  onclick="eliminarMateria('<%= materias[i].nombre %>')"><i
                                                     class="fas fa-trash-alt"></i>
                                         </button>
@@ -144,7 +144,7 @@
                             <div class="row">
                                 <div class="col-md-10">
                                     <a href="/ingresoFacilitador/preguntasOpcionMultiple/<%= materias[i].nombre %>"
-                                       class="btn btn-primary" style="margin-bottom: 10px"
+                                       class="btn bg-white" style="margin-bottom: 10px; color: black"
                                        id=<%= materias[i] %>>
                                         <i class="far fa-list-alt"></i> Preguntas Opción Multiple <span
                                                 class="badge badge-light"><%= materias[i].numOpcionMultiple %></span></a>
@@ -163,8 +163,8 @@
                             <div class="row">
                                 <div class="col-md-10">
                                     <a href="/ingresoFacilitador/preguntasUnirVoltear/<%= materias[i].nombre %>"
-                                       class="btn btn-info" style="margin-bottom: 10px">
-                                        <i class="fas fa-th"></i> Imágenes y nombres <span
+                                       class="btn bg-white" style="margin-bottom: 10px; color: black">
+                                        <i class="fas fa-th"></i> Imágenes y Nombres <span
                                                 class="badge badge-light"><%= materias[i].numUnirVoltear %></span></a>
                                 </div>
                                 <div class="col-md-2">
@@ -182,7 +182,7 @@
                                 <div class="col-md-10">
                                     <% if(materias[i].boolUnir || materias[i].boolOpcion )
                                     { %>
-                                        <button type="button" class="btn btn-secondary" data-toggle="tooltip"
+                                        <button type="button" class="btn btn-primary degradoBoton textoBlanco" data-toggle="tooltip"
                                                 data-placement="right"
                                                 style="margin-bottom: 10px"
                                                 title="No cuenta con el número mínimo de preguntas.">
@@ -192,7 +192,7 @@
                                     else
                                     { %>
                                         <a href="/ingresoFacilitador/creacionPartida/<%= materias[i].nombre %>"
-                                           class="btn btn-primary"
+                                           class="btn btn-primary degradoBoton textoBlanco"
                                            style="margin-bottom: 10px"><i class="fas fa-plus"></i> Crear
                                             Partidas</a>
                                     <% } %>
@@ -203,11 +203,11 @@
                 </div>
                 <% } %>
                 <div class="col-md-4">
-                    <div class="card" style=" border-style: dashed; margin-top: 10px; height: 248px">
+                    <div class="card opacoCard" style=" border-style: dashed; margin-top: 10px; height: 248px">
                         <div class="row">
                             <div class="col-md-3"></div>
                             <div class="col-md-6">
-                                <img src="../../static/imagenes/iconoMas.png" height="210" width="200" alt="Card image">
+                                <img src="../../static/imagenes/iconoMas1.png" height="210" width="200" alt="Card image" style="margin: 20px">
                             </div>
                             <div class="col-md-3"></div>
                         </div>
@@ -221,5 +221,6 @@
 <footer>
     <% include ../../parciales/footer.ejs %>
 </footer>
+</div>
 </body>
 </html>

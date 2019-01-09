@@ -21,3 +21,18 @@ function eliminarMateria(materia)
     }
 }
 
+function verificarMateria() {
+    let numeroMaterias = document.getElementById("numeroMaterias").value;
+    for(let i = 0; i < numeroMaterias; i++)
+    {
+        let idTematica = "materia"+i;
+        console.log("El nombre de temáticas es: "+(document.getElementById("nombreNuevaMateria").value).trim().toUpperCase());
+
+        if(((document.getElementById(idTematica).value).trim()).toUpperCase() == (document.getElementById("nombreNuevaMateria").value).trim().toUpperCase())
+        {
+            alert("El nombre de la temática ingresado ya existe");
+            document.getElementById("nombreNuevaMateria").value = "";
+        }
+    }
+}
+
