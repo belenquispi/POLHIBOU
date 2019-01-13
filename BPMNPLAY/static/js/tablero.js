@@ -923,8 +923,10 @@ function verificarRespuestaUnir() {
     else {
         desafioIncorrecto();
     }
-    document.getElementById("botonLanzar").classList.add("disabledbutton");
-    document.getElementById("botonLanzar").classList.add("invible");
+    if (document.getElementById("botonLanzar")) {
+        document.getElementById("botonLanzar").classList.add("disabledbutton");
+        document.getElementById("botonLanzar").classList.add("invible");
+    }
     voltearTarjeta(2000);
     setTimeout(function () {
         reiniciarUnir();

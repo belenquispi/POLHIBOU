@@ -33,12 +33,12 @@ app.use(bodyParser.urlencoded({extended: true}));
 var gameMap = [
     13, 14, 15, 16, 17, 18, 19, 20, 21,
     12, -1, -1, -1, -1, -1, -1, -1, 22,
-    11, 10,  9, -1, -1, -1, 25, 24, 23,
-    -1, -1,  8, -1, -1, -1, 26, -1, -1,
-    -1, -1,  7, -1, -1, -1, 27, -1, -1,
-     4,  5,  6, -1, -1, -1, 28, 29, 30,
-     3, -1, -1, -1, -1, -1, -1, -1, 31,
-     2,  1,  0, -1, -1, -1, 34, 33, 32
+    11, 10, 9, -1, -1, -1, 25, 24, 23,
+    -1, -1, 8, -1, -1, -1, 26, -1, -1,
+    -1, -1, 7, -1, -1, -1, 27, -1, -1,
+    4, 5, 6, -1, -1, -1, 28, 29, 30,
+    3, -1, -1, -1, -1, -1, -1, -1, 31,
+    2, 1, 0, -1, -1, -1, 34, 33, 32
 ];
 var anchoCasilla = 60, altoCasilla = 60;
 var columnas = 9, filas = 8;
@@ -230,11 +230,11 @@ app.route('/detalleParticipante')
     .post(routes.post_detalle_participante)
     .put(routes.error);
 app.route('/ingresoAdministrador')
-	.get(routes.get_ingreso_administrador)
+    .get(routes.get_ingreso_administrador)
     .post(routes.error)
     .put(routes.error);
-app.route('/eliminarUsuario' )
-	.get(routes.error)
+app.route('/eliminarUsuario')
+    .get(routes.error)
     .post(routes.post_eliminar_usuario)
     .put(routes.error);
 app.route('/recuperarContrasenia')
@@ -269,7 +269,7 @@ io.on('connection', function (socket) {
             return e.nombrePartida
         }).indexOf(room);
         if (indicePartida < 0) {
-			partidas.push(new partida(room));
+            partidas.push(new partida(room));
             for (let j = 0; j < informacionJugadores.length; j++) {
                 insertarDatosJugador(partidas.length - 1, informacionJugadores[j].iconoEquipo, informacionJugadores[j].nombreEquipo);
                 descargarPreguntas(partidas.length - 1, usuario, idMateria);
@@ -277,7 +277,7 @@ io.on('connection', function (socket) {
         }
         else {
             console.log("La partida ya se encuentra creada en el array de partidas");
-			/*if (partidas[indicePartida].jugadores.length < 4) {
+            /*if (partidas[indicePartida].jugadores.length < 4) {
                 for (let i = 0; i < informacionJugadores.length; i++) {
                     insertarDatosJugador(indicePartida, informacionJugadores[i].iconoEquipo, informacionJugadores[i].nombreEquipo);
                     descargarPreguntas(indicePartida, usuario, idMateria);
@@ -285,7 +285,7 @@ io.on('connection', function (socket) {
             }*/
         }
     });
-	socket.on('verificarPartida', function (room) {
+    socket.on('verificarPartida', function (room) {
         let indicePartida = consultarIdPartida(room);
         let arrayJugadores = [];
 
@@ -296,7 +296,7 @@ io.on('connection', function (socket) {
                 }
             }
         }
-        console.log("Se envía la confirmación de la validación de la partida "+ arrayJugadores + "  "+indicePartida);
+        console.log("Se envía la confirmación de la validación de la partida " + arrayJugadores + "  " + indicePartida);
         socket.emit('confirmacionPartida', arrayJugadores, indicePartida);
     });
     socket.on('verificarEquipo', function (room, nombreEquipo) {
@@ -308,95 +308,95 @@ io.on('connection', function (socket) {
             io.sockets.in(room).emit('confirmacionEquipo', "false")
         }
     });
-	socket.on('verificarInicioPartida', function (room) {
-	    console.log("Se verificó que la partida aun no se encuentre ");
+    socket.on('verificarInicioPartida', function (room) {
+        console.log("Se verificó que la partida aun no se encuentre ");
         let indicePartida = consultarIdPartida(room);
-		let numeroJugadoresConectados = 0;
+        let numeroJugadoresConectados = 0;
         if (indicePartida >= 0) {
             for (let i = 0; i < partidas[indicePartida].jugadores.length; i++) {
                 if (partidas[indicePartida].jugadores[i].idSocket != "") {
                     numeroJugadoresConectados++;
                 }
             }
-			if(numeroJugadoresConectados > 0){
-				io.sockets.in(room).emit('confirmacionInicioPartida', "true");
-			} 
+            if (numeroJugadoresConectados > 0) {
+                io.sockets.in(room).emit('confirmacionInicioPartida', "true");
+            }
         } else {
-			console.log("La partida ingresada no existe");
-		}       
+            console.log("La partida ingresada no existe");
+        }
     });
-	socket.on('new player', function (room, rol, nombreEquipoJugar) {
+    socket.on('new player', function (room, rol, nombreEquipoJugar) {
         let indicePartida = partidas.map(function (e) {
             return e.nombrePartida
         }).indexOf(room);
-        if (indicePartida >= 0) {		
-			switch (rol){
-				case "facilitador" :
-					socket.join(room);
+        if (indicePartida >= 0) {
+            switch (rol) {
+                case "facilitador" :
+                    socket.join(room);
                     io.sockets.in(room).emit("nombreRol", "Facilitador");
-				break;
-				case "participante" :
-					let nombreEquipo = nombreEquipoJugar.replace("+", " ");
+                    break;
+                case "participante" :
+                    let nombreEquipo = nombreEquipoJugar.replace("+", " ");
                     let indiceJugador = partidas[indicePartida].jugadores.map(function (e) {
-                            return e.nombreEquipo
-                        }).indexOf(nombreEquipo);
+                        return e.nombreEquipo
+                    }).indexOf(nombreEquipo);
 
-                        if (indiceJugador >= 0) {
-                            if (partidas[indicePartida].jugadores[indiceJugador].idSocket == "") {
-                                socket.join(room);
-                                io.sockets.in(room).emit("nombreRol", nombreEquipo);
-                                partidas[indicePartida].jugadores[indiceJugador].idSocket = socket.id;
-                                partidas[indicePartida].turnoJugadores = [];
-                                for (let i = 0; i < partidas[indicePartida].jugadores.length; i++) {
-                                    if (partidas[indicePartida].jugadores[i].idSocket != "") {
-                                        partidas[indicePartida].turnoJugadores.push(partidas[indicePartida].jugadores[i].idSocket);
-                                    }
+                    if (indiceJugador >= 0) {
+                        if (partidas[indicePartida].jugadores[indiceJugador].idSocket == "") {
+                            socket.join(room);
+                            io.sockets.in(room).emit("nombreRol", nombreEquipo);
+                            partidas[indicePartida].jugadores[indiceJugador].idSocket = socket.id;
+                            partidas[indicePartida].turnoJugadores = [];
+                            for (let i = 0; i < partidas[indicePartida].jugadores.length; i++) {
+                                if (partidas[indicePartida].jugadores[i].idSocket != "") {
+                                    partidas[indicePartida].turnoJugadores.push(partidas[indicePartida].jugadores[i].idSocket);
                                 }
-                                actualizarOrdenPartidas(room);
-								if(partidas[indicePartida].jugadores.length == partidas[indicePartida].turnoJugadores.length){
-								Partida.findOne({idPartida: partidas[indicePartida].nombrePartida}, function (error, doc) {
-                                    if(error){
-                                        console.log("Error3 en consultar la partida desde la BDD de las partidas: "+error);
+                            }
+                            actualizarOrdenPartidas(room);
+                            if (partidas[indicePartida].jugadores.length == partidas[indicePartida].turnoJugadores.length) {
+                                Partida.findOne({idPartida: partidas[indicePartida].nombrePartida}, function (error, doc) {
+                                    if (error) {
+                                        console.log("Error3 en consultar la partida desde la BDD de las partidas: " + error);
                                     }
-                                    if(doc != null){
-										console.log(" Se va a agregar los jugadores a la base de las partidas: "+error);
-										let jugadoresPartida = [];
-                                        for(let x = 0; x < partidas[indicePartida].jugadores.length; x++ ){
+                                    if (doc != null) {
+                                        console.log(" Se va a agregar los jugadores a la base de las partidas: " + error);
+                                        let jugadoresPartida = [];
+                                        for (let x = 0; x < partidas[indicePartida].jugadores.length; x++) {
                                             let jugadorPartida = {
                                                 idSocket: partidas[indicePartida].jugadores[x].idSocket,
                                                 nombre: partidas[indicePartida].jugadores[x].nombreEquipo,
                                                 iconoEquipo: partidas[indicePartida].jugadores[x].iconoEquipo
                                             };
-                                           jugadoresPartida.push(jugadorPartida);
+                                            jugadoresPartida.push(jugadorPartida);
                                         }
-										doc.jugadores = jugadoresPartida;
+                                        doc.jugadores = jugadoresPartida;
                                         doc.save(function (err) {
-                                            if(err){
-                                                console.log("Error al guardar los jugadores en la colección de partidas: "+err);
-                                            }else{
+                                            if (err) {
+                                                console.log("Error al guardar los jugadores en la colección de partidas: " + err);
+                                            } else {
                                                 console.log("Se han guardado la información de los jugadores en la colección de las partidas");
                                             }
                                         });
                                     }
-                                });	
-								}
-                            }
-                            else {
-                                io.sockets.in(room).emit("error","El equipo: " + nombreEquipo + " ya se ha conectado");
+                                });
                             }
                         }
                         else {
-                            console.log("El nombre de equipo ingresado no es válido" + nombreEquipo);
+                            io.sockets.in(room).emit("error", "El equipo: " + nombreEquipo + " ya se ha conectado");
                         }
-				break;
+                    }
+                    else {
+                        console.log("El nombre de equipo ingresado no es válido" + nombreEquipo);
+                    }
+                    break;
                 case "espectador":
-				default :
-				socket.join(room);
-                io.sockets.in(room).emit("nombreRol", "Espectador");
-				break;
-			}
-          }
-           else {
+                default :
+                    socket.join(room);
+                    io.sockets.in(room).emit("nombreRol", "Espectador");
+                    break;
+            }
+        }
+        else {
             console.log("El código de partida ingresada no es válido" + room);
         }
     });
@@ -440,20 +440,31 @@ io.on('connection', function (socket) {
         } else {
             console.log("El código de partida ingresada no es válido" + room);
         }
-    });   
+    });
     socket.on('disconnect', function () {
         // remove disconnected player
-        /*for (var i = 0 ; i < partidas.length; i++){
-            var idJugador = partidas[i].jugadores.map(function (e) { return e.idSocket;}).indexOf(socket.id);
-            if(idJugador >= 0)
-            {	console.log("Se eliminara al sockect: " + socket.id);
-                partidas[i].jugadores.splice(idJugador, 1);
-                console.log("Los nuevos Jugadores: " + partidas[i].jugadores);
+        let indicePartida = -1;
+        let indiceJugador = -1;
+        for (let i = 0; i < partidas.length; i++) {
+            for (let j = 0; j < partidas[i].jugadores.length; j++) {
+                if (socket.id == partidas[i].jugadores[j].idSocket) {
+                    indicePartida = i;
+                    indiceJugador = j;
+                    break;
+                }
             }
-            else{
-                console.log(i+") La partida: "+partidas[i].nombrePartida+"no posee al jugador con el id: "+socket.id);
+        }
+        if ((indicePartida > -1) && (indiceJugador > -1)) {
+            let indiceTurnoJugador = -1;
+            for (let k = 0; k < partidas[indicePartida].turnoJugadores.length; k++) {
+                if (partidas[indicePartida].turnoJugadores[k] == socket.id) {
+                    indiceTurnoJugador = k;
+                    break;
+                }
             }
-        }*/
+            partidas[indicePartida].turnoJugadores.splice(indiceTurnoJugador, 1);
+            actualizarOrdenPartidas(partidas[indicePartida].nombrePartida);
+        }
     });
     /*   socket.on('nuevo array', function (data, room) {
            var idPartida = consultarIdPartida(room);
@@ -467,10 +478,10 @@ io.on('connection', function (socket) {
         if (idPartida >= 0) {
             Partida.findOne({idPartida: partidas[idPartida].nombrePartida}, function (error, doc) {
                 if (error) {
-                  console.log("Error en la busqueda de la partida en la BDD: " + error);
+                    console.log("Error en la busqueda de la partida en la BDD: " + error);
                 }
                 else {
-                    if(doc == null){
+                    if (doc == null) {
                         let partida = new Partida({
                             idPartida: partidas[idPartida].nombrePartida,
                             jugadores: [],
@@ -510,32 +521,32 @@ io.on('connection', function (socket) {
     socket.on('moverJugador', function (room) {
         var gameTime = Date.now();
         let indicePartida = consultarIdPartida(room);
-            if (indicePartida > -1) {
-                for (let j = 0; j < partidas[indicePartida].jugadores.length; j++) {
-                    if (partidas[indicePartida].jugadores[j].idSocket == socket.id) {
-                        if (!partidas[indicePartida].jugadores[j].processMovement(gameTime, room, socket.id)) {
-                            if (partidas[indicePartida].jugadores[j].casilla < 34) {
-                                if (partidas[indicePartida].jugadores[j].canMoveUp()) {
-                                    partidas[indicePartida].jugadores[j].moveUp(gameTime);
-                                }
-                                else if (partidas[indicePartida].jugadores[j].canMoveDown()) {
-                                    partidas[indicePartida].jugadores[j].moveDown(gameTime);
-                                }
-                                else if (partidas[indicePartida].jugadores[j].canMoveLeft()) {
-                                    partidas[indicePartida].jugadores[j].moveLeft(gameTime);
-                                }
-                                else if (partidas[indicePartida].jugadores[j].canMoveRight()) {
-                                    partidas[indicePartida].jugadores[j].moveRight(gameTime);
-                                }
+        if (indicePartida > -1) {
+            for (let j = 0; j < partidas[indicePartida].jugadores.length; j++) {
+                if (partidas[indicePartida].jugadores[j].idSocket == socket.id) {
+                    if (!partidas[indicePartida].jugadores[j].processMovement(gameTime, room, socket.id)) {
+                        if (partidas[indicePartida].jugadores[j].casilla < 34) {
+                            if (partidas[indicePartida].jugadores[j].canMoveUp()) {
+                                partidas[indicePartida].jugadores[j].moveUp(gameTime);
                             }
-                            else {
-                                    io.sockets.in(room).emit('partida', partidas[indicePartida]);
+                            else if (partidas[indicePartida].jugadores[j].canMoveDown()) {
+                                partidas[indicePartida].jugadores[j].moveDown(gameTime);
                             }
+                            else if (partidas[indicePartida].jugadores[j].canMoveLeft()) {
+                                partidas[indicePartida].jugadores[j].moveLeft(gameTime);
+                            }
+                            else if (partidas[indicePartida].jugadores[j].canMoveRight()) {
+                                partidas[indicePartida].jugadores[j].moveRight(gameTime);
+                            }
+                        }
+                        else {
+                            io.sockets.in(room).emit('partida', partidas[indicePartida]);
                         }
                     }
                 }
+            }
         }
-    }); 
+    });
     socket.on('solicitarPreguntaOpcionMultiple', function (room) {
         var idPartida = consultarIdPartida(room);
         io.sockets.in(partidas[idPartida].nombrePartida).emit('respondiendoIndicePreguntaOpcionMultiple', indiceRandomicoOpcionMultiple(idPartida));
@@ -549,7 +560,7 @@ io.on('connection', function (socket) {
                 partidas[idPartida].preguntasUnirVoltear[i].usada == false;
             }
             contador = partidas[idPartida].preguntasUnirVoltear.length;
-			}
+        }
         for (var i = 0; i < 4; i++) {
             var indice = indiceRandomicoUnirVoltear(idPartida);
             while (arrayIndices.indexOf(indice) != -1) {
@@ -617,9 +628,9 @@ io.on('connection', function (socket) {
         actualizarOrdenPartidas(room);
     });
     socket.on('tiempoTerminado', function (room) {
-		console.log("El tiempo se ha terminado en la partida: "+room);
+        console.log("El tiempo se ha terminado en la partida: " + room);
         let indicePartida = consultarIdPartida(room);
-		console.log("El tiempo 2 se ha terminado en la partida: "+partidas[indicePartida].nombrePartida);
+        console.log("El tiempo 2 se ha terminado en la partida: " + partidas[indicePartida].nombrePartida);
         io.sockets.in(partidas[indicePartida].nombrePartida).emit('avisoTiempoTerminado', socket.id);
     });
     socket.on('darLaVuelta', function (room) {
@@ -627,15 +638,15 @@ io.on('connection', function (socket) {
         io.sockets.in(partidas[idPartida].nombrePartida).emit('enviandoDarLaVuelta', socket.id);
     });
     socket.on('partidaCancelada', function (room) {
-        Partida.deleteOne({ idPartida: room }, function (err) {
-            if(err){
-                console.log("No se elimino la partida: "+err);
+        Partida.deleteOne({idPartida: room}, function (err) {
+            if (err) {
+                console.log("No se elimino la partida: " + err);
             }
             else {
-                console.log("Se elimino correctamente la partida: "+err);
-				io.sockets.in(partidas[consultarIdPartida(room)].nombrePartida).emit('partidaCancelada', socket.id);
+                console.log("Se elimino correctamente la partida: " + err);
+                io.sockets.in(partidas[consultarIdPartida(room)].nombrePartida).emit('partidaCancelada', socket.id);
             }
-        }); 
+        });
     });
 });
 setInterval(function () {
@@ -735,36 +746,49 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
     if (this.casilla == 34) {
         console.log(this.casilla);
         console.log("La casilla es 34");
-        console.log("id Jugador:"+ partidas[indicePartidaActual].jugadores[indiceJugadorActual].idSocket);
+        console.log("id Jugador:" + partidas[indicePartidaActual].jugadores[indiceJugadorActual].idSocket);
         partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = 0;
-        if( partidas[indicePartidaActual].lugaresJugadores.indexOf(this.idSocket) == -1){
+        if (partidas[indicePartidaActual].lugaresJugadores.indexOf(this.idSocket) == -1) {
             partidas[indicePartidaActual].lugaresJugadores.push(this.idSocket);
-            console.log("El jugador "+this.idSocket+" se ha agregado en el array de lugares "+ partidas[indicePartidaActual].lugaresJugadores);
+            console.log("El jugador " + this.idSocket + " se ha agregado en el array de lugares " + partidas[indicePartidaActual].lugaresJugadores);
             partidas[indicePartidaActual].turnoJugadores.splice(partidas[indicePartidaActual].turnoJugadores.indexOf(this.idSocket), 1);
             io.sockets.in(roomActual).emit('ocultarBoton', idSocket);
         }
         actualizarOrdenPartidas(roomActual);
-        if(partidas[indicePartidaActual].lugaresJugadores.length == partidas[indicePartidaActual].jugadores.length){
-            Partida.findOne({idPartida: partidas[indicePartidaActual].nombrePartida}, function (error, doc) {
-                if (error) {
-                    console.log("Error en la busqueda de la partida en la BDD: " + error);
+        if(partidas[indicePartidaActual].turnoJugadores.length < 2)
+        {
+            if(partidas[indicePartidaActual].lugaresJugadores.length != partidas[indicePartidaActual].jugadores.length)
+            {
+                for(let x = 0; x < partidas[indicePartidaActual].jugadores.length; x++){
+                for(let y = 0; y < partidas[indicePartidaActual].lugaresJugadores.length; y++) {
+
                 }
-                else {
-                    if(doc != null){
-                           doc.turnoJugadores = partidas[indicePartidaActual].lugaresJugadores;
-							doc.save(function (err, partidaF) {
-                            if (err) return console.log(err);
-                            console.log("Se ha almacenado en la BD el lugar de los jugadores");
-                            console.log("Partida finalizada desde server");
-                            io.sockets.in(roomActual).emit('partidaFinalizada');
-                        })
+
+                }
+            }
+            if (partidas[indicePartidaActual].lugaresJugadores.length == partidas[indicePartidaActual].jugadores.length) {
+                Partida.findOne({idPartida: partidas[indicePartidaActual].nombrePartida}, function (error, doc) {
+                    if (error) {
+                        console.log("Error en la busqueda de la partida en la BDD: " + error);
                     }
                     else {
-                        console.log("La partida no se encuentra en la BD");
+                        if (doc != null) {
+                            doc.turnoJugadores = partidas[indicePartidaActual].lugaresJugadores;
+                            doc.save(function (err, partidaF) {
+                                if (err) return console.log(err);
+                                console.log("Se ha almacenado en la BD el lugar de los jugadores");
+                                console.log("Partida finalizada desde server");
+                                io.sockets.in(roomActual).emit('partidaFinalizada');
+                            })
+                        }
+                        else {
+                            console.log("La partida no se encuentra en la BD");
+                        }
                     }
-                }
-            });
+                });
+            }
         }
+
     }
     if ((t - this.timeMoved) >= this.delayMove) {
         this.placeAt(this.tileTo[0], this.tileTo[1]);
@@ -781,7 +805,7 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
             if (this.casilla < this.moverseA) {
                 this.casilla += 1;
             }
-                io.sockets.in(partidas[indicePartidaActual].nombrePartida).emit('partida', partidas[indicePartidaActual]);
+            io.sockets.in(partidas[indicePartidaActual].nombrePartida).emit('partida', partidas[indicePartidaActual]);
         }
         else {
             partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = 0;
@@ -801,9 +825,9 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
                 }
             }
 
-            if (this.casilla != 34 ) {
+            if (this.casilla != 34) {
                 let j = partidas[indicePartidaActual].turnoJugadores.shift();
-                console.log("JJJJ: "+j)
+                console.log("JJJJ: " + j)
                 partidas[indicePartidaActual].turnoJugadores.push(j);
                 actualizarOrdenPartidas(roomActual);
             }
