@@ -2,15 +2,9 @@ var ctx = null;
 var color1 = new Image();
 var color2 = new Image();
 var color3 = new Image();
-var llegada = new Image();
 var casillaInicio = new Image();
 var casillaFin = new Image();
 var casillaIncierto = new Image();
-var casillaB = new Image();
-var casillaP = new Image();
-var casillaM = new Image();
-var casillaN = new Image();
-var casillaPlay = new Image();
 var per1 = new Image();
 var per2 = new Image();
 var per3 = new Image();
@@ -18,8 +12,7 @@ var per4 = new Image();
 var filas, columnas, anchoCasilla, altoCasilla;
 var gameMap = [];
 var colorMap = [];
-var patterColor1, patterColor2, patterColor3, patterLlegada, patterInicio, patterIncierto, patterFin, patterB, patterP,
-    patterM, patterN, patterPlay;
+var patterColor1, patterColor2, patterColor3, patterInicio, patterIncierto, patterFin;
 var socket = io();
 var jugadores = [];
 var turnoJugadores = [];
@@ -62,18 +55,9 @@ window.onload = function () {
     color1.src = 'static/imagenes/0.png';
     color2.src = 'static/imagenes/1.png';
     color3.src = 'static/imagenes/2.png';
-    llegada.src = 'static/imagenes/llegada-30.png';
-    //llegada.src = 'static/imagenes/buho1.gif';
-    casillaInicio.src = 'static/inicio.jpg';
+    casillaInicio.src = 'static/imagenes/inicio.jpg';
     casillaIncierto.src = 'static/imagenes/incierto.png';
-    casillaFin.src = 'static/fin.jpg';
-    //console.log(casillaFin.toDataURL());
-    //casillaFin = contrastImage(casillaFin.toDataURL(), 30);
-    casillaB.src = 'static/imagenes/b.png';
-    casillaP.src = 'static/imagenes/p.png';
-    casillaM.src = 'static/imagenes/m.png';
-    casillaN.src = 'static/imagenes/n.png';
-    casillaPlay.src = 'static/imagenes/play.png';
+    casillaFin.src = 'static/imagenes/fin.jpg';
     ctx = document.getElementById('game').getContext("2d");
     setTimeout(function () {
         requestAnimationFrame(drawGame);
@@ -89,9 +73,9 @@ socket.on('error', function (nombre) {
     alert(nombre);
 });
 
-socket.on('parametrosJuego', function () {
+socket.on('tuID', function () {
     idSocketActual = socket.io.engine.id;
-    console.log("Mi socket: " + idSocketActual)
+    console.log("Mi socket: " + idSocketActual);
 });
 
 socket.on('partida', function (data) {
@@ -225,12 +209,6 @@ function agregarNumerosCasilla() {
                 case 13:
                 case 21:
                 case 27:
-                case 'B':
-                case 'P':
-                case 'M':
-                case 'N':
-                case '>':
-                    //ctx.fillStyle = "#685b48";
                     break;
                 default:
                     ctx.fillStyle = "#000000";
@@ -259,7 +237,6 @@ function drawGame() {
                 }).indexOf((idSocketActual))].boton = 1;*/
         }
         mostrarJugadorActual();
-
     }
 
     for (let y = 0; y < filas; ++y) {
@@ -270,17 +247,10 @@ function drawGame() {
             patterInicio = ctx.createPattern(casillaInicio, "repeat");
             patterIncierto = ctx.createPattern(casillaIncierto, "repeat");
             patterFin = ctx.createPattern(casillaFin, "repeat");
-            patterB = ctx.createPattern(casillaB, "repeat");
-            patterP = ctx.createPattern(casillaP, "repeat");
-            patterM = ctx.createPattern(casillaM, "repeat");
-            patterN = ctx.createPattern(casillaN, "repeat");
-            patterPlay = ctx.createPattern(casillaPlay, "repeat");
 
             switch (gameMap[((y * columnas) + x)]) {
                 case -1:
-                    //ctx.fillStyle = "#6A0888";
-                    ctx.fillStyle = "#0B610B";
-
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0)';
                     break;
                 case 0:
                     ctx.fillStyle = patterInicio;
@@ -294,21 +264,6 @@ function drawGame() {
                 case 34:
                     ctx.fillStyle = patterFin;
                     break;
-                case 'B':
-                    ctx.fillStyle = patterB;
-                    break;
-                case 'P':
-                    ctx.fillStyle = patterP;
-                    break;
-                case 'M':
-                    ctx.fillStyle = patterM;
-                    break;
-                case 'N':
-                    ctx.fillStyle = patterN;
-                    break;
-                case '>':
-                    ctx.fillStyle = patterPlay;
-                    break;
                 default:
                     switch (colorMap[((y * columnas) + x)]) {
                         case 0:
@@ -321,7 +276,7 @@ function drawGame() {
                             ctx.fillStyle = patterColor3;
                             break;
                         default:
-                            ctx.fillStyle = "#5aa457";
+                            ctx.fillStyle = 'rgba(0, 0, 0, 0)';
                     }
             }
             ctx.fillRect(x * anchoCasilla, y * altoCasilla, anchoCasilla, altoCasilla);
@@ -332,9 +287,6 @@ function drawGame() {
     dibujarJugador();
     dibujarLlegarA();
     habilitarTablaJugador();
-    /*ctx.fillStyle = "#ff0000";
-    ctx.fillText("FPS: " + framesLastSecond, 10, 20);
-    let lastFrameTime = currentFrameTime;*/
     requestAnimationFrame(drawGame);
 }
 function controlarTiempo() {
@@ -389,7 +341,6 @@ function dibujarLlegarA() {
             let moverseA = jugadores[indiceDelJugadorConTurno()].moverseA;
             if (moverseA != jugadores[indiceDelJugadorConTurno()].casilla) {
                 let casilla = jugadores[indiceDelJugadorConTurno()].casilla;
-                patterLlegada = ctx.createPattern(llegada, "repeat");
                 for (let y = 0; y < filas; ++y) {
                     for (let x = 0; x < columnas; ++x) {
                         let caso = gameMap[((y * columnas) + x)];
@@ -455,8 +406,6 @@ function lanzarDado() {
         dado2 = 1;
     } else {
         dadoRandomico();
-       /* dado1 = 6;
-        dado2 = 6;*/
     }
     moverDado();
     moverDado2();
@@ -545,8 +494,6 @@ function habilitarTablaJugador() {
 
 function mostrarJugadorActual() {
     for (let i = 0; i < jugadores.length; i++) {
-        //document.getElementById("tablajug" + (i + 1)).style.border = "thick white";
-        //document.getElementById("tablajug" + (i + 1)).style.background = "#FFFFFF";
         document.getElementById("turno" + (i + 1)).setAttribute("hidden", "");
     }
 
@@ -564,21 +511,11 @@ function mostrarJugadorActual() {
     let indiceJugadorActual = indiceDelJugadorConTurno();
 
     if (indiceJugadorActual >= 0 && turnoJugadores.length > 0) {
-        //  document.getElementById("nombreEquipoActual").innerHTML = jugadores[indiceJugadorActual].nombreEquipo;
         if (document.getElementById("tablajug" + (indiceJugadorActual + 1))) {
-          //  document.getElementById("tablajug" + (indiceJugadorActual + 1)).style.background = "#A9BCF5";
             document.getElementById("turno" + (indiceJugadorActual + 1)).removeAttribute("hidden");
             document.getElementById("tablajug" + (indiceJugadorActual + 1)).classList.add('miTurno');
             cambiarImagen(indiceJugadorActual);
         }
-    }
-    else {
-        /* for (var j = 0; j < turnoJugadores.length; j++) {
-             if (jugadores.length > 0) {
-                 //console.log("jjjjjojojojo: "+j)
-                 document.getElementById("imagenJugador" + (j + 1)).src = "static/buhoInicial" + jugadores[j].iconoEquipo + ".gif";
-             }
-         }*/
     }
 }
 
@@ -663,7 +600,6 @@ function newBoard() {
 
 function memoryFlipTile(tile, val) {
     if (tile.alt == "" && memory_values.length < 2) {
-        //tile.style.background = '#FFF';
         tile.src = val;
         tile.alt = val;
         if (memory_values.length == 0) {
@@ -729,7 +665,7 @@ function cargarPreguntaOpcionMultiple(indicePregunta) {
     if (preguntasOpcionMultiple[indicePregunta].hasOwnProperty("imagenEnunciado") && preguntasOpcionMultiple[indicePregunta].imagenEnunciado != "") {
         document.getElementById("imagenEnunciado").src = preguntasOpcionMultiple[indicePregunta].imagenEnunciado;
     } else {
-        document.getElementById("imagenEnunciado").src = "static/imagenes/vacio.png";
+        document.getElementById("imagenEnunciado").src = "static/imagenes/imagenVacia.svg";
     }
     document.getElementById("divRespuestasOpcionMultiple").removeAttribute("hidden");
 
@@ -987,8 +923,10 @@ function verificarRespuestaUnir() {
     else {
         desafioIncorrecto();
     }
-    document.getElementById("botonLanzar").classList.add("disabledbutton");
-    document.getElementById("botonLanzar").classList.add("invible");
+    if (document.getElementById("botonLanzar")) {
+        document.getElementById("botonLanzar").classList.add("disabledbutton");
+        document.getElementById("botonLanzar").classList.add("invible");
+    }
     voltearTarjeta(2000);
     setTimeout(function () {
         reiniciarUnir();
@@ -1027,7 +965,7 @@ function mostrarMensaje(texto) {
     x.className = "show";
     setTimeout(function () {
         x.className = x.className.replace("show", "");
-    }, 2000);
+    }, 4000);
 }
 
 function mostrarRespuestaCorrectaUnir() {
@@ -1070,6 +1008,6 @@ function finalizarPartida() {
     let r = confirm("¿Está seguro de finalizar la partida?");
     if (r == true) {
         socket.emit('partidaCancelada', roomActual);
-        document.getElementById('linkFinalizarPartida').click();
+        document.getElementById('linkCancelarPartida').click();
     }
 }

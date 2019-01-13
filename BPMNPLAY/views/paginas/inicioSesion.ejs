@@ -23,7 +23,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h4 class="display-8 text-center textoBlanco">INICIAR SESIÓN</h4>
-                        <form id="login-form" action="/ingreso" method="post" role="form" style="display: block;">
+                        <form id="login-form" action="/inicioSesion" method="post" role="form" style="display: block;">
                             <% if(usuario != ""){ %>
                                 <div class="form-row">
                                     <div class="form-group col-md-4 text-right">
@@ -47,13 +47,13 @@
                             <% }else {
                             switch (tipo) {
                             case 1: %>
-                            <label class="textoBlanco">Por favor, inicia sesión con el código de verificación enviado a tu correo.</label>
+                            <label class="textoBlanco">Por favor, inicia sesión con el código de verificación enviado a su correo.</label>
                             <% break;
                             case 2: %>
-                            <label class="textoBlanco">Tu contraseña ha sido actualizada. Por favor, inicia sesión nuevamente.</label>
+                            <label class="textoBlanco">Su contraseña ha sido actualizada. Por favor, inicia sesión nuevamente.</label>
                             <% break;
                             case 3: %>
-                            <label class="textoBlanco">Por favor, inicia sesión con tus credenciales.</label>
+                            <label class="textoBlanco">Por favor, inicia sesión con sus credenciales.</label>
                             <%}%>
                                 <div class="form-row">
                                     <div class="form-group col-md-4 text-right">

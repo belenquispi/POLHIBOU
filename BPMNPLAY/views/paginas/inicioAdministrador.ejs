@@ -6,31 +6,37 @@
     <title>Inicio Administrador</title>
 </head>
 <body>
+<div class="opaco" style="margin-bottom: 10px">
 <header>
     <% include ../parciales/headerProfesor %>
 </header>
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/ingresoAdministrador">Inicio</a></li>
+    <ol class="breadcrumb opacoCard border border-white">
+        <li class="breadcrumb-item"><a href="/ingresoAdministrador" class="textoBlanco">INICIO</a></li>
     </ol>
 </nav>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <a href="/"
-                           class="nav-link active" style="margin-bottom: 10px">
-                            <i class="far fa-list-alt"></i> Listado Administrador</a>
+         <div class="row h-100 ">
+                    <div class="col-12 collapse d-md-flex h-100 opacoCard" id="sidebar">
+                        <ul class="nav flex-column flex-nowrap">
+                            <li class="nav-item">
+                                <a class="nav-link dropdown-toggle collapsed textoBlanco" href="/" data-toggle="collapse" data-target="#submenu1"><i class="fas fa-chalkboard-teacher"></i> ADMINISTRADOR</a>
+                                <div class="collapse show" id="submenu1" aria-expanded="false">
+                                    <ul class="flex-column pl-5 nav">
+                                        <li class="nav-item"><a class="nav-link py-0 btn-primary degradoBoton" href="/"><i class="fas fa-list-alt" ></i> LISTA USUARIOS </a></li>                                     
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
-                </div>
             </div>
-        </div>
+		</div>
         <div class="col-md-10" >
             <div class="row">
                 <div class="col-md-12" >
-                    <h2>Usuarios</h2>
+                    <h4 class="textoBlanco" style="text-transform: uppercase;">Usuarios</h4>
                 </div>
             </div>
             <div class="row">
@@ -38,24 +44,33 @@
                     <%
                     for(var i = 0; i < usuarios.length; i++) {
                         console.log(usuarios[i])%>
-                    <div class="card" style="margin: 10px">
+                    <div class="card opacoCard" style="margin: 10px">
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-md-11">
-                                    <h5><strong>Nombre: </strong><%= usuarios[i].nombre %></h5>
+                                    <p class="textoBlanco"><strong>Nombre: </strong><%= usuarios[i].nombre %></p>
                                 </div>
                                 <div class="col-md-1">
                                     <% if(usuarios[i].codigoVerificacion != 0) { %>
-                                    <button class="btn btn-default disabledbutton" id="boton<%=usuarios[i].nombre%>"><i class="fas fa-trash-alt"></i></button>
+									<form action="/eliminarUsuario" method="post">
+                                        <input type="text" name="usuario" value="<%= usuarios[i].usuario %>"
+                                               hidden>
+                                        <button class="btn btn-primary degradoMenu" type="button" data-toggle="tooltip"
+                                                data-placement="right" title="El usuario no ha verificado su cuenta"  onclick="eliminarUsuario('<%= usuarios[i].usuario %>')"><i
+                                                    class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button id="botonEliminar<%= usuarios[i].usuario %>" type="submit"
+                                                hidden></button>
+                                    </form>
                                     <%}%>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body">
-                            <h5>    <strong>Usuario: </strong><%= usuarios[i].usuario %></h5>
-                            <h5>    <strong>Contraseña: </strong><%= usuarios[i].contrasenia %></h5>
-                            <h5>    <strong>Cuenta verificada: </strong><% if(usuarios[i].codigoVerificacion == 0) { %> Sí <%} else { %> No <%}%></h5>
-                            <h5>    <strong>Fecha de última conexión: </strong><%= usuarios[i].fechaUltimaConexion %></h5>
+                            <p class="textoBlanco">    <strong>Usuario: </strong><%= usuarios[i].usuario %></p>
+                            <p class="textoBlanco">    <strong>Contraseña: </strong><%= usuarios[i].contrasenia %></p>
+                             <p class="textoBlanco">    <strong>Cuenta verificada: </strong><% if(usuarios[i].codigoVerificacion == 0) { %> Sí <%} else { %> No <%}%></p>
+                             <p class="textoBlanco">    <strong>Fecha de última conexión: </strong><%= usuarios[i].fechaUltimaConexion %></p>
                         </div>
                     </div>
                     <% } %>
@@ -64,13 +79,22 @@
         </div>
     </div>
 </div>
-<!--<script src="/static/js/estudiante.js"></script>-->
 <script
         src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
+<script>
+function eliminarUsuario(usuario)
+{
+   let r = confirm("¿Está seguro de eliminar al usuario seleccionado?");
+    if (r == true) {
+        document.getElementById("botonEliminar"+usuario).click();
+    }
+}
+</script>
 <footer>
     <% include ../parciales/footer.ejs %>
 </footer>
+</div>
 </body>
 </html>

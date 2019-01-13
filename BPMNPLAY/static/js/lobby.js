@@ -1,16 +1,16 @@
 var socket = io();
 var jugadoresConectados = [];
 window.onload = function () {
-    var jugadores = document.getElementById("numeroEquipos").value;
-    var nombreIconoEquipos = [];
-    for(var i=0; i<jugadores; i++){
-        var jugador = {
+    let jugadores = document.getElementById("numeroEquipos").value;
+    let informacionJugadores = [];
+    for(let i=0; i<jugadores; i++){
+        let jugador = {
             iconoEquipo: document.getElementById("imagenEquipo"+i).value,
             nombreEquipo: document.getElementById("nombreEquipo"+i).value
         };
-        nombreIconoEquipos.push(jugador)
+        informacionJugadores.push(jugador)
     }
-    socket.emit('nuevaPartida',document.getElementById('idPartida').value, document.getElementById('rol').value, nombreIconoEquipos, document.getElementById("usuario").value, document.getElementById('materia').value );
+    socket.emit('nuevaPartida',document.getElementById('idPartida').value, document.getElementById('rol').value, informacionJugadores, document.getElementById("usuario").value, document.getElementById('materia').value );
 };
 
 socket.on('ingresoJugadores', function (data) {

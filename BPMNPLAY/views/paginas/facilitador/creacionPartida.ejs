@@ -45,37 +45,37 @@
             </div>
         </div>
         <div class="col-md-10">
-    <div class="row">
-        <div class="col-md-12" >
-            <h2 class="textoBlanco">CREACIÓN DE PARTIDA</h2>
-        </div>
-    </div>
-    <form action="/lobby" method="post" onmouseover="verificarSeleccion()">
-        <div class="row" id="centro">
-            <input type="text" name="materia" value="<%= materia %>" hidden>
-            <div class=" row align-items-center form-group col-md-12">
-                <label class="col-md-3"><strong class="textoBlanco">NÚMERO DE EQUIPOS:</strong></label>
-                <select class="form-control col-md-3" id="numeroEquipo" name="numeroEquipos" onchange="generarDatosEquipo(this)" onkeyup="generarDatosEquipo(this)" >
-                    <option>0</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                </select>
-            <div class="col-md-6" style="margin-bottom: 10px"></div>
-            </div>
-            <input type="hidden" id="rol" name="rol" value="profesor">
-        </div>
+			<div class="row">
+				<div class="col-md-12" >
+					<h2 class="textoBlanco">CREACIÓN DE PARTIDA</h2>
+				</div>
+			</div>
+			<form action="/lobby" method="post" onmouseover="verificarSeleccion()">
+				<div class="row" id="centro">
+					<input type="text" name="materia" value="<%= materia %>" hidden>
+					<input type="text" name="rol" value="facilitador" hidden>
+					<input type="text" name="idPartida" value="<%= idPartida %>" hidden>
+					<div class=" row align-items-center form-group col-md-12">
+						<label class="col-md-3"><strong class="textoBlanco">NÚMERO DE EQUIPOS:</strong></label>
+						<select class="form-control col-md-3" id="numeroEquipo" name="numeroEquipos" onchange="generarDatosEquipo(this)" onkeyup="generarDatosEquipo(this)" >
+							<option>0</option>
+							<option>2</option>
+							<option>3</option>
+							<option>4</option>
+						</select>
+						<div class="col-md-6" style="margin-bottom: 10px"></div>
+					</div>
+				</div>
         <!-- Button trigger modal -->
-        <div class="row text-center">
-            <div class="col-md-12">
-                <button type="submit" class="btn btn-primary degradoBoton text-center" id="generarCodigo" disabled hidden>
-                    <i class="fas fa-qrcode"></i> Generar código partida
-                </button>
-            </div>
-        </div>
-    </form>
-</div>
+				<div class="row text-center">
+					<div class="col-md-12">
+						<button type="submit" class="btn btn-primary degradoBoton text-center" id="generarCodigo" disabled hidden>
+							<i class="fas fa-qrcode"></i> Generar código partida
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
     </div>
 </div>
 <script src="/socket.io/socket.io.js"></script>
