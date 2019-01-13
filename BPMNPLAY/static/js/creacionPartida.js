@@ -1,32 +1,6 @@
 var partida = [];
 var iconoSeleccionados = [];
 
-function generarPartida() {
-    if (document.getElementById('codigoPartida').value != 'ninguna') {
-        if (document.getElementById('codigoPartida').value == 'nuevo') {
-            var idMateria = document.getElementById('idMateria').value.replace(" ", "_");
-            var idPartida = idMateria + Math.floor((1 + Math.random()) * 0x1000).toString(5).substring(1);
-            document.getElementById('codigoPartida').value = idPartida;
-            document.getElementById('codigoPartidaL').innerHTML = idPartida;
-        } else {
-
-        }
-    } else {
-        alert("Seleccione una de las materias");
-    }
-
-    var nombreIconoEquipos = [];
-    var usuario = 'bquispi';
-    for (var i = 0; i < partida.length; i++) {
-        var datoEquipo = {
-            nombreEquipo: document.getElementById("nombreEquipo" + (i + 1)).value,
-            iconoEquipo: partida[i]
-        };
-        nombreIconoEquipos.push(datoEquipo);
-    }
-    socket.emit('nuevaPartida', document.getElementById('codigoPartida').value, document.getElementById('rol').value, nombreIconoEquipos, usuario, document.getElementById('idMateria').value);
-}
-
 function verificarSeleccion() {
     if (document.getElementById('numeroEquipo').value > 0 && (verificarIconosSeleccionados() == true)) {
         document.getElementById('generarCodigo').removeAttribute('disabled');
@@ -96,7 +70,6 @@ function generarDatosEquipo(numero) {
             boton.style.margin = "0px 5px";
             document.getElementById("form-group" + (i + 1)).appendChild(boton);
             var images = document.createElement("IMG");
-            //images.setAttribute("src", "../../static/buhoInicial" + (j + 1) + ".gif");
             images.setAttribute("src", "../../static/imagenes/equipo"+ (j + 1)+".svg");
             images.setAttribute("id", "buhoInicial" + (j + 1) + "Equipo" + (i + 1));
             images.setAttribute("class", "img-thumbnail");
@@ -105,11 +78,11 @@ function generarDatosEquipo(numero) {
             document.getElementById("buttonImagen" + (j + 1) + "Equipo" + (i + 1)).appendChild(images);
         }
         var inputImagen = document.createElement("INPUT");
-        inputImagen.setAttribute("type", "text");
-        inputImagen.setAttribute("hidden", "");
-        inputImagen.setAttribute("name", "imagenEquipo" + (i + 1));
-        inputImagen.setAttribute("id", "imagenEquipo" + (i + 1));
-        document.getElementById("form-group" + (i + 1)).appendChild(inputImagen);
+			inputImagen.setAttribute("type", "text");
+			inputImagen.setAttribute("hidden", "");
+			inputImagen.setAttribute("name", "imagenEquipo" + (i + 1));
+			inputImagen.setAttribute("id", "imagenEquipo" + (i + 1));
+			document.getElementById("form-group" + (i + 1)).appendChild(inputImagen);
     }
 }
 

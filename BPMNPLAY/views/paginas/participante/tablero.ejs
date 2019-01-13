@@ -19,7 +19,7 @@
         <input type="text" hidden name="sesion" id="sesion" value="<%= nombreEquipo %>">
         <button type="submit" id="botonFinalizacion" hidden disabled></button>
     </form>
-    <a href="/" hidden id="linkFinalizarPartida"> </a>
+    <a href="/" hidden id="linkCancelarPartida"> </a>
     <div class="container-fluid text-center">
         <div class="row text-center">
             <div class="col-md-auto text-center">
@@ -30,31 +30,31 @@
                     <table class="table ">
                         <thead >
                         <tr>
-                            <th class="textoBlanco">ESTA JUGANDO</th>
-                            <th class="textoBlanco">JUGADOR</th>
-                            <th class="textoBlanco">NOMBRE</th>
+                            <th class="textoBlanco" style="font-size: 14px">ESTA <br> JUGANDO</th>
+                            <th class="textoBlanco" style="font-size: 14px">JUGADOR</th>
+                            <th class="textoBlanco" style="font-size: 14px">NOMBRE</th>
                         </tr>
                         </thead>
                         <tbody class="transparente">
                         <tr id="tablajug1" style="visibility:hidden" >
                             <td ><i id="turno1" hidden class="fas fa-hand-point-right fa-3x textoBlanco"></i></td>
                             <td id="columna1" ></td>
-                            <td><label id="nombreEquipo1" class="textoBlanco"></label></td>
+                            <td><label id="nombreEquipo1" class="textoBlanco" style="font-size: 12px"></label></td>
                         </tr>
                         <tr id="tablajug2" style="visibility: hidden">
                             <td><i id="turno2" hidden class="fas fa-hand-point-right fa-3x textoBlanco"></i></td>
                             <td id="columna2"></td>
-                            <td><label id="nombreEquipo2" class="textoBlanco"></label></td>
+                            <td><label id="nombreEquipo2" class="textoBlanco" style="font-size: 12px"></label></td>
                         </tr>
                         <tr id="tablajug3" style="visibility:hidden">
                             <td><i id="turno3" hidden class="fas fa-hand-point-right fa-3x textoBlanco"></i></td>
                             <td id="columna3"></td>
-                            <td><label id="nombreEquipo3" class="textoBlanco"></label></td>
+                            <td><label id="nombreEquipo3" class="textoBlanco" style="font-size: 12px"></label></td>
                         </tr>
                         <tr id="tablajug4" style="visibility:hidden">
                             <td><i id="turno4" hidden class="fas fa-hand-point-right fa-3x textoBlanco"></i></td>
                             <td id="columna4"></td>
-                            <td><label id="nombreEquipo4" class="textoBlanco"></label></td>
+                            <td><label id="nombreEquipo4" class="textoBlanco" style="font-size: 12px"></label></td>
                         </tr>
                         </tbody>
                     </table>
@@ -214,13 +214,13 @@
                                     </div>
                                 </div>
                                 <div class="row unir">
-                                    <div class="col-md-4">
+                                    <div class="col-md-4 text-right">
                                         <button id="botonImagenAUnir2" onclick="obtenerId(this);">
                                             <img id="imagenAUnir2" src="static/imagenes/imagenVacia.svg" class="img-thumbnail"
                                                  style="border:2px solid black" height="50" width="50">
                                         </button>
                                     </div>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 text-left">
                                         <button id="textoAUnir2" class="btn textoUnir" disabled
                                                 onclick="obtenerId(this);">
                                             Texto
@@ -229,13 +229,13 @@
                                     </div>
                                 </div>
                                 <div class="row unir">
-                                    <div class="col-md-4">
+                                    <div class="col-md-4 text-right">
                                         <button id="botonImagenAUnir3" onclick="obtenerId(this);">
                                             <img id="imagenAUnir3" src="static/imagenes/imagenVacia.svg" class="img-thumbnail"
                                                  style="border:2px solid black" height="50" width="50">
                                         </button>
                                     </div>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 text-left">
                                         <button id="textoAUnir3" class="btn textoUnir" disabled
                                                 onclick="obtenerId(this);">
                                             Texto 3
@@ -243,13 +243,13 @@
                                     </div>
                                 </div>
                                 <div class="row unir">
-                                    <div class="col-md-4">
+                                    <div class="col-md-4 text-right">
                                         <button id="botonImagenAUnir4" onclick="obtenerId(this);">
                                             <img id="imagenAUnir4" src="static/imagenes/imagenVacia.svg" class="img-thumbnail"
                                                  style="border:2px solid black" height="50" width="50">
                                         </button>
                                     </div>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 text-left">
                                         <button id="textoAUnir4" class="btn textoUnir" disabled
                                                 onclick="obtenerId(this);">
                                             Texto 4
@@ -283,7 +283,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -292,5 +291,5 @@
     <% include ../../parciales/footer %>
 </div>
 </body>
-<script src="/static/js/game.js"></script>
+<script src="/static/js/tablero.js"></script>
 </html>

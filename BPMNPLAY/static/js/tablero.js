@@ -73,9 +73,9 @@ socket.on('error', function (nombre) {
     alert(nombre);
 });
 
-socket.on('parametrosJuego', function () {
+socket.on('tuID', function () {
     idSocketActual = socket.io.engine.id;
-    console.log("Mi socket: " + idSocketActual)
+    console.log("Mi socket: " + idSocketActual);
 });
 
 socket.on('partida', function (data) {
@@ -1006,6 +1006,6 @@ function finalizarPartida() {
     let r = confirm("¿Está seguro de finalizar la partida?");
     if (r == true) {
         socket.emit('partidaCancelada', roomActual);
-        document.getElementById('linkFinalizarPartida').click();
+        document.getElementById('linkCancelarPartida').click();
     }
 }

@@ -381,11 +381,15 @@ exports.post_detalle_opcion_multiple = function (req, res) {
     });
 };
 exports.get_creacion_partida = function (req, res) {
+	console.log("Se tiene el siguiente rol al crear partida ", req.session.rol);
     if (req.session.usuario && req.params.materia) {
         if (req.session.rol == "facilitador") {
+			let idPartida = (req.params.materia.replace(" ", "_")) + Math.floor((1 + Math.random()) * 0x1000).toString(5).substring(1);
+			console.log("Se ha creado el idPartida ", idPartida);
             res.render('paginas/facilitador/creacionPartida', {
                 nombre: req.session.nombre,
-                materia: req.params.materia
+                materia: req.params.materia,
+				idPartida: idPartida
             });
         } else {
             if (req.session.rol == "partipante") {
@@ -400,23 +404,31 @@ exports.get_creacion_partida = function (req, res) {
     }
 };
 exports.post_tablero = function (req, res) {
-    if (req.session.rol == "facilitador") {
+    if (req.body.rol == "facilitador") {
         res.render('paginas/participante/tablero', {
             idPartida: req.body.idPartida,
             rol: req.body.rol,
-            nombreEquipo: req.body.nombreEquipo,
+            nombreEquipo: req.body.rol,
             nombre: req.session.nombre
         });
     }
     else {
-        res.render('paginas/participante/tablero', {
+		if(req.body.rol == "participante"){
+			res.render('paginas/participante/tablero', {
             idPartida: req.body.idPartida,
             rol: req.body.rol,
             nombreEquipo: req.body.nombreEquipo,
             nombre: req.body.nombreEquipo
         });
-
+		}else {
+			res.render('paginas/participante/tablero', {
+            idPartida: req.body.idPartida,
+            rol: req.body.rol,
+            nombreEquipo: req.body.rol,
+            nombre: req.body.rol
+		})
     }
+}
 };
 exports.get_opcion_multiple = function (req, res) {
     if (req.session.usuario) {
@@ -591,27 +603,16 @@ exports.post_agregar_varias_unir_voltear = function (req, res) {
     }
 };
 exports.post_lobby = function (req, res) {
-    console.log("idPArtida: " + req.session.idPartida);
-    if (req.session.usuario) {
-        if (req.session.rol == "facilitador") {
-            var numeroEquipos = req.body.numeroEquipos;
-            if (req.body.idPartida) {
-                res.render('paginas/facilitador/lobby', {
-                    nombre: req.session.nombre,
-                    materia: req.body.materia,
-                    idPartida: req.body.idPartida,
-                    rol: req.session.rol
-                });
-            } else {
-                var idPartida = req.body.materia + Math.floor((1 + Math.random()) * 0x1000).toString(5).substring(1);
-                req.session.idPartida = idPartida;
-                var informacionJugadores = [];
-                for (var i = 1; i <= numeroEquipos; i++) {
-                    var equipoU = [];
+    console.log("idPArtida de la sesion: " + req.session.idPartida);
+    console.log("idPArtida del body: " + req.body.idPartida);
+    if ((req.session.usuario!= undefined) && (req.session.rol == "facilitador") &&(req.body.idPartida != undefined)) {
+				let informacionJugadores = [];
+                for (let i = 1; i <= req.body.numeroEquipos; i++) {
+                    let equipoU = [];
                     equipoU.push("nombreEquipo" + i);
                     equipoU.push("imagenEquipo" + i);
 
-                    var nuevoEquipo = {
+                    let nuevoEquipo = {
                         nombreEquipo: req.body[equipoU[0]],
                         imagenEquipo: req.body[equipoU[1]]
                     };
@@ -623,25 +624,25 @@ exports.post_lobby = function (req, res) {
                     rol: req.session.rol,
                     usuario: req.session.usuario,
                     materia: req.body.materia,
-                    idPartida: idPartida,
-                    numeroEquipos: numeroEquipos,
+                    idPartida: req.body.idPartida,
+                    numeroEquipos: req.body.numeroEquipos,
                     informacionJugadores: informacionJugadores
                 });
-            }
 
         } else {
             res.redirect("/");
         }
-
-    } else {
-        res.redirect('/inicioSesion');
-
-    }
 };
-exports.post_lobby_pariticipante = function (req, res) {
+exports.post_lobby_participante = function (req, res) {
     if (req.body.tipoIngreso == "participante" || req.body.tipoIngreso == "espectador") {
-        var nombre = ((req.session.nombre == null) ? "Participante" : req.session.nombre);
-        var nombreEquipo = ((req.body.nombreEquipo == "ninguno") ? "Espectador" : req.body.nombreEquipo);
+		let nombre ="";
+		if(req.body.tipoIngreso == "espectador"){
+			nombre =((req.session.nombre == null) ? "Espectador" : req.session.nombre);
+		}else
+		{
+			nombre =((req.session.nombre == null) ? "Participante" : req.session.nombre);
+		}
+		let nombreEquipo = ((req.body.nombreEquipo == "ninguno") ? "Espectador" : req.body.nombreEquipo);
         res.render('paginas/participante/lobbyParticipante', {
             nombreEquipo: nombreEquipo,
             codigoPartida: req.body.codigoPartida,
@@ -651,7 +652,6 @@ exports.post_lobby_pariticipante = function (req, res) {
     } else {
         res.render('paginas/error', {mensaje: "Estas accediendo a un lugar donde no tienes acceso", direccion: "/"});
     }
-
 };
 exports.post_cambiar_tipo_materia = function (req, res) {
     if (req.session.usuario && req.body.materia) {
@@ -715,7 +715,7 @@ exports.get_validar_cuenta = function (req, res) {
         res.redirect('/')
     }
 };
-exports.post_confirmar_cuenta = function (req, res) {
+exports.post_validar_cuenta = function (req, res) {
     if (req.session.usuarioTemporal != "") {
         Usuario.findOne({usuario: req.body.usuario}, function (error, doc) {
             if (error) {
@@ -1482,12 +1482,12 @@ exports.post_partida_finalizada = function (req, res) {
                             }
                         }
                     }
-                    console.log("Rol: " + req.session.rol);
-                    if (req.session.rol == "facilitador") {
+                    console.log("Rol: " + req.body.rol);
+                    if (req.body.rol == "facilitador") {
                         res.render('paginas/participante/partidaFinalizada', {
                             idPartida: req.body.idPartida,
                             rol: req.body.rol,
-                            nombreEquipo: req.body.nombreEquipo,
+                            nombreEquipo: req.body.rol,
                             nombre: req.session.nombre,
                             equipos: equipos
                         });
@@ -1505,7 +1505,7 @@ exports.post_partida_finalizada = function (req, res) {
                 } else {
                     console.log("Idpartida: " + req.body.idPartida);
                     res.render('paginas/error', {
-                        mensaje: "No existe la partida con la que se accedio",
+                        mensaje: "No existe la partida "+ req.body.idPartida + "." ,
                         direccion: "/"
                     });
                 }

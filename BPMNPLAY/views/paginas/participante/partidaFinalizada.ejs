@@ -41,7 +41,7 @@
                                  height="150" width="150">
                         </td>
                         <td>
-                            <img id="lugar<%= i %>" src="../../../static/equipo<%= (equipos[i].icono) %>.svg"
+                            <img id="lugar<%= i %>" src="../../../static/imagenes/equipo<%= (equipos[i].icono) %>.svg"
                                  height="150" width="150">
                         </td>
                         <td><h3 style="text-transform: uppercase" class="textoBlanco"><%= equipos[i].nombre %></h3>
@@ -52,16 +52,20 @@
 
                     </tbody>
                 </table>
+                <% if (rol == "facilitador"){%>
                 <div class="row text-center">
                     <form name="formulario" hidden method="post" action="/salirPartida">
                         <input type="text" hidden name="idPartida" id="idPartida" value="<%= idPartida %>">
-                        <button type="submit" class="btn btn-primary degradoBoton" id="botonFinalizacion"> <i class="fas fa-sign-out-alt"></i> Salir de partida</button>
+                        <button type="submit" class="btn btn-primary degradoBoton" id="botonFinalizacion" > <i class="fas fa-sign-out-alt"></i> Salir de partida</button>
                     </form>
                 </div>
+                <%}%>
             </div>
             <div class="col-md-3"></div>
         </div>
     </div>
+	<script>
+	</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"></script>
     <footer>
         <% include ../../parciales/footer.ejs %>
