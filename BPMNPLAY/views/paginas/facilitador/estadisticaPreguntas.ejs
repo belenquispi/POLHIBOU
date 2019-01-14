@@ -60,8 +60,12 @@
             </div>
             <div class="col-md-10">
                 <div class="row">
-                    <div class="col-md-12">
-                        <h2 class="textoBlanco">PREGUNTAS DE LA TEMÁTICA <%= asignatura %></h2>
+                    <div class="col-md-8">
+                        <h4 class="textoBlanco">PREGUNTAS DE LA TEMÁTICA <%= asignatura %></h4>
+                    </div>
+                    <div class="col-md-4 text-right " ><a href="/estadisticas"
+                                                          id="botonRegresar" class="btn btn-primary degradoBoton"><i
+                                    class="fas fa-undo-alt"></i> REGRESAR</a>
                     </div>
                 </div>
                 <input type="text" id="numPreguntas" hidden value="<%= preguntas.length %>">
@@ -74,7 +78,7 @@
                             <div class="card-header bg-white">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h5 style="color: black">PREGUNTA: <%= (i + 1) %></h5>
+                                        <p style="color: black">PREGUNTA: <%= (i + 1) %></p>
                                     </div>
                                 </div>
                             </div>
@@ -82,7 +86,7 @@
                                 <div class="row">
                                     <div class="col-md-8">
                                         <h5 class="textoBlanco"><%= preguntas[i].enunciado %></h5>
-                                        <p class="textoBlanco">Número de salidas total: <%= preguntas[i].resCorrecta + preguntas[i].resIncorrecta%></p>
+                                        <p class="textoBlanco">Total de veces respondida: <%= preguntas[i].resCorrecta + preguntas[i].resIncorrecta%></p>
                                         <canvas id="myChart<%= (i + 1) %>" width="1000" height="150"
                                                 class="chartjs-render-monitor bg-white"
                                                 style="display: block; width: 1000px; height: 150px; "

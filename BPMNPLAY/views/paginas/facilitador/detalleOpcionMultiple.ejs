@@ -72,7 +72,7 @@
         %>
             <div class="form-row" id="divRespuestasTexto">
                 <% let respuesta = [preguntaOpcionMultiple.res1, preguntaOpcionMultiple.res2, preguntaOpcionMultiple.res3, preguntaOpcionMultiple.res4];
-                for (let i = 0 ; i < 4 ; i++) { %>
+                for (let i = 0 ; i < 4 ; i++) { console.log("estoy aqui")%>
                 <div class="form-group col-md-6">
                     <label for="res<%= (i + 1) %>" class="textoBlanco">RESPUESTA <%= (i + 1) %>:</label>
                     <input type="text" class="form-control" id="res<%= (i + 1) %>"

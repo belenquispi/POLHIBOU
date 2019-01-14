@@ -121,7 +121,7 @@ for (var i = 0; i < dificultades.length; i++) {
                                         <label for="nombreImagen">NOMBRE DE LA IMAGEN:</label>
                                         <input type="text" class="form-control" required
                                                placeholder="Nombre de la imagen" name="nombreImagen">
-                                        <input type="text" name="materia" hidden value=<%= materia %>>
+                                        <input type="text" name="materia" hidden value="<%= materia %>">
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -163,7 +163,7 @@ for (var i = 0; i < dificultades.length; i++) {
                                     <div class="col-md-3">
                                         <form action="/eliminarUnirVoltear" method="post">
                                             <input type="text" name="idPregunta" hidden value=<%= idPreguntas[i] %>>
-                                            <input type="text" name="materia" hidden value=<%= materia %>>
+                                            <input type="text" name="materia" hidden value="<%= materia %>">
                                             <button class="btn btn-primary degradoMenu" type="submit"><i
                                                         class="fas fa-trash-alt"></i>
                                             </button>

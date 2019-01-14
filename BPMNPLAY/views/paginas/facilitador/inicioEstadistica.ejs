@@ -46,22 +46,22 @@
         <div class="col-md-10">
             <div class="row">
                 <div class="col-md-12" >
-                    <h2 class="textoBlanco">TEMÁTICAS</h2>
+                    <h4 class="textoBlanco">TEMÁTICAS</h4>
                 </div>
             </div>
             <div class="row">
-                <% if(preguntas.length == 0){ %>
+                <% if(tematicas.length == 0){ %>
                 <label class="textoBlanco">** No se han creado temáticas aun.</label>
                 <% }%>
-                <% for(var i = 0; i < materias.length; i++) { %>
+                <% for(var i = 0; i < tematicas.length; i++) { %>
                 <div class="col-md-4">
                     <div class="card opacoCard" style="margin-top: 10px">
                         <div class="card-header bg-white">
-                            <h5 style="color: black"><%= materias[i].nombre %></h5>
+                            <h5 style="color: black"><%= tematicas[i].nombre %></h5>
                         </div>
                         <div class="card-body">
-                            <a href="/estadisticaParticipante/<%=materias[i].nombre%>" class="btn btn-primary degradoBoton"> <i class="fas fa-chart-bar"></i> POR PARTICIPANTE</a>
-                            <a href="/estadisticaPregunta/<%=materias[i].nombre%>" class="btn btn-primary degradoBoton"> <i class="fas fa-chart-bar"></i> POR PREGUNTA</a>
+                            <a href="/estadisticaParticipante/<%=tematicas[i].nombre%>" class="btn btn-primary degradoBoton"> <i class="fas fa-chart-bar"></i> POR PARTICIPANTE</a>
+                            <a href="/estadisticaPregunta/<%=tematicas[i].nombre%>" class="btn btn-primary degradoBoton"> <i class="fas fa-chart-bar"></i> POR PREGUNTA</a>
                         </div>
                     </div>
                 </div>

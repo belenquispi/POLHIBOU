@@ -126,7 +126,7 @@ for (var i = 0; i < dificultades.length; i++) {
                                 <div class="input-group mb-2 col-md-12">
                                     <form action="/detalleOpcionMultiple" method="post">
                                         <input type="text" name="idPregunta" hidden value=<%= idPreguntas[i] %>>
-                                        <input type="text" name="materia" hidden value=<%= materia %>>
+                                        <input type="text" name="materia" hidden value="<%= materia %>">
                                         <span class="badge badge-light">Dificultad: <%= dificultades[i] %></span>
                                         <br>
                                         <button id=<%= enunciadoPreguntas[i] %> type="submit" class="btn btn-primary degradoBoton"

@@ -348,13 +348,13 @@ exports.post_detalle_opcion_multiple = function (req, res) {
             return e.nombre
         }).indexOf(req.body.materia);
 
-        var indicePregunta = doc.materias[indice].preguntasOpcionMultiple.map(function (e) {
-            return e.idPregunta
-        }).indexOf(req.body.idPregunta);
+          var indicePregunta = -1;
+        if(indice >-1){
+            indicePregunta = doc.materias[indice].preguntasOpcionMultiple.map(function (e) {
+                return e.idPregunta
+            }).indexOf(req.body.idPregunta);
+        }
 
-        console.log("idpregunta")
-        console.log(indicePregunta)
-        console.log(req.body.idPregunta)
         if (indicePregunta >= 0) {
             var preguntaOpcionMultiple = {
                 enunciado: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].enunciado,
@@ -1169,7 +1169,7 @@ exports.get_estadisticas = function (req, res) {
             res.render('paginas/facilitador/inicioEstadistica', {
                 nombre: req.session.nombre,
                 usuario: req.session.usuario,
-                materias: materias
+                tematicas: materias
 
             });
 
