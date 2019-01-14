@@ -277,18 +277,12 @@ io.on('connection', function (socket) {
         }
         else {
             console.log("La partida ya se encuentra creada en el array de partidas");
-            /*if (partidas[indicePartida].jugadores.length < 4) {
-                for (let i = 0; i < informacionJugadores.length; i++) {
-                    insertarDatosJugador(indicePartida, informacionJugadores[i].iconoEquipo, informacionJugadores[i].nombreEquipo);
-                    descargarPreguntas(indicePartida, usuario, idMateria);
-                }
-            }*/
         }
     });
     socket.on('verificarPartida', function (room) {
         let indicePartida = consultarIdPartida(room);
         let arrayJugadores = [];
-
+		socket.join(room);
         if (indicePartida >= 0) {
             for (let i = 0; i < partidas[indicePartida].jugadores.length; i++) {
                 if (partidas[indicePartida].jugadores[i].listo == 0) {
@@ -296,15 +290,15 @@ io.on('connection', function (socket) {
                 }
             }
         }
-        socket.emit('confirmacionPartida', arrayJugadores, indicePartida);
+        io.sockets.in(room).emit('confirmacionPartida', arrayJugadores, indicePartida);
     });
     socket.on('verificarEquipo', function (room, nombreEquipo) {
         var indicePartida = consultarIdPartida(room);
         var indiceJugador = consultarIdJugador(indicePartida, nombreEquipo);
         if (partidas[indicePartida].jugadores[indiceJugador].idSocket == "") {
-            io.sockets.in(room).emit('confirmacionEquipo', "true")
+            io.sockets.in(room).emit('confirmacionEquipo', true)
         } else {
-            io.sockets.in(room).emit('confirmacionEquipo', "false")
+            io.sockets.in(room).emit('confirmacionEquipo', false)
         }
     });
     socket.on('verificarInicioPartida', function (room) {
@@ -317,8 +311,8 @@ io.on('connection', function (socket) {
                 }
             }
             if (numeroJugadoresConectados > 0) {
-                io.sockets.in(room).emit('confirmacionInicioPartida', "true");
-            }
+                io.sockets.in(room).emit('confirmacionInicioPartida', true);
+            }else {io.sockets.in(room).emit('confirmacionInicioPartida', false);}
         } else {
             console.log("La partida ingresada no existe");
         }
@@ -742,9 +736,30 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
         actualizarOrdenPartidas(roomActual);
         if (partidas[indicePartidaActual].turnoJugadores.length < 2) {
             if (partidas[indicePartidaActual].lugaresJugadores.length != partidas[indicePartidaActual].jugadores.length) {
+				let jugadoresFaltantes = [];
                 for (let x = 0; x < partidas[indicePartidaActual].jugadores.length; x++) {
                     console.log("El index: "+partidas[indicePartidaActual].lugaresJugadores.indexOf(partidas[indicePartidaActual].jugadores[x].idSocket));
+					if(partidas[indicePartidaActual].lugaresJugadores.indexOf(partidas[indicePartidaActual].jugadores[x].idSocket) < 0){
+						jugadoresFaltantes.push(partidas[indicePartidaActual].jugadores[x].idSocket);
+					}
                 }
+				while(jugadoresFaltantes.length> 0)
+				{
+					let mayor=-1;
+					let siguienteJugador="";
+					for (let y = 0; y < jugadoresFaltantes.length; y++) {
+						let indice = partidas[indicePartidaActual].jugadores.map(function (e){return e.idSocket; }).indexOf(jugadoresFaltantes[y]);
+						if(indice > -1){
+							if(partidas[indicePartidaActual].jugadores[indice].casilla > mayor){
+								mayor = partidas[indicePartidaActual].jugadores[indice].casilla;
+								siguienteJugador = jugadoresFaltantes[y];
+							}
+						}
+					}
+					partidas[indicePartidaActual].lugaresJugadores.push(siguienteJugador);
+					jugadoresFaltantes.splice(jugadoresFaltantes.indexOf(siguienteJugador), 1);
+				}
+				
             }
             if (partidas[indicePartidaActual].lugaresJugadores.length == partidas[indicePartidaActual].jugadores.length) {
                 Partida.findOne({idPartida: partidas[indicePartidaActual].nombrePartida}, function (error, doc) {
