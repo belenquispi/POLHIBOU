@@ -296,7 +296,6 @@ io.on('connection', function (socket) {
                 }
             }
         }
-        console.log("Se envía la confirmación de la validación de la partida " + arrayJugadores + "  " + indicePartida);
         socket.emit('confirmacionPartida', arrayJugadores, indicePartida);
     });
     socket.on('verificarEquipo', function (room, nombreEquipo) {
@@ -309,7 +308,6 @@ io.on('connection', function (socket) {
         }
     });
     socket.on('verificarInicioPartida', function (room) {
-        console.log("Se verificó que la partida aun no se encuentre ");
         let indicePartida = consultarIdPartida(room);
         let numeroJugadoresConectados = 0;
         if (indicePartida >= 0) {
@@ -356,10 +354,9 @@ io.on('connection', function (socket) {
                             if (partidas[indicePartida].jugadores.length == partidas[indicePartida].turnoJugadores.length) {
                                 Partida.findOne({idPartida: partidas[indicePartida].nombrePartida}, function (error, doc) {
                                     if (error) {
-                                        console.log("Error3 en consultar la partida desde la BDD de las partidas: " + error);
+                                        console.log("Error en consultar la partida desde la BDD de las partidas: " + error);
                                     }
                                     if (doc != null) {
-                                        console.log(" Se va a agregar los jugadores a la base de las partidas: " + error);
                                         let jugadoresPartida = [];
                                         for (let x = 0; x < partidas[indicePartida].jugadores.length; x++) {
                                             let jugadorPartida = {
@@ -401,7 +398,6 @@ io.on('connection', function (socket) {
         }
     });
     socket.on('inicio', function (room, rol, nombreEquipoJugar) {
-        console.log("Se realizo uno emit de inicio");
         var indicePartida = partidas.map(function (e) {
             return e.nombrePartida
         }).indexOf(room);
@@ -411,16 +407,13 @@ io.on('connection', function (socket) {
                 io.sockets.in(room).emit("nombreRol", "Espectador");
             } else {
                 if (rol == "facilitador") {
-                    console.log("Inicio el profesor");
                     socket.join(room);
                     io.sockets.in(room).emit("nombreRol", "Profesor");
                 }
                 else {
                     if (rol == "participante") {
                         socket.join(room);
-                        console.log("Inicio el jugador : " + room + " rol: " + rol + " nombreEquipoJugar: " + nombreEquipoJugar);
                         var nombreEquipo = nombreEquipoJugar.replace("+", " ");
-                        console.log("Inicio el jugador2 : " + room + " rol: " + rol + " nombreEquipoJugar: " + nombreEquipoJugar);
                         var idJugador = partidas[indicePartida].jugadores.map(function (e) {
                             return e.nombreEquipo
                         }).indexOf(nombreEquipo);
@@ -489,7 +482,6 @@ io.on('connection', function (socket) {
                         });
                         partida.save(function (err) {
                             if (err) return console.log(err);
-                            console.log("La partida se ha guardado en la BD");
                         })
                     }
                 }
@@ -628,9 +620,7 @@ io.on('connection', function (socket) {
         actualizarOrdenPartidas(room);
     });
     socket.on('tiempoTerminado', function (room) {
-        console.log("El tiempo se ha terminado en la partida: " + room);
         let indicePartida = consultarIdPartida(room);
-        console.log("El tiempo 2 se ha terminado en la partida: " + partidas[indicePartida].nombrePartida);
         io.sockets.in(partidas[indicePartida].nombrePartida).emit('avisoTiempoTerminado', socket.id);
     });
     socket.on('darLaVuelta', function (room) {
@@ -742,28 +732,18 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
     if (this.tileFrom[0] == this.tileTo[0] && this.tileFrom[1] == this.tileTo[1]) {
         return false;
     }
-    console.log(this.casilla);
-    if (this.casilla == 34) {
-        console.log(this.casilla);
-        console.log("La casilla es 34");
-        console.log("id Jugador:" + partidas[indicePartidaActual].jugadores[indiceJugadorActual].idSocket);
+    if (this.casilla == 34)  {
         partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = 0;
         if (partidas[indicePartidaActual].lugaresJugadores.indexOf(this.idSocket) == -1) {
             partidas[indicePartidaActual].lugaresJugadores.push(this.idSocket);
-            console.log("El jugador " + this.idSocket + " se ha agregado en el array de lugares " + partidas[indicePartidaActual].lugaresJugadores);
             partidas[indicePartidaActual].turnoJugadores.splice(partidas[indicePartidaActual].turnoJugadores.indexOf(this.idSocket), 1);
             io.sockets.in(roomActual).emit('ocultarBoton', idSocket);
         }
         actualizarOrdenPartidas(roomActual);
-        if(partidas[indicePartidaActual].turnoJugadores.length < 2)
-        {
-            if(partidas[indicePartidaActual].lugaresJugadores.length != partidas[indicePartidaActual].jugadores.length)
-            {
-                for(let x = 0; x < partidas[indicePartidaActual].jugadores.length; x++){
-                for(let y = 0; y < partidas[indicePartidaActual].lugaresJugadores.length; y++) {
-
-                }
-
+        if (partidas[indicePartidaActual].turnoJugadores.length < 2) {
+            if (partidas[indicePartidaActual].lugaresJugadores.length != partidas[indicePartidaActual].jugadores.length) {
+                for (let x = 0; x < partidas[indicePartidaActual].jugadores.length; x++) {
+                    console.log("El index: "+partidas[indicePartidaActual].lugaresJugadores.indexOf(partidas[indicePartidaActual].jugadores[x].idSocket));
                 }
             }
             if (partidas[indicePartidaActual].lugaresJugadores.length == partidas[indicePartidaActual].jugadores.length) {
@@ -776,8 +756,6 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
                             doc.turnoJugadores = partidas[indicePartidaActual].lugaresJugadores;
                             doc.save(function (err, partidaF) {
                                 if (err) return console.log(err);
-                                console.log("Se ha almacenado en la BD el lugar de los jugadores");
-                                console.log("Partida finalizada desde server");
                                 io.sockets.in(roomActual).emit('partidaFinalizada');
                             })
                         }
@@ -792,7 +770,6 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
     }
     if ((t - this.timeMoved) >= this.delayMove) {
         this.placeAt(this.tileTo[0], this.tileTo[1]);
-        console.log("La casilla es 34 pero aun me muevo");
         if (partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP > 1) {
             if (this.canMoveDirection(this.direction)) {
                 this.moveDirection(this.direction, t);
@@ -814,12 +791,10 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
             if (casillaDeLlegada == 7 || casillaDeLlegada == 13 || casillaDeLlegada == 21 || casillaDeLlegada == 27) {
                 let misterioAsignado = Math.floor(Math.random() * 2);
                 if (misterioAsignado == 1) {
-                    console.log("Buena suerte");
                     partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = Math.floor(Math.random() * 3 + 1);
                     io.sockets.in(partidas[indicePartidaActual].nombrePartida).emit('mensajeMisterio', 1, partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP);
                     partidas[indicePartidaActual].jugadores[indiceJugadorActual].moverseA += partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP;
                 } else {
-                    console.log("Mala suerte");
                     io.sockets.in(partidas[indicePartidaActual].nombrePartida).emit('mensajeMisterio', 0, partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP);
                     partidas[indicePartidaActual].jugadores[indiceJugadorActual].maldicion = 1;
                 }
@@ -827,7 +802,6 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
 
             if (this.casilla != 34) {
                 let j = partidas[indicePartidaActual].turnoJugadores.shift();
-                console.log("JJJJ: " + j)
                 partidas[indicePartidaActual].turnoJugadores.push(j);
                 actualizarOrdenPartidas(roomActual);
             }

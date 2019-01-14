@@ -50,9 +50,10 @@
                 </div>
             </div>
             <div class="row">
-                <%
-                for(var i = 0; i < materias.length; i++) {
-                    console.log(materias[i]) %>
+                <% if(preguntas.length == 0){ %>
+                <label class="textoBlanco">** No se han creado temáticas aun.</label>
+                <% }%>
+                <% for(var i = 0; i < materias.length; i++) { %>
                 <div class="col-md-4">
                     <div class="card opacoCard" style="margin-top: 10px">
                         <div class="card-header bg-white">
