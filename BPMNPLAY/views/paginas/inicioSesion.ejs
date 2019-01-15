@@ -31,7 +31,7 @@
                                     </div>
                                     <div class="form-group col-md-8">
                                         <input type="text" name="usuario" id="usuario" tabindex="1"
-                                               class="form-control is-invalid" required placeholder="Usuario">
+                                               class="form-control is-invalid" required placeholder="Usuario" onchange="verificarIngreso(this)">
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -40,7 +40,7 @@
                                     </div>
                                     <div class="form-group col-md-8">
                                         <input type="password" name="contrasenia" id="contrasenia" tabindex="2"
-                                               class="form-control is-invalid " required placeholder="Contraseña">
+                                               class="form-control is-invalid " required placeholder="Contraseña" onchange="verificarIngreso(this)">
                                         <div class="invalid-feedback">Las credenciales no son válidas.</div>
                                     </div>
                                 </div>
@@ -61,7 +61,7 @@
                                     </div>
                                     <div class="form-group col-md-8">
                                         <input type="text" name="usuario" id="usuario" tabindex="1" class="form-control"
-                                               required placeholder="Usuario" value="">
+                                               required placeholder="Usuario" value="" onchange="verificarIngreso(this)">
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -70,7 +70,7 @@
                                     </div>
                                     <div class="form-group col-md-8">
                                         <input type="password" name="contrasenia" id="contrasenia" tabindex="2"
-                                               class="form-control" required placeholder="Contraseña">
+                                               class="form-control" required placeholder="Contraseña" onchange="verificarIngreso(this)">
                                     </div>
                                 </div>
                             <% } %>
@@ -110,5 +110,13 @@
         <div class="col-md-3"></div>
     </div>
 </div>
+<script>
+    function verificarIngreso(valor) {
+        if (document.getElementById(valor.id).value.trim().length < 1) {
+            alert("El texto ingresado está en blanco");
+            document.getElementById(valor.id).value = "";
+        }
+    }
+</script>
 </body>
 </html>

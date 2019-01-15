@@ -35,4 +35,10 @@ function verificarMateria() {
         }
     }
 }
+function verificarIngreso(valor) {
+    if (document.getElementById(valor.id).value.trim().length < 1) {
+        alert("El nombre de la temática está en blanco");
+        document.getElementById(valor.id).value = "";
+    }
+}
 

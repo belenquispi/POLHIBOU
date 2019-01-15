@@ -45,7 +45,7 @@
                         <div class="col-md-12 " style="margin: 10px">
                         <div class="row">
                         <div class="col-md-3">
-                            <button id="<%= preguntas[i].idPregunta %>" class="btn btn-outline-light" disabled
+                            <button id="<%= preguntas[i].idPregunta %>" class="btn btn-outline-light disabledbutton"
                                     onclick="obtenerId(this);">
                                 <img id="imagenAUnir<%= (i + 1) %>" src="<%= preguntas[i].imagen %>"
                                      height="50" width="50">
@@ -58,8 +58,8 @@
                                 console.log(indice);
                             %>
 
-                            <button id="<%= respuestas[indice + 1] %>" class="btn btn-outline-light btn-block textoBlanco"
-                                    disabled
+                            <button id="<%= respuestas[indice + 1] %>" class="btn btn-outline-light btn-block textoBlanco disabledbutton"
+
                                     onclick="obtenerId(this);"><%= respuestas[indice + 1] %>
                             </button>
                         </div>
@@ -88,14 +88,14 @@
                 <div class="col-md-12 " style="margin: 10px">
                     <div class="row">
                     <div class="col-md-6">
-                        <button id="<%= preguntas[i].idPregunta %>" class="btn btn-outline-light" disabled
+                        <button id="<%= preguntas[i].idPregunta %>" class="btn btn-outline-light disabledbutton"
                                 onclick="obtenerId(this);">
                             <img id="imagenAUnir<%= (i + 1) %>" src="<%= preguntas[i].imagen %>"
                                  height="50" width="50">
                         </button>
                     </div>
                     <div class="col-md-6">
-                        <button id="<%= preguntas[i].texto %>" class="btn btn-outline-light textoUnir btn-block" disabled
+                        <button id="<%= preguntas[i].texto %>"  class="btn btn-outline-light textoUnir btn-block disabledbutton"
                                 onclick="obtenerId(this);"><%= preguntas[i].texto %>
                         </button>
                     </div>

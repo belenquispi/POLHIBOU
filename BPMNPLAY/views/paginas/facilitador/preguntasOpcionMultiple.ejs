@@ -7,101 +7,119 @@
 </head>
 <body>
 <div class="opaco">
-<header>
-    <% include ../../parciales/headerProfesor %>
-</header>
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb opacoCard border border-white">
-        <li class="breadcrumb-item"><a href="/ingresoFacilitador" class="textoBlanco">INICIO</a></li>
-        <li class="breadcrumb-item"><a href="/ingresoFacilitador/" class="textoBlanco">MATERIAS</a></li>
-        <li class="breadcrumb-item"><a href="/ingresoFacilitador/preguntasOpcionMultiple/<%= materia %>" class="textoBlanco">PREGUNTAS</a></li>
-    </ol>
-</nav>
-<div class="container">
-    <div class="row" style="margin-top: 20px">
-        <h4 class="textoBlanco">INGRESO DE PREGUNTA OPCIÓN MÚLTIPLE</h4>
-    </div >
-    <form action="/ingresoFacilitador/preguntasOpcionMultiple" method="post" onmouseover="verificarBotonGuardar()" style="margin: 10px">
-        <div class="form-row">
-            <input type="text" name="materia" value="<%= materia %>" hidden>
-            <div class="form-group col-md-12 mb-3">
-                <label for="enunciado" class="textoBlanco">ENUNCIADO:</label>
-                <input type="text" class="form-control" id="enunciado" required
-                       placeholder="Enunciado de la pregunta" name="enunciado">
-            </div>
-            <div class="form-group col-md-6 mb-3">
-               <label for="botonArchivoEnunciado" class="textoBlanco">CARGAR IMAGEN (OPCIONAL):</label>
-                <input type="file" class="btn btn-file btn-light" id="botonArchivoEnunciado" value="uploadEnunciado"
-                       accept=".png, .jpg, .jpeg"
-                       onchange="mostrarVistaPreviaImagen(event, 'imagenCargadaEnunciado'), encodeImageFileAsURL(this)">
-                <input type="text" hidden id="imagenEnunciado" name="imagenEnunciado">
-            </div>
-            <div class="form-group col-md-1">
-                <br>
-                <img id="imagenCargadaEnunciado" width="50" height="50"/>
-            </div>
-            <div class="form-group col-md-1">
-                <br>
-                <button type="button" id="eliminarImagen" class="btn btn-light" hidden onclick="eliminarImagenCargada()"> <i class = "far fa-times-circle fa-2x" style="color: red"></i></button>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-12">
-                <label for="soloTexto" class="textoBlanco">SELECCIONE EL TIPO DE RESPUESTA:</label>
-                <button type="button" id="soloTexto" class="btn btn-primary degradoBoton" onclick="mostrarRespuestas(1)">Solo texto</button>
-                <button type="button" id="soloImagenes" class="btn btn-primary degradoBoton" onclick="mostrarRespuestas(2)">Solo imagenes</button>
-            </div>
-        </div>
-        <div class="form-row" id="divRespuestasTexto" hidden>
-            <% for (var i = 1 ; i < 5 ; i++) { %>
-            <div class="form-group col-md-6">
-                <label for="res<%= i %>" class="textoBlanco">RESPUESTA <%= i %>:</label>
-                <input type="text" class="form-control " id="res<%= i %>" placeholder="Ingrese la respuesta <%= i %>"
-                       name="res<%= i %>">
-            </div>
-            <% } %>
-        </div>
-        <div class="form-row" id="divRespuestasImagenes" hidden>
-            <% for (var i = 1 ; i < 5 ; i++) { %>
-            <div class="form-group col-md-4">
-                <label for="botonArchivoRes<%= i %>" class="textoBlanco">RESPUESTA <%= i %>:</label>
-                <input type="file" class="form-control" id="botonArchivoRes<%= i %>"
-                       value="uploadRes<%= i %>" accept=".png, .jpg, .jpeg"
-                       onchange="mostrarVistaPreviaImagen(event, 'imagenCargadaRespuesta<%= i %>', encodeImageFileAsURL(this))">
-                <input type="text" hidden id="imagenRes<%= i %>" name="imagenRes<%= i %>">
-            </div>
-            <div class="form-group col-md-2">
-                <br>
-                <img id="imagenCargadaRespuesta<%= i %>" width="50" height="50"/>
-            </div>
-            <% } %>
-        </div>
-        <div class="form-row" id="divRespuestas" hidden>
-            <div class="form-group col-md-6">
-                <label for="dificultad" class="textoBlanco" >DIFICULTAD:</label>
-                <select id="dificultad" name="dificultad" required class="form-control">
-                    <option value="Fácil">Fácil</option>
-                    <option value="Medio">Medio</option>
-                    <option value="Difícil">Difícil</option>
-                </select>
-            </div>
+    <header>
+        <% include ../../parciales/headerProfesor %>
+    </header>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb opacoCard border border-white">
+            <li class="breadcrumb-item"><a href="/ingresoFacilitador" class="textoBlanco">INICIO</a></li>
+            <li class="breadcrumb-item"><a href="/ingresoFacilitador/" class="textoBlanco">MATERIAS</a></li>
+            <li class="breadcrumb-item"><a href="/ingresoFacilitador/preguntasOpcionMultiple/<%= materia %>"
+                                           class="textoBlanco">PREGUNTAS</a></li>
+        </ol>
+    </nav>
+    <div class="container">
+        <div class="row" style="margin-top: 20px">
+            <div class="col-md-8">
 
-            <div class="form-group col-md-6">
-                <label for="resCorrecta" class="textoBlanco">RESPUESTA CORRECTA:</label>
-                <select id="resCorrecta" name="respuestaCorrecta" class="form-control">
-                    <option value="res1">Respuesta 1</option>
-                    <option value="res2">Respuesta 2</option>
-                    <option value="res3">Respuesta 3</option>
-                    <option value="res4">Respuesta 4</option>
-                </select>
+                <h4 class="textoBlanco">INGRESO DE PREGUNTA OPCIÓN MÚLTIPLE</h4>
             </div>
-            <div class="form-group col-md-12 text-center">
-                <button type="submit" id="botonGuardar" class="btn btn-primary degradoBoton" disabled><i class="fas fa-save"></i> Guardar</button>
+            <div class="col-md-4 text-right "><a href="/ingresoFacilitador/preguntasOpcionMultiple/<%= materia %>"
+                                                 id="botonRegresar" class="btn btn-primary degradoBoton"><i
+                            class="fas fa-undo-alt"></i> REGRESAR</a>
             </div>
         </div>
-    </form>
-</div>
-<script type="text/javascript" src="/static/js/preguntasOpcionMultiple.js"></script>
+        <form action="/ingresoFacilitador/preguntasOpcionMultiple" method="post" onmouseover="verificarBotonGuardar()"
+              style="margin: 10px">
+            <div class="form-row">
+                <input type="text" name="materia" value="<%= materia %>" hidden>
+                <div class="form-group col-md-12 mb-3">
+                    <label for="enunciado" class="textoBlanco">ENUNCIADO:</label>
+                    <input type="text" class="form-control" id="enunciado" required
+                           placeholder="Enunciado de la pregunta" name="enunciado" onchange="verificarIngreso(this)">
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label for="botonArchivoEnunciado" class="textoBlanco">CARGAR IMAGEN (OPCIONAL):</label>
+                    <input type="file" class="btn btn-file btn-light" id="botonArchivoEnunciado" value="uploadEnunciado"
+                           accept=".png, .jpg, .jpeg"
+                           onchange="mostrarVistaPreviaImagen(event, 'imagenCargadaEnunciado'), encodeImageFileAsURL(this)">
+                    <input type="text" hidden id="imagenEnunciado" name="imagenEnunciado">
+                </div>
+                <div class="form-group col-md-1">
+                    <br>
+                    <img id="imagenCargadaEnunciado" width="50" height="50"/>
+                </div>
+                <div class="form-group col-md-1">
+                    <br>
+                    <button type="button" id="eliminarImagen" class="btn btn-light" hidden
+                            onclick="eliminarImagenCargada()"><i class="far fa-times-circle fa-2x"
+                                                                 style="color: red"></i></button>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="soloTexto" class="textoBlanco">SELECCIONE EL TIPO DE RESPUESTA:</label>
+                    <button type="button" id="soloTexto" class="btn btn-primary degradoBoton"
+                            onclick="mostrarRespuestas(1)">Solo texto
+                    </button>
+                    <button type="button" id="soloImagenes" class="btn btn-primary degradoBoton"
+                            onclick="mostrarRespuestas(2)">Solo imagenes
+                    </button>
+                </div>
+            </div>
+            <div class="form-row" id="divRespuestasTexto" hidden>
+                <% for (var i = 1 ; i < 5 ; i++) { %>
+                <div class="form-group col-md-6">
+                    <label for="res<%= i %>" class="textoBlanco">RESPUESTA <%= i %>:</label>
+                    <input type="text" class="form-control " id="res<%= i %>"
+                           placeholder="Ingrese la respuesta <%= i %>"
+                           name="res<%= i %>" onchange="verificarIngreso(this)">
+                </div>
+                <% } %>
+            </div>
+            <div class="form-row" id="divRespuestasImagenes" hidden>
+                <% for (var i = 1 ; i < 5 ; i++) { %>
+                <div class="form-group col-md-4">
+                    <label for="botonArchivoRes<%= i %>" class="textoBlanco">RESPUESTA <%= i %>:</label>
+                    <input type="file" class="form-control" id="botonArchivoRes<%= i %>"
+                           value="uploadRes<%= i %>" accept=".png, .jpg, .jpeg"
+                           onchange="mostrarVistaPreviaImagen(event, 'imagenCargadaRespuesta<%= i %>', encodeImageFileAsURL(this))">
+                    <input type="text" hidden id="imagenRes<%= i %>" name="imagenRes<%= i %>">
+                </div>
+                <div class="form-group col-md-2">
+                    <br>
+                    <img id="imagenCargadaRespuesta<%= i %>" width="50" height="50"/>
+                </div>
+                <% } %>
+            </div>
+            <div class="form-row" id="divRespuestas" hidden>
+                <div class="form-group col-md-6">
+                    <label for="dificultad" class="textoBlanco">DIFICULTAD:</label>
+                    <select id="dificultad" name="dificultad" required class="form-control">
+                        <option value="Fácil">Fácil</option>
+                        <option value="Medio">Medio</option>
+                        <option value="Difícil">Difícil</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="resCorrecta" class="textoBlanco">RESPUESTA CORRECTA:</label>
+                    <select id="resCorrecta" name="respuestaCorrecta" class="form-control">
+                        <option value="res1">Respuesta 1</option>
+                        <option value="res2">Respuesta 2</option>
+                        <option value="res3">Respuesta 3</option>
+                        <option value="res4">Respuesta 4</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-12 text-center">
+                    <button type="submit" id="botonGuardar" class="btn btn-primary degradoBoton" disabled><i
+                                class="fas fa-save"></i> Guardar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript" src="/static/js/preguntasOpcionMultiple.js"></script>
 </div>
 </body>
 </html>

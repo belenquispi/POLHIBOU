@@ -105,7 +105,6 @@ function cambiarImagen(boton) {
         document.getElementById("vistaImagenEnunciado").appendChild(img);
     } else {
         if (idBoton.indexOf("imagenRes") >= 0) {
-            console.log(idBoton.substr(9, 1));
             document.getElementById("card" + idBoton).innerHTML = "";
             let divR = document.createElement("DIV");
             divR.setAttribute("id", "rcard" + idBoton);
@@ -119,12 +118,13 @@ function cambiarImagen(boton) {
 
             let label = document.createElement("LABEL");
             label.setAttribute("for", "botonArchivo" + idBoton);
-            let t = document.createTextNode("Respuesta " + idBoton.substr(9, 1) + ":");
+            label.setAttribute("class", "textoBlanco");
+            let t = document.createTextNode("RESPUESTA " + idBoton.substr(9, 1) + ":");
             label.appendChild(t);
             document.getElementById("datos" + idBoton).appendChild(label);
             let input = document.createElement("INPUT");
             input.setAttribute("type", "file");
-            input.setAttribute("class", "form-control-file");
+            input.setAttribute("class", "form-control-file textoBlanco");
             input.setAttribute("id", "botonArchivo" + idBoton);
             input.setAttribute("value", "upload" + idBoton);
             input.setAttribute("accept", ".png, .jpg, .jpeg");
@@ -201,4 +201,10 @@ function eliminarImagenCargada() {
     document.getElementById("eliminarImagen").setAttribute("hidden", "");
     document.getElementById("imagenEnunciado").value = "";
 
+}
+function verificarIngreso(valor) {
+    if (document.getElementById(valor.id).value.trim().length < 1) {
+        alert("El texto ingresado está en blanco");
+        document.getElementById(valor.id).value = "";
+    }
 }

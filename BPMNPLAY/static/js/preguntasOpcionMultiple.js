@@ -2,7 +2,9 @@ var mostrarVistaPreviaImagen = function (event, imagen) {
     var output = document.getElementById(imagen);
     if(event.target.files[0] != null) {
         output.src = URL.createObjectURL(event.target.files[0]);
-        document.getElementById("eliminarImagen").removeAttribute("hidden");
+        if( document.getElementById("botonArchivoEnunciado").value != "") {
+            document.getElementById("eliminarImagen").removeAttribute("hidden");
+        }
     }
     else {
         output.src = "../../static/imagenes/imagenVacia.svg";
@@ -123,4 +125,10 @@ function eliminarImagenCargada() {
     }
     document.getElementById("eliminarImagen").setAttribute("hidden","");
     document.getElementById("imagenEnunciado").value = "";
+}
+function verificarIngreso(valor) {
+    if (document.getElementById(valor.id).value.trim().length < 1) {
+        alert("El texto ingresado está en blanco");
+        document.getElementById(valor.id).value = "";
+    }
 }

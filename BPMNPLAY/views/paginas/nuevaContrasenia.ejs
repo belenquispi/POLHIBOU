@@ -35,11 +35,11 @@
                                     </div>
                                     <%if(contraseniaAnterior== 1){%>
                                     <input type="password" name="contraseniaAnterior" id="contraseniaAnterior" tabindex="1"
-                                           class="form-control is-invalid" required placeholder="Contraseña actual">
+                                           class="form-control is-invalid" required placeholder="Contraseña actual" onchange="verificarIngreso(this)">
                                     <div class="invalid-feedback">La contraseña anterior es incorrecta.</div>
                                     <%} else {%>
                                         <input type="password" name="contraseniaAnterior" id="contraseniaAnterior" tabindex="1"
-                                               class="form-control" required placeholder="Contraseña actual">
+                                               class="form-control" required placeholder="Contraseña actual" onchange="verificarIngreso(this)">
                                     <%}%>
                                 </div>
                             <%}%>
@@ -49,7 +49,7 @@
                                     <div class="input-group-text"><i class="fas fa-key"></i></div>
                                 </div>
                                 <input type="password" name="nuevaContrasenia" id="nuevaContrasenia" tabindex="1"
-                                       class="form-control" required placeholder="Nueva contraseña">
+                                       class="form-control" required placeholder="Nueva contraseña" onchange="verificarIngreso(this)">
                             </div>
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend">
@@ -57,7 +57,7 @@
                                 </div>
                                 <input type="password" name="nuevaContraseniaConfirmada" id="nuevaContraseniaConfirmada"
                                        tabindex="2" class="form-control" required
-                                       placeholder="Confirmar nueva contraseña" onkeyup="confirmarContrasenia()">
+                                       placeholder="Confirmar nueva contraseña" onkeyup="confirmarContrasenia()" onchange="verificarIngreso(this)">
                                 <div class="invalid-feedback">Las contraseñas no son iguales.</div>
 
                             </div>
@@ -95,6 +95,12 @@
             document.getElementById("botonCambiarContrasenia").setAttribute("disabled","");
             document.getElementById("nuevaContrasenia").classList.add("is-invalid");
             document.getElementById("nuevaContraseniaConfirmada").classList.add("is-invalid");
+        }
+    }
+    function verificarIngreso(valor) {
+        if (document.getElementById(valor.id).value.trim().length < 1) {
+            alert("El texto ingresado está en blanco");
+            document.getElementById(valor.id).value = "";
         }
     }
 </script>

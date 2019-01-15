@@ -98,6 +98,7 @@ function generarDatosPregunta(numero) {
         inputTexto.setAttribute("placeholder", "Ingrese el nombre de la imagen " + (i + 1));
         inputTexto.setAttribute("required", "");
         inputTexto.setAttribute("name", "textoUnir" + (i + 1));
+        inputTexto.setAttribute("onchange", "verificarIngreso(this)");
         document.getElementById("form-group" + (i + 1)).appendChild(inputTexto);
 
 
@@ -152,5 +153,12 @@ function eliminarAnteriores(num, x) {
         case 3:
             document.getElementById("form-group-img2-" + (num)).parentNode.removeChild(document.getElementById("form-group-img2-" + (num)));
 
+    }
+}
+
+function verificarIngreso(valor) {
+    if (document.getElementById(valor.id).value.trim().length < 1) {
+        alert("El nombre de la imagen está en blanco");
+        document.getElementById(valor.id).value = "";
     }
 }
