@@ -126,3 +126,9 @@ function eliminarImagenCargada() {
     document.getElementById("eliminarImagen").setAttribute("hidden","");
     document.getElementById("imagenEnunciado").value = "";
 }
+function verificarIngreso(valor) {
+    if (document.getElementById(valor.id).value.trim().length < 1) {
+        alert("El texto ingresado está en blanco");
+        document.getElementById(valor.id).value = "";
+    }
+}

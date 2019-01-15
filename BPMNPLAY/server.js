@@ -253,6 +253,14 @@ app.route('/salirPartida')
     .get(routes.error)
     .post(routes.post_salir_partida)
     .put(routes.error);
+app.route('/intentos')
+    .get(routes.get_intentos)
+    .post(routes.error)
+    .put(routes.error);
+app.route('/detalleIntentos')
+    .get(routes.error)
+    .post(routes.post_detalle_intentos)
+    .put(routes.error);
 
 
 // Starts the server.
@@ -374,6 +382,8 @@ io.on('connection', function (socket) {
                         }
                         else {
                             io.sockets.in(room).emit("error", "El equipo: " + nombreEquipo + " ya se ha conectado");
+							socket.join(room);
+							io.sockets.in(room).emit("nombreRol", "Espectador");
                         }
                     }
                     else {

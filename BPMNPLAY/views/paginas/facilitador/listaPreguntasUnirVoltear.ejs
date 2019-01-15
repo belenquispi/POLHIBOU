@@ -119,8 +119,8 @@ for (var i = 0; i < dificultades.length; i++) {
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
                                         <label for="nombreImagen">NOMBRE DE LA IMAGEN:</label>
-                                        <input type="text" class="form-control" required
-                                               placeholder="Nombre de la imagen" name="nombreImagen">
+                                        <input type="text" class="form-control" required id="nombreImagen"
+                                               placeholder="Nombre de la imagen" name="nombreImagen" onchange="verificarIngreso(this)">
                                         <input type="text" name="materia" hidden value="<%= materia %>">
                                     </div>
                                 </div>

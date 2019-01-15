@@ -35,7 +35,7 @@
                 <input type="text" hidden id="idOpcionMultiple" name="idOpcionMultiple"
                        value="<%= preguntaOpcionMultiple.idOpcionMultiple %>">
                 <input type="text" class="form-control" id="enunciado" placeholder="Ingrese el enunciado de la pregunta"
-                       name="enunciado" value="<%= preguntaOpcionMultiple.enunciado %>">
+                       name="enunciado" value="<%= preguntaOpcionMultiple.enunciado %>" onchange="verificarIngreso(this)">
             </div>
             <% if (preguntaOpcionMultiple.imagenEnunciado == undefined){ %>
                 <div class="form-group col-md-6" id="cargaImagenEnunciado">
@@ -77,7 +77,7 @@
                     <label for="res<%= (i + 1) %>" class="textoBlanco">RESPUESTA <%= (i + 1) %>:</label>
                     <input type="text" class="form-control" id="res<%= (i + 1) %>"
                            placeholder="Ingrese la respuesta <%= (i + 1) %>"
-                           name="res<%= (i + 1) %>" value="<%= respuesta[i] %>">
+                           name="res<%= (i + 1) %>" value="<%= respuesta[i] %>" onchange="verificarIngreso(this)">
                 </div>
                 <% } %>
             </div>

@@ -22,11 +22,11 @@ var estudianteSchema = new Schema({
                     idPregunta: String,
                     enunciado : String,
                     imagenEnunciado: String,
+					respuestaSeleccionada: String,
                     correctoIncorrecto: String,
 
                 }
             ]
-
         }
         ]
 });

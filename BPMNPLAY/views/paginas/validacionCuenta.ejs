@@ -30,14 +30,14 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="fas fa-user"></i></div>
                                     </div>
-                                    <input type="text" name="usuario" id="usuario" value=<%=usuario%> tabindex="1"
+                                    <input type="text" name="usuario" id="usuario" value=<%=usuario%> tabindex="1" onchange="verificarIngreso(this)"
                                            class="form-control" required readonly placeholder="Usuario">
                                 </div>
                                 <div class="input-group mb-2">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="fas fa-key"></i></div>
                                     </div>
-                                    <input type="text" name="codigoVerificacion" id="codigoVerificacion" tabindex="2"
+                                    <input type="text" name="codigoVerificacion" id="codigoVerificacion" tabindex="2" onchange="verificarIngreso(this)"
                                            class="form-control is-invalid " required placeholder="Código de verificación">
                                     <div class="invalid-feedback ">El código no es correcto.</div>
                                 </div>
@@ -46,15 +46,15 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="fas fa-user"></i></div>
                                     </div>
-                                    <input type="text" name="usuario" id="usuario" tabindex="1" class="form-control"
-                                           required placeholder="Usuario" readonly value=<%=usuario%>>
+                                    <input type="text" name="usuario" id="usuario" tabindex="1" class="form-control" onchange="verificarIngreso(this)"
+                                           required placeholder="Usuario" readonly value=<%=usuario%> >
                                 </div>
                                 <div class="input-group mb-2">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="fas fa-key"></i></div>
                                     </div>
                                     <input type="text" name="codigoVerificacion" id="codigoVerificacion" tabindex="2"
-                                           class="form-control" required placeholder="Código de verificación">
+                                           class="form-control" required placeholder="Código de verificación" onchange="verificarIngreso(this)">
                                 </div>
                             <% } %>
                             <div class="form-group">
@@ -85,5 +85,13 @@
         <div class="col-md-3"></div>
     </div>
 </div>
+<script>
+    function verificarIngreso(valor) {
+        if (document.getElementById(valor.id).value.trim().length < 1) {
+            alert("El texto ingresado está en blanco");
+            document.getElementById(valor.id).value = "";
+        }
+    }
+</script>
 </body>
 </html>

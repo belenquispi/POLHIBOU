@@ -36,7 +36,7 @@
                 <div class="form-group col-md-12 mb-3">
                     <label for="enunciado" class="textoBlanco">ENUNCIADO:</label>
                     <input type="text" class="form-control" id="enunciado" required
-                           placeholder="Enunciado de la pregunta" name="enunciado">
+                           placeholder="Enunciado de la pregunta" name="enunciado" onchange="verificarIngreso(this)">
                 </div>
                 <div class="form-group col-md-6 mb-3">
                     <label for="botonArchivoEnunciado" class="textoBlanco">CARGAR IMAGEN (OPCIONAL):</label>
@@ -73,7 +73,7 @@
                     <label for="res<%= i %>" class="textoBlanco">RESPUESTA <%= i %>:</label>
                     <input type="text" class="form-control " id="res<%= i %>"
                            placeholder="Ingrese la respuesta <%= i %>"
-                           name="res<%= i %>">
+                           name="res<%= i %>" onchange="verificarIngreso(this)">
                 </div>
                 <% } %>
             </div>
