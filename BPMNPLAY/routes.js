@@ -1473,8 +1473,8 @@ exports.post_partida_finalizada = function (req, res) {
                 if (partida != null) {
                     console.log("Si existe la partida");
                     let equipos = [];
-                    for (let i = 0; i < partida.jugadores.length; i++) {
-                        for (let j = 0; j < partida.jugadores.length; j++) {
+                    for (let i = 0; i < partida.turnoJugadores.length; i++) {
+                        for (let j = 0; j < partida.turnoJugadores.length; j++) {
                             console.log("Tamaño de turno jugadores: " + partida.turnoJugadores.length);
                             if (partida.turnoJugadores[i] == partida.jugadores[j].idSocket) {
                                 let equipo = {

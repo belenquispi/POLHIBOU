@@ -189,7 +189,7 @@ div#memory_boardMulti {
 }
 
 div#memory_boardMulti > img {
-    background: url(corona.png) no-repeat;
+    background: url(tarjeta.svg) no-repeat;
     border: #000000 1px solid;
     width: 50px;
     height: 50px;
@@ -206,7 +206,7 @@ div#memory_boardMulti > label {
 }
 
 .imagenUnir {
-    background: url(corona.png) no-repeat;
+    background: url(tarjeta.svg) no-repeat;
     border: #000 1px solid;
     width: 50px;
     height: 50px;

@@ -347,6 +347,7 @@ io.on('connection', function (socket) {
                             io.sockets.in(room).emit("nombreRol", nombreEquipo);
                             partidas[indicePartida].jugadores[indiceJugador].idSocket = socket.id;
                             partidas[indicePartida].turnoJugadores = [];
+                            console.log("Se ha agregado el jugador: "+ socket.id);
                             for (let i = 0; i < partidas[indicePartida].jugadores.length; i++) {
                                 if (partidas[indicePartida].jugadores[i].idSocket != "") {
                                     partidas[indicePartida].turnoJugadores.push(partidas[indicePartida].jugadores[i].idSocket);
@@ -378,6 +379,10 @@ io.on('connection', function (socket) {
                                         });
                                     }
                                 });
+                            }
+                            else
+                            {
+                                console.log("El numero de jugadores es diferente al de turno jugadores: "+ partidas[indicePartida].jugadores.length+ "  "+ partidas[indicePartida].turnoJugadores.length);
                             }
                         }
                         else {

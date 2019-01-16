@@ -159,7 +159,11 @@ let mostrarVistaPreviaImagen = function (event, imagen) {
     let output = document.getElementById(imagen);
     if (event.target.files[0] != null) {
         output.src = URL.createObjectURL(event.target.files[0]);
-        document.getElementById("eliminarImagen").removeAttribute("hidden");
+        if(document.getElementById("eliminarImagen") && (document.getElementById("botonArchivoEnunciado").value != ""))
+        {
+            document.getElementById("eliminarImagen").removeAttribute("hidden");
+        }
+
     }
     else {
         output.src = "../../static/imagenes/imagenVacia.svg";
