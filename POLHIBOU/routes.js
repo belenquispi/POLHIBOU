@@ -1544,14 +1544,14 @@ exports.error = function (req, res) {
 exports.get_intentos = function(req, res){
 	if (req.session.usuario) {
 		Estudiante.findOne({usuario: req.session.usuario}, function (error, doc) {
-            let intentosTematicaFacilitador = []
+            let intentosTematicaFacilitador = [];
             for (let i = 0; i < doc.intentos.length; i++) {   
 				let intentoTematicaFacilitador = {
 					facilitador: doc.intentos[i].profesor,
 					tematica: doc.intentos[i].materia,
-				}
+				};
 				if((intentosTematicaFacilitador.map(function (e){return e.facilitador}).indexOf(doc.intentos[i].profesor < 0 )) && 
-				(intentosTematicaFacilitador.map(function (e){return e.tematica}).indexOf(doc.intentos[i].tematica < 0)){
+				(intentosTematicaFacilitador.map(function (e){return e.tematica}).indexOf(doc.intentos[i].tematica < 0))){
 					intentosTematicaFacilitador.push(intentoTematicaFacilitador);
 				}
             }
@@ -1621,9 +1621,9 @@ exports.post_detalle_intentos = function (req, res)
 			res.render('paginas/participante/detalleIntento', {
                 nombre: req.session.nombre,
                 usuario: req.session.usuario,
-				tematica: doc.intentos
-				facilitador:
-				tipoDesafio:
+				tematica: doc.intentos[indiceIntento].tematica,
+				facilitador: doc.intentos[indiceIntento].facilitador,
+				tipoDesafio: doc.intentos[indiceIntento].tipoDesafio,
                 preguntas: intentos
             });
 			
