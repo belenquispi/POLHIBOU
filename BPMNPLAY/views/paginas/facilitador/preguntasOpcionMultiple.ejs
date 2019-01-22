@@ -42,7 +42,7 @@
                     <label for="botonArchivoEnunciado" class="textoBlanco">CARGAR IMAGEN (OPCIONAL):</label>
                     <input type="file" class="btn btn-file btn-light" id="botonArchivoEnunciado" value="uploadEnunciado"
                            accept=".png, .jpg, .jpeg"
-                           onchange="mostrarVistaPreviaImagen(event, 'imagenCargadaEnunciado'), encodeImageFileAsURL(this)">
+                           onchange="validarImagen(event, 'imagenCargadaEnunciado', this); ">
                     <input type="text" hidden id="imagenEnunciado" name="imagenEnunciado">
                 </div>
                 <div class="form-group col-md-1">

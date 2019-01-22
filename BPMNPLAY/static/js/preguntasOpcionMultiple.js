@@ -132,3 +132,15 @@ function verificarIngreso(valor) {
         document.getElementById(valor.id).value = "";
     }
 }
+function validarImagen(event, imagen, elemento) {
+    var fileSize = event.target.files[0].size;
+    var siezekiloByte = parseInt(fileSize / 1024);
+    if (siezekiloByte >  50) {
+        alert("Imagen muy grande");
+        return false;
+    }
+    else {
+        mostrarVistaPreviaImagen(event, imagen);
+        encodeImageFileAsURL(elemento);
+    }
+}

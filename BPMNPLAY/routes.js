@@ -219,7 +219,6 @@ exports.get_preguntas_opcion = function (req, res) {
             if (error) {
                 console.log("Error: " + error);
             }
-            console.log("materia: " + doc.materias);
             var indice = doc.materias.map(function (e) {
                 return e.nombre.trim();
             }).indexOf(req.params.materia);
@@ -241,10 +240,7 @@ exports.get_preguntas_opcion = function (req, res) {
                 enunciadoPreguntas: enunciadoPreguntas,
                 dificultades: dificultadPreguntas
             });
-
-
         });
-
     }
     else {
         res.redirect('/inicioSesion');
@@ -290,10 +286,10 @@ exports.post_preguntas_opcion = function (req, res) {
         if (error) {
             console.log("Error: " + error)
         }
-
         var indice = doc.materias.map(function (e) {
-            return e.nombre
+            return e.nombre.trim();
         }).indexOf(req.body.materia);
+
         var preguntaOpcionMultiple = {
             enunciado: req.body.enunciado,
             respuestaCorrecta: req.body.respuestaCorrecta,
@@ -319,9 +315,14 @@ exports.post_preguntas_opcion = function (req, res) {
         }
 
         if (indice >= 0) {
+            console.log("ingrese al post")
+
             var indicePregunta = doc.materias[indice].preguntasOpcionMultiple.map(function (e) {
                 return e.idPregunta
             }).indexOf(req.body.idOpcionMultiple);
+            console.log("ieq.body.idOpcionMultiple "+req.body.idOpcionMultiple)
+            console.log("indicePregunta "+ indicePregunta)
+
             if (indicePregunta >= 0) {
                 doc.materias[indice].preguntasOpcionMultiple.splice(indicePregunta, 1);
             }
