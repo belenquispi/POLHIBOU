@@ -26,9 +26,9 @@ app.use(session({
 }));
 app.use('/static', express.static(__dirname + '/static/' + ''));
 // create application/json parser
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
 // create application/x-www-form-urlencoded parser
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 var gameMap = [
     13, 14, 15, 16, 17, 18, 19, 20, 21,

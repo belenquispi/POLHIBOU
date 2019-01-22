@@ -64,13 +64,11 @@
             <div class="col-md-10">
                 <div class="row">
                     <div class="col-md-12">
-                        <h4 class="textoBlanco">MIS INTENTOS</h4>
+                        <h4 class="textoBlanco">MIS INTENTOS DE LA TEMÁTICA <%=tematica%></h4>
+                        <h5 class="textoBlanco">Facilitador: <%=facilitador%></h5>
                     </div>
                 </div>
-                <input type="text" id="numPreguntas" hidden value="<%= intentos.length %>">
-                <% if(intentos.length == 0){ %>
-                <label class="textoBlanco">** No ha resuelto ningún intento de las temáticas publicadas.</label>
-                <% } for(let i = 0; i < intentos.length; i++ ) { %>
+                <% for(let i = 0; i < intentos.length; i++ ) { %>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card opacoCard" style="margin-top: 10px; margin-bottom: 20px">
@@ -84,16 +82,14 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-8">								
-                                        <p class="textoBlanco">Temática: <%= intentos[i].tematica%></p>
-                                        <p class="textoBlanco">Facilitador: <%= intentos[i].facilitador%></p>
-                                        <p class="textoBlanco">Tipo desafío: <%= intentos[i].tipoDesafio%></p>
-                                        <p class="textoBlanco">Dificultad: <%= intentos[i].dificultad%></p>
-                                        <p class="textoBlanco">Puntaje obtenido: <%= intentos[i].puntaje%></p>
+                                        <p class="textoBlanco">Tipo de Desafío: <%= intentos[i].tematica%></p>
+                                        <p class="textoBlanco">Dificultad: <%= intentos[i].facilitador%></p>
+										<p class="textoBlanco">Puntaje: <%= intentos[i].tematica%></p>
                                     </div>     
                                     <div class="col-md-2 text-center">          
                                         <form action="/detalleIntentos" method="post">
-                                            <input type="text" name="idIntento" hidden
-                                                   value=<%= intentos[i].idIntento %>>                                           
+                                            <input type="text" name="idIntento" hidden 
+											   value=<%= intentos[i].idIntento %>>                                          
                                             <br>
                                             <br>
                                             <button type="submit" class="btn btn-primary degradoBoton"

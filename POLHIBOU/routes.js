@@ -219,6 +219,7 @@ exports.get_preguntas_opcion = function (req, res) {
             if (error) {
                 console.log("Error: " + error);
             }
+            console.log("materia: " + doc.materias);
             var indice = doc.materias.map(function (e) {
                 return e.nombre.trim();
             }).indexOf(req.params.materia);
@@ -240,7 +241,10 @@ exports.get_preguntas_opcion = function (req, res) {
                 enunciadoPreguntas: enunciadoPreguntas,
                 dificultades: dificultadPreguntas
             });
+
+
         });
+
     }
     else {
         res.redirect('/inicioSesion');
@@ -286,10 +290,10 @@ exports.post_preguntas_opcion = function (req, res) {
         if (error) {
             console.log("Error: " + error)
         }
-        var indice = doc.materias.map(function (e) {
-            return e.nombre.trim();
-        }).indexOf(req.body.materia);
 
+        var indice = doc.materias.map(function (e) {
+            return e.nombre
+        }).indexOf(req.body.materia);
         var preguntaOpcionMultiple = {
             enunciado: req.body.enunciado,
             respuestaCorrecta: req.body.respuestaCorrecta,
@@ -315,14 +319,9 @@ exports.post_preguntas_opcion = function (req, res) {
         }
 
         if (indice >= 0) {
-            console.log("ingrese al post")
-
             var indicePregunta = doc.materias[indice].preguntasOpcionMultiple.map(function (e) {
                 return e.idPregunta
             }).indexOf(req.body.idOpcionMultiple);
-            console.log("ieq.body.idOpcionMultiple "+req.body.idOpcionMultiple)
-            console.log("indicePregunta "+ indicePregunta)
-
             if (indicePregunta >= 0) {
                 doc.materias[indice].preguntasOpcionMultiple.splice(indicePregunta, 1);
             }
@@ -1474,8 +1473,8 @@ exports.post_partida_finalizada = function (req, res) {
                 if (partida != null) {
                     console.log("Si existe la partida");
                     let equipos = [];
-                    for (let i = 0; i < partida.jugadores.length; i++) {
-                        for (let j = 0; j < partida.jugadores.length; j++) {
+                    for (let i = 0; i < partida.turnoJugadores.length; i++) {
+                        for (let j = 0; j < partida.turnoJugadores.length; j++) {
                             console.log("Tamaño de turno jugadores: " + partida.turnoJugadores.length);
                             if (partida.turnoJugadores[i] == partida.jugadores[j].idSocket) {
                                 let equipo = {
@@ -1545,6 +1544,36 @@ exports.error = function (req, res) {
 exports.get_intentos = function(req, res){
 	if (req.session.usuario) {
 		Estudiante.findOne({usuario: req.session.usuario}, function (error, doc) {
+            let intentosTematicaFacilitador = []
+            for (let i = 0; i < doc.intentos.length; i++) {   
+				let intentoTematicaFacilitador = {
+					facilitador: doc.intentos[i].profesor,
+					tematica: doc.intentos[i].materia,
+				}
+				if((intentosTematicaFacilitador.map(function (e){return e.facilitador}).indexOf(doc.intentos[i].profesor < 0 )) && 
+				(intentosTematicaFacilitador.map(function (e){return e.tematica}).indexOf(doc.intentos[i].tematica < 0)){
+					intentosTematicaFacilitador.push(intentoTematicaFacilitador);
+				}
+            }
+			
+			console.log("El tamaño del array de intentos es:");
+			console.log(intentosTematicaFacilitador.length);
+            res.render('paginas/participante/intentos', {
+                nombre: req.session.nombre,
+                usuario: req.session.usuario,
+                intentos: intentosTematicaFacilitador
+            });
+        });
+	}
+	else {
+		redirect('/');
+	}
+}
+
+exports.post_detalle_tematica_intentos = function (req, res)
+{
+	if (req.session.usuario) {
+		Estudiante.findOne({usuario: req.session.usuario}, function (error, doc) {
             let intentos = []
             for (var i = 0; i < doc.intentos.length; i++) {   
 				let intento = {
@@ -1555,9 +1584,12 @@ exports.get_intentos = function(req, res){
 					dificultad: doc.intentos[i].dificultad,
 					puntaje: doc.intentos[i].puntaje,
 				}
-				intentos.push(intento);
+				if(intento.facilitador ==  req.body.facilitador && intento.tematica == req.body.tematica ){
+					intentos.push(intento);
+				}
+				
             }
-            res.render('paginas/participante/intentos', {
+            res.render('paginas/participante/detalleTematicasIntentos', {
                 nombre: req.session.nombre,
                 usuario: req.session.usuario,
                 intentos: intentos
@@ -1573,23 +1605,33 @@ exports.post_detalle_intentos = function (req, res)
 {
 	if (req.session.usuario) {
 		Estudiante.findOne({usuario: req.session.usuario}, function (error, doc) {
-            let intentos = []
-            for (var i = 0; i < doc.intentos.length; i++) {   
-				let intento = {
-					idIntento: doc.intentos[i].idIntento,
-					facilitador: doc.intentos[i].profesor,
-					tematica: doc.intentos[i].materia,
-					tipoDesafio: doc.intentos[i].tipoDesafio,
-					dificultad: doc.intentos[i].dificultad,
-					puntaje: doc.intentos[i].puntaje,
+            let indiceIntento = doc.intentos.map(function (e){return e.idIntento}).indexOf(req.body.idIntento);
+			if(indiceIntento > -1){
+				let preguntas = [];
+			for(let i = 0 ; i < doc.intentos[indiceIntento].preguntas.length; i++){
+				let pregunta = { idPregunta: doc.intentos[indiceIntento].preguntas[i].idPregunta,
+					enunciado : doc.intentos[indiceIntento].preguntas[i].enunciado ,
+					imagenEnunciado: doc.intentos[indiceIntento].preguntas[i].imagenEnunciado,
+					respuestaSeleccionada: doc.intentos[indiceIntento].preguntas[i].respuestaSeleccionada,
+					correctoIncorrecto: doc.intentos[indiceIntento].preguntas[i].correctoIncorrecto
 				}
-				intentos.push(intento);
-            }
-            res.render('paginas/participante/intentos', {
+				preguntas.push(pregunta);				
+			}
+			
+			res.render('paginas/participante/detalleIntento', {
                 nombre: req.session.nombre,
                 usuario: req.session.usuario,
-                intentos: intentos
+				tematica: doc.intentos
+				facilitador:
+				tipoDesafio:
+                preguntas: intentos
             });
+			
+			
+			
+			}
+            
+            
         });
 	}
 	else {
