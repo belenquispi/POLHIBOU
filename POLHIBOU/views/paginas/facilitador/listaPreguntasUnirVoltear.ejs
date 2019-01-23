@@ -108,7 +108,7 @@ for (var i = 0; i < dificultades.length; i++) {
                                         <label for="botonImagenUnir1">IMAGEN:</label>
                                         <input type="file" class="form-control" id="botonImagenUnir1"
                                                value="uploadUnir" required accept="image/*"
-                                               onchange="mostrarVistaPreviaImagen(event, 'imagenCargadaRespuesta', encodeImageFileAsURL(this))">
+                                               onchange="validarImagen(event, 'imagenCargadaRespuesta', this)">
                                     </div>
                                     <div class="form-group col-md-2">
                                         <br>

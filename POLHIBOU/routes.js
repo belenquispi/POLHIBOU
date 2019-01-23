@@ -348,8 +348,8 @@ exports.post_detalle_opcion_multiple = function (req, res) {
             return e.nombre
         }).indexOf(req.body.materia);
 
-          var indicePregunta = -1;
-        if(indice >-1){
+        var indicePregunta = -1;
+        if (indice > -1) {
             indicePregunta = doc.materias[indice].preguntasOpcionMultiple.map(function (e) {
                 return e.idPregunta
             }).indexOf(req.body.idPregunta);
@@ -381,15 +381,15 @@ exports.post_detalle_opcion_multiple = function (req, res) {
     });
 };
 exports.get_creacion_partida = function (req, res) {
-	console.log("Se tiene el siguiente rol al crear partida ", req.session.rol);
+    console.log("Se tiene el siguiente rol al crear partida ", req.session.rol);
     if (req.session.usuario && req.params.materia) {
         if (req.session.rol == "facilitador") {
-			let idPartida = (req.params.materia.replace(" ", "_")) + Math.floor((1 + Math.random()) * 0x1000).toString(5).substring(1);
-			console.log("Se ha creado el idPartida ", idPartida);
+            let idPartida = (req.params.materia.replace(" ", "_")) + Math.floor((1 + Math.random()) * 0x1000).toString(5).substring(1);
+            console.log("Se ha creado el idPartida ", idPartida);
             res.render('paginas/facilitador/creacionPartida', {
                 nombre: req.session.nombre,
                 materia: req.params.materia,
-				idPartida: idPartida
+                idPartida: idPartida
             });
         } else {
             if (req.session.rol == "partipante") {
@@ -413,22 +413,22 @@ exports.post_tablero = function (req, res) {
         });
     }
     else {
-		if(req.body.rol == "participante"){
-			res.render('paginas/participante/tablero', {
-            idPartida: req.body.idPartida,
-            rol: req.body.rol,
-            nombreEquipo: req.body.nombreEquipo,
-            nombre: req.body.nombreEquipo
-        });
-		}else {
-			res.render('paginas/participante/tablero', {
-            idPartida: req.body.idPartida,
-            rol: req.body.rol,
-            nombreEquipo: req.body.rol,
-            nombre: req.body.rol
-		})
+        if (req.body.rol == "participante") {
+            res.render('paginas/participante/tablero', {
+                idPartida: req.body.idPartida,
+                rol: req.body.rol,
+                nombreEquipo: req.body.nombreEquipo,
+                nombre: req.body.nombreEquipo
+            });
+        } else {
+            res.render('paginas/participante/tablero', {
+                idPartida: req.body.idPartida,
+                rol: req.body.rol,
+                nombreEquipo: req.body.rol,
+                nombre: req.body.rol
+            })
+        }
     }
-}
 };
 exports.get_opcion_multiple = function (req, res) {
     if (req.session.usuario) {
@@ -586,6 +586,7 @@ exports.post_agregar_varias_unir_voltear = function (req, res) {
             }
             doc.save(function (err, docActualizado) {
                 if (err) {
+                    console.log(err);
                     res.render('paginas/error', {
                         mensaje: "No se guardaron las imagenes con sus nombres. Vuelve a intentar nuevamente por favor.",
                         direccion: "/"
@@ -605,44 +606,43 @@ exports.post_agregar_varias_unir_voltear = function (req, res) {
 exports.post_lobby = function (req, res) {
     console.log("idPArtida de la sesion: " + req.session.idPartida);
     console.log("idPArtida del body: " + req.body.idPartida);
-    if ((req.session.usuario!= undefined) && (req.session.rol == "facilitador") &&(req.body.idPartida != undefined)) {
-				let informacionJugadores = [];
-                for (let i = 1; i <= req.body.numeroEquipos; i++) {
-                    let equipoU = [];
-                    equipoU.push("nombreEquipo" + i);
-                    equipoU.push("imagenEquipo" + i);
+    if ((req.session.usuario != undefined) && (req.session.rol == "facilitador") && (req.body.idPartida != undefined)) {
+        let informacionJugadores = [];
+        for (let i = 1; i <= req.body.numeroEquipos; i++) {
+            let equipoU = [];
+            equipoU.push("nombreEquipo" + i);
+            equipoU.push("imagenEquipo" + i);
 
-                    let nuevoEquipo = {
-                        nombreEquipo: req.body[equipoU[0]],
-                        imagenEquipo: req.body[equipoU[1]]
-                    };
-                    console.log("nuevoEquipo");
-                    informacionJugadores.push(nuevoEquipo);
-                }
-                res.render('paginas/facilitador/lobby', {
-                    nombre: req.session.nombre,
-                    rol: req.session.rol,
-                    usuario: req.session.usuario,
-                    materia: req.body.materia,
-                    idPartida: req.body.idPartida,
-                    numeroEquipos: req.body.numeroEquipos,
-                    informacionJugadores: informacionJugadores
-                });
-
-        } else {
-            res.redirect("/");
+            let nuevoEquipo = {
+                nombreEquipo: req.body[equipoU[0]],
+                imagenEquipo: req.body[equipoU[1]]
+            };
+            console.log("nuevoEquipo");
+            informacionJugadores.push(nuevoEquipo);
         }
+        res.render('paginas/facilitador/lobby', {
+            nombre: req.session.nombre,
+            rol: req.session.rol,
+            usuario: req.session.usuario,
+            materia: req.body.materia,
+            idPartida: req.body.idPartida,
+            numeroEquipos: req.body.numeroEquipos,
+            informacionJugadores: informacionJugadores
+        });
+
+    } else {
+        res.redirect("/");
+    }
 };
 exports.post_lobby_participante = function (req, res) {
     if (req.body.tipoIngreso == "participante" || req.body.tipoIngreso == "espectador") {
-		let nombre ="";
-		if(req.body.tipoIngreso == "espectador"){
-			nombre =((req.session.nombre == null) ? "Espectador" : req.session.nombre);
-		}else
-		{
-			nombre =((req.session.nombre == null) ? "Participante" : req.session.nombre);
-		}
-		let nombreEquipo = ((req.body.nombreEquipo == "ninguno") ? "Espectador" : req.body.nombreEquipo);
+        let nombre = "";
+        if (req.body.tipoIngreso == "espectador") {
+            nombre = ((req.session.nombre == null) ? "Espectador" : req.session.nombre);
+        } else {
+            nombre = ((req.session.nombre == null) ? "Participante" : req.session.nombre);
+        }
+        let nombreEquipo = ((req.body.nombreEquipo == "ninguno") ? "Espectador" : req.body.nombreEquipo);
         res.render('paginas/participante/lobbyParticipante', {
             nombreEquipo: nombreEquipo,
             codigoPartida: req.body.codigoPartida,
@@ -817,7 +817,7 @@ exports.post_mostrar_opcion = function (req, res) {
                             idPregunta: preguntas[j].idPregunta,
                             enunciado: preguntas[j].enunciado,
                             imagenEnunciado: preguntas[j].imagenEnunciado,
-							respuestaSeleccionada: "",
+                            respuestaSeleccionada: "",
                             correctoIncorrecto: '-1'
                         }
                     intento.preguntas.push(pregunta)
@@ -931,7 +931,7 @@ exports.post_mostrar_emparejar = function (req, res) {
                         idPregunta: preguntasEmparejar[j].idPregunta,
                         enunciado: preguntasEmparejar[j].texto,
                         imagenEnunciado: preguntasEmparejar[j].imagen,
-						respuestaSeleccionada : "",
+                        respuestaSeleccionada: "",
                         correctoIncorrecto: '-1'
                     }
                 intento.preguntas.push(pregunta)
@@ -975,19 +975,19 @@ exports.post_resultados_emparejar = function (req, res) {
 
             for (var i = 0; i < (preguntasEmparejar.length); i++) {
                 var indice = respuestas.indexOf(preguntasEmparejar[i].idPregunta);
-				if(indice > -1){
-				doc.intentos[indiceIntento].preguntas[i].respuestaSeleccionada = respuestas[indice + 1];
-                if (preguntasEmparejar[i].texto == respuestas[indice + 1]) {
-                    console.log("HOLA")
-                    doc.intentos[indiceIntento].preguntas[i].correctoIncorrecto = 1;
-                    puntajes.push(1);
-                    puntaje++;
+                if (indice > -1) {
+                    doc.intentos[indiceIntento].preguntas[i].respuestaSeleccionada = respuestas[indice + 1];
+                    if (preguntasEmparejar[i].texto == respuestas[indice + 1]) {
+                        console.log("HOLA")
+                        doc.intentos[indiceIntento].preguntas[i].correctoIncorrecto = 1;
+                        puntajes.push(1);
+                        puntaje++;
+                    }
+                    else {
+                        doc.intentos[indiceIntento].preguntas[i].correctoIncorrecto = 0;
+                        puntajes.push(0);
+                    }
                 }
-                else {
-                    doc.intentos[indiceIntento].preguntas[i].correctoIncorrecto = 0;
-                    puntajes.push(0);
-                }
-				}
             }
             doc.intentos[indiceIntento].puntaje = puntaje;
             doc.save(function (err, docActualizado) {
@@ -1509,7 +1509,7 @@ exports.post_partida_finalizada = function (req, res) {
                 } else {
                     console.log("Idpartida: " + req.body.idPartida);
                     res.render('paginas/error', {
-                        mensaje: "No existe la partida "+ req.body.idPartida + "." ,
+                        mensaje: "No existe la partida " + req.body.idPartida + ".",
                         direccion: "/"
                     });
                 }
@@ -1541,102 +1541,112 @@ exports.error = function (req, res) {
     res.render('paginas/error', {mensaje: "Estas accediendo a un lugar donde no tienes acceso", direccion: "/"});
 }
 
-exports.get_intentos = function(req, res){
-	if (req.session.usuario) {
-		Estudiante.findOne({usuario: req.session.usuario}, function (error, doc) {
+exports.get_intentos = function (req, res) {
+    if (req.session.usuario) {
+        Estudiante.findOne({usuario: req.session.usuario}, function (error, doc) {
             let intentosTematicaFacilitador = [];
-            for (let i = 0; i < doc.intentos.length; i++) {   
-				let intentoTematicaFacilitador = {
-					facilitador: doc.intentos[i].profesor,
-					tematica: doc.intentos[i].materia,
-				};
-				if((intentosTematicaFacilitador.map(function (e){return e.facilitador}).indexOf(doc.intentos[i].profesor < 0 )) && 
-				(intentosTematicaFacilitador.map(function (e){return e.tematica}).indexOf(doc.intentos[i].tematica < 0))){
-					intentosTematicaFacilitador.push(intentoTematicaFacilitador);
-				}
+            for (let i = 0; i < doc.intentos.length; i++) {
+                let intentoTematicaFacilitador = {
+                    facilitador: doc.intentos[i].profesor,
+                    tematica: doc.intentos[i].materia,
+                };
+                if ((intentosTematicaFacilitador.map(function (e) {
+                        return e.facilitador
+                    }).indexOf(doc.intentos[i].profesor < 0)) &&
+                    (intentosTematicaFacilitador.map(function (e) {
+                        return e.tematica
+                    }).indexOf(doc.intentos[i].tematica < 0))) {
+                    intentosTematicaFacilitador.push(intentoTematicaFacilitador);
+                }
             }
-			
-			console.log("El tamaño del array de intentos es:");
-			console.log(intentosTematicaFacilitador.length);
+
+            console.log("El tamaño del array de intentos es:");
+            console.log(intentosTematicaFacilitador.length);
             res.render('paginas/participante/intentos', {
                 nombre: req.session.nombre,
                 usuario: req.session.usuario,
                 intentos: intentosTematicaFacilitador
             });
         });
-	}
-	else {
-		redirect('/');
-	}
+    }
+    else {
+        redirect('/');
+    }
 }
 
-exports.post_detalle_tematica_intentos = function (req, res)
-{
-	if (req.session.usuario) {
-		Estudiante.findOne({usuario: req.session.usuario}, function (error, doc) {
-            let intentos = []
-            for (var i = 0; i < doc.intentos.length; i++) {   
-				let intento = {
-					idIntento: doc.intentos[i].idIntento,
-					facilitador: doc.intentos[i].profesor,
-					tematica: doc.intentos[i].materia,
-					tipoDesafio: doc.intentos[i].tipoDesafio,
-					dificultad: doc.intentos[i].dificultad,
-					puntaje: doc.intentos[i].puntaje,
-				}
-				if(intento.facilitador ==  req.body.facilitador && intento.tematica == req.body.tematica ){
-					intentos.push(intento);
-				}
-				
+exports.post_detalle_tematica_intentos = function (req, res) {
+    if (req.session.usuario) {
+        Estudiante.findOne({usuario: req.session.usuario}, function (error, doc) {
+            let intentos = [];
+            let tematica = "";
+            let facilitador = "";
+            for (let i = 0; i < doc.intentos.length; i++) {
+                let intento = {
+                    idIntento: doc.intentos[i].idIntento,
+                    facilitador: doc.intentos[i].profesor,
+                    tematica: doc.intentos[i].materia,
+                    tipoDesafio: doc.intentos[i].tipoDesafio,
+                    dificultad: doc.intentos[i].dificultad,
+                    puntaje: doc.intentos[i].puntaje,
+                };
+                if (intento.facilitador == req.body.facilitador && intento.tematica == req.body.tematica) {
+                    tematica = doc.intentos[i].materia;
+                    facilitador = doc.intentos[i].profesor;
+                    intentos.push(intento);
+                }
             }
             res.render('paginas/participante/detalleTematicasIntentos', {
                 nombre: req.session.nombre,
                 usuario: req.session.usuario,
+                tematica: tematica,
+                facilitador: facilitador,
                 intentos: intentos
-            });
+            })
         });
-	}
-	else {
-		redirect('/');
-	}
-}
+    }
+    else {
+        redirect('/');
+    }
+};
 
-exports.post_detalle_intentos = function (req, res)
-{
-	if (req.session.usuario) {
-		Estudiante.findOne({usuario: req.session.usuario}, function (error, doc) {
-            let indiceIntento = doc.intentos.map(function (e){return e.idIntento}).indexOf(req.body.idIntento);
-			if(indiceIntento > -1){
-				let preguntas = [];
-			for(let i = 0 ; i < doc.intentos[indiceIntento].preguntas.length; i++){
-				let pregunta = { idPregunta: doc.intentos[indiceIntento].preguntas[i].idPregunta,
-					enunciado : doc.intentos[indiceIntento].preguntas[i].enunciado ,
-					imagenEnunciado: doc.intentos[indiceIntento].preguntas[i].imagenEnunciado,
-					respuestaSeleccionada: doc.intentos[indiceIntento].preguntas[i].respuestaSeleccionada,
-					correctoIncorrecto: doc.intentos[indiceIntento].preguntas[i].correctoIncorrecto
-				}
-				preguntas.push(pregunta);				
-			}
-			
-			res.render('paginas/participante/detalleIntento', {
-                nombre: req.session.nombre,
-                usuario: req.session.usuario,
-				tematica: doc.intentos[indiceIntento].tematica,
-				facilitador: doc.intentos[indiceIntento].facilitador,
-				tipoDesafio: doc.intentos[indiceIntento].tipoDesafio,
-                preguntas: intentos
-            });
-			
-			
-			
-			}
-            
-            
+exports.post_detalle_intentos = function (req, res) {
+    if (req.session.usuario) {
+        Estudiante.findOne({usuario: req.session.usuario}, function (error, doc) {
+            let indiceIntento = doc.intentos.map(function (e) {
+                return e.idIntento
+            }).indexOf(req.body.idIntento);
+            if (indiceIntento > -1) {
+                let preguntas = [];
+                for (let i = 0; i < doc.intentos[indiceIntento].preguntas.length; i++) {
+                    let pregunta = {
+                        idPregunta: doc.intentos[indiceIntento].preguntas[i].idPregunta,
+                        enunciado: doc.intentos[indiceIntento].preguntas[i].enunciado,
+                        imagenEnunciado: doc.intentos[indiceIntento].preguntas[i].imagenEnunciado,
+                        respuestaSeleccionada: doc.intentos[indiceIntento].preguntas[i].respuestaSeleccionada,
+                        correctoIncorrecto: doc.intentos[indiceIntento].preguntas[i].correctoIncorrecto
+                    }
+                    preguntas.push(pregunta);
+                }
+
+                res.render('paginas/participante/detalleIntento', {
+                    nombre: req.session.nombre,
+                    usuario: req.session.usuario,
+                    tematica: doc.intentos[indiceIntento].tematica,
+                    facilitador: doc.intentos[indiceIntento].facilitador,
+                    puntaje: doc.intentos[indiceIntento].puntaje,
+                    tipoDesafio: doc.intentos[indiceIntento].tipoDesafio,
+                    preguntas: preguntas
+                });
+
+
+            }
+
+
         });
-	}
-	else {
-		redirect('/');
-	}
+    }
+    else {
+        redirect('/');
+    }
 }
 
 function generarNombre() {

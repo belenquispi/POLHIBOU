@@ -107,7 +107,7 @@ function eliminarImagenCargada() {
     inputNuevo.setAttribute("class", "btn btn-file btn-light");
     inputNuevo.setAttribute("accept", ".png, .jpg, .jpeg");
     inputNuevo.setAttribute("value", "uploadEnunciado");
-    inputNuevo.setAttribute("onchange", "mostrarVistaPreviaImagen(event, 'imagenCargadaEnunciado'), encodeImageFileAsURL(this)");
+    inputNuevo.setAttribute("onchange", "validarImagen(event, 'imagenCargadaEnunciado', this)");
 
     if (!imagen){
         alert("El elemento selecionado no existe");
@@ -133,10 +133,10 @@ function verificarIngreso(valor) {
     }
 }
 function validarImagen(event, imagen, elemento) {
-    var fileSize = event.target.files[0].size;
-    var siezekiloByte = parseInt(fileSize / 1024);
-    if (siezekiloByte >  50) {
-        alert("Imagen muy grande");
+    let fileSize = event.target.files[0].size;
+    if (parseInt(fileSize) >  1048576) {
+        alert("La imagen es muy grande. Solo se permite cargar imagenes menores a 1 MB ");
+        document.getElementById(elemento.id).value = "";
         return false;
     }
     else {

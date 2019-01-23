@@ -6,8 +6,8 @@ var http = require('http');
 var path = require('path');
 var socketIO = require('socket.io');
 var app = express();
-var server = http.Server(app);
-var io = socketIO(server);
+var polhibou = http.Server(app);
+var io = socketIO(polhibou);
 var baseDatos = require("./baseDatos");
 var bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser');
@@ -257,15 +257,19 @@ app.route('/intentos')
     .get(routes.get_intentos)
     .post(routes.error)
     .put(routes.error);
+app.route('/detalleTematicaFacilitador')
+    .get(routes.error)
+    .post(routes.post_detalle_tematica_intentos)
+    .put(routes.error);
 app.route('/detalleIntentos')
     .get(routes.error)
     .post(routes.post_detalle_intentos)
     .put(routes.error);
 
 
-// Starts the server.
-server.listen(5000, function () {
-    console.log('Starting server on port 5000');
+// Starts the polhibou.
+polhibou.listen(5000, function () {
+    console.log('Starting polhibou on port 5000');
 });
 
 // Add the WebSocket handlers
