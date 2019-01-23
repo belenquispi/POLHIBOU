@@ -42,9 +42,7 @@ var gameMap = [
 ];
 var anchoCasilla = 60, altoCasilla = 60;
 var columnas = 9, filas = 8;
-
 seleccionarColor();
-
 function partida(nombrePartida) {
     this.nombrePartida = nombrePartida,
         this.jugadores = [],
@@ -647,6 +645,7 @@ io.on('connection', function (socket) {
         });
     });
 });
+
 setInterval(function () {
     for (let i = 0; i < partidas.length; i++) {
         io.sockets.in(partidas[i].nombrePartida).emit('partida', partidas[i]);
@@ -734,6 +733,7 @@ Character.prototype.placeAt = function (x, y) {
     this.tileTo = [x, y];
     this.position = [((anchoCasilla * x) + ((anchoCasilla - this.dimensions[0]) / 2)), ((altoCasilla * y) + ((altoCasilla - this.dimensions[1]) / 2))];
 };
+
 Character.prototype.processMovement = function (t, roomActual, idSocket) {
     var indicePartidaActual = consultarIdPartida(roomActual);
     var indiceJugadorActual = consultarIdJugadorSocket(indicePartidaActual, idSocket);
@@ -860,6 +860,7 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
     }
     return true;
 };
+
 Character.prototype.canMoveTo = function (x, y) {
     if (x < 0 || x >= columnas || y < 0 || y >= filas) {
         return false;
@@ -873,18 +874,23 @@ Character.prototype.canMoveTo = function (x, y) {
         }
     }
 };
+
 Character.prototype.canMoveUp = function () {
     return this.canMoveTo(this.tileFrom[0], this.tileFrom[1] - 1);
 };
+
 Character.prototype.canMoveDown = function () {
     return this.canMoveTo(this.tileFrom[0], this.tileFrom[1] + 1);
 };
+
 Character.prototype.canMoveLeft = function () {
     return this.canMoveTo(this.tileFrom[0] - 1, this.tileFrom[1]);
 };
+
 Character.prototype.canMoveRight = function () {
     return this.canMoveTo(this.tileFrom[0] + 1, this.tileFrom[1]);
 };
+
 Character.prototype.canMoveDirection = function (d) {
     switch (d) {
         case directions.up:
@@ -897,6 +903,7 @@ Character.prototype.canMoveDirection = function (d) {
             return this.canMoveRight();
     }
 };
+
 Character.prototype.nuevaDireccion = function () {
     if (this.canMoveRight()) {
         this.direction = directions.right
@@ -917,30 +924,35 @@ Character.prototype.nuevaDireccion = function () {
         }
     }
 };
+
 Character.prototype.moveLeft = function (t) {
     this.tileTo[0] -= 1;
     this.timeMoved = t;
     this.direction = 3;
 
 };
+
 Character.prototype.moveRight = function (t) {
     this.tileTo[0] += 1;
     this.timeMoved = t;
     this.direction = 1;
 
 };
+
 Character.prototype.moveUp = function (t) {
     this.tileTo[1] -= 1;
     this.timeMoved = t;
     this.direction = 0;
 
 };
+
 Character.prototype.moveDown = function (t) {
     this.tileTo[1] += 1;
     this.timeMoved = t;
     this.direction = 2;
 
 };
+
 Character.prototype.moveDirection = function (d, t) {
     switch (d) {
         case directions.up:
@@ -1032,7 +1044,7 @@ function desordenarTextoUnir(idPartida, arrayIndices) {
         vectorTextoUnir.push(partidas[idPartida].preguntasUnirVoltear[arrayIndices[k]].texto);
     }
     let j, x, i;
-    for (i = vectorTextoUnir.length - 1; i > 0; i--) {
+    for (i = vectorTextoUnir.length - 1; i >= 0; i--) {
         j = Math.floor(Math.random() * i + 1);
         x = vectorTextoUnir[i];
         vectorTextoUnir[i] = vectorTextoUnir[j];
