@@ -6,8 +6,8 @@ var http = require('http');
 var path = require('path');
 var socketIO = require('socket.io');
 var app = express();
-var server = http.Server(app);
-var io = socketIO(server);
+var polhibou = http.Server(app);
+var io = socketIO(polhibou);
 var baseDatos = require("./baseDatos");
 var bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser');
@@ -26,9 +26,9 @@ app.use(session({
 }));
 app.use('/static', express.static(__dirname + '/static/' + ''));
 // create application/json parser
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
 // create application/x-www-form-urlencoded parser
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 var gameMap = [
     13, 14, 15, 16, 17, 18, 19, 20, 21,
@@ -257,15 +257,19 @@ app.route('/intentos')
     .get(routes.get_intentos)
     .post(routes.error)
     .put(routes.error);
+app.route('/detalleTematicaFacilitador')
+    .get(routes.error)
+    .post(routes.post_detalle_tematica_intentos)
+    .put(routes.error);
 app.route('/detalleIntentos')
     .get(routes.error)
     .post(routes.post_detalle_intentos)
     .put(routes.error);
 
 
-// Starts the server.
-server.listen(5000, function () {
-    console.log('Starting server on port 5000');
+// Starts the polhibou.
+polhibou.listen(5000, function () {
+    console.log('Starting polhibou on port 5000');
 });
 
 // Add the WebSocket handlers
@@ -347,7 +351,6 @@ io.on('connection', function (socket) {
                             io.sockets.in(room).emit("nombreRol", nombreEquipo);
                             partidas[indicePartida].jugadores[indiceJugador].idSocket = socket.id;
                             partidas[indicePartida].turnoJugadores = [];
-                            console.log("Se ha agregado el jugador: "+ socket.id);
                             for (let i = 0; i < partidas[indicePartida].jugadores.length; i++) {
                                 if (partidas[indicePartida].jugadores[i].idSocket != "") {
                                     partidas[indicePartida].turnoJugadores.push(partidas[indicePartida].jugadores[i].idSocket);
@@ -379,10 +382,6 @@ io.on('connection', function (socket) {
                                         });
                                     }
                                 });
-                            }
-                            else
-                            {
-                                console.log("El numero de jugadores es diferente al de turno jugadores: "+ partidas[indicePartida].jugadores.length+ "  "+ partidas[indicePartida].turnoJugadores.length);
                             }
                         }
                         else {

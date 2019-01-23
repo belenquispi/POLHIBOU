@@ -1,11 +1,6 @@
 let mostrarVistaPreviaImagen = function (event, imagen) {
     let output = document.getElementById(imagen);
     if (event.target.files[0] != null) {
-        if (event.target.files[0].size > 1000) {
-            console.log("El tamaño es muy grande");
-            console.log(event.target.files[0].size);
-
-        }
         output.src = URL.createObjectURL(event.target.files[0]);
     } else {
         output.src = "../../static/imagenes/imagenVacia.svg";
@@ -54,7 +49,7 @@ function generarDatosPregunta(numero) {
         inputImagen.setAttribute("value", "uploadImagenUnir" + (i + 1));
         inputImagen.setAttribute("required", "");
         inputImagen.setAttribute("accept", ".png, .jpg, .jpeg");
-        inputImagen.setAttribute("onchange", "mostrarVistaPreviaImagen(event, \'imagen" + (i + 1) + "\'), encodeImageFileAsURL(this)");
+        inputImagen.setAttribute("onchange", "validarImagen(event, \'imagen" + (i + 1) + "\', this)");
         document.getElementById("form-group-img-" + (i + 1)).appendChild(inputImagen);
 
         let inputImagen2 = document.createElement("INPUT");
@@ -160,5 +155,18 @@ function verificarIngreso(valor) {
     if (document.getElementById(valor.id).value.trim().length < 1) {
         alert("El nombre de la imagen está en blanco");
         document.getElementById(valor.id).value = "";
+    }
+}
+
+function validarImagen(event, imagen, elemento) {
+    let fileSize = event.target.files[0].size;
+    if (parseInt(fileSize) >  1048576) {
+        alert("La imagen es muy grande. Solo se permite cargar imagenes menores a 1 MB");
+        document.getElementById(elemento.id).value = "";
+        return false;
+    }
+    else {
+        mostrarVistaPreviaImagen(event, imagen);
+        encodeImageFileAsURL(elemento);
     }
 }
