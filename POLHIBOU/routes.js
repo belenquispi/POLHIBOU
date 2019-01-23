@@ -16,10 +16,12 @@ exports.get_inicio = function (req, res) {
         res.render('paginas/index');
     }
 };
+
 exports.get_inicio_sesion = function (req, res) {
-    var usuario = "";
+    let usuario = "";
     res.render('paginas/inicioSesion', {usuario: usuario, tipo: 0});
 };
+
 exports.post_inicio_sesion = function (req, res) {
     if (req.body.usuario == 'administrador') {
         req.body.usuario = 'polhibou@gmail.com';
@@ -75,6 +77,7 @@ exports.post_inicio_sesion = function (req, res) {
         }
     })
 };
+
 exports.get_cambiar_contrasenia = function (req, res) {
 
     if (req.session.nombre != "") {
@@ -93,11 +96,11 @@ exports.get_cambiar_contrasenia = function (req, res) {
 exports.get_ingreso_profesor = function (req, res) {
     if (req.session.nombre) {
         Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
-            var materias = [];
-            for (var i = 0; i < doc.materias.length; i++) {
-                var boolOpcion = verificarNumeroPreguntas(doc.materias[i].preguntasOpcionMultiple, 5);
-                var boolUnir = verificarNumeroPreguntas(doc.materias[i].preguntasUnirVoltear, 8);
-                var materia = {
+            let materias = [];
+            for (let i = 0; i < doc.materias.length; i++) {
+                let boolOpcion = verificarNumeroPreguntas(doc.materias[i].preguntasOpcionMultiple, 5);
+                let boolUnir = verificarNumeroPreguntas(doc.materias[i].preguntasUnirVoltear, 8);
+                let materia = {
                     nombre: doc.materias[i].nombre,
                     tipo: doc.materias[i].tipo,
                     numOpcionMultiple: doc.materias[i].preguntasOpcionMultiple.length,
@@ -119,18 +122,19 @@ exports.get_ingreso_profesor = function (req, res) {
         res.redirect('/inicioSesion');
     }
 };
+
 exports.get_ingreso_estudiante = function (req, res) {
     if (req.session.nombre) {
         Profesor.find({}, function (error, doc) {
-            var materias = [];
+            let materias = [];
             doc.forEach(function (facilitador) {
-                for (var i = 0; i < facilitador.materias.length; i++) {
-                    var materia = {
+                for (let i = 0; i < facilitador.materias.length; i++) {
+                    let materia = {
                         facilitador: '',
                         nombre: ''
                     };
-                    var boolOpcion = verificarNumeroPreguntas(facilitador.materias[i].preguntasOpcionMultiple, 5);
-                    var boolUnir = verificarNumeroPreguntas(facilitador.materias[i].preguntasUnirVoltear, 8);
+                    let boolOpcion = verificarNumeroPreguntas(facilitador.materias[i].preguntasOpcionMultiple, 5);
+                    let boolUnir = verificarNumeroPreguntas(facilitador.materias[i].preguntasUnirVoltear, 8);
                     if (facilitador.materias[i].tipo == "publica" && !boolOpcion && !boolUnir) {
                         materia.facilitador = facilitador.nombre;
                         materia.nombre = facilitador.materias[i].nombre;
@@ -146,6 +150,7 @@ exports.get_ingreso_estudiante = function (req, res) {
         res.redirect('/inicioSesion');
     }
 };
+
 exports.post_creacion_cuenta = function (req, res) {
     Usuario.findOne({usuario: req.body.usuario}, function (error, doc) {
         if (error) {
@@ -174,7 +179,7 @@ exports.post_creacion_cuenta = function (req, res) {
                     }
                     else {
                         correo.enviarCorreo(req.body.usuario, usuario.codigoVerificacion);
-                        var profesor = new Profesor({
+                        let profesor = new Profesor({
                             usuario: req.body.usuario,
                             nombre: req.body.nombre
                         });
@@ -183,7 +188,7 @@ exports.post_creacion_cuenta = function (req, res) {
                                 console.log("Error al crear facilitador: " + error)
                             }
                         });
-                        var estudiante = new Estudiante({
+                        let estudiante = new Estudiante({
                             usuario: req.body.usuario,
                             nombre: req.body.nombre
                         });
@@ -200,9 +205,10 @@ exports.post_creacion_cuenta = function (req, res) {
     });
 
 };
+
 exports.post_ingreso_materia = function (req, res) {
     Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
-        var materia = {
+        let materia = {
             nombre: req.body.nombreMateria,
             tipo: req.body.tipo
         };
@@ -213,23 +219,21 @@ exports.post_ingreso_materia = function (req, res) {
         })
     });
 };
+
 exports.get_preguntas_opcion = function (req, res) {
     if (req.session.nombre && req.params.materia) {
         Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
             if (error) {
                 console.log("Error: " + error);
             }
-            console.log("materia: " + doc.materias);
-            var indice = doc.materias.map(function (e) {
+            let indice = doc.materias.map(function (e) {
                 return e.nombre.trim();
             }).indexOf(req.params.materia);
-            var idPreguntas = [];
-            var enunciadoPreguntas = [];
-            var dificultadPreguntas = [];
-            console.log("indice: " + indice);
-            console.log("req.params.materia: " + req.params.materia);
+            let idPreguntas = [];
+            let enunciadoPreguntas = [];
+            let dificultadPreguntas = [];
 
-            for (var i = 0; i < doc.materias[indice].preguntasOpcionMultiple.length; i++) {
+            for (let i = 0; i < doc.materias[indice].preguntasOpcionMultiple.length; i++) {
                 idPreguntas.push(doc.materias[indice].preguntasOpcionMultiple[i].idPregunta);
                 enunciadoPreguntas.push(doc.materias[indice].preguntasOpcionMultiple[i].enunciado);
                 dificultadPreguntas.push(doc.materias[indice].preguntasOpcionMultiple[i].dificultad);
@@ -251,24 +255,25 @@ exports.get_preguntas_opcion = function (req, res) {
     }
 
 };
+
 exports.get_eliminar_pregunta_opcion = function (req, res) {
     if (req.session.usuario && req.params.idMateria) {
-        var str = req.params.idMateria;
-        var resp = str.split("&");
-        var materia = resp[0];
-        var idPregunta = resp[1];
+        let str = req.params.idMateria;
+        let resp = str.split("&");
+        let materia = resp[0];
+        let idPregunta = resp[1];
         Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
 
             if (error) {
                 console.log("Error: " + error)
             }
 
-            var indice = doc.materias.map(function (e) {
+            let indice = doc.materias.map(function (e) {
                 return e.nombre
             }).indexOf(materia);
 
             if (indice >= 0) {
-                var indicePregunta = doc.materias[indice].preguntasOpcionMultiple.map(function (e) {
+                let indicePregunta = doc.materias[indice].preguntasOpcionMultiple.map(function (e) {
                     return e.idPregunta
                 }).indexOf(idPregunta);
                 if (indicePregunta >= 0) {
@@ -284,6 +289,7 @@ exports.get_eliminar_pregunta_opcion = function (req, res) {
     }
 
 };
+
 exports.post_preguntas_opcion = function (req, res) {
     Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
 
@@ -291,10 +297,10 @@ exports.post_preguntas_opcion = function (req, res) {
             console.log("Error: " + error)
         }
 
-        var indice = doc.materias.map(function (e) {
+        let indice = doc.materias.map(function (e) {
             return e.nombre
         }).indexOf(req.body.materia);
-        var preguntaOpcionMultiple = {
+        let preguntaOpcionMultiple = {
             enunciado: req.body.enunciado,
             respuestaCorrecta: req.body.respuestaCorrecta,
             dificultad: req.body.dificultad,
@@ -319,7 +325,7 @@ exports.post_preguntas_opcion = function (req, res) {
         }
 
         if (indice >= 0) {
-            var indicePregunta = doc.materias[indice].preguntasOpcionMultiple.map(function (e) {
+            let indicePregunta = doc.materias[indice].preguntasOpcionMultiple.map(function (e) {
                 return e.idPregunta
             }).indexOf(req.body.idOpcionMultiple);
             if (indicePregunta >= 0) {
@@ -337,6 +343,7 @@ exports.post_preguntas_opcion = function (req, res) {
     });
 
 };
+
 exports.post_detalle_opcion_multiple = function (req, res) {
 
     Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
@@ -344,11 +351,11 @@ exports.post_detalle_opcion_multiple = function (req, res) {
             console.log("Error: " + error)
         }
 
-        var indice = doc.materias.map(function (e) {
+        let indice = doc.materias.map(function (e) {
             return e.nombre
         }).indexOf(req.body.materia);
 
-        var indicePregunta = -1;
+        let indicePregunta = -1;
         if (indice > -1) {
             indicePregunta = doc.materias[indice].preguntasOpcionMultiple.map(function (e) {
                 return e.idPregunta
@@ -356,7 +363,7 @@ exports.post_detalle_opcion_multiple = function (req, res) {
         }
 
         if (indicePregunta >= 0) {
-            var preguntaOpcionMultiple = {
+            let preguntaOpcionMultiple = {
                 enunciado: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].enunciado,
                 imagenEnunciado: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].imagenEnunciado,
                 idOpcionMultiple: doc.materias[indice].preguntasOpcionMultiple[indicePregunta].idPregunta,
@@ -380,6 +387,7 @@ exports.post_detalle_opcion_multiple = function (req, res) {
         }
     });
 };
+
 exports.get_creacion_partida = function (req, res) {
     console.log("Se tiene el siguiente rol al crear partida ", req.session.rol);
     if (req.session.usuario && req.params.materia) {
@@ -403,6 +411,7 @@ exports.get_creacion_partida = function (req, res) {
         res.redirect('/inicioSesion');
     }
 };
+
 exports.post_tablero = function (req, res) {
     if (req.body.rol == "facilitador") {
         res.render('paginas/participante/tablero', {
@@ -430,6 +439,7 @@ exports.post_tablero = function (req, res) {
         }
     }
 };
+
 exports.get_opcion_multiple = function (req, res) {
     if (req.session.usuario) {
         res.render('paginas/facilitador/preguntasOpcionMultiple', {
@@ -440,6 +450,7 @@ exports.get_opcion_multiple = function (req, res) {
         res.redirect('/inicioSesion');
     }
 };
+
 exports.get_unir_voltear = function (req, res) {
     if (req.session.usuario) {
         res.render('paginas/facilitador/preguntasUnirVoltear', {
@@ -450,13 +461,15 @@ exports.get_unir_voltear = function (req, res) {
         res.redirect('/inicioSesion');
     }
 };
+
 exports.get_ingreso_partida = function (req, res) {
-    var nombre = ((req.session.nombre == null) ? "Participante" : req.session.nombre);
+    let nombre = ((req.session.nombre == null) ? "Participante" : req.session.nombre);
     res.render('paginas/participante/ingresoPartidas',
         {
             nombre: nombre
         });
 };
+
 exports.get_preguntas_unir_voltear = function (req, res) {
     if (req.session.nombre && req.params.materia) {
         Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
@@ -464,14 +477,14 @@ exports.get_preguntas_unir_voltear = function (req, res) {
                 console.log("Error: " + error)
             }
 
-            var indice = doc.materias.map(function (e) {
+            let indice = doc.materias.map(function (e) {
                 return e.nombre.trim();
             }).indexOf(req.params.materia);
-            var idPreguntas = [];
-            var textoPreguntas = [];
-            var imagenPreguntas = [];
-            var dificultades = [];
-            for (var i = 0; i < doc.materias[indice].preguntasUnirVoltear.length; i++) {
+            let idPreguntas = [];
+            let textoPreguntas = [];
+            let imagenPreguntas = [];
+            let dificultades = [];
+            for (let i = 0; i < doc.materias[indice].preguntasUnirVoltear.length; i++) {
                 idPreguntas.push(doc.materias[indice].preguntasUnirVoltear[i].idPregunta);
                 textoPreguntas.push(doc.materias[indice].preguntasUnirVoltear[i].texto);
                 imagenPreguntas.push(doc.materias[indice].preguntasUnirVoltear[i].imagen);
@@ -491,6 +504,7 @@ exports.get_preguntas_unir_voltear = function (req, res) {
         res.redirect('/inicioSesion');
     }
 };
+
 exports.post_agregar_unir_voltear = function (req, res) {
     if (req.session.nombre) {
         Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
@@ -498,11 +512,11 @@ exports.post_agregar_unir_voltear = function (req, res) {
                 console.log("Error: " + error)
             }
 
-            var indice = doc.materias.map(function (e) {
+            let indice = doc.materias.map(function (e) {
                 return e.nombre
             }).indexOf(req.body.materia);
 
-            var preguntaUnir = {
+            let preguntaUnir = {
                 idPregunta: generarNombre(),
                 texto: req.body.nombreImagen,
                 imagen: req.body.imagenUnir,
@@ -523,6 +537,7 @@ exports.post_agregar_unir_voltear = function (req, res) {
         res.redirect('/inicioSesion');
     }
 };
+
 exports.post_eliminar_unir_voltear = function (req, res) {
     if (req.session.usuario && req.body.materia) {
 
@@ -530,12 +545,12 @@ exports.post_eliminar_unir_voltear = function (req, res) {
             if (error) {
                 console.log("Error: " + error)
             }
-            var indice = doc.materias.map(function (e) {
+            let indice = doc.materias.map(function (e) {
                 return e.nombre
             }).indexOf(req.body.materia);
 
             if (indice >= 0) {
-                var indicePregunta = doc.materias[indice].preguntasUnirVoltear.map(function (e) {
+                let indicePregunta = doc.materias[indice].preguntasUnirVoltear.map(function (e) {
                     return e.idPregunta
                 }).indexOf(req.body.idPregunta);
                 if (indicePregunta >= 0) {
@@ -551,6 +566,7 @@ exports.post_eliminar_unir_voltear = function (req, res) {
     }
 
 };
+
 exports.post_agregar_varias_unir_voltear = function (req, res) {
     if (req.session.nombre) {
         Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
@@ -603,6 +619,7 @@ exports.post_agregar_varias_unir_voltear = function (req, res) {
         res.redirect('/inicioSesion');
     }
 };
+
 exports.post_lobby = function (req, res) {
     console.log("idPArtida de la sesion: " + req.session.idPartida);
     console.log("idPArtida del body: " + req.body.idPartida);
@@ -617,7 +634,6 @@ exports.post_lobby = function (req, res) {
                 nombreEquipo: req.body[equipoU[0]],
                 imagenEquipo: req.body[equipoU[1]]
             };
-            console.log("nuevoEquipo");
             informacionJugadores.push(nuevoEquipo);
         }
         res.render('paginas/facilitador/lobby', {
@@ -634,6 +650,7 @@ exports.post_lobby = function (req, res) {
         res.redirect("/");
     }
 };
+
 exports.post_lobby_participante = function (req, res) {
     if (req.body.tipoIngreso == "participante" || req.body.tipoIngreso == "espectador") {
         let nombre = "";
@@ -653,13 +670,14 @@ exports.post_lobby_participante = function (req, res) {
         res.render('paginas/error', {mensaje: "Estas accediendo a un lugar donde no tienes acceso", direccion: "/"});
     }
 };
+
 exports.post_cambiar_tipo_materia = function (req, res) {
     if (req.session.usuario && req.body.materia) {
         Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
             if (error) {
                 console.log("Error: " + error)
             }
-            var indice = doc.materias.map(function (e) {
+            let indice = doc.materias.map(function (e) {
                 return e.nombre
             }).indexOf(req.body.materia);
 
@@ -681,13 +699,14 @@ exports.post_cambiar_tipo_materia = function (req, res) {
         res.redirect('/inicioSesion');
     }
 };
+
 exports.post_eliminar_materia = function (req, res) {
     if (req.session.usuario && req.body.materia) {
         Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
             if (error) {
                 console.log("Error: " + error)
             }
-            var indice = doc.materias.map(function (e) {
+            let indice = doc.materias.map(function (e) {
                 return e.nombre
             }).indexOf(req.body.materia);
 
@@ -704,6 +723,7 @@ exports.post_eliminar_materia = function (req, res) {
         res.redirect('/inicioSesion');
     }
 };
+
 exports.get_validar_cuenta = function (req, res) {
     if (req.session.usuarioTemporal != "") {
         res.render('paginas/validacionCuenta', {
@@ -715,6 +735,7 @@ exports.get_validar_cuenta = function (req, res) {
         res.redirect('/')
     }
 };
+
 exports.post_validar_cuenta = function (req, res) {
     if (req.session.usuarioTemporal != "") {
         Usuario.findOne({usuario: req.body.usuario}, function (error, doc) {
@@ -745,16 +766,17 @@ exports.post_validar_cuenta = function (req, res) {
         res.redirect('/')
     }
 };
+
 exports.post_retos_materia = function (req, res) {
-    var opcionMultiple = [];
-    var emparejar = [];
-    var unirVoltear = [];
-    var intentosMateria = [];
+    let opcionMultiple = [];
+    let emparejar = [];
+    let unirVoltear = [];
+    let intentosMateria = [];
     if (req.session.usuario && req.body.materia) {
         Estudiante.findOne({
             usuario: req.session.usuario
         }, function (error, doc) {
-            for (var i = 0; i < doc.intentos.length; i++) {
+            for (let i = 0; i < doc.intentos.length; i++) {
                 if (doc.intentos[i].materia == req.body.materia && doc.intentos[i].profesor == req.body.facilitador) {
                     intentosMateria.push(doc.intentos[i])
                 }
@@ -776,31 +798,32 @@ exports.post_retos_materia = function (req, res) {
         res.redirect('/')
     }
 };
+
 var preguntas = [];
 exports.post_mostrar_opcion = function (req, res) {
-    var contadorPreguntas = req.body.contadorPreguntas;
+    let contadorPreguntas = req.body.contadorPreguntas;
     contadorPreguntas++;
     if (req.session.usuario && req.body.materia && (req.session.rol == "participante")) {
-        var indices = [];
+        let indices = [];
         if (contadorPreguntas == 0) {
             preguntas = [];
             Profesor.findOne({nombre: req.body.facilitador}, function (error, doc) {
                 if (error) {
                     console.log("Error: " + error)
                 }
-                var indiceMateria = doc.materias.map(function (e) {
+                let indiceMateria = doc.materias.map(function (e) {
                     return e.nombre
                 }).indexOf(req.body.materia);
 
-                for (var i = 0; i < 5; i++) {
-                    var indice = Math.floor(Math.random() * doc.materias[indiceMateria].preguntasOpcionMultiple.length);
+                for (let i = 0; i < 5; i++) {
+                    let indice = Math.floor(Math.random() * doc.materias[indiceMateria].preguntasOpcionMultiple.length);
                     while (indices.indexOf(indice) >= 0 || doc.materias[indiceMateria].preguntasOpcionMultiple[indice].dificultad != req.body.dificultad) {
                         indice = Math.floor(Math.random() * doc.materias[indiceMateria].preguntasOpcionMultiple.length);
                     }
                     indices.push(indice);
                     preguntas.push(doc.materias[indiceMateria].preguntasOpcionMultiple[indice])
                 }
-                var intento =
+                let intento =
                     {
                         idIntento: generarNombre(),
                         profesor: req.body.facilitador,
@@ -811,8 +834,8 @@ exports.post_mostrar_opcion = function (req, res) {
                         preguntas: []
                     };
 
-                for (var j = 0; j < 5; j++) {
-                    var pregunta =
+                for (let j = 0; j < 5; j++) {
+                    let pregunta =
                         {
                             idPregunta: preguntas[j].idPregunta,
                             enunciado: preguntas[j].enunciado,
@@ -845,13 +868,13 @@ exports.post_mostrar_opcion = function (req, res) {
                 Estudiante.findOne({
                         usuario: req.session.usuario
                     }, function (error, doc) {
-                        var indice = doc.intentos.map(function (e) {
+                        let indice = doc.intentos.map(function (e) {
                             return e.idIntento
                         }).indexOf(req.body.idIntento);
                         doc.intentos[indice].preguntas[contadorPreguntas - 1].correctoIncorrecto = req.body.correctoIncorrecto;
                         doc.intentos[indice].preguntas[contadorPreguntas - 1].respuestaSeleccionada = req.body.resSeleccionada;
-                        var puntaje = 0;
-                        for (var k = 0; k < 5; k++) {
+                        let puntaje = 0;
+                        for (let k = 0; k < 5; k++) {
                             if (doc.intentos[indice].preguntas[k].correctoIncorrecto == 1) {
                                 puntaje++;
                             }
@@ -890,22 +913,23 @@ exports.post_mostrar_opcion = function (req, res) {
         res.redirect('/')
     }
 };
+
 var preguntasEmparejar = [];
 exports.post_mostrar_emparejar = function (req, res) {
     if (req.session.usuario && req.body.materia && (req.session.rol == "participante")) {
         preguntasEmparejar = [];
-        var indices = [];
-        var textoDesordenado = [];
+        let indices = [];
+        let textoDesordenado = [];
         Profesor.findOne({nombre: req.body.facilitador}, function (error, doc) {
             if (error) {
                 console.log("Error: " + error)
             }
-            var indiceMateria = doc.materias.map(function (e) {
+            let indiceMateria = doc.materias.map(function (e) {
                 return e.nombre
             }).indexOf(req.body.materia);
 
-            for (var i = 0; i < 5; i++) {
-                var indice = Math.floor(Math.random() * doc.materias[indiceMateria].preguntasUnirVoltear.length);
+            for (let i = 0; i < 5; i++) {
+                let indice = Math.floor(Math.random() * doc.materias[indiceMateria].preguntasUnirVoltear.length);
                 while (indices.indexOf(indice) >= 0 || doc.materias[indiceMateria].preguntasUnirVoltear[indice].dificultad != req.body.dificultad) {
                     indice = Math.floor(Math.random() * doc.materias[indiceMateria].preguntasUnirVoltear.length);
                 }
@@ -914,7 +938,7 @@ exports.post_mostrar_emparejar = function (req, res) {
             }
             textoDesordenado = desordenarTextoUnir(preguntasEmparejar);
 
-            var intento =
+            let intento =
                 {
                     idIntento: generarNombre(),
                     profesor: req.body.facilitador,
@@ -925,8 +949,8 @@ exports.post_mostrar_emparejar = function (req, res) {
                     preguntas: []
                 };
 
-            for (var j = 0; j < 5; j++) {
-                var pregunta =
+            for (let j = 0; j < 5; j++) {
+                let pregunta =
                     {
                         idPregunta: preguntasEmparejar[j].idPregunta,
                         enunciado: preguntasEmparejar[j].texto,
@@ -961,24 +985,24 @@ exports.post_mostrar_emparejar = function (req, res) {
         res.redirect('/')
     }
 };
+
 exports.post_resultados_emparejar = function (req, res) {
     if (req.session.usuario && req.body.materia && (req.session.rol == "participante")) {
-        var puntaje = 0;
-        var puntajes = [];
-        var respuestas = req.body.respuestas.split(",");
+        let puntaje = 0;
+        let puntajes = [];
+        let respuestas = req.body.respuestas.split(",");
         Estudiante.findOne({
             usuario: req.session.usuario
         }, function (error, doc) {
-            var indiceIntento = doc.intentos.map(function (e) {
+            let indiceIntento = doc.intentos.map(function (e) {
                 return e.idIntento
             }).indexOf(req.body.idIntento);
 
-            for (var i = 0; i < (preguntasEmparejar.length); i++) {
-                var indice = respuestas.indexOf(preguntasEmparejar[i].idPregunta);
+            for (let i = 0; i < (preguntasEmparejar.length); i++) {
+                let indice = respuestas.indexOf(preguntasEmparejar[i].idPregunta);
                 if (indice > -1) {
                     doc.intentos[indiceIntento].preguntas[i].respuestaSeleccionada = respuestas[indice + 1];
                     if (preguntasEmparejar[i].texto == respuestas[indice + 1]) {
-                        console.log("HOLA")
                         doc.intentos[indiceIntento].preguntas[i].correctoIncorrecto = 1;
                         puntajes.push(1);
                         puntaje++;
@@ -1008,22 +1032,23 @@ exports.post_resultados_emparejar = function (req, res) {
     }
 };
 var preguntasUnir = [];
+
 exports.post_mostrar_unir = function (req, res) {
     if (req.session.usuario && req.body.materia && (req.session.rol == "participante")) {
         preguntasUnir = [];
-        var stringPreguntaUnir = "";
-        var indices = [];
-        var memory_array = [];
+        let stringPreguntaUnir = "";
+        let indices = [];
+        let memory_array = [];
         Profesor.findOne({nombre: req.body.facilitador}, function (error, doc) {
             if (error) {
                 console.log("Error: " + error)
             }
-            var indiceMateria = doc.materias.map(function (e) {
+            let indiceMateria = doc.materias.map(function (e) {
                 return e.nombre
             }).indexOf(req.body.materia);
 
-            for (var i = 0; i < 6; i++) {
-                var indice = Math.floor(Math.random() * doc.materias[indiceMateria].preguntasUnirVoltear.length);
+            for (let i = 0; i < 6; i++) {
+                let indice = Math.floor(Math.random() * doc.materias[indiceMateria].preguntasUnirVoltear.length);
                 while (indices.indexOf(indice) >= 0 || doc.materias[indiceMateria].preguntasUnirVoltear[indice].dificultad != req.body.dificultad) {
                     indice = Math.floor(Math.random() * doc.materias[indiceMateria].preguntasUnirVoltear.length);
                 }
@@ -1033,7 +1058,7 @@ exports.post_mostrar_unir = function (req, res) {
                 memory_array.push(doc.materias[indiceMateria].preguntasUnirVoltear[indice].imagen);
                 memory_array.push(doc.materias[indiceMateria].preguntasUnirVoltear[indice].imagen)
             }
-            var intento =
+            let intento =
                 {
                     idIntento: generarNombre(),
                     profesor: req.body.facilitador,
@@ -1044,8 +1069,8 @@ exports.post_mostrar_unir = function (req, res) {
                     preguntas: []
                 };
 
-            for (var j = 0; j < 6; j++) {
-                var pregunta =
+            for (let j = 0; j < 6; j++) {
+                let pregunta =
                     {
                         idPregunta: preguntasUnir[j].idPregunta,
                         enunciado: preguntasUnir[j].texto,
@@ -1054,7 +1079,6 @@ exports.post_mostrar_unir = function (req, res) {
                 intento.preguntas.push(pregunta)
             }
             memory_array.memory_tile_shuffle();
-            console.log(memory_array)
             Estudiante.findOne({
                 usuario: req.session.usuario
             }, function (error, doc) {
@@ -1078,10 +1102,11 @@ exports.post_mostrar_unir = function (req, res) {
         res.redirect('/')
     }
 };
+
 exports.post_resultados_unir = function (req, res) {
     if (req.session.usuario && req.body.materia && (req.session.rol == "participante")) {
-        var puntaje = 0;
-        var respuestas = [];
+        let puntaje = 0;
+        let respuestas = [];
         if (req.body.respuestas.length > 0) {
             respuestas = req.body.respuestas.split(",");
         }
@@ -1098,7 +1123,7 @@ exports.post_resultados_unir = function (req, res) {
         Estudiante.findOne({
             usuario: req.session.usuario
         }, function (error, doc) {
-            var indiceIntento = doc.intentos.map(function (e) {
+            let indiceIntento = doc.intentos.map(function (e) {
                 return e.idIntento
             }).indexOf(req.body.idIntento);
             doc.intentos[indiceIntento].puntaje = puntaje;
@@ -1119,6 +1144,7 @@ exports.post_resultados_unir = function (req, res) {
         res.redirect('/')
     }
 };
+
 exports.get_retos_materia = function (req, res) {
     let opcionMultiple = [];
     let emparejar = [];
@@ -1150,15 +1176,16 @@ exports.get_retos_materia = function (req, res) {
         res.redirect('/');
     }
 };
+
 exports.get_estadisticas = function (req, res) {
     if (req.session.nombre) {
         Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
 
-            var materias = [];
-            for (var i = 0; i < doc.materias.length; i++) {
-                var boolOpcion = verificarNumeroPreguntas(doc.materias[i].preguntasOpcionMultiple, 5);
-                var boolUnir = verificarNumeroPreguntas(doc.materias[i].preguntasUnirVoltear, 8);
-                var materia = {
+            let materias = [];
+            for (let i = 0; i < doc.materias.length; i++) {
+                let boolOpcion = verificarNumeroPreguntas(doc.materias[i].preguntasOpcionMultiple, 5);
+                let boolUnir = verificarNumeroPreguntas(doc.materias[i].preguntasUnirVoltear, 8);
+                let materia = {
                     nombre: doc.materias[i].nombre,
                     tipo: doc.materias[i].tipo,
                     numOpcionMultiple: doc.materias[i].preguntasOpcionMultiple.length,
@@ -1184,6 +1211,7 @@ exports.get_estadisticas = function (req, res) {
         res.redirect('/inicioSesion');
     }
 };
+
 exports.get_estadistica_participante = function (req, res) {
     if (req.session.nombre) {
         Estudiante.find({}, function (error, doc) {
@@ -1218,15 +1246,16 @@ exports.get_estadistica_participante = function (req, res) {
         res.redirect('/inicioSesion');
     }
 };
+
 exports.get_estadistica_preguntas = function (req, res) {
     if (req.session.nombre) {
         Profesor.findOne({usuario: req.session.usuario}, function (error, doc) {
-            var preguntas = [];
-            var idMateria = doc.materias.map(function (e) {
+            let preguntas = [];
+            let idMateria = doc.materias.map(function (e) {
                 return e.nombre
             }).indexOf(req.params.materia);
-            for (var i = 0; i < doc.materias[idMateria].preguntasOpcionMultiple.length; i++) {
-                var preguntaOpcion = {
+            for (let i = 0; i < doc.materias[idMateria].preguntasOpcionMultiple.length; i++) {
+                let preguntaOpcion = {
                     idPregunta: "",
                     enunciado: "",
                     resCorrecta: 0,
@@ -1242,8 +1271,8 @@ exports.get_estadistica_preguntas = function (req, res) {
                 }
                 preguntas.push(preguntaOpcion);
             }
-            for (var a = 0; a < doc.materias[idMateria].preguntasUnirVoltear.length; a++) {
-                var preguntaUnir = {
+            for (let a = 0; a < doc.materias[idMateria].preguntasUnirVoltear.length; a++) {
+                let preguntaUnir = {
                     idPregunta: "",
                     enunciado: "",
                     imagen: "",
@@ -1258,23 +1287,15 @@ exports.get_estadistica_preguntas = function (req, res) {
             }
             Estudiante.find({}, function (error, doc) {
                 doc.forEach(function (participante) {
-                    for (var b = 0; b < participante.intentos.length; b++) {
-                        console.log("intentos");
-                        console.log(participante.intentos.length);
+                    for (let b = 0; b < participante.intentos.length; b++) {
                         if (participante.intentos[b].tipoDesafio != "unir") {
-                            console.log("Distintos de unir");
-                            console.log(participante.intentos[b].tipoDesafio);
-                            for (var c = 0; c < participante.intentos[b].preguntas.length; c++) {
-                                var indicePregunta = preguntas.map(function (e) {
+                            for (let c = 0; c < participante.intentos[b].preguntas.length; c++) {
+                                let indicePregunta = preguntas.map(function (e) {
                                     return e.idPregunta
                                 }).indexOf(participante.intentos[b].preguntas[c].idPregunta);
-                                console.log("Preguntas");
-                                console.log(indicePregunta);
                                 if (indicePregunta > 0) {
                                     if (participante.intentos[b].preguntas[c].correctoIncorrecto == 1) {
                                         preguntas[indicePregunta].resCorrecta += 1;
-                                        console.log("Uno más: ");
-                                        console.log(preguntas[indicePregunta].resCorrecta);
                                     } else {
                                         preguntas[indicePregunta].resIncorrecta += 1;
                                     }
@@ -1297,16 +1318,17 @@ exports.get_estadistica_preguntas = function (req, res) {
         res.redirect('/inicioSesion');
     }
 };
+
 exports.post_detalle_participante = function (req, res) {
     if (req.session.nombre) {
-        var opcionMultiple = [];
-        var emparejar = [];
-        var unirVoltear = [];
-        var intentosMateria = [];
-        var participante = "";
+        let opcionMultiple = [];
+        let emparejar = [];
+        let unirVoltear = [];
+        let intentosMateria = [];
+        let participante = "";
         Estudiante.findOne({usuario: req.body.usuario}, function (error, doc) {
             participante = doc.nombre;
-            for (var i = 0; i < doc.intentos.length; i++) {
+            for (let i = 0; i < doc.intentos.length; i++) {
                 if (doc.intentos[i].materia == req.body.asignatura && doc.intentos[i].profesor == req.body.facilitador) {
                     intentosMateria.push(doc.intentos[i])
                 }
@@ -1330,12 +1352,23 @@ exports.post_detalle_participante = function (req, res) {
         res.redirect('/inicioSesion');
     }
 };
+
 exports.get_ingreso_administrador = function (req, res) {
     if (req.session.nombre) {
-        var usuarios = [];
+        let usuarios = [];
         Usuario.find({}, function (error, doc) {
+			
+			if(error){
+				console.log("Error en la consulta de todos los usuario " + error);
+				res.render('paginas/error', {
+                        mensaje: "Se presento inconvenientes en la consulta de todos los usuarios.",
+                        direccion: "/"
+                    });
+			}
+			
+			
             doc.forEach(function (usuario) {
-                var usuarioX = {
+                let usuarioX = {
                     nombre: usuario.nombre,
                     usuario: usuario.usuario,
                     contrasenia: usuario.contrasenia,
@@ -1359,17 +1392,29 @@ exports.post_eliminar_usuario = function (req, res) {
     if (req.session.usuario) {
         Usuario.deleteOne({usuario: req.body.usuario}, function (error) {
             if (error) {
-                console.log("Error: " + error)
+                console.log("Error en la eliminación del usuario: " + error)
+				res.render('paginas/error', {
+                        mensaje: "Se presento inconvenientes en la eliminación del usuario: " + req.body.usuario + ".",
+                        direccion: "/"
+                    });
             }
             else {
                 Estudiante.deleteOne({usuario: req.body.usuario}, function (error) {
                     if (error) {
                         console.log("Error: " + error)
+						res.render('paginas/error', {
+                        mensaje: "Se presento inconvenientes en la eliminación del participante: " + req.body.usuario + ".",
+                        direccion: "/"
+                    });
                     }
                     else {
                         Profesor.deleteOne({usuario: req.body.usuario}, function (error) {
                             if (error) {
-                                console.log("Error: " + error)
+                                console.log("Error: " + error);
+								res.render('paginas/error', {
+                        mensaje: "Se presento inconvenientes en la eliminación del facilitador: " + req.body.usuario + ".",
+                        direccion: "/"
+                    });
                             } else {
                                 res.redirect('/');
                             }
@@ -1385,9 +1430,10 @@ exports.post_eliminar_usuario = function (req, res) {
 };
 
 exports.get_recuperar_contrasenia = function (req, res) {
-    var usuario = "";
+    let usuario = "";
     res.render('paginas/recuperarContrasenia', {usuario: usuario});
 };
+
 exports.post_recuperar_contrasenia = function (req, res) {
     if (req.body.usuario == 'administrador') {
         req.body.usuario = 'polhibou@gmail.com';
@@ -1395,15 +1441,20 @@ exports.post_recuperar_contrasenia = function (req, res) {
     Usuario.findOne({usuario: req.body.usuario}, function (error, doc) {
         if (error) {
             console.log("Error en la busqueda del usuario: " + error);
+			res.render('paginas/error', {
+                        mensaje: "Se presento inconvenientes en la busqueda del usuario: " + req.body.usuario + ".",
+                        direccion: "/"
+                    });
         }
         else {
             if (doc != null) {
-                var contraseniaTemporal = generarNombre();
+                let contraseniaTemporal = generarNombre();
                 doc.contraseniaTemporal = contraseniaTemporal;
-                console.log("Con Contrasenia Temporal: " + doc)
                 doc.save(function (err, docActualizado) {
                     if (err) {
-                        res.render('paginas/error', {mensaje: err, direccion: "/recuperarContrasenia"})
+                        res.render('paginas/error', {
+							mensaje: "Se presento inconvenientes en la actualización de la contrasenia temporal del usuario: " + req.body.usuario + ".", 
+							direccion: "/recuperarContrasenia"})
                     }
                     correo.enviarCorreo(doc.usuario, doc.contraseniaTemporal);
                     res.render('paginas/inicioSesion', {usuario: "", tipo: 1});
@@ -1418,6 +1469,7 @@ exports.post_recuperar_contrasenia = function (req, res) {
         }
     });
 };
+
 exports.post_cambiar_contrasenia = function (req, res) {
     if (req.body.usuario == 'administrador') {
         req.body.usuario = 'polhibou@gmail.com';
@@ -1425,6 +1477,10 @@ exports.post_cambiar_contrasenia = function (req, res) {
     Usuario.findOne({usuario: req.body.usuario}, function (error, doc) {
         if (error) {
             console.log("Error en la busqueda del usuario: " + error);
+			 res.render('paginas/error', {
+                        mensaje: "Se presento inconvenientes en la busqueda del usuario: " + req.body.usuario + ".",
+                        direccion: "/"
+                    });
         }
         else {
             if (doc != null) {
@@ -1459,14 +1515,14 @@ exports.post_cambiar_contrasenia = function (req, res) {
         }
     });
 };
+
 exports.post_partida_finalizada = function (req, res) {
-    console.log("Ingrese a la finalización de la partida");
     if (req.body.idPartida != null) {
         Partida.findOne({idPartida: req.body.idPartida}, function (error, partida) {
             if (error) {
-                console.log("Erororor: " + error);
+                console.log("Error en finalizar la partida: " + error);
                 res.render('paginas/error', {
-                    mensaje: "Se ha presentado un error en el servidor. Favor contactarse con el administrador",
+                    mensaje: "Se presento inconvenientes en finalizar la partida"+ req.body.idPartida +".",
                     direccion: "/"
                 });
             } else {
@@ -1507,7 +1563,7 @@ exports.post_partida_finalizada = function (req, res) {
                     }
 
                 } else {
-                    console.log("Idpartida: " + req.body.idPartida);
+                    console.log("No existe la partida: " + req.body.idPartida);
                     res.render('paginas/error', {
                         mensaje: "No existe la partida " + req.body.idPartida + ".",
                         direccion: "/"
@@ -1520,17 +1576,22 @@ exports.post_partida_finalizada = function (req, res) {
     }
 
 };
+
 exports.post_salir_partida = function (req, res) {
     Partida.deleteOne({idPartida: req.body.idPartida}, function (err) {
         if (err) {
-            console.log("No se elimino la partida: " + err)
+            console.log("No se elimino la partida: " + err);
+				 res.render('paginas/error', {
+                        mensaje: "Se presento inconvenientes en la salida de la partida: " + req.body.idPartida + ".",
+                        direccion: "/"
+                    });
         }
         else {
-            console.log("Se elimino correctamente la partida: " + err);
             res.redirect('/')
         }
     });
 };
+
 exports.salir = function (req, res) {
     req.session.usuario = null;
     req.session.nombre = null;
@@ -1544,18 +1605,24 @@ exports.error = function (req, res) {
 exports.get_intentos = function (req, res) {
     if (req.session.usuario) {
         Estudiante.findOne({usuario: req.session.usuario}, function (error, doc) {
+			
+			if(error){
+				 res.render('paginas/error', {
+                        mensaje: "No se pudo consultar la información del usuario " + req.session.usuario + ".",
+                        direccion: "/"
+                    });
+			}
+			
             let intentosTematicaFacilitador = [];
             for (let i = 0; i < doc.intentos.length; i++) {
                 let intentoTematicaFacilitador = {
                     facilitador: doc.intentos[i].profesor,
                     tematica: doc.intentos[i].materia,
                 };
-                if ((intentosTematicaFacilitador.map(function (e) {
-                        return e.facilitador
-                    }).indexOf(doc.intentos[i].profesor < 0)) &&
-                    (intentosTematicaFacilitador.map(function (e) {
-                        return e.tematica
-                    }).indexOf(doc.intentos[i].tematica < 0))) {
+				console.log("Facilitador: "+ intentoTematicaFacilitador.facilitador);
+				console.log("tematica: "+ intentoTematicaFacilitador.tematica);
+                if ((intentosTematicaFacilitador.length == 0) || ((intentosTematicaFacilitador.map(function (e) { return e.facilitador; }).indexOf(doc.intentos[i].profesor < 0)) &&
+                    (intentosTematicaFacilitador.map(function (e) { return e.tematica }).indexOf(doc.intentos[i].tematica < 0)))) {
                     intentosTematicaFacilitador.push(intentoTematicaFacilitador);
                 }
             }
@@ -1577,6 +1644,14 @@ exports.get_intentos = function (req, res) {
 exports.post_detalle_tematica_intentos = function (req, res) {
     if (req.session.usuario) {
         Estudiante.findOne({usuario: req.session.usuario}, function (error, doc) {
+			
+			if(error){
+				 res.render('paginas/error', {
+                        mensaje: "No se pudo consultar la información del usuario " + req.session.usuario + ".",
+                        direccion: "/"
+                    });
+			}
+			
             let intentos = [];
             let tematica = "";
             let facilitador = "";
@@ -1612,6 +1687,14 @@ exports.post_detalle_tematica_intentos = function (req, res) {
 exports.post_detalle_intentos = function (req, res) {
     if (req.session.usuario) {
         Estudiante.findOne({usuario: req.session.usuario}, function (error, doc) {
+			
+			if(error){
+				 res.render('paginas/error', {
+                        mensaje: "No se pudo consultar la información del usuario " + req.session.usuario + ".",
+                        direccion: "/"
+                    });
+			}
+			
             let indiceIntento = doc.intentos.map(function (e) {
                 return e.idIntento
             }).indexOf(req.body.idIntento);
@@ -1637,11 +1720,7 @@ exports.post_detalle_intentos = function (req, res) {
                     tipoDesafio: doc.intentos[indiceIntento].tipoDesafio,
                     preguntas: preguntas
                 });
-
-
             }
-
-
         });
     }
     else {
@@ -1657,8 +1736,8 @@ function generarNombre() {
 
 function contarPreguntas(array, dificultad) {
 
-    var numPreguntas = 0;
-    for (var j = 0; j < array.length; j++) {
+    let numPreguntas = 0;
+    for (let j = 0; j < array.length; j++) {
         if (array[j].dificultad == dificultad) {
             numPreguntas++;
         }
@@ -1667,10 +1746,10 @@ function contarPreguntas(array, dificultad) {
 }
 
 function verificarNumeroPreguntas(array, num) {
-    var facil;
-    var medio;
-    var dificil;
-    var boolResultado;
+    let facil;
+    let medio;
+    let dificil;
+    let boolResultado;
     facil = contarPreguntas(array, "Fácil");
     medio = contarPreguntas(array, "Medio");
     dificil = contarPreguntas(array, "Difícil");
@@ -1679,8 +1758,8 @@ function verificarNumeroPreguntas(array, num) {
 }
 
 function obtenerPuntaje(array, tipoPregunta) {
-    var puntajes = [0, 0, 0, 0, 0, 0];
-    for (var i = 0; i < array.length; i++) {
+    let puntajes = [0, 0, 0, 0, 0, 0];
+    for (let i = 0; i < array.length; i++) {
         if (array[i].tipoDesafio == tipoPregunta) {
             switch (array[i].dificultad) {
                 case "Fácil":
@@ -1708,11 +1787,11 @@ function obtenerPuntaje(array, tipoPregunta) {
 }
 
 function desordenarTextoUnir(arrayPreguntas) {
-    var vectorTextoUnir = [];
-    for (var k = 0; k < arrayPreguntas.length; k++) {
+    let vectorTextoUnir = [];
+    for (let k = 0; k < arrayPreguntas.length; k++) {
         vectorTextoUnir.push(arrayPreguntas[k].texto);
     }
-    var j, x, i;
+    let j, x, i;
     for (i = vectorTextoUnir.length - 1; i >= 0; i--) {
         j = Math.floor(Math.random() * (i + 1));
         x = vectorTextoUnir[i];
@@ -1723,7 +1802,7 @@ function desordenarTextoUnir(arrayPreguntas) {
 }
 
 Array.prototype.memory_tile_shuffle = function () {
-    var i = this.length, j, temp;
+    let i = this.length, j, temp;
     while (--i > 0) {
         j = Math.floor(Math.random() * (i + 1));
         temp = this[j];

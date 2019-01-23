@@ -96,22 +96,19 @@ for (var i = 0; i < dificultades.length; i++) {
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <div class="card opacoCard" style="margin-top: 10px">
+                    <div class="card opacoCard" style="margin-top: 10px height: 150px">
                         <p class="card-header bg-white" style="color: black">AGREGAR PREGUNTA</p>
                         <div class="card-body">
                             <div class="input-group mb-2 col-md-12">
                                 <a href="/preguntasOpcionMultiple/ingresoOpcionMultiple/<%= materia %>"
                                    class="btn btn-primary degradoBoton" style="margin-bottom: 10px"><i class="fas fa-plus"></i>
-                                    Agregar
-                                    Pregunta</a>
+                                    Agregar Pregunta</a>
                             </div>
 
                         </div>
                     </div>
                 </div>
-                <%
-                console.log("hola1: " + nombre);
-                for(let i = 0; i < enunciadoPreguntas.length; i++) { %>
+                <%for(let i = 0; i < enunciadoPreguntas.length; i++) { %>
                     <div class="col-md-4">
                         <div class="card opacoCard" style="margin-top: 10px">
                             <div class="card-header bg-white" style="color: black">
@@ -119,7 +116,6 @@ for (var i = 0; i < dificultades.length; i++) {
                                     <div class="col-md-12">
                                         <p class="textoUnir">Enunciado: <%= enunciadoPreguntas[i] %></p>
                                     </div>
-
                                 </div>
                             </div>
                             <div class="card-body">
