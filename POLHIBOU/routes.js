@@ -893,6 +893,27 @@ exports.post_mostrar_opcion = function (req, res) {
                                 })
                             }
                             else {
+                                Profesor.findOne({nombre: doc.intentos[indice].profesor}, function (errorF, facilitador) {
+                                    if (errorF) {
+                                        console.log("error en la consulta de los datos del facilitador de las preguntas")
+                                    }
+                                    let indiceTematica = facilitador.materias.map(function (e) {
+                                        return e.nombre;
+                                    }).indexOf(doc.intentos[indice].materia);
+                                    console.log("indiceTematica "+indiceTematica);
+                                    let respuestasCorrectas = [];
+                                    if(indiceTematica> -1){
+                                        for (let a = 0; a < doc.intentos[indice].preguntas.length; a++) {
+                                            let indicePregunta = facilitador.materias[indiceTematica].preguntasOpcionMultiple.map(function (e) {
+                                                return e.idPregunta;
+                                            }).indexOf(doc.intentos[indice].preguntas[a].idPregunta);
+                                            let resCorrecta = facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].respuestaCorrecta;
+                                            console.log("Respuesta Correcta"+resCorrecta);
+                                        }
+                                    }
+
+                                });
+
                                 res.render('paginas/participante/resultadosOpcionMultiple', {
                                     nombre: req.session.nombre,
                                     materia: req.body.materia,
@@ -1357,16 +1378,16 @@ exports.get_ingreso_administrador = function (req, res) {
     if (req.session.nombre) {
         let usuarios = [];
         Usuario.find({}, function (error, doc) {
-			
-			if(error){
-				console.log("Error en la consulta de todos los usuario " + error);
-				res.render('paginas/error', {
-                        mensaje: "Se presento inconvenientes en la consulta de todos los usuarios.",
-                        direccion: "/"
-                    });
-			}
-			
-			
+
+            if (error) {
+                console.log("Error en la consulta de todos los usuario " + error);
+                res.render('paginas/error', {
+                    mensaje: "Se presento inconvenientes en la consulta de todos los usuarios.",
+                    direccion: "/"
+                });
+            }
+
+
             doc.forEach(function (usuario) {
                 let usuarioX = {
                     nombre: usuario.nombre,
@@ -1393,28 +1414,28 @@ exports.post_eliminar_usuario = function (req, res) {
         Usuario.deleteOne({usuario: req.body.usuario}, function (error) {
             if (error) {
                 console.log("Error en la eliminación del usuario: " + error)
-				res.render('paginas/error', {
-                        mensaje: "Se presento inconvenientes en la eliminación del usuario: " + req.body.usuario + ".",
-                        direccion: "/"
-                    });
+                res.render('paginas/error', {
+                    mensaje: "Se presento inconvenientes en la eliminación del usuario: " + req.body.usuario + ".",
+                    direccion: "/"
+                });
             }
             else {
                 Estudiante.deleteOne({usuario: req.body.usuario}, function (error) {
                     if (error) {
                         console.log("Error: " + error)
-						res.render('paginas/error', {
-                        mensaje: "Se presento inconvenientes en la eliminación del participante: " + req.body.usuario + ".",
-                        direccion: "/"
-                    });
+                        res.render('paginas/error', {
+                            mensaje: "Se presento inconvenientes en la eliminación del participante: " + req.body.usuario + ".",
+                            direccion: "/"
+                        });
                     }
                     else {
                         Profesor.deleteOne({usuario: req.body.usuario}, function (error) {
                             if (error) {
                                 console.log("Error: " + error);
-								res.render('paginas/error', {
-                        mensaje: "Se presento inconvenientes en la eliminación del facilitador: " + req.body.usuario + ".",
-                        direccion: "/"
-                    });
+                                res.render('paginas/error', {
+                                    mensaje: "Se presento inconvenientes en la eliminación del facilitador: " + req.body.usuario + ".",
+                                    direccion: "/"
+                                });
                             } else {
                                 res.redirect('/');
                             }
@@ -1441,10 +1462,10 @@ exports.post_recuperar_contrasenia = function (req, res) {
     Usuario.findOne({usuario: req.body.usuario}, function (error, doc) {
         if (error) {
             console.log("Error en la busqueda del usuario: " + error);
-			res.render('paginas/error', {
-                        mensaje: "Se presento inconvenientes en la busqueda del usuario: " + req.body.usuario + ".",
-                        direccion: "/"
-                    });
+            res.render('paginas/error', {
+                mensaje: "Se presento inconvenientes en la busqueda del usuario: " + req.body.usuario + ".",
+                direccion: "/"
+            });
         }
         else {
             if (doc != null) {
@@ -1453,8 +1474,9 @@ exports.post_recuperar_contrasenia = function (req, res) {
                 doc.save(function (err, docActualizado) {
                     if (err) {
                         res.render('paginas/error', {
-							mensaje: "Se presento inconvenientes en la actualización de la contrasenia temporal del usuario: " + req.body.usuario + ".", 
-							direccion: "/recuperarContrasenia"})
+                            mensaje: "Se presento inconvenientes en la actualización de la contrasenia temporal del usuario: " + req.body.usuario + ".",
+                            direccion: "/recuperarContrasenia"
+                        })
                     }
                     correo.enviarCorreo(doc.usuario, doc.contraseniaTemporal);
                     res.render('paginas/inicioSesion', {usuario: "", tipo: 1});
@@ -1477,10 +1499,10 @@ exports.post_cambiar_contrasenia = function (req, res) {
     Usuario.findOne({usuario: req.body.usuario}, function (error, doc) {
         if (error) {
             console.log("Error en la busqueda del usuario: " + error);
-			 res.render('paginas/error', {
-                        mensaje: "Se presento inconvenientes en la busqueda del usuario: " + req.body.usuario + ".",
-                        direccion: "/"
-                    });
+            res.render('paginas/error', {
+                mensaje: "Se presento inconvenientes en la busqueda del usuario: " + req.body.usuario + ".",
+                direccion: "/"
+            });
         }
         else {
             if (doc != null) {
@@ -1522,7 +1544,7 @@ exports.post_partida_finalizada = function (req, res) {
             if (error) {
                 console.log("Error en finalizar la partida: " + error);
                 res.render('paginas/error', {
-                    mensaje: "Se presento inconvenientes en finalizar la partida"+ req.body.idPartida +".",
+                    mensaje: "Se presento inconvenientes en finalizar la partida" + req.body.idPartida + ".",
                     direccion: "/"
                 });
             } else {
@@ -1581,10 +1603,10 @@ exports.post_salir_partida = function (req, res) {
     Partida.deleteOne({idPartida: req.body.idPartida}, function (err) {
         if (err) {
             console.log("No se elimino la partida: " + err);
-				 res.render('paginas/error', {
-                        mensaje: "Se presento inconvenientes en la salida de la partida: " + req.body.idPartida + ".",
-                        direccion: "/"
-                    });
+            res.render('paginas/error', {
+                mensaje: "Se presento inconvenientes en la salida de la partida: " + req.body.idPartida + ".",
+                direccion: "/"
+            });
         }
         else {
             res.redirect('/')
@@ -1605,24 +1627,28 @@ exports.error = function (req, res) {
 exports.get_intentos = function (req, res) {
     if (req.session.usuario) {
         Estudiante.findOne({usuario: req.session.usuario}, function (error, doc) {
-			
-			if(error){
-				 res.render('paginas/error', {
-                        mensaje: "No se pudo consultar la información del usuario " + req.session.usuario + ".",
-                        direccion: "/"
-                    });
-			}
-			
+
+            if (error) {
+                res.render('paginas/error', {
+                    mensaje: "No se pudo consultar la información del usuario " + req.session.usuario + ".",
+                    direccion: "/"
+                });
+            }
+
             let intentosTematicaFacilitador = [];
             for (let i = 0; i < doc.intentos.length; i++) {
                 let intentoTematicaFacilitador = {
                     facilitador: doc.intentos[i].profesor,
                     tematica: doc.intentos[i].materia,
                 };
-				console.log("Facilitador: "+ intentoTematicaFacilitador.facilitador);
-				console.log("tematica: "+ intentoTematicaFacilitador.tematica);
-                if ((intentosTematicaFacilitador.length == 0) || ((intentosTematicaFacilitador.map(function (e) { return e.facilitador; }).indexOf(doc.intentos[i].profesor < 0)) &&
-                    (intentosTematicaFacilitador.map(function (e) { return e.tematica }).indexOf(doc.intentos[i].tematica < 0)))) {
+                console.log("Facilitador: " + intentoTematicaFacilitador.facilitador);
+                console.log("tematica: " + intentoTematicaFacilitador.tematica);
+                if ((intentosTematicaFacilitador.length == 0) || ((intentosTematicaFacilitador.map(function (e) {
+                        return e.facilitador;
+                    }).indexOf(doc.intentos[i].profesor < 0)) &&
+                    (intentosTematicaFacilitador.map(function (e) {
+                        return e.tematica
+                    }).indexOf(doc.intentos[i].tematica < 0)))) {
                     intentosTematicaFacilitador.push(intentoTematicaFacilitador);
                 }
             }
@@ -1644,14 +1670,14 @@ exports.get_intentos = function (req, res) {
 exports.post_detalle_tematica_intentos = function (req, res) {
     if (req.session.usuario) {
         Estudiante.findOne({usuario: req.session.usuario}, function (error, doc) {
-			
-			if(error){
-				 res.render('paginas/error', {
-                        mensaje: "No se pudo consultar la información del usuario " + req.session.usuario + ".",
-                        direccion: "/"
-                    });
-			}
-			
+
+            if (error) {
+                res.render('paginas/error', {
+                    mensaje: "No se pudo consultar la información del usuario " + req.session.usuario + ".",
+                    direccion: "/"
+                });
+            }
+
             let intentos = [];
             let tematica = "";
             let facilitador = "";
@@ -1687,14 +1713,14 @@ exports.post_detalle_tematica_intentos = function (req, res) {
 exports.post_detalle_intentos = function (req, res) {
     if (req.session.usuario) {
         Estudiante.findOne({usuario: req.session.usuario}, function (error, doc) {
-			
-			if(error){
-				 res.render('paginas/error', {
-                        mensaje: "No se pudo consultar la información del usuario " + req.session.usuario + ".",
-                        direccion: "/"
-                    });
-			}
-			
+
+            if (error) {
+                res.render('paginas/error', {
+                    mensaje: "No se pudo consultar la información del usuario " + req.session.usuario + ".",
+                    direccion: "/"
+                });
+            }
+
             let indiceIntento = doc.intentos.map(function (e) {
                 return e.idIntento
             }).indexOf(req.body.idIntento);
