@@ -900,18 +900,64 @@ exports.post_mostrar_opcion = function (req, res) {
                                     let indiceTematica = facilitador.materias.map(function (e) {
                                         return e.nombre;
                                     }).indexOf(doc.intentos[indice].materia);
-                                    console.log("indiceTematica "+indiceTematica);
+                                    console.log("indiceTematica " + indiceTematica);
                                     let respuestasCorrectas = [];
-                                    if(indiceTematica> -1){
+                                    let respuestasSeleccionadas = [];
+                                    if (indiceTematica > -1) {
                                         for (let a = 0; a < doc.intentos[indice].preguntas.length; a++) {
                                             let indicePregunta = facilitador.materias[indiceTematica].preguntasOpcionMultiple.map(function (e) {
                                                 return e.idPregunta;
                                             }).indexOf(doc.intentos[indice].preguntas[a].idPregunta);
                                             let resCorrecta = facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].respuestaCorrecta;
-                                            console.log("Respuesta Correcta"+resCorrecta);
+                                            switch (resCorrecta) {
+                                                case 1:
+                                                    if((facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res1)!= undefined) {
+                                                        respuestasCorrectas.push("texto");
+                                                        respuestasCorrectas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res1);
+                                                    }else{
+                                                        respuestasCorrectas.push("imagen");
+                                                        respuestasCorrectas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].imagenRes1);
+                                                    }
+                                                    break;
+                                                case 2:
+                                                    if((facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res2)!= undefined) {
+                                                        respuestasCorrectas.push("texto");
+                                                        respuestasCorrectas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res2);
+                                                    }else{
+                                                        respuestasCorrectas.push("imagen");
+                                                        respuestasCorrectas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].imagenRes2);
+                                                    }
+                                                    break;
+                                                case 3:
+                                                    if((facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res3)!= undefined) {
+                                                        respuestasCorrectas.push("texto");
+                                                        respuestasCorrectas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res3);
+                                                    }else{
+                                                        respuestasCorrectas.push("imagen");
+                                                        respuestasCorrectas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].imagenRes3);
+                                                    }
+                                                    break;
+                                                case 4:
+                                                    if((facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res4)!= undefined) {
+                                                        respuestasCorrectas.push("texto");
+                                                        respuestasCorrectas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res4);
+                                                    }else{
+                                                        respuestasCorrectas.push("imagen");
+                                                        respuestasCorrectas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].imagenRes4);
+                                                    }
+                                                    break;
+                                            }
                                         }
                                     }
-
+                                    res.render('paginas/participante/resultadosOpcionMultiple', {
+                                        nombre: req.session.nombre,
+                                        materia: req.body.materia,
+                                        facilitador: req.body.facilitador,
+                                        preguntas: doc.intentos[indice].preguntas,
+                                        puntaje: puntaje,
+                                        facilitador: doc.intentos[indice].profesor,
+                                        respuestasCorrectas: respuestasCorrectas
+                                    })
                                 });
 
                                 res.render('paginas/participante/resultadosOpcionMultiple', {

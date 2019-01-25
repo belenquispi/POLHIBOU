@@ -84,9 +84,11 @@
                 <% } %>
             </div>
             <div class="col-md-2  border border-white text-center">
-                <% if(preguntas[i].imagenEnunciado != undefined)
+                <% if(respuestasCorrectas[i*2] == "imagen")
                 { %>
-                <img src="<%= preguntas[i].imagenEnunciado %>" width="50px" height="50px" style="margin-top: 10px">
+                <img src="<%= respuestasCorrectas[(i*2)+1]%><" width="50px" height="50px" style="margin: 10px">
+                <% } else { %>
+                <p></p>
                 <% } %>
             </div>
             <div class="col-md-1  border border-white text-center">
