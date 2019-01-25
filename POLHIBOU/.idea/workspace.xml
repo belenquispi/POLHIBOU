@@ -6,7 +6,19 @@
   <component name="ChangeListManager">
     <list default="true" id="00658ab6-148c-4338-8ce0-33e9750ead58" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/estilos.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/estilos.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/profesor.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/profesor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/paginas/facilitador/detalleParticipante.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/facilitador/detalleParticipante.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/paginas/facilitador/inicioEstadistica.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/facilitador/inicioEstadistica.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/paginas/facilitador/inicioProfesor.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/facilitador/inicioProfesor.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/paginas/facilitador/listaParticipantes.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/facilitador/listaParticipantes.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/paginas/participante/resultadosEmparejar.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/participante/resultadosEmparejar.ejs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/paginas/participante/resultadosOpcionMultiple.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/participante/resultadosOpcionMultiple.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/paginas/participante/resultadosUnir.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/participante/resultadosUnir.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/paginas/participante/retosEmparejar.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/participante/retosEmparejar.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/paginas/participante/retosEstudiante.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/participante/retosEstudiante.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/paginas/participante/retosOpcionMultiple.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/participante/retosOpcionMultiple.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/paginas/participante/retosUnir.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/participante/retosUnir.ejs" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -56,56 +68,69 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="1947538746">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.open.time.42" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="css" value="5" />
+          <entry key="ejs" value="209" />
+          <entry key="js" value="144" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="CSS" value="5" />
+          <entry key="EJS" value="209" />
+          <entry key="JavaScript" value="144" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="ejs" value="9" />
+          <entry key="js" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="EJS" value="9" />
+          <entry key="JavaScript" value="2" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/inicioProfesor.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="23">
-              <caret line="146" column="58" selection-start-line="146" selection-start-column="58" selection-end-line="146" selection-end-column="58" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/paginas/participante/retosUnir.ejs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="44" column="21" lean-forward="true" selection-start-line="44" selection-start-column="21" selection-end-line="44" selection-end-column="21" />
+            <state relative-caret-position="141">
+              <caret line="64" column="209" selection-start-line="64" selection-start-column="193" selection-end-line="64" selection-end-column="209" />
               <folding>
-                <element signature="n#style#0;n#div#1;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#h4#0;n#div#0;n#div#3;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#button#0;n#form#0;n#div#1;n#div#4;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/paginas/participante/resultadosEmparejar.ejs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-35">
-              <caret line="32" column="38" selection-start-line="32" selection-start-column="38" selection-end-line="32" selection-end-column="38" />
-              <folding>
-                <element signature="n#style#0;n#i#0;n#div#2;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#a#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/views/paginas/participante/resultadosOpcionMultiple.ejs">
+        <entry file="file://$PROJECT_DIR$/static/js/profesor.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="83" column="23" lean-forward="true" selection-start-line="83" selection-start-column="23" selection-end-line="83" selection-end-column="23" />
-              <folding>
-                <element signature="n#style#0;n#i#0;n#div#2;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#style#0;n#strong#0;n#label#0;n#div#4;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#div#4;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="256">
+              <caret line="43" column="25" selection-start-line="43" selection-start-column="25" selection-end-line="43" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/paginas/participante/retosEstudiante.ejs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="46">
+              <caret line="47" column="100" selection-start-line="47" selection-start-column="100" selection-end-line="47" selection-end-column="100" />
             </state>
           </provider>
         </entry>
@@ -113,34 +138,9 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="924" column="117" lean-forward="true" selection-start-line="924" selection-start-column="117" selection-end-line="924" selection-end-column="117" />
+            <state relative-caret-position="266">
+              <caret line="396" column="63" lean-forward="true" selection-start-line="396" selection-start-column="63" selection-end-line="396" selection-end-column="63" />
             </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/creacionPartida.ejs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-161">
-              <caret line="47" column="29" lean-forward="true" selection-start-line="47" selection-start-column="29" selection-end-line="47" selection-end-column="29" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/css/estilos.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="256">
-              <caret line="337" lean-forward="true" selection-start-line="337" selection-end-line="337" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/polhibou.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1863" />
           </provider>
         </entry>
       </file>
@@ -156,9 +156,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>vista</find>
-      <find>radio</find>
-      <find>dado</find>
       <find>dad</find>
       <find>cara</find>
       <find>mover</find>
@@ -186,6 +183,9 @@
       <find>ba</find>
       <find>preg</find>
       <find>resultadosO</find>
+      <find>req.nex</find>
+      <find>enun</find>
+      <find>cre</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -211,15 +211,21 @@
         <option value="$PROJECT_DIR$/static/js/ingresoPartidas.js" />
         <option value="$PROJECT_DIR$/static/js/lobby.js" />
         <option value="$PROJECT_DIR$/static/js/lobbyPaticipante.js" />
-        <option value="$PROJECT_DIR$/views/paginas/facilitador/inicioProfesor.ejs" />
         <option value="$PROJECT_DIR$/views/paginas/facilitador/creacionPartida.ejs" />
-        <option value="$PROJECT_DIR$/static/css/estilos.css" />
-        <option value="$PROJECT_DIR$/views/paginas/participante/retosUnir.ejs" />
         <option value="$PROJECT_DIR$/views/paginas/participante/retosOpcionMultiple.ejs" />
-        <option value="$PROJECT_DIR$/views/paginas/participante/resultadosUnir.ejs" />
-        <option value="$PROJECT_DIR$/views/paginas/participante/resultadosEmparejar.ejs" />
-        <option value="$PROJECT_DIR$/routes.js" />
         <option value="$PROJECT_DIR$/views/paginas/participante/resultadosOpcionMultiple.ejs" />
+        <option value="$PROJECT_DIR$/static/css/estilos.css" />
+        <option value="$PROJECT_DIR$/views/paginas/participante/retosEstudiante.ejs" />
+        <option value="$PROJECT_DIR$/views/paginas/participante/retosEmparejar.ejs" />
+        <option value="$PROJECT_DIR$/views/paginas/participante/resultadosEmparejar.ejs" />
+        <option value="$PROJECT_DIR$/views/paginas/participante/resultadosUnir.ejs" />
+        <option value="$PROJECT_DIR$/views/paginas/participante/retosUnir.ejs" />
+        <option value="$PROJECT_DIR$/views/paginas/facilitador/listaParticipantes.ejs" />
+        <option value="$PROJECT_DIR$/views/paginas/facilitador/detalleParticipante.ejs" />
+        <option value="$PROJECT_DIR$/views/paginas/facilitador/inicioEstadistica.ejs" />
+        <option value="$PROJECT_DIR$/routes.js" />
+        <option value="$PROJECT_DIR$/views/paginas/facilitador/inicioProfesor.ejs" />
+        <option value="$PROJECT_DIR$/static/js/profesor.js" />
       </list>
     </option>
   </component>
@@ -331,15 +337,15 @@
       <workItem from="1526920133001" duration="3734000" />
       <workItem from="1548270157198" duration="611000" />
       <workItem from="1548360354680" duration="11538000" />
+      <workItem from="1548385217899" duration="4106000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="116495000" />
+    <option name="totallyTimeSpent" value="120601000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.24963397" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -354,7 +360,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.13278688" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.20819671" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -369,7 +375,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/views/homepage.ejs" />
     <entry file="file://$PROJECT_DIR$/views/500.ejs" />
     <entry file="file://$PROJECT_DIR$/views/404.ejs" />
     <entry file="file://$PROJECT_DIR$/views/layout.ejs" />
@@ -416,11 +421,6 @@
         <state relative-caret-position="23">
           <caret line="1" column="56" selection-start-line="1" selection-start-column="56" selection-end-line="1" selection-end-column="56" />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/profesor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-31" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/js/tablero.js">
@@ -470,26 +470,6 @@
         <state relative-caret-position="-31" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/detalleParticipante.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-31" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/estadisticaPreguntas.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-31" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/inicioEstadistica.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-31" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/listaParticipantes.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-31" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/listaPreguntaOpcionMultiple.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-31" />
@@ -518,97 +498,135 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/polhibou.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/creacionPartida.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1863" />
+        <state relative-caret-position="23">
+          <caret line="47" column="29" selection-start-line="47" selection-start-column="29" selection-end-line="47" selection-end-column="29" />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/paginas/participante/retosEmparejar.ejs">
+    <entry file="file://$PROJECT_DIR$/views/paginas/participante/retosOpcionMultiple.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="7" column="2" selection-start-line="7" selection-start-column="2" selection-end-line="7" selection-end-column="2" />
+        <state relative-caret-position="220">
+          <caret line="61" column="94" selection-start-line="61" selection-start-column="94" selection-end-line="61" selection-end-column="94" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#form#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/paginas/participante/resultadosOpcionMultiple.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="60" column="66" selection-start-line="60" selection-start-column="66" selection-end-line="60" selection-end-column="66" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/css/estilos.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="256">
-          <caret line="337" lean-forward="true" selection-start-line="337" selection-end-line="337" />
+          <caret line="332" column="1" selection-start-line="332" selection-start-column="1" selection-end-line="332" selection-end-column="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/paginas/participante/retosOpcionMultiple.ejs">
+    <entry file="file://$PROJECT_DIR$/views/paginas/participante/retosEmparejar.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="45" column="74" selection-start-line="45" selection-start-column="74" selection-end-line="45" selection-end-column="74" />
+        <state relative-caret-position="314">
+          <caret line="63" column="125" selection-start-line="63" selection-start-column="125" selection-end-line="63" selection-end-column="125" />
           <folding>
-            <element signature="n#style#0;n#h3#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#div#1;n#div#0;n#form#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#1;n#form#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#0;n#div#1;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#0;n#form#0;n#div#2;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/inicioProfesor.ejs">
+    <entry file="file://$PROJECT_DIR$/views/paginas/participante/resultadosEmparejar.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="146" column="58" selection-start-line="146" selection-start-column="58" selection-end-line="146" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/creacionPartida.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-161">
-          <caret line="47" column="29" lean-forward="true" selection-start-line="47" selection-start-column="29" selection-end-line="47" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/paginas/participante/retosUnir.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="44" column="21" lean-forward="true" selection-start-line="44" selection-start-column="21" selection-end-line="44" selection-end-column="21" />
+        <state relative-caret-position="253">
+          <caret line="84" column="70" selection-start-line="84" selection-start-column="70" selection-end-line="84" selection-end-column="70" />
           <folding>
-            <element signature="n#style#0;n#div#1;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h4#0;n#div#0;n#div#3;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#0;n#form#0;n#div#1;n#div#4;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#i#0;n#div#2;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#h3#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#h3#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/paginas/participante/resultadosUnir.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-391">
-          <caret line="34" column="10" lean-forward="true" selection-start-line="34" selection-start-column="10" selection-end-line="34" selection-end-column="10" />
+        <state relative-caret-position="23">
+          <caret line="64" column="70" selection-start-line="64" selection-start-column="70" selection-end-line="64" selection-end-column="70" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/paginas/participante/resultadosEmparejar.ejs">
+    <entry file="file://$PROJECT_DIR$/views/paginas/participante/retosUnir.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-35">
-          <caret line="32" column="38" selection-start-line="32" selection-start-column="38" selection-end-line="32" selection-end-column="38" />
+        <state relative-caret-position="322">
+          <caret line="88" column="79" selection-start-line="88" selection-start-column="79" selection-end-line="88" selection-end-column="79" />
           <folding>
-            <element signature="n#style#0;n#i#0;n#div#2;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#div#1;n#div#1;n#div#0;n#div#3;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/estadisticaPreguntas.ejs">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/listaParticipantes.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="72" column="61" selection-start-line="72" selection-start-column="61" selection-end-line="72" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/inicioEstadistica.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="54" column="22" lean-forward="true" selection-start-line="54" selection-start-column="22" selection-end-line="54" selection-end-column="22" />
+          <folding>
+            <element signature="n#style#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/detalleParticipante.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="64" column="84" selection-start-line="64" selection-start-column="84" selection-end-line="64" selection-end-column="84" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="924" column="117" lean-forward="true" selection-start-line="924" selection-start-column="117" selection-end-line="924" selection-end-column="117" />
+        <state relative-caret-position="266">
+          <caret line="396" column="63" lean-forward="true" selection-start-line="396" selection-start-column="63" selection-end-line="396" selection-end-column="63" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/paginas/participante/resultadosOpcionMultiple.ejs">
+    <entry file="file://$PROJECT_DIR$/views/paginas/participante/retosEstudiante.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="83" column="23" lean-forward="true" selection-start-line="83" selection-start-column="23" selection-end-line="83" selection-end-column="23" />
+        <state relative-caret-position="46">
+          <caret line="47" column="100" selection-start-line="47" selection-start-column="100" selection-end-line="47" selection-end-column="100" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/inicioProfesor.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="64" column="209" selection-start-line="64" selection-start-column="193" selection-end-line="64" selection-end-column="209" />
           <folding>
-            <element signature="n#style#0;n#i#0;n#div#2;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#style#0;n#strong#0;n#label#0;n#div#4;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#div#4;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/profesor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="43" column="25" selection-start-line="43" selection-start-column="25" selection-end-line="43" selection-end-column="25" />
         </state>
       </provider>
     </entry>

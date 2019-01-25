@@ -36,7 +36,7 @@
                 <% } %>
             </div>
         </div>
-        <div class="row border border-white rounded" style="margin-bottom: 10px">
+        <div class="row border border-white rounded degradoTarjeta" style="margin-bottom: 10px">
             <div class="col-md-1 border border-white">
                 <label><strong class="textoBlanco" style="text-transform: uppercase;">N° </strong></label>
             </div>
@@ -51,21 +51,21 @@
                 <label><strong class="textoBlanco" style="text-transform: uppercase;">Respuesta
                         Correcta</strong></label>
             </div>
-            <div class="col-md-1  border border-white text-center">
+            <div class="col-md-1  border border-white text-center ">
 
             </div>
         </div>
 
         <% for(var i = 0; i < preguntas.length; i++)
         { %>
-        <div class="row border border-white rounded" style="margin-bottom: 10px">
+        <div class="row border border-white rounded degradoTarjeta" style="margin-bottom: 10px">
             <div class="col-md-1 border border-white">
                 <label><strong class="textoBlanco" style="text-transform: uppercase;">P. <%= i+1 %></strong></label>
             </div>
             <div class="col-md-6 border border-white">
                 <div class="row">
                     <div class="col-md-8">
-                        <p class="textoBlanco" style="text-transform: uppercase;"><%= preguntas[i].enunciado %></p>
+                        <p class="textoBlanco"><%= preguntas[i].enunciado %></p>
                     </div>
                     <div class="col-md-4 text-center">
                         <% if(preguntas[i].imagenEnunciado != undefined)
@@ -78,17 +78,19 @@
 
             </div>
             <div class="col-md-2  border border-white text-center">
-                <% if(preguntas[i].imagenEnunciado != undefined)
+                <% if(respuestasSeleccionadas[i*2] == "imagen")
                 { %>
-                <img src="<%= preguntas[i].imagenEnunciado %>" width="50px" height="50px" style="margin-top: 10px">
+                <img src="<%= respuestasSeleccionadas[(i*2)+1]%>" width="50px" height="50px" style="margin: 10px">
+                <% } else { %>
+                <p class="textoBlanco"><%=respuestasSeleccionadas[(i*2)+1]%></p>
                 <% } %>
             </div>
             <div class="col-md-2  border border-white text-center">
                 <% if(respuestasCorrectas[i*2] == "imagen")
                 { %>
-                <img src="<%= respuestasCorrectas[(i*2)+1]%><" width="50px" height="50px" style="margin: 10px">
+                <img src="<%= respuestasCorrectas[(i*2)+1]%>" width="50px" height="50px" style="margin: 10px">
                 <% } else { %>
-                <p></p>
+                <p class="textoBlanco"><%=respuestasCorrectas[(i*2)+1]%></p>
                 <% } %>
             </div>
             <div class="col-md-1  border border-white text-center">

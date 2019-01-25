@@ -21,15 +21,15 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3"></div>
-        <div class="col-md-6">
-            <h2 id="tipoJuego" class="textoBlanco" style="text-transform: uppercase;">Reto de Emparejar</h2>
+        <div class="col-md-6 text-center">
+            <h3 id="tipoJuego" class="textoBlanco" style="text-transform: uppercase;">Reto de Emparejar</h3>
         </div>
 
         <div class="col-md-3"></div>
     </div>
-    <div id="unir" class="row" onmouseover="verificarCompletoUnir()">
+    <div id="unir" class="row " onmouseover="verificarCompletoUnir()">
         <div class="col-md-3"></div>
-        <div class="col-md-6">
+        <div class="col-md-6 border degradoTarjeta">
             <% for(var i = 0; i < preguntas.length;i++)
             { %>
                 <div class="row unir" style="margin-bottom: 10px">
@@ -39,9 +39,9 @@
                                  height="50" width="50">
                         </button>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 ">
                         <button id="textoAUnir<%= (i + 1) %>" class="btn btn-outline-white btn-block " disabled
-                                value="<%= textoDesordenado[i]%>" onclick="obtenerId(this);"><%= textoDesordenado[i]%> >
+                                value="<%= textoDesordenado[i]%>" onclick="obtenerId(this);" > <%= textoDesordenado[i]%>
                         </button>
                     </div>
                 </div>
@@ -51,17 +51,17 @@
     </div>
             <div class="row">
                 <div class="col-md-3"></div>
-                <div class="col-md-3">
-                    <button id="reiniciarUnir" type="button" class="btn btn-primary degradoBoton" onclick="reiniciarUnir();"><i class="fas fa-redo"></i> Reiniciar
+                <div class="col-md-3 text-center border degradoTarjeta">
+                    <button id="reiniciarUnir" type="button" class="btn btn-primary degradoBoton" style="margin: 10px" onclick="reiniciarUnir();"><i class="fas fa-redo"></i> Reiniciar
                     </button>
                 </div>
-                <div class="col-md-3 text-center">
+                <div class="col-md-3 text-center border degradoTarjeta">
                     <form action="/resultadosEmparejar" method="post">
                     <input type="text" name="materia" hidden value="<%= materia %>">
                     <input type="text" id="respuestas" name="respuestas" hidden>
                     <input type="text" id="idIntento" name="idIntento" value="<%=idIntento%>"hidden>
                     <input type="text" id="facilitador" name="facilitador" value="<%=facilitador%>"hidden>
-                    <button class="btn btn-primary degradoBoton"  id="enviarUnir" type="submit" disabled><i class="fas fa-check"></i> Verificar respuesta</button>
+                    <button class="btn btn-primary degradoBoton"  id="enviarUnir" type="submit" disabled style="margin: 10px"><i class="fas fa-check"></i> Verificar respuesta</button>
                     </form>
                 </div>
                 <div class="col-md-3"></div>

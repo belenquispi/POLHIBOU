@@ -392,7 +392,7 @@ exports.get_creacion_partida = function (req, res) {
     console.log("Se tiene el siguiente rol al crear partida ", req.session.rol);
     if (req.session.usuario && req.params.materia) {
         if (req.session.rol == "facilitador") {
-            let idPartida = (req.params.materia.replace(" ", "_")) + Math.floor((1 + Math.random()) * 0x1000).toString(5).substring(1);
+            let idPartida = (req.params.materia.replace(" ", "_").substr(0,3)) + Math.floor((1 + Math.random()) * 0x1000).toString(5).substring(1);
             console.log("Se ha creado el idPartida ", idPartida);
             res.render('paginas/facilitador/creacionPartida', {
                 nombre: req.session.nombre,
@@ -900,7 +900,6 @@ exports.post_mostrar_opcion = function (req, res) {
                                     let indiceTematica = facilitador.materias.map(function (e) {
                                         return e.nombre;
                                     }).indexOf(doc.intentos[indice].materia);
-                                    console.log("indiceTematica " + indiceTematica);
                                     let respuestasCorrectas = [];
                                     let respuestasSeleccionadas = [];
                                     if (indiceTematica > -1) {
@@ -910,7 +909,7 @@ exports.post_mostrar_opcion = function (req, res) {
                                             }).indexOf(doc.intentos[indice].preguntas[a].idPregunta);
                                             let resCorrecta = facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].respuestaCorrecta;
                                             switch (resCorrecta) {
-                                                case 1:
+                                                case "res1":
                                                     if((facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res1)!= undefined) {
                                                         respuestasCorrectas.push("texto");
                                                         respuestasCorrectas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res1);
@@ -919,7 +918,7 @@ exports.post_mostrar_opcion = function (req, res) {
                                                         respuestasCorrectas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].imagenRes1);
                                                     }
                                                     break;
-                                                case 2:
+                                                case "res2":
                                                     if((facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res2)!= undefined) {
                                                         respuestasCorrectas.push("texto");
                                                         respuestasCorrectas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res2);
@@ -928,7 +927,7 @@ exports.post_mostrar_opcion = function (req, res) {
                                                         respuestasCorrectas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].imagenRes2);
                                                     }
                                                     break;
-                                                case 3:
+                                                case "res3":
                                                     if((facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res3)!= undefined) {
                                                         respuestasCorrectas.push("texto");
                                                         respuestasCorrectas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res3);
@@ -937,13 +936,52 @@ exports.post_mostrar_opcion = function (req, res) {
                                                         respuestasCorrectas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].imagenRes3);
                                                     }
                                                     break;
-                                                case 4:
+                                                case "res4":
                                                     if((facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res4)!= undefined) {
                                                         respuestasCorrectas.push("texto");
                                                         respuestasCorrectas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res4);
                                                     }else{
                                                         respuestasCorrectas.push("imagen");
                                                         respuestasCorrectas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].imagenRes4);
+                                                    }
+                                                    break;
+                                            }
+                                            let resSeleccionada = doc.intentos[indice].preguntas[a].respuestaSeleccionada;
+                                            switch (resSeleccionada) {
+                                                case "res1":
+                                                    if((facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res1)!= undefined) {
+                                                        respuestasSeleccionadas.push("texto");
+                                                        respuestasSeleccionadas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res1);
+                                                    }else{
+                                                        respuestasSeleccionadas.push("imagen");
+                                                        respuestasSeleccionadas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].imagenRes1);
+                                                    }
+                                                    break;
+                                                case "res2":
+                                                    if((facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res2)!= undefined) {
+                                                        respuestasSeleccionadas.push("texto");
+                                                        respuestasSeleccionadas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res2);
+                                                    }else{
+                                                        respuestasSeleccionadas.push("imagen");
+                                                        respuestasSeleccionadas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].imagenRes2);
+                                                    }
+                                                    break;
+                                                case "res3":
+                                                    if((facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res3)!= undefined) {
+                                                        respuestasSeleccionadas.push("texto");
+                                                        respuestasSeleccionadas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res3);
+                                                    }else{
+                                                        respuestasSeleccionadas.push("imagen");
+                                                        respuestasSeleccionadas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].imagenRes3);
+                                                    }
+                                                    break;
+                                                case "res4":
+                                                    if((facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res4)!= undefined) {
+                                                        respuestasSeleccionadas.push("texto");
+                                                        respuestasSeleccionadas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res4);
+                                                    }else{
+                                                        respuestasSeleccionadas.push("imagen");
+                                                        respuestasSeleccionadas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].imagenRes4);
                                                     }
                                                     break;
                                             }
@@ -956,18 +994,10 @@ exports.post_mostrar_opcion = function (req, res) {
                                         preguntas: doc.intentos[indice].preguntas,
                                         puntaje: puntaje,
                                         facilitador: doc.intentos[indice].profesor,
-                                        respuestasCorrectas: respuestasCorrectas
+                                        respuestasCorrectas: respuestasCorrectas,
+                                        respuestasSeleccionadas : respuestasSeleccionadas
                                     })
                                 });
-
-                                res.render('paginas/participante/resultadosOpcionMultiple', {
-                                    nombre: req.session.nombre,
-                                    materia: req.body.materia,
-                                    facilitador: req.body.facilitador,
-                                    preguntas: doc.intentos[indice].preguntas,
-                                    puntaje: puntaje,
-                                    facilitador: doc.intentos[indice].profesor
-                                })
                             }
                         });
 
