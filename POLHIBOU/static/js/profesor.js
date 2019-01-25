@@ -41,4 +41,11 @@ function verificarIngreso(valor) {
         document.getElementById(valor.id).value = "";
     }
 }
+function verificarTamanio(valor) {
+    if (document.getElementById(valor.id).value.trim().length < 3) {
+        alert("El nombre de la temática debe tener al menos 3 caracteres");
+        document.getElementById(valor.id).value = "";
+    }
+}
+
 

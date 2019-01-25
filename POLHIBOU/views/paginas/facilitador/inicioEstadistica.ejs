@@ -60,8 +60,12 @@
                             <h5 style="color: black"><%= tematicas[i].nombre %></h5>
                         </div>
                         <div class="card-body">
+                            <div class="row">
                             <a href="/estadisticaParticipante/<%=tematicas[i].nombre%>" class="btn btn-primary degradoBoton"> <i class="fas fa-chart-bar"></i> POR PARTICIPANTE</a>
+                            </div>
+                            <div class="row" style="margin-top: 5px">
                             <a href="/estadisticaPregunta/<%=tematicas[i].nombre%>" class="btn btn-primary degradoBoton"> <i class="fas fa-chart-bar"></i> POR PREGUNTA</a>
+                            </div>
                         </div>
                     </div>
                 </div>
