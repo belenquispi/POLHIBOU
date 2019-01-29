@@ -69,6 +69,10 @@ function obtenerId(e) {
             console.log("El indice "+respuestaUnirId.indexOf(imagenUnir[m]));
             console.log(respuestaUnirId);
             for(let b = 0; b < respuestaUnir.length; b++){
+                        console.log("respuestaUnir[b] "+respuestaUnir[b]);
+            console.log("textoUnirId[m]"+textoUnirId[m]);
+
+            }
                 if(respuestaUnir[b]==textoUnirId[m]){
                     document.getElementById(imagenUnirId[m]).setAttribute("disabled","");
                     console.log("Insertando disables en la imagen "+imagenUnirId[m]);
