@@ -35,7 +35,7 @@
                 <div class="row unir" style="margin-bottom: 10px">
                     <div class="col-md-6">
                         <button value="<%=  preguntas[i].idPregunta %>" class="btn btn-outline-white" id="botonImagenAUnir<%= (i + 1) %>" onclick="obtenerId(this);">
-                            <img id="imagenAUnir<%= (i + 1) %>" src="<%= preguntas[i].imagen %>"
+                            <img id="botonImagenAUnir<%= (i + 1) %>" src="<%= preguntas[i].imagen %>"
                                  height="50" width="50">
                         </button>
                     </div>
@@ -67,6 +67,7 @@
                 <div class="col-md-3"></div>
             </div>
         </div>
+</div>
 </body>
 <script>
     var respuestaUnir = [];
@@ -109,7 +110,7 @@
                 document.getElementById(imagenUnirId[k]).setAttribute("disabled","");
             }
             for(let j = 0 ; j < textoUnirId.length; j++){
-                if(respuestaUnirId.indexOf(textoUnirId[j])>0)
+                if(respuestaUnir.indexOf(textoUnirId[j])>0)
                 {
                     document.getElementById(textoUnirId[j]).setAttribute("disabled","");
                 }else {
