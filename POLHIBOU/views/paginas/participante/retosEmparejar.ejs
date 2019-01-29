@@ -34,7 +34,7 @@
             { %>
                 <div class="row unir" style="margin-bottom: 10px">
                     <div class="col-md-6">
-                        <button value="<%=  preguntas[i].idPregunta %>" class="btn btn-outline-white" id="botonImagenAUnir<%= (i + 1) %>" onclick="obtenerId(this);">
+                        <button value="<%=preguntas[i].idPregunta%>" class="btn btn-outline-white" id="botonImagenAUnir<%= (i + 1) %>" onclick="obtenerId(this);">
                             <img id="imagenAUnir<%= (i + 1) %>" src="<%= preguntas[i].imagen %>"
                                  height="50" width="50">
                         </button>
@@ -67,37 +67,30 @@
                 <div class="col-md-3"></div>
             </div>
         </div>
-</body>
-<script>
+</div>
+<script >
     var respuestaUnir = [];
     var respuestaUnirId = [];
     var imagenUnirId = ['botonImagenAUnir1','botonImagenAUnir2','botonImagenAUnir3','botonImagenAUnir4','botonImagenAUnir5'];
     var textoUnirId = ['textoAUnir1','textoAUnir2','textoAUnir3','textoAUnir4','textoAUnir5'];
-    var imagenUnir = [];
-    var textoUnir = [];
-    for(var i=1; i<6;i++)
-    {
-        imagenUnir.push(doc.getElementById("botonImagenAUnir"+i).value);
-        textoUnir.push(doc.getElementById("textoAUnir"+i).value);
-    }
+
     function obtenerId(e) {
-
         var id = e.id;
+        console.log("El id seleccionado es: "+id );
         switch (true){
-
-            case respuestaUnir.length < 2:
+            case respuestaUnirId.length < 2:
                 document.getElementById(id).style.border = "thick solid green";
                 break;
-            case respuestaUnir.length < 4:
+            case respuestaUnirId.length < 4:
                 document.getElementById(id).style.border = "thick solid red";
                 break;
-            case respuestaUnir.length < 6:
+            case respuestaUnirId.length < 6:
                 document.getElementById(id).style.border = "thick solid black";
                 break;
-            case respuestaUnir.length < 8:
+            case respuestaUnirId.length < 8:
                 document.getElementById(id).style.border = "thick solid yellow";
                 break;
-            case respuestaUnir.length < 10:
+            case respuestaUnirId.length < 10:
                 document.getElementById(id).style.border = "thick solid blue";
                 break;
         }
@@ -105,28 +98,37 @@
         respuestaUnirId.push(id);
 
         if(imagenUnirId.indexOf(id) >= 0) {
+            console.log("El indice mayor es "+imagenUnirId.indexOf(id) );
             for(let k = 0; k<imagenUnirId.length; k++){
                 document.getElementById(imagenUnirId[k]).setAttribute("disabled","");
+                console.log("Insertando disables en la imagen "+imagenUnirId[k]);
             }
             for(let j = 0 ; j < textoUnirId.length; j++){
-                if(respuestaUnirId.indexOf(textoUnirId[j])>0)
-                {
-                    document.getElementById(textoUnirId[j]).setAttribute("disabled","");
-                }else {
+                if(respuestaUnirId.indexOf(textoUnirId[j]) < 0){
                     document.getElementById(textoUnirId[j]).removeAttribute("disabled");
+                    console.log("Removiendo disables en el texto"+textoUnirId[j]);
+                }else {
+                    document.getElementById(textoUnirId[j]).setAttribute("disabled","");
+                    console.log("Insertando disables en el texto "+textoUnirId[j]);
                 }
             }
         } else if (textoUnirId.indexOf(id) >=0){
+            console.log("El indice texto mayor es "+textoUnirId.indexOf(id) );
             for(let l = 0; l<textoUnirId.length; l++) {
                 document.getElementById(textoUnirId[l]).setAttribute("disabled", "");
+                console.log("Insertando disables en el texto "+textoUnirId[l]);
             }
-            for(var m = 0 ; m < imagenUnirId.length; m++){
-                if(respuestaUnirId.indexOf(imagenUnir[m])>=0)
-                {
-                    document.getElementById(imagenUnirId[m]).setAttribute("disabled","");
-                }else {
+            for(let m = 0 ; m < imagenUnirId.length; m++){
+                console.log("El indice "+respuestaUnirId.indexOf(imagenUnirId[m]));
+                console.log(respuestaUnirId);
+                if(respuestaUnirId.indexOf(imagenUnirId[m]) < 0){
                     document.getElementById(imagenUnirId[m]).removeAttribute("disabled");
+                    console.log("Removiendo disables en la imagen "+imagenUnirId[m]);
+                }else {
+                    document.getElementById(imagenUnirId[m]).setAttribute("disabled","");
+                    console.log("Insertando disables en el texto "+imagenUnirId[m]);
                 }
+
             }
         }
     }
@@ -155,4 +157,8 @@
         }
     }
 </script>
+<footer>
+    <% include ../../parciales/footer.ejs %>
+</footer>
+</body>
 </html>

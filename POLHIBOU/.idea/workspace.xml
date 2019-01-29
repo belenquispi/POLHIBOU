@@ -5,20 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="00658ab6-148c-4338-8ce0-33e9750ead58" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/estilos.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/estilos.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/profesor.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/profesor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/paginas/facilitador/detalleParticipante.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/facilitador/detalleParticipante.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/paginas/facilitador/inicioEstadistica.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/facilitador/inicioEstadistica.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/paginas/facilitador/inicioProfesor.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/facilitador/inicioProfesor.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/paginas/facilitador/listaParticipantes.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/facilitador/listaParticipantes.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/paginas/participante/resultadosEmparejar.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/participante/resultadosEmparejar.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/paginas/participante/resultadosOpcionMultiple.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/participante/resultadosOpcionMultiple.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/paginas/participante/resultadosUnir.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/participante/resultadosUnir.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/paginas/participante/retosEmparejar.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/participante/retosEmparejar.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/paginas/participante/retosEstudiante.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/participante/retosEstudiante.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/paginas/participante/retosOpcionMultiple.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/participante/retosOpcionMultiple.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/paginas/participante/retosUnir.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/participante/retosUnir.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/ingresoPartidas.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/ingresoPartidas.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/lobby.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/lobby.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/lobbyPaticipante.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/lobbyPaticipante.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/tablero.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/tablero.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -33,72 +23,81 @@
     <session id="1913154033">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="3" />
           <entry key="project.open.time.17" value="1" />
+          <entry key="project.open.time.20" value="1" />
           <entry key="project.open.time.24" value="1" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.open.time.38" value="1" />
+          <entry key="project.open.time.4" value="1" />
+          <entry key="project.open.time.5" value="1" />
+          <entry key="project.opened" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="css" value="1" />
-          <entry key="ejs" value="33" />
-          <entry key="js" value="9" />
+          <entry key="ejs" value="40" />
+          <entry key="js" value="19" />
+          <entry key="retosEmparejar" value="1" />
+          <entry key="txt" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CSS" value="1" />
-          <entry key="EJS" value="32" />
-          <entry key="JavaScript" value="9" />
-          <entry key="PLAIN_TEXT" value="1" />
+          <entry key="EJS" value="39" />
+          <entry key="JavaScript" value="19" />
+          <entry key="PLAIN_TEXT" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="css" value="13" />
-          <entry key="ejs" value="280" />
-          <entry key="js" value="667" />
+          <entry key="ejs" value="637" />
+          <entry key="js" value="700" />
+          <entry key="retosEmparejar" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="13" />
-          <entry key="EJS" value="280" />
-          <entry key="JavaScript" value="667" />
+          <entry key="EJS" value="637" />
+          <entry key="JavaScript" value="676" />
+          <entry key="PLAIN_TEXT" value="25" />
         </counts>
       </usages-collector>
     </session>
     <session id="1947538746">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.open.time.42" value="1" />
-          <entry key="project.opened" value="1" />
+          <entry key="project.open.time.42" value="2" />
+          <entry key="project.opened" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="css" value="5" />
           <entry key="ejs" value="209" />
-          <entry key="js" value="144" />
+          <entry key="js" value="208" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="5" />
           <entry key="EJS" value="209" />
-          <entry key="JavaScript" value="144" />
+          <entry key="JavaScript" value="208" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="ejs" value="9" />
-          <entry key="js" value="2" />
+          <entry key="ejs" value="10" />
+          <entry key="js" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="EJS" value="9" />
-          <entry key="JavaScript" value="2" />
+          <entry key="EJS" value="10" />
+          <entry key="JavaScript" value="4" />
         </counts>
       </usages-collector>
     </session>
@@ -106,40 +105,81 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/inicioProfesor.ejs">
+        <entry file="file://$PROJECT_DIR$/static/js/tablero.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="141">
-              <caret line="64" column="209" selection-start-line="64" selection-start-column="193" selection-end-line="64" selection-end-column="209" />
-              <folding>
-                <element signature="n#style#0;n#a#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="276">
+              <caret line="15" column="2" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/js/retosOpcionMultiple.js">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/js/profesor.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="256">
+            <state relative-caret-position="440">
               <caret line="43" column="25" selection-start-line="43" selection-start-column="25" selection-end-line="43" selection-end-column="25" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/paginas/participante/retosEstudiante.ejs">
+        <entry file="file://$PROJECT_DIR$/static/js/preguntasUnirVoltear.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="46">
-              <caret line="47" column="100" selection-start-line="47" selection-start-column="100" selection-end-line="47" selection-end-column="100" />
+            <state relative-caret-position="-31" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/js/preguntasOpcionMultiple.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-31" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/js/lobbyPaticipante.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="2" selection-start-column="2" selection-end-column="2" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes.js">
+        <entry file="file://$PROJECT_DIR$/static/js/lobby.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="396" column="63" lean-forward="true" selection-start-line="396" selection-start-column="63" selection-end-line="396" selection-end-column="63" />
+            <state relative-caret-position="23">
+              <caret line="1" selection-start-line="1" selection-end-line="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/js/detalleOpcionMultiple.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-31" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/static/js/creacionPartida.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="314">
+              <caret line="15" column="18" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/js/ingresoPartidas.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="23">
+              <caret line="1" selection-start-line="1" selection-end-line="1" />
             </state>
           </provider>
         </entry>
@@ -156,17 +196,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>dad</find>
-      <find>cara</find>
-      <find>mover</find>
-      <find>call</find>
-      <find>selec</find>
-      <find>moverDad</find>
-      <find>select</find>
-      <find>new</find>
-      <find>Uni</find>
-      <find>cargar</find>
-      <find>dra7</find>
       <find>win</find>
       <find>mostr</find>
       <find>dra</find>
@@ -186,6 +215,17 @@
       <find>req.nex</find>
       <find>enun</find>
       <find>cre</find>
+      <find>lan</find>
+      <find>lanza</find>
+      <find>darLa</find>
+      <find>dados</find>
+      <find>textoTarjeta</find>
+      <find>desafios</find>
+      <find>ver</find>
+      <find>obte</find>
+      <find>imagenUnir</find>
+      <find>respuestaUnir</find>
+      <find>var socket</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -207,16 +247,11 @@
         <option value="$PROJECT_DIR$/funcionesTablero.js" />
         <option value="$PROJECT_DIR$/static/game.js" />
         <option value="$PROJECT_DIR$/server.js" />
-        <option value="$PROJECT_DIR$/static/js/tablero.js" />
-        <option value="$PROJECT_DIR$/static/js/ingresoPartidas.js" />
-        <option value="$PROJECT_DIR$/static/js/lobby.js" />
-        <option value="$PROJECT_DIR$/static/js/lobbyPaticipante.js" />
         <option value="$PROJECT_DIR$/views/paginas/facilitador/creacionPartida.ejs" />
         <option value="$PROJECT_DIR$/views/paginas/participante/retosOpcionMultiple.ejs" />
         <option value="$PROJECT_DIR$/views/paginas/participante/resultadosOpcionMultiple.ejs" />
         <option value="$PROJECT_DIR$/static/css/estilos.css" />
         <option value="$PROJECT_DIR$/views/paginas/participante/retosEstudiante.ejs" />
-        <option value="$PROJECT_DIR$/views/paginas/participante/retosEmparejar.ejs" />
         <option value="$PROJECT_DIR$/views/paginas/participante/resultadosEmparejar.ejs" />
         <option value="$PROJECT_DIR$/views/paginas/participante/resultadosUnir.ejs" />
         <option value="$PROJECT_DIR$/views/paginas/participante/retosUnir.ejs" />
@@ -226,6 +261,14 @@
         <option value="$PROJECT_DIR$/routes.js" />
         <option value="$PROJECT_DIR$/views/paginas/facilitador/inicioProfesor.ejs" />
         <option value="$PROJECT_DIR$/static/js/profesor.js" />
+        <option value="$PROJECT_DIR$/views/paginas/participante/tablero.ejs" />
+        <option value="$PROJECT_DIR$/static/js/retosEmparejar" />
+        <option value="$PROJECT_DIR$/static/js/retosEmparejar.js" />
+        <option value="$PROJECT_DIR$/views/paginas/participante/retosEmparejar.ejs" />
+        <option value="$PROJECT_DIR$/static/js/tablero.js" />
+        <option value="$PROJECT_DIR$/static/js/lobbyPaticipante.js" />
+        <option value="$PROJECT_DIR$/static/js/ingresoPartidas.js" />
+        <option value="$PROJECT_DIR$/static/js/lobby.js" />
       </list>
     </option>
   </component>
@@ -260,7 +303,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/BPMNPLAY-master/BPMNPLAY-master" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/polhibou.js" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="configurable.group.language" />
   </component>
@@ -276,7 +319,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.index.html">
+  <component name="RunManager" selected="Node.js.server">
     <configuration name="index.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/BPMNPLAY/index.html">
       <method v="2" />
     </configuration>
@@ -286,23 +329,27 @@
     <configuration name="ingresoUnirVoltear.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/BPMNPLAY/ingresoUnirVoltear.html">
       <method v="2" />
     </configuration>
+    <configuration name="retosEmparejar.ejs" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/POLHIBOU/views/paginas/participante/retosEmparejar.ejs">
+      <method v="2" />
+    </configuration>
     <configuration name="tablero.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/BPMNPLAY/views/tablero.html">
       <method v="2" />
     </configuration>
-    <configuration name="firebase.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" nameIsGenerated="true" path-to-js-file="firebase.js" working-dir="$PROJECT_DIR$">
+    <configuration name="server" type="NodeJSConfigurationType" factoryName="Node.js" path-to-js-file="polhibou.js" working-dir="$PROJECT_DIR$">
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Node.js.server" />
       <item itemvalue="JavaScript Debug.tablero.html" />
       <item itemvalue="JavaScript Debug.index.html" />
-      <item itemvalue="Node.js.firebase.js" />
       <item itemvalue="JavaScript Debug.ingresoPreguntas.html" />
       <item itemvalue="JavaScript Debug.ingresoUnirVoltear.html" />
+      <item itemvalue="JavaScript Debug.retosEmparejar.ejs" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JavaScript Debug.retosEmparejar.ejs" />
         <item itemvalue="JavaScript Debug.index.html" />
-        <item itemvalue="Node.js.firebase.js" />
         <item itemvalue="JavaScript Debug.ingresoUnirVoltear.html" />
         <item itemvalue="JavaScript Debug.ingresoPreguntas.html" />
         <item itemvalue="JavaScript Debug.tablero.html" />
@@ -338,14 +385,29 @@
       <workItem from="1548270157198" duration="611000" />
       <workItem from="1548360354680" duration="11538000" />
       <workItem from="1548385217899" duration="4106000" />
+      <workItem from="1548760570582" duration="630000" />
+      <workItem from="1548790295278" duration="408000" />
+      <workItem from="1548790737153" duration="3234000" />
+      <workItem from="1548794020107" duration="73000" />
+      <workItem from="1548794419251" duration="595000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="120601000" />
+    <option name="totallyTimeSpent" value="127961000" />
+  </component>
+  <component name="TodoView" selected-index="3">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.24963397" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -353,14 +415,14 @@
       <window_info id="Grunt " order="3" side_tool="true" />
       <window_info id="Favorites" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info active="true" anchor="bottom" id="Find" order="1" visible="true" weight="0.32899022" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32899022" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.044262294" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.20819671" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.23934427" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -375,11 +437,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/views/500.ejs" />
-    <entry file="file://$PROJECT_DIR$/views/404.ejs" />
-    <entry file="file://$PROJECT_DIR$/views/layout.ejs" />
-    <entry file="file://$PROJECT_DIR$/views/403.ejs" />
-    <entry file="file://$PROJECT_DIR$/views/tablero.html" />
     <entry file="file://$PROJECT_DIR$/funcionesCargarOpcionMultiple.js" />
     <entry file="file://$PROJECT_DIR$/ingresoUnirVoltear.html" />
     <entry file="file://$PROJECT_DIR$/ingresoPreguntas.html" />
@@ -390,51 +447,6 @@
     <entry file="file://$PROJECT_DIR$/index.html" />
     <entry file="file://$PROJECT_DIR$/static/game.js" />
     <entry file="file://$PROJECT_DIR$/server.js" />
-    <entry file="file://$PROJECT_DIR$/static/js/creacionPartida.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="4" column="24" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/detalleOpcionMultiple.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-31" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/ingresoPartidas.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="1" column="56" selection-start-line="1" selection-start-column="56" selection-end-line="1" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/lobby.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="1" column="56" selection-start-line="1" selection-start-column="56" selection-end-line="1" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/lobbyPaticipante.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="1" column="56" selection-start-line="1" selection-start-column="56" selection-end-line="1" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/tablero.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="8" column="23" lean-forward="true" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/paginas/participante/tablero.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-6379" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/paginas/participante/detalleIntento.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-31" />
@@ -451,11 +463,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/paginas/participante/inicioEstudiante.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-31" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/paginas/participante/lobbyParticipante.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-31" />
       </provider>
@@ -497,23 +504,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/polhibou.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/creacionPartida.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="23">
           <caret line="47" column="29" selection-start-line="47" selection-start-column="29" selection-end-line="47" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/paginas/participante/retosOpcionMultiple.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="61" column="94" selection-start-line="61" selection-start-column="94" selection-end-line="61" selection-end-column="94" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#form#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -531,44 +525,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/paginas/participante/retosEmparejar.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="63" column="125" selection-start-line="63" selection-start-column="125" selection-end-line="63" selection-end-column="125" />
-          <folding>
-            <element signature="n#style#0;n#button#0;n#div#1;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#0;n#form#0;n#div#2;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/paginas/participante/resultadosEmparejar.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="84" column="70" selection-start-line="84" selection-start-column="70" selection-end-line="84" selection-end-column="70" />
-          <folding>
-            <element signature="n#style#0;n#i#0;n#div#2;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h3#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h3#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/paginas/participante/resultadosUnir.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="23">
           <caret line="64" column="70" selection-start-line="64" selection-start-column="70" selection-end-line="64" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/paginas/participante/retosUnir.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="88" column="79" selection-start-line="88" selection-start-column="79" selection-end-line="88" selection-end-column="79" />
-          <folding>
-            <element signature="n#style#0;n#label#0;n#div#1;n#div#1;n#div#0;n#div#3;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -586,9 +546,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="69">
           <caret line="54" column="22" lean-forward="true" selection-start-line="54" selection-start-column="22" selection-end-line="54" selection-end-column="22" />
-          <folding>
-            <element signature="n#style#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -599,34 +556,150 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes.js">
+    <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/inicioProfesor.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="396" column="63" lean-forward="true" selection-start-line="396" selection-start-column="63" selection-end-line="396" selection-end-column="63" />
+        <state relative-caret-position="1472">
+          <caret line="64" column="209" selection-start-line="64" selection-start-column="193" selection-end-line="64" selection-end-column="209" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/polhibou.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="11868">
+          <caret line="516" column="39" selection-start-line="516" selection-start-column="34" selection-end-line="516" selection-end-column="39" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/paginas/participante/retosEstudiante.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
+        <state relative-caret-position="1081">
           <caret line="47" column="100" selection-start-line="47" selection-start-column="100" selection-end-line="47" selection-end-column="100" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/inicioProfesor.ejs">
+    <entry file="file://$PROJECT_DIR$/routes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="64" column="209" selection-start-line="64" selection-start-column="193" selection-end-line="64" selection-end-column="209" />
+        <state relative-caret-position="9108">
+          <caret line="396" column="63" selection-start-line="396" selection-start-column="63" selection-end-line="396" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/retosEmparejar" />
+    <entry file="file://$PROJECT_DIR$/views/paginas/participante/tablero.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="53">
+          <caret line="292" column="6" selection-start-line="292" selection-start-column="6" selection-end-line="292" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/paginas/participante/lobbyParticipante.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="72" column="13" selection-start-line="72" selection-start-column="13" selection-end-line="72" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/paginas/participante/retosUnir.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-904">
+          <caret line="88" column="79" selection-start-line="88" selection-start-column="79" selection-end-line="88" selection-end-column="79" />
           <folding>
-            <element signature="n#style#0;n#a#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#div#1;n#div#1;n#div#0;n#div#3;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/views/paginas/participante/retosOpcionMultiple.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2362">
+          <caret line="61" column="94" selection-start-line="61" selection-start-column="94" selection-end-line="61" selection-end-column="94" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#form#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/paginas/participante/resultadosEmparejar.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="103">
+          <caret line="109" column="29" selection-start-line="109" selection-start-column="29" selection-end-line="109" selection-end-column="29" />
+          <folding>
+            <element signature="n#style#0;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/retosEmparejar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="7" column="38" selection-end-line="110" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/paginas/participante/retosEmparejar.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-518">
+          <caret line="125" column="82" selection-start-line="125" selection-start-column="82" selection-end-line="125" selection-end-column="82" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/tablero.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="15" column="2" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/retosOpcionMultiple.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/static/js/profesor.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
+        <state relative-caret-position="440">
           <caret line="43" column="25" selection-start-line="43" selection-start-column="25" selection-end-line="43" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/preguntasUnirVoltear.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-31" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/preguntasOpcionMultiple.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-31" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/lobbyPaticipante.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="2" selection-start-column="2" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/ingresoPartidas.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/lobby.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/detalleOpcionMultiple.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-31" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/creacionPartida.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="314">
+          <caret line="15" column="18" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
         </state>
       </provider>
     </entry>
