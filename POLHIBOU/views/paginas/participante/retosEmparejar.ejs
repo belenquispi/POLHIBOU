@@ -76,7 +76,6 @@
 
     function obtenerId(e) {
         var id = e.id;
-        console.log("El id seleccionado es: "+id );
         switch (true){
             case respuestaUnirId.length < 2:
                 document.getElementById(id).style.border = "thick solid green";
@@ -98,35 +97,25 @@
         respuestaUnirId.push(id);
 
         if(imagenUnirId.indexOf(id) >= 0) {
-            console.log("El indice mayor es "+imagenUnirId.indexOf(id) );
             for(let k = 0; k<imagenUnirId.length; k++){
                 document.getElementById(imagenUnirId[k]).setAttribute("disabled","");
-                console.log("Insertando disables en la imagen "+imagenUnirId[k]);
             }
             for(let j = 0 ; j < textoUnirId.length; j++){
                 if(respuestaUnirId.indexOf(textoUnirId[j]) < 0){
                     document.getElementById(textoUnirId[j]).removeAttribute("disabled");
-                    console.log("Removiendo disables en el texto"+textoUnirId[j]);
                 }else {
                     document.getElementById(textoUnirId[j]).setAttribute("disabled","");
-                    console.log("Insertando disables en el texto "+textoUnirId[j]);
                 }
             }
         } else if (textoUnirId.indexOf(id) >=0){
-            console.log("El indice texto mayor es "+textoUnirId.indexOf(id) );
             for(let l = 0; l<textoUnirId.length; l++) {
                 document.getElementById(textoUnirId[l]).setAttribute("disabled", "");
-                console.log("Insertando disables en el texto "+textoUnirId[l]);
             }
             for(let m = 0 ; m < imagenUnirId.length; m++){
-                console.log("El indice "+respuestaUnirId.indexOf(imagenUnirId[m]));
-                console.log(respuestaUnirId);
                 if(respuestaUnirId.indexOf(imagenUnirId[m]) < 0){
                     document.getElementById(imagenUnirId[m]).removeAttribute("disabled");
-                    console.log("Removiendo disables en la imagen "+imagenUnirId[m]);
                 }else {
                     document.getElementById(imagenUnirId[m]).setAttribute("disabled","");
-                    console.log("Insertando disables en el texto "+imagenUnirId[m]);
                 }
 
             }
