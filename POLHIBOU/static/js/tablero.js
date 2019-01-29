@@ -533,11 +533,12 @@ function cambiarImagen(num) {
 }
 
 function mostrarDesafio(colorCa, idSocket) {
-    document.getElementById('textoTarjeta').innerText = "VOLTÉAME";
+    document.getElementById('tipoJuego').innerText = "VOLTÉAME";
     switch (colorCa) {
         case 0:
             document.getElementById('tarjeta').style.backgroundColor = "#F2F5A9";
             document.getElementById('desafios').style.backgroundColor = "#F2F5A9";
+            console.log("se pinta de amarillo");
             if (idSocket == idSocketActual) {
                 socket.emit('solicitarPreguntaVoltear', roomActual);
             }
@@ -555,6 +556,7 @@ function mostrarDesafio(colorCa, idSocket) {
         case 1:
             document.getElementById('tarjeta').style.backgroundColor = "#F6CED8";
             document.getElementById('desafios').style.backgroundColor = "#F6CED8";
+            console.log("se pinta de rosa");
             respuestaUnir = [];
             if (idSocket == idSocketActual) {
                 socket.emit('solicitarPreguntaUnir', roomActual);
@@ -570,6 +572,8 @@ function mostrarDesafio(colorCa, idSocket) {
         case 2:
             document.getElementById('tarjeta').style.backgroundColor = "#81DAF5";
             document.getElementById('desafios').style.backgroundColor = "#81DAF5";
+            console.log("se pinta de azul");
+
             if (idSocket == idSocketActual) {
                 socket.emit('solicitarPreguntaOpcionMultiple', roomActual);
             }
@@ -984,6 +988,7 @@ function mostrarRespuestaCorrectaUnir() {
 function darLaVuelta() {
     document.getElementById("tarjeta").style.transform = "perspective( 600px ) rotateY( -180deg )";
     document.getElementById("desafios").style.transform = "perspective( 600px ) rotateY( 0deg )";
+    console.log("Se dio la vuelta");
     if (turnoJugadores[0] == idSocketActual) {
         socket.emit('darLaVuelta', roomActual);
     }
