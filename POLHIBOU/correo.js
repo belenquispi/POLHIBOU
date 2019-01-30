@@ -51,7 +51,7 @@ exports.enviarCorreo = function (mail, codigo) {
     mailOptions.to = mail;
     mailOptions.from = administrador.correo;
     mailOptions.subject = 'Creación de cuenta';
-    mailOptions.html = '<h1>Estimado usuario</h1><p>Para conrtinuar con el proceso de creación de cuenta, por favor ingrese el siguiente código de verificación en Polhibou </p><br><p></br>Su código de verificación es: </p><strong>'+codigo+'</strong>';
+    mailOptions.html = '<h1>Estimado usuario</h1><p>Para continuar con el proceso de creación de cuenta, por favor ingrese el siguiente código de verificación en Polhibou </p><br><p></br>Su código de verificación es: </p><strong>'+codigo+'</strong>';
     console.log(mailOptions);
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
