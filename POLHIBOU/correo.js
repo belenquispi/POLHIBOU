@@ -50,8 +50,8 @@ exports.inicio = function () {
 exports.enviarCorreo = function (mail, codigo) {
     mailOptions.to = mail;
     mailOptions.from = administrador.correo;
-    mailOptions.subject = 'Verificación de cuenta';
-    mailOptions.html = '<h1>Estimado usuario</h1><p>Su código de verificación es: </p><strong>'+codigo+'</strong>';
+    mailOptions.subject = 'Creación de cuenta';
+    mailOptions.html = '<h1>Estimado usuario</h1><p>Para conrtinuar con el proceso de creación de cuenta, por favor ingrese el siguiente código de verificación en Polhibou </p><br><p></br>Su código de verificación es: </p><strong>'+codigo+'</strong>';
     console.log(mailOptions);
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
@@ -61,5 +61,20 @@ exports.enviarCorreo = function (mail, codigo) {
         }
     });
 };
+exports.enviarCorreoOlvideContrasenia = function (mail, codigo) {
+    mailOptions.to = mail;
+    mailOptions.from = administrador.correo;
+    mailOptions.subject = 'Cambio de contraseña';
+    mailOptions.html = '<h1>Estimado usuario</h1><p>Parece que desea cambiar su contraseña. Por favor utilice la siguiente contraseña temporal para iniciar sesión</p><br><p>Su contraseña temporal es: </p><strong>'+codigo+'</strong>';
+    console.log(mailOptions);
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+    });
+};
+
 
 
