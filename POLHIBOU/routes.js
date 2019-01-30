@@ -304,7 +304,7 @@ exports.post_preguntas_opcion = function (req, res) {
             enunciado: req.body.enunciado,
             respuestaCorrecta: req.body.respuestaCorrecta,
             dificultad: req.body.dificultad,
-            idPregunta: generarNombre()
+            idPregunta: (req.body.materia).substr(0,4)+"opmu"+generarNombre()
         };
 
         if (req.body.imagenEnunciado != "") {
@@ -511,18 +511,16 @@ exports.post_agregar_unir_voltear = function (req, res) {
             if (error) {
                 console.log("Error: " + error)
             }
-
             let indice = doc.materias.map(function (e) {
                 return e.nombre
             }).indexOf(req.body.materia);
 
             let preguntaUnir = {
-                idPregunta: generarNombre(),
+                idPregunta: (req.body.materia).substr(0,4)+"unir"+generarNombre(),
                 texto: req.body.nombreImagen,
                 imagen: req.body.imagenUnir,
                 dificultad: req.body.dificultad
             }
-
             if (indice >= 0) {
                 doc.materias[indice].preguntasUnirVoltear.push(preguntaUnir);
                 doc.save(function (err, docActualizado) {
@@ -590,7 +588,7 @@ exports.post_agregar_varias_unir_voltear = function (req, res) {
                 preguntaU.push("dificultad" + i);
 
                 let preguntaUnir = {
-                    idPregunta: generarNombre(),
+                    idPregunta: (req.body.materia).substr(0,4)+"unir"+generarNombre(),
                     imagen: req.body[preguntaU[0]],
                     texto: req.body[preguntaU[1]],
                     dificultad: req.body[preguntaU[2]]
@@ -825,7 +823,7 @@ exports.post_mostrar_opcion = function (req, res) {
                 }
                 let intento =
                     {
-                        idIntento: generarNombre(),
+                        idIntento: "intento"+generarNombre(),
                         profesor: req.body.facilitador,
                         materia: req.body.materia,
                         tipoDesafio: 'opcionMultiple',
@@ -1037,7 +1035,7 @@ exports.post_mostrar_emparejar = function (req, res) {
 
             let intento =
                 {
-                    idIntento: generarNombre(),
+                    idIntento: "intento"+generarNombre(),
                     profesor: req.body.facilitador,
                     materia: req.body.materia,
                     tipoDesafio: 'emparejar',
@@ -1157,7 +1155,7 @@ exports.post_mostrar_unir = function (req, res) {
             }
             let intento =
                 {
-                    idIntento: generarNombre(),
+                    idIntento: "intento"+generarNombre(),
                     profesor: req.body.facilitador,
                     materia: req.body.materia,
                     tipoDesafio: 'unir',
