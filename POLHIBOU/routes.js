@@ -1552,7 +1552,7 @@ exports.post_recuperar_contrasenia = function (req, res) {
                             direccion: "/recuperarContrasenia"
                         })
                     }
-                    correo.enviarCorreo(doc.usuario, doc.contraseniaTemporal);
+                    correo.enviarCorreoOlvideContrasenia(doc.usuario, doc.contraseniaTemporal);
                     res.render('paginas/inicioSesion', {usuario: "", tipo: 1});
                 })
             }
