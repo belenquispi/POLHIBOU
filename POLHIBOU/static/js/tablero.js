@@ -536,8 +536,10 @@ function mostrarDesafio(colorCa, idSocket) {
     document.getElementById('tipoJuego').innerText = "VOLTÉAME";
     switch (colorCa) {
         case 0:
-            document.getElementById('tarjeta').style.backgroundColor = "#F2F5A9";
-            document.getElementById('desafios').style.backgroundColor = "#F2F5A9";
+            //document.getElementById('tarjeta').style.backgroundColor = "#F2F5A9";
+            document.getElementById('tarjeta').style.backgroundColor = "rgba(120, 118, 118, 0.73)";
+            //document.getElementById('desafios').style.backgroundColor = "#F2F5A9";
+            document.getElementById('desafios').style.backgroundColor = "rgba(120, 118, 118, 0.73)";
             console.log("se pinta de amarillo");
             if (idSocket == idSocketActual) {
                 socket.emit('solicitarPreguntaVoltear', roomActual);
@@ -554,8 +556,10 @@ function mostrarDesafio(colorCa, idSocket) {
             respuestaVoltearATiempo = 0;
             break;
         case 1:
-            document.getElementById('tarjeta').style.backgroundColor = "#F6CED8";
-            document.getElementById('desafios').style.backgroundColor = "#F6CED8";
+            //document.getElementById('tarjeta').style.backgroundColor = "#F6CED8";
+            //document.getElementById('desafios').style.backgroundColor = "#F6CED8";
+            document.getElementById('tarjeta').style.backgroundColor = "rgba(120, 118, 118, 0.73)";
+            document.getElementById('desafios').style.backgroundColor = "rgba(120, 118, 118, 0.73)";
             console.log("se pinta de rosa");
             respuestaUnir = [];
             if (idSocket == idSocketActual) {
@@ -570,10 +574,10 @@ function mostrarDesafio(colorCa, idSocket) {
             document.getElementById("opcionMultiple").setAttribute("hidden", "");
             break;
         case 2:
-            document.getElementById('tarjeta').style.backgroundColor = "#81DAF5";
-            document.getElementById('desafios').style.backgroundColor = "#81DAF5";
-            console.log("se pinta de azul");
-
+          //  document.getElementById('tarjeta').style.backgroundColor = "#81DAF5";
+           // document.getElementById('desafios').style.backgroundColor = "#81DAF5";
+            document.getElementById('tarjeta').style.backgroundColor = "rgba(120, 118, 118, 0.73)";
+            document.getElementById('desafios').style.backgroundColor = "rgba(120, 118, 118, 0.73)";
             if (idSocket == idSocketActual) {
                 socket.emit('solicitarPreguntaOpcionMultiple', roomActual);
             }
@@ -1003,7 +1007,6 @@ function voltearTarjeta(t) {
             document.getElementById("desafios").style.transform = "perspective( 600px ) rotateY( 180deg )";
             document.getElementById('tarjeta').style.backgroundColor = "#bdffbf";
             document.getElementById("tarjeta").style.transform = "perspective( 600px ) rotateY( 0deg )";
-            document.getElementById('textoTarjeta').innerText = "Polhibou";
             setTimeout(function () {
                 document.getElementById('desafios').style.backgroundColor = "#bdffbf";
             }, 1000);
