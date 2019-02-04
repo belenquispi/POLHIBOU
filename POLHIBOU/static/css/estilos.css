@@ -216,11 +216,11 @@ div#memory_boardMulti > label {
     text-align: center;
 }
 
-#snackbar, #snackbarIn, #snackbarPositivo, #snackbarNegativo {
+#snackbar, #snackbarIn, #snackbarPositivo, #snackbarNegativo, #snackbarExtras {
     visibility: hidden;
     min-width: 250px;
     margin-left: -125px;
-    background-color: #A9F5F2;
+    background-color: #ffffff;
     color: #000000;
     text-align: center;
     border-radius: 2px;
@@ -232,14 +232,10 @@ div#memory_boardMulti > label {
     font-size: 17px;
 }
 
-#snackbarIn, #snackbarNegativo {
-    background-color: #f53f95;
-}
-
-#snackbar.show, #snackbarIn.show, #snackbarNegativo.show, #snackbarPositivo.show {
+#snackbar.show, #snackbarIn.show, #snackbarNegativo.show, #snackbarPositivo.show, #snackbarExtras.show {
     visibility: visible;
-    -webkit-animation: fadein 0.5s, fadeout 0.5s 1.5s;
-    animation: fadein 0.5s, fadeout 0.5s 1.5s;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2s;
+    animation: fadein 0.5s, fadeout 0.5s 2s;
 }
 
 .disabledbutton {
@@ -259,7 +255,7 @@ div#memory_boardMulti > label {
 .flip3D > .front {
     position: absolute;
     transform: perspective(600px) rotateY(0deg);
-    background: #bdffbf;
+    background: rgba(120, 118, 118, 0.73);
     width: 425px;
     height: 480px;
     border-radius: 7px;
@@ -273,7 +269,7 @@ div#memory_boardMulti > label {
 .flip3D > .back {
     position: absolute;
     transform: perspective(600px) rotateY(180deg);
-    background: #bdffbf;
+    background: rgba(120, 118, 118, 0.73);
     width: 425px;
     height: 480px;
     border-radius: 7px;

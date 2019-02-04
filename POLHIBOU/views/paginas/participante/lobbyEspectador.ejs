@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <% include ../../parciales/head %>
+    <meta http-equiv="Content-Type" content="text/html"/>
+    <title>Ingreso a partida</title>
+</head>
+<body>
+<div class="opaco" style="margin-bottom: 20px">
+    <header>
+        <% include ../../parciales/header %>
+    </header>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb opacoCard border border-white">
+            <li class="breadcrumb-item"><a href="/ingresoParticipante" class="textoBlanco">INICIO</a></li>
+        </ol>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <a href="/"><img class="rounded mx-auto d-block"
+                                         src="../../static/imagenes/iconoPolhibou.svg"
+                                         height="60%" width="60%">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form id="login-form" action="/tablero" method="post" role="form" style="display: block;">
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-8 bg-white text-dark rounded">
+                                    <div class="container ">
+                                        <h1 class="text-center font-weight-bold"><%= codigoPartida %></h1>
+                                        <input type="text" hidden name="idPartida" id="codigoPartida" value="<%=codigoPartida %>">
+                                        <input type="text" hidden name="nombreEquipo" id="nombreEquipo" value="<%=nombreEquipo %>">
+                                        <input type="text" hidden name="rol" id="tipoIngreso" value="<%=tipoIngreso %>">
+                                    </div>
+                                </div>
+                                <div class="col-md-2"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <p class="textoBlanco"> ESPERA MIENTRAS SE UNEN TODOS LOS EQUIPOS</p>
+                                </div>
+                            </div>
+                            <button type="submit" hidden id="botonUnirPartida"></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <br>
+        <div><label class="font-weight-bold textoBlanco">EQUIPOS CONECTADOS</label></div>
+        <div class="row border border-info rounded" id="jugadoresConectados">
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="../../static/js/lobbyEspectador.js"></script>
+    <footer>
+        <% include ../../parciales/footer.ejs %>
+    </footer>
+</div>
+</body>
+</html>

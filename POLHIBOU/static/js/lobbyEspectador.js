@@ -1,23 +1,24 @@
 var socket = io();
 //var socket = io.connect ('http://polhibou.epn.edu.ec/');
 var jugadoresConectados = [];
+
 window.onload = function () {
-    let jugadores = document.getElementById("numeroEquipos").value;
-    let informacionJugadores = [];
-    for(let i=0; i<jugadores; i++){
-        let jugador = {
-            iconoEquipo: document.getElementById("imagenEquipo"+i).value,
-            nombreEquipo: document.getElementById("nombreEquipo"+i).value
-        };
-        informacionJugadores.push(jugador)
-    }
-    socket.emit('nuevaPartida',document.getElementById('idPartida').value, document.getElementById('rol').value, informacionJugadores, document.getElementById("usuario").value, document.getElementById('materia').value );
+    var codigoPartida = document.getElementById("codigoPartida").value;
+    var tipoIngreso = document.getElementById("tipoIngreso").value;
+    var nombreEquipo = document.getElementById("nombreEquipo").value;
+    console.log(nombreEquipo);
+    socket.emit('inicio', codigoPartida, tipoIngreso, nombreEquipo);
 };
 
 socket.on('ingresoJugadores', function (data) {
     jugadoresConectados = data;
     console.log("hola jugadores: " + jugadoresConectados);
     actualizacion();
+});
+
+socket.on('unirPartida', function () {
+    console.log("Hice clic en el cliente");
+    document.getElementById('botonUnirPartida').click();
 });
 function actualizacion() {
     document.getElementById("jugadoresConectados").innerText="";
@@ -49,16 +50,4 @@ function actualizacion() {
         h5.appendChild(t);
         document.getElementById("card"+(i+1)).appendChild(h5);
     }
-
-    if(document.getElementById("numeroEquipos").value == jugadoresConectados.length){
-        document.getElementById("unirPartida").removeAttribute("disabled");
-    }
-    else {
-        document.getElementById("unirPartida").setAttribute("disabled","");
-    }
-}
-function empezarPartida() {
-    console.log("Hice clic ");
-    socket.emit("iniciarPartida", document.getElementById('idPartida').value);
-    document.getElementById('botonIniciar').click();
 }

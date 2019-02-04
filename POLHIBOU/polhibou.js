@@ -410,6 +410,7 @@ io.on('connection', function (socket) {
         if (indicePartida >= 0) {
             if (rol == "espectador") {
                 socket.join(room);
+                console.log("Se ha conectado un espectador");
                 io.sockets.in(room).emit("nombreRol", "Espectador");
             } else {
                 if (rol == "facilitador") {
@@ -503,7 +504,7 @@ io.on('connection', function (socket) {
         partidas[idPartida].dadoAnteriorP1 = dadoAnterior1;
         partidas[idPartida].dadoAnteriorP2 = dadoAnterior2;
         partidas[idPartida].jugadores[idJugador].numCasillasMoverseP = numCasillasMoverse;
-        if (misterio == 1) {
+        if (misterio == 1 || misterio == 2) {
             partidas[idPartida].jugadores[idJugador].maldicion = 0;
         }
         partidas[idPartida].jugadores[idJugador].moverseA = partidas[idPartida].jugadores[idJugador].moverseA + numCasillasMoverse;
@@ -820,9 +821,8 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
             if (casillaDeLlegada == 7 || casillaDeLlegada == 13 || casillaDeLlegada == 21 || casillaDeLlegada == 27) {
                 let misterioAsignado = Math.floor(Math.random() * 2);
                 if (misterioAsignado == 1) {
-                    partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = Math.floor(Math.random() * 3 + 1);
                     io.sockets.in(partidas[indicePartidaActual].nombrePartida).emit('mensajeMisterio', 1, partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP);
-                    partidas[indicePartidaActual].jugadores[indiceJugadorActual].moverseA += partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP;
+                    partidas[indicePartidaActual].jugadores[indiceJugadorActual].maldicion = 2;
                 } else {
                     io.sockets.in(partidas[indicePartidaActual].nombrePartida).emit('mensajeMisterio', 0, partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP);
                     partidas[indicePartidaActual].jugadores[indiceJugadorActual].maldicion = 1;

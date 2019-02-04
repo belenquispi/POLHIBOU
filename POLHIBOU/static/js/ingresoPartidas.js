@@ -1,5 +1,5 @@
-//var socket = io();
-var socket = io.connect ('http://polhibou.epn.edu.ec/');
+var socket = io();
+//var socket = io.connect ('http://polhibou.epn.edu.ec/');
 var disponible = false;
 socket.on('confirmacionPartida', function (data, indicePartida) {
     console.log("Recibi la confirmación");
