@@ -34,7 +34,7 @@
                     Bienvenido: <%= nombre %>
                 </h5>
             </div>
-            <%if(nombre != "Participante"){%>
+            <%if((nombre != "Participante") && (nombre != "Espectador") ){%>
             <div class="row">
                 <a class="btn btn-primary degradoMenu" href="/cambiarContrasenia" style="margin-left: 10px"><i
                             class="fas fa-exchange-alt"></i> Cambiar Contraseña</a>

@@ -122,32 +122,12 @@
                                     <div class="row">
                                         <div class="col-md-2"></div>
                                         <div class="col-md-8 text-center">
-                                            <button type="submit" value="Unirse a partida"
+                                            <button type="button" value="Unirse a partida"
                                                     class="btn btn-primary degradoBoton"
-                                                    hidden id="botonUnir"><i class="fas fa-sign-in-alt"></i> Unirse
+                                                    hidden id="botonUnir1" onclick="verificarParticipanteSeleccionado()"><i class="fas fa-sign-in-alt"></i> Unirse
                                             </button>
-                                        </div>
-                                        <div class="col-md-2"></div>
-                                    </div>
-                                    <div class="row" id="textoEspectador" hidden>
-                                        <div class="col-md-2"></div>
-                                        <div class="col-md-8 text-center">
-                                            <p class="textoBlanco">La partida aun no ha sido iniciada. Por favor,
-                                                espere. </p>
-                                        </div>
-                                        <div class="col-md-2"></div>
-                                    </div>
-                                </form>
-                                <form action="/tablero" method="post">
-                                    <input type="text" id="idPartida" name="idPartida" hidden>
-                                    <input type="text" id="rol" name="rol" hidden>
-                                    <div class="row" hidden id="rowUnirEspectador">
-                                        <div class="col-md-2"></div>
-                                        <div class="col-md-8 text-center">
-                                            <button type="submit" value="Unirse a partida"
-                                                    class="btn btn-primary degradoBoton"
-                                                    hidden id="botonUnirEspectador"><i class="fas fa-sign-in-alt"></i>
-                                                Unirse
+                                            <button type="submit" hidden
+                                                    id="botonUnir" >
                                             </button>
                                         </div>
                                         <div class="col-md-2"></div>
@@ -224,7 +204,7 @@
                                         <label for="nombreEquipo" class="textoBlanco">NOMBRE DEL EQUIPO:</label>
                                         <select id="nombreEquipo" name="nombreEquipo"
                                                 class="form-control text-center"
-                                                onchange="verificarDisponibilidadEquipo()" required>
+                                                onchange="verificarDisponibilidadEquipo()">
                                         </select>
                                     </div>
                                     <div class="col-md-2"></div>
@@ -233,34 +213,12 @@
                                 <div class="row">
                                     <div class="col-md-2"></div>
                                     <div class="col-md-8 text-center">
-                                        <button type="submit" value="Unirse a partida"
+                                        <button type="button" value="Unirse a partida"
                                                 class="btn btn-primary degradoBoton"
-                                                hidden id="botonUnir"><i class="fas fa-sign-in-alt"></i> Unirse
+                                                hidden id="botonUnir1" onclick="verificarParticipanteSeleccionado()"><i class="fas fa-sign-in-alt"></i> Unirse
                                         </button>
-                                        <button type="submit" class="btn btn-primary" id="unirPartida"
-                                                hidden></button>
-                                    </div>
-                                    <div class="col-md-2"></div>
-                                </div>
-                                <div class="row" id="textoEspectador" hidden>
-                                    <div class="col-md-2"></div>
-                                    <div class="col-md-8 text-center">
-                                        <p class="textoBlanco">La partida aun no ha sido iniciada. Por favor,
-                                            espere. </p>
-                                    </div>
-                                    <div class="col-md-2"></div>
-                                </div>
-                            </form>
-                            <form action="/tablero" method="post">
-                                <input type="text" id="idPartida" name="idPartida" hidden>
-                                <input type="text" id="rol" name="rol" hidden>
-                                <div class="row" hidden id="rowUnirEspectador">
-                                    <div class="col-md-2"></div>
-                                    <div class="col-md-8 text-center">
-                                        <button type="submit" value="Unirse a partida"
-                                                class="btn btn-primary degradoBoton"
-                                                hidden id="botonUnirEspectador"><i class="fas fa-sign-in-alt"></i>
-                                            Unirse
+                                        <button type="submit" hidden
+                                                id="botonUnir" >
                                         </button>
                                     </div>
                                     <div class="col-md-2"></div>
