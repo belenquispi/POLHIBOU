@@ -652,18 +652,24 @@ exports.post_lobby = function (req, res) {
 exports.post_lobby_participante = function (req, res) {
     if (req.body.tipoIngreso == "participante" || req.body.tipoIngreso == "espectador") {
         let nombre = "";
+        let nombreEquipo = ((req.body.nombreEquipo == "ninguno") ? "Espectador" : req.body.nombreEquipo);
         if (req.body.tipoIngreso == "espectador") {
             nombre = ((req.session.nombre == null) ? "Espectador" : req.session.nombre);
+            res.render('paginas/participante/lobbyEspectador', {
+                nombreEquipo: nombreEquipo,
+                codigoPartida: req.body.codigoPartida,
+                tipoIngreso: req.body.tipoIngreso,
+                nombre: nombre
+            });
         } else {
             nombre = ((req.session.nombre == null) ? "Participante" : req.session.nombre);
-        }
-        let nombreEquipo = ((req.body.nombreEquipo == "ninguno") ? "Espectador" : req.body.nombreEquipo);
         res.render('paginas/participante/lobbyParticipante', {
             nombreEquipo: nombreEquipo,
             codigoPartida: req.body.codigoPartida,
             tipoIngreso: req.body.tipoIngreso,
             nombre: nombre
         });
+        }
     } else {
         res.render('paginas/error', {mensaje: "Estas accediendo a un lugar donde no tienes acceso", direccion: "/"});
     }

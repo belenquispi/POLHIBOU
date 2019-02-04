@@ -67,12 +67,12 @@ function generarDatosEquipo(numero) {
             boton.setAttribute("id", "buttonImagen" + (j + 1) + "Equipo" + (i + 1));
             boton.setAttribute("onclick", "bloquearIconoJugador(this)");
             boton.setAttribute("type", "button");
+            boton.setAttribute("class", "btn btn-outline-light");
             boton.style.margin = "0px 5px";
             document.getElementById("form-group" + (i + 1)).appendChild(boton);
             var images = document.createElement("IMG");
             images.setAttribute("src", "../../static/imagenes/equipo"+ (j + 1)+".svg");
             images.setAttribute("id", "buhoInicial" + (j + 1) + "Equipo" + (i + 1));
-            images.setAttribute("class", "img-thumbnail");
             images.setAttribute("height", "50");
             images.setAttribute("width", "50");
             document.getElementById("buttonImagen" + (j + 1) + "Equipo" + (i + 1)).appendChild(images);
@@ -102,12 +102,13 @@ function bloquearIconoJugador(num) {
     }
     if (contador == 0) {
         for (var j = 0; j < 6; j++) {
-            document.getElementById("buttonImagen" + (j + 1) + "Equipo" + numEquipo).style.border = "gray";
+            document.getElementById("buttonImagen" + (j + 1) + "Equipo" + numEquipo).style.border = null;
+            document.getElementById("buttonImagen" + (j + 1) + "Equipo" + numEquipo).classList.add("btn-outline-light");
         }
         partida[numEquipo - 1] = numImagen;
         ((iconoSeleccionados.indexOf(numEquipo) < 0) ? iconoSeleccionados.push(numEquipo) : console.log("El equipo ya tiene un icono seleccionado"));
         document.getElementById("imagenEquipo" + numEquipo).value = numImagen;
-        document.getElementById(id).style.border = "thick solid green";
+        document.getElementById(id).style.border = "thick solid #28CB1E";
     } else {
         console.log("Ya se encuentra seleccionado por otro equipo");
     }

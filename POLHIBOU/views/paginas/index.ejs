@@ -4,6 +4,30 @@
     <% include ../parciales/head.ejs %>
     <meta http-equiv="Content-Type" content="text/html"/>
     <title>Inicio</title>
+    <script async>
+        function confirmarContrasenia() {
+            if (formulario.contrasenia.value == formulario.contraseniaConfirmada.value) {
+                document.getElementById("crearCuenta").removeAttribute("disabled");
+                document.getElementById("inputContrasenia").classList.remove("is-invalid");
+                document.getElementById("inputContrasenia").classList.add("is-valid");
+                document.getElementById("inputContraseniaConfirmada").classList.remove("is-invalid");
+                document.getElementById("inputContraseniaConfirmada").classList.add("is-valid");
+            } else {
+                document.getElementById("crearCuenta").setAttribute("disabled", "");
+                document.getElementById("inputContraseniaConfirmada").classList.add("is-invalid");
+                document.getElementById("inputContrasenia").classList.add("is-invalid");
+
+            }
+
+        }
+        function verificarIngreso(valor) {
+            if (document.getElementById(valor.id).value.trim().length < 1) {
+                alert("El texto ingresado está en blanco");
+                document.getElementById(valor.id).value = "";
+            }
+        }
+
+    </script>
 </head>
 <body>
 <div class="container">
@@ -134,29 +158,6 @@
         <div class="col-md-3"></div>
     </div>
 </div>
-<script>
-    function confirmarContrasenia() {
-        if (formulario.contrasenia.value == formulario.contraseniaConfirmada.value) {
-            document.getElementById("crearCuenta").removeAttribute("disabled");
-            document.getElementById("inputContrasenia").classList.remove("is-invalid");
-            document.getElementById("inputContrasenia").classList.add("is-valid");
-            document.getElementById("inputContraseniaConfirmada").classList.remove("is-invalid");
-            document.getElementById("inputContraseniaConfirmada").classList.add("is-valid");
-        } else {
-            document.getElementById("crearCuenta").setAttribute("disabled", "");
-            document.getElementById("inputContraseniaConfirmada").classList.add("is-invalid");
-            document.getElementById("inputContrasenia").classList.add("is-invalid");
 
-        }
-
-    }
-    function verificarIngreso(valor) {
-        if (document.getElementById(valor.id).value.trim().length < 1) {
-            alert("El texto ingresado está en blanco");
-            document.getElementById(valor.id).value = "";
-        }
-    }
-
-</script>
 </body>
 </html>

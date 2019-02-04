@@ -21,7 +21,7 @@ var respuestaCorrecta = false;
 var turnoFinalizado = true;
 var idSocketActual;
 var roomActual, rol, nombreEquipo;
-var dado1 = -1, dado2 = -1, dadoAnterior1 = 1, dadoAnterior2 = 1;
+var dado1 = -1, dado2 = -1, dadoAnterior1 = 1, dadoAnterior2 = 1, extras = 0;
 var numCasillasMoverse = 0;
 var memory_array = [];
 var memory_values = [];
@@ -99,7 +99,6 @@ socket.on('partida', function (data) {
 socket.on('mensajeMisterio', function (num, casillasExtras) {
     if (num == 1) {
         misterioPositivo();
-        numCasillasMoverse = casillasExtras;
     }
     else {
         if (num == 0) {
@@ -196,7 +195,7 @@ socket.on('partidaFinalizada', function () {
 });
 
 socket.on('partidaCancelada', function () {
-    document.getElementById("linkFinalizarPartida").click();
+    document.getElementById("linkCancelarPartida").click();
 });
 
 function agregarNumerosCasilla() {
@@ -401,18 +400,25 @@ function lanzarDado() {
     var misterio = jugadores[jugadores.map(function (value) {
         return value.idSocket;
     }).indexOf(idSocketActual)].maldicion;
+    extras = 0;
     document.getElementById('sonidoDados').play();
     if (misterio == 1) {
         dado1 = 1;
         dado2 = 1;
     } else {
+        if(misterio == 2)
+        {
+            extras = Math.floor(Math.random()*3+1);
+            movimientoExtra();
+            document.getElementById("casillasExtras").innerText = ""+extras+"";
+        }
         dadoRandomico();
     }
     moverDado();
     moverDado2();
     dadoAnterior1 = dado1;
     dadoAnterior2 = dado2;
-    numCasillasMoverse = dado1 + dado2;
+    numCasillasMoverse = dado1 + dado2 + extras;
     socket.emit('dados', dado1, dado2, roomActual, dadoAnterior1, dadoAnterior2, numCasillasMoverse, misterio);
 }
 
@@ -536,9 +542,8 @@ function mostrarDesafio(colorCa, idSocket) {
     document.getElementById('tipoJuego').innerText = "VOLTÉAME";
     switch (colorCa) {
         case 0:
-            document.getElementById('tarjeta').style.backgroundColor = "#F2F5A9";
-            document.getElementById('desafios').style.backgroundColor = "#F2F5A9";
-            console.log("se pinta de amarillo");
+            document.getElementById('tarjeta').style.backgroundColor = "rgba(242, 245, 169, 0.3)";
+            document.getElementById('desafios').style.backgroundColor = "rgba(242, 245, 169, 0.3)";
             if (idSocket == idSocketActual) {
                 socket.emit('solicitarPreguntaVoltear', roomActual);
             }
@@ -547,16 +552,15 @@ function mostrarDesafio(colorCa, idSocket) {
             document.getElementById("memory_boardMulti").removeAttribute("hidden");
             document.getElementById("barraTiempoUnir").removeAttribute("hidden");
             document.getElementById("respuestaUnirVoltear").removeAttribute("hidden");
-            document.getElementById("ultimoPar").setAttribute("src", "../../../static/imagenes/0.png");
+            document.getElementById("ultimoPar").setAttribute("src", "../../../static/imagenes/imagenVacia.svg");
             document.getElementById("ultimoNombre").innerHTML = "";
             document.getElementById("unir").setAttribute("hidden", "");
             document.getElementById("opcionMultiple").setAttribute("hidden", "");
             respuestaVoltearATiempo = 0;
             break;
         case 1:
-            document.getElementById('tarjeta').style.backgroundColor = "#F6CED8";
-            document.getElementById('desafios').style.backgroundColor = "#F6CED8";
-            console.log("se pinta de rosa");
+            document.getElementById('tarjeta').style.backgroundColor = "rgba(255, 185, 240, 0.3)";
+            document.getElementById('desafios').style.backgroundColor = "rgba(255, 185, 240, 0.3)";
             respuestaUnir = [];
             if (idSocket == idSocketActual) {
                 socket.emit('solicitarPreguntaUnir', roomActual);
@@ -570,10 +574,8 @@ function mostrarDesafio(colorCa, idSocket) {
             document.getElementById("opcionMultiple").setAttribute("hidden", "");
             break;
         case 2:
-            document.getElementById('tarjeta').style.backgroundColor = "#81DAF5";
-            document.getElementById('desafios').style.backgroundColor = "#81DAF5";
-            console.log("se pinta de azul");
-
+            document.getElementById('tarjeta').style.backgroundColor = "rgba(129, 218, 245, 0.3)";
+            document.getElementById('desafios').style.backgroundColor = "rgba(129, 218, 245, 0.3)";
             if (idSocket == idSocketActual) {
                 socket.emit('solicitarPreguntaOpcionMultiple', roomActual);
             }
@@ -675,8 +677,8 @@ function cargarPreguntaOpcionMultiple(indicePregunta) {
     document.getElementById("divRespuestasOpcionMultiple").removeAttribute("hidden");
 
     if (document.getElementById("res1")) {
-        for (var j = 0; j < 4; j++) {
-            var elemento = document.getElementById("res" + (j + 1));
+        for (let j = 0; j < 4; j++) {
+            let elemento = document.getElementById("res" + (j + 1));
             elemento.parentNode.removeChild(elemento);
         }
     }
@@ -685,13 +687,14 @@ function cargarPreguntaOpcionMultiple(indicePregunta) {
         boton.setAttribute("id", "res" + (j + 1));
         boton.setAttribute("onclick", "validarRespuesta(this)");
         boton.setAttribute("class", "btn btn-block btn-outline-dark cortaPalabra");
+        boton.setAttribute("style", "font-weight: bold");
         boton.setAttribute("type", "button");
         boton.style.margin = "0px 5px";
         document.getElementById("botonTextoUnir" + (j + 1)).appendChild(boton);
     }
     if (preguntasOpcionMultiple[indicePregunta].hasOwnProperty("imagenRes1") && preguntasOpcionMultiple[indicePregunta].imagenRes1 != "") {
-        for (var j = 0; j < 4; j++) {
-            var images = document.createElement("IMG");
+        for (let j = 0; j < 4; j++) {
+            let images = document.createElement("IMG");
             switch (j) {
                 case 0:
                     images.setAttribute("src", preguntasOpcionMultiple[indicePregunta].imagenRes1);
@@ -715,8 +718,8 @@ function cargarPreguntaOpcionMultiple(indicePregunta) {
     }
 
     else {
-        for (var j = 0; j < 4; j++) {
-            var texto = "";
+        for (let j = 0; j < 4; j++) {
+            let texto = "";
             document.getElementById("res" + (j + 1)).setAttribute("value", "res");
             switch (j) {
                 case 0:
@@ -964,6 +967,10 @@ function misterioNegativo() {
     document.getElementById('sonidoError').play();
 
 }
+function movimientoExtra() {
+    mostrarMensaje("snackbarExtras");
+    document.getElementById('sonidoCorrecto').play();
+}
 
 function mostrarMensaje(texto) {
     let x = document.getElementById(texto);
@@ -1001,11 +1008,10 @@ function darLaVuelta() {
 function voltearTarjeta(t) {
     setTimeout(function () {
             document.getElementById("desafios").style.transform = "perspective( 600px ) rotateY( 180deg )";
-            document.getElementById('tarjeta').style.backgroundColor = "#bdffbf";
+            document.getElementById('tarjeta').style.backgroundColor = "rgba(120, 118, 118, 0.73)";
             document.getElementById("tarjeta").style.transform = "perspective( 600px ) rotateY( 0deg )";
-            document.getElementById('textoTarjeta').innerText = "Polhibou";
             setTimeout(function () {
-                document.getElementById('desafios').style.backgroundColor = "#bdffbf";
+                document.getElementById('desafios').style.backgroundColor = "rgba(120, 118, 118, 0.73)";
             }, 1000);
         }
         , t);

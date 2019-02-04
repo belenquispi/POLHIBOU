@@ -52,11 +52,25 @@
                     </tbody>
                 </table>
                 <% if (rol == "facilitador"){%>
-                <div class="row text-center">
-                    <form name="formulario" hidden method="post" action="/salirPartida">
-                        <input type="text" hidden name="idPartida" id="idPartida" value="<%= idPartida %>">
-                        <button type="submit" class="btn btn-primary degradoBoton" id="botonFinalizacion" > <i class="fas fa-sign-out-alt"></i> Salir de partida</button>
-                    </form>
+                <div class="row ">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4 text-center">
+                        <form name="formulario" method="post" action="/salirPartida">
+                            <input type="text" hidden name="idPartida" id="idPartida" value="<%= idPartida %>">
+                            <button type="submit" class="btn btn-primary degradoBoton" id="botonFinalizacion" > <i class="fas fa-sign-out-alt"></i> Salir de la partida</button>
+                        </form>
+                    </div>
+                    <div class="col-md-4"></div>
+
+                </div>
+                <%}else {%>
+                <div class="row ">
+                <div class="col-md-4"></div>
+                <div class="col-md-4 text-center">
+                <a href="/" class="btn btn-primary degradoBoton">
+                    <i class="far fa-list-alt"></i> Salir de la partida </a>
+                </div>
+                <div class="col-md-4"></div>
                 </div>
                 <%}%>
             </div>
@@ -65,7 +79,6 @@
     </div>
 	<script>
 	</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"></script>
     <footer>
         <% include ../../parciales/footer.ejs %>
     </footer>
