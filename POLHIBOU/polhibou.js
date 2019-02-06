@@ -255,9 +255,9 @@ app.route('/intentos')
     .get(routes.get_intentos)
     .post(routes.error)
     .put(routes.error);
-app.route('/detalleTematicaFacilitador')
+app.route('/detalleTematica')
     .get(routes.error)
-    .post(routes.post_detalle_tematica_intentos)
+    .post(routes.post_detalle_tematica)
     .put(routes.error);
 app.route('/detalleIntentos')
     .get(routes.error)

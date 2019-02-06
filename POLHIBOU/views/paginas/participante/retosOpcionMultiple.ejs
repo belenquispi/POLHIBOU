@@ -21,18 +21,38 @@
             </li>
         </ol>
     </nav>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-1"></div>
-                    <div class="col-md-10"><h4 class="textoBlanco" style="text-transform: uppercase;">
-                            Pregunta <%= (contadorPreguntas + 1) %> - Opción Múltiple</h4></div>
+                    <div class="col-md-2">
+                        <div class="btn-toolbar">
+                            <div class="btn-group ">
+                                <% for(var i = 0 ; i < 5; i++){
+                                    switch (true) {
+                                        case contadorPreguntas == i:
+                                %>
+                                <button type="button" class="btn btn-primary"><%= (i + 1) %></button>
+                                <%        break;
+                                    case contadorPreguntas>i:
+                                        %>
+                                <button type="button" class="btn btn-secondary"><%= (i + 1) %></button>
+                                <%        break;
+                                    case contadorPreguntas<i:
+                                %>
+                                <button type="button" class="btn btn-secondary"><%= (i + 1) %></button>
+
+                                <% break;
+                                    } }%>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-10"><h4 class="textoBlanco" style="text-transform: uppercase;">Pregunta <%= (contadorPreguntas + 1) %> - Opción Múltiple</h4></div>
                     <div class="col-md-1"></div>
                 </div>
                 <div class="row">
-                    <div class="col-md-1"></div>
-                    <div class="col-md-10 ">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-9 ">
                         <form action="/retoOpcionMultiple" method="post">
                             <input type="text" hidden name="idPregunta" value="<%= preguntas[contadorPreguntas]._id %>">
                             <input type="text" hidden name="contadorPreguntas" value="<%= contadorPreguntas %>">

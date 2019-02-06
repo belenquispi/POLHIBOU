@@ -304,7 +304,7 @@ exports.post_preguntas_opcion = function (req, res) {
             enunciado: req.body.enunciado,
             respuestaCorrecta: req.body.respuestaCorrecta,
             dificultad: req.body.dificultad,
-            idPregunta: (req.body.materia).substr(0,4)+"opmu"+generarNombre()
+            idPregunta: (req.body.materia).substr(0, 4) + "opmu" + generarNombre()
         };
 
         if (req.body.imagenEnunciado != "") {
@@ -392,7 +392,7 @@ exports.get_creacion_partida = function (req, res) {
     console.log("Se tiene el siguiente rol al crear partida ", req.session.rol);
     if (req.session.usuario && req.params.materia) {
         if (req.session.rol == "facilitador") {
-            let idPartida = (req.params.materia.replace(" ", "_").substr(0,3)) + Math.floor((1 + Math.random()) * 0x1000).toString(5).substring(1);
+            let idPartida = (req.params.materia.replace(" ", "_").substr(0, 3)) + Math.floor((1 + Math.random()) * 0x1000).toString(5).substring(1);
             console.log("Se ha creado el idPartida ", idPartida);
             res.render('paginas/facilitador/creacionPartida', {
                 nombre: req.session.nombre,
@@ -516,7 +516,7 @@ exports.post_agregar_unir_voltear = function (req, res) {
             }).indexOf(req.body.materia);
 
             let preguntaUnir = {
-                idPregunta: (req.body.materia).substr(0,4)+"unir"+generarNombre(),
+                idPregunta: (req.body.materia).substr(0, 4) + "unir" + generarNombre(),
                 texto: req.body.nombreImagen,
                 imagen: req.body.imagenUnir,
                 dificultad: req.body.dificultad
@@ -588,7 +588,7 @@ exports.post_agregar_varias_unir_voltear = function (req, res) {
                 preguntaU.push("dificultad" + i);
 
                 let preguntaUnir = {
-                    idPregunta: (req.body.materia).substr(0,4)+"unir"+generarNombre(),
+                    idPregunta: (req.body.materia).substr(0, 4) + "unir" + generarNombre(),
                     imagen: req.body[preguntaU[0]],
                     texto: req.body[preguntaU[1]],
                     dificultad: req.body[preguntaU[2]]
@@ -663,12 +663,12 @@ exports.post_lobby_participante = function (req, res) {
             });
         } else {
             nombre = ((req.session.nombre == null) ? "Participante" : req.session.nombre);
-        res.render('paginas/participante/lobbyParticipante', {
-            nombreEquipo: nombreEquipo,
-            codigoPartida: req.body.codigoPartida,
-            tipoIngreso: req.body.tipoIngreso,
-            nombre: nombre
-        });
+            res.render('paginas/participante/lobbyParticipante', {
+                nombreEquipo: nombreEquipo,
+                codigoPartida: req.body.codigoPartida,
+                tipoIngreso: req.body.tipoIngreso,
+                nombre: nombre
+            });
         }
     } else {
         res.render('paginas/error', {mensaje: "Estas accediendo a un lugar donde no tienes acceso", direccion: "/"});
@@ -829,7 +829,7 @@ exports.post_mostrar_opcion = function (req, res) {
                 }
                 let intento =
                     {
-                        idIntento: "intento"+generarNombre(),
+                        idIntento: "intento" + generarNombre(),
                         profesor: req.body.facilitador,
                         materia: req.body.materia,
                         tipoDesafio: 'opcionMultiple',
@@ -914,37 +914,37 @@ exports.post_mostrar_opcion = function (req, res) {
                                             let resCorrecta = facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].respuestaCorrecta;
                                             switch (resCorrecta) {
                                                 case "res1":
-                                                    if((facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res1)!= undefined) {
+                                                    if ((facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res1) != undefined) {
                                                         respuestasCorrectas.push("texto");
                                                         respuestasCorrectas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res1);
-                                                    }else{
+                                                    } else {
                                                         respuestasCorrectas.push("imagen");
                                                         respuestasCorrectas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].imagenRes1);
                                                     }
                                                     break;
                                                 case "res2":
-                                                    if((facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res2)!= undefined) {
+                                                    if ((facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res2) != undefined) {
                                                         respuestasCorrectas.push("texto");
                                                         respuestasCorrectas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res2);
-                                                    }else{
+                                                    } else {
                                                         respuestasCorrectas.push("imagen");
                                                         respuestasCorrectas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].imagenRes2);
                                                     }
                                                     break;
                                                 case "res3":
-                                                    if((facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res3)!= undefined) {
+                                                    if ((facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res3) != undefined) {
                                                         respuestasCorrectas.push("texto");
                                                         respuestasCorrectas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res3);
-                                                    }else{
+                                                    } else {
                                                         respuestasCorrectas.push("imagen");
                                                         respuestasCorrectas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].imagenRes3);
                                                     }
                                                     break;
                                                 case "res4":
-                                                    if((facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res4)!= undefined) {
+                                                    if ((facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res4) != undefined) {
                                                         respuestasCorrectas.push("texto");
                                                         respuestasCorrectas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res4);
-                                                    }else{
+                                                    } else {
                                                         respuestasCorrectas.push("imagen");
                                                         respuestasCorrectas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].imagenRes4);
                                                     }
@@ -953,37 +953,37 @@ exports.post_mostrar_opcion = function (req, res) {
                                             let resSeleccionada = doc.intentos[indice].preguntas[a].respuestaSeleccionada;
                                             switch (resSeleccionada) {
                                                 case "res1":
-                                                    if((facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res1)!= undefined) {
+                                                    if ((facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res1) != undefined) {
                                                         respuestasSeleccionadas.push("texto");
                                                         respuestasSeleccionadas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res1);
-                                                    }else{
+                                                    } else {
                                                         respuestasSeleccionadas.push("imagen");
                                                         respuestasSeleccionadas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].imagenRes1);
                                                     }
                                                     break;
                                                 case "res2":
-                                                    if((facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res2)!= undefined) {
+                                                    if ((facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res2) != undefined) {
                                                         respuestasSeleccionadas.push("texto");
                                                         respuestasSeleccionadas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res2);
-                                                    }else{
+                                                    } else {
                                                         respuestasSeleccionadas.push("imagen");
                                                         respuestasSeleccionadas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].imagenRes2);
                                                     }
                                                     break;
                                                 case "res3":
-                                                    if((facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res3)!= undefined) {
+                                                    if ((facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res3) != undefined) {
                                                         respuestasSeleccionadas.push("texto");
                                                         respuestasSeleccionadas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res3);
-                                                    }else{
+                                                    } else {
                                                         respuestasSeleccionadas.push("imagen");
                                                         respuestasSeleccionadas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].imagenRes3);
                                                     }
                                                     break;
                                                 case "res4":
-                                                    if((facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res4)!= undefined) {
+                                                    if ((facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res4) != undefined) {
                                                         respuestasSeleccionadas.push("texto");
                                                         respuestasSeleccionadas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res4);
-                                                    }else{
+                                                    } else {
                                                         respuestasSeleccionadas.push("imagen");
                                                         respuestasSeleccionadas.push(facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].imagenRes4);
                                                     }
@@ -999,7 +999,7 @@ exports.post_mostrar_opcion = function (req, res) {
                                         puntaje: puntaje,
                                         facilitador: doc.intentos[indice].profesor,
                                         respuestasCorrectas: respuestasCorrectas,
-                                        respuestasSeleccionadas : respuestasSeleccionadas
+                                        respuestasSeleccionadas: respuestasSeleccionadas
                                     })
                                 });
                             }
@@ -1041,7 +1041,7 @@ exports.post_mostrar_emparejar = function (req, res) {
 
             let intento =
                 {
-                    idIntento: "intento"+generarNombre(),
+                    idIntento: "intento" + generarNombre(),
                     profesor: req.body.facilitador,
                     materia: req.body.materia,
                     tipoDesafio: 'emparejar',
@@ -1161,7 +1161,7 @@ exports.post_mostrar_unir = function (req, res) {
             }
             let intento =
                 {
-                    idIntento: "intento"+generarNombre(),
+                    idIntento: "intento" + generarNombre(),
                     profesor: req.body.facilitador,
                     materia: req.body.materia,
                     tipoDesafio: 'unir',
@@ -1707,25 +1707,21 @@ exports.error = function (req, res) {
 exports.get_intentos = function (req, res) {
     if (req.session.usuario) {
         Estudiante.findOne({usuario: req.session.usuario}, function (error, doc) {
-
             if (error) {
                 res.render('paginas/error', {
                     mensaje: "No se pudo consultar la información del usuario " + req.session.usuario + ".",
                     direccion: "/"
                 });
             }
-
             let intentosTematicaFacilitador = [];
             for (let i = 0; i < doc.intentos.length; i++) {
                 let intentoTematicaFacilitador = {
                     facilitador: doc.intentos[i].profesor,
                     tematica: doc.intentos[i].materia,
                 };
-                console.log("Facilitador: " + intentoTematicaFacilitador.facilitador);
-                console.log("tematica: " + intentoTematicaFacilitador.tematica);
                 if ((intentosTematicaFacilitador.length == 0) || ((intentosTematicaFacilitador.map(function (e) {
                         return e.facilitador;
-                    }).indexOf(doc.intentos[i].profesor < 0)) &&
+                    }).indexOf(doc.intentos[i].profesor) < 0) &&
                     (intentosTematicaFacilitador.map(function (e) {
                         return e.tematica
                     }).indexOf(doc.intentos[i].tematica < 0)))) {
@@ -1733,8 +1729,6 @@ exports.get_intentos = function (req, res) {
                 }
             }
 
-            console.log("El tamaño del array de intentos es:");
-            console.log(intentosTematicaFacilitador.length);
             res.render('paginas/participante/intentos', {
                 nombre: req.session.nombre,
                 usuario: req.session.usuario,
@@ -1747,7 +1741,7 @@ exports.get_intentos = function (req, res) {
     }
 }
 
-exports.post_detalle_tematica_intentos = function (req, res) {
+exports.post_detalle_tematica = function (req, res) {
     if (req.session.usuario) {
         Estudiante.findOne({usuario: req.session.usuario}, function (error, doc) {
 
@@ -1759,9 +1753,9 @@ exports.post_detalle_tematica_intentos = function (req, res) {
             }
 
             let intentos = [];
-            let tematica = "";
-            let facilitador = "";
             for (let i = 0; i < doc.intentos.length; i++) {
+                console.log("el tamaño de intentos: "+intentos.length);
+                console.log("i: "+i);
                 let intento = {
                     idIntento: doc.intentos[i].idIntento,
                     facilitador: doc.intentos[i].profesor,
@@ -1770,17 +1764,21 @@ exports.post_detalle_tematica_intentos = function (req, res) {
                     dificultad: doc.intentos[i].dificultad,
                     puntaje: doc.intentos[i].puntaje,
                 };
-                if (intento.facilitador == req.body.facilitador && intento.tematica == req.body.tematica) {
+                console.log("profe "+intento.facilitador);
+                console.log("mate: "+intento.tematica);
+
+                if (doc.intentos[i].profesor == req.body.facilitador && doc.intentos[i].materia == req.body.tematica) {
                     tematica = doc.intentos[i].materia;
                     facilitador = doc.intentos[i].profesor;
                     intentos.push(intento);
                 }
             }
+            console.log("el tamaño de intentos: "+intentos.length);
             res.render('paginas/participante/detalleTematicasIntentos', {
                 nombre: req.session.nombre,
                 usuario: req.session.usuario,
-                tematica: tematica,
-                facilitador: facilitador,
+                tematica: req.body.tematica,
+                facilitador: req.body.facilitador,
                 intentos: intentos
             })
         });

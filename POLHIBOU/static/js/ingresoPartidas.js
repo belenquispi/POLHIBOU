@@ -46,23 +46,29 @@ function verificarPartida() {
 }
 
 function habilitarNombreEquipo() {
-	verificarPartida();
+    verificarPartida();
+    document.getElementById("botonUnir1").removeAttribute("hidden");
+
     if (document.getElementById("tipoIngreso").value == "participante") {
         document.getElementById("divNombreEquipo").removeAttribute("hidden");
-        document.getElementById("botonUnir").removeAttribute("hidden");
-        document.getElementById("textoEspectador").setAttribute("hidden","");
-
     } else {
         document.getElementById("divNombreEquipo").setAttribute("hidden", "");
-        if (document.getElementById("tipoIngreso").value == "espectador") {
-            console.log("se ha seleccionado espectador");
-            document.getElementById("botonUnir").removeAttribute("hidden");
-            document.getElementById("textoEspectador").setAttribute("hidden","");
-            document.getElementById("divNombreEquipo").setAttribute("hidden","");
-        }
+                   console.log("se ha seleccionado espectador");
     }
 }
 
 function verificarDisponibilidadEquipo() {
-    socket.emit('verificarEquipo', document.getElementById("codigoPartida").value, document.getElementById("nombreEquipo").value);
+    if (document.getElementById("nombreEquipo").value != "ninguno") {
+        socket.emit('verificarEquipo', document.getElementById("codigoPartida").value, document.getElementById("nombreEquipo").value);
+    }
+}
+
+function verificarParticipanteSeleccionado() {
+    if (((document.getElementById("nombreEquipo").value == "ninguno") || (document.getElementById("nombreEquipo").value == "") )&&(document.getElementById("tipoIngreso").value == "participante")) {
+        alert("Debe seleccionar un nombre de equipo o ingresar como espectador");
+    } else {
+        console.log("Contenido: " + document.getElementById("nombreEquipo").value);
+        document.getElementById("botonUnir").removeAttribute("hidden");
+        document.getElementById("botonUnir").click();
+    }
 }
