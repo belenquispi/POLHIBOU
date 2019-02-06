@@ -15,7 +15,7 @@ function cambiarIcono()
 
 function eliminarMateria(materia)
 {
-   let r = confirm("Si elimina la materia, se borrarán todas las preguntas y estadísticas. ¿Está seguro?");
+   let r = confirm("Si elimina la temática, se borrarán todas las preguntas, imágenes y estadísticas. ¿Está seguro?");
     if (r == true) {
         document.getElementById("botonEliminar"+materia).click();
     }

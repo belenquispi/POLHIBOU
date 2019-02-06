@@ -32,10 +32,11 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link  dropdown-toggle collapsed textoBlanco" href="/ingresoParticipante" data-toggle="collapse" data-target="#submenu2"><i class="fas fa-user"></i> PARTICIPANTE</a>
-                                <div class="collapse" id="submenu2" aria-expanded="false">
+                                <div class="collapse show" id="submenu2" aria-expanded="false">
                                     <ul class="flex-column pl-5 nav">
                                         <li class="nav-item"><a class="nav-link py-0 textoBlanco" href="/ingresoParticipante"><i class="fas fa-home"></i> INICIO PARTICIPANTE</a></li>
                                         <li class="nav-item" ><a class="nav-link py-0 textoBlanco" href="/ingresoPartida"><i class="fas fa-sign-in-alt"></i> UNIRSE A PARTIDA</a></li>
+                                        <li class="nav-item"><a class="nav-link py-0 textoBlanco" href="/intentos"><i class="fas fa-clipboard-check"></i> MIS INTENTOS</a></li>
                                     </ul>
                                 </div>
                             </li>
@@ -147,15 +148,15 @@
                                        class="btn bg-white" style="margin-bottom: 10px; color: black"
                                        id=<%= materias[i] %>>
                                         <i class="far fa-list-alt"></i> Preguntas Opción Multiple <span
-                                                class="badge badge-light"><%= materias[i].numOpcionMultiple %></span></a>
+                                                class="badge badge-dark"><%= materias[i].numOpcionMultiple %></span></a>
                                 </div>
                                 <div class="col-md-2">
                                     <% if(materias[i].boolOpcion)
                                     { %>
-                                        <button type="button" class="btn btn-secondary" data-toggle="tooltip"
+                                        <button type="button" class="btn btn-light" data-toggle="tooltip"
                                                 data-placement="right"
                                                 title="No cuenta con el número mínimo de preguntas.">
-                                            <i class="fas fa-exclamation-triangle"></i>
+                                            <i class="fas fa-exclamation-triangle" style="color:#007bff"></i>
                                         </button>
                                     <% } %>
                                 </div>
@@ -165,15 +166,15 @@
                                     <a href="/ingresoFacilitador/preguntasUnirVoltear/<%= materias[i].nombre %>"
                                        class="btn bg-white" style="margin-bottom: 10px; color: black">
                                         <i class="fas fa-th"></i> Imágenes y Nombres <span
-                                                class="badge badge-light"><%= materias[i].numUnirVoltear %></span></a>
+                                                class="badge badge-dark"><%= materias[i].numUnirVoltear %></span></a>
                                 </div>
                                 <div class="col-md-2">
                                     <% if(materias[i].boolUnir)
                                     { %>
-                                        <button type="button" class="btn btn-secondary" data-toggle="tooltip"
+                                        <button type="button" class="btn btn-light" data-toggle="tooltip"
                                                 data-placement="right"
                                                 title="No cuenta con el número mínimo de preguntas.">
-                                            <i class="fas fa-exclamation-triangle"></i>
+                                            <i class="fas fa-exclamation-triangle" style="color:#007bff"></i>
                                         </button>
                                     <% } %>
                                 </div>
