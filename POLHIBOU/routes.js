@@ -1634,6 +1634,8 @@ exports.post_partida_finalizada = function (req, res) {
                     for (let i = 0; i < partida.turnoJugadores.length; i++) {
                         for (let j = 0; j < partida.turnoJugadores.length; j++) {
                             console.log("Tamaño de turno jugadores: " + partida.turnoJugadores.length);
+                            console.log("Jugadores: " + partida.jugadores.length);
+                            console.log(partida.jugadores);
                             if (partida.turnoJugadores[i] == partida.jugadores[j].idSocket) {
                                 let equipo = {
                                     nombre: partida.jugadores[j].nombre,

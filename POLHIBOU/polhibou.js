@@ -355,6 +355,8 @@ io.on('connection', function (socket) {
                                 }
                             }
                             actualizarOrdenPartidas(room);
+                            console.log("tamaño de jugadores "+ partidas[indicePartida].jugadores.length)
+                            console.log("tamaño de jugadores turno "+ partidas[indicePartida].turnoJugadores.length)
                             if (partidas[indicePartida].jugadores.length == partidas[indicePartida].turnoJugadores.length) {
                                 Partida.findOne({idPartida: partidas[indicePartida].nombrePartida}, function (error, doc) {
                                     if (error) {
