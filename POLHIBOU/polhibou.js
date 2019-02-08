@@ -119,7 +119,7 @@ app.route('/preguntasOpcionMultiple/ingresoOpcionMultiple/:materia')
     .get(routes.get_opcion_multiple)
     .post(routes.error)
     .put(routes.error);
-app.route('/unirVoltear/:materia')
+app.route('/emparejarVoltear/:materia')
     .get(routes.get_unir_voltear)
     .post(routes.error)
     .put(routes.error);
@@ -135,7 +135,7 @@ app.route('/ingresoFacilitador/preguntasOpcionMultiple/:materia')
     .get(routes.get_preguntas_opcion)
     .post(routes.error)
     .put(routes.error);
-app.route('/ingresoFacilitador/preguntasUnirVoltear/:materia')
+app.route('/ingresoFacilitador/preguntasEmparejarVoltear/:materia')
     .get(routes.get_preguntas_unir_voltear)
     .post(routes.error)
     .put(routes.error);
@@ -155,7 +155,7 @@ app.route('/ingresoPartida')
     .get(routes.get_ingreso_partida)
     .post(routes.error)
     .put(routes.error);
-app.route('/agregarUnirVoltear')
+app.route('/agregarEmparejarVoltear')
     .get(routes.error)
     .post(routes.post_agregar_unir_voltear)
     .put(routes.error);

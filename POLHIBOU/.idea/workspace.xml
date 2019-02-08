@@ -9,25 +9,14 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/polhibou.js" beforeDir="false" afterPath="$PROJECT_DIR$/polhibou.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/profesor.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/profesor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/paginas/facilitador/creacionPartida.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/facilitador/creacionPartida.ejs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/paginas/facilitador/detalleParticipante.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/facilitador/detalleParticipante.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/paginas/facilitador/estadisticaPreguntas.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/facilitador/estadisticaPreguntas.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/paginas/facilitador/inicioEstadistica.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/facilitador/inicioEstadistica.ejs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/paginas/facilitador/inicioProfesor.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/facilitador/inicioProfesor.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/paginas/facilitador/listaParticipantes.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/facilitador/listaParticipantes.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/paginas/facilitador/listaPreguntaOpcionMultiple.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/facilitador/listaPreguntaOpcionMultiple.ejs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/paginas/facilitador/listaPreguntasUnirVoltear.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/facilitador/listaPreguntasUnirVoltear.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/paginas/facilitador/lobby.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/facilitador/lobby.ejs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/paginas/facilitador/preguntasUnirVoltear.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/facilitador/preguntasUnirVoltear.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/paginas/inicioSesion.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/inicioSesion.ejs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/paginas/participante/detalleIntento.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/participante/detalleIntento.ejs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/paginas/participante/detalleTematicasIntentos.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/participante/detalleTematicasIntentos.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/paginas/participante/ingresoPartidas.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/participante/ingresoPartidas.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/paginas/participante/inicioEstudiante.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/participante/inicioEstudiante.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/paginas/participante/intentos.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/participante/intentos.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/paginas/participante/retosEstudiante.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/participante/retosEstudiante.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/paginas/participante/retosOpcionMultiple.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/participante/retosOpcionMultiple.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/paginas/participante/resultadosUnir.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/participante/resultadosUnir.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/paginas/participante/retosEmparejar.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/paginas/participante/retosEmparejar.ejs" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -89,37 +78,39 @@
     <session id="1947538746">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="4" />
+          <entry key="project.closed" value="5" />
           <entry key="project.open.time.24" value="2" />
+          <entry key="project.open.time.25" value="1" />
+          <entry key="project.open.time.28" value="1" />
           <entry key="project.open.time.29" value="1" />
           <entry key="project.open.time.31" value="1" />
           <entry key="project.open.time.33" value="1" />
           <entry key="project.open.time.42" value="2" />
           <entry key="project.open.time.45" value="1" />
           <entry key="project.open.time.49" value="1" />
-          <entry key="project.opened" value="9" />
+          <entry key="project.opened" value="11" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="css" value="26" />
-          <entry key="ejs" value="1387" />
-          <entry key="js" value="1019" />
+          <entry key="ejs" value="1562" />
+          <entry key="js" value="1160" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="26" />
-          <entry key="EJS" value="1387" />
-          <entry key="JavaScript" value="1019" />
+          <entry key="EJS" value="1562" />
+          <entry key="JavaScript" value="1160" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="css" value="3" />
-          <entry key="ejs" value="67" />
+          <entry key="ejs" value="74" />
           <entry key="gitignore" value="1" />
-          <entry key="js" value="26" />
+          <entry key="js" value="27" />
           <entry key="png" value="7" />
           <entry key="svg" value="1" />
         </counts>
@@ -127,9 +118,9 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CSS" value="3" />
-          <entry key="EJS" value="67" />
+          <entry key="EJS" value="74" />
           <entry key="Image" value="7" />
-          <entry key="JavaScript" value="26" />
+          <entry key="JavaScript" value="27" />
           <entry key="PLAIN_TEXT" value="1" />
           <entry key="SVG" value="1" />
         </counts>
@@ -139,35 +130,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/paginas/participante/resultadosEmparejar.ejs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="215">
-              <caret line="32" column="68" selection-start-line="32" selection-start-column="50" selection-end-line="32" selection-end-column="68" />
-              <folding>
-                <element signature="n#style#0;n#i#0;n#div#2;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/js/profesor.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="179">
-              <caret line="17" column="85" selection-start-line="17" selection-start-column="85" selection-end-line="17" selection-end-column="85" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/inicioProfesor.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="178">
-              <caret line="40" column="109" selection-start-line="40" selection-start-column="109" selection-end-line="40" selection-end-column="109" />
-              <folding>
-                <element signature="n#style#0;n#i#0;n#button#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#i#0;n#button#0;n#div#1;n#div#1;n#div#1;n#div#0;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="162">
+              <caret line="165" column="90" selection-start-line="165" selection-start-column="90" selection-end-line="165" selection-end-column="90" />
             </state>
           </provider>
         </entry>
@@ -175,51 +141,74 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/detalleParticipante.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="29" column="48" selection-start-line="29" selection-start-column="33" selection-end-line="29" selection-end-column="48" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/paginas/participante/retosOpcionMultiple.ejs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="226">
-              <caret line="38" column="78" selection-start-line="38" selection-start-column="78" selection-end-line="38" selection-end-column="78" />
+            <state relative-caret-position="181">
+              <caret line="112" column="94" lean-forward="true" selection-start-line="112" selection-start-column="94" selection-end-line="112" selection-end-column="94" />
               <folding>
-                <element signature="n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" />
+                <element signature="n#style#0;n#th#0;n#tr#2;n#tbody#0;n#table#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/paginas/participante/intentos.ejs">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/views/paginas/participante/resultadosUnir.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="54" column="109" lean-forward="true" selection-start-line="52" selection-start-column="40" selection-end-line="54" selection-end-column="109" />
+            <state relative-caret-position="184">
+              <caret line="23" column="89" selection-start-line="23" selection-start-column="89" selection-end-line="23" selection-end-column="89" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/paginas/participante/detalleTematicasIntentos.ejs">
+        <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/listaPreguntasUnirVoltear.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-281">
-              <caret line="44" column="52" selection-start-line="44" selection-start-column="37" selection-end-line="44" selection-end-column="52" />
+            <state relative-caret-position="233">
+              <caret line="198" column="44" selection-start-line="198" selection-start-column="23" selection-end-line="198" selection-end-column="44" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/paginas/participante/detalleIntento.ejs">
+        <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/inicioEstadistica.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="218">
-              <caret line="84" column="68" lean-forward="true" selection-start-line="84" selection-start-column="68" selection-end-line="84" selection-end-column="68" />
-              <folding>
-                <element signature="n#style#0;n#div#2;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#div#2;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" />
-              </folding>
+            <state relative-caret-position="158">
+              <caret line="37" column="156" selection-start-line="37" selection-start-column="152" selection-end-line="37" selection-end-column="156" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/preguntasUnirVoltear.ejs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="109" column="76" selection-start-line="109" selection-start-column="55" selection-end-line="109" selection-end-column="76" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/polhibou.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="145">
+              <caret line="259" column="38" selection-start-line="259" selection-start-column="38" selection-end-line="259" selection-end-column="38" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/paginas/participante/retosUnir.ejs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="471">
+              <caret line="103" column="43" selection-start-line="103" selection-start-column="43" selection-end-line="103" selection-end-column="43" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/paginas/participante/retosEmparejar.ejs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="23">
+              <caret line="47" column="14" lean-forward="true" selection-start-line="47" selection-start-column="14" selection-end-line="47" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -227,17 +216,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="1767" column="55" lean-forward="true" selection-start-line="1767" selection-start-column="55" selection-end-line="1767" selection-end-column="55" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/css/estilos.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="311" column="49" selection-start-line="311" selection-start-column="43" selection-end-line="311" selection-end-column="49" />
+            <state relative-caret-position="270">
+              <caret line="455" column="52" selection-start-line="455" selection-start-column="52" selection-end-line="455" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -254,17 +234,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>enviarCorreoOlvideContrasenia</find>
-      <find>maldi</find>
-      <find>mensajeMisterio</find>
-      <find>mister</find>
-      <find>miste</find>
-      <find>*3</find>
-      <find>snackbarPositivo</find>
-      <find>dados</find>
-      <find>tien</find>
-      <find>mald</find>
-      <find>nombreRol</find>
       <find>botonU</find>
       <find>snackbarNegativo</find>
       <find>verificarInicioPartida</find>
@@ -284,6 +253,17 @@
       <find>/detalleTematicaFacilitador</find>
       <find>/int</find>
       <find>w</find>
+      <find>retosU</find>
+      <find>inicioP</find>
+      <find>/unirVoltear/</find>
+      <find>agreg</find>
+      <find>agregarUnirVoltear</find>
+      <find>/ingresoFacilitador/preguntasUnirVoltear/</find>
+      <find>preguntasUnirVoltear</find>
+      <find>/ingresoFacilitador/preguntasUnirVoltear</find>
+      <find>paginas/facilitador/preguntasEmparejarVoltear</find>
+      <find>/preguntasUnirVoltear</find>
+      <find>unir</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -301,11 +281,9 @@
         <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/views/paginas/participante/resultadosOpcionMultiple.ejs" />
         <option value="$PROJECT_DIR$/views/paginas/participante/resultadosEmparejar.ejs" />
-        <option value="$PROJECT_DIR$/views/paginas/participante/resultadosUnir.ejs" />
         <option value="$PROJECT_DIR$/views/paginas/participante/retosUnir.ejs" />
         <option value="$PROJECT_DIR$/static/js/retosEmparejar" />
         <option value="$PROJECT_DIR$/static/js/retosEmparejar.js" />
-        <option value="$PROJECT_DIR$/views/paginas/participante/retosEmparejar.ejs" />
         <option value="$PROJECT_DIR$/views/paginas/validacionCuenta.ejs" />
         <option value="$PROJECT_DIR$/views/paginas/recuperarContrasenia.ejs" />
         <option value="$PROJECT_DIR$/correo.js" />
@@ -323,26 +301,28 @@
         <option value="$PROJECT_DIR$/static/js/tablero.js" />
         <option value="$PROJECT_DIR$/views/paginas/inicioSesion.ejs" />
         <option value="$PROJECT_DIR$/views/paginas/facilitador/creacionPartida.ejs" />
-        <option value="$PROJECT_DIR$/views/paginas/facilitador/detalleParticipante.ejs" />
         <option value="$PROJECT_DIR$/views/paginas/facilitador/estadisticaPreguntas.ejs" />
         <option value="$PROJECT_DIR$/views/paginas/facilitador/inicioEstadistica.ejs" />
         <option value="$PROJECT_DIR$/views/paginas/facilitador/listaParticipantes.ejs" />
         <option value="$PROJECT_DIR$/views/paginas/facilitador/listaPreguntaOpcionMultiple.ejs" />
-        <option value="$PROJECT_DIR$/views/paginas/facilitador/listaPreguntasUnirVoltear.ejs" />
         <option value="$PROJECT_DIR$/views/paginas/facilitador/lobby.ejs" />
-        <option value="$PROJECT_DIR$/views/paginas/facilitador/preguntasUnirVoltear.ejs" />
-        <option value="$PROJECT_DIR$/views/paginas/participante/detalleIntento.ejs" />
-        <option value="$PROJECT_DIR$/views/paginas/participante/detalleTematicasIntentos.ejs" />
         <option value="$PROJECT_DIR$/views/paginas/participante/ingresoPartidas.ejs" />
         <option value="$PROJECT_DIR$/views/paginas/participante/inicioEstudiante.ejs" />
         <option value="$PROJECT_DIR$/views/paginas/participante/retosEstudiante.ejs" />
         <option value="$PROJECT_DIR$/static/css/estilos.css" />
         <option value="$PROJECT_DIR$/static/js/profesor.js" />
         <option value="$PROJECT_DIR$/views/paginas/participante/retosOpcionMultiple.ejs" />
-        <option value="$PROJECT_DIR$/polhibou.js" />
-        <option value="$PROJECT_DIR$/routes.js" />
         <option value="$PROJECT_DIR$/views/paginas/participante/intentos.ejs" />
+        <option value="$PROJECT_DIR$/views/paginas/participante/detalleTematicasIntentos.ejs" />
+        <option value="$PROJECT_DIR$/views/paginas/participante/retosEmparejar.ejs" />
+        <option value="$PROJECT_DIR$/views/paginas/participante/detalleIntento.ejs" />
         <option value="$PROJECT_DIR$/views/paginas/facilitador/inicioProfesor.ejs" />
+        <option value="$PROJECT_DIR$/views/paginas/facilitador/listaPreguntasUnirVoltear.ejs" />
+        <option value="$PROJECT_DIR$/polhibou.js" />
+        <option value="$PROJECT_DIR$/views/paginas/facilitador/preguntasUnirVoltear.ejs" />
+        <option value="$PROJECT_DIR$/routes.js" />
+        <option value="$PROJECT_DIR$/views/paginas/facilitador/detalleParticipante.ejs" />
+        <option value="$PROJECT_DIR$/views/paginas/participante/resultadosUnir.ejs" />
       </list>
     </option>
   </component>
@@ -472,11 +452,13 @@
       <workItem from="1549234833096" duration="6282000" />
       <workItem from="1549254111298" duration="2168000" />
       <workItem from="1549483864754" duration="5894000" />
+      <workItem from="1549588523328" duration="6773000" />
+      <workItem from="1549660022860" duration="2054000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="171237000" />
+    <option name="totallyTimeSpent" value="180064000" />
   </component>
   <component name="TodoView" selected-index="3">
     <todo-panel id="selected-file">
@@ -498,7 +480,7 @@
       <window_info id="Favorites" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32899022" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.029508196" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.06065574" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -633,13 +615,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/inicioEstadistica.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="34" column="48" selection-start-line="34" selection-start-column="33" selection-end-line="34" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/listaParticipantes.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="294">
@@ -654,24 +629,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/listaPreguntasUnirVoltear.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="56" column="48" selection-start-line="56" selection-start-column="33" selection-end-line="56" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/lobby.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
           <caret line="28" column="52" selection-start-line="28" selection-start-column="37" selection-end-line="28" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/preguntasUnirVoltear.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="45" column="57" selection-start-line="45" selection-start-column="57" selection-end-line="45" selection-end-column="57" />
         </state>
       </provider>
     </entry>
@@ -698,9 +659,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
           <caret line="34" column="44" selection-start-line="34" selection-start-column="29" selection-end-line="34" selection-end-column="44" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -708,9 +666,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="353">
           <caret line="38" column="97" selection-start-line="38" selection-start-column="97" selection-end-line="38" selection-end-column="97" />
-          <folding>
-            <element signature="n#style#0;n#form#0;n#div#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -732,20 +687,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
           <caret line="34" column="72" selection-start-line="34" selection-start-column="72" selection-end-line="34" selection-end-column="72" />
-          <folding>
-            <element signature="n#style#0;n#i#0;n#div#2;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/paginas/participante/resultadosUnir.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-31" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/paginas/participante/retosEmparejar.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-31" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/paginas/participante/retosEstudiante.ejs">
@@ -755,22 +697,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/paginas/participante/retosUnir.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-31" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/paginas/participante/tablero.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
           <caret line="134" column="78" lean-forward="true" selection-start-line="134" selection-start-column="78" selection-end-line="134" selection-end-column="78" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/estilos.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="311" column="49" selection-start-line="311" selection-start-column="43" selection-end-line="311" selection-end-column="49" />
         </state>
       </provider>
     </entry>
@@ -783,85 +713,123 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/paginas/participante/resultadosEmparejar.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
+        <state relative-caret-position="736">
           <caret line="32" column="68" selection-start-line="32" selection-start-column="50" selection-end-line="32" selection-end-column="68" />
-          <folding>
-            <element signature="n#style#0;n#i#0;n#div#2;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/js/profesor.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
+        <state relative-caret-position="391">
           <caret line="17" column="85" selection-start-line="17" selection-start-column="85" selection-end-line="17" selection-end-column="85" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/detalleParticipante.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="29" column="48" selection-start-line="29" selection-start-column="33" selection-end-line="29" selection-end-column="48" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/paginas/participante/retosOpcionMultiple.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
+        <state relative-caret-position="874">
           <caret line="38" column="78" selection-start-line="38" selection-start-column="78" selection-end-line="38" selection-end-column="78" />
-          <folding>
-            <element signature="n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" />
-          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/paginas/participante/intentos.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1242">
+          <caret line="54" column="109" selection-start-line="52" selection-start-column="40" selection-end-line="54" selection-end-column="109" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/paginas/participante/detalleTematicasIntentos.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2116">
+          <caret line="92" column="107" lean-forward="true" selection-start-line="92" selection-start-column="107" selection-end-line="92" selection-end-column="107" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/estilos.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7153">
+          <caret line="311" column="49" selection-start-line="311" selection-start-column="43" selection-end-line="311" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/paginas/participante/detalleIntento.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="682">
+          <caret line="224" column="43" lean-forward="true" selection-start-line="224" selection-start-column="43" selection-end-line="224" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/paginas/participante/retosEmparejar.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="47" column="14" lean-forward="true" selection-start-line="47" selection-start-column="14" selection-end-line="47" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/inicioProfesor.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="165" column="90" selection-start-line="165" selection-start-column="90" selection-end-line="165" selection-end-column="90" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/paginas/participante/retosUnir.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="471">
+          <caret line="103" column="43" selection-start-line="103" selection-start-column="43" selection-end-line="103" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/preguntasUnirVoltear.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="109" column="76" selection-start-line="109" selection-start-column="55" selection-end-line="109" selection-end-column="76" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/polhibou.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
+        <state relative-caret-position="145">
           <caret line="259" column="38" selection-start-line="259" selection-start-column="38" selection-end-line="259" selection-end-column="38" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="1767" column="55" lean-forward="true" selection-start-line="1767" selection-start-column="55" selection-end-line="1767" selection-end-column="55" />
+        <state relative-caret-position="270">
+          <caret line="455" column="52" selection-start-line="455" selection-start-column="52" selection-end-line="455" selection-end-column="52" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/paginas/participante/detalleTematicasIntentos.ejs">
+    <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/listaPreguntasUnirVoltear.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-281">
-          <caret line="44" column="52" selection-start-line="44" selection-start-column="37" selection-end-line="44" selection-end-column="52" />
+        <state relative-caret-position="233">
+          <caret line="198" column="44" selection-start-line="198" selection-start-column="23" selection-end-line="198" selection-end-column="44" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/paginas/participante/detalleIntento.ejs">
+    <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/inicioEstadistica.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="84" column="68" lean-forward="true" selection-start-line="84" selection-start-column="68" selection-end-line="84" selection-end-column="68" />
+        <state relative-caret-position="158">
+          <caret line="37" column="156" selection-start-line="37" selection-start-column="152" selection-end-line="37" selection-end-column="156" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/detalleParticipante.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="112" column="94" lean-forward="true" selection-start-line="112" selection-start-column="94" selection-end-line="112" selection-end-column="94" />
           <folding>
-            <element signature="n#style#0;n#div#2;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#div#2;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#style#0;n#th#0;n#tr#2;n#tbody#0;n#table#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/paginas/participante/intentos.ejs">
+    <entry file="file://$PROJECT_DIR$/views/paginas/participante/resultadosUnir.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="54" column="109" lean-forward="true" selection-start-line="52" selection-start-column="40" selection-end-line="54" selection-end-column="109" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/inicioProfesor.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="40" column="109" selection-start-line="40" selection-start-column="109" selection-end-line="40" selection-end-column="109" />
-          <folding>
-            <element signature="n#style#0;n#i#0;n#button#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#i#0;n#button#0;n#div#1;n#div#1;n#div#1;n#div#0;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="184">
+          <caret line="23" column="89" selection-start-line="23" selection-start-column="89" selection-end-line="23" selection-end-column="89" />
         </state>
       </provider>
     </entry>

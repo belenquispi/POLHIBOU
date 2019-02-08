@@ -526,7 +526,7 @@ exports.post_agregar_unir_voltear = function (req, res) {
                 doc.save(function (err, docActualizado) {
                     if (err) return console.log(err);
 
-                    res.redirect('ingresoFacilitador/preguntasUnirVoltear/' + req.body.materia);
+                    res.redirect('ingresoFacilitador/preguntasEmparejarVoltear/' + req.body.materia);
                 });
             }
         });
@@ -555,7 +555,7 @@ exports.post_eliminar_unir_voltear = function (req, res) {
                     doc.materias[indice].preguntasUnirVoltear.splice(indicePregunta, 1);
                     doc.save(function (err, docActualizado) {
                         if (err) return console.log(err);
-                        res.redirect('/ingresoFacilitador/preguntasUnirVoltear/' + req.body.materia);
+                        res.redirect('/ingresoFacilitador/preguntasEmparejarVoltear/' + req.body.materia);
                     });
                 }
             }
@@ -608,7 +608,7 @@ exports.post_agregar_varias_unir_voltear = function (req, res) {
 
                 }
                 else {
-                    res.redirect('/ingresoFacilitador/preguntasUnirVoltear/' + req.body.materia);
+                    res.redirect('/ingresoFacilitador/preguntasEmparejarVoltear/' + req.body.materia);
                 }
             });
         });
@@ -1811,12 +1811,12 @@ exports.post_detalle_intentos = function (req, res) {
                         idPregunta: doc.intentos[indiceIntento].preguntas[i].idPregunta,
                         enunciado: doc.intentos[indiceIntento].preguntas[i].enunciado,
                         imagenEnunciado: doc.intentos[indiceIntento].preguntas[i].imagenEnunciado,
-                        respuestaSeleccionada: doc.intentos[indiceIntento].preguntas[i].respuestaSeleccionada,
-                        correctoIncorrecto: doc.intentos[indiceIntento].preguntas[i].correctoIncorrecto
-                    }
+                        respuestaSeleccionada: (doc.intentos[indiceIntento].preguntas[i].respuestaSeleccionada == undefined ? "": doc.intentos[indiceIntento].preguntas[i].respuestaSeleccionada ),
+                        correctoIncorrecto: (doc.intentos[indiceIntento].preguntas[i].correctoIncorrecto == undefined ? -1:doc.intentos[indiceIntento].preguntas[i].correctoIncorrecto)
+                    };
                     preguntas.push(pregunta);
                 }
-
+                console.log("preguntas: "+preguntas.length);
                 res.render('paginas/participante/detalleIntento', {
                     nombre: req.session.nombre,
                     usuario: req.session.usuario,
