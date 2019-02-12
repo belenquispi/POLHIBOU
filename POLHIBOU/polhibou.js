@@ -620,8 +620,7 @@ io.on('connection', function (socket) {
         actualizarOrdenPartidas(room);
     });
     socket.on('tiempoTerminado', function (room) {
-        let indicePartida = consultarIdPartida(room);
-        io.sockets.in(partidas[indicePartida].nombrePartida).emit('avisoTiempoTerminado', socket.id);
+        io.sockets.in(room).emit('avisoTiempoTerminado', socket.id);
     });
     socket.on('darLaVuelta', function (room) {
         let idPartida = consultarIdPartida(room);

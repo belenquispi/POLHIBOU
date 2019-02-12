@@ -13,8 +13,8 @@ var filas, columnas, anchoCasilla, altoCasilla;
 var gameMap = [];
 var colorMap = [];
 var patterColor1, patterColor2, patterColor3, patterInicio, patterIncierto, patterFin;
-//var socket = io();
-var socket = io.connect ('http://polhibou.epn.edu.ec/');
+var socket = io();
+//var socket = io.connect ('http://polhibou.epn.edu.ec/');
 var jugadores = [];
 var turnoJugadores = [];
 var respuestaCorrecta = false;
@@ -186,6 +186,7 @@ socket.on('enviandoDarLaVuelta', function (idSocketN) {
 });
 socket.on('avisoTiempoTerminado', function (idSocketN) {
     if (idSocketN != idSocketActual) {
+        console.log("Recibi el emit del tiempo terminado");
         tiempoVoltear = 0;
     }
 });
@@ -298,6 +299,7 @@ function controlarTiempo() {
             clearTimeout(temporizador);
             if(respuestaVoltearATiempo == 0){
                 if (turnoJugadores[0] == idSocketActual) {
+                    console.log("Realice el emit del tiempo terminado");
                     socket.emit('tiempoTerminado', roomActual);
                 }
                 tiempoVoltear = 0;
@@ -943,6 +945,7 @@ function verificarRespuestaUnir() {
 
 function desafioIncorrecto() {
     mostrarMensaje("snackbarIn");
+    console.log("El desafío es incorrecto en el tiempo");
     respuestaCorrecta = false;
     if (turnoJugadores[0] == idSocketActual) {
         socket.emit('pasarTurno', roomActual);
@@ -1006,6 +1009,7 @@ function darLaVuelta() {
 }
 
 function voltearTarjeta(t) {
+    console.log("Se va a dar la vuelta en dos segundos");
     setTimeout(function () {
             document.getElementById("desafios").style.transform = "perspective( 600px ) rotateY( 180deg )";
             document.getElementById('tarjeta').style.backgroundColor = "rgba(120, 118, 118, 0.73)";
