@@ -1,5 +1,5 @@
-//var socket = io();
-var socket = io.connect ('http://polhibou.epn.edu.ec/');
+var socket = io();
+//var socket = io.connect ('http://polhibou.epn.edu.ec/');
 var disponible = false;
 socket.on('confirmacionPartida', function (data, indicePartida) {
     console.log("Recibi la confirmación");
@@ -68,7 +68,6 @@ function verificarParticipanteSeleccionado() {
         alert("Debe seleccionar un nombre de equipo o ingresar como espectador");
     } else {
         console.log("Contenido: " + document.getElementById("nombreEquipo").value);
-        document.getElementById("botonUnir").removeAttribute("hidden");
         document.getElementById("botonUnir").click();
     }
 }

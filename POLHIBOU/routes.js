@@ -526,7 +526,7 @@ exports.post_agregar_unir_voltear = function (req, res) {
                 doc.save(function (err, docActualizado) {
                     if (err) return console.log(err);
 
-                    res.redirect('ingresoFacilitador/preguntasUnirVoltear/' + req.body.materia);
+                    res.redirect('ingresoFacilitador/preguntasEmparejarVoltear/' + req.body.materia);
                 });
             }
         });
@@ -555,7 +555,7 @@ exports.post_eliminar_unir_voltear = function (req, res) {
                     doc.materias[indice].preguntasUnirVoltear.splice(indicePregunta, 1);
                     doc.save(function (err, docActualizado) {
                         if (err) return console.log(err);
-                        res.redirect('/ingresoFacilitador/preguntasUnirVoltear/' + req.body.materia);
+                        res.redirect('/ingresoFacilitador/preguntasEmparejarVoltear/' + req.body.materia);
                     });
                 }
             }
@@ -608,20 +608,19 @@ exports.post_agregar_varias_unir_voltear = function (req, res) {
 
                 }
                 else {
-                    res.redirect('/ingresoFacilitador/preguntasUnirVoltear/' + req.body.materia);
+                    res.redirect('/ingresoFacilitador/preguntasEmparejarVoltear/' + req.body.materia);
                 }
             });
         });
     }
-    else {
+        else {
         res.redirect('/inicioSesion');
     }
 };
 
 exports.post_lobby = function (req, res) {
-    console.log("idPArtida de la sesion: " + req.session.idPartida);
     console.log("idPArtida del body: " + req.body.idPartida);
-    if ((req.session.usuario != undefined) && (req.session.rol == "facilitador") && (req.body.idPartida != undefined)) {
+    if ((req.session.usuario != undefined) && (req.body.rol == "facilitador") && (req.body.idPartida != undefined)) {
         let informacionJugadores = [];
         for (let i = 1; i <= req.body.numeroEquipos; i++) {
             let equipoU = [];
@@ -634,9 +633,10 @@ exports.post_lobby = function (req, res) {
             };
             informacionJugadores.push(nuevoEquipo);
         }
+
         res.render('paginas/facilitador/lobby', {
             nombre: req.session.nombre,
-            rol: req.session.rol,
+            rol: req.body.rol,
             usuario: req.session.usuario,
             materia: req.body.materia,
             idPartida: req.body.idPartida,
@@ -1634,6 +1634,8 @@ exports.post_partida_finalizada = function (req, res) {
                     for (let i = 0; i < partida.turnoJugadores.length; i++) {
                         for (let j = 0; j < partida.turnoJugadores.length; j++) {
                             console.log("Tamaño de turno jugadores: " + partida.turnoJugadores.length);
+                            console.log("Jugadores: " + partida.jugadores.length);
+                            console.log(partida.jugadores);
                             if (partida.turnoJugadores[i] == partida.jugadores[j].idSocket) {
                                 let equipo = {
                                     nombre: partida.jugadores[j].nombre,
@@ -1809,12 +1811,12 @@ exports.post_detalle_intentos = function (req, res) {
                         idPregunta: doc.intentos[indiceIntento].preguntas[i].idPregunta,
                         enunciado: doc.intentos[indiceIntento].preguntas[i].enunciado,
                         imagenEnunciado: doc.intentos[indiceIntento].preguntas[i].imagenEnunciado,
-                        respuestaSeleccionada: doc.intentos[indiceIntento].preguntas[i].respuestaSeleccionada,
-                        correctoIncorrecto: doc.intentos[indiceIntento].preguntas[i].correctoIncorrecto
-                    }
+                        respuestaSeleccionada: (doc.intentos[indiceIntento].preguntas[i].respuestaSeleccionada == undefined ? "": doc.intentos[indiceIntento].preguntas[i].respuestaSeleccionada ),
+                        correctoIncorrecto: (doc.intentos[indiceIntento].preguntas[i].correctoIncorrecto == undefined ? -1:doc.intentos[indiceIntento].preguntas[i].correctoIncorrecto)
+                    };
                     preguntas.push(pregunta);
                 }
-
+                console.log("preguntas: "+preguntas.length);
                 res.render('paginas/participante/detalleIntento', {
                     nombre: req.session.nombre,
                     usuario: req.session.usuario,

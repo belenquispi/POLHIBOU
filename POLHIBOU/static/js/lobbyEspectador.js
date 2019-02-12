@@ -1,11 +1,12 @@
-//var socket = io();
-var socket = io.connect ('http://polhibou.epn.edu.ec/');
+var socket = io();
+//var socket = io.connect ('http://polhibou.epn.edu.ec/');
 var jugadoresConectados = [];
 
 window.onload = function () {
     var codigoPartida = document.getElementById("codigoPartida").value;
     var tipoIngreso = document.getElementById("tipoIngreso").value;
     var nombreEquipo = document.getElementById("nombreEquipo").value;
+    console.log("emit");
     console.log(nombreEquipo);
     socket.emit('inicio', codigoPartida, tipoIngreso, nombreEquipo);
     socket.emit('verificarInicioPartida', codigoPartida);

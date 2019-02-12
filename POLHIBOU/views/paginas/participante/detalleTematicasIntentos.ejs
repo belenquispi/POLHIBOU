@@ -81,8 +81,15 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-8">								
-                                        <p class="textoBlanco">Tipo de Desafío: <%= intentos[i].tipoDesafio%></p>
+                                    <div class="col-md-8">
+                                        <% if (intentos[i].tipoDesafio == "opcionMultiple") {%>
+                                        <p class="textoBlanco">Tipo de Desafío: Opción Múltiple</p>
+                                        <% } if (intentos[i].tipoDesafio == "unir") {%>
+                                        <p class="textoBlanco">Tipo de Desafío: Voltear</p>
+
+                                        <% } if (intentos[i].tipoDesafio == "emparejar") {%>
+                                        <p class="textoBlanco">Tipo de Desafío: Emparejar</p>
+                                        <%}%>
                                         <p class="textoBlanco">Dificultad: <%= intentos[i].dificultad%></p>
 										<p class="textoBlanco">Puntaje: <%= intentos[i].puntaje%></p>
                                     </div>     
