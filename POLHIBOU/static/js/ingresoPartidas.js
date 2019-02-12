@@ -68,7 +68,6 @@ function verificarParticipanteSeleccionado() {
         alert("Debe seleccionar un nombre de equipo o ingresar como espectador");
     } else {
         console.log("Contenido: " + document.getElementById("nombreEquipo").value);
-        document.getElementById("botonUnir").removeAttribute("hidden");
         document.getElementById("botonUnir").click();
     }
 }

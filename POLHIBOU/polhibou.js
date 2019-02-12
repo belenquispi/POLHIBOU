@@ -9,7 +9,7 @@ var app = express();
 var polhibou = http.Server(app);
 var io = socketIO(polhibou);
 var baseDatos = require("./baseDatos");
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var Profesor = require("./models/profesor").Profesor;
 var Estudiante = require("./models/estudiante").Estudiante;
@@ -413,11 +413,9 @@ io.on('connection', function (socket) {
             if (rol == "espectador") {
                 socket.join(room);
                 console.log("Se ha conectado un espectador");
-                io.sockets.in(room).emit("nombreRol", "Espectador");
             } else {
                 if (rol == "facilitador") {
                     socket.join(room);
-                    io.sockets.in(room).emit("nombreRol", "Profesor");
                 }
                 else {
                     if (rol == "participante") {
@@ -468,13 +466,6 @@ io.on('connection', function (socket) {
             actualizarOrdenPartidas(partidas[indicePartida].nombrePartida);
         }
     });
-    /*   socket.on('nuevo array', function (data, room) {
-           var idPartida = consultarIdPartida(room);
-           if (idPartida >= 0) {
-               partidas[idPartida].turnoJugadores = data;
-               actualizarOrdenPartidas(room);
-           }
-       });*/
     socket.on('iniciarPartida', function (room) {
         let idPartida = consultarIdPartida(room);
         if (idPartida >= 0) {
