@@ -18,7 +18,7 @@
     </nav>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-2 opacoCard" style="margin-bottom: 20px">
+            <div class="col-lg-2 opacoCard" style="margin-bottom: 20px">
                 <div class="row h-100">
                     <div class="col-12 collapse d-md-flex h-100" id="sidebar">
                         <ul class="nav flex-column flex-nowrap">
@@ -52,7 +52,7 @@
                                                         class="fas fa-sign-in-alt"></i> UNISE A PARTIDA</a></li>
 										<li class="nav-item"><a class="nav-link py-0 btn-primary degradoBoton"
                                                                 href="/intentos"><i
-                                                        class="fas fa-sign-in-alt"></i> MIS INTENTOS</a></li>	
+                                                        class="fas fa-clipboard-check"></i> MIS INTENTOS</a></li>
                                     </ul>
                                 </div>
                             </li>
@@ -60,10 +60,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-10">
+            <div class="col-lg-10">
                 <div class="row">
                     <div class="col-md-12">
-                        <h4 class="textoBlanco">INTENTO DE LA TEMÁTICA <%=tematica%> DEL FACILITADOR <%=facilitador%></h4>
+                        <h4 class="textoBlanco" style="text-transform: uppercase">INTENTO DE LA TEMÁTICA <%=tematica%> DEL FACILITADOR <%=facilitador%></h4>
                     </div>
                 </div>
 					<% switch (tipoDesafio) {
@@ -136,25 +136,23 @@
 											<div class="col-md-3">
 												<button id="<%= preguntas[i].idPregunta %>" class="btn btn-outline-light disabledbutton"
 													onclick="obtenerId(this);">
-													<img id="imagenAUnir<%= (i + 1) %>" src="<%= preguntas[i].imagen %>"
+													<img id="imagenAUnir<%= (i + 1) %>" src="<%= preguntas[i].imagenEnunciado %>"
 													height="50" width="50">
 												</button>
 											</div>
 										<div class="col-md-7">
-											<%console.log(respuestas)
-											var indice = respuestas.indexOf(preguntas[i].idPregunta);
-											console.log(indice);%>
-											<button id="<%= respuestas[indice + 1] %>" class="btn btn-outline-light btn-block textoBlanco disabledbutton"
-											onclick="obtenerId(this);"><%= respuestas[indice + 1] %></button>
+											<button id="<%= respuestas[i] %>" class="btn btn-outline-light btn-block textoBlanco disabledbutton"
+											onclick="obtenerId(this);"><%= respuestas[i] %></button>
 										</div>
 										<div class="col-md-2">
-											<% if(puntajes[i] == 0)
+											<% if(preguntas[i].correctoIncorrecto == 1)
 											{ %>
-											<i class="far fa-3x fa-times-circle" style="color:red; margin-top: 10px"></i>
+											<i class="far fa-3x fa-check-circle" style="color:green; margin-top: 10px"></i>
 											<% }
 											else
 											{ %>
-											<i class="far fa-3x fa-check-circle" style="color:green; margin-top: 10px"></i>
+											<i class="far fa-3x fa-times-circle" style="color:red; margin-top: 10px"></i>
+
 											<% } %>
 										</div>
 									</div>
@@ -174,13 +172,13 @@
 										<div class="col-md-6">
 											<button id="<%= preguntas[i].idPregunta %>" class="btn btn-outline-light disabledbutton"
 													onclick="obtenerId(this);">
-												<img id="imagenAUnir<%= (i + 1) %>" src="<%= preguntas[i].imagen %>"
+												<img id="imagenAUnir<%= (i + 1) %>" src="<%= preguntas[i].imagenEnunciado %>"
 													 height="50" width="50">
 											</button>
 										</div>
 										<div class="col-md-6">
-											<button id="<%= preguntas[i].texto %>"  class="btn btn-outline-light textoUnir btn-block disabledbutton"
-													onclick="obtenerId(this);"><%= preguntas[i].texto %>
+											<button id="<%= preguntas[i].enunciado %>"  class="btn btn-outline-light textoUnir btn-block disabledbutton"
+													onclick="obtenerId(this);"><%= preguntas[i].enunciado %>
 											</button>
 										</div>
 									</div>
@@ -268,7 +266,7 @@
 		<div class="row text-center">
         <div class="col-md-4"> </div>
         <div class="col-md-4">
-            <form action="/detalleTematicaFacilitador" method="post">
+            <form action="/detalleTematica" method="post">
                 <input type="text" name="facilitador" hidden value="<%= facilitador %>">
                 <input type="text" name="materia" hidden value="<%=tematica %>">
             <button  class="btn btn-primary degradoBoton" type="submit"><i class="fas fa-undo-alt"></i> Regresar </button>
