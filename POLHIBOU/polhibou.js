@@ -43,6 +43,7 @@ var gameMap = [
 var anchoCasilla = 60, altoCasilla = 60;
 var columnas = 9, filas = 8;
 seleccionarColor();
+
 function partida(nombrePartida) {
     this.nombrePartida = nombrePartida,
         this.jugadores = [],
@@ -264,14 +265,12 @@ app.route('/detalleIntentos')
     .post(routes.post_detalle_intentos)
     .put(routes.error);
 
-
 // Starts the polhibou.
 polhibou.listen(5000, function () {
     console.log('Starting polhibou on port 5000');
 });
-
 // Add the WebSocket handlers
-io.on('connection', function (socket) {
+io.on('connection', (socket) => {
     io.sockets.emit('tuID');
     socket.on('nuevaPartida', function (room, rol, informacionJugadores, usuario, idMateria) {
         socket.join(room);
@@ -292,7 +291,7 @@ io.on('connection', function (socket) {
     socket.on('verificarPartida', function (room) {
         let indicePartida = consultarIdPartida(room);
         let arrayJugadores = [];
-		socket.join(room);
+        socket.join(room);
         if (indicePartida >= 0) {
             for (let i = 0; i < partidas[indicePartida].jugadores.length; i++) {
                 if (partidas[indicePartida].jugadores[i].listo == 0) {
@@ -322,7 +321,9 @@ io.on('connection', function (socket) {
             }
             if (numeroJugadoresConectados > 0) {
                 io.sockets.in(room).emit('confirmacionInicioPartida', true);
-            }else {io.sockets.in(room).emit('confirmacionInicioPartida', false);}
+            } else {
+                io.sockets.in(room).emit('confirmacionInicioPartida', false);
+            }
         } else {
             console.log("La partida ingresada no existe");
         }
@@ -355,8 +356,6 @@ io.on('connection', function (socket) {
                                 }
                             }
                             actualizarOrdenPartidas(room);
-                            console.log("tamaño de jugadores "+ partidas[indicePartida].jugadores.length)
-                            console.log("tamaño de jugadores turno "+ partidas[indicePartida].turnoJugadores.length)
                             if (partidas[indicePartida].jugadores.length == partidas[indicePartida].turnoJugadores.length) {
                                 Partida.findOne({idPartida: partidas[indicePartida].nombrePartida}, function (error, doc) {
                                     if (error) {
@@ -386,8 +385,8 @@ io.on('connection', function (socket) {
                         }
                         else {
                             io.sockets.in(room).emit("error", "El equipo: " + nombreEquipo + " ya se ha conectado");
-							socket.join(room);
-							io.sockets.in(room).emit("nombreRol", "Espectador");
+                            socket.join(room);
+                            io.sockets.in(room).emit("nombreRol", "Espectador");
                         }
                     }
                     else {
@@ -620,8 +619,7 @@ io.on('connection', function (socket) {
         actualizarOrdenPartidas(room);
     });
     socket.on('tiempoTerminado', function (room) {
-        let indicePartida = consultarIdPartida(room);
-        io.sockets.in(partidas[indicePartida].nombrePartida).emit('avisoTiempoTerminado', socket.id);
+        io.sockets.in(room).emit('avisoTiempoTerminado', socket.id);
     });
     socket.on('darLaVuelta', function (room) {
         let idPartida = consultarIdPartida(room);
@@ -640,11 +638,14 @@ io.on('connection', function (socket) {
     });
 });
 
+
 setInterval(function () {
     for (let i = 0; i < partidas.length; i++) {
         io.sockets.in(partidas[i].nombrePartida).emit('partida', partidas[i]);
     }
 }, 1000 / 30);
+
+
 
 function seleccionarColor(filasN, columnasN, gameMapN,) {
     let indice = 0;
@@ -701,6 +702,7 @@ function actualizarJugadoresIngresados(room) {
             jugadoresConectados.push(partidas[idPartida].jugadores[i]);
         }
     }
+    console.log(room)
     io.sockets.in(room).emit('ingresoJugadores', jugadoresConectados);
 }
 
@@ -734,7 +736,7 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
     if (this.tileFrom[0] == this.tileTo[0] && this.tileFrom[1] == this.tileTo[1]) {
         return false;
     }
-    if (this.casilla == 34)  {
+    if (this.casilla == 34) {
         partidas[indicePartidaActual].jugadores[indiceJugadorActual].numCasillasMoverseP = 0;
         if (partidas[indicePartidaActual].lugaresJugadores.indexOf(this.idSocket) == -1) {
             partidas[indicePartidaActual].lugaresJugadores.push(this.idSocket);
@@ -744,30 +746,31 @@ Character.prototype.processMovement = function (t, roomActual, idSocket) {
         actualizarOrdenPartidas(roomActual);
         if (partidas[indicePartidaActual].turnoJugadores.length < 2) {
             if (partidas[indicePartidaActual].lugaresJugadores.length != partidas[indicePartidaActual].jugadores.length) {
-				let jugadoresFaltantes = [];
+                let jugadoresFaltantes = [];
                 for (let x = 0; x < partidas[indicePartidaActual].jugadores.length; x++) {
-                    console.log("El index: "+partidas[indicePartidaActual].lugaresJugadores.indexOf(partidas[indicePartidaActual].jugadores[x].idSocket));
-					if(partidas[indicePartidaActual].lugaresJugadores.indexOf(partidas[indicePartidaActual].jugadores[x].idSocket) < 0){
-						jugadoresFaltantes.push(partidas[indicePartidaActual].jugadores[x].idSocket);
-					}
+                    console.log("El index: " + partidas[indicePartidaActual].lugaresJugadores.indexOf(partidas[indicePartidaActual].jugadores[x].idSocket));
+                    if (partidas[indicePartidaActual].lugaresJugadores.indexOf(partidas[indicePartidaActual].jugadores[x].idSocket) < 0) {
+                        jugadoresFaltantes.push(partidas[indicePartidaActual].jugadores[x].idSocket);
+                    }
                 }
-				while(jugadoresFaltantes.length> 0)
-				{
-					let mayor=-1;
-					let siguienteJugador="";
-					for (let y = 0; y < jugadoresFaltantes.length; y++) {
-						let indice = partidas[indicePartidaActual].jugadores.map(function (e){return e.idSocket; }).indexOf(jugadoresFaltantes[y]);
-						if(indice > -1){
-							if(partidas[indicePartidaActual].jugadores[indice].casilla > mayor){
-								mayor = partidas[indicePartidaActual].jugadores[indice].casilla;
-								siguienteJugador = jugadoresFaltantes[y];
-							}
-						}
-					}
-					partidas[indicePartidaActual].lugaresJugadores.push(siguienteJugador);
-					jugadoresFaltantes.splice(jugadoresFaltantes.indexOf(siguienteJugador), 1);
-				}
-				
+                while (jugadoresFaltantes.length > 0) {
+                    let mayor = -1;
+                    let siguienteJugador = "";
+                    for (let y = 0; y < jugadoresFaltantes.length; y++) {
+                        let indice = partidas[indicePartidaActual].jugadores.map(function (e) {
+                            return e.idSocket;
+                        }).indexOf(jugadoresFaltantes[y]);
+                        if (indice > -1) {
+                            if (partidas[indicePartidaActual].jugadores[indice].casilla > mayor) {
+                                mayor = partidas[indicePartidaActual].jugadores[indice].casilla;
+                                siguienteJugador = jugadoresFaltantes[y];
+                            }
+                        }
+                    }
+                    partidas[indicePartidaActual].lugaresJugadores.push(siguienteJugador);
+                    jugadoresFaltantes.splice(jugadoresFaltantes.indexOf(siguienteJugador), 1);
+                }
+
             }
             if (partidas[indicePartidaActual].lugaresJugadores.length == partidas[indicePartidaActual].jugadores.length) {
                 Partida.findOne({idPartida: partidas[indicePartidaActual].nombrePartida}, function (error, doc) {

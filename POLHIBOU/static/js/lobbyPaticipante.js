@@ -13,7 +13,7 @@ window.onload = function () {
 
 socket.on('ingresoJugadores', function (data) {
     jugadoresConectados = data;
-    console.log("hola jugadores: " + jugadoresConectados);
+    console.log("hola jugadores: " + JSON.stringify(data));
     actualizacion();
 });
 

@@ -22,6 +22,7 @@ exports.get_inicio_sesion = function (req, res) {
     res.render('paginas/inicioSesion', {usuario: usuario, tipo: 0});
 };
 
+
 exports.post_inicio_sesion = function (req, res) {
     if (req.body.usuario == 'administrador') {
         req.body.usuario = 'polhibou@gmail.com';
@@ -613,7 +614,7 @@ exports.post_agregar_varias_unir_voltear = function (req, res) {
             });
         });
     }
-        else {
+    else {
         res.redirect('/inicioSesion');
     }
 };
@@ -1739,7 +1740,7 @@ exports.get_intentos = function (req, res) {
         });
     }
     else {
-        redirect('/');
+        res.redirect('/')
     }
 }
 
@@ -1756,8 +1757,8 @@ exports.post_detalle_tematica = function (req, res) {
 
             let intentos = [];
             for (let i = 0; i < doc.intentos.length; i++) {
-                console.log("el tamaño de intentos: "+intentos.length);
-                console.log("i: "+i);
+                console.log("el tamaño de intentos: " + intentos.length);
+                console.log("i: " + i);
                 let intento = {
                     idIntento: doc.intentos[i].idIntento,
                     facilitador: doc.intentos[i].profesor,
@@ -1766,8 +1767,8 @@ exports.post_detalle_tematica = function (req, res) {
                     dificultad: doc.intentos[i].dificultad,
                     puntaje: doc.intentos[i].puntaje,
                 };
-                console.log("profe "+intento.facilitador);
-                console.log("mate: "+intento.tematica);
+                console.log("profe " + intento.facilitador);
+                console.log("mate: " + intento.tematica);
 
                 if (doc.intentos[i].profesor == req.body.facilitador && doc.intentos[i].materia == req.body.tematica) {
                     tematica = doc.intentos[i].materia;
@@ -1775,7 +1776,7 @@ exports.post_detalle_tematica = function (req, res) {
                     intentos.push(intento);
                 }
             }
-            console.log("el tamaño de intentos: "+intentos.length);
+            console.log("el tamaño de intentos: " + intentos.length);
             res.render('paginas/participante/detalleTematicasIntentos', {
                 nombre: req.session.nombre,
                 usuario: req.session.usuario,
@@ -1806,25 +1807,32 @@ exports.post_detalle_intentos = function (req, res) {
             }).indexOf(req.body.idIntento);
             if (indiceIntento > -1) {
                 let preguntas = [];
+                let respuestas = [];
                 for (let i = 0; i < doc.intentos[indiceIntento].preguntas.length; i++) {
                     let pregunta = {
                         idPregunta: doc.intentos[indiceIntento].preguntas[i].idPregunta,
                         enunciado: doc.intentos[indiceIntento].preguntas[i].enunciado,
                         imagenEnunciado: doc.intentos[indiceIntento].preguntas[i].imagenEnunciado,
-                        respuestaSeleccionada: (doc.intentos[indiceIntento].preguntas[i].respuestaSeleccionada == undefined ? "": doc.intentos[indiceIntento].preguntas[i].respuestaSeleccionada ),
-                        correctoIncorrecto: (doc.intentos[indiceIntento].preguntas[i].correctoIncorrecto == undefined ? -1:doc.intentos[indiceIntento].preguntas[i].correctoIncorrecto)
+                        correctoIncorrecto: (doc.intentos[indiceIntento].preguntas[i].correctoIncorrecto == undefined ? -1 : doc.intentos[indiceIntento].preguntas[i].correctoIncorrecto)
                     };
                     preguntas.push(pregunta);
+                    if (doc.intentos[indiceIntento].tipoDesafio == "emparejar") {
+                        respuestas.push(doc.intentos[indiceIntento].preguntas[i].respuestaSeleccionada);
+                    }
                 }
-                console.log("preguntas: "+preguntas.length);
+                console.log("preguntas: " + preguntas.length);
+                console.log("respuestas: " + respuestas.length);
+                console.log("tematica: " + doc.intentos[indiceIntento].materia);
+                console.log("facilitador: " + doc.intentos[indiceIntento].profesor);
                 res.render('paginas/participante/detalleIntento', {
                     nombre: req.session.nombre,
                     usuario: req.session.usuario,
-                    tematica: doc.intentos[indiceIntento].tematica,
-                    facilitador: doc.intentos[indiceIntento].facilitador,
+                    tematica: doc.intentos[indiceIntento].materia,
+                    facilitador: doc.intentos[indiceIntento].profesor,
                     puntaje: doc.intentos[indiceIntento].puntaje,
                     tipoDesafio: doc.intentos[indiceIntento].tipoDesafio,
-                    preguntas: preguntas
+                    preguntas: preguntas,
+                    respuestas: respuestas
                 });
             }
         });
