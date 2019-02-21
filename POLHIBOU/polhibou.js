@@ -301,7 +301,7 @@ io.on('connection', (socket) => {
         }
         io.sockets.in(room).emit('confirmacionPartida', arrayJugadores, indicePartida);
     });
-    socket.on('', function (room, nombreEquipo) {
+    socket.on('verificarEquipo', function (room, nombreEquipo) {
         var indicePartida = consultarIdPartida(room);
         var indiceJugador = consultarIdJugador(indicePartida, nombreEquipo);
         if (partidas[indicePartida].jugadores[indiceJugador].idSocket == "") {
@@ -310,7 +310,7 @@ io.on('connection', (socket) => {
             io.sockets.in(room).emit('confirmacionEquipo', false)
         }
     });
-    socket.on('ververificarEquipoificarInicioPartida', function (room) {
+    socket.on('verificarInicioPartida', function (room) {
         let indicePartida = consultarIdPartida(room);
         let numeroJugadoresConectados = 0;
         if (indicePartida >= 0) {
@@ -356,8 +356,6 @@ io.on('connection', (socket) => {
                                 }
                             }
                             actualizarOrdenPartidas(room);
-                            console.log("tamaño de jugadores " + partidas[indicePartida].jugadores.length)
-                            console.log("tamaño de jugadores turno " + partidas[indicePartida].turnoJugadores.length)
                             if (partidas[indicePartida].jugadores.length == partidas[indicePartida].turnoJugadores.length) {
                                 Partida.findOne({idPartida: partidas[indicePartida].nombrePartida}, function (error, doc) {
                                     if (error) {
@@ -640,13 +638,13 @@ io.on('connection', (socket) => {
     });
 });
 
-/*
+
 setInterval(function () {
     for (let i = 0; i < partidas.length; i++) {
         io.sockets.in(partidas[i].nombrePartida).emit('partida', partidas[i]);
     }
 }, 1000 / 30);
-*/
+
 
 
 function seleccionarColor(filasN, columnasN, gameMapN,) {
