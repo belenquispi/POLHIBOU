@@ -6,9 +6,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="00658ab6-148c-4338-8ce0-33e9750ead58" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/polhibou.js" beforeDir="false" afterPath="$PROJECT_DIR$/polhibou.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/ingresoPartidas.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/ingresoPartidas.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/lobby.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/lobby.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/lobbyEspectador.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/lobbyEspectador.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/lobbyPaticipante.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/lobbyPaticipante.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/tablero.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/tablero.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/parciales/footer.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/parciales/footer.ejs" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -70,41 +75,44 @@
     <session id="1947538746">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="11" />
-          <entry key="project.open.time.1" value="2" />
+          <entry key="project.closed" value="14" />
+          <entry key="project.open.time.1" value="4" />
+          <entry key="project.open.time.16" value="1" />
           <entry key="project.open.time.24" value="2" />
           <entry key="project.open.time.25" value="2" />
           <entry key="project.open.time.28" value="1" />
           <entry key="project.open.time.29" value="1" />
           <entry key="project.open.time.31" value="2" />
           <entry key="project.open.time.33" value="1" />
+          <entry key="project.open.time.35" value="1" />
           <entry key="project.open.time.4" value="1" />
           <entry key="project.open.time.42" value="2" />
           <entry key="project.open.time.45" value="1" />
           <entry key="project.open.time.49" value="1" />
-          <entry key="project.opened" value="16" />
+          <entry key="project.open.time.57" value="1" />
+          <entry key="project.opened" value="21" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="css" value="26" />
-          <entry key="ejs" value="1569" />
-          <entry key="js" value="1912" />
+          <entry key="ejs" value="1573" />
+          <entry key="js" value="4587" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="26" />
-          <entry key="EJS" value="1569" />
-          <entry key="JavaScript" value="1912" />
+          <entry key="EJS" value="1573" />
+          <entry key="JavaScript" value="4587" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="css" value="3" />
-          <entry key="ejs" value="80" />
+          <entry key="ejs" value="82" />
           <entry key="gitignore" value="1" />
-          <entry key="js" value="36" />
+          <entry key="js" value="51" />
           <entry key="png" value="7" />
           <entry key="svg" value="1" />
         </counts>
@@ -112,9 +120,9 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CSS" value="3" />
-          <entry key="EJS" value="80" />
+          <entry key="EJS" value="82" />
           <entry key="Image" value="7" />
-          <entry key="JavaScript" value="36" />
+          <entry key="JavaScript" value="51" />
           <entry key="PLAIN_TEXT" value="1" />
           <entry key="SVG" value="1" />
         </counts>
@@ -123,92 +131,55 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/polhibou.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="373" selection-start-line="373" selection-end-line="374" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/baseDatos.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="92">
-              <caret line="4" selection-start-line="4" selection-end-line="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/js/lobbyPaticipante.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="22" column="2" selection-start-line="22" selection-start-column="2" selection-end-line="22" selection-end-column="2" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/js/tablero.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="131">
-              <caret line="54" column="61" lean-forward="true" selection-start-line="54" selection-start-column="61" selection-end-line="54" selection-end-column="61" />
+            <state relative-caret-position="132">
+              <caret line="1102" column="62" selection-start-line="1102" selection-start-column="62" selection-end-line="1102" selection-end-column="62" />
+              <folding>
+                <element signature="e#12438#14002#0" />
+                <element signature="e#14030#15162#0" />
+                <element signature="e#15469#15760#0" />
+                <element signature="e#15787#16233#0" />
+                <element signature="e#16257#17051#0" />
+                <element signature="e#17078#17266#0" />
+                <element signature="e#17289#18140#0" />
+                <element signature="e#18164#19039#0" />
+                <element signature="e#19074#19273#0" />
+                <element signature="e#19307#20601#0" />
+                <element signature="e#20631#21095#0" />
+                <element signature="e#21140#24273#0" />
+                <element signature="e#24295#24815#0" />
+                <element signature="e#26973#30779#0" />
+                <element signature="e#30842#31958#0" />
+                <element signature="e#31982#34291#0" />
+                <element signature="e#34326#34540#0" />
+                <element signature="e#34567#35135#0" />
+                <element signature="e#35179#35575#0" />
+                <element signature="e#35610#36338#0" />
+                <element signature="e#36374#38462#0" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/js/lobbyEspectador.js">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/polhibou.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="8" column="24" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/js/lobby.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="460">
-              <caret line="20" column="2" selection-start-line="17" selection-end-line="20" selection-end-column="2" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/js/ingresoPartidas.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1610">
-              <caret line="70" selection-start-line="70" selection-end-line="71" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/js/creacionPartida.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1886">
-              <caret line="82" column="58" selection-start-line="82" selection-start-column="46" selection-end-line="82" selection-end-column="58" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/lobby.ejs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2231">
-              <caret line="97" column="92" selection-start-line="97" selection-start-column="80" selection-end-line="97" selection-end-column="92" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/creacionPartida.ejs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1311">
-              <caret line="57" column="88" selection-start-line="57" selection-start-column="88" selection-end-line="57" selection-end-column="88" />
+            <state relative-caret-position="109">
+              <caret line="586" column="82" lean-forward="true" selection-start-line="586" selection-start-column="82" selection-end-line="586" selection-end-column="82" />
+              <folding>
+                <element signature="e#17035#18018#0" />
+                <element signature="e#18069#18962#0" />
+                <element signature="e#19078#20304#0" />
+                <element signature="e#22385#23937#0" />
+                <element signature="e#23889#24095#0" />
+                <element signature="e#24153#25256#0" />
+                <element signature="e#25317#26673#0" />
+                <element signature="e#26740#26913#0" />
+                <element signature="e#26992#27177#0" />
+                <element signature="e#27463#27619#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -225,36 +196,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>verificarDisponibilidadEquipo</find>
-      <find>ingresoJugadores</find>
-      <find>inicio</find>
-      <find>collapse</find>
-      <find>style=&quot;color:gold&quot;</find>
-      <find>bot</find>
-      <find>class=&quot;collapse</find>
-      <find>mater</find>
-      <find>/detalleTematicaFacilitador</find>
-      <find>/int</find>
-      <find>w</find>
-      <find>retosU</find>
-      <find>inicioP</find>
-      <find>/unirVoltear/</find>
-      <find>agreg</find>
-      <find>agregarUnirVoltear</find>
-      <find>/ingresoFacilitador/preguntasUnirVoltear/</find>
-      <find>preguntasUnirVoltear</find>
-      <find>/ingresoFacilitador/preguntasUnirVoltear</find>
-      <find>paginas/facilitador/preguntasEmparejarVoltear</find>
-      <find>/preguntasUnirVoltear</find>
-      <find>unir</find>
-      <find>actualizarJugadoresIngresados</find>
-      <find>/lobby</find>
-      <find>rol</find>
-      <find>Se ha conectado un espectador</find>
-      <find>la partida a actualizarse es:</find>
-      <find>confirm</find>
-      <find>sockets</find>
-      <find>new player</find>
+      <find>this</find>
+      <find>dados</find>
+      <find>movimi</find>
+      <find>pro</find>
+      <find>pasarTurno</find>
+      <find>ddd</find>
+      <find>pppppppp</find>
+      <find>ppppppppppppppppppppppppppppp</find>
+      <find>sidssssssssssssssss</find>
+      <find>sidss</find>
+      <find>pppp</find>
+      <find>sidsssssss</find>
+      <find>Se manda datos actuales</find>
+      <find>respuestaVoltearATiempo</find>
+      <find>colo</find>
+      <find>man</find>
+      <find>mandarDatosActuales</find>
+      <find>turnoP</find>
+      <find>parEn</find>
+      <find>partida</find>
+      <find>parE</find>
+      <find>mand</find>
+      <find>Recibi el emit del tiempo terminado</find>
+      <find>avisoTiempoTerminado</find>
+      <find>tiempoTerminado</find>
+      <find>movim</find>
+      <find>turnoJugadores &lt; 1</find>
+      <find>34</find>
+      <find>movimientoFinalizado</find>
+      <find>color</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -263,7 +234,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/ingresoUnirVoltear.html" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/firebase.js" />
         <option value="$PROJECT_DIR$/estilos.css" />
@@ -284,7 +254,6 @@
         <option value="$PROJECT_DIR$/views/paginas/participante/lobbyEspectador.ejs" />
         <option value="$PROJECT_DIR$/static/js/retosOpcionMultiple.js" />
         <option value="$PROJECT_DIR$/views/parciales/header.ejs" />
-        <option value="$PROJECT_DIR$/static/js/tablero.js" />
         <option value="$PROJECT_DIR$/views/paginas/inicioSesion.ejs" />
         <option value="$PROJECT_DIR$/views/paginas/facilitador/creacionPartida.ejs" />
         <option value="$PROJECT_DIR$/views/paginas/facilitador/estadisticaPreguntas.ejs" />
@@ -307,12 +276,14 @@
         <option value="$PROJECT_DIR$/views/paginas/facilitador/detalleParticipante.ejs" />
         <option value="$PROJECT_DIR$/views/paginas/participante/resultadosUnir.ejs" />
         <option value="$PROJECT_DIR$/views/paginas/participante/detalleTematicasIntentos.ejs" />
-        <option value="$PROJECT_DIR$/static/js/lobbyEspectador.js" />
         <option value="$PROJECT_DIR$/static/js/creacionPartida.js" />
         <option value="$PROJECT_DIR$/routes.js" />
         <option value="$PROJECT_DIR$/static/js/ingresoPartidas.js" />
         <option value="$PROJECT_DIR$/static/js/lobby.js" />
+        <option value="$PROJECT_DIR$/static/js/lobbyEspectador.js" />
         <option value="$PROJECT_DIR$/static/js/lobbyPaticipante.js" />
+        <option value="$PROJECT_DIR$/views/parciales/footer.ejs" />
+        <option value="$PROJECT_DIR$/static/js/tablero.js" />
         <option value="$PROJECT_DIR$/polhibou.js" />
       </list>
     </option>
@@ -450,11 +421,16 @@
       <workItem from="1550533322463" duration="615000" />
       <workItem from="1550535469830" duration="183000" />
       <workItem from="1550723243838" duration="711000" />
+      <workItem from="1550724595754" duration="339000" />
+      <workItem from="1550766630388" duration="5227000" />
+      <workItem from="1550779104293" duration="6290000" />
+      <workItem from="1550787272182" duration="4970000" />
+      <workItem from="1550794333493" duration="16764000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="188256000" />
+    <option name="totallyTimeSpent" value="221846000" />
   </component>
   <component name="TodoView" selected-index="3">
     <todo-panel id="selected-file">
@@ -466,7 +442,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.24963397" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -474,14 +451,14 @@
       <window_info id="Grunt " order="3" side_tool="true" />
       <window_info id="Favorites" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32899022" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3229508" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32786885" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.30163935" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49925596" weight="0.2967213" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" sideWeight="0.4985119" visible="true" weight="0.19344263" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.4985119" weight="0.3590164" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5014881" side_tool="true" weight="0.2967213" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -517,19 +494,8 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/static/imagenes/11.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/imagenes/imagenVacia.svg">
       <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/detalleOpcionMultiple.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/preguntasOpcionMultiple.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-31" />
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/js/preguntasUnirVoltear.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -543,13 +509,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="828">
           <caret line="36" column="76" selection-start-line="36" selection-start-column="76" selection-end-line="36" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/retosOpcionMultiple.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
         </state>
       </provider>
     </entry>
@@ -661,13 +620,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/profesor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="17" column="85" selection-start-line="17" selection-start-column="85" selection-end-line="17" selection-end-column="85" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/paginas/participante/retosOpcionMultiple.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="874">
@@ -759,13 +711,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/paginas/participante/lobbyParticipante.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="3" column="37" selection-start-line="3" selection-start-column="37" selection-end-line="3" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/paginas/participante/lobbyEspectador.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="353">
@@ -787,34 +732,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/lobbyEspectador.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="8" column="24" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/lobby.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="20" column="2" selection-start-line="17" selection-end-line="20" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/ingresoPartidas.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1610">
-          <caret line="70" selection-start-line="70" selection-end-line="71" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/creacionPartida.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1886">
-          <caret line="82" column="58" selection-start-line="82" selection-start-column="46" selection-end-line="82" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/paginas/facilitador/lobby.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2231">
@@ -829,24 +746,113 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/detalleOpcionMultiple.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/retosOpcionMultiple.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="46">
+          <caret line="2" column="1" lean-forward="true" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/preguntasOpcionMultiple.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="4" column="75" lean-forward="true" selection-start-line="4" selection-start-column="75" selection-end-line="4" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/ingresoPartidas.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/lobby.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/lobbyEspectador.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/profesor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="17" column="85" selection-start-line="17" selection-start-column="85" selection-end-line="17" selection-end-column="85" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/creacionPartida.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="127">
+          <caret line="105" column="117" selection-start-line="105" selection-start-column="115" selection-end-line="105" selection-end-column="117" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/static/js/lobbyPaticipante.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="22" column="2" selection-start-line="22" selection-start-column="2" selection-end-line="22" selection-end-column="2" />
+        <state relative-caret-position="23">
+          <caret line="1" column="2" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/paginas/participante/lobbyParticipante.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="71" column="37" lean-forward="true" selection-start-line="71" selection-start-column="37" selection-end-line="71" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/parciales/footer.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/js/tablero.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="54" column="61" lean-forward="true" selection-start-line="54" selection-start-column="61" selection-end-line="54" selection-end-column="61" />
+        <state relative-caret-position="132">
+          <caret line="1102" column="62" selection-start-line="1102" selection-start-column="62" selection-end-line="1102" selection-end-column="62" />
+          <folding>
+            <element signature="e#12438#14002#0" />
+            <element signature="e#14030#15162#0" />
+            <element signature="e#15469#15760#0" />
+            <element signature="e#15787#16233#0" />
+            <element signature="e#16257#17051#0" />
+            <element signature="e#17078#17266#0" />
+            <element signature="e#17289#18140#0" />
+            <element signature="e#18164#19039#0" />
+            <element signature="e#19074#19273#0" />
+            <element signature="e#19307#20601#0" />
+            <element signature="e#20631#21095#0" />
+            <element signature="e#21140#24273#0" />
+            <element signature="e#24295#24815#0" />
+            <element signature="e#26973#30779#0" />
+            <element signature="e#30842#31958#0" />
+            <element signature="e#31982#34291#0" />
+            <element signature="e#34326#34540#0" />
+            <element signature="e#34567#35135#0" />
+            <element signature="e#35179#35575#0" />
+            <element signature="e#35610#36338#0" />
+            <element signature="e#36374#38462#0" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/polhibou.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="373" selection-start-line="373" selection-end-line="374" />
+        <state relative-caret-position="109">
+          <caret line="586" column="82" lean-forward="true" selection-start-line="586" selection-start-column="82" selection-end-line="586" selection-end-column="82" />
+          <folding>
+            <element signature="e#17035#18018#0" />
+            <element signature="e#18069#18962#0" />
+            <element signature="e#19078#20304#0" />
+            <element signature="e#22385#23937#0" />
+            <element signature="e#23889#24095#0" />
+            <element signature="e#24153#25256#0" />
+            <element signature="e#25317#26673#0" />
+            <element signature="e#26740#26913#0" />
+            <element signature="e#26992#27177#0" />
+            <element signature="e#27463#27619#0" />
+          </folding>
         </state>
       </provider>
     </entry>
