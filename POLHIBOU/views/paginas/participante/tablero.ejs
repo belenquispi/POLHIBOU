@@ -28,8 +28,8 @@
             </div>
             <div class="col-md-auto text-center">
                 <div class="row text-center">
-                    <table class="table " >
-                        <thead >
+                    <table class="table ">
+                        <thead>
                         <tr>
                             <th class="textoBlanco" style="font-size: 14px">ESTA <br> JUGANDO</th>
                             <th class="textoBlanco" style="font-size: 14px">JUGADOR</th>
@@ -37,9 +37,9 @@
                         </tr>
                         </thead>
                         <tbody class="transparente">
-                        <tr id="tablajug1" style="visibility:hidden" >
-                            <td ><i id="turno1" hidden class="fas fa-hand-point-right fa-3x textoBlanco"></i></td>
-                            <td id="columna1" ></td>
+                        <tr id="tablajug1" style="visibility:hidden">
+                            <td><i id="turno1" hidden class="fas fa-hand-point-right fa-3x textoBlanco"></i></td>
+                            <td id="columna1"></td>
                             <td><label id="nombreEquipo1" class="textoBlanco" style="font-size: 12px"></label></td>
                         </tr>
                         <tr id="tablajug2" style="visibility: hidden">
@@ -117,62 +117,68 @@
                         <% } %>
                     </div>
                     <div class="col-md-2"></div>
-                    <audio id="sonidoError" src="../../../static/sonidos/error.mp3" controls  hidden> </audio>
-                    <audio id="sonidoCorrecto" src="../../../static/sonidos/correcto.mp3" controls hidden> </audio>
-                    <audio id="sonidoDados" src="../../../static/sonidos/lanzarDados.mp3" controls hidden> </audio>
+                    <audio id="sonidoError" src="../../../static/sonidos/error.mp3" controls hidden></audio>
+                    <audio id="sonidoCorrecto" src="../../../static/sonidos/correcto.mp3" controls hidden></audio>
+                    <audio id="sonidoDados" src="../../../static/sonidos/lanzarDados.mp3" controls hidden></audio>
                 </div>
                 <div class="row">
-					<div id="snackbar" class="card border border-dark" style="width: 18rem;">
-					  <div class="card-hader">
-                          <h5 class="card-title text-center">¡BIEN HECHO!</h5>
-                      </div>
-					  <div class="card-body">
-						<p class="card-text">PUEDES MOVERTE</p> <i class="far fa-check-circle fa-3x" style="color:green"></i>
-					  </div>
-					</div>
-					<div id="snackbarIn" class="card border border-dark" style="width: 18rem;">
+                    <div id="snackbar" class="card border border-dark" style="width: 18rem;">
+                        <div class="card-hader">
+                            <h5 class="card-title text-center">¡BIEN HECHO!</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">PUEDES MOVERTE</p> <i class="far fa-check-circle fa-3x"
+                                                                       style="color:green"></i>
+                        </div>
+                    </div>
+                    <div id="snackbarIn" class="card border border-dark" style="width: 18rem;">
                         <div class="card-hader">
                             <h5 class="card-title text-center">¡FALLASTE!</h5>
                         </div>
-					  <div class="card-body">
-						<p class="card-text">NO PUEDES MOVERTE</p> <i class="far fa-times-circle fa-3x" style="color:red"></i>
-					  </div>
-					</div>
-					<div id="snackbarPositivo" class="card border border-dark" style="width: 18rem;">
+                        <div class="card-body">
+                            <p class="card-text">NO PUEDES MOVERTE</p> <i class="far fa-times-circle fa-3x"
+                                                                          style="color:red"></i>
+                        </div>
+                    </div>
+                    <div id="snackbarPositivo" class="card border border-dark" style="width: 18rem;">
                         <div class="card-hader">
                             <h5 class="card-title text-center">¡FELICIDADES!</h5>
                         </div>
-					  <div class="card-body">
-						<p class="card-text">GANASTE CASILLAS EXTRAS PARA LA EL SIGUIENTE TURNO</p> <i class="far fa-check-circle fa-3x" style="color:green"></i>
-					  </div>
-					</div>
-					<div id="snackbarNegativo" class="card border border-dark" style="width: 18rem;">
+                        <div class="card-body">
+                            <p class="card-text">GANASTE CASILLAS EXTRAS PARA EL SIGUIENTE TURNO</p> <i
+                                    class="far fa-check-circle fa-3x" style="color:green"></i>
+                        </div>
+                    </div>
+                    <div id="snackbarNegativo" class="card border border-dark" style="width: 18rem;">
                         <div class="card-hader">
                             <h5 class="card-title text-center">¡OH NO!</h5>
                         </div>
-					  <div class="card-body">
-						<p class="card-text">HAS RECIBIDO UNA MALDICIÓN. EN EL SIGUIENTE LANZAMIENTO TE MOVERAS SOLO 2 CASILLAS</p> <i class="far fa-times-circle fa-3x" style="color:red"></i>
-					  </div>
-					</div>
+                        <div class="card-body">
+                            <p class="card-text">HAS RECIBIDO UNA MALDICIÓN. EN EL SIGUIENTE LANZAMIENTO TE MOVERÁS SOLO
+                                2 CASILLAS</p> <i class="far fa-times-circle fa-3x" style="color:red"></i>
+                        </div>
+                    </div>
                     <div id="snackbarExtras" class="card border border-dark" style="width: 18rem;">
                         <div class="card-hader">
                             <h5 class="card-title text-center">¡FELICIDADES!</h5>
                         </div>
                         <div class="card-body">
-                            <p class="card-text">TIENES <strong id="casillasExtras"></strong> MOVIMIENTOS EXTRAS</p> <i class="far fa-check-circle fa-3x" style="color:green"></i>
+                            <p class="card-text">TIENES <strong id="casillasExtras"></strong> MOVIMIENTOS EXTRAS</p> <i
+                                    class="far fa-check-circle fa-3x" style="color:green"></i>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
-            <div class="col-md-auto text-center" >
+            <div class="col-md-auto text-center">
                 <div class="flip3D text-center">
                     <div id="tarjeta" class="front disabledbutton text-dark" onclick="darLaVuelta()">
-                        <i class="far fa-hand-point-up fa-7x" style="margin-top: 25%; color: black"><img style="color: black" src="../../static/imagenes/iconoPolhibou2.svg"
-                                                                                           height="85%" width="85%"></i>
+                        <i class="far fa-hand-point-up fa-7x" style="margin-top: 25%; color: black"><img
+                                    style="color: black" src="../../static/imagenes/iconoPolhibou2.svg"
+                                    height="85%" width="85%"></i>
                     </div>
                     <div id="desafios" class="back container-fluid col-md-12" hidden>
-                        <h1 id="tipoJuego" style="text-transform: uppercase; color: black" >Tipo de Juego</h1>
+                        <h1 id="tipoJuego" style="text-transform: uppercase; color: black">Tipo de Juego</h1>
                         <div id="opcionMultiple" class="row" hidden>
                             <div class="container-fluid">
                                 <div class="row">
@@ -203,19 +209,23 @@
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-md-4 text-center">
-                                        <button id="reiniciarUnir" class="btn btn-primary degradoMenu" onclick="reiniciarUnir();"> <i class="fas fa-undo-alt"></i> Reiniciar
+                                        <button id="reiniciarUnir" class="btn btn-primary degradoMenu"
+                                                onclick="reiniciarUnir();"><i class="fas fa-undo-alt"></i> Reiniciar
                                         </button>
                                     </div>
                                     <div class="col-md-8 text-center">
                                         <button id="enviarUnir" class="btn btn-primary degradoMenu" disabled="disabled"
-                                                onclick="verificarRespuestaUnir()"> <i class="fas fa-share-square"></i> Enviar Respuesta
+                                                onclick="verificarRespuestaUnir()"><i class="fas fa-share-square"></i>
+                                            Enviar Respuesta
                                         </button>
                                     </div>
                                 </div>
                                 <div class="row unir">
                                     <div class="col-md-4 text-right">
-                                        <button id="botonImagenAUnir1" class="btn btn-outline-light" onclick="obtenerId(this);">
-                                            <img id="imagenAUnir1" src="static/imagenes/imagenVacia.svg" class="img-thumbnail"
+                                        <button id="botonImagenAUnir1" class="btn btn-outline-light"
+                                                onclick="obtenerId(this);">
+                                            <img id="imagenAUnir1" src="static/imagenes/imagenVacia.svg"
+                                                 class="img-thumbnail"
                                                  style="border:2px solid black" height="50" width="50">
                                         </button>
                                     </div>
@@ -228,8 +238,10 @@
                                 </div>
                                 <div class="row unir">
                                     <div class="col-md-4 text-right">
-                                        <button id="botonImagenAUnir2" class="btn btn-outline-light" onclick="obtenerId(this);">
-                                            <img id="imagenAUnir2" src="static/imagenes/imagenVacia.svg" class="img-thumbnail"
+                                        <button id="botonImagenAUnir2" class="btn btn-outline-light"
+                                                onclick="obtenerId(this);">
+                                            <img id="imagenAUnir2" src="static/imagenes/imagenVacia.svg"
+                                                 class="img-thumbnail"
                                                  style="border:2px solid black" height="50" width="50">
                                         </button>
                                     </div>
@@ -243,8 +255,10 @@
                                 </div>
                                 <div class="row unir">
                                     <div class="col-md-4 text-right">
-                                        <button id="botonImagenAUnir3" class="btn btn-outline-light" onclick="obtenerId(this);">
-                                            <img id="imagenAUnir3" src="static/imagenes/imagenVacia.svg" class="img-thumbnail"
+                                        <button id="botonImagenAUnir3" class="btn btn-outline-light"
+                                                onclick="obtenerId(this);">
+                                            <img id="imagenAUnir3" src="static/imagenes/imagenVacia.svg"
+                                                 class="img-thumbnail"
                                                  style="border:2px solid black" height="50" width="50">
                                         </button>
                                     </div>
@@ -257,8 +271,10 @@
                                 </div>
                                 <div class="row unir">
                                     <div class="col-md-4 text-right">
-                                        <button id="botonImagenAUnir4" class="btn btn-outline-light" onclick="obtenerId(this);">
-                                            <img id="imagenAUnir4" src="static/imagenes/imagenVacia.svg" class="img-thumbnail"
+                                        <button id="botonImagenAUnir4" class="btn btn-outline-light"
+                                                onclick="obtenerId(this);">
+                                            <img id="imagenAUnir4" src="static/imagenes/imagenVacia.svg"
+                                                 class="img-thumbnail"
                                                  style="border:2px solid black" height="50" width="50">
                                         </button>
                                     </div>
@@ -290,12 +306,12 @@
                                     <label style="color: black" class="textoUnir">ÚLTIMO PAR ENCONTRADO: </label>
                                 </div>
                                 <div class="col-md-2 text-left">
-                                    <img id="ultimoPar" class="disabledbutton" src="../../../static/imagenes/imagenVacia.svg"
+                                    <img id="ultimoPar" class="disabledbutton"
+                                         src="../../../static/imagenes/imagenVacia.svg"
                                          height="50px" width="50px" style="margin: 5px">
                                 </div>
-                                    <div class="col-md-6 text-left">
+                                <div class="col-md-6 text-left">
                                     <label id="ultimoNombre" class="textoUnir" style="color: black"></label>
-                                    </div>
                                 </div>
                             </div>
                         </div>

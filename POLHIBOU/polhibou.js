@@ -581,6 +581,7 @@ io.on('connection', (socket) => {
                         }
                         else {
                             if (doc != null) {
+                                console.log("Se han acabado los movimientos y solo queda un jugador por recorrer: " + partidas[indicePartidaActual].lugaresJugadores.length);
                                 doc.turnoJugadores = partidas[indicePartidaActual].lugaresJugadores;
                                 doc.save(function (err, partidaF) {
                                     if (err) return console.log(err);
@@ -596,10 +597,8 @@ io.on('connection', (socket) => {
             }
         }
     });
-
     socket.on('tiempoTerminado', function (room) {
-        console.log("Tiempo terminado");
-        console.log(Object.keys(socket.adapter.nsp.connected).length);
+        //console.log(Object.keys(socket.adapter.nsp.connected).length);
         let idPartida = consultarIdPartida(room);
         let idJugador = consultarIdJugadorSocket(idPartida, socket.id);
         partidas[idPartida].jugadores[idJugador].numCasillasMoverseP = 0;
@@ -609,8 +608,6 @@ io.on('connection', (socket) => {
         mandarDatosActuales(room);
         actualizarOrdenPartidas(room);
     });
-
-
     socket.on('moverJugador', function (room) {
         var gameTime = Date.now();
         let indicePartida = consultarIdPartida(room);
@@ -639,6 +636,18 @@ io.on('connection', (socket) => {
                 }
             }
         }
+    });
+    socket.on('solicitarMisterio', function (room, jugador) {
+        let misterioAsignado = Math.floor(Math.random() * 2);
+        if (misterioAsignado == 1) {
+            let casillasExtras = (Math.floor(Math.random() * 4)+1);
+            io.sockets.in(room).emit('mensajeMisterio', 1);
+            partidas[indicePartidaActual].jugadores[indiceJugadorActual].maldicion = 2;
+        } else {
+            io.sockets.in(room).emit('mensajeMisterio', 0);
+            partidas[indicePartidaActual].jugadores[indiceJugadorActual].maldicion = 1;
+        }
+        mandarDatosActuales(room);
     });
     socket.on('solicitarPreguntaOpcionMultiple', function (room) {
         var idPartida = consultarIdPartida(room);
@@ -721,9 +730,9 @@ io.on('connection', (socket) => {
         mandarDatosActuales(room);
         actualizarOrdenPartidas(room);
     });
-    socket.on('tiempoTerminado', function (room) {
+   /* socket.on('tiempoTerminado', function (room) {
         io.sockets.in(room).emit('avisoTiempoTerminado', socket.id);
-    });
+    });*/
     socket.on('darLaVuelta', function (room) {
         let idPartida = consultarIdPartida(room);
         io.sockets.in(partidas[idPartida].nombrePartida).emit('enviandoDarLaVuelta', socket.id);
@@ -753,7 +762,6 @@ function mandarDatosActuales(room) {
     io.sockets.in(room).emit('partida', partidas[consultarIdPartida(room)]);
 }
 
-
 function seleccionarColor(filasN, columnasN, gameMapN,) {
     let indice = 0;
     let colorMapN = [];
@@ -766,7 +774,7 @@ function seleccionarColor(filasN, columnasN, gameMapN,) {
                     break;
                 default:
                     let colorA = Math.floor(Math.random() * 3);
-                    // 0 = Unir voltear - amarillo
+                    // 0 = Voltear - amarillo
                     // 1 = Emparejar - rosado
                     // 2 = Opción múltiple - azul
                     //let colorA = 0;
@@ -809,7 +817,6 @@ function actualizarJugadoresIngresados(room) {
             jugadoresConectados.push(partidas[idPartida].jugadores[i]);
         }
     }
-    console.log(room)
     io.sockets.in(room).emit('ingresoJugadores', jugadoresConectados);
 }
 

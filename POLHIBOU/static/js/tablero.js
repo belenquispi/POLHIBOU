@@ -36,18 +36,13 @@ var respuestaCorrectaUnir = [];
 var fps = 30;
 let tiempoVoltear = 0;
 let respuestaVoltearATiempo = -1;
-/*function dados(nombrePartida) {
-    this.nombrePartida = nombrePartida;
-    this.dado1 = dado1;
-    this.dado2 = dado2;
-}*/
 let directions = {
     up: 0,
     right: 1,
     down: 2,
     left: 3
 };
-
+let desafio = -1;
 function Character(jugador) {
     this.nombreEquipo = jugador.nombreEquipo;
     this.tileFrom = jugador.tileFrom;
@@ -66,7 +61,6 @@ function Character(jugador) {
     this.maldicion = jugador.maldicion;
     this.numeroCasillas = jugador.numCasillasMoverseP;
 }
-
 
 function obtenerDatosQuienSeConecto() {
     roomActual = document.getElementById("idPartida").value;
@@ -119,18 +113,16 @@ socket.on('partida', function (data) {
     }
     preguntasOpcionMultiple = data.preguntasOpcionMultiple;
     preguntasUnirVoltear = data.preguntasUnirVoltear;
-    if(indiceDelJugadorConTurno()>-1)
-    {
+    if(indiceDelJugadorConTurno()>-1) {
         numCasillasMoverse = jugadores[indiceDelJugadorConTurno()].numeroCasillas;
     }
 })
 ;
 
-socket.on('mensajeMisterio', function (num, casillasExtras) {
+socket.on('mensajeMisterio', function (num) {
     if (num == 1) {
         misterioPositivo();
-    }
-    else {
+    }else {
         if (num == 0) {
             misterioNegativo();
         }
@@ -149,6 +141,7 @@ socket.on('dados', function (dadoN1, dadoN2, dadoAnteriorN1, dadoAnteriorN2, num
     dadoAnterior2 = dadoAnteriorN2;
     moverDado();
     moverDado2();
+    desafio = numDesafioMostrarse
     mostrarDesafio(numDesafioMostrarse, idSocket);
 });
 
@@ -182,7 +175,7 @@ socket.on('respondiendoIndicePreguntaVoltear', function (memory) {
 
 socket.on('enviandoParEncontrado', function (memory_tile_ids, idSocketN) {
     if (idSocketN != idSocketActual) {
-        for (var i = 0; i < memory_tile_ids.length; i++) {
+        for (let i = 0; i < memory_tile_ids.length; i++) {
             document.getElementById(memory_tile_ids[i]).click();
         }
     }
@@ -714,11 +707,9 @@ function memoryFlipTile(tile, val) {
 }
 
 function cargarPreguntaOpcionMultiple(indicePregunta) {
-
     if (idSocketActual != turnoJugadores[0]) {
         document.getElementById("opcionMultiple").classList.add("disabledbutton")
-    }
-    else {
+    } else {
         if (document.getElementById("opcionMultiple").classList.contains("disabledbutton")) {
             document.getElementById("opcionMultiple").classList.remove("disabledbutton")
         }
@@ -770,9 +761,7 @@ function cargarPreguntaOpcionMultiple(indicePregunta) {
             images.setAttribute("width", "50");
             document.getElementById("res" + (j + 1)).appendChild(images);
         }
-    }
-
-    else {
+    }    else {
         for (let j = 0; j < 4; j++) {
             let texto = "";
             document.getElementById("res" + (j + 1)).setAttribute("value", "res");
@@ -982,8 +971,7 @@ function verificarRespuestaUnir() {
     mostrarRespuestaCorrectaUnir();
     if (contadorRespuestas == 4) {
         desafioCorrecto();
-    }
-    else {
+    } else {
         desafioIncorrecto();
     }
     if (document.getElementById("botonLanzar")) {
@@ -1006,11 +994,11 @@ function desafioIncorrecto() {
     document.getElementById('sonidoError').play();
 
 }
+
 function desafioIncorrectoVoltear() {
     mostrarMensaje("snackbarIn");
     console.log("El desafío es incorrecto en el tiempo");
     respuestaCorrecta = false;
-    //socket.emit('pasarTurnoVoltear', roomActual);
     document.getElementById('sonidoError').play();
 }
 
@@ -1062,8 +1050,10 @@ function darLaVuelta() {
     if (turnoJugadores[0] == idSocketActual) {
         socket.emit('darLaVuelta', roomActual);
     }
+    if(desafio == 0) {
         tiempoVoltear = 100;
         controlarTiempo();
+    }
 }
 
 function voltearTarjeta(t) {
@@ -1099,8 +1089,10 @@ Character.prototype.processMovement = function (t) {
     }
     if (this.casilla == 34) {
         numCasillasMoverse = 0;
-        console.log("Enviar aviso que ya se termino, pero solo manda el emit cuando el cliente que llego corresponde al id socket actual")
-        socket.emit('movimientoFinalizado', roomActual, this);
+        console.log("Enviar aviso que ya se termino, pero solo manda el emit cuando el cliente que llego corresponde al id socket actual");
+        if(turnoJugadores[0] == idSocketActual){
+            socket.emit('movimientoFinalizado', roomActual, this);
+        }
         /*if (partidas[indicePartidaActual].lugaresJugadores.indexOf(this.idSocket) == -1) {
         }*/
         //Verificar en el servidor, si al retirar el jugador que llego a la 34 los turno jugadores es menor < 2 para finalizar la partida.
@@ -1129,6 +1121,9 @@ Character.prototype.processMovement = function (t) {
             console.log("Se manda emit www");
             if (turnoJugadores[0] == idSocketActual) {
                 socket.emit('movimientoFinalizado', roomActual, this);
+                if(this.casilla == 7 || this.casilla == 13 || this.casilla == 21 || this.casilla == 27){
+                    socket.emit('solicitarMisterio', roomActual, this);
+                }
             }
             //Avisar al servidor que ya se ha finalizado el movimiento de jugador localmente
             //En el caso de llegar a las casillas 7, 13, 21 y 27 solicitar el misterio asignado
@@ -1230,21 +1225,18 @@ Character.prototype.moveRight = function (t) {
     this.tileTo[0] += 1;
     this.timeMoved = t;
     this.direction = 1;
-
 };
 
 Character.prototype.moveUp = function (t) {
     this.tileTo[1] -= 1;
     this.timeMoved = t;
     this.direction = 0;
-
 };
 
 Character.prototype.moveDown = function (t) {
     this.tileTo[1] += 1;
     this.timeMoved = t;
     this.direction = 2;
-
 };
 
 Character.prototype.moveDirection = function (d, t) {
