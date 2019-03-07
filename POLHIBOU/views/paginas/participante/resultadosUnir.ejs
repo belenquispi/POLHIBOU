@@ -7,94 +7,101 @@
 </head>
 <body>
 <div class="opaco" style="margin-bottom: 20px">
-<header>
-    <% include ../../parciales/headerProfesor %>
-</header>
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb opacoCard border border-white" >
-        <li class="breadcrumb-item"><a href="/ingresoParticipante" class="textoBlanco" style="text-transform: uppercase;">Inicio</a></li>
-        <li class="breadcrumb-item"><a href="/ingresoParticipante" class="textoBlanco" style="text-transform: uppercase;">Temáticas</a></li>
-        <li class="breadcrumb-item"><a href="/retosMateria?facilitador=<%= facilitador %>&materia=<%= materia %>" class="textoBlanco" style="text-transform: uppercase;">Desafíos</a>
-        </li>
-    </ol>
-</nav>
-<div class="container">
-    <div class="row" style="margin-bottom: 10px">
-        <div class="col-md-12 text-center">
-            <h3 class="textoBlanco" style="text-transform: uppercase;">Desafío de Voltear Finalizado</h3>
-        </div>
-        <div class="col-md-6">
-            <h4 class="textoBlanco" style="text-transform: uppercase;">Puntaje obtenido: <%= puntaje %></h4>
-        </div>
-        <div class="col-md-6">
-            <% for(let i = 0; i < puntaje; i++)
-            { %>
-            <i class="fas fa-star fa-4x fa-spin " style="color:gold"></i>
-            <% } %>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-5" style="margin: 10px">
-            <div class="row border border-white rounded degradoTarjeta">
-                <h4 class="textoBlanco" style="text-transform: uppercase; margin: 10px">Pares encontrados</h4>
+    <header>
+        <% include ../../parciales/headerProfesor %>
+    </header>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb opacoCard border border-white">
+            <li class="breadcrumb-item"><a href="/ingresoParticipante" class="textoBlanco"
+                                           style="text-transform: uppercase;">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="/ingresoParticipante" class="textoBlanco"
+                                           style="text-transform: uppercase;">Temáticas</a></li>
+            <li class="breadcrumb-item"><a href="/retosMateria?facilitador=<%= facilitador %>&materia=<%= materia %>"
+                                           class="textoBlanco" style="text-transform: uppercase;">Desafíos</a>
+            </li>
+        </ol>
+    </nav>
+    <div class="container">
+        <div class="row" style="margin-bottom: 10px">
+            <div class="col-md-12 text-center">
+                <h3 class="textoBlanco" style="text-transform: uppercase;">Desafío de Voltear Finalizado</h3>
             </div>
-            <div class="row border border-white rounded degradoTarjeta" style="margin-top: 10px; height: 550px">
-
-                <% for(let i = 0; i < preguntas.length; i++)
+            <div class="col-md-6">
+                <h4 class="textoBlanco" style="text-transform: uppercase;">Puntaje obtenido: <%= puntaje %></h4>
+            </div>
+            <div class="col-md-6">
+                <% for(let i = 0; i < puntaje; i++)
                 { %>
-                <div class="col-md-12 " style="margin: 10px">
-                    <div class="row">
-                    <% if(respuestas.indexOf(preguntas[i].texto) >= 0) { %>
-                    <div class="col-md-4">
-                        <img id="imagenAUnir<%= (i + 1) %>" src="<%= preguntas[i].imagen %>"
-                             height="50" width="50">
-                    </div>
-                    <div class="col-md-8">
-                        <label class="textoBlanco" style="text-transform: uppercase;"><%= preguntas[i].texto %></label>
-                    </div>
-                    <% } %>
-                    </div>
-                </div>
+                <i class="fas fa-star fa-4x fa-spin " style="color:gold"></i>
                 <% } %>
             </div>
         </div>
-        <div class="col-md-5" style="margin: 10px">
-            <div class="row border border-white rounded degradoTarjeta">
-                <h4 class="textoBlanco" style="text-transform: uppercase; margin: 10px" >Pares no encontrados</h4>
-            </div>
-            <div class="row border border-white rounded degradoTarjeta" style="margin-top: 10px ; height: 550px">
-                <% for(let i = 0; i < preguntas.length; i++)
-                { %>
-                <div class="col-md-12 " style="margin: 10px">
-                <div class="row unir">
-                    <% if(respuestas.indexOf(preguntas[i].texto) < 0) { %>
-                    <div class="col-md-4">
-                        <img id="imagenAUnir<%= (i + 1) %>" src="<%= preguntas[i].imagen %>"
-                             height="50" width="50">
-                    </div>
-                    <div class="col-md-8">
-                        <label class="textoBlanco" style="text-transform: uppercase;"><%= preguntas[i].texto %></label>
+        <div class="row">
+            <div class="col-md-5" style="margin: 10px">
+                <div class="row border border-white rounded degradoTarjeta">
+                    <h4 class="textoBlanco" style="text-transform: uppercase; margin: 10px">Pares encontrados</h4>
+                </div>
+                <div class="row border border-white rounded degradoTarjeta" style="margin-top: 10px; height: 550px">
+
+                    <% for(let i = 0; i < preguntas.length; i++)
+                    { %>
+                    <div class="col-md-12 " style="margin: 10px">
+                        <div class="row">
+                            <% if(respuestas.indexOf(preguntas[i].texto) >= 0) { %>
+                            <div class="col-md-4">
+                                <img id="imagenAUnir<%= (i + 1) %>" src="<%= preguntas[i].imagen %>"
+                                     height="50" width="50">
+                            </div>
+                            <div class="col-md-8">
+                                <label class="textoBlanco"
+                                       style="text-transform: uppercase;"><%= preguntas[i].texto %></label>
+                            </div>
+                            <% } %>
+                        </div>
                     </div>
                     <% } %>
                 </div>
+            </div>
+            <div class="col-md-5" style="margin: 10px">
+                <div class="row border border-white rounded degradoTarjeta">
+                    <h4 class="textoBlanco" style="text-transform: uppercase; margin: 10px">Pares no encontrados</h4>
                 </div>
-                <% } %>
+                <div class="row border border-white rounded degradoTarjeta" style="margin-top: 10px ; height: 550px">
+                    <% for(let i = 0; i < preguntas.length; i++)
+                    { %>
+                    <div class="col-md-12 " style="margin: 10px">
+                        <div class="row unir">
+                            <% if(respuestas.indexOf(preguntas[i].texto) < 0) { %>
+                            <div class="col-md-4">
+                                <img id="imagenAUnir<%= (i + 1) %>" src="<%= preguntas[i].imagen %>"
+                                     height="50" width="50">
+                            </div>
+                            <div class="col-md-8">
+                                <label class="textoBlanco"
+                                       style="text-transform: uppercase;"><%= preguntas[i].texto %></label>
+                            </div>
+                            <% } %>
+                        </div>
+                    </div>
+                    <% } %>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row text-center">
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
-            <form action="/retosMateria" method="post">
-                <input type="text" name="facilitador" hidden value="<%= facilitador %>">
-                <input type="text" name="materia" hidden value="<%= materia %>">
-                <button class="btn btn-primary degradoBoton" type="submit"><i class="fas fa-undo-alt"></i> Regresar a desafíos</button>
-            </form>
-        </div>
-        <div class="col-md-4"></div>
+        <div class="row text-center">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <form action="/retosMateria" method="post">
+                    <input type="text" name="facilitador" hidden value="<%= facilitador %>">
+                    <input type="text" name="materia" hidden value="<%= materia %>">
+                    <button class="btn btn-primary degradoBoton" type="submit"><i class="fas fa-undo-alt"></i> Regresar
+                        a desafíos
+                    </button>
+                </form>
+            </div>
+            <div class="col-md-4"></div>
 
+        </div>
     </div>
-</div>
 </div>
 </body>
 </html>

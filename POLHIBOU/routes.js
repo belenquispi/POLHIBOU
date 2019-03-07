@@ -1178,7 +1178,7 @@ exports.post_mostrar_unir = function (req, res) {
                         enunciado: preguntasUnir[j].texto,
                         imagenEnunciado: preguntasUnir[j].imagen,
                         respuestaSeleccionada : 0
-                    }
+                    };
                 intento.preguntas.push(pregunta)
             }
             memory_array.memory_tile_shuffle();
@@ -1715,7 +1715,7 @@ exports.salir = function (req, res) {
 
 exports.error = function (req, res) {
     res.render('paginas/error', {mensaje: "Estas accediendo a un lugar donde no tienes acceso", direccion: "/"});
-}
+};
 
 exports.get_intentos = function (req, res) {
     if (req.session.usuario) {
@@ -1752,7 +1752,7 @@ exports.get_intentos = function (req, res) {
     else {
         res.redirect('/')
     }
-}
+};
 
 exports.post_detalle_tematica = function (req, res) {
     if (req.session.usuario) {
@@ -1797,21 +1797,19 @@ exports.post_detalle_tematica = function (req, res) {
         });
     }
     else {
-        redirect('/');
+        res.redirect('/');
     }
 };
 
 exports.post_detalle_intentos = function (req, res) {
     if (req.session.usuario) {
         Estudiante.findOne({usuario: req.session.usuario}, function (error, doc) {
-
             if (error) {
                 res.render('paginas/error', {
                     mensaje: "No se pudo consultar la información del usuario " + req.session.usuario + ".",
                     direccion: "/"
                 });
             }
-
             let indiceIntento = doc.intentos.map(function (e) {
                 return e.idIntento
             }).indexOf(req.body.idIntento);
@@ -1832,7 +1830,6 @@ exports.post_detalle_intentos = function (req, res) {
                             correctoIncorrecto: (doc.intentos[indiceIntento].preguntas[i].correctoIncorrecto == undefined ? -1 : doc.intentos[indiceIntento].preguntas[i].correctoIncorrecto)
                         };
                         preguntas.push(pregunta);
-
                         let indiceTematica = profesor.materias.map(function (materia) {
                             return materia.nombre;
                         }).indexOf(doc.intentos[indiceIntento].materia);
@@ -1928,27 +1925,18 @@ exports.post_detalle_intentos = function (req, res) {
                                     break;
                                 case "unir":
                                     console.log("Ingrese a unir ");
-                                    for(let a = 0; a < doc.intentos[indiceIntento].preguntas.length; a++){
-                                        console.log("pregunta  "+i);
-
-                                        if(doc.intentos[indiceIntento].preguntas[a].respuestaSeleccionada == 1)
+                                        if(doc.intentos[indiceIntento].preguntas[i].respuestaSeleccionada == 1)
                                         {
-                                            respuestasSeleccionadas.push(doc.intentos[indiceIntento].preguntas[a]);
+                                            respuestasSeleccionadas.push(doc.intentos[indiceIntento].preguntas[i]);
                                         }
                                         else {
-                                            respuestasCorrectas.push(doc.intentos[indiceIntento].preguntas[a]);
+                                            respuestasCorrectas.push(doc.intentos[indiceIntento].preguntas[i]);
                                         }
-                                    }
+
                                     break;
                             }
                         }
                     }
-                    console.log("preguntas: " + preguntas.length);
-                    console.log("respuestasSeleccionadas: " + respuestasSeleccionadas.length);
-                    console.log("respuestas: " + respuestasCorrectas.length);
-                    console.log("tematica: " + doc.intentos[indiceIntento].materia);
-                    console.log("facilitador: " + doc.intentos[indiceIntento].profesor);
-
                     res.render('paginas/participante/detalleIntento', {
                         nombre: req.session.nombre,
                         usuario: req.session.usuario,
@@ -1965,9 +1953,9 @@ exports.post_detalle_intentos = function (req, res) {
         });
     }
     else {
-        redirect('/');
+        res.redirect('/');
     }
-}
+};
 
 function generarNombre() {
     return Math.floor((1 + Math.random()) * 0x1000000)

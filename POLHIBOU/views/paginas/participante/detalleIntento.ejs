@@ -63,26 +63,38 @@
             <div class="col-lg-10">
                 <div class="row">
                     <div class="col-md-12">
-                        <h4 class="textoBlanco">MIS INTENTOS DE LA TEMÁTICA <%=tematica%></h4>
-                        <h5 class="textoBlanco">Facilitador: <%=facilitador%></h5>
+                        <h4 class="textoBlanco">MIS INTENTOS DE LA TEMÁTICA <%= tematica %></h4>
+                        <h5 class="textoBlanco">Facilitador: <%= facilitador %></h5>
                         <br>
                     </div>
                 </div>
-                <% switch (tipoDesafio) {
-                case "opcionMultiple": %>
                 <div class="row" style="margin-bottom: 10px">
                     <div class="col-md-12 text-center">
-                        <h3 class="textoBlanco" style="text-transform: uppercase;">Desafío de Opción Múltiple</h3>
+                        <% switch (tipoDesafio) {
+                        case "opcionMultiple": %>
+                        <h3 class="textoBlanco" style="text-transform: uppercase;">Desafío de Opción Múltiple
+                            Realizado</h3>
+                        <% break;
+                        case "emparejar": %>
+                        <h3 class="textoBlanco" style="text-transform: uppercase;">Desafío de Emparejar Realizado</h3>
+                        <% break;
+                            case "unir": %>
+                        <h3 class="textoBlanco" style="text-transform: uppercase;">Desafío de Voltear Realizado</h3>
+                        <% break;
+                            default: %>
+                        <% } %>
                     </div>
                     <div class="col-md-6">
                         <h4 class="textoBlanco" style="text-transform: uppercase;">Puntaje obtenido: <%= puntaje %></h4>
                     </div>
                     <div class="col-md-6">
-                        <% for(var i = 0; i < puntaje; i++){ %>
-                        <i class="fas fa-star fa-4x fa-spin " style="color:gold"></i>
+                        <% for(var k = 0; k < puntaje; k++){ %>
+                        <i class="fas fa-star fa-4x fa-spin" style="color:gold"></i>
                         <% } %>
                     </div>
                 </div>
+                <% switch (tipoDesafio) {
+                case "opcionMultiple": %>
                 <div class="row border border-white rounded degradoTarjeta" style="margin-bottom: 10px">
                     <div class="col-md-1 border border-white">
                         <label><strong class="textoBlanco" style="text-transform: uppercase;">N° </strong></label>
@@ -122,211 +134,185 @@
                             </div>
                         </div>
                     </div>
-                        <div class="col-md-2  border border-white text-center">
-                            <% if(respuestasSeleccionadas[i*2] == "imagen")
-                            { %>
-                            <img src="<%= respuestasSeleccionadas[(i*2)+1]%>" width="50px" height="50px" style="margin: 10px">
-                            <% } else { %>
-                            <p class="textoBlanco"><%=respuestasSeleccionadas[(i*2)+1]%></p>
-                            <% } %>
-                        </div>
-                        <div class="col-md-2  border border-white text-center">
-                            <% if(respuestasCorrectas[i*2] == "imagen")
-                            { %>
-                            <img src="<%= respuestasCorrectas[(i*2)+1]%>" width="50px" height="50px" style="margin: 10px">
-                            <% } else { %>
-                            <p class="textoBlanco"><%=respuestasCorrectas[(i*2)+1]%></p>
-                            <% } %>
-                        </div>
-                        <div class="col-md-1  border border-white text-center">
-                            <% if(preguntas[i].correctoIncorrecto == 0)
-                            { %>
-                            <i class="far fa-3x fa-times-circle" style="color:red; margin: 10px"></i>
-                            <% }
-                            else
-                            { %>
-                            <i class="far fa-3x fa-check-circle" style="color:green; margin: 10px"></i>
-                            <% } %>
-                        </div>
+                    <div class="col-md-2  border border-white text-center">
+                        <% if(respuestasSeleccionadas[i * 2] == "imagen")
+                        { %>
+                        <img src="<%= respuestasSeleccionadas[(i * 2) + 1] %>" width="50px" height="50px"
+                             style="margin: 10px">
+                        <% } else { %>
+                        <p class="textoBlanco"><%= respuestasSeleccionadas[(i * 2) + 1] %></p>
+                        <% } %>
                     </div>
-                    <% } %>
-                    <% break;
-                    case "emparejar": %>
-                    <div class="row" style="margin-bottom: 10px">
-                        <div class="col-md-12 text-center">
-                            <h3 class="textoBlanco" style="text-transform: uppercase;">Desafío de Emparejar
-                                Finalizado</h3>
-                        </div>
-                        <div class="col-md-6">
-                            <h4 class="textoBlanco" style="text-transform: uppercase;">Puntaje
-                                obtenido: <%= puntaje %></h4>
-                        </div>
-                        <div class="col-md-6">
-                            <% for(let i = 0; i < puntaje; i++)
-                            { %>
-                            <i class="fas fa-star fa-5x fa-spin " style="color:gold"></i>
-                            <% } %>
-                        </div>
+                    <div class="col-md-2  border border-white text-center">
+                        <% if(respuestasCorrectas[i * 2] == "imagen")
+                        { %>
+                        <img src="<%= respuestasCorrectas[(i * 2) + 1] %>" width="50px" height="50px"
+                             style="margin: 10px">
+                        <% } else { %>
+                        <p class="textoBlanco"><%= respuestasCorrectas[(i * 2) + 1] %></p>
+                        <% } %>
                     </div>
-                    <div class="row ">
-                        <div class="col-md-6" style="margin: 10px">
-                            <div class="row border border-white rounded">
-                                <h3 class="textoBlanco" style="text-transform: uppercase;" style="margin: 10px">Tus
-                                    respuestas</h3>
-                            </div>
-                            <div class="row border border-white rounded" style="margin-top: 10px">
-                                <% for(let i = 0; i < preguntas.length; i++){ %>
-                                <div class="col-md-12 " style="margin: 10px">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <button
-                                                    class="btn btn-outline-light disabledbutton"
-                                                    onclick="obtenerId(this);">
-                                                <img id="imagenAUnir<%= (i + 1) %>"
-                                                     src="<%= preguntas[i].imagenEnunciado %>"
-                                                     height="50" width="50">
-                                            </button>
-                                        </div>
-                                        <div class="col-md-7">
-                                            <button
-                                                    class="btn btn-outline-light btn-block textoBlanco disabledbutton"
-                                                    onclick="obtenerId(this);"><%= respuestasSeleccionadas[i] %></button>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <% if(preguntas[i].correctoIncorrecto == 1)
-                                            { %>
-                                            <i class="far fa-3x fa-check-circle"
-                                               style="color:green; margin-top: 10px"></i>
-                                            <% }
-                                            else
-                                            { %>
-                                            <i class="far fa-3x fa-times-circle"
-                                               style="color:red; margin-top: 10px"></i>
-
-                                            <% } %>
-                                        </div>
-                                    </div>
-                                </div>
-                                <% } %>
-                            </div>
-                        </div>
-                        <div class="col-md-5" style="margin: 10px">
-                            <div class="row border border-white rounded">
-                                <h3 class="textoBlanco" style="text-transform: uppercase;" style="margin: 10px">
-                                    Respuestas correctas</h3>
-                            </div>
-                            <div class="row border border-white rounded" style="margin-top: 10px">
-                                <% for(let i = 0; i < preguntas.length; i++)
-                                { %>
-                                <div class="col-md-12 " style="margin: 10px">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <button
-                                                    class="btn btn-outline-light disabledbutton"
-                                                    onclick="obtenerId(this);">
-                                                <img id="imagenAUnir<%= (i + 1) %>"
-                                                     src="<%= preguntas[i].imagenEnunciado %>"
-                                                     height="50" width="50">
-                                            </button>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <button
-                                                    class="btn btn-outline-light textoUnir btn-block disabledbutton"
-                                                    onclick="obtenerId(this);"><%= preguntas[i].enunciado %>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <% } %>
-                            </div>
-                        </div>
+                    <div class="col-md-1  border border-white text-center">
+                        <% if(preguntas[i].correctoIncorrecto == 0)
+                        { %>
+                        <i class="far fa-3x fa-times-circle" style="color:red; margin: 10px"></i>
+                        <% }
+                        else
+                        { %>
+                        <i class="far fa-3x fa-check-circle" style="color:green; margin: 10px"></i>
+                        <% } %>
                     </div>
-                    <% break;
-                    case "unir": %>
-                    <div class="row" style="margin-bottom: 10px">
-                        <div class="col-md-12 text-center">
-                            <h3 class="textoBlanco" style="text-transform: uppercase;">Desafío de Unir Finalizado</h3>
+                </div>
+                <% } %>
+                <% break;
+                case "emparejar": %>
+                <div class="row ">
+                    <div class="col-md-6" style="margin: 10px">
+                        <div class="row border border-white rounded">
+                            <h3 class="textoBlanco" style="text-transform: uppercase;" style="margin: 10px">Tus
+                                respuestas</h3>
                         </div>
-                        <div class="col-md-6">
-                            <h4 class="textoBlanco" style="text-transform: uppercase;">Puntaje
-                                obtenido: <%= puntaje %></h4>
-                        </div>
-                        <div class="col-md-6">
-                            <% for(let i = 0; i < puntaje; i++)
-                            { %>
-                            <i class="fas fa-star fa-5x fa-spin " style="color:gold"></i>
-                            <% } %>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-5" style="margin: 10px">
-                            <div class="row border border-white rounded">
-                                <h4 class="textoBlanco" style="text-transform: uppercase; margin: 10px">Pares
-                                    encontrados</h4>
-                            </div>
-                            <div class="row border border-white rounded" style="margin-top: 10px; height: 550px">
-                                <% for(let i = 0; i < respuestasSeleccionadas.length; i++){ %>
-                                <div class="col-md-12 " style="margin: 10px">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <img id="imagenAUnir<%= (i + 1) %>" src="<%= respuestasSeleccionadas[i].imagenEnunciado %>"
+                        <div class="row border border-white rounded" style="margin-top: 10px">
+                            <% for(let i = 0; i < preguntas.length; i++){ %>
+                            <div class="col-md-12 " style="margin: 10px">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <button
+                                                class="btn btn-outline-light disabledbutton"
+                                                onclick="obtenerId(this);">
+                                            <img id="imagenAUnir<%= (i + 1) %>"
+                                                 src="<%= preguntas[i].imagenEnunciado %>"
                                                  height="50" width="50">
-                                        </div>
-                                        <div class="col-md-8">
-                                            <label class="textoBlanco"
-                                                   style="text-transform: uppercase;"><%= respuestasSeleccionadas[i].enunciado %></label>
-                                        </div>
+                                        </button>
                                     </div>
-                                </div>
-                                <% } %>
-                            </div>
-                        </div>
-                        <div class="col-md-5" style="margin: 10px">
-                            <div class="row border border-white rounded">
-                                <h4 class="textoBlanco" style="text-transform: uppercase; margin: 10px">Pares no
-                                    encontrados</h4>
-                            </div>
-                            <div class="row border border-white rounded" style="margin-top: 10px ; height: 550px">
-                                <% for(let i = 0; i < respuestasCorrectas.length; i++){ %>
-                                <div class="col-md-12 " style="margin: 10px">
-                                    <div class="row unir">
-                                        <div class="col-md-4">
-                                            <img id="imagenAUnir<%= (i + 1) %>" src="<%= respuestasCorrectas[i].imagenEnunciado %>"
-                                                 height="50" width="50">
-                                        </div>
-                                        <div class="col-md-8">
-                                            <label class="textoBlanco"
-                                                   style="text-transform: uppercase;"><%= respuestasCorrectas[i].enunciado %></label>
-                                        </div>
+                                    <div class="col-md-7">
+                                        <button
+                                                class="btn btn-outline-light btn-block textoBlanco disabledbutton"
+                                                onclick="obtenerId(this);"><%= respuestasSeleccionadas[i] %></button>
                                     </div>
-                                </div>
-                                <% } %>
-                            </div>
-                        </div>
-                    </div>
+                                    <div class="col-md-2">
+                                        <% if(preguntas[i].correctoIncorrecto == 1)
+                                        { %>
+                                        <i class="far fa-3x fa-check-circle"
+                                           style="color:green; margin-top: 10px"></i>
+                                        <% }
+                                        else
+                                        { %>
+                                        <i class="far fa-3x fa-times-circle"
+                                           style="color:red; margin-top: 10px"></i>
 
-                    <% break;
-                        default: %>
-                    <% } %>
-                    <div class="row text-center">
-                        <div class="col-md-4"></div>
-                        <div class="col-md-4">
-                            <form action="/detalleTematica" method="post">
-                                <input type="text" name="facilitador" hidden value="<%= facilitador %>">
-                                <input type="text" name="tematica" hidden value="<%= tematica %>">
-                                <button class="btn btn-primary degradoBoton" type="submit"><i
-                                            class="fas fa-undo-alt"></i> Regresar
-                                </button>
-                            </form>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
                         </div>
-                        <div class="col-md-4"></div>
                     </div>
+                    <div class="col-md-5" style="margin: 10px">
+                        <div class="row border border-white rounded">
+                            <h3 class="textoBlanco" style="text-transform: uppercase;" style="margin: 10px">
+                                Respuestas correctas</h3>
+                        </div>
+                        <div class="row border border-white rounded" style="margin-top: 10px">
+                            <% for(let i = 0; i < preguntas.length; i++)
+                            { %>
+                            <div class="col-md-12 " style="margin: 10px">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <button
+                                                class="btn btn-outline-light disabledbutton"
+                                                onclick="obtenerId(this);">
+                                            <img id="imagenAUnir<%= (i + 1) %>"
+                                                 src="<%= preguntas[i].imagenEnunciado %>"
+                                                 height="50" width="50">
+                                        </button>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <button
+                                                class="btn btn-outline-light textoUnir btn-block disabledbutton"
+                                                onclick="obtenerId(this);"><%= preguntas[i].enunciado %>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+                <% break;
+                case "unir": %>
+                <div class="row">
+                    <div class="col-md-5" style="margin: 10px">
+                        <div class="row border border-white rounded">
+                            <h4 class="textoBlanco" style="text-transform: uppercase; margin: 10px">Pares
+                                encontrados</h4>
+                        </div>
+                        <div class="row border border-white rounded" style="margin-top: 10px; height: 550px">
+                            <% for(var x = 0; x < respuestasSeleccionadas.length; x++){
+                            console.log("respuestas seleccionadas: "+ respuestasSeleccionadas[x].enunciado) %>
+                            <div class="col-md-12 " style="margin: 10px">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <img id="imagenAUnir<%= (x + 1) %>"
+                                             src="<%= respuestasSeleccionadas[x].imagenEnunciado %>" height="50"
+                                             width="50">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <label class="textoBlanco"
+                                               style="text-transform: uppercase;"><%= respuestasSeleccionadas[x].enunciado %></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
+                        </div>
+                    </div>
+                    <div class="col-md-5" style="margin: 10px">
+                        <div class="row border border-white rounded">
+                            <h4 class="textoBlanco" style="text-transform: uppercase; margin: 10px">Pares no
+                                encontrados</h4>
+                        </div>
+                        <div class="row border border-white rounded" style="margin-top: 10px ; height: 550px">
+                            <% for(var j = 0; j < respuestasCorrectas.length; j++){
+                            console.log("respuestas correctas: "+ respuestasCorrectas[j].enunciado)%>
+                            <div class="col-md-12 " style="margin: 10px">
+                                <div class="row unir">
+                                    <div class="col-md-4">
+                                        <img id="imagenAUnir<%= (j + 1) %>"
+                                             src="<%= respuestasCorrectas[j].imagenEnunciado %>"
+                                             height="50" width="50">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <label class="textoBlanco"
+                                               style="text-transform: uppercase;"><%= respuestasCorrectas[j].enunciado %></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+                <% break;
+                    default: %>
+                <% } %>
+                <div class="row text-center">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <form action="/detalleTematica" method="post">
+                            <input type="text" name="facilitador" hidden value="<%= facilitador %>">
+                            <input type="text" name="tematica" hidden value="<%= tematica %>">
+                            <button class="btn btn-primary degradoBoton" type="submit"><i
+                                        class="fas fa-undo-alt"></i> Regresar
+                            </button>
+                        </form>
+                    </div>
+                    <div class="col-md-4"></div>
                 </div>
             </div>
         </div>
-        <footer>
-            <% include ../../parciales/footer.ejs %>
-        </footer>
     </div>
+    <footer>
+        <% include ../../parciales/footer.ejs %>
+    </footer>
+</div>
 </body>
 </html>

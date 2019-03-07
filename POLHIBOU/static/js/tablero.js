@@ -141,7 +141,7 @@ socket.on('dados', function (dadoN1, dadoN2, dadoAnteriorN1, dadoAnteriorN2, num
     dadoAnterior2 = dadoAnteriorN2;
     moverDado();
     moverDado2();
-    desafio = numDesafioMostrarse
+    desafio = numDesafioMostrarse;
     mostrarDesafio(numDesafioMostrarse, idSocket);
 });
 
@@ -617,7 +617,7 @@ function mostrarDesafio(colorCa, idSocket) {
             if (idSocket == idSocketActual) {
                 socket.emit('solicitarPreguntaUnir', roomActual);
             }
-            document.getElementById("tipoJuego").innerHTML = "Unir";
+            document.getElementById("tipoJuego").innerHTML = "Emparejar";
             document.getElementById("desafios").removeAttribute("hidden");
             document.getElementById("unir").removeAttribute("hidden");
             document.getElementById("memory_boardMulti").setAttribute("hidden", "");
