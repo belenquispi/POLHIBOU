@@ -1177,7 +1177,8 @@ exports.post_mostrar_unir = function (req, res) {
                         idPregunta: preguntasUnir[j].idPregunta,
                         enunciado: preguntasUnir[j].texto,
                         imagenEnunciado: preguntasUnir[j].imagen,
-                    }
+                        respuestaSeleccionada : 0
+                    };
                 intento.preguntas.push(pregunta)
             }
             memory_array.memory_tile_shuffle();
@@ -1221,7 +1222,8 @@ exports.post_resultados_unir = function (req, res) {
         else {
             puntaje = Math.floor((respuestas.length * 5) / 6);
         }
-
+        console.log("RRRREEEESSSSPPPP");
+        console.log(respuestas);
         Estudiante.findOne({
             usuario: req.session.usuario
         }, function (error, doc) {
@@ -1229,8 +1231,16 @@ exports.post_resultados_unir = function (req, res) {
                 return e.idIntento
             }).indexOf(req.body.idIntento);
             doc.intentos[indiceIntento].puntaje = puntaje;
+            for (let i = 0; i < respuestas.length; i++) {
+                let indicePregunta = doc.intentos[indiceIntento].preguntas.map(function (pregunta) {
+                    return pregunta.enunciado;
+                }).indexOf(respuestas[i]);
+                if(indicePregunta > -1)
+                {
+                    doc.intentos[indiceIntento].preguntas[indicePregunta].respuestaSeleccionada = 1;
+                }
+            }
             doc.save(function (err, docActualizado) {
-
                 res.render('paginas/participante/resultadosUnir', {
                     respuestas: respuestas,
                     nombre: req.session.nombre,
@@ -1705,7 +1715,7 @@ exports.salir = function (req, res) {
 
 exports.error = function (req, res) {
     res.render('paginas/error', {mensaje: "Estas accediendo a un lugar donde no tienes acceso", direccion: "/"});
-}
+};
 
 exports.get_intentos = function (req, res) {
     if (req.session.usuario) {
@@ -1742,7 +1752,7 @@ exports.get_intentos = function (req, res) {
     else {
         res.redirect('/')
     }
-}
+};
 
 exports.post_detalle_tematica = function (req, res) {
     if (req.session.usuario) {
@@ -1787,60 +1797,165 @@ exports.post_detalle_tematica = function (req, res) {
         });
     }
     else {
-        redirect('/');
+        res.redirect('/');
     }
 };
 
 exports.post_detalle_intentos = function (req, res) {
     if (req.session.usuario) {
         Estudiante.findOne({usuario: req.session.usuario}, function (error, doc) {
-
             if (error) {
                 res.render('paginas/error', {
                     mensaje: "No se pudo consultar la información del usuario " + req.session.usuario + ".",
                     direccion: "/"
                 });
             }
-
             let indiceIntento = doc.intentos.map(function (e) {
                 return e.idIntento
             }).indexOf(req.body.idIntento);
             if (indiceIntento > -1) {
                 let preguntas = [];
-                let respuestas = [];
-                for (let i = 0; i < doc.intentos[indiceIntento].preguntas.length; i++) {
-                    let pregunta = {
-                        idPregunta: doc.intentos[indiceIntento].preguntas[i].idPregunta,
-                        enunciado: doc.intentos[indiceIntento].preguntas[i].enunciado,
-                        imagenEnunciado: doc.intentos[indiceIntento].preguntas[i].imagenEnunciado,
-                        correctoIncorrecto: (doc.intentos[indiceIntento].preguntas[i].correctoIncorrecto == undefined ? -1 : doc.intentos[indiceIntento].preguntas[i].correctoIncorrecto)
-                    };
-                    preguntas.push(pregunta);
-                    if (doc.intentos[indiceIntento].tipoDesafio == "emparejar") {
-                        respuestas.push(doc.intentos[indiceIntento].preguntas[i].respuestaSeleccionada);
+                let respuestasSeleccionadas = [];
+                let respuestasCorrectas = [];
+                let tipoDesafio = doc.intentos[indiceIntento].tipoDesafio;
+                Profesor.findOne({nombre: doc.intentos[indiceIntento].profesor}, function (error1, profesor) {
+                    if (error1) {
+                        console.log("SE dio error en consulta los datos del profesor")
                     }
-                }
-                console.log("preguntas: " + preguntas.length);
-                console.log("respuestas: " + respuestas.length);
-                console.log("tematica: " + doc.intentos[indiceIntento].materia);
-                console.log("facilitador: " + doc.intentos[indiceIntento].profesor);
-                res.render('paginas/participante/detalleIntento', {
-                    nombre: req.session.nombre,
-                    usuario: req.session.usuario,
-                    tematica: doc.intentos[indiceIntento].materia,
-                    facilitador: doc.intentos[indiceIntento].profesor,
-                    puntaje: doc.intentos[indiceIntento].puntaje,
-                    tipoDesafio: doc.intentos[indiceIntento].tipoDesafio,
-                    preguntas: preguntas,
-                    respuestas: respuestas
+                    for (let i = 0; i < doc.intentos[indiceIntento].preguntas.length; i++) {
+                        let pregunta = {
+                            idPregunta: doc.intentos[indiceIntento].preguntas[i].idPregunta,
+                            enunciado: doc.intentos[indiceIntento].preguntas[i].enunciado,
+                            imagenEnunciado: doc.intentos[indiceIntento].preguntas[i].imagenEnunciado,
+                            correctoIncorrecto: (doc.intentos[indiceIntento].preguntas[i].correctoIncorrecto == undefined ? -1 : doc.intentos[indiceIntento].preguntas[i].correctoIncorrecto)
+                        };
+                        preguntas.push(pregunta);
+                        let indiceTematica = profesor.materias.map(function (materia) {
+                            return materia.nombre;
+                        }).indexOf(doc.intentos[indiceIntento].materia);
+                        if (indiceTematica > -1) {
+                            switch (tipoDesafio) {
+                                case "opcionMultiple":
+                                    let indicePregunta = profesor.materias[indiceTematica].preguntasOpcionMultiple.map(function (pregunta) {
+                                        return pregunta.idPregunta
+                                    }).indexOf(doc.intentos[indiceIntento].preguntas[i].idPregunta);
+                                    if (indicePregunta > -1) {
+                                        let resSeleccionada = doc.intentos[indiceIntento].preguntas[i].respuestaSeleccionada;
+                                        switch (resSeleccionada) {
+                                            case "res1":
+                                                if ((profesor.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res1) != undefined) {
+                                                    respuestasSeleccionadas.push("texto");
+                                                    respuestasSeleccionadas.push(profesor.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res1);
+                                                } else {
+                                                    respuestasSeleccionadas.push("imagen");
+                                                    respuestasSeleccionadas.push(profesor.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].imagenRes1);
+                                                }
+                                                break;
+                                            case "res2":
+                                                if ((profesor.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res2) != undefined) {
+                                                    respuestasSeleccionadas.push("texto");
+                                                    respuestasSeleccionadas.push(profesor.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res2);
+                                                } else {
+                                                    respuestasSeleccionadas.push("imagen");
+                                                    respuestasSeleccionadas.push(profesor.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].imagenRes2);
+                                                }
+                                                break;
+                                            case "res3":
+                                                if ((profesor.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res3) != undefined) {
+                                                    respuestasSeleccionadas.push("texto");
+                                                    respuestasSeleccionadas.push(profesor.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res3);
+                                                } else {
+                                                    respuestasSeleccionadas.push("imagen");
+                                                    respuestasSeleccionadas.push(profesor.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].imagenRes3);
+                                                }
+                                                break;
+                                            case "res4":
+                                                if ((profesor.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res4) != undefined) {
+                                                    respuestasSeleccionadas.push("texto");
+                                                    respuestasSeleccionadas.push(profesor.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res4);
+                                                } else {
+                                                    respuestasSeleccionadas.push("imagen");
+                                                    respuestasSeleccionadas.push(profesor.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].imagenRes4);
+                                                }
+                                                break;
+                                        }
+                                        let resCorrecta = profesor.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].respuestaCorrecta;
+                                        switch (resCorrecta) {
+                                            case "res1":
+                                                if ((profesor.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res1) != undefined) {
+                                                    respuestasCorrectas.push("texto");
+                                                    respuestasCorrectas.push(profesor.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res1);
+                                                } else {
+                                                    respuestasCorrectas.push("imagen");
+                                                    respuestasCorrectas.push(profesor.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].imagenRes1);
+                                                }
+                                                break;
+                                            case "res2":
+                                                if ((profesor.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res2) != undefined) {
+                                                    respuestasCorrectas.push("texto");
+                                                    respuestasCorrectas.push(profesor.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res2);
+                                                } else {
+                                                    respuestasCorrectas.push("imagen");
+                                                    respuestasCorrectas.push(profesor.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].imagenRes2);
+                                                }
+                                                break;
+                                            case "res3":
+                                                if ((profesor.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res3) != undefined) {
+                                                    respuestasCorrectas.push("texto");
+                                                    respuestasCorrectas.push(profesor.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res3);
+                                                } else {
+                                                    respuestasCorrectas.push("imagen");
+                                                    respuestasCorrectas.push(profesor.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].imagenRes3);
+                                                }
+                                                break;
+                                            case "res4":
+                                                if ((profesor.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res4) != undefined) {
+                                                    respuestasCorrectas.push("texto");
+                                                    respuestasCorrectas.push(profesor.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res4);
+                                                } else {
+                                                    respuestasCorrectas.push("imagen");
+                                                    respuestasCorrectas.push(profesor.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].imagenRes4);
+                                                }
+                                                break;
+                                        }
+                                    }
+                                    break;
+                                case "emparejar":
+                                    respuestasSeleccionadas.push(doc.intentos[indiceIntento].preguntas[i].respuestaSeleccionada);
+                                    break;
+                                case "unir":
+                                    console.log("Ingrese a unir ");
+                                        if(doc.intentos[indiceIntento].preguntas[i].respuestaSeleccionada == 1)
+                                        {
+                                            respuestasSeleccionadas.push(doc.intentos[indiceIntento].preguntas[i]);
+                                        }
+                                        else {
+                                            respuestasCorrectas.push(doc.intentos[indiceIntento].preguntas[i]);
+                                        }
+
+                                    break;
+                            }
+                        }
+                    }
+                    res.render('paginas/participante/detalleIntento', {
+                        nombre: req.session.nombre,
+                        usuario: req.session.usuario,
+                        tematica: doc.intentos[indiceIntento].materia,
+                        facilitador: doc.intentos[indiceIntento].profesor,
+                        puntaje: doc.intentos[indiceIntento].puntaje,
+                        tipoDesafio: tipoDesafio,
+                        preguntas: preguntas,
+                        respuestasSeleccionadas: respuestasSeleccionadas,
+                        respuestasCorrectas: respuestasCorrectas
+                    });
                 });
             }
         });
     }
     else {
-        redirect('/');
+        res.redirect('/');
     }
-}
+};
 
 function generarNombre() {
     return Math.floor((1 + Math.random()) * 0x1000000)

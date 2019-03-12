@@ -14,11 +14,10 @@ var gameMap = [];
 var colorMap = [];
 var patterColor1, patterColor2, patterColor3, patterInicio, patterIncierto, patterFin;
 //var socket = io();
-var socket = io.connect ('http://polhibou.epn.edu.ec/');
+var socket = io.connect ('https://polhibou.epn.edu.ec/');
 var jugadores = [];
 var turnoJugadores = [];
 var respuestaCorrecta = false;
-var turnoFinalizado = true;
 var idSocketActual;
 var roomActual, rol, nombreEquipo;
 var dado1 = -1, dado2 = -1, dadoAnterior1 = 1, dadoAnterior2 = 1, extras = 0;
@@ -37,17 +36,36 @@ var respuestaCorrectaUnir = [];
 var fps = 30;
 let tiempoVoltear = 0;
 let respuestaVoltearATiempo = -1;
-function dados(nombrePartida) {
-    this.nombrePartida = nombrePartida;
-    this.dado1 = dado1;
-    this.dado2 = dado2;
+let directions = {
+    up: 0,
+    right: 1,
+    down: 2,
+    left: 3
+};
+let desafio = -1;
+function Character(jugador) {
+    this.nombreEquipo = jugador.nombreEquipo;
+    this.tileFrom = jugador.tileFrom;
+    this.tileTo = jugador.tileTo;
+    this.timeMoved = jugador.timeMoved;
+    this.dimensions = jugador.dimensions;
+    this.position = jugador.position;
+    this.delayMove = jugador.delayMove;
+    this.direction = jugador.direction;
+    this.casilla = jugador.casilla;
+    this.iconoEquipo = jugador.iconoEquipo;
+    this.boton = jugador.boton;
+    this.moverseA = jugador.moverseA;
+    this.listo = jugador.listo;
+    this.idSocket = jugador.idSocket;
+    this.maldicion = jugador.maldicion;
+    this.numeroCasillas = jugador.numCasillasMoverseP;
 }
 
 function obtenerDatosQuienSeConecto() {
     roomActual = document.getElementById("idPartida").value;
     rol = document.getElementById("rol").value;
     nombreEquipo = document.getElementById("nombreEquipo").value;
-    console.log("eeee   " + roomActual, rol, nombreEquipo);
 }
 
 window.onload = function () {
@@ -86,21 +104,23 @@ socket.on('partida', function (data) {
     altoCasilla = data.altoCas;
     gameMap = data.gameM;
     colorMap = data.colorM;
-    jugadores = data.jugadores;
+    jugadores = [];
+    console.log(JSON.stringify(data.jugadores));
+    for (let x = 0; x < data.jugadores.length; x++) {
+        jugadores.push(new Character(data.jugadores[x]))
+    }
     preguntasOpcionMultiple = data.preguntasOpcionMultiple;
     preguntasUnirVoltear = data.preguntasUnirVoltear;
-    for (let i = 0; i < jugadores.length; i++) {
-        if (jugadores[i].idSocket == idSocketActual) {
-            numCasillasMoverse = jugadores[i].numCasillasMoverseP;
-        }
+    if(indiceDelJugadorConTurno()>-1) {
+        numCasillasMoverse = jugadores[indiceDelJugadorConTurno()].numeroCasillas;
     }
-});
+})
+;
 
-socket.on('mensajeMisterio', function (num, casillasExtras) {
+socket.on('mensajeMisterio', function (num) {
     if (num == 1) {
         misterioPositivo();
-    }
-    else {
+    }else {
         if (num == 0) {
             misterioNegativo();
         }
@@ -119,6 +139,7 @@ socket.on('dados', function (dadoN1, dadoN2, dadoAnteriorN1, dadoAnteriorN2, num
     dadoAnterior2 = dadoAnteriorN2;
     moverDado();
     moverDado2();
+    desafio = numDesafioMostrarse;
     mostrarDesafio(numDesafioMostrarse, idSocket);
 });
 
@@ -152,7 +173,7 @@ socket.on('respondiendoIndicePreguntaVoltear', function (memory) {
 
 socket.on('enviandoParEncontrado', function (memory_tile_ids, idSocketN) {
     if (idSocketN != idSocketActual) {
-        for (var i = 0; i < memory_tile_ids.length; i++) {
+        for (let i = 0; i < memory_tile_ids.length; i++) {
             document.getElementById(memory_tile_ids[i]).click();
         }
     }
@@ -223,8 +244,25 @@ function drawGame() {
     if (ctx == null) {
         return;
     }
-    if (numCasillasMoverse > 0 && (turnoJugadores[0] == idSocketActual) && respuestaCorrecta == true) {
-        socket.emit('moverJugador', roomActual);
+    if (numCasillasMoverse > 0 && respuestaCorrecta == true) {
+        var gameTime = Date.now();
+        var indiceJugadorConTurno = indiceDelJugadorConTurno();
+        if (!jugadores[indiceJugadorConTurno].processMovement(gameTime)) {
+            if (jugadores[indiceJugadorConTurno].casilla < 34) {
+                if (jugadores[indiceJugadorConTurno].canMoveUp()) {
+                    jugadores[indiceJugadorConTurno].moveUp(gameTime);
+                }
+                else if (jugadores[indiceJugadorConTurno].canMoveDown()) {
+                    jugadores[indiceJugadorConTurno].moveDown(gameTime);
+                }
+                else if (jugadores[indiceJugadorConTurno].canMoveLeft()) {
+                    jugadores[indiceJugadorConTurno].moveLeft(gameTime);
+                }
+                else if (jugadores[indiceJugadorConTurno].canMoveRight()) {
+                    jugadores[indiceJugadorConTurno].moveRight(gameTime);
+                }
+            }
+        }
     } else {
         respuestaCorrecta = false;
         bloquearBoton();
@@ -232,10 +270,6 @@ function drawGame() {
             return value.idSocket
         }).indexOf(idSocketActual)].boton == 0)) {
             desbloquearBoton();
-            /* numCasillasMoverse = -1;
-              jugadores[jugadores.map(function (value) {
-                    return value.idSocket
-                }).indexOf((idSocketActual))].boton = 1;*/
         }
         mostrarJugadorActual();
     }
@@ -283,13 +317,13 @@ function drawGame() {
             ctx.fillRect(x * anchoCasilla, y * altoCasilla, anchoCasilla, altoCasilla);
         }
     }
-
     agregarNumerosCasilla();
     dibujarJugador();
     dibujarLlegarA();
     habilitarTablaJugador();
     requestAnimationFrame(drawGame);
 }
+
 function controlarTiempo() {
     let temporizador = setInterval(function () {
         tiempoVoltear--;
@@ -297,13 +331,14 @@ function controlarTiempo() {
             document.getElementById("progreso").style.width = tiempoVoltear - 2 + "%";
         } else {
             clearTimeout(temporizador);
-            if(respuestaVoltearATiempo == 0){
+            if (respuestaVoltearATiempo == 0) {
                 if (turnoJugadores[0] == idSocketActual) {
-                    console.log("Realice el emit del tiempo terminado");
                     socket.emit('tiempoTerminado', roomActual);
                 }
+            }
+            if (respuestaVoltearATiempo != 1) {
                 tiempoVoltear = 0;
-                desafioIncorrecto();
+                desafioIncorrectoVoltear();
                 voltearTarjeta(2000);
             }
         }
@@ -316,19 +351,19 @@ function dibujarJugador() {
             ctx.fillStyle = jugadores[i].colorP;
             switch (i) {
                 case 0:
-                    per1.src = 'static/imagenes/equipo'+jugadores[i].iconoEquipo+'.svg';
+                    per1.src = 'static/imagenes/equipo' + jugadores[i].iconoEquipo + '.svg';
                     ctx.drawImage(per1, jugadores[i].position[0], jugadores[i].position[1], (jugadores[i].dimensions[0] / 2), (jugadores[i].dimensions[1] / 2));
                     break;
                 case 1:
-                    per2.src = 'static/imagenes/equipo'+jugadores[i].iconoEquipo+'.svg';
+                    per2.src = 'static/imagenes/equipo' + jugadores[i].iconoEquipo + '.svg';
                     ctx.drawImage(per2, jugadores[i].position[0] + jugadores[i].dimensions[1] / 2, jugadores[i].position[1], jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[1] / 2);
                     break;
                 case 2:
-                    per3.src = 'static/imagenes/equipo'+jugadores[i].iconoEquipo+'.svg';
+                    per3.src = 'static/imagenes/equipo' + jugadores[i].iconoEquipo + '.svg';
                     ctx.drawImage(per3, jugadores[i].position[0], jugadores[i].position[1] + jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[1] / 2);
                     break;
                 case 3:
-                    per4.src = 'static/imagenes/equipo'+jugadores[i].iconoEquipo+'.svg';
+                    per4.src = 'static/imagenes/equipo' + jugadores[i].iconoEquipo + '.svg';
                     ctx.drawImage(per4, jugadores[i].position[0] + jugadores[i].dimensions[0] / 2, jugadores[i].position[1] + jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[0] / 2, jugadores[i].dimensions[1] / 2);
                     break;
                 default:
@@ -408,11 +443,10 @@ function lanzarDado() {
         dado1 = 1;
         dado2 = 1;
     } else {
-        if(misterio == 2)
-        {
-            extras = Math.floor(Math.random()*3+1);
+        if (misterio == 2) {
+            extras = Math.floor(Math.random() * 3 + 1);
             movimientoExtra();
-            document.getElementById("casillasExtras").innerText = ""+extras+"";
+            document.getElementById("casillasExtras").innerText = "" + extras + "";
         }
         dadoRandomico();
     }
@@ -427,7 +461,7 @@ function lanzarDado() {
 function dadoRandomico() {
     dado1 = Math.floor(Math.random() * 6 + 1);
     dado2 = Math.floor(Math.random() * 6 + 1);
-    if (dado1 == dadoAnterior1 || dado2 == dadoAnterior2) {
+   if (dado1 == dadoAnterior1 || dado2 == dadoAnterior2) {
         dadoRandomico();
     }
 }
@@ -541,6 +575,7 @@ function cambiarImagen(num) {
 }
 
 function mostrarDesafio(colorCa, idSocket) {
+    respuestaVoltearATiempo = -1;
     document.getElementById('tipoJuego').innerText = "VOLTÉAME";
     switch (colorCa) {
         case 0:
@@ -548,6 +583,7 @@ function mostrarDesafio(colorCa, idSocket) {
             document.getElementById('desafios').style.backgroundColor = "rgba(242, 245, 169, 0.3)";
             if (idSocket == idSocketActual) {
                 socket.emit('solicitarPreguntaVoltear', roomActual);
+                respuestaVoltearATiempo = 0;
             }
             document.getElementById("tipoJuego").innerHTML = "Voltear";
             document.getElementById("desafios").removeAttribute("hidden");
@@ -558,7 +594,6 @@ function mostrarDesafio(colorCa, idSocket) {
             document.getElementById("ultimoNombre").innerHTML = "";
             document.getElementById("unir").setAttribute("hidden", "");
             document.getElementById("opcionMultiple").setAttribute("hidden", "");
-            respuestaVoltearATiempo = 0;
             break;
         case 1:
             document.getElementById('tarjeta').style.backgroundColor = "rgba(255, 185, 240, 0.3)";
@@ -567,7 +602,7 @@ function mostrarDesafio(colorCa, idSocket) {
             if (idSocket == idSocketActual) {
                 socket.emit('solicitarPreguntaUnir', roomActual);
             }
-            document.getElementById("tipoJuego").innerHTML = "Unir";
+            document.getElementById("tipoJuego").innerHTML = "Emparejar";
             document.getElementById("desafios").removeAttribute("hidden");
             document.getElementById("unir").removeAttribute("hidden");
             document.getElementById("memory_boardMulti").setAttribute("hidden", "");
@@ -612,11 +647,9 @@ function memoryFlipTile(tile, val) {
         tile.src = val;
         tile.alt = val;
         if (memory_values.length == 0) {
-
             memory_values.push(val);
             memory_tile_ids.push(tile.id);
         } else if (memory_values.length == 1) {
-
             memory_values.push(val);
             memory_tile_ids.push(tile.id);
             if (memory_values[0] == memory_values[1]) {
@@ -630,9 +663,8 @@ function memoryFlipTile(tile, val) {
                 memory_tile_ids = [];
                 // Check to see if the whole board is cleared
                 if (tiles_flipped == memory_array.length) {
-                    // alert("Board cleared... generating new board");
-                    respuestaVoltearATiempo = 1;
                     tiempoVoltear = 0;
+                    respuestaVoltearATiempo = 1;
                     desafioCorrecto();
                     voltearTarjeta(2000);
                 }
@@ -653,7 +685,6 @@ function memoryFlipTile(tile, val) {
                     memory_values = [];
                     memory_tile_ids = [];
                 }
-
                 setTimeout(flip2Back, 700);
             }
         }
@@ -661,11 +692,9 @@ function memoryFlipTile(tile, val) {
 }
 
 function cargarPreguntaOpcionMultiple(indicePregunta) {
-
     if (idSocketActual != turnoJugadores[0]) {
         document.getElementById("opcionMultiple").classList.add("disabledbutton")
-    }
-    else {
+    } else {
         if (document.getElementById("opcionMultiple").classList.contains("disabledbutton")) {
             document.getElementById("opcionMultiple").classList.remove("disabledbutton")
         }
@@ -717,9 +746,7 @@ function cargarPreguntaOpcionMultiple(indicePregunta) {
             images.setAttribute("width", "50");
             document.getElementById("res" + (j + 1)).appendChild(images);
         }
-    }
-
-    else {
+    }    else {
         for (let j = 0; j < 4; j++) {
             let texto = "";
             document.getElementById("res" + (j + 1)).setAttribute("value", "res");
@@ -919,7 +946,7 @@ function verificarRespuestaUnir() {
     }
     for (let c = 0; c < respuestaCorrectaUnir.length - 1; c = c + 2) {
         for (let d = 1; d < 5; d++) {
-            if (respuestaCorrectaUnir[c + 1] == document.getElementById("textoAUnir" +d).textContent) {
+            if (respuestaCorrectaUnir[c + 1] == document.getElementById("textoAUnir" + d).textContent) {
                 document.getElementById("textoAUnir" + (d)).style.background = document.getElementById(respuestaCorrectaUnir[c]).style.background;
                 d = 5;
             }
@@ -929,8 +956,7 @@ function verificarRespuestaUnir() {
     mostrarRespuestaCorrectaUnir();
     if (contadorRespuestas == 4) {
         desafioCorrecto();
-    }
-    else {
+    } else {
         desafioIncorrecto();
     }
     if (document.getElementById("botonLanzar")) {
@@ -954,6 +980,13 @@ function desafioIncorrecto() {
 
 }
 
+function desafioIncorrectoVoltear() {
+    mostrarMensaje("snackbarIn");
+    console.log("El desafío es incorrecto en el tiempo");
+    respuestaCorrecta = false;
+    document.getElementById('sonidoError').play();
+}
+
 function desafioCorrecto() {
     mostrarMensaje("snackbar");
     document.getElementById('sonidoCorrecto').play();
@@ -968,8 +1001,8 @@ function misterioPositivo() {
 function misterioNegativo() {
     mostrarMensaje("snackbarNegativo");
     document.getElementById('sonidoError').play();
-
 }
+
 function movimientoExtra() {
     mostrarMensaje("snackbarExtras");
     document.getElementById('sonidoCorrecto').play();
@@ -1002,7 +1035,7 @@ function darLaVuelta() {
     if (turnoJugadores[0] == idSocketActual) {
         socket.emit('darLaVuelta', roomActual);
     }
-    if(respuestaVoltearATiempo == 0){
+    if(desafio == 0) {
         tiempoVoltear = 100;
         controlarTiempo();
     }
@@ -1020,10 +1053,193 @@ function voltearTarjeta(t) {
         }
         , t);
 }
+
 function finalizarPartida() {
     let r = confirm("¿Está seguro de finalizar la partida?");
     if (r == true) {
         socket.emit('partidaCancelada', roomActual);
         document.getElementById('linkCancelarPartida').click();
     }
+}
+
+Character.prototype.placeAt = function (x, y) {
+    this.tileFrom = [x, y];
+    this.tileTo = [x, y];
+    this.position = [((anchoCasilla * x) + ((anchoCasilla - this.dimensions[0]) / 2)), ((altoCasilla * y) + ((altoCasilla - this.dimensions[1]) / 2))];
+};
+
+Character.prototype.processMovement = function (t) {
+    if (this.tileFrom[0] == this.tileTo[0] && this.tileFrom[1] == this.tileTo[1]) {
+        return false;
+    }
+    if (this.casilla == 34) {
+        numCasillasMoverse = 0;
+        console.log("Enviar aviso que ya se termino, pero solo manda el emit cuando el cliente que llego corresponde al id socket actual");
+        if(turnoJugadores[0] == idSocketActual){
+            socket.emit('movimientoFinalizado', roomActual, this);
+        }
+        /*if (partidas[indicePartidaActual].lugaresJugadores.indexOf(this.idSocket) == -1) {
+        }*/
+        //Verificar en el servidor, si al retirar el jugador que llego a la 34 los turno jugadores es menor < 2 para finalizar la partida.
+    }
+    if ((t - this.timeMoved) >= this.delayMove) {
+        this.placeAt(this.tileTo[0], this.tileTo[1]);
+        if (numCasillasMoverse > 0) {
+            if (this.canMoveDirection(this.direction)) {
+                this.moveDirection(this.direction, t);
+            }
+            else {
+                this.nuevaDireccion();
+                this.moveDirection(this.direction, t);
+            }
+            numCasillasMoverse = numCasillasMoverse - 1;
+            if (this.casilla < this.moverseA) {
+                this.casilla += 1;
+            }
+            if (turnoJugadores[0] == idSocketActual && numCasillasMoverse == 0) {
+                console.log("Se manda emit");
+                socket.emit('movimientoFinalizado', roomActual, this);
+                if(this.casilla == 7 || this.casilla == 13 || this.casilla == 21 || this.casilla == 27){
+                    socket.emit('solicitarMisterio', roomActual, this);
+                }
+            }
+        }
+        else {
+            numCasillasMoverse = 0;
+            console.log("Se manda emit www");
+            if (turnoJugadores[0] == idSocketActual) {
+                socket.emit('movimientoFinalizado', roomActual, this);
+                if(this.casilla == 7 || this.casilla == 13 || this.casilla == 21 || this.casilla == 27){
+                    socket.emit('solicitarMisterio', roomActual, this);
+                }
+            }
+            //Avisar al servidor que ya se ha finalizado el movimiento de jugador localmente
+            //En el caso de llegar a las casillas 7, 13, 21 y 27 solicitar el misterio asignado
+            // En caso de que la casilla en la que se esta el servidor deberá enviarle al final  de la lista de turno jugadores
+
+        }
+    }
+    else {
+        this.position[0] = (this.tileFrom[0] * anchoCasilla) + ((anchoCasilla - this.dimensions[0]) / 2);
+        this.position[1] = (this.tileFrom[1] * altoCasilla) + ((altoCasilla - this.dimensions[1]) / 2);
+
+        if (this.tileTo[0] != this.tileFrom[0]) {
+            var diff = (anchoCasilla / this.delayMove) * (t - this.timeMoved);
+            this.position[0] += (this.tileTo[0] < this.tileFrom[0] ? 0 - diff : diff);
+        }
+        if (this.tileTo[1] != this.tileFrom[1]) {
+            var diff = (altoCasilla / this.delayMove) * (t - this.timeMoved);
+            this.position[1] += (this.tileTo[1] < this.tileFrom[1] ? 0 - diff : diff);
+        }
+
+        this.position[0] = Math.round(this.position[0]);
+        this.position[1] = Math.round(this.position[1]);
+    }
+    return true;
+};
+
+Character.prototype.canMoveTo = function (x, y) {
+    if (x < 0 || x >= columnas || y < 0 || y >= filas) {
+        return false;
+    }
+    else {
+        if ([gameMap[toIndex(x, y)]] == -1) {
+            return false;
+        }
+        else {
+            return [gameMap[((y * columnas) + x)]] > this.casilla;
+        }
+    }
+};
+
+Character.prototype.canMoveUp = function () {
+    return this.canMoveTo(this.tileFrom[0], this.tileFrom[1] - 1);
+};
+
+Character.prototype.canMoveDown = function () {
+    return this.canMoveTo(this.tileFrom[0], this.tileFrom[1] + 1);
+};
+
+Character.prototype.canMoveLeft = function () {
+    return this.canMoveTo(this.tileFrom[0] - 1, this.tileFrom[1]);
+};
+
+Character.prototype.canMoveRight = function () {
+    return this.canMoveTo(this.tileFrom[0] + 1, this.tileFrom[1]);
+};
+
+Character.prototype.canMoveDirection = function (d) {
+    switch (d) {
+        case directions.up:
+            return this.canMoveUp();
+        case directions.down:
+            return this.canMoveDown();
+        case directions.left:
+            return this.canMoveLeft();
+        default:
+            return this.canMoveRight();
+    }
+};
+
+Character.prototype.nuevaDireccion = function () {
+    if (this.canMoveRight()) {
+        this.direction = directions.right
+    }
+    else {
+        if (this.canMoveLeft()) {
+            this.direction = directions.left
+        }
+        else {
+            if (this.canMoveDown()) {
+                this.direction = directions.down
+            }
+            else {
+                if (this.canMoveUp()) {
+                    this.direction = directions.up
+                }
+            }
+        }
+    }
+};
+
+Character.prototype.moveLeft = function (t) {
+    this.tileTo[0] -= 1;
+    this.timeMoved = t;
+    this.direction = 3;
+
+};
+
+Character.prototype.moveRight = function (t) {
+    this.tileTo[0] += 1;
+    this.timeMoved = t;
+    this.direction = 1;
+};
+
+Character.prototype.moveUp = function (t) {
+    this.tileTo[1] -= 1;
+    this.timeMoved = t;
+    this.direction = 0;
+};
+
+Character.prototype.moveDown = function (t) {
+    this.tileTo[1] += 1;
+    this.timeMoved = t;
+    this.direction = 2;
+};
+
+Character.prototype.moveDirection = function (d, t) {
+    switch (d) {
+        case directions.up:
+            return this.moveUp(t);
+        case directions.down:
+            return this.moveDown(t);
+        case directions.left:
+            return this.moveLeft(t);
+        default:
+            return this.moveRight(t);
+    }
+};
+
+function toIndex(x, y) {
+    return ((y * columnas) + x);
 }

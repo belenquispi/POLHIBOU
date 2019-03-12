@@ -63,9 +63,13 @@
             </div>
             <div class="col-lg-10">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-8">
                         <h4 class="textoBlanco">MIS INTENTOS DE LA TEMÁTICA <%=tematica%></h4>
                         <h5 class="textoBlanco">Facilitador: <%=facilitador%></h5>
+                    </div>
+                    <div class="col-md-4 text-right">
+                        <a href="/intentos" id="botonRegresar"
+                           class="btn btn-primary degradoBoton"><i class="fas fa-undo-alt"></i> Regresar</a>
                     </div>
                 </div>
                 <% for(let i = 0; i < intentos.length; i++ ) { %>
