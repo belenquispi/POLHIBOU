@@ -1,8 +1,7 @@
-var socket = io();
-//var socket = io.connect ('http://polhibou.epn.edu.ec/');
+//var socket = io();
+var socket = io.connect ('https://polhibou.epn.edu.ec/');
 var disponible = false;
 socket.on('confirmacionPartida', function (data, indicePartida) {
-    console.log("Recibi la confirmación");
     if (indicePartida > -1) {
         if (document.getElementById("codigoPartida").value != "") {
             document.getElementById("divTipoEquipo").removeAttribute("hidden");
@@ -41,7 +40,6 @@ socket.on('confirmacionEquipo', function (data) {
 
 
 function verificarPartida() {
-    console.log("Realice el emit");
     socket.emit('verificarPartida', document.getElementById("codigoPartida").value);
 }
 
@@ -53,7 +51,6 @@ function habilitarNombreEquipo() {
         document.getElementById("divNombreEquipo").removeAttribute("hidden");
     } else {
         document.getElementById("divNombreEquipo").setAttribute("hidden", "");
-                   console.log("se ha seleccionado espectador");
     }
 }
 
@@ -67,7 +64,6 @@ function verificarParticipanteSeleccionado() {
     if (((document.getElementById("nombreEquipo").value == "ninguno") || (document.getElementById("nombreEquipo").value == "") )&&(document.getElementById("tipoIngreso").value == "participante")) {
         alert("Debe seleccionar un nombre de equipo o ingresar como espectador");
     } else {
-        console.log("Contenido: " + document.getElementById("nombreEquipo").value);
         document.getElementById("botonUnir").click();
     }
 }

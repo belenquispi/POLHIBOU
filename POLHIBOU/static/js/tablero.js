@@ -13,8 +13,8 @@ var filas, columnas, anchoCasilla, altoCasilla;
 var gameMap = [];
 var colorMap = [];
 var patterColor1, patterColor2, patterColor3, patterInicio, patterIncierto, patterFin;
-var socket = io();
-//var socket = io.connect ('http://polhibou.epn.edu.ec/');
+//var socket = io();
+var socket = io.connect ('https://polhibou.epn.edu.ec/');
 var jugadores = [];
 var turnoJugadores = [];
 var respuestaCorrecta = false;
@@ -66,7 +66,6 @@ function obtenerDatosQuienSeConecto() {
     roomActual = document.getElementById("idPartida").value;
     rol = document.getElementById("rol").value;
     nombreEquipo = document.getElementById("nombreEquipo").value;
-    console.log("eeee   " + roomActual, rol, nombreEquipo);
 }
 
 window.onload = function () {
@@ -99,7 +98,6 @@ socket.on('tuID', function () {
 });
 
 socket.on('partida', function (data) {
-    console.log("se ingreso en el emit de la partida");
     filas = data.filas;
     columnas = data.colum;
     anchoCasilla = data.anchoCas;
@@ -246,14 +244,9 @@ function drawGame() {
     if (ctx == null) {
         return;
     }
-    // if (numCasillasMoverse > 0 && (turnoJugadores[0] == idSocketActual) && respuestaCorrecta == true) {
     if (numCasillasMoverse > 0 && respuestaCorrecta == true) {
-        // socket.emit('moverJugador', roomActual);
         var gameTime = Date.now();
         var indiceJugadorConTurno = indiceDelJugadorConTurno();
-        console.log("Me voy a mover");
-        console.log(indiceJugadorConTurno);
-        console.log(jugadores[indiceJugadorConTurno]);
         if (!jugadores[indiceJugadorConTurno].processMovement(gameTime)) {
             if (jugadores[indiceJugadorConTurno].casilla < 34) {
                 if (jugadores[indiceJugadorConTurno].canMoveUp()) {
@@ -269,9 +262,6 @@ function drawGame() {
                     jugadores[indiceJugadorConTurno].moveRight(gameTime);
                 }
             }
-            else {
-                //   io.sockets.in(room).emit('partida', partidas[indicePartida]);
-            }
         }
     } else {
         respuestaCorrecta = false;
@@ -280,10 +270,6 @@ function drawGame() {
             return value.idSocket
         }).indexOf(idSocketActual)].boton == 0)) {
             desbloquearBoton();
-            /* numCasillasMoverse = -1;
-              jugadores[jugadores.map(function (value) {
-                    return value.idSocket
-                }).indexOf((idSocketActual))].boton = 1;*/
         }
         mostrarJugadorActual();
     }
@@ -347,7 +333,6 @@ function controlarTiempo() {
             clearTimeout(temporizador);
             if (respuestaVoltearATiempo == 0) {
                 if (turnoJugadores[0] == idSocketActual) {
-                    console.log("Realice el emit del tiempo terminado");
                     socket.emit('tiempoTerminado', roomActual);
                 }
             }
@@ -476,7 +461,7 @@ function lanzarDado() {
 function dadoRandomico() {
     dado1 = Math.floor(Math.random() * 6 + 1);
     dado2 = Math.floor(Math.random() * 6 + 1);
-    if (dado1 == dadoAnterior1 || dado2 == dadoAnterior2) {
+   if (dado1 == dadoAnterior1 || dado2 == dadoAnterior2) {
         dadoRandomico();
     }
 }
@@ -1114,6 +1099,9 @@ Character.prototype.processMovement = function (t) {
             if (turnoJugadores[0] == idSocketActual && numCasillasMoverse == 0) {
                 console.log("Se manda emit");
                 socket.emit('movimientoFinalizado', roomActual, this);
+                if(this.casilla == 7 || this.casilla == 13 || this.casilla == 21 || this.casilla == 27){
+                    socket.emit('solicitarMisterio', roomActual, this);
+                }
             }
         }
         else {

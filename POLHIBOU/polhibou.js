@@ -638,9 +638,16 @@ io.on('connection', (socket) => {
         }
     });
     socket.on('solicitarMisterio', function (room, jugador) {
+        var indicePartidaActual = consultarIdPartida(room);
+        var indiceJugadorActual = consultarIdJugador(indicePartidaActual, jugador.nombreEquipo);
+        console.log("indicePartidaActual ---- ");
+        console.log(indicePartidaActual);
+        console.log("indiceJugadorActual ---- ");
+        console.log(indiceJugadorActual);
+        console.log("jugador ---- ");
+        console.log(jugador);
         let misterioAsignado = Math.floor(Math.random() * 2);
         if (misterioAsignado == 1) {
-            let casillasExtras = (Math.floor(Math.random() * 4)+1);
             io.sockets.in(room).emit('mensajeMisterio', 1);
             partidas[indicePartidaActual].jugadores[indiceJugadorActual].maldicion = 2;
         } else {
