@@ -1095,28 +1095,28 @@ exports.post_resultados_emparejar = function (req, res) {
         let respuestas = req.body.respuestas.split(",");
         Estudiante.findOne({
             usuario: req.session.usuario
-        }, function (error, doc) {
-            let indiceIntento = doc.intentos.map(function (e) {
+        }, function (error, estudiante) {
+            let indiceIntento = estudiante.intentos.map(function (e) {
                 return e.idIntento
             }).indexOf(req.body.idIntento);
 
-            for (let i = 0; i < (preguntasEmparejar.length); i++) {
-                let indice = respuestas.indexOf(preguntasEmparejar[i].idPregunta);
+            for (let i = 0; i < ( estudiante.intentos[indiceIntento].preguntas.length); i++) {
+                let indice = respuestas.indexOf(estudiante.intentos[indiceIntento].preguntas[i].idPregunta);
                 if (indice > -1) {
-                    doc.intentos[indiceIntento].preguntas[i].respuestaSeleccionada = respuestas[indice + 1];
-                    if (preguntasEmparejar[i].texto == respuestas[indice + 1]) {
-                        doc.intentos[indiceIntento].preguntas[i].correctoIncorrecto = 1;
+                    estudiante.intentos[indiceIntento].preguntas[i].respuestaSeleccionada = respuestas[indice + 1];
+                    if (estudiante.intentos[indiceIntento].preguntas[i].texto == respuestas[indice + 1]) {
+                        estudiante.intentos[indiceIntento].preguntas[i].correctoIncorrecto = 1;
                         puntajes.push(1);
                         puntaje++;
                     }
                     else {
-                        doc.intentos[indiceIntento].preguntas[i].correctoIncorrecto = 0;
+                        estudiante.intentos[indiceIntento].preguntas[i].correctoIncorrecto = 0;
                         puntajes.push(0);
                     }
                 }
             }
-            doc.intentos[indiceIntento].puntaje = puntaje;
-            doc.save(function (err, docActualizado) {
+            estudiante.intentos[indiceIntento].puntaje = puntaje;
+            estudiante.save(function (err, estudianteActualizado) {
                 res.render('paginas/participante/resultadosEmparejar', {
                     respuestas: respuestas,
                     nombre: req.session.nombre,
