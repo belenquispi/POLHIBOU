@@ -1,5 +1,4 @@
-function cambiarIcono()
-{
+function cambiarIcono() {
     if(document.getElementById("tipo").value == "privada")
     {
         document.getElementById("iconoTipo").classList.remove("fa-unlock");
@@ -13,8 +12,7 @@ function cambiarIcono()
     }
 }
 
-function eliminarMateria(materia)
-{
+function eliminarMateria(materia) {
    let r = confirm("Si elimina la temática, se borrarán todas las preguntas, imágenes y estadísticas. ¿Está seguro?");
     if (r == true) {
         document.getElementById("botonEliminar"+materia).click();
@@ -33,12 +31,14 @@ function verificarMateria() {
         }
     }
 }
+
 function verificarIngreso(valor) {
     if (document.getElementById(valor.id).value.trim().length < 1) {
         alert("El nombre de la temática está en blanco");
         document.getElementById(valor.id).value = "";
     }
 }
+
 function verificarTamanio(valor) {
     if (document.getElementById(valor.id).value.trim().length < 3) {
         alert("El nombre de la temática debe tener al menos 3 caracteres");
