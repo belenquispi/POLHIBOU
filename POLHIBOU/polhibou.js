@@ -54,6 +54,7 @@ function partida(nombrePartida) {
         this.filas = filas,
         this.colorM = seleccionarColor(this.filas, this.colum, this.gameM),
         this.turnoJugadores = [],
+        this.idJugadorVoltear = 0,
         this.lugaresJugadores = []
 }
 
@@ -115,7 +116,6 @@ app.route('/tablero')
     .get(routes.error)
     .post(routes.post_tablero)
     .put(routes.error);
-//app.get('/ingresoFacilitador/preguntasOpcionMultiple/:materia/ingresoOpcionMultiple/:materia', routes.get_opcion_multiple);
 app.route('/preguntasOpcionMultiple/ingresoOpcionMultiple/:materia')
     .get(routes.get_opcion_multiple)
     .post(routes.error)
@@ -283,8 +283,7 @@ io.on('connection', (socket) => {
                 insertarDatosJugador(partidas.length - 1, informacionJugadores[j].iconoEquipo, informacionJugadores[j].nombreEquipo);
                 descargarPreguntas(partidas.length - 1, usuario, idMateria);
             }
-        }
-        else {
+        } else {
             console.log("La partida ya se encuentra creada en el array de partidas");
         }
     });
@@ -384,15 +383,13 @@ io.on('connection', (socket) => {
                                     }
                                 });
                             }
-                        }
-                        else {
+                        }   else {
                             io.sockets.in(room).emit("error", "El equipo: " + nombreEquipo + " ya se ha conectado");
                             socket.join(room);
                             io.sockets.in(room).emit("nombreRol", "Espectador");
                             mandarDatosActuales(room);
                         }
-                    }
-                    else {
+                    }   else {
                         console.log("El nombre de equipo ingresado no es válido" + nombreEquipo);
                     }
                     break;
@@ -403,8 +400,7 @@ io.on('connection', (socket) => {
                     mandarDatosActuales(room);
                     break;
             }
-        }
-        else {
+        }   else {
             console.log("El código de partida ingresada no es válido" + room);
         }
     });
@@ -419,8 +415,7 @@ io.on('connection', (socket) => {
             } else {
                 if (rol == "facilitador") {
                     socket.join(room);
-                }
-                else {
+                }   else {
                     if (rol == "participante") {
                         socket.join(room);
                         var nombreEquipo = nombreEquipoJugar.replace("+", " ");
@@ -429,12 +424,10 @@ io.on('connection', (socket) => {
                         }).indexOf(nombreEquipo);
                         if (idJugador >= 0) {
                             partidas[indicePartida].jugadores[idJugador].listo = 1;
-                        }
-                        else {
+                        }   else {
                             io.sockets.in(room).emit("error", "El equipo: " + nombreEquipo + " ya se ha conectado");
                         }
-                    }
-                    else {
+                    }   else {
                         console.log("El nombre de equipo ingresado no es válido" + nombreEquipoJugar);
                     }
                 }
@@ -475,8 +468,7 @@ io.on('connection', (socket) => {
             Partida.findOne({idPartida: partidas[idPartida].nombrePartida}, function (error, doc) {
                 if (error) {
                     console.log("Error en la busqueda de la partida en la BDD: " + error);
-                }
-                else {
+                } else {
                     if (doc == null) {
                         let partida = new Partida({
                             idPartida: partidas[idPartida].nombrePartida,
@@ -508,8 +500,15 @@ io.on('connection', (socket) => {
 
         var numDesafioMostrarse = mostrarDesafio(partidas[idPartida].jugadores[idJugador], numCasillasMoverse, partidas[idPartida].colorM);
 
-        if (numDesafioMostrarse == -1) {
-            numDesafioMostrarse = Math.floor(Math.random() * 3);
+        switch (numDesafioMostrarse) {
+            case -1:
+                numDesafioMostrarse = Math.floor(Math.random() * 3);
+                break;
+            case 0:
+                partidas[idPartida].idJugadorVoltear = socket.id;
+                break;
+            default:
+                break;
         }
         io.sockets.in(room).emit('dados', dado1, dado2, dadoAnterior1, dadoAnterior2, numDesafioMostrarse, socket.id);
         mandarDatosActuales(room);
@@ -598,13 +597,15 @@ io.on('connection', (socket) => {
         }
     });
     socket.on('tiempoTerminado', function (room) {
-        //console.log(Object.keys(socket.adapter.nsp.connected).length);
         let idPartida = consultarIdPartida(room);
-        let idJugador = consultarIdJugadorSocket(idPartida, socket.id);
-        partidas[idPartida].jugadores[idJugador].numCasillasMoverseP = 0;
-        partidas[idPartida].jugadores[idJugador].moverseA = partidas[idPartida].jugadores[idJugador].casilla;
-        let i = partidas[idPartida].turnoJugadores.shift();
-        partidas[idPartida].turnoJugadores.push(i);
+        if (partidas[idPartida].idJugadorVoltear == socket.id) {
+            let idJugador = consultarIdJugadorSocket(idPartida, socket.id);
+            partidas[idPartida].jugadores[idJugador].numCasillasMoverseP = 0;
+            partidas[idPartida].jugadores[idJugador].moverseA = partidas[idPartida].jugadores[idJugador].casilla;
+            let i = partidas[idPartida].turnoJugadores.shift();
+            partidas[idPartida].turnoJugadores.push(i);
+            partidas[idPartida].idJugadorVoltear = 0;
+        }
         mandarDatosActuales(room);
         actualizarOrdenPartidas(room);
     });
@@ -737,9 +738,7 @@ io.on('connection', (socket) => {
         mandarDatosActuales(room);
         actualizarOrdenPartidas(room);
     });
-   /* socket.on('tiempoTerminado', function (room) {
-        io.sockets.in(room).emit('avisoTiempoTerminado', socket.id);
-    });*/
+
     socket.on('darLaVuelta', function (room) {
         let idPartida = consultarIdPartida(room);
         io.sockets.in(partidas[idPartida].nombrePartida).emit('enviandoDarLaVuelta', socket.id);
@@ -756,13 +755,6 @@ io.on('connection', (socket) => {
         });
     });
 });
-
-
-/*setInterval(function () {
-    for (let i = 0; i < partidas.length; i++) {
-        io.sockets.in(partidas[i].nombrePartida).emit('partida', partidas[i]);
-    }
-}, 1000 / 30);*/
 
 function mandarDatosActuales(room) {
     console.log("Se manda datos actuales");
@@ -1098,7 +1090,7 @@ function mostrarDesafio(jugadorAct, numCasillasMoverse, colorM) {
     for (let x = 0; x < filas; ++x) {
         for (let y = 0; y < columnas; ++y) {
             if ((gameMap[((x * columnas) + y)]) == (jugadorAct.casilla + numCasillasMoverse)) {
-                colorCa = colorM[((x * columnas) + y)]
+                colorCa = colorM[((x * columnas) + y)];
                 break;
             }
         }

@@ -1,6 +1,7 @@
-//var socket = io();
-var socket = io.connect ('https://polhibou.epn.edu.ec/');
+var socket = io();
+//var socket = io.connect ('https://polhibou.epn.edu.ec/');
 var jugadoresConectados = [];
+
 window.onload = function () {
     let jugadores = document.getElementById("numeroEquipos").value;
     let informacionJugadores = [];
@@ -19,6 +20,7 @@ socket.on('ingresoJugadores', function (data) {
     console.log("hola jugadores: " + jugadoresConectados);
     actualizacion();
 });
+
 function actualizacion() {
     document.getElementById("jugadoresConectados").innerText="";
     for(var i = 0 ; i < jugadoresConectados.length; i++){
@@ -57,6 +59,7 @@ function actualizacion() {
         document.getElementById("unirPartida").setAttribute("disabled","");
     }
 }
+
 function empezarPartida() {
     socket.emit("iniciarPartida", document.getElementById('idPartida').value);
     document.getElementById('botonIniciar').click();

@@ -1,5 +1,5 @@
-//var socket = io();
-var socket = io.connect ('https://polhibou.epn.edu.ec/');
+var socket = io();
+//var socket = io.connect ('https://polhibou.epn.edu.ec/');
 var jugadoresConectados = [];
 
 window.onload = function () {
@@ -18,6 +18,7 @@ socket.on('ingresoJugadores', function (data) {
 socket.on('unirPartida', function () {
     document.getElementById('botonUnirPartida').click();
 });
+
 function actualizacion() {
     document.getElementById("jugadoresConectados").innerText="";
     for(var i = 0 ; i < jugadoresConectados.length; i++){

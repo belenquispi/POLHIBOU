@@ -1,5 +1,5 @@
-//var socket = io();
-var socket = io.connect ('https://polhibou.epn.edu.ec/');
+var socket = io();
+//var socket = io.connect ('https://polhibou.epn.edu.ec/');
 var jugadoresConectados = [];
 
 window.onload = function () {
@@ -25,9 +25,10 @@ if(data){
 socket.on('unirPartida', function () {
     document.getElementById('botonUnirPartida').click();
 });
+
 function actualizacion() {
     document.getElementById("jugadoresConectados").innerText="";
-    for(var i = 0 ; i < jugadoresConectados.length; i++){
+    for(let i = 0 ; i < jugadoresConectados.length; i++){
         var div0 = document.createElement("DIV");
         div0.setAttribute("id", "cardI"+(i+1));
         div0.setAttribute("class", "col-sm-3");

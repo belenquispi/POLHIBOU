@@ -88,10 +88,12 @@ function encodeImageFileAsURL(element) {
         }
     }
 }
+
 function cambiar(){
     var pdrs = document.getElementById('file-upload').files[0].name;
     document.getElementById('info').innerHTML = pdrs;
 }
+
 function eliminarImagenCargada() {
     let input = document.getElementById("botonArchivoEnunciado");
     let  imagen = document.getElementById("imagenCargadaEnunciado");
@@ -126,12 +128,14 @@ function eliminarImagenCargada() {
     document.getElementById("eliminarImagen").setAttribute("hidden","");
     document.getElementById("imagenEnunciado").value = "";
 }
+
 function verificarIngreso(valor) {
     if (document.getElementById(valor.id).value.trim().length < 1) {
         alert("El texto ingresado está en blanco");
         document.getElementById(valor.id).value = "";
     }
 }
+
 function validarImagen(event, imagen, elemento) {
     let fileSize = event.target.files[0].size;
     if (parseInt(fileSize) >  1048576) {

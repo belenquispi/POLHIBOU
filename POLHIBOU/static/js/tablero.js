@@ -13,8 +13,8 @@ var filas, columnas, anchoCasilla, altoCasilla;
 var gameMap = [];
 var colorMap = [];
 var patterColor1, patterColor2, patterColor3, patterInicio, patterIncierto, patterFin;
-//var socket = io();
-var socket = io.connect ('https://polhibou.epn.edu.ec/');
+var socket = io();
+//var socket = io.connect('https://polhibou.epn.edu.ec/');
 var jugadores = [];
 var turnoJugadores = [];
 var respuestaCorrecta = false;
@@ -114,8 +114,7 @@ socket.on('partida', function (data) {
     if(indiceDelJugadorConTurno()>-1) {
         numCasillasMoverse = jugadores[indiceDelJugadorConTurno()].numeroCasillas;
     }
-})
-;
+});
 
 socket.on('mensajeMisterio', function (num) {
     if (num == 1) {
@@ -205,12 +204,14 @@ socket.on('enviandoDarLaVuelta', function (idSocketN) {
         darLaVuelta();
     }
 });
+
 socket.on('avisoTiempoTerminado', function (idSocketN) {
     if (idSocketN != idSocketActual) {
         console.log("Recibi el emit del tiempo terminado");
         tiempoVoltear = 0;
     }
 });
+
 socket.on('partidaFinalizada', function () {
     document.getElementById("botonFinalizacion").removeAttribute("disabled");
     document.getElementById("botonFinalizacion").click();
@@ -1242,4 +1243,4 @@ Character.prototype.moveDirection = function (d, t) {
 
 function toIndex(x, y) {
     return ((y * columnas) + x);
-}
+};

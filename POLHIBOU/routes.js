@@ -22,7 +22,6 @@ exports.get_inicio_sesion = function (req, res) {
     res.render('paginas/inicioSesion', {usuario: usuario, tipo: 0});
 };
 
-
 exports.post_inicio_sesion = function (req, res) {
     if (req.body.usuario == 'administrador') {
         req.body.usuario = 'polhibou@gmail.com';
@@ -812,21 +811,21 @@ exports.post_mostrar_opcion = function (req, res) {
         let indices = [];
         if (contadorPreguntas == 0) {
             preguntas = [];
-            Profesor.findOne({nombre: req.body.facilitador}, function (error, doc) {
+            Profesor.findOne({nombre: req.body.facilitador}, function (error, profesor) {
                 if (error) {
                     console.log("Error: " + error)
                 }
-                let indiceMateria = doc.materias.map(function (e) {
+                let indiceMateria = profesor.materias.map(function (e) {
                     return e.nombre
                 }).indexOf(req.body.materia);
 
                 for (let i = 0; i < 5; i++) {
-                    let indice = Math.floor(Math.random() * doc.materias[indiceMateria].preguntasOpcionMultiple.length);
-                    while (indices.indexOf(indice) >= 0 || doc.materias[indiceMateria].preguntasOpcionMultiple[indice].dificultad != req.body.dificultad) {
-                        indice = Math.floor(Math.random() * doc.materias[indiceMateria].preguntasOpcionMultiple.length);
+                    let indice = Math.floor(Math.random() * profesor.materias[indiceMateria].preguntasOpcionMultiple.length);
+                    while (indices.indexOf(indice) >= 0 || profesor.materias[indiceMateria].preguntasOpcionMultiple[indice].dificultad != req.body.dificultad) {
+                        indice = Math.floor(Math.random() * profesor.materias[indiceMateria].preguntasOpcionMultiple.length);
                     }
                     indices.push(indice);
-                    preguntas.push(doc.materias[indiceMateria].preguntasOpcionMultiple[indice])
+                    preguntas.push(profesor.materias[indiceMateria].preguntasOpcionMultiple[indice])
                 }
                 let intento =
                     {
@@ -847,14 +846,14 @@ exports.post_mostrar_opcion = function (req, res) {
                             imagenEnunciado: preguntas[j].imagenEnunciado,
                             respuestaSeleccionada: "",
                             correctoIncorrecto: '-1'
-                        }
+                        };
                     intento.preguntas.push(pregunta)
                 }
                 Estudiante.findOne({
                         usuario: req.session.usuario
-                    }, function (error, doc) {
-                        doc.intentos.push(intento);
-                        doc.save(function (err, docActualizado) {
+                    }, function (error, estudiante) {
+                        estudiante.intentos.push(intento);
+                        estudiante.save(function (err, estudianteActualizado) {
                             if (err) return console.log(err);
                             res.render('paginas/participante/retosOpcionMultiple', {
                                 nombre: req.session.nombre,
@@ -872,20 +871,20 @@ exports.post_mostrar_opcion = function (req, res) {
             if (contadorPreguntas <= 5) {
                 Estudiante.findOne({
                         usuario: req.session.usuario
-                    }, function (error, doc) {
-                        let indice = doc.intentos.map(function (e) {
+                    }, function (error, estudiante) {
+                        let indice = estudiante.intentos.map(function (e) {
                             return e.idIntento
                         }).indexOf(req.body.idIntento);
-                        doc.intentos[indice].preguntas[contadorPreguntas - 1].correctoIncorrecto = req.body.correctoIncorrecto;
-                        doc.intentos[indice].preguntas[contadorPreguntas - 1].respuestaSeleccionada = req.body.resSeleccionada;
-                        let puntaje = 0;
-                        for (let k = 0; k < 5; k++) {
-                            if (doc.intentos[indice].preguntas[k].correctoIncorrecto == 1) {
-                                puntaje++;
-                            }
+                    estudiante.intentos[indice].preguntas[contadorPreguntas - 1].correctoIncorrecto = req.body.correctoIncorrecto;
+                    estudiante.intentos[indice].preguntas[contadorPreguntas - 1].respuestaSeleccionada = req.body.resSeleccionada;
+                    let puntaje = 0;
+                    for (let k = 0; k < 5; k++) {
+                        if (estudiante.intentos[indice].preguntas[k].correctoIncorrecto == 1) {
+                            puntaje++;
                         }
-                        doc.intentos[indice].puntaje = puntaje;
-                        doc.save(function (err, docActualizado) {
+                    }
+                    estudiante.intentos[indice].puntaje = puntaje;
+                    estudiante.save(function (err, estudianteActualizado) {
                             if (err) return console.log(err);
                             if (contadorPreguntas < 5) {
                                 res.render('paginas/participante/retosOpcionMultiple', {
@@ -898,20 +897,20 @@ exports.post_mostrar_opcion = function (req, res) {
                                 })
                             }
                             else {
-                                Profesor.findOne({nombre: doc.intentos[indice].profesor}, function (errorF, facilitador) {
+                                Profesor.findOne({nombre: estudiante.intentos[indice].profesor}, function (errorF, facilitador) {
                                     if (errorF) {
                                         console.log("error en la consulta de los datos del facilitador de las preguntas")
                                     }
                                     let indiceTematica = facilitador.materias.map(function (e) {
                                         return e.nombre;
-                                    }).indexOf(doc.intentos[indice].materia);
+                                    }).indexOf(estudiante.intentos[indice].materia);
                                     let respuestasCorrectas = [];
                                     let respuestasSeleccionadas = [];
                                     if (indiceTematica > -1) {
-                                        for (let a = 0; a < doc.intentos[indice].preguntas.length; a++) {
+                                        for (let a = 0; a < estudiante.intentos[indice].preguntas.length; a++) {
                                             let indicePregunta = facilitador.materias[indiceTematica].preguntasOpcionMultiple.map(function (e) {
                                                 return e.idPregunta;
-                                            }).indexOf(doc.intentos[indice].preguntas[a].idPregunta);
+                                            }).indexOf(estudiante.intentos[indice].preguntas[a].idPregunta);
                                             let resCorrecta = facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].respuestaCorrecta;
                                             switch (resCorrecta) {
                                                 case "res1":
@@ -951,7 +950,7 @@ exports.post_mostrar_opcion = function (req, res) {
                                                     }
                                                     break;
                                             }
-                                            let resSeleccionada = doc.intentos[indice].preguntas[a].respuestaSeleccionada;
+                                            let resSeleccionada = estudiante.intentos[indice].preguntas[a].respuestaSeleccionada;
                                             switch (resSeleccionada) {
                                                 case "res1":
                                                     if ((facilitador.materias[indiceTematica].preguntasOpcionMultiple[indicePregunta].res1) != undefined) {
@@ -996,9 +995,9 @@ exports.post_mostrar_opcion = function (req, res) {
                                         nombre: req.session.nombre,
                                         materia: req.body.materia,
                                         facilitador: req.body.facilitador,
-                                        preguntas: doc.intentos[indice].preguntas,
+                                        preguntas: estudiante.intentos[indice].preguntas,
                                         puntaje: puntaje,
-                                        facilitador: doc.intentos[indice].profesor,
+                                        facilitador: estudiante.intentos[indice].profesor,
                                         respuestasCorrectas: respuestasCorrectas,
                                         respuestasSeleccionadas: respuestasSeleccionadas
                                     })
@@ -1016,29 +1015,28 @@ exports.post_mostrar_opcion = function (req, res) {
     }
 };
 
-var preguntasEmparejar = [];
 exports.post_mostrar_emparejar = function (req, res) {
     if (req.session.usuario && req.body.materia && (req.session.rol == "participante")) {
-        preguntasEmparejar = [];
-        let indices = [];
-        let textoDesordenado = [];
-        Profesor.findOne({nombre: req.body.facilitador}, function (error, doc) {
+        Profesor.findOne({nombre: req.body.facilitador}, function (error, profesor) {
             if (error) {
                 console.log("Error: " + error)
             }
-            let indiceMateria = doc.materias.map(function (e) {
+            let preguntasEmparejar = [];
+            let indices = [];
+            let indiceMateria = profesor.materias.map(function (e) {
                 return e.nombre
             }).indexOf(req.body.materia);
 
             for (let i = 0; i < 5; i++) {
-                let indice = Math.floor(Math.random() * doc.materias[indiceMateria].preguntasUnirVoltear.length);
-                while (indices.indexOf(indice) >= 0 || doc.materias[indiceMateria].preguntasUnirVoltear[indice].dificultad != req.body.dificultad) {
-                    indice = Math.floor(Math.random() * doc.materias[indiceMateria].preguntasUnirVoltear.length);
+                let indice = Math.floor(Math.random() * profesor.materias[indiceMateria].preguntasUnirVoltear.length);
+                while (indices.indexOf(indice) >= 0 || profesor.materias[indiceMateria].preguntasUnirVoltear[indice].dificultad != req.body.dificultad) {
+                    indice = Math.floor(Math.random() * profesor.materias[indiceMateria].preguntasUnirVoltear.length);
                 }
                 indices.push(indice);
-                preguntasEmparejar.push(doc.materias[indiceMateria].preguntasUnirVoltear[indice])
+                preguntasEmparejar.push(profesor.materias[indiceMateria].preguntasUnirVoltear[indice])
             }
-            textoDesordenado = desordenarTextoUnir(preguntasEmparejar);
+
+            let textoDesordenado = desordenarTextoUnir(preguntasEmparejar);
 
             let intento =
                 {
@@ -1059,14 +1057,14 @@ exports.post_mostrar_emparejar = function (req, res) {
                         imagenEnunciado: preguntasEmparejar[j].imagen,
                         respuestaSeleccionada: "",
                         correctoIncorrecto: '-1'
-                    }
+                    };
                 intento.preguntas.push(pregunta)
             }
             Estudiante.findOne({
                 usuario: req.session.usuario
-            }, function (error, doc) {
-                doc.intentos.push(intento);
-                doc.save(function (err, docActualizado) {
+            }, function (error, estudiante) {
+                estudiante.intentos.push(intento);
+                estudiante.save(function (err, estudianteActualizado) {
                     if (err) return console.log(err);
                     res.render('paginas/participante/retosEmparejar', {
                         nombre: req.session.nombre,
@@ -1095,28 +1093,28 @@ exports.post_resultados_emparejar = function (req, res) {
         let respuestas = req.body.respuestas.split(",");
         Estudiante.findOne({
             usuario: req.session.usuario
-        }, function (error, doc) {
-            let indiceIntento = doc.intentos.map(function (e) {
+        }, function (error, estudiante) {
+            let indiceIntento = estudiante.intentos.map(function (e) {
                 return e.idIntento
             }).indexOf(req.body.idIntento);
 
-            for (let i = 0; i < (preguntasEmparejar.length); i++) {
-                let indice = respuestas.indexOf(preguntasEmparejar[i].idPregunta);
+            for (let i = 0; i < ( estudiante.intentos[indiceIntento].preguntas.length); i++) {
+                let indice = respuestas.indexOf(estudiante.intentos[indiceIntento].preguntas[i].idPregunta);
                 if (indice > -1) {
-                    doc.intentos[indiceIntento].preguntas[i].respuestaSeleccionada = respuestas[indice + 1];
-                    if (preguntasEmparejar[i].texto == respuestas[indice + 1]) {
-                        doc.intentos[indiceIntento].preguntas[i].correctoIncorrecto = 1;
+                    estudiante.intentos[indiceIntento].preguntas[i].respuestaSeleccionada = respuestas[indice + 1];
+                    if (estudiante.intentos[indiceIntento].preguntas[i].texto == respuestas[indice + 1]) {
+                        estudiante.intentos[indiceIntento].preguntas[i].correctoIncorrecto = 1;
                         puntajes.push(1);
                         puntaje++;
                     }
                     else {
-                        doc.intentos[indiceIntento].preguntas[i].correctoIncorrecto = 0;
+                        estudiante.intentos[indiceIntento].preguntas[i].correctoIncorrecto = 0;
                         puntajes.push(0);
                     }
                 }
             }
-            doc.intentos[indiceIntento].puntaje = puntaje;
-            doc.save(function (err, docActualizado) {
+            estudiante.intentos[indiceIntento].puntaje = puntaje;
+            estudiante.save(function (err, estudianteActualizado) {
                 res.render('paginas/participante/resultadosEmparejar', {
                     respuestas: respuestas,
                     nombre: req.session.nombre,
@@ -1133,32 +1131,33 @@ exports.post_resultados_emparejar = function (req, res) {
         res.redirect('/')
     }
 };
-var preguntasUnir = [];
 
 exports.post_mostrar_unir = function (req, res) {
     if (req.session.usuario && req.body.materia && (req.session.rol == "participante")) {
-        preguntasUnir = [];
-        let stringPreguntaUnir = "";
-        let indices = [];
-        let memory_array = [];
-        Profesor.findOne({nombre: req.body.facilitador}, function (error, doc) {
+
+
+        Profesor.findOne({nombre: req.body.facilitador}, function (error, profesor) {
             if (error) {
                 console.log("Error: " + error)
             }
-            let indiceMateria = doc.materias.map(function (e) {
+            let preguntasUnir = [];
+            let stringPreguntaUnir = "";
+            let indices = [];
+            let memory_array = [];
+            let indiceMateria = profesor.materias.map(function (e) {
                 return e.nombre
             }).indexOf(req.body.materia);
 
             for (let i = 0; i < 6; i++) {
-                let indice = Math.floor(Math.random() * doc.materias[indiceMateria].preguntasUnirVoltear.length);
-                while (indices.indexOf(indice) >= 0 || doc.materias[indiceMateria].preguntasUnirVoltear[indice].dificultad != req.body.dificultad) {
-                    indice = Math.floor(Math.random() * doc.materias[indiceMateria].preguntasUnirVoltear.length);
+                let indice = Math.floor(Math.random() * profesor.materias[indiceMateria].preguntasUnirVoltear.length);
+                while (indices.indexOf(indice) >= 0 || profesor.materias[indiceMateria].preguntasUnirVoltear[indice].dificultad != req.body.dificultad) {
+                    indice = Math.floor(Math.random() * profesor.materias[indiceMateria].preguntasUnirVoltear.length);
                 }
                 indices.push(indice);
-                preguntasUnir.push(doc.materias[indiceMateria].preguntasUnirVoltear[indice]);
-                stringPreguntaUnir += doc.materias[indiceMateria].preguntasUnirVoltear[indice].imagen + "@" + doc.materias[indiceMateria].preguntasUnirVoltear[indice].texto + "@";
-                memory_array.push(doc.materias[indiceMateria].preguntasUnirVoltear[indice].imagen);
-                memory_array.push(doc.materias[indiceMateria].preguntasUnirVoltear[indice].imagen)
+                preguntasUnir.push(profesor.materias[indiceMateria].preguntasUnirVoltear[indice]);
+                stringPreguntaUnir += profesor.materias[indiceMateria].preguntasUnirVoltear[indice].imagen + "@" + profesor.materias[indiceMateria].preguntasUnirVoltear[indice].texto + "@";
+                memory_array.push(profesor.materias[indiceMateria].preguntasUnirVoltear[indice].imagen);
+                memory_array.push(profesor.materias[indiceMateria].preguntasUnirVoltear[indice].imagen);
             }
             let intento =
                 {
@@ -1184,9 +1183,9 @@ exports.post_mostrar_unir = function (req, res) {
             memory_array.memory_tile_shuffle();
             Estudiante.findOne({
                 usuario: req.session.usuario
-            }, function (error, doc) {
-                doc.intentos.push(intento);
-                doc.save(function (err, docActualizado) {
+            }, function (error, estudiante) {
+                estudiante.intentos.push(intento);
+                estudiante.save(function (err, estudianteActualizado) {
                     if (err) return console.log(err);
                     res.render('paginas/participante/retosUnir', {
                         nombre: req.session.nombre,
@@ -1226,21 +1225,21 @@ exports.post_resultados_unir = function (req, res) {
         console.log(respuestas);
         Estudiante.findOne({
             usuario: req.session.usuario
-        }, function (error, doc) {
-            let indiceIntento = doc.intentos.map(function (e) {
+        }, function (error, estudiante) {
+            let indiceIntento = estudiante.intentos.map(function (e) {
                 return e.idIntento
             }).indexOf(req.body.idIntento);
-            doc.intentos[indiceIntento].puntaje = puntaje;
+            estudiante.intentos[indiceIntento].puntaje = puntaje;
             for (let i = 0; i < respuestas.length; i++) {
-                let indicePregunta = doc.intentos[indiceIntento].preguntas.map(function (pregunta) {
+                let indicePregunta = estudiante.intentos[indiceIntento].preguntas.map(function (pregunta) {
                     return pregunta.enunciado;
                 }).indexOf(respuestas[i]);
                 if(indicePregunta > -1)
                 {
-                    doc.intentos[indiceIntento].preguntas[indicePregunta].respuestaSeleccionada = 1;
+                    estudiante.intentos[indiceIntento].preguntas[indicePregunta].respuestaSeleccionada = 1;
                 }
             }
-            doc.save(function (err, docActualizado) {
+            estudiante.save(function (err, estudianteActualizado) {
                 res.render('paginas/participante/resultadosUnir', {
                     respuestas: respuestas,
                     nombre: req.session.nombre,
@@ -1265,10 +1264,10 @@ exports.get_retos_materia = function (req, res) {
     if (req.session.usuario && req.query.materia) {
         Estudiante.findOne({
             usuario: req.session.usuario
-        }, function (error, doc) {
-            for (let i = 0; i < doc.intentos.length; i++) {
-                if (doc.intentos[i].materia == req.query.materia && doc.intentos[i].profesor == req.query.facilitador) {
-                    intentosMateria.push(doc.intentos[i])
+        }, function (error, estudiante) {
+            for (let i = 0; i < estudiante.intentos.length; i++) {
+                if (estudiante.intentos[i].materia == req.query.materia && estudiante.intentos[i].profesor == req.query.facilitador) {
+                    intentosMateria.push(estudiante.intentos[i])
                 }
             }
             opcionMultiple = obtenerPuntaje(intentosMateria, "opcionMultiple");
@@ -1405,7 +1404,7 @@ exports.get_estadistica_preguntas = function (req, res) {
                                 let indicePregunta = preguntas.map(function (e) {
                                     return e.idPregunta
                                 }).indexOf(participante.intentos[b].preguntas[c].idPregunta);
-                                if (indicePregunta > 0) {
+                                if (indicePregunta >= 0) {
                                     if (participante.intentos[b].preguntas[c].correctoIncorrecto == 1) {
                                         preguntas[indicePregunta].resCorrecta += 1;
                                     } else {
