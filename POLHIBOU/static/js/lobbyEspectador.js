@@ -1,5 +1,5 @@
-var socket = io();
-//var socket = io.connect ('https://polhibou.epn.edu.ec/');
+//var socket = io();
+var socket = io.connect ('https://polhibou.epn.edu.ec/');
 var jugadoresConectados = [];
 
 window.onload = function () {
