@@ -803,14 +803,13 @@ exports.post_retos_materia = function (req, res) {
     }
 };
 
-var preguntas = [];
 exports.post_mostrar_opcion = function (req, res) {
     let contadorPreguntas = req.body.contadorPreguntas;
     contadorPreguntas++;
     if (req.session.usuario && req.body.materia && (req.session.rol == "participante")) {
         let indices = [];
         if (contadorPreguntas == 0) {
-            preguntas = [];
+            var preguntas = [];
             Profesor.findOne({nombre: req.body.facilitador}, function (error, profesor) {
                 if (error) {
                     console.log("Error: " + error)
