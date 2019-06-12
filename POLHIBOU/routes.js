@@ -843,10 +843,22 @@ exports.post_mostrar_opcion = function (req, res) {
                             idPregunta: preguntas[j].idPregunta,
                             enunciado: preguntas[j].enunciado,
                             imagenEnunciado: preguntas[j].imagenEnunciado,
+                            respuestaCorrecta: preguntas[j].respuestaCorrecta,
                             respuestaSeleccionada: "",
                             correctoIncorrecto: '-1'
                         };
-                    intento.preguntas.push(pregunta)
+                    if(preguntas[j].imagenRes1) {
+                        pregunta.imagenRes1 = preguntas[j].imagenRes1;
+                        pregunta.imagenRes2 = preguntas[j].imagenRes2;
+                        pregunta.imagenRes3 = preguntas[j].imagenRes3;
+                        pregunta.imagenRes4 = preguntas[j].imagenRes4;
+                    }else {
+                        pregunta.res1 = preguntas[j].res1;
+                        pregunta.res2 = preguntas[j].res2;
+                        pregunta.res3 = preguntas[j].res3;
+                        pregunta.res4 = preguntas[j].res4;
+                    }
+                             intento.preguntas.push(pregunta)
                 }
                 Estudiante.findOne({
                         usuario: req.session.usuario
@@ -858,7 +870,7 @@ exports.post_mostrar_opcion = function (req, res) {
                                 nombre: req.session.nombre,
                                 materia: req.body.materia,
                                 facilitador: req.body.facilitador,
-                                preguntas: preguntas,
+                                preguntas: intento.preguntas,
                                 contadorPreguntas: contadorPreguntas,
                                 idIntento: intento.idIntento
                             })
@@ -890,7 +902,7 @@ exports.post_mostrar_opcion = function (req, res) {
                                     nombre: req.session.nombre,
                                     materia: req.body.materia,
                                     facilitador: req.body.facilitador,
-                                    preguntas: preguntas,
+                                    preguntas: estudiante.intentos[indice].preguntas,
                                     contadorPreguntas: contadorPreguntas,
                                     idIntento: req.body.idIntento
                                 })
@@ -1101,7 +1113,7 @@ exports.post_resultados_emparejar = function (req, res) {
                 let indice = respuestas.indexOf(estudiante.intentos[indiceIntento].preguntas[i].idPregunta);
                 if (indice > -1) {
                     estudiante.intentos[indiceIntento].preguntas[i].respuestaSeleccionada = respuestas[indice + 1];
-                    if (estudiante.intentos[indiceIntento].preguntas[i].texto == respuestas[indice + 1]) {
+                    if (estudiante.intentos[indiceIntento].preguntas[i].enunciado == respuestas[indice + 1]) {
                         estudiante.intentos[indiceIntento].preguntas[i].correctoIncorrecto = 1;
                         puntajes.push(1);
                         puntaje++;
@@ -1119,7 +1131,7 @@ exports.post_resultados_emparejar = function (req, res) {
                     nombre: req.session.nombre,
                     facilitador: req.body.facilitador,
                     materia: req.body.materia,
-                    preguntas: preguntasEmparejar,
+                    preguntas: estudianteActualizado.intentos[indiceIntento].preguntas,
                     puntaje: puntaje,
                     puntajes: puntajes
                 })
@@ -1220,8 +1232,6 @@ exports.post_resultados_unir = function (req, res) {
         else {
             puntaje = Math.floor((respuestas.length * 5) / 6);
         }
-        console.log("RRRREEEESSSSPPPP");
-        console.log(respuestas);
         Estudiante.findOne({
             usuario: req.session.usuario
         }, function (error, estudiante) {
@@ -1244,7 +1254,7 @@ exports.post_resultados_unir = function (req, res) {
                     nombre: req.session.nombre,
                     facilitador: req.body.facilitador,
                     materia: req.body.materia,
-                    preguntas: preguntasUnir,
+                    preguntas: estudiante.intentos[indiceIntento].preguntas,
                     puntaje: puntaje
                 })
             })

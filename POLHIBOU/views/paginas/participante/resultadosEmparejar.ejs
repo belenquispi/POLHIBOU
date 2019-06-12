@@ -47,7 +47,7 @@
                         <div class="col-md-3">
                             <button id="<%= preguntas[i].idPregunta %>" class="btn btn-outline-light disabledbutton"
                                     onclick="obtenerId(this);">
-                                <img id="imagenAUnir<%= (i + 1) %>" src="<%= preguntas[i].imagen %>"
+                                <img id="imagenAUnir<%= (i + 1) %>" src="<%= preguntas[i].imagenEnunciado %>"
                                      height="50" width="50">
                             </button>
                         </div>
@@ -90,13 +90,13 @@
                     <div class="col-md-6">
                         <button id="<%= preguntas[i].idPregunta %>" class="btn btn-outline-light disabledbutton"
                                 onclick="obtenerId(this);">
-                            <img id="imagenAUnir<%= (i + 1) %>" src="<%= preguntas[i].imagen %>"
+                            <img id="imagenAUnir<%= (i + 1) %>" src="<%= preguntas[i].imagenEnunciado %>"
                                  height="50" width="50">
                         </button>
                     </div>
                     <div class="col-md-6">
-                        <button id="<%= preguntas[i].texto %>"  class="btn btn-outline-light textoUnir btn-block disabledbutton"
-                                onclick="obtenerId(this);"><%= preguntas[i].texto %>
+                        <button id="<%= preguntas[i].respuestaSeleccionada %>"  class="btn btn-outline-light textoUnir btn-block disabledbutton"
+                                onclick="obtenerId(this);"><%= preguntas[i].respuestaSeleccionada %>
                         </button>
                     </div>
                     </div>
