@@ -47,14 +47,14 @@
                     { %>
                     <div class="col-md-12 " style="margin: 10px">
                         <div class="row">
-                            <% if(respuestas.indexOf(preguntas[i].texto) >= 0) { %>
+                            <% if(respuestas.indexOf(preguntas[i].enunciado) >= 0) { %>
                             <div class="col-md-4">
-                                <img id="imagenAUnir<%= (i + 1) %>" src="<%= preguntas[i].imagen %>"
+                                <img id="imagenAUnir<%= (i + 1) %>" src="<%= preguntas[i].imagenEnunciado %>"
                                      height="50" width="50">
                             </div>
                             <div class="col-md-8">
                                 <label class="textoBlanco"
-                                       style="text-transform: uppercase;"><%= preguntas[i].texto %></label>
+                                       style="text-transform: uppercase;"><%= preguntas[i].enunciado %></label>
                             </div>
                             <% } %>
                         </div>
@@ -71,14 +71,14 @@
                     { %>
                     <div class="col-md-12 " style="margin: 10px">
                         <div class="row unir">
-                            <% if(respuestas.indexOf(preguntas[i].texto) < 0) { %>
+                            <% if(respuestas.indexOf(preguntas[i].enunciado) < 0) { %>
                             <div class="col-md-4">
-                                <img id="imagenAUnir<%= (i + 1) %>" src="<%= preguntas[i].imagen %>"
+                                <img id="imagenAUnir<%= (i + 1) %>" src="<%= preguntas[i].imagenEnunciado %>"
                                      height="50" width="50">
                             </div>
                             <div class="col-md-8">
                                 <label class="textoBlanco"
-                                       style="text-transform: uppercase;"><%= preguntas[i].texto %></label>
+                                       style="text-transform: uppercase;"><%= preguntas[i].enunciado %></label>
                             </div>
                             <% } %>
                         </div>

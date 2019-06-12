@@ -24,7 +24,16 @@ var estudianteSchema = new Schema({
                     imagenEnunciado: String,
 					respuestaSeleccionada: String,
                     correctoIncorrecto: String,
-
+                    res1: String,
+                    res2: String,
+                    res3: String,
+                    res4: String,
+                    imagenRes1 : String,
+                    imagenRes2 : String,
+                    imagenRes3 : String,
+                    imagenRes4 : String,
+                    dificultad: String,
+                    respuestaCorrecta : String
                 }
             ]
         }

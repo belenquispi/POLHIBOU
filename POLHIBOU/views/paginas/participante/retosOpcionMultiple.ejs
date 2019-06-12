@@ -54,7 +54,8 @@
                     <div class="col-md-2"></div>
                     <div class="col-md-9 ">
                         <form action="/retoOpcionMultiple" method="post">
-                            <input type="text" hidden name="idPregunta" value="<%= preguntas[contadorPreguntas]._id %>">
+                            <% console.log( "id de la pregunta "+preguntas[contadorPreguntas]) %>
+                            <input type="text" hidden name="idPregunta" value="<%= preguntas[contadorPreguntas].idPregunta %>">
                             <input type="text" hidden name="contadorPreguntas" value="<%= contadorPreguntas %>">
                             <input type="text" hidden name="materia" value="<%= materia %>">
                             <input type="text" hidden name="facilitador" value="<%= facilitador %>">
