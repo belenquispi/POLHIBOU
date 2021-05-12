@@ -21,7 +21,7 @@
     "express-session": "^1.15.6",
     "firebase-admin": "^5.13.1",
     "mongoose": "^5.3.7",
-    "nodemailer": "^4.6.8",
+    "nodemailer": "^6.4.16",
     "npm": "^6.4.1",
     "socket.io": "^2.1.1"
   }
